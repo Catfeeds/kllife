@@ -1,0 +1,41 @@
+<include file="Common/top-two" />
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/pay_success.css">
+	<style>
+		#content{margin-top:120px;}
+	</style>
+	<div id="content">
+		<div class="pay-success">
+			<div class="success-information">
+				<if condition="empty($err_msg) eq false">
+					<img src="__PUBLIC__/home/images/pay_success_img/error.png" alt="">
+					<h3>订单已支付失败！</h3>
+				<else />
+					<img src="__PUBLIC__/home/images/pay_success_img/ok.png" alt="">
+					<h3>订单已支付成功！</h3>
+				</if>
+				<p><span>交 易 编 号：{$trans_no}</span></p>
+				<if condition="empty($err_msg) eq false">
+					<p><span> 错误信息：<strong>{$err_msg}</strong></span></p>
+				</if>
+				<p><span>订 单 号：{$order_sn}</span></p>
+				<p><span> 在线支付：<strong>{$money}元</strong></span></p>
+				<i>重要提示：近期机票欺诈短信猖狂，请不要随意相信任何航班取消短信和400电话；任何情况都不要提供银行卡信息及密码等信息。</i>
+				<a href="{:U('index/welcome')}" target="_blank">回到首页</a>
+			</div>
+		</div>		
+	</div>
+
+<include file="Common/bottom" />
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(
+        function($){
+            $("img").lazyload({
+                placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+                effect      : "fadeIn",
+                threshold : 100,
+                failure_limit : 10
+            });
+        });
+</script>

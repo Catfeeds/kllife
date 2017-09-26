@@ -1,0 +1,374 @@
+<include file="Common/header" />
+	
+<!-- 私有样式 -->
+
+<link rel="stylesheet" href="__PUBLIC__/home/css/list.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/account_management.css">
+
+<!-- 分页样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/common/css/page.css">
+
+<!-- echo -->
+<script src="__PUBLIC__/home/common/js/echo.min.js"></script>
+
+<style type="text/css">
+	body { background-color:#f3f5f6; }
+	.btn-line { width: 90px; height: 36px; float: right; background-size: 100% 100%; border-color: #aaaa55; width: 90px; height: 36px;}
+	.single-row-describe-top { height: 243px; }	
+	.single-row-describe-bottom { height: 37px; line-height: 37px; }		
+	.single-row-qz { position: absolute; top: 10px; right: 10px; width:200px; }
+	.single-row-qz i { cursor: pointer; }	
+	.single-row-describe-price h6 b { margin-right: 12px; }
+	.single-row {display: block;}
+	
+	.image-file-input {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 300px;
+		opacity: 0;
+	}
+	
+	.left-space {margin-left: 25px;}
+	.lead { margin-top:50px; margin-bottom: 20px; border-bottom: 1px solid #dcdcdc; }
+	.button-list { margin-top: 20px; }
+</style>
+
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">首页设置</h1>
+			<p class="description">这里你可以设置特卖或推荐的分销线路</p>
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="hidden_ctrl template_line" data-id="">
+			<div class="single-row-content">
+				<div class="single-row-img">
+					<img src="" alt="">
+				</div>
+				<div class="single-row-describe">
+					<div class="single-row-describe-top">
+						<div class="single-row-qz">
+							<div class="input-group">
+								<input id="" class="sort" type="text" maxlength="4" class="form-control no-right-border form-focus-purple">
+								<div class="input-group-addon" data-for="" data-set="">
+									<i>排序</i>
+								</div>
+							</div>							
+						</div>
+						<h4 class="title"></h4>
+						<h5 class="subheading"></h5>
+						<span class="send_word"></span>
+						<p><u class="assembly">集合地点：</u><!--<u class="batch">批次：全年0期</u>--></p>
+						<p class="destination">目的地：</p>
+						<span class="travel_date">旅行时间：</span><br />
+						<div class="single-row-describe-price">
+							<h6>
+								<b>线路价格(成人/儿童)：<i class="price"></i>元</b>
+								<b>分销佣金(成人/儿童)：<i class="cut_price"></i>元</b>
+							</h6>
+						</div>
+					</div>
+					<div class="single-row-describe-bottom">
+						<button class="btn btn-success test btn-line remove">移除</button>
+					</div>
+				</div>
+			</div>
+		</div>	
+		
+		<div class="left-space header">
+			<p class="text-danger lead">店铺设置：</p>	
+			
+			<div class="banner_image" style="position: relative;">			
+				<img src="{$sets.shop_banner.data.value}" style="width: 100%; height: 300px;"/> <br/>
+				<input class="image-file-input" type="file" accept="image/*" id="change-img">
+				<h5 style="margin-left: 30px; color: red;">点击上方以更换店铺首图，建议图片大小为800x334,不超过1M</h5>
+			</div>
+			<br /><br />
+			<div class="input-group col-sm-10"> 
+				<span class="input-group-btn"> 
+					<button class="btn btn-gray" type="button">店铺标题：</button> 
+				</span> 
+				<input id="shop_title" type="text" class="form-control no-left-border no-right-border form-focus-warning" value="{$sets.shop_title.data.value}"> 
+				<span class="input-group-btn"> 
+					<button class="btn btn-secondary btn_set_text" data-for="shop_title" data-set="shop_title" type="button">设置</button> 
+				</span>
+			</div>
+		</div>
+		
+		<div class="left-space">
+			<p class="text-danger lead">分销操作：</p>	
+			<div class="button-list">
+				<a href="javascript:;" class="btn btn-warning update_cache"  data-set="fenxiao_index_config_{$user.id}">更新分销设置</a>
+				<a class="btn btn-secondary btn-preview-line" href="http://kllife.com/phone/index.php?s=/phone/fenxiao/welcome/duid/{$user.id}" target="_blank">预览我的分销</a>
+			</div>
+		</div>
+		
+		<volist id="mt" name="modal_types">
+			<!--线路设置-->
+			<div class="left-space">
+				<p class="text-danger lead">{$mt.title}：</p>		
+				<div class="button-list">						
+					<a href="javascript:;" class="btn btn-secondary btn-choice-line" data-type="{$mt.type}">设置首页{$mt.title}分销线路</a>
+				</div>
+			</div>
+			
+			<!-- 列表菜单 -->
+			<div class="list-menu {$mt.type}">
+				<php> $findstr = $mt['type'].'_line_'; </php>
+				<volist id="set" name="sets">
+					<if condition="stripos($key, $findstr) heq 0">
+						<div class="single-row" data-id="{$set.data.id}" data-group="{$set.data.group}" data-sort="{$set.data.sort}">
+							<div class="single-row-content">
+								<div class="single-row-img">
+									<img src="{$set.line.img1}" alt="">
+								</div>
+								<div class="single-row-describe">
+									<div class="single-row-describe-top">
+										<div class="single-row-qz">
+											<div class="input-group">
+												<input id="{$key}_sort" class="sort" type="text" maxlength="4" value="{$set.data.sort}" class="form-control no-right-border form-focus-purple">
+												<div class="input-group-addon" data-for="{$key}_sort" data-id="{$set.data.id}" data-set="{$key}">
+													<i>排序</i>
+												</div>
+											</div>
+											
+										</div>
+										<h4 class="title">{$set.line.title}</h4>
+										<h5 class="subheading">{$set.line.subheading}</h5>
+										<span class="send_word">{$set.line.send_word_show}</span>
+										<p>
+											<u class="assembly">集合地点：{$set.line.assembly_point_show_text}</u>
+											<!--<u class="batch">批次：全年{:count($set.line.batchs)}期</u>-->
+										</p>
+										<p class="destination">目的地：{$set.line.destination_show_text}</p>
+										<span class="travel_date">旅行时间： {$set.line.start_time}&nbsp;至&nbsp;{$set.line.end_time}</span><br/>
+										<div class="single-row-describe-price">
+											<h6>
+												<b>线路价格(成人/儿童)：<i class="price">{$set.line.start_price_adult}/{$set.line.start_price_child}</i>元</b>
+												<b>分销佣金(成人/儿童)：<i class="cut_price">{$set.line.commision_adult}/{$set.line.commision_child}</i>元</b>
+											</h6>
+										</div>
+									</div>
+									<div class="single-row-describe-bottom">
+										<button class="btn btn-success test btn-line remove" data-id="{$set.data.id}" data-set="{$key}">移除</button>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</if>		
+				</volist>
+			</div>	
+			
+		</volist>
+		
+	</div>
+<!--选择图片遮罩层-->
+<div class="face-mark"></div>
+	
+	<script type="text/javascript">
+	
+	$(document).on("change","#change-img",function(){
+		var thisimg=this;
+		
+		var formData = new FormData();
+		var name = $(this).val();
+		formData.append('upload_file', thisimg.files[0]);
+		formData.append('name', name);
+		formData.append('set_name', 'shop_banner');
+		$.ajax({
+			url: '{:U("settle/image")}',
+			type: 'POST',
+			data: formData,
+			// 告诉jQuery不要去处理发送的数据
+			processData : false, 
+			// 告诉jQuery不要去设置Content-Type请求头
+			contentType : false,
+			// 发送内容前
+			beforeSend: function(){
+				showLoading(true, '正在上传文件,请稍后...')
+			},
+			success: function (data) {
+				if (data.result.errno == 0) {
+					if (data.image != null) {
+						var imgObj = $(thisimg).parent().find('img');
+						$(imgObj).attr("src",data.image+'?t='+Math.random());
+					}
+				} else {
+					alert(data.result.message);
+				}
+			},
+			complete: function (data) {
+				showLoading(false);
+			}
+		});
+		
+	});
+	
+	// 设置店铺内容
+	function setShopConfig(key, val, nGroup, nSort, sql_type, keyLike) {		
+		if (key == '' || key == 'undefined' || key == null) {
+			toastr.warning('修改项错误');
+			return false;
+		}
+		
+		var jsonData = {
+			op_type: 'set',
+			key: key,
+			value: val,
+		}
+		if (nGroup != 'undefined' && nGroup != null) {
+			jsonData['group'] = nGroup;
+		}
+		if (nSort != 'undefined' && nSort != null) {
+			jsonData['sort'] = nSort;
+		}
+		if (sql_type != 'undefined' && sql_type != null) {
+			jsonData['sql_type'] = sql_type;
+		}
+		if (keyLike != 'undefined' && keyLike != null) {
+			jsonData['key_like'] = 1;
+		}
+		
+		var ds = {ds:null, result:{errno:-1, message:'设置为未功'}};
+		$.ajax({
+			url: '{:U("settle/settle")}',
+			type: 'POST',
+			async: false,
+			data: jsonData,
+			dataType: 'json',
+			success: function(data) {
+				if (data.jumpUrl != null) {
+					location.href = data.jumpUrl;
+				}
+				ds = data;
+			},
+			complete: function(data) {
+			}
+		});			
+		return ds;
+	}
+	
+	// 设置店铺标题
+	$('.btn_set_text').click(function(){
+		var key = $(this).attr('data-set');
+		var val = $('#'+$(this).attr('data-for')).val();
+		var data = setShopConfig(key, val);
+		if (data.result.errno == 0) {
+			toastr.success(data.result.message);	
+		} else {
+			toastr.error(data.result.message);
+		}
+	});
+	
+	// 选择线路
+	function chioceLine(obj, idList) {
+		if (idList == null || idList.length == 0) {
+			toast.info('没有选择线路');
+			return false;
+		}
+		var groups = {'slowly':1, 'qinglvpai':2, 'hot':3}
+		var groupName = $(obj).attr('data-type');
+		
+		// 排序索引
+		var nSort = 0;
+		var rootObj = $(obj).closest('.left-space').next();
+		$(rootObj).find('.single-row').each(function(i, el){
+			var thisSort = $(this).attr('data-sort');
+			if (parseInt(thisSort) >= parseInt(nSort)) {
+				nSort = parseInt(thisSort) + 1;
+			}
+		});
+		
+		var key = groupName+'_line_'+nSort;
+		var data = setShopConfig(key, idList[0], groups[groupName], nSort, 'line');
+		if (data.jumpUrl != null) {
+			location.href = data.jumpUrl;
+		}
+		if (data.result.errno == 0) {
+			if (data.line != null) {
+				var d = data.line;
+				var lineObj = $('.template_line').clone(true);
+				$(lineObj).removeClass('hidden_ctrl');
+				$(lineObj).removeClass('template_line');
+				$(lineObj).addClass('single-row');
+				$(lineObj).attr('data-bind-id', data.bind_id);
+				$(lineObj).attr('data-id', d.id);
+				$(lineObj).attr('data-group', groups[groupName]);
+				$(lineObj).attr('data-sort', nSort);
+				
+				var commision = '0.00/0.00';
+				if (d.commision_adult != null && d.commision_child != null) {
+					commision = d.commision_adult+'/'+d.commision_child;
+				}
+				var curPrice = d.start_price_adult+'/'+d.start_price_child;
+				
+				$(lineObj).find('img').attr('src',d.img1);
+				$(lineObj).find('.sort').val(data.ds.sort);
+				$(lineObj).find('.title').html(d.title);
+				$(lineObj).find('.subheading').html(d.subheading);
+				$(lineObj).find('.send_word').html(d.send_word_show);
+				$(lineObj).find('.assembly').html('集合地点：'+d.assembly_point_show_text);
+//				$(lineObj).find('.batch').html('批次：全年'+d.batchs==null?0:$(d.batchs).length+'期');
+				$(lineObj).find('.destination').html('目的地：'+d.destination_show_text);
+				$(lineObj).find('.price').html(curPrice);
+				$(lineObj).find('.cut_price').html(commision);
+				$(lineObj).find('.travel_date').html('旅行时间： '+d.start_time+'&nbsp;至&nbsp;'+d.end_time);
+				
+				$(rootObj).append(lineObj);
+				$(lineObj).find('.single-row-qz').find('.input-group-addon').click(sortLine);
+				$(lineObj).find('.remove').click(removeLine);
+				
+			} else {
+				toastr.success('设置分销线路错误');
+			}
+		} else {
+			toastr.error(data.result.message);
+		}	
+	}
+	
+	// 设置首页分销产品
+	$('.btn-choice-line').click(function(){
+		var type = $(this).attr('data-type');		
+		showModalLineSelect(this, chioceLine, 'set_type|=|'+type, true);
+	});
+	
+	// 配置的分销线路排序
+	function sortLine(ev) {
+		ev.stopPropagation();
+		var rootObj = $(this).closest('.single-row');
+		var key = $(this).attr('data-set');
+		var inputId = '#'+$(this).attr('data-for');
+		var sortIndex = $(inputId).val();
+		if (sortIndex == '') {
+			toastr.warning('排序的值不能为空');
+			return false;
+		}
+		var data = setShopConfig(key, sortIndex, '', '', 'sort');
+		if (data.jumpUrl != null) {
+			location.href = data.jumpUrl;
+		}
+		if (data.result != null) {
+			toastr.error(data.result.message);
+		}
+	}
+	$('.single-row-qz').find('.input-group-addon').click(sortLine);
+	
+	// 移除配置的分销线路
+	function removeLine() {
+		var rootObj = $(this).closest('.single-row');
+		var bindId = $(this).attr('data-id');
+		
+		$.post('{:U("settle/settle")}', {op_type:'remove', id: bindId}, function(data){
+			if (data.result.errno == 0) {
+				$(rootObj).remove();	
+			} else {
+				toastr.error(data.result.message);
+			}	
+		});
+	}
+	$('.single-row-describe-bottom').find('.remove').click(removeLine);
+		
+	</script>
+<include file="Common/footer" />

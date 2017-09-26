@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>领袖户外</title>
+	<!-- css Reset -->
+	<link rel="stylesheet" href="../../common/css/cssreset.css">
+	<!-- 公共样式 -->
+	<link rel="stylesheet" href="../../common/css/common.css">
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="../css/login.css">
+	<!--[if lt IE 9]>
+		<script>
+			(function() {
+				if (! 
+					/*@cc_on!@*/
+				0) return;
+				var e = "abbr, article, aside, audio, canvas, datalist, details, dialog, eventsource, figure, footer, header, hgroup, mark, menu, meter, nav, output, progress, section, time, video".split(', ');
+				var i= e.length;
+				while (i--){
+					document.createElement(e[i])
+				} 
+			})() ;
+		</script>
+    	<script src="../common/js/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div id="content">
+		<!-- 登录 -->
+		<div class="login-content">
+			<div class="login">
+				<img src="../images/login_img/logo.png" alt="logo">
+				<h2>登录领袖户外</h2>
+				<div class="msg-login">
+					<img src="../images/login_img/phone.png" alt="">短信快捷登录
+				</div>
+				<input type="text" placeholder="请输入你的手机号">
+				<input type="password" placeholder="请输入你的登录密码">
+				<a href="javascript:;">登录</a>
+				<div class="automatic-forget">
+					<p><i></i>自动登录</p>
+					<a href="javascript:;">忘记密码？</a>
+				</div>
+				<img src="../images/login_img/1.png" alt="">
+				<div class="else-login">
+					<a class="qq-login" href="javascript:;">
+						<img src="../images/login_img/qq.png" alt="">
+					</a>
+					<a class="wx-login" href="javascript:;">
+						<img src="../images/login_img/wx.png" alt="">
+					</a>
+				</div>
+				<p>还没有领袖账号？<a class="to-register" href="javascript:;">点击注册»</a></p>
+			</div>
+		</div>
+		<!-- 注册 -->
+		<div class="register-content">
+			<div class="register">
+				<img src="../images/login_img/logo.png" alt="logo">
+				<h2>欢迎注册领袖户外账号</h2>
+				<p><strong>手机号码:</strong><input type="text" placeholder="请输入你的手机号码"></p>
+				<p class="verification-code"><strong>验证码:</strong><input type="text" placeholder="请输入你的验证码"><img src="../images/login_img/code.jpg" alt=""><a href="javascript:;">看不清？</a></p>
+				<p class="get-code"><strong>校验码:</strong><input type="text"><a href="javascript:;">获取校验码</a></p>
+				<p><strong>登录密码:</strong><input type="text"></p>
+				<p><strong>确认密码:</strong><input type="text"></p>
+				<div class="register-now">
+					<p><i class="checked"></i>我已阅读并同意<a href="javascript:;">《领袖户外用户协议》</a></p>
+					<a href="javascript:;">立即注册</a>
+					<h6>已有账号？<a class="to-login" href="javascript:;">登录</a></h6>
+				</div>
+			</div>
+		</div>
+		<!-- 短信登录 -->
+		<div class="msg-content">
+			<div class="msg">
+				<img src="../images/login_img/logo.png" alt="logo">
+				<h2>登录领袖户外</h2>
+				<div class="msg-content-title">
+					<img src="../images/login_img/phone.png" alt="">短信快捷登录
+				</div>
+				<div class="msg-content-login">
+					<input type="text" placeholder="请输入你的手机号码">
+					<input type="text" class="msg-write-code">
+					<input type="button" class="msg-send-code" value="发送动态密码">
+				</div>
+				<a href="javascript:;">登录</a>
+				<p class="msg-return">返回账号登录>></p>
+			</div>
+		</div>
+		<!-- 忘记密码 -->
+		<div class="forget-psd-content">
+			<div class="forget-psd">
+				<img src="../images/login_img/logo.png" alt="logo">
+				<h2>找回密码</h2>
+				<p><input type="text" placeholder="请输入你的手机号码/邮箱"></p>
+				<p class="verification-code"><input type="text" placeholder="请输入你的校验码"><img src="../images/login_img/code.jpg" alt=""><a href="javascript:;">看不清？</a></p>
+				<p class="get-code"><input type="text"><a href="javascript:;">获取校验码</a></p>
+				<a class="forget-psd-sure" href="javascript:;">确定</a>
+				<p class="forget-psd-bottom">已有账号？<a href="javascript:;">登录</a></p>
+			</div>
+		</div>
+		<!-- 重置密码 -->
+		<div class="reset-psd-content">
+			<div class="reset-psd">
+				<img src="../images/login_img/logo.png" alt="logo">
+				<h2>重置密码</h2>
+				<p>请重设您的帐号密码</p>
+				<input type="text" placeholder="请输入新密码">
+				<input type="text" placeholder="请输入确认密码">
+				<a class="reset-psd-sure" href="javascript:;">提交</a>
+				<p class="reset-return">返回账号登录>></p>
+			</div>
+		</div>
+		<!-- 重置密码成功 -->
+		<div class="reset-psd-success-content">
+			<div class="reset-psd-success">
+				<img src="../images/login_img/logo.png" alt="logo">
+				<h2>重置密码成功</h2>
+				<img src="../images/login_img/ok.png" alt="">
+				<span>密码修改成功</span>
+				<p class="reset-success-return">返回账号登录>></p>
+			</div>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<div class="footer-bottom-content">
+			<p>
+				领袖户外服务信息：
+				<a href="javascript:;">关于我们</a>
+				|
+				<a href="javascript:;">联系我们</a>
+				|
+				<a href="javascript:;">招贤纳士</a>
+				|
+				<a href="javascript:;">帮助中心</a>
+				|
+				<a href="javascript:;">商务合作</a>
+			</p>
+			<span>Copyright © 2006-2014 kllife.com | 陕西浪客国际旅行社有限责任公司版权所有</span><em>公司地址：陕西省西安市雁塔区太白南路上上国际</em>
+			<br>
+			<span>领袖户外经营许可证号：L-SNX00306 陕ICP备14011728号-1</span>
+		</div>
+	</div>
+
+
+
+	<!-- 引用jq -->
+	<script src="../../common/js/jquery-1.11.3.min.js"></script>
+	
+	<script>
+		//切换选中
+		$('.register-now i').click( function () {
+			$(this).toggleClass('checked');
+		} );
+		$('.automatic-forget i').click( function () {
+			$(this).toggleClass('checked');
+		} );
+		//登录注册等切换
+		$('.to-register').click( function () {
+			$('.login-content').hide();
+			$('.register-content').show();
+			//TODO 清除内容
+			$('.login-content').find('input').val('');
+		} );
+		$('.to-login').click( function () {
+			$('.login-content').show();
+			$('.register-content').hide();
+			//TODO 清除内容
+			$('.register-content').find('input').val('');
+		} );
+		$('.automatic-forget a').click( function () {
+			$('.forget-psd-content').show();
+			$('.login-content').hide();
+			//TODO 清除内容
+			$('.login-content').find('input').val('');
+		} );
+		$('.forget-psd-bottom a').click( function () {
+			$('.login-content').show();
+			$('.forget-psd-content').hide();
+			//TODO 清除内容
+			$('.forget-psd-content').find('input').val('');
+		} );
+		$('.forget-psd-sure').click( function(){
+			$('.reset-psd-content').show();
+			$('.forget-psd-content').hide();
+			//TODO 清除内容
+			$('.forget-psd-content').find('input').val('');
+		} );
+		$('.reset-return').click( function (){
+			$('.login-content').show();
+			$('.reset-psd-content').hide();
+			//TODO 清除内容
+			$('.reset-psd-content').find('input').val('');
+		} );
+		$('.reset-psd-sure').click( function(){
+			$('.reset-psd-success-content').show();
+			$('.reset-psd-content').hide();
+			//TODO 清除内容
+			$('.reset-psd-content').find('input').val('');
+		} );
+		$('.reset-success-return').click( function (){
+			$('.login-content').show();
+			$('.reset-psd-success-content').hide();
+		} );
+		$('.msg-login').click(function(){
+			$('.msg-content').show();
+			$('.login-content').hide();
+			//TODO 清除内容
+			$('.login-content').find('input').val('');
+		});
+		//发送动态密码
+		//获取验证码
+		var InterValObj; //timer变量，控制时间
+		var count = 60; //间隔函数，1秒执行
+		var curCount;//当前剩余秒数
+		$(".msg-send-code").click( function(){
+			sendMessage();
+		} );
+		function sendMessage() {
+			curCount = count;
+		　　//设置button效果，开始计时
+			$(this).attr("disabled", "true");
+			$(this).val(curCount + "秒内输入");
+			InterValObj = setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+		　　  //向后台发送处理数据
+		// 	$.ajax({
+	//　		type: "POST", //用POST方式传输
+	// 　　		dataType: "text", //数据格式:JSON
+	// 　　		url: '', //目标地址
+	//  　　 		data: "dealType=" + dealType +"&uid=" + uid + "&code=" + code,
+	// 　　 		error: function (XMLHttpRequest, textStatus, errorThrown) { },
+	// 　　		success: function (msg){  }
+		// 	});
+		}
+		
+		//timer处理函数
+		function SetRemainTime() {
+			if (curCount == 0) {          
+				clearInterval(InterValObj);//停止计时器
+				$(".msg-send-code").removeAttr("disabled");//启用按钮
+				$(".msg-send-code").val("重新发送");
+			}
+			else {
+				curCount--;
+				$(".msg-send-code").attr("disabled", "disabled");
+				$(".msg-send-code").val(curCount + "秒内输入");
+				event.preventDefault();
+			}
+		}
+
+	</script>
+</body>
+</html>

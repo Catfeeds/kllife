@@ -1,0 +1,566 @@
+<include file="Common/header" />
+	<style>
+		.dataTables_wrapper .table thead > tr .sorting:before, .dataTables_wrapper .table thead > tr .sorting_asc:before, .dataTables_wrapper .table thead > tr .sorting_desc:before { content: ''; }
+		.create { position: relative; border: 1px solid #dcdcdc; margin-bottom:20px; padding: 15px; }
+		.create .row { margin-bottom:20px; }
+		.create-write .input-group { height: 36px; }
+		.create-write input { width: 100%; height: 36px; }
+		.create-write .checkbox { width: inherit; height: inherit;}
+		.input-group-addon { padding: 4px 40px; }
+		.btn-save { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		.btn-clear { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		.list-tbody img { width: 158px; height: 91px; border: 1px solid #dcdcdc; } 
+		.issuing-list-search { width: 50%; margin: 20px auto; }
+		
+		.list-page { width: 100%; text-align: right; }
+
+		.list-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+
+		.list-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+
+		.list-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }
+		
+		.input-select { margin-left: -15px; min-width:288px; min-height: 36px;}
+		.input-select > select { height: 36px; }
+		
+		
+		.image-file-input { position: absolute; top: 0; width: 100%; height: 300px; opacity: 0; }
+	</style>
+
+
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	
+	
+	
+	<!--信息录入创建-->
+	<div class="row">
+		<div class="col-sm-12">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">大巴录入</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">			
+				<!--在此地编辑内容-->
+					<!--创建优惠券-->
+					<div class="create">
+						<div class="create-write" data-id="">
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">车队名称</i>
+										</div>
+										<input type="text" class="form-control data_name" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">车牌号</i>
+										</div>
+										<input type="text" class="form-control data_bus_no" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">车龄(年)</i>
+										</div>
+										<input type="number" class="form-control data_years" maxlength="2" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">品牌</i>
+										</div>
+										<input type="text" class="form-control data_bus_logo" />
+									</div>
+								</div>
+							</div>
+														
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">车间距(米)</i>
+										</div>
+										<input type="number" class="form-control data_distance" maxlength="2" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">座位数</i>
+										</div>
+										<input type="text" class="form-control data_seat" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">动力类型</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){
+												bindTypeDataDropMenu($('.data_dynamic_type'), 'cj_bus_dynamic', '选择大巴动力类型');
+											});
+										</script>
+										<input type="text" class="form-control data_dynamic_type">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">结单方式</i> 
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){
+												bindTypeDataDropMenu($('.data_pay_type'), 'cj_pay_type', '选择结单方式');
+											});
+										</script>
+										<input type="text" class="form-control data_pay_type">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">联系人</i>
+										</div>
+										<input type="text" class="form-control data_contacts" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">联系人电话</i>
+										</div>
+										<input type="text" class="form-control data_contacts_mob" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">所属线路</i>
+										</div>	
+										<script type="text/javascript">
+											$(document).ready(function(){
+												var voption = {obj:$('.data_line'), search:1, multiple:true, placeholder: '请输入搜索并选择线路', show_col:'title', select_col:'title'};
+												var vds = {tab:'line', search_col: 'title', cdsstr: 'invalid|=|0|AND|online|=|1|AND', cdtype:4}
+												var member_line = new MySelect2(voption, vds);
+											});
+										</script>
+										<input type="text" class="form-control data_line">
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">收款人</i>
+										</div>
+										<input type="text" class="form-control data_payee">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">银行账号</i>
+										</div>
+										<input type="number" class="form-control data_bank_card" maxlength="16">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">开户行与地址</i>
+										</div>
+										<input type="text" class="form-control data_bank_address">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-12">
+									<label class="checkbox-inline" style="margin-left: 20px!important;"><input type="checkbox" class="checkbox data_park">含停车费</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_oil">含油费</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_road_toll">含养路费</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_luggage">行李舱</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_air_conditioner">空调</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_wifi">WIFI</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_double_driver">双驾</label>
+								</div>
+							</div>
+							
+							<div class="row">
+								<button class="btn btn-save">保存</button>	
+								<button class="btn btn-clear">重置</button>	
+							</div>
+							
+						</div>
+					</div>					
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+		
+	<!--查询信息，列表展示-->
+	<div class="row">
+		<div class="col-sm-12">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">大巴查询</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">						
+					<!--用户列表-->
+					<div class="issuing-list">
+						
+						<div class="issuing-list-search">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="搜索内容可以是编号、所属线路、车牌号、品牌、车间距、动力类型、联系人、联系人电话">
+								<div class="input-group-addon btn_search" style="background-color: #68b828; color: #fff; cursor: pointer;">
+									<i style="font-style: normal;">搜索</i>
+								</div>
+							</div>
+						</div>
+						
+						<!--用户列表-->
+						<div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+							<table class="table table-bordered table-striped dataTable no-footer" id="table_list" role="grid" aria-describedby="example-2_info">
+								<thead>
+									<tr role="row" class="head">
+										<th class="sorting" rowspan="1" colspan="1" style="width: 50px;">编号</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">车队</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">硬件配置</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">软件配置</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">所属线路</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">结算信息</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">联系人</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 180px;">操作</th>
+									</tr>
+								</thead>
+							
+								<tbody class="middle-align list-tbody">
+									<volist id="ds" name="datas">
+										<if condition="$key % 2 == 0">
+											<tr role="row" class="odd" data-id="{$ds.id}">
+										<else />
+											<tr role="row" class="even" data-id="{$ds.id}">
+										</if>
+											<php>
+												$dynamicType = json_decode($ds['dynamic_type'], true);
+												$conds = '';
+												if (!empty($ds['seat'])) { $conds = '<span style="color:red;">'.$ds['seat'].'座'.$ds['bus_logo'].'</span>'; }
+												if (!empty($ds['is_park'])) { $conds .= empty($conds) ? '含停车费' : ',含停车费'; }
+												if (!empty($ds['is_oil'])) { $conds .=  empty($conds) ? '含油费' : ',含油费'; }
+												if (!empty($ds['is_road_toll'])) { $conds .=  empty($conds) ? '含养路费' : ',含养路费'; }
+												if (!empty($ds['luggage'])) { $conds .=  empty($conds) ? '有行李箱' : ',有行李箱'; }
+												if (!empty($ds['air_conditioner'])) { $conds .=  empty($conds) ? '有空调' : ',有空调'; }
+												if (!empty($ds['wifi'])) { $conds .=  empty($conds) ? '有WIFI' : ',有WIFI'; }
+												if (!empty($ds['double_driver'])) { $conds .=  empty($conds) ? '有双驾' : ',有双驾'; }
+											</php>
+											<td>{$ds.id}</td>
+											<td>{$ds.name}</td>
+											<td>品牌:{$ds.bus_logo}<br />车牌号:{$ds.bus_no}<br />车距:{$ds.distance}<br />动力类型:{$dynamicType.type_desc}<br />车龄:{$ds.years}</td>
+											<td>{$conds}</td>
+											<td>{$ds.line_show}</td>
+											<td>收款人:{$ds.payee}<br />卡号:{$ds.bank_card}<br />开户行:{$ds.bank_address}<br />结算方式:{$ds.pay_type_show}</td>
+											<td>{$ds.contacts}<br>{$ds.contacts_mob}</td>
+											<td>
+												<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_item">价格项</a>
+												<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit">编辑</a>
+												<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left btn_del">删除</a>
+											</td>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							<div class="list-page"></div>
+						</div>
+					</div>		
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+<script src="__PUBLIC__/home/js/page.js"></script>	
+<include file="Common/footer" />
+
+<script type="text/javascript">
+
+	// 清除信息
+	function clearInfo() {
+		$('.create-write').attr('data-id', '');
+		$('.data_name').val('');
+		$('.data_bus_no').val('');
+		$('.data_years').val('');
+		$('.data_bus_logo').val('');
+		$('.data_distance').val('');
+		setSelect2Value($('.data_dynamic_type'), null);
+		setSelect2Value($('.data_line'), null);
+		$('.data_seat').val('');
+		$('.data_contacts').val('');
+		$('.data_contacts_mob').val('');
+		$('.data_payee').val('');
+		$('.data_bank_card').val('');
+		$('.data_bank_address').val('');
+		setSelect2Value($('.data_pay_type'), null);
+		$('.data_park').prop('checked', false).trigger('change');
+		$('.data_oil').prop('checked', false).trigger('change');
+		$('.data_road_toll').prop('checked', false).trigger('change');
+		$('.data_luggage').prop('checked', false).trigger('change');
+		$('.data_air_conditioner').prop('checked', false).trigger('change');
+		$('.data_wifi').prop('checked', false).trigger('change');
+		$('.data_double_driver').prop('checked', false).trigger('change');
+	}	
+	
+	$('.btn-clear').click(function(){
+		clearInfo();
+	});
+
+	// 添加用户
+	$('.btn-save').click(function(){
+		var jsonData = {
+			op_type: 'save',
+			src: 'bus',
+			id: $('.create-write').attr('data-id'),
+			name: $('.data_name').val(),
+			line: getSelect2Value($('.data_line'), ['id','title']),
+			bus_no: $('.data_bus_no').val(),
+			years: $('.data_years').val(),
+			bus_logo: $('.data_bus_logo').val(),
+			distance: $('.data_distance').val(),
+			dynamic_type: getSelect2Value($('.data_dynamic_type')),
+			contacts: $('.data_contacts').val(),
+			contacts_mob: $('.data_contacts_mob').val(),
+			seat: $('.data_seat').val(),
+			is_park: $('.data_park').prop('checked') ? '1' : '0',
+			is_oil: $('.data_oil').prop('checked') ? '1' : '0',
+			is_road_toll: $('.data_road_toll').prop('checked') ? '1' : '0',
+			luggage: $('.data_luggage').prop('checked') ? '1' : '0',
+			air_conditioner: $('.data_air_conditioner').prop('checked') ? '1' : '0',
+			wifi: $('.data_wifi').prop('checked') ? '1' : '0',
+			double_driver: $('.data_double_driver').prop('checked') ? '1' : '0',
+			payee: $('.data_payee').val(),
+			bank_card: $('.data_bank_card').val(),
+			bank_address: $('.data_bank_address').val(),
+			pay_type: getSelect2Value($('.data_pay_type')),
+		}	
+		
+		$.post('{:U("financial/source")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				if (data.op != null && data.op == 'create') {
+					location.href = '{:U("financial/source")}/src/bus';
+				} else {
+					if (data.ds != null) {
+						var d = data.ds;
+						var trObj = $('tr[data-id="'+d.id+'"]');
+						$(trObj).find('td:eq(1)').html(d.name);
+						var dynamicType = '';
+						if (d.dynamic_type != null && d.dynamic_type != '') {
+							dynamicType = $.parseJSON(d.dynamic_type).type_desc;
+						}
+						$(trObj).find('td:eq(2)').html('品牌:'+d.bus_logo+'<br />车牌号:'+d.bus_no+'<br />车距:'+d.distance+'<br />动力类型:'+dynamicType+'<br />车龄:'+d.years);
+						
+						var conds = '';
+						if (d.seat > 0) { conds = '<span style="color:red;">'+d.seat+'座'+d.bus_logo+'</span>'; }
+						if (d.is_park > 0) { conds += conds == '' ? '含停车费' : ',含停车费'; }
+						if (d.is_oil > 0) { conds +=  conds == '' ? '含油费' : ',含油费'; }
+						if (d.is_road_toll > 0) { conds +=  conds == '' ? '含养路费' : ',含养路费'; }
+						if (d.luggage > 0) { conds +=  conds == '' ? '有行李箱' : ',有行李箱'; }
+						if (d.air_conditioner > 0) { conds +=  conds == '' ? '有空调' : ',有空调'; }
+						if (d.wifi > 0) { conds +=  conds == '' ? '有WIFI' : ',有WIFI'; }
+						if (d.double_driver > 0) { conds +=  conds == '' ? '有双驾' : ',有双驾'; }
+						$(trObj).find('td:eq(3)').html(conds);	
+						$(trObj).find('td:eq(4)').html(d.line_show);							
+						$(trObj).find('td:eq(5)').html('收款人:'+d.payee+'<br />卡号:'+d.bank_card+'<br />开户行:'+d.bank_address+'<br />结算方式:'+d.pay_type_show);
+						$(trObj).find('td:eq(6)').html(d.contacts+'<br />'+d.contacts_mob);
+					}
+					clearInfo();
+					toastr.success(data.result.message);
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		});
+	});
+		
+	// 详细信息
+	var itemObjs = {};
+	function itemData(){
+		var objId = $(this).closest('tr').attr('data-id');
+		var itemObj = itemObjs['item_'+objId];
+		if (itemObj == null) {
+			itemObj = new ModalCJItem(this, 'bus', objId);
+			itemObjs['item_'+objId] = itemObj;
+			console.log('new item_'+objId);
+		} else {
+			console.log('item_'+objId);	
+		}
+		itemObj.showItems();
+	}
+	$('.btn_item').click(itemData);
+	
+	// 编辑信息
+	function editData(){
+		var trObj = $(this).closest('tr');
+		var did = $(trObj).attr('data-id');		
+		$.post('{:U("financial/source")}', {op_type:'find', src:'bus', id:did}, function(data){
+			if (data.ds != null) {
+				var d = data.ds;
+				$('.create-write').attr('data-id', d.id);
+				$('.data_name').val(d.name);
+				$('.data_bus_no').val(d.bus_no);
+				$('.data_years').val(d.years);
+				$('.data_bus_logo').val(d.bus_logo);
+				$('.data_distance').val(d.distance);
+				setSelect2Value($('.data_dynamic_type'), d.dynamic_type);
+				setSelect2Value($('.data_line'), d.line);
+				$('.data_contacts').val(d.contacts);
+				$('.data_contacts_mob').val(d.contacts_mob);
+				$('.data_seat').val(d.seat);
+				$('.data_park').prop('checked', d.is_park == 1 ? true : false).trigger('change');
+				$('.data_oil').prop('checked', d.is_oil == 1 ? true : false).trigger('change');
+				$('.data_road_toll').prop('checked', d.is_road_toll == 1 ? true : false).trigger('change');
+				$('.data_luggage').prop('checked', d.luggage == 1 ? true : false).trigger('change');
+				$('.data_air_conditioner').prop('checked', d.air_conditioner == 1 ? true : false).trigger('change');
+				$('.data_wifi').prop('checked', d.wifi == 1 ? true : false).trigger('change');
+				$('.data_double_driver').prop('checked', d.double_driver == 1 ? true : false).trigger('change');
+				$('.data_payee').val(d.payee);
+				$('.data_bank_card').val(d.bank_card);
+				$('.data_bank_address').val(d.bank_address);
+				setSelect2Value($('.data_pay_type'), d.pay_type);
+        		flicker($('.data_name'));
+			}
+		});
+	}
+	$('.btn_edit').click(editData);
+	
+	// 删除信息
+	function deleteData() {
+		if (!confirm('您确定要删除这条保险信息?')) {
+			return false;
+		}
+		var trObj = $(this).closest('tr');
+		var did = $(trObj).attr('data-id');
+		$.post('{:U("financial/source")}', {op_type:'delete', src: 'bus', id:did}, function(data){
+			if (data.result != null) {
+				if (data.result.errno == 0) {
+					toastr.success(data.result.message);
+					$(trObj).remove();
+				} else {
+					toastr.error(data.result.message);
+				}
+			}
+		});
+	}
+	$('.btn_del').click(deleteData);
+	
+	
+	//搜索用户
+	function searchPageData(){
+		itemObjs = {};
+		findPageData(1); 
+	}		
+	$('.issuing-list-search').find('.btn_search').click(searchPageData);
+	bindKeyUp($('.issuing-list-search').find('input'), searchPageData);
+	
+	// 搜索用户数据
+	constructionPage($('.list-page'), 1, '{$page_count}', findPageData, true);	
+	function findPageData(p) {			
+		var jsonData = {
+			op_type:'list',
+			src: 'bus',
+			page: p-1,
+		}
+		
+		var searchval = $('.issuing-list-search').find('input').val();
+		if (searchval != '') {
+			jsonData['cdsstr'] = 'id|=|'+searchval+'|OR|line|LIKE|%'+searchval+'%|OR|name|LIKE|%'+searchval+'%|OR|bus_no|LIKE|%'+searchval+'%|OR|bus_logo|LIKE|%'+searchval+'%|OR|distance|LIKE|%'+searchval+'%|OR|dynamic_type|LIKE|%'+searchval+'%|OR|contacts|LIKE|%'+searchval+'%|OR|contacts_mob|LIKE|%'+searchval+'%|OR';
+		}
+		
+		$.post('{:U("financial/source")}', jsonData, function(data){
+			var tabObj = $('#table_list');
+			if (data.result.errno == 0) {
+				$(tabObj).find('tbody').children().remove();
+				if (data.ds != null && data.ds != 'undefined') {	
+					for (var i = 0; i < data.ds.length; i ++){
+						var d = data.ds[i];
+						
+						var conds = '';
+						if (d.seat > 0) { conds = '<span style="color:red;">'+d.seat+'座'+d.bus_logo+'</span>'; }
+						if (d.is_park > 0) { conds += conds == '' ? '含停车费' : ',含停车费'; }
+						if (d.is_oil > 0) { conds +=  conds == '' ? '含油费' : ',含油费'; }
+						if (d.is_road_toll > 0) { conds +=  conds == '' ? '含养路费' : ',含养路费'; }
+						if (d.luggage > 0) { conds +=  conds == '' ? '有行李箱' : ',有行李箱'; }
+						if (d.air_conditioner > 0) { conds +=  conds == '' ? '有空调' : ',有空调'; }
+						if (d.wifi > 0) { conds +=  conds == '' ? '有WIFI' : ',有WIFI'; }
+						if (d.double_driver > 0) { conds +=  conds == '' ? '有双驾' : ',有双驾'; }
+						
+						var dynamicType = '';
+						if (d.dynamic_type != null && d.dynamic_type != '') {
+							dynamicType = $.parseJSON(d.dynamic_type).type_desc;
+						}
+												
+						var trClass = i % 2 == 0 ? 'odd' : 'even';
+						var vhtml =	'<tr role="row" class="'+trClass+'" data-id="'+d.id+'">';
+							vhtml +='	<td>'+d.id+'</td>';
+							vhtml +='	<td>'+d.name+'</td>';
+							vhtml +='	<td>品牌:'+d.bus_logo+'<br />车牌号:'+d.bus_no+'<br />车距:'+d.distance+'<br />动力类型:'+dynamicType+'<br />车龄:'+d.years+'</td>';
+							vhtml +='	<td>'+conds+'</td>';
+							vhtml +='	<td>'+d.line_show+'</td>';
+							vhtml +='	<td>收款人:'+d.payee+'<br />卡号:'+d.bank_card+'<br />开户行:'+d.bank_address+'<br />结算方式:'+d.pay_type_show+'</td>';
+							vhtml +='	<td>'+d.contacts+'<br>'+d.contacts_mob+'</td>';
+							vhtml +='	<td>';
+							vhtml +='		<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_item">价格项</a>';
+							vhtml +='		<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit">编辑</a>';
+							vhtml +='		<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left btn_del">删除</a>';
+							vhtml +='	</td>';
+							vhtml +='</tr>';
+						$(tabObj).find('tbody').append(vhtml);
+					}
+					$(tabObj).find('tbody').find('.btn_item').click(itemData);
+					$(tabObj).find('tbody').find('.btn_edit').click(editData);
+					$(tabObj).find('tbody').find('.btn_del').click(deleteData);
+					
+				} else {	// 没有数据
+					toastr.warning('没有查到任何数据');
+				}
+				// 构建分页
+				constructionPage($('.list-page'), p, data.page_count, findPageData, false);
+			} else {
+				toastr.error(data.result.message);	
+			}			
+		})
+		
+	}
+</script>

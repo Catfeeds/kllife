@@ -1,0 +1,811 @@
+<include file="Common/top1" />
+<body>
+	<!-- mycss -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/user_info.css">
+	<link rel="stylesheet" href="__PUBLIC__/qlpphone/common/css/animate.css">
+	<link rel="stylesheet" href="__PUBLIC__/qlpphone/common/css/top2.css">
+	<style>
+		.content{top:60px;width:100%;margin-bottom:60px;}
+		.bar .button-link{color:#ff1c77;}
+		.buttons-tab .button.active{color:#ff1c77;border-color:#ff1c77;}
+		.personal-msg-content > a,.bind-phone-content > a,.bind-phone-content > a,.change-psd-content > a{background: #ff1c77;}
+		.register-header{background-color: #cee1f4}
+	</style>
+	<div class="page page-current" id="router">
+		<include file="Common/header" />
+		<include file="Common/bottom1" />
+		<div class="content">
+			<div class="my-header">
+				<div class="my-header-img">
+					<img src="{$user.face}" alt="">
+				</div>
+				<input type="file" accept="image/*" id="change-img">
+				<!-- 登录后显示名字 -->
+				<p>{$user.show_name}({$user.id})</p>
+			</div>
+			<!-- 订单列表 -->
+			<div class="my-order-list">
+				<div class="row no-gutter">
+					<div class="col-20">
+						<img src="__PUBLIC__/phone/images/user_info/1.png" alt="">
+						<p><span style="display: block;">全部订单</span>({$OrderAllCount})</p>
+						<a href="{:U('line/order')}/type/center" external></a>
+					</div>
+					<div class="col-20">
+						<img src="__PUBLIC__/phone/images/user_info/2.png" alt="">
+						<p><span style="display: block;">待付款</span>({$OrderReviewCount})</p>
+						<a href="{:U('line/order')}/type/center/state/review" external></a>
+					</div>
+					<div class="col-20">
+						<img src="__PUBLIC__/phone/images/user_info/3.png" alt="">
+						<p><span style="display: block;">已付部分款</span>({$OrderPayPartCount})</p>
+						<a href="{:U('line/order')}/type/center/state/pay_part" external></a>
+					</div>
+					<div class="col-20">
+						<img src="__PUBLIC__/phone/images/user_info/4.png" alt="">
+						<p><span style="display: block;">已付全款</span>({$OrderPayComplateCount})</p>
+						<a href="{:U('line/order')}/type/center/state/pay_complate" external></a>
+					</div>
+					<div class="col-20">
+						<img src="__PUBLIC__/phone/images/user_info/5.png" alt="">
+						<p><span style="display: block;">待评价</span>({$OrderComplatedCount})</p>
+						<a href="{:U('line/order')}/type/center/state/complated" external></a>
+					</div>
+				</div>
+			</div>
+			<!-- 我的消息等 -->
+			<div class="personal-center-content">
+				<div class="personal-center">
+					<div class="personal-center-fir">	
+						<!-- 我的消息 -->
+						<div class="my-msg personal-center-list">
+							<div class="content-padded">
+								<a href="#routers-index-inner-1"></a>
+								<i class="iconfont">&#xe61a;</i>
+								<span>我的消息</span>
+								<i><img src="__PUBLIC__/qlpphone/images/info/right-info.png" alt=""></i>
+							</div>
+						</div>
+						<!-- 我的订单 -->
+						<div class="my-order personal-center-list">
+							<div class="content-padded">
+								<a href="{:U('line/order')}/type/center" external></a>
+								<i class="iconfont">&#xe612;</i>
+								<span>我的订单</span>
+								<i><img src="__PUBLIC__/qlpphone/images/info/right-info.png" alt=""></i>
+							</div>
+						</div>
+						<!-- 我的优惠券 -->
+						<div class="my-coupon personal-center-list">
+							<div class="content-padded">
+								<a href="#routers-index-inner-3"></a>
+								<i class="iconfont">&#xe617;</i>
+								<span>我的优惠券</span>
+								<i><img src="__PUBLIC__/qlpphone/images/info/right-info.png" alt=""></i>
+							</div>
+						</div>
+						<!-- 我的积分 -->
+						<div class="my-code personal-center-list">
+							<div class="content-padded">
+								<a href="#routers-index-inner-4"></a>
+								<i class="iconfont">&#xe614;</i>
+								<span>我的积分</span>
+								<i><img src="__PUBLIC__/qlpphone/images/info/right-info.png" alt=""></i>
+							</div>
+						</div>
+					</div>
+					<div class="personal-center-sec">
+						<!-- 个人信息 -->
+						<div class="personal-msg personal-center-list">
+							<div class="content-padded">
+								<a href="#routers-index-inner-5"></a>
+								<i class="iconfont">&#xe616;</i>
+								<span>个人信息</span>
+								<i><img src="__PUBLIC__/qlpphone/images/info/right-info.png" alt=""></i>
+							</div>
+						</div>
+						<!-- 绑定手机 -->
+						<div class="bind-phone personal-center-list">
+							<div class="content-padded">
+								<a href="#routers-index-inner-6"></a>
+								<i class="iconfont">&#xe610;</i>
+								<span>绑定手机</span>
+								<i><img src="__PUBLIC__/qlpphone/images/info/right-info.png" alt=""></i>
+							</div>
+						</div>
+						<!-- 绑定邮箱 -->
+						<div class="bind-mail personal-center-list">
+							<div class="content-padded">
+								<a href="#routers-index-inner-7"></a>
+								<i class="iconfont">&#xe618;</i>
+								<span>绑定邮箱</span>
+								<i><img src="__PUBLIC__/qlpphone/images/info/right-info.png" alt=""></i>
+							</div>
+						</div>
+						<!-- 修改密码 -->
+						<div class="change-psd personal-center-list">
+							<div class="content-padded">
+								<a href="#routers-index-inner-8"></a>
+								<i class="iconfont">&#xe613;</i>
+								<span>修改密码</span>
+								<i><img src="__PUBLIC__/qlpphone/images/info/right-info.png" alt=""></i>
+							</div>
+						</div>
+						<!-- 帮助中心 -->
+						<div class="bind-help personal-center-list">
+							<div class="content-padded">
+								<a href="{:U('service/center')}" external></a>
+								<i class="iconfont">&#xe683;</i>
+								<span>帮助中心</span>
+								<i><img src="__PUBLIC__/qlpphone/images/info/right-info.png" alt=""></i>
+							</div>
+						</div>
+						<!-- 退出账号 -->
+						<div class="bind-exit personal-center-list">
+							<div class="content-padded">
+								<a href="{:U('user/exit')}" class="user_logout" external></a>
+								<i class="iconfont">&#xe611;</i>
+								<span>注销账号</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 我的消息 -->
+	<div class="page" id="routers-index-inner-1">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">我的消息</h1>
+		</header>
+		<include file="Common/bottom1" />
+		<div class="content">
+			<div class="content-padded">
+				<volist id="msg" name="messages">
+					<div class="my-msg-content">
+						<h6>{$msg.send_time}</h6>
+						<div class="my-msg-information">
+							<div class="content-padded">
+								<div class="row no-gutter">
+									<div class="col-10"><img src="__PUBLIC__/phone/images/user_info/msg.png" alt=""></div>
+									<div class="col-90"><p>{$msg.content}</p></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</volist>
+			</div>
+		</div>
+	</div>
+	<!-- 我的订单跳转订单页 -->
+	
+	<!-- 我的优惠券 -->
+	<div class="page" id="routers-index-inner-3">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">我的优惠券</h1>
+		</header>
+		<include file="Common/bottom1" />
+		<div class="content">
+			<div class="buttons-tab">
+				<a href="#tab1" class="tab-link coupon-link active button">未使用</a>
+				<a href="#tab2" class="tab-link coupon-link button">已使用</a>
+				<a href="#tab3" class="tab-link coupon-link button">已失效</a>
+			</div>
+			<div class="my-coupon-content">
+				<div class="tabs">
+					<!-- 未使用 -->
+					<div id="tab1" class="tab active my-coupon-information">
+						<div class="content-padded">
+							<volist id="coupon" name="coupon_normal" >
+								<div class="row no-gutter">
+									<div class="col-70">
+										<div class="content-padded">
+											<p>每人每次限用一张</p>
+											<span>本劵有效期{$coupon.valid_time}到{$coupon.invalid_time}</span>
+										</div>
+									</div>
+									<div class="col-30">
+										<div class="content-padded">
+											<p><span data-money='{$coupon.money}'>{$coupon.money}</span>元</p>
+											<strong>现金券</strong>
+										</div>
+									</div>
+								</div>
+							</volist>
+						</div>
+					</div>
+					<!-- 已使用 -->
+					<div id="tab2" class="tab my-coupon-information">
+						<div class="content-padded">
+							<volist id="coupon" name="coupon_use" >
+								<div class="row no-gutter">
+									<div class="col-70">
+										<div class="content-padded">
+											<p>每人每次限用一张</p>
+											<span>本劵有效期{$coupon.valid_time}到{$coupon.invalid_time}</span>
+										</div>
+									</div>
+									<div class="col-30 my-coupon-used">
+										<div class="content-padded">
+											<p><span data-money='{$coupon.money}'>{$coupon.money}</span>元</p>
+											<strong>现金券</strong>
+											<img src="__PUBLIC__/phone/images/user_info/used.png" alt="">
+										</div>
+									</div>
+								</div>
+							</volist>							
+						</div>
+					</div>
+					<!-- 已失效 -->
+					<div id="tab3" class="tab my-coupon-information">
+						<div class="content-padded">
+							<volist id="coupon" name="coupon_invalid" >
+								<div class="row no-gutter">
+									<div class="col-70">
+										<div class="content-padded">
+											<p>每人每次限用一张</p>
+											<span>本劵有效期{$coupon.valid_time}到{$coupon.invalid_time}</span>
+										</div>
+									</div>
+									<div class="col-30 my-coupon-invalid">
+										<div class="content-padded">
+											<p><span data-money='{$coupon.money}'>{$coupon.money}</span>元</p>
+											<strong>现金券</strong>
+											<img src="__PUBLIC__/phone/images/user_info/invalid.png" alt="">
+										</div>
+									</div>
+								</div>
+							</volist>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 我的积分 -->
+	<div class="page" id="routers-index-inner-4">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">我的积分</h1>
+		</header>
+		<include file="Common/bottom1" />
+		<div class="content">
+			<div class="buttons-tab">
+				<a href="#tab11" class="tab-link active button">论坛积分</a>
+				<a href="#tab22" class="tab-link button">网站积分</a>
+			</div>
+			<div class="content-padded">
+				<div class="tabs">
+					<div id="tab11" class="tab active">
+						<p>论坛积分：{$user.score_forum}</p>
+					</div>
+					<div id="tab22" class="tab">
+						<p>网站积分：{$user.score_net}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 个人信息 -->
+	<div class="page" id="routers-index-inner-5">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">个人信息</h1>
+		</header>
+		<include file="Common/bottom1" />
+		<div class="content personal-msg-content">
+			<div class="list-block">
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">姓名</div>
+						<div class="item-input">
+				  			<input id="name" type="text" placeholder="输入您的姓名" value="{$user.name}">
+						</div>
+					</div>
+	            </div>
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">昵称</div>
+						<div class="item-input">
+				  			<input id="nickname" type="text" placeholder="输入您的昵称" value="{$user.nickname}">
+						</div>
+					</div>
+	            </div>
+	            <div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">性别</div>
+						<div class="item-input">
+				  			<input type="text" placeholder="请选择您的性别" id="picker-sex" readonly="" value="{:get_sex($user['sex'])}">
+						</div>
+					</div>
+	            </div>
+	            <div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">星座</div>
+						<div class="item-input">
+				  			<input type="text" placeholder="请选择您的星座" id="picker-constellation" readonly="" value="{:get_constellation($user['constellation'])}">
+						</div>
+					</div>
+	            </div>
+	            <div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">出生日期</div>
+						<div class="item-input">
+				  			<input type="text" placeholder="请选择您的出生日期" id="picker-birth" readonly="" value="{$user.birthday}" data-toggle='date'>
+						</div>
+					</div>
+	            </div>
+	            <div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">个性签名</div>
+						<div class="item-input">
+				  			<input id="signature" type="text" maxlength="20" placeholder="输入您的个性签名" value="{$user.signature}">
+						</div>
+					</div>
+	            </div>
+	            <div class="item-content" style="color: #a00;">
+	            </div>
+			</div>
+			<a class="save_user_info" href="javascript:;" external>保存</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		// 		
+		$('#routers-index-inner-5').find('.save_user_info').click(function(){
+			var brithDate = $('#routers-index-inner-5').find('#picker-birth').val();
+			var birth = ''
+			if (brithDate.indexOf('-') != -1){
+				birth = brithDate;
+			} else {
+				brithDate = brithDate.split(' ')
+				birth = brithDate[0] + '-' + brithDate[1] + '-' + brithDate[2];
+			}
+			
+			var userId = '{$user.id}';
+			var jsonData = {
+				type: 'modify_base',
+				name: $('#routers-index-inner-5').find('#name').val(),
+				nickname: $('#routers-index-inner-5').find('#nickname').val(),
+				birthday: birth,
+				sex: getSex($('#routers-index-inner-5').find('#picker-sex').val()),
+				constellation: getConstellation($('#routers-index-inner-5').find('#picker-constellation').val()),
+				signature:	$('#routers-index-inner-5').find('#signature').val(),
+			};
+			
+			$.post('{:U("user/manager")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					location.href = '{:U("user/info")}';
+				} else {
+					$('#routers-index-inner-5').find('.item-content:last').html(data.result.message);
+				}				
+			});
+		});
+	</script>
+	
+	<!-- 绑定手机 -->
+	<div class="page" id="routers-index-inner-6">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">设置绑定手机1/2</h1>
+		</header>
+		<include file="Common/bottom1" />
+		<div class="content bind-phone-content">
+			<div class="list-block">
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">手机号</div>
+						<div class="item-input">
+				  			<input class="phone_text" type="number" maxlength="11" placeholder="输入您的手机号">
+						</div>
+					</div>
+	            </div>
+	        </div>
+			<a class="send-phone-code" href="#routers-index-inner-6-1">下一步验证手机号</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		// 电话数据发送
+		function _ajaxPhone(sPhone, sCode, nCheck) {
+			var msgObj = $('#routers-index-inner-6-1').find('.content-padded p');
+			var codeObj = $('#routers-index-inner-6-1').find('.write-phone-code');
+			$(msgObj).css('color', '#a00');
+			if (sPhone == '') {
+				$(msgObj).html('电话不能为空');
+				return false;
+			}
+			if (nCheck == 1 && sCode == '') {
+				$(msgObj).html('验证码不能为空');
+				return false;
+			}
+			var userId = '{$user.id}';
+			var jsonData = {
+				type: 'modify_phone',
+				user_id: userId,
+				phone: sPhone,
+				code: sCode,
+				check: nCheck,
+				rd: '{$pagerd}',
+			};
+			$.post('{:U("user/manager")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (nCheck == 0) {
+						$(msgObj).css('color', '#0a0;');
+						$(msgObj).html('验证码已发送至'+sPhone);
+					} else {
+						location.href = '{:U("user/info")}';
+					}
+				} else {
+					$(msgObj).html(data.result.message);
+					$(codeObj).val('');
+				}				
+			});
+		}
+		// 发送电话验证码
+		$('#routers-index-inner-6').find('.send-phone-code').click(function(data){
+			var phone = $('#routers-index-inner-6').find('.phone_text').val();
+			_ajaxPhone(phone, '', 0);
+		});		
+	</script>
+	<div class="page" id="routers-index-inner-6-1">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">设置绑定手机2/2</h1>
+		</header>
+		<include file="Common/bottom1" />
+		<div class="content bind-phone-content">
+			<div class="content-padded">
+				<p></p>
+			</div>
+			<div class="list-block">
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">验证码</div>
+						<div class="item-input">
+				  			<input class="write-phone-code" type="text" maxlength="6" placeholder="输入您的验证码">
+						</div>
+					</div>
+	            </div>
+	        </div>
+			<a class="sure-phone" href="javascript:;" external>完成</a>
+		</div>
+	</div>
+	<script type="text/javascript">		
+		// 修改电话
+		$('#routers-index-inner-6-1').find('.sure-phone').click(function(data){
+			var phone = $('#routers-index-inner-6').find('.phone_text').val();
+			var code = $('#routers-index-inner-6-1').find('.write-phone-code').val();
+			_ajaxPhone(phone, code, 1);
+		});
+	</script>
+	
+	<!-- 绑定邮箱 -->
+	<div class="page" id="routers-index-inner-7">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">设置绑定邮箱1/2</h1>
+		</header>
+		<include file="Common/bottom1" />
+		<div class="content bind-phone-content">
+			<div class="list-block">
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">邮箱地址</div>
+						<div class="item-input">
+				  			<input class="email_text" type="text" placeholder="输入您的邮箱地址">
+						</div>
+					</div>
+	            </div>
+	        </div>
+			<a class="send-mail-code" href="#routers-index-inner-7-1">下一步验证邮箱</a>
+		</div>
+	</div>
+	<script type="text/javascript">		
+		// 邮箱数据发送
+		function _ajaxEmail(sEmail, sCode, nCheck) {
+			var msgObj = $('#routers-index-inner-7-1').find('.content-padded p');
+			var codeObj = $('#routers-index-inner-7-1').find('.write-mail-code');
+			$(msgObj).css('color', '#a00');
+			if (sEmail == '') {
+				$(msgObj).html('邮件不能为空');
+				return false;
+			}
+			if (nCheck == 1 && sCode == '') {
+				$(msgObj).html('验证码不能为空');
+				return false;
+			}
+			var userId = '{$user.id}';
+			var jsonData = {
+				type: 'modify_email',
+				user_id: userId,
+				email: sEmail,
+				code: sCode,
+				check: nCheck,
+			};
+			$.post('{:U("user/manager")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (nCheck == 0) {
+						$(msgObj).css('color', '#0a0');
+						$(msgObj).html('验证码已发送至'+sEmail);
+						location.href = '#routers-index-inner-7-1';
+					} else {
+						location.href = '{:U("user/info")}';
+					}
+				} else {
+					$(msgObj).html(data.result.message);
+					$(codeObj).val('');
+				}				
+			});
+		}
+		
+		// 发送邮箱验证码
+		$('#routers-index-inner-7').find('.send-mail-code').click(function(data){
+			var email = $('#routers-index-inner-7').find('.email_text').val();
+			_ajaxEmail(email, '', 0);
+		});
+	</script>
+	<div class="page" id="routers-index-inner-7-1">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">设置绑定邮箱2/2</h1>
+		</header>
+		<include file="Common/bottom1" />
+		<div class="content bind-phone-content">
+			<div class="content-padded">
+				<p></p>
+			</div>
+			<div class="list-block">
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">验证码</div>
+						<div class="item-input">
+				  			<input class="write-mail-code" type="text" maxlength="6" placeholder="输入您的邮箱验证码">
+						</div>
+					</div>
+	            </div>
+	        </div>
+			<a class="sure-mail" href="javascript:;" external>完成</a>
+		</div>
+	</div>
+	<script type="text/javascript">		
+		// 修改邮箱
+		$('#routers-index-inner-7-1').find('.sure-mail').click(function(data){
+			var email = $('#routers-index-inner-7').find('.email_text').val();
+			var code = $('#routers-index-inner-7-1').find('.write-mail-code').val();
+			_ajaxEmail(email, code, 1);
+		});
+	</script>
+
+	<!-- 修改密码 -->
+	<div class="page" id="routers-index-inner-8">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">修改密码1/2</h1>
+		</header>
+		<include file="Common/bottom1" />
+		<div class="content change-psd-content">
+			<div class="list-block">
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">原密码</div>
+						<div class="item-input">
+				  			<input id="password_old" type="password">
+						</div>
+					</div>
+	            </div>
+	            <div class="item-content">
+	            	<div class="item-inner">
+						<div class="item-title label">新密码</div>
+						<div class="item-input">
+				  			<input id="new_password" type="password">
+						</div>
+					</div>
+	            </div>
+	            <div class="item-content">
+	            	<div class="item-inner">
+						<div class="item-title label">重复密码</div>
+						<div class="item-input">
+				  			<input id="password_confirm" type="password">
+						</div>
+					</div>
+	            </div>	
+	        </div>
+			<a class="sure-psd" href="#routers-index-inner-8-1">完成</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		// 修改密码
+		$('#routers-index-inner-8').find('.sure-psd').click(function(){
+			var newPassword = $('#new_password').val();
+			var confirmPassword = $('#password_confirm').val();
+			//原密码输入为空
+			if($('#password_old').val() == ''){
+				alert('密码输入不能为空');
+				return false;
+			}
+			//两次输入密码不一致且为空
+			if (newPassword != confirmPassword || newPassword == '' || confirmPassword == '') {
+				alert('两次输入的密码不一致');
+				return false;
+			}
+			var userId = '{$user.id}';
+			var jsonData = {
+				type: 'modify_password',
+				id: userId,
+				password: $('#password_old').val(),
+				new_password: newPassword,
+			};
+			$.post('{:U("user/manager")}', jsonData, function(data){
+				var pObj = $('#routers-index-inner-8-1').find('.change-psd-content-sub').find('p');
+				if (data.result.errno == 0) {
+					$(pObj).attr('style','color: green;');
+					$(pObj).html('修改密码成功');
+				} else {
+					$(pObj).attr('style','color: red;');
+					$(pObj).html(data.result.message);
+				}				
+			});
+		});
+	</script>
+	<div class="page" id="routers-index-inner-8-1">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">修改密码2/2</h1>
+		</header>
+		<include file="Common/bottom1" />
+		<div class="content">
+			<div class="change-psd-content-sub">
+				<img src="__PUBLIC__/phone/images/user_info/ok.png" alt="">
+				<p></p>
+				<a href="{:U('index/welcome')}" external>返回首页</a>
+				<a href="{:U('user/info')}" external>返回个人中心</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 绑定授权 -->
+	<div class="page" id="routers-index-inner-9">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">绑定授权</h1>
+		</header>
+		<include file="Common/bottom1" />
+		<div class="content">
+			<div class="bind-authority-content">
+				<div class="content-padded">
+					<div class="row no-gutter">
+						<div class="col-20"><img src="__PUBLIC__/phone/images/user_info/qq.png" alt=""></div>
+						<div class="col-40">QQ</div>
+						<div class="col-40"><a href="javascript:;" external>添加绑定</a></div>
+					</div>
+					<div class="row no-gutter">
+						<div class="col-20"><img src="__PUBLIC__/phone/images/user_info/wx.png" alt=""></div>
+						<div class="col-40">微信<img src="__PUBLIC__/phone/images/user_info/warn.png" alt=""><span>未绑定</span></div>
+						<div class="col-40"><a href="javascript:;" external>添加绑定</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<include file="Common/js" />
+	<script>
+		$(function(){
+			$.init();
+			
+			//优惠券等高以及文本垂直(防止子页面刷新)
+			window.onload = function () {
+				wh();
+			};
+			//点击后优惠券加载样式（100ms后）
+			$('.my-coupon a').click( function(){
+				setTimeout(function () { wh() }, 100);
+			} );
+			$('.coupon-link').click( function(){
+				setTimeout(function () { wh() }, 100);
+			} );
+			function wh(){
+				$('.my-coupon-information .row').each( 
+					function () {
+						var ww = $(this).children('.col-30').find('.content-padded').width();
+						var www = parseInt(ww) / -2; 
+						var hh = $(this).children('.col-30').find('.content-padded').height();
+						var hhh = parseInt(hh) / -2;
+						$(this).children('.col-30').height($(this).children('.col-70').height());
+						$(this).children('.col-30').find('.content-padded').css({'marginTop':hhh,'marginLeft':www});
+					}
+				);
+			}
+			
+			// 添加筛选条件
+			function attachSelect(obj, title, colList) {
+				$(obj).picker({
+					toolbarTemplate:'<header class="bar bar-nav">'+
+									'	<button data-id="'+obj+'" class="button button-link pull-right close-picker">确定</button>'+
+									'	<h1 class="title">'+title+'</h1>'+
+									'</header>',
+					cols: colList,
+					onClose: function(){
+						$('.infinite-scroll-bottom .list-container').empty();
+					}
+				});
+			}
+
+			// 选择性别
+			attachSelect("#picker-sex", '选择性别', [{textAlign:'center',values:['男', '女']}]);
+			attachSelect("#picker-constellation",'选择星座',[{textAlign:'center',values:['白羊座','金牛座','双子座','巨蟹座','狮子座','处女座','天秤座','天蝎座','射手座','摩羯座','水瓶座','双鱼座']}]);
+			//选择出生日期
+			$("#my-input").calendar({
+			    value: ['']
+			});
+			
+
+			//头像改变（需要判断当登录后方可启用）
+//			$('.my-header-img').find('img').click(function(){
+//				location.href = '{:U("User/face")}';
+//			});
+			$(document).on("change","#change-img",function(){
+				var thisimg=this;
+//				var f = thisimg.files[0];
+//				var upsrc = window.URL.createObjectURL(f);
+//				$('.my-header-img img').attr("src",upsrc);
+				
+				var formData = new FormData();
+				var name = $(this).val();
+				formData.append('face_file', thisimg.files[0]);
+				formData.append('name', name);
+				
+				$.ajax({
+					url: '{:U("user/face")}',
+					type: 'POST',
+					data: formData,
+					// 告诉jQuery不要去处理发送的数据
+					processData : false, 
+					// 告诉jQuery不要去设置Content-Type请求头
+					contentType : false,
+					// 发送内容前
+					beforeSend: function(){
+						console.log('正在上传文件,请稍后...');	
+					},
+					success: function (data) {
+						if (data.result.errno == 0) {
+							if (data.face_image != null) {
+								$('.my-header-img img').attr("src",data.face_image);	
+							}
+						} else {
+							alert(data.result.message);
+						}
+					}
+				});
+				
+			});
+		});
+	</script>
+</body>
+</html>

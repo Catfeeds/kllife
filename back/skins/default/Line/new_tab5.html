@@ -1,0 +1,262 @@
+
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/article.css">
+	
+	<link rel="stylesheet" href="__PUBLIC__/home/css/content.css">
+	
+	<link rel="stylesheet" href="__PUBLIC__/home/css/list.css">
+	<style>
+		.article-operate { position: absolute; bottom: 10px; right: 10px; }
+		.article-operate i { display: inline-block; width: 80px; height: 30px; line-height:30px; margin-left:10px; color:#fff; font-size: 14px; font-style: normal; text-align: center; cursor: pointer; }
+		.article-delete { background-color: #e4393c; }
+		.tanchu { background-color: #5ca323; color:#fff; }
+		.travel-notes-lunbo ul li { position: relative; margin-top: 20px; }
+		.notes-describe input { width: 100%; }
+		.notes-describe textarea { width: 100%; height: 140px; resize: none; }
+		.notes-describe h3 , .notes-xx { margin: 0; }
+		.notes-save-btn { width:100%; margin-top:20px; color:#fff; background-color: #f9394c; }
+		
+		.notes-change-img { position: absolute; top: 0; left: 0; width: 520px; height:40px; line-height:40px; background-color: rgba(0,255,0,.5); text-align:center; }
+		.notes-change-img i { display: inline-block; width:259.5px; font-size:14px; font-style: normal; cursor: pointer; color:#fff; }
+		.notes-change-img i:hover { color: #000; }
+		.notes-change-img i:first-child { border-right: 1px solid #fff; }
+		
+		/*线路推荐*/
+		.recommend-line-list { width: 1200px; margin: 0 auto; }
+		.single-row {display: block;}
+		.single-row-describe-top { height: 243px; }		
+		.single-row-describe-bottom { height: 37px; line-height: 37px; }
+		
+		/*.recommend-line-list { width: 1200px; margin: 0 auto; }
+		.single-row {display: block; width: 100%; margin-top: 14px;}
+		.single-row-content { position: relative; width: 100%; height: 280px; margin-bottom: 30px; background-color: #fff; overflow: hidden;}
+		.single-row-img {width: 420; height: 280px; overflow: hidden;}
+		.single-row-img img {width: 100%; height: 100%; }
+		.single-row-img .single-row-describe {float: left;}
+    	.btn-line {float: right; width: 90px; height: 36px; background-size: 100% 100%; border-color: #aaaa55;}
+		.single-row-describe-top { position: relative; width:750px; height: 243px; padding-left:30px; }
+		.single-row-describe-bottom { padding-left:30px; border-top:1px solid #e9e9e9; width:750px; height: 37px; line-height: 37px; overflow: hidden; }*/
+	</style>
+<div class="row">
+	
+	<!-- 游记攻略 -->
+	<div class="travel-notes">
+		<h3 id="travel-notes">游记攻略</h3>
+		<div class="travel-notes-lunbo">
+			<ul>
+				<for start="0" end="6" name="k">
+					<li class="youji{$k}" data-key="youji{$k}" data-index="{$k}" data-type="youji">
+						<img src="" alt="">
+						<div class="notes-describe">
+							<h3><span>主标题：</span><input class="title" type="text"/></h3>
+							
+							<div class="notes-xx">
+								<p>描述：<textarea class="desc"></textarea></p>
+								<p>链接：<input class="link" type="text"/></p>
+								<p><button class="btn notes-save-btn">保存</button></p>
+							</div>
+							
+							<div class="notes-change-img">
+								<i>上传图片</i><i>图库图片</i>
+							</div>
+						</div>
+					</li>
+				</for>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="separator"></div>
+
+	<div class="recommend-line-list">
+		<for start="0" end="4" name="k">
+			<div class="single-row recommend_line{$k}" data-key="recommend_line{$k}" data-index="{$k}" data-type="recommend_line">
+				<div class="single-row-content">
+					<div class="single-row-img">
+						<img src="" alt="">
+					</div>
+					<div class="single-row-describe">
+						<div class="single-row-describe-top">
+							<h4 class="title"></h4>
+							<h5 class="subheading"></h5>
+							<span class="send_word"></span>
+							<p>
+								<u class="assembly">集合地点：</u>
+								<u class="click_count">点击量：0次</u>
+							</p>
+							<p>
+								<u class="destination">目的地：</u>
+								<u class="station">站点：</u>
+							</p>
+							<div class="single-row-describe-price">
+								<h6><s class="price">当前元</s><strong class="cut_price"></strong>元起</h6>
+							</div>
+							<span class="travel_date">旅行时间：</span>
+						</div>
+						<div class="single-row-describe-bottom">
+							<a class="btn btn-success btn-line test btn-recommend-line" href="javascript:;">设置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</for>
+	</div>
+	
+	<!-- 自绑定 -->
+	<script src="__PUBLIC__/home/common/js/showAndHide.js"></script>
+	
+	<script type="text/javascript">		
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////
+		// 设置产品
+		function  setRecommendLine(obj, ds) {	
+			if ($(obj).length > 0 && ds != null) {
+				$(obj).attr('data-id', ds.id);
+				if (ds.value != null) {
+					var d = ds.value;
+					$(obj).find('.single-row-img img').attr('src', d.img1);					
+					$(obj).find('.title').html(d.title);
+					$(obj).find('.subheading').html(d.subheading);
+					$(obj).find('.send_word').html(d.send_word_show);
+					$(obj).find('.assembly').html('集合地点：'+d.assembly_point_show_text);
+					$(obj).find('.click_count').html('点击量：'+d.click_count);
+					$(obj).find('.destination').html('目的地：'+d.destination_show_text);
+					$(obj).find('.station').html('站点：'+d.station_show);
+					$(obj).find('.price').html(d.start_price_adult+'元');
+					$(obj).find('.cut_price').html(d.start_price_adult);
+					$(obj).find('.travel_date').html('旅行时间：'+d.start_time+' 至 '+d.end_time);
+				}
+			}
+		}
+		
+		function _ajaxSetRecommendLine(obj, ids) {
+//			console.log(JSON.stringify(ids));		
+			if (ids.length == 0 || ids == null || ids == 'undefined') {
+				toastr.error('未选取线路信息');
+				return false;
+			}			
+			
+			var jsonData = {
+				op_type: 'set',
+				id: $(obj).attr('data-id'),
+				line_id: $('#line_id').val(),
+				key: $(obj).attr('data-key'),
+				value_type: 'line',
+				sort: $(obj).attr('data-index'),
+				value: ids[0],
+			}
+			
+			$.post('{:U("line/create")}', jsonData, function(data){
+				if (data.ds != null) {
+					setRecommendLine(obj, data.ds);
+				}
+				
+				if (data.result != null) {
+					if (data.result.errno == 0) {
+						toastr.success(data.result.message);	
+					} else {
+						toastr.error(data.result.message);	
+					}
+				}
+			});
+		}
+		
+		// 绑定线路
+		$('.btn-recommend-line').click(function(ev){
+			ev.preventDefault();			
+			showModalLineSelect($(this).closest('.single-row'), _ajaxSetRecommendLine, '', true);
+		});		
+	
+		/////////////////////////////////////////////////////////////////////////////////////////////
+		// 绑定外链游记开始
+		
+		// 设置外链游记
+		function setBindYouji(obj, ds) {
+			if ($(obj).length > 0 && ds != null) {
+				$(obj).attr('data-id', ds.id);
+				if (ds.value != null) {
+					var d = ds.value;
+					$(obj).find('img').attr('src', d.img);
+					$(obj).find('.title').val(d.title);
+					$(obj).find('.desc').val(d.desc);
+					$(obj).find('.link').val(d.url);
+				}
+			}
+		}
+		
+		// 添加线路其他设置
+		function appendLineSet(ds) {
+			if (ds != null && ds.length > 0) {
+				for (var i = 0; i < ds.length; i ++) {
+					var obj = '.'+ds[i]['key'];
+					var type = $(obj).attr('data-type');
+					if (type == 'youji') {
+						setBindYouji(obj, ds[i]);
+					} else if (type == 'recommend_line') {
+						setRecommendLine(obj, ds[i]);
+					} else {
+						console.log('未知线路设置类型，Error:key=>'+data[i]['key']);
+					}
+				}
+			}
+		}
+		
+		// 设置游记图片
+		function setBindYoujiImage(obj, imageList) {
+			if ($(obj).length == 0 || $(imageList).length == 0) {
+				alert('选择图片错误');
+				return false;
+			}
+			
+			$(obj).closest('li').find('img').attr('src', imageList[0]);
+		}
+		
+		// 上传游记链接图片
+//		modalUploadMaxFileCount = 1; 
+		$('.notes-change-img').find('i:first').click(function(){			
+			funcModalUploadCallBack = setBindYoujiImage;
+			showModalUploadImageDialog(this);
+		});
+		
+		// 选择游记链接图片
+		$('.notes-change-img').find('i:last').click(function(){
+			funcModalImageSelectorCallBack = setBindYoujiImage;
+			showModalSelectorImageDialog(this);
+		});
+		
+		// 编辑游记
+		$('.notes-save-btn').click(function(ev){
+			ev.preventDefault();
+		
+			var liObj = $(this).closest('li');			
+			var youji = {
+				title: $(liObj).find('.title').val(),
+				img: $(liObj).find('img').attr('src'),
+				desc: $(liObj).find('.desc').val(),
+				url: $(liObj).find('.link').val(),
+			}
+			
+			var jsonData = {
+				op_type: 'set',
+				line_id: $('#line_id').val(),
+				id: $(liObj).attr('data-id'),
+				key: $(liObj).attr('data-key'),
+				value_type: 'json',
+				value: JSON.stringify(youji),
+				sort: $(liObj).attr('data-index'),
+			}
+			
+			$.post('{:U("line/create")}', jsonData, function(data){
+				if (data.result != null) {
+					if (data.result.errno == 0) {
+						toastr.success(data.result.message);
+					} else {
+						toastr.error(data.result.message);
+					}	
+				}
+			})
+			
+		});
+	
+	</script>
+</div>

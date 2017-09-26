@@ -1,0 +1,110 @@
+<include file="common/top" />
+<!-- swiper -->
+<link rel="stylesheet" href="__PUBLIC__/phone/common/css/swiper-3.3.1.min.css">
+<!-- mycss -->
+<link rel="stylesheet" href="__PUBLIC__/phone/css/welcome.css">
+<!--小团慢css-->
+<link rel="stylesheet" href="__PUBLIC__/phone/css/slow-travel.css">
+
+<style type="text/css">
+	.image-banner {
+		text-align: center;
+		overflow: hidden;
+	}
+	.slow-travel { margin-top: 0px; }
+	.card-content-inner > span {
+	    position: absolute;
+	    top: 0.5rem;
+	    right: .4rem;
+	    color: #ff7200;
+	}
+</style>
+
+<div class="page">
+	<include file="common/footer" />
+	<div class="content">
+		<!--banner图-->
+		<div class="image-banner">
+			<img src="{$fxset.shop_banner.data.value}" alt="" width="100%">
+		</div>
+		<!--小团慢-->
+		<div class="slow-travel">
+			<img src="__PUBLIC__/phone/images/index/fenxiao-xiaomantuan.jpg" alt="">
+		</div>
+		<volist id="mt" name="modal_types">
+			<if condition="$mt.show eq 1">
+			<div class="hot-sale">
+				<div class="hot-sale-content">
+					<!-- 切换 -->
+					<div class="buttons-tab">
+						<a href="javascript:;" class="tab-link active button">{$mt.title}</a>
+					</div>
+					<div class="tabs">
+						<div class="tab active">
+							<!-- 深度游 -->
+							<div class="depth-travel">
+								<div class="depth-travel-content">
+									<div class="travel-content">
+										<php> $findstr = $mt['type'].'_line_'; </php>
+										<volist id="set" name="fxset">
+											<!--findstr=>{$findstr},key=>{$key}-->
+											<if condition="stripos($key, $findstr) heq 0">
+												<div class="card demo-card-header-pic">
+													<div class="card-content">
+														<img src="{$set.line.img1}" alt="">
+														<div class="card-content-inner">
+															<p>{$set.line.title}</p>
+															<p>{$set.line.subheading}</p>
+															<if condition="empty($set['line']['min_batch']['price_state'])">
+																<span>￥{$set.line.min_batch.price_adult}元起</span></a>
+															<else />
+																<span>￥核算中</span></a>
+															</if>
+														</div>
+														<!-- 跳转a -->
+														<a href="{:U('line/info')}/id/{$set.line.id}/duid/{$duid}" external></a>
+													</div>
+													<div class="card-footer">
+														<a href="{:U('line/info')}/id/{$set.line.id}/duid/{$duid}" class="link active-recommend">
+															<span>发团日期：{$set.line.start_time} 至 {$set.line.end_time}</span>
+														</a>
+													</div>
+												</div>
+											</if>
+										</volist>
+
+										<!-- 查看更多超值热卖 -->
+										<a href="{:U('fenxiao/list')}/duid/{$duid}" external>查看更多线路</a>
+									</div>
+								</div>
+							</div>
+						</div> <!--结束tab-->
+					</div><!-- 结束tabs -->
+				</div>
+			</div>
+			</if>
+		</volist>
+	</div>
+</div>
+
+<include file="common/js" />
+<!-- swiper -->
+<script src="__PUBLIC__/phone/common/js/swiper-3.3.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){			
+		$.init();
+		var swiper = new Swiper('.swiper-container', {
+	        pagination: '.swiper-pagination',
+	        slidesPerView: 1,
+	        paginationClickable: true,
+	        spaceBetween: 10,
+	        loop: true,
+	        centeredSlides: true,
+	        autoplay: 2500,
+	        autoplayDisableOnInteraction: false
+	    });
+	});
+</script>
+<include file="common/swt" />
+</body>
+</html>

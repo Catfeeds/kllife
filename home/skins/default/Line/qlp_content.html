@@ -1,0 +1,595 @@
+<include file="Common/top" />
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/bootstrap.min.css">
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/animate.css">
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/style/style.css">
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/style.css">
+<style>
+    .list-group .line{padding-top:25px;}
+    body { background-color: #ffffff; font-size:12px; }
+    .nav02 { margin-top:-10px; }
+    .nav-list .go-welcome img { vertical-align: inherit; }
+    .search-header input { width: 171px; height: 35px; padding: 8px 0; padding-left: 35px; outline: none; line-height: 15px; font-family: '微软雅黑'; font-size: 14px; }
+    a { text-decoration: none !important;}
+</style>
+<style>
+    body { background-color: #ffffff; font-size:12px; }
+    .nav02 { margin-top:-10px; }
+    .nav-list .go-welcome img { vertical-align: inherit; }
+    .search-header input { width: 171px; height: 35px; padding: 8px 0; padding-left: 35px; outline: none; line-height: 15px; font-family: '微软雅黑'; font-size: 14px; }
+    a { text-decoration: none !important;}
+    
+	.vui-slider .vui-item{ background: #333;text-align: center;text-align: -webkit-center; }
+	.product-number { margin-top:126px; }
+	.product-detail .right p{margin-bottom:0px;}
+</style>
+<!--产品编号-->
+<div class="product-number">
+    <span class="orange" style="padding:10px 0px;">产品编号：{$line.id}</span>
+    <span style="padding:10px 0px;">本产品由每刻美跟拍游独立策划并独立发团 <span id="block" style="cursor: pointer;"><img src="__PUBLIC__/qinglvpai/images/index/careful.png" alt=""></span></span>
+	<span id="none" style="position: relative;display:none;">
+		<span style="background: #f3f5f7;padding:10px 5px;margin-left:10px;">每刻美是领袖户外旗下专注于女性旅行的子品牌，是跟拍游的开创者。</span>
+		<span style="position: absolute;top:7px;left:3px;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:10px solid #f3f5f7;"></span>
+	</span>
+</div>
+<!--产品详情-->
+<div style="background:#f3f5f7;">
+    <div class="product-detail">
+        <div class="left">
+            <img class="img-responsive" src="{$line.img1}" alt="">
+        </div>
+        <div class="right">
+            <h2>{$line.title}</h2>
+            <h4>{$line.subheading}</h4>
+            <div class="div">
+            	<if condition="empty($line['check_price'])">
+            		核算中
+            	<else />
+            		<span class="price">￥{$line.start_price_adult}</span>元起 <span style="padding-left:20px;">({$line.start_price_child}元起/儿童)</span>
+            	</if>
+            </div>
+            <div class="div div1">成团人数：<span>{$line.success_team_count}</span>人 &nbsp;&nbsp; 满团人数：<span>{$line.max_team_count}</span>人</div>
+            <div class="div div1">集合地点：<span>{$line.assembly_point_show_text}</span></div>
+            <div class="div div1 volume">
+                <div>线路成交量：<span>{$order_member_count}</span></div>
+                <ul class="font_inner">
+					<volist id="order_list" name="orders">
+					<volist id="order" name="order_list.data">
+						<li><a href="javascript:;">用户{$order.mob_show}预订{$order.hdid_data.title}</a></li>
+					</volist>
+					</volist>
+                </ul>
+            </div>
+            <div class="message">产品寄语：{$line.send_word}</div>
+            <div class="time-number">
+                <div class="time">
+                    <span>出发日期：</span>
+                    <select name="select_batch" id="select_batch">
+                        <option value="0">请选择出发日期</option>
+						<php>
+							foreach($line['batchs'] as $bk=>$bv) {
+								echo('<option value="'.$bv['id'].'">'.$bv['start_date_show'].'['.$bv['state_data']['type_desc'].']</option>');
+							}
+						</php>
+                    </select>
+                </div>
+                <div class="number">
+                    <span class="span">出游人数：</span>
+                    <div>
+						<if condition="empty($check['only_child']) eq true">
+	                        <div class="man">
+	                            <span class="span-two">成人男</span>
+	                            <div>
+	                                <span class="reduce">-</span>
+	                                <span class="number">0</span>
+	                                <span class="add">+</span>
+	                            </div>
+	                        </div>
+	                        <div class="woman">
+	                            <span class="span-two">成人女</span>
+	                            <div>
+	                                <span class="reduce">-</span>
+	                                <span class="number">0</span>
+	                                <span class="add">+</span>
+	                            </div>
+	                        </div><br/>
+						</if>
+						<if condition="empty($check['only_adult']) eq true">
+	                        <div class="children">
+	                            <span class="span-two">儿&nbsp;&nbsp;&nbsp;童</span>
+	                            <div>
+	                                <span class="reduce">-</span>
+	                                <span class="number">0</span>
+	                                <span class="add">+</span>
+	                            </div>
+	                        </div>
+						</if>
+                    </div>
+                </div>
+            </div>
+			<p>本产品在线咨询讨论QQ群：{$line.seek_qq}</p>
+            <div class="consult">
+                <img class="tel" src="__PUBLIC__/qinglvpai/images/index/tel.png" alt="">
+                <div class="reserve">
+                    <a href="javascript:;"><img src="__PUBLIC__/qinglvpai/images/index/zx2.gif" alt=""></a>
+                    <a type="button" class="btn btn-orange book_order_now">立即预定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--行程亮点-->
+<div class="highlights" id="liangdian">
+    <h2 class="tit">行程亮点</h2>
+    <div class="border-bottom"><!-此div只用于显示birder-></div>
+    <volist id="point" name="line.points">
+		<if condition="$point.image_url neq ''">
+   			<a href="javascript:;"><img src="{$point.image_url}" style="width: 1000px;" alt=""></a>
+		</if>
+    </volist>
+    </div>
+</div>
+
+<!--行程说明-->
+<div class="highlights explain" id="shuoming">
+    <h2 class="tit">行程说明</h2>
+    <div class="border-bottom"><!-此div只用于显示birder-></div>
+	<volist id="travel" name="line.travels">
+		<if condition="$key eq 0">
+	    <div class="module">
+		<else />
+	    <div class="module module-two">
+		</if>
+        	<if condition="$key % 2 eq 0">
+		        <div class="left">
+	        		<if condition="empty($travel['img1']) eq false">
+	        			<a href="javascript:;"><img src="{$travel['img1']}" style="width: 600px;height: 450px;" alt=""></a>
+	        		<elseif condition="empty($travel['img2']) eq false" />
+	        			<a href="javascript:;"><img src="{$travel['img2']}" style="width: 600px;height: 450px;" alt=""></a>
+	        		<elseif condition="empty($travel['img3']) eq false" />
+	        			<a href="javascript:;"><img src="{$travel['img3']}" style="width: 600px;height: 450px;" alt=""></a>
+	        		<else />
+	        			<a href="javascript:;"><img style="width: 600px;height: 450px;" alt=""></a>
+	        		</if>
+		        </div>
+        		<div class="right">
+					<if condition="$key eq 0">
+		            <div class="active" style="background:#ff1c77">
+					<else />
+		            <div class="active">
+					</if>
+		                <h2>Day{$travel.day_id}：{$travel.title}</h2>
+						<notempty name="travel.view_point"><h4>浏览重点：{$travel.view_point}</h4></notempty>
+		                <div class="show height">{$travel.intro}</div>
+		                <h4>
+		                	<notempty name="travel.hotel">住宿：{$travel.hotel}</notempty>
+							<notempty name="travel.eat_way">餐饮：{$travel.eat_way}</notempty>
+						</h4>
+						<notempty name="travel.kindly_reminder">
+			                <div class="prompt activ">温馨提示：<br/><span>{$travel.kindly_reminder}</span></div>
+						</notempty>
+		            </div>
+					<span class="none"><i class="iconfontyyy">&#xe610;</i></span>
+		            <i class="iconfontyyy left-top">&#xe609;</i>
+        		</div>
+        	<else />
+        		<div class="right">
+		            <div class="active">
+		                <h2>Day{$travel.day_id}：{$travel.title}</h2>
+						<notempty name="travel.view_point"><h4>浏览重点：{$travel.view_point}</h4></notempty>
+		                <div class="show height">{$travel.intro}</div>
+		                <h4>
+		                	<notempty name="travel.hotel">住宿：{$travel.hotel}</notempty>
+							<notempty name="travel.eat_way">餐饮：{$travel.eat_way}</notempty>
+						</h4>
+						<notempty name="travel.kindly_reminder">
+			                <div class="prompt">温馨提示：<br/><span>{$travel.kindly_reminder}</span></div>
+		                </notempty>
+		            </div>
+					<span class="none"><i class="iconfontyyy">&#xe610;</i></span>
+		            <i class="iconfontyyy left-top">&#xe609;</i>
+        		</div>
+		        <div class="left">
+	        		<if condition="empty($travel['img1']) eq false">
+	        			<a href="javascript:;"><img src="{$travel['img1']}" style="width: 600px;height: 450px;" alt=""></a>
+	        		<elseif condition="empty($travel['img2']) eq false" />
+	        			<a href="javascript:;"><img src="{$travel['img2']}" style="width: 600px;height: 450px;" alt=""></a>
+	        		<elseif condition="empty($travel['img3']) eq false" />
+	        			<a href="javascript:;"><img src="{$travel['img3']}" style="width: 600px;height: 450px;" alt=""></a>
+	        		<else />
+	        			<a href="javascript:;"><img style="width: 600px;height: 450px;" alt=""></a>
+	        		</if>
+		        </div>
+        	</if>
+	    </div>
+	</volist>
+</div>
+<!--费用详情、预定须知-->
+<div class="expense-details">
+    <div class="tit">
+        <div class="left">
+            <span class="active">费用详情</span>
+        </div>
+        <div class="right">
+            <span>预定须知</span>
+        </div>
+    </div>
+    <div class="background">
+        <div class="detail cost">
+        	{$line.cost_description}
+            <div class="top"><!-此div只用于显示三角形-></div>
+        </div>
+        <div class="detail notice">
+        	{$line.booking_notes}
+            <div class="top"><!-此div只用于显示三角形-></div>
+        </div>
+    </div>
+</div>
+
+<!--沿途风光-->
+<div class="highlights scenery">
+    <h2 class="tit">沿途风光</h2>
+    <div class="border-bottom"><!-此div只用于显示birder-></div>
+    <div class="content">
+        <div id="slider" style="width:818px;">
+			<volist id="sc" name="scenery">
+	            <span>
+	                <a href="javascript:;">
+						<div style="background-image: url({$sc.image});height:625px;background-repeat: no-repeat;background-position: center center;"></div>
+						<!--<img id="center-top" src="{$sc.image}"/>-->
+						</a>
+	                <notempty name="sc.text">
+	                	<div style="position:absolute;left:0px;bottom:0px;height:60px;line-height:60px;width:1000px;padding:0px 30px;background:rgba(0,0,0,.5);color:#fff;font-size: 14px;">{$sc.text}</div>
+	                </notempty>
+	            </span>
+			</volist>
+        </div>
+    </div>
+</div>
+
+<!--私人定制-->
+<div class="customized">
+    <h1 style="color:#fff;">上述产品不满足您的需求？</h1>
+    <h3>欢迎填写下表提交，即刻联系每刻美新旅拍的私人旅行顾问</h3>
+    <h3>我们将为您和您的亲友量身定制专属行程</h3>
+    <a type="button" href="{:U('line/book')}" target="_blank" class="btn btn-customized">私人定制</a>
+</div>
+
+<!--左侧定位导航-->
+<div class="left-aside" id="left-aside">
+    <div class="left-aside-problem active">行 程<br>亮 点</div>
+    <div class="left-aside-explain">行 程<br>说 明</div>
+    <div class="left-aside-detail">费 用<br>详 情</div>
+    <div class="left-aside-reserve">预定<br>须知</div>
+    <div class="left-aside-scenery">沿 途<br>风 光</div>
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/js/vmc.slider.full.min.js"></script>
+<script>
+    //头部点击选中状态
+    $(".header ul a").on("click",function(){
+        $(this).addClass("active").siblings("a").removeClass("active");
+    })
+	//
+    $('#block').hover(
+        function () {
+            $('#none').show();
+        } ,
+        function () {
+            $('#none').hide();
+        }
+
+    );
+
+
+    //预订用户滚动显示
+    $(function(){
+        $(".font_inner li:eq(0)").clone(true).appendTo($(".font_inner"));//克隆第一个放到最后(实现无缝滚动)
+
+        var liHeight = $(".volume").height();                            //一个li的高度
+
+        var totalHeight = ($(".font_inner li").length * $(".font_inner li").eq(0).height()) -liHeight;
+
+        $(".font_inner").height(totalHeight);//给ul赋值高度
+
+        var index = 0;
+
+        function tab(){
+            $(".font_inner").stop().animate({
+                top: -index * liHeight
+            },400,function(){
+                if(index == $(".font_inner li").length -1) {
+                    $(".font_inner").css({top:0});
+                    index = 0;
+                }
+            })
+        };
+
+        function topword() {
+            index++;
+            if(index > $(".font_inner li").length - 1) {
+                //判断index为最后一个Li时index为0
+                index = 0;
+            }
+            tab();
+        };
+
+        autoTimer = setInterval(topword,3000);
+        $(".font_inner li").hover(function(){
+            clearInterval(autoTimer);
+        },function() {
+            autoTimer = setInterval(topword,3000);
+        });
+    })
+    //人数递减
+    $(".reduce").on("click",function(){
+        var temp = $(this);
+        var number = temp.next(".number").html();
+        number--;
+        if($(this).next(".number").html()=="0"){
+            return false;
+        }else{
+            temp.next(".number").html(number);
+        }
+    })
+    //人数递增
+    $(".add").on("click",function(){
+        var temp = $(this);
+        var number = temp.prev(".number").html();
+        number++;
+        temp.prev(".number").html(number);
+    })
+
+    //行程说明鼠标滑入显示详情
+    $(document).ready(function(){
+        $(".explain .right").mouseover(function(){
+            var p=$(this).find(".show");
+            p.removeClass("height");
+            $(this).find(".none").hide();
+
+            $(this).find(".prompt").removeClass("activ");
+        })
+    })
+    //行程说明鼠标滑出收起详情
+    $(document).ready(function(){
+        $(".explain .right").mouseout(function(){
+            var p=$(this).find(".show");
+            p.addClass("height")
+            $(this).find(".none").show();
+
+            $(this).find(".prompt").addClass("activ");
+        })
+    })
+
+    //费用详情、预定须知切换
+    $(".expense-details .left span").on("click",function(){
+        $(".background .cost").show();
+        $(".background .notice").hide();
+    })
+    $(".expense-details .right span").on("click",function(){
+        $(".background .notice").show();
+        $(".background .cost").hide();
+    })
+    $(".expense-details .tit div span").on("click",function(){
+        $(this).addClass("active").parents("div").siblings("div").find("span").removeClass("active");
+    })
+
+
+
+    //点赞
+    $(".zan i").on("click",function(){
+        $(this).toggleClass("active");
+    })
+
+    $(".expense-details .left span").on("click",function(){
+        $(".left-aside-detail").addClass("active").siblings().removeClass('active');
+    })
+    $(".expense-details .right span").on("click",function(){
+        $(".left-aside-reserve").addClass("active").siblings().removeClass('active');
+    })
+    $(".left-aside .left-aside-reserve").on("click",function(){
+        $(this).addClass("active").siblings().removeClass('active');
+        $(".notice").show();
+        $(".cost").hide();
+        $(".expense-details .right span").addClass("active");
+        $(".expense-details .left span").removeClass("active");
+
+    })
+    $(".left-aside .left-aside-detail").on("click",function(){
+        $(this).addClass("active").siblings().removeClass('active');
+        $(".cost").show();
+        $(".notice").hide();
+        $(".expense-details .left span").addClass("active");
+        $(".expense-details .right span").removeClass("active");
+
+    })
+    window.onload=function (){
+        var h1;
+        var h2;
+        var h3;
+        var h4;
+        var h5;
+        var h6;
+        var h7;
+        $(function(){
+            h1 = 750;  										//行程亮点锚点处
+            h2 = $("#liangdian").height() + 760;      //行程说明锚点处
+            h3 = $("#shuoming").height()+h2;			//费用详情锚点出
+            h4 =  $(".cost").outerHeight(true)+h3+110;			//沿途风光锚点出
+            h5 =  $(".notice").outerHeight(true)+h3+110;		//沿途风光锚点出
+            h6 =  500+h4;									    //隐藏高度
+            h7 =  500+h5;									    //隐藏高度
+
+
+            //浮动定位导航
+            function toTag(g, h) {
+                $(g).click(
+                    function(){
+                        $("html,body").animate({scrollTop: h}, 1000);
+                    }
+                );
+            };
+            toTag('.left-aside .left-aside-problem', h1);
+            toTag('.left-aside .left-aside-explain', h2+1);
+            toTag('.left-aside .left-aside-detail', h3);
+            toTag('.left-aside .left-aside-reserve', h3);
+            $(".left-aside-scenery").on("click",function(){
+                if($(".cost").css("display") == 'block'){
+                    $("html,body").animate({scrollTop: h4}, 1000);
+                }else{
+                    $("html,body").animate({scrollTop: h5}, 1000);
+                }
+            })
+        })
+
+        $(window).scroll( function (){
+            if($(".cost").css("display") == 'block') {
+                if ($(this).scrollTop() > 749 && $(this).scrollTop() < h6 && $(window).width() > 1490 ) {
+                    $('.left-aside').fadeIn();
+                }else{
+                    $('.left-aside').fadeOut();
+                };
+
+                if ($(this).scrollTop() >= h1 && $(this).scrollTop() < h2) {
+                    $('.left-aside-problem').addClass('active').siblings().removeClass('active');
+                }else if($(this).scrollTop() > h2 && $(this).scrollTop() < h3) {
+                    $('.left-aside-explain').addClass('active').siblings().removeClass('active');
+                }else if ($(this).scrollTop() >= h3 && $(this).scrollTop() < h4 && $(".cost").css("display") == 'block') {
+                    $('.left-aside-detail').addClass('active').siblings().removeClass('active');
+                }else if ($(this).scrollTop() >= h3 && $(this).scrollTop() < h5 && $(".notice").css("display") == 'block') {
+                    $('.left-aside-reserve').addClass('active').siblings().removeClass('active');
+                } else if ($(this).scrollTop() >= h3 && $(this).scrollTop() < h5 && $(".cost").css("display") == 'block'){
+                    $('.left-aside-scenery').addClass('active').siblings().removeClass('active');
+                }
+            }else{
+                if ($(this).scrollTop() > 749 && $(this).scrollTop() < h7 && $(window).width() > 1490) {
+                    $('.left-aside').fadeIn();
+                }else{
+                    $('.left-aside').fadeOut();
+                };
+
+                if ($(this).scrollTop() >= h1 && $(this).scrollTop() < h2) {
+                    $('.left-aside-problem').addClass('active').siblings().removeClass('active');
+                }else if($(this).scrollTop() > h2 && $(this).scrollTop() < h3) {
+                    $('.left-aside-explain').addClass('active').siblings().removeClass('active');
+                }else if ($(this).scrollTop() >= h3 && $(this).scrollTop() < h4 && $(".cost").css("display") == 'block') {
+                    $('.left-aside-detail').addClass('active').siblings().removeClass('active');
+                }else if ($(this).scrollTop() >= h3 && $(this).scrollTop() < h5 && $(".notice").css("display") == 'block') {
+                    $('.left-aside-reserve').addClass('active').siblings().removeClass('active');
+                }else if ($(this).scrollTop() >= h5 && $(this).scrollTop() < h7 && $(".notice").css("display") == 'block') {
+                    $('.left-aside-scenery').addClass('active').siblings().removeClass('active');
+                }
+            }
+
+        });
+	}
+
+
+
+
+
+
+    /* 配置选项 */
+    var options = {
+        width: 1000, // 宽度
+        height: 625, // 高度
+        gridCol: 10, // 网格列数
+        gridRow: 5, // 网格行数
+        gridVertical: 20, // 栅格列数
+        gridHorizontal: 10, // 栅格行数
+        autoPlay: true, // 自动播放
+        ascending: true, // 图片按照升序播放
+//        effects: [ // 使用的转场动画效果
+//            'fade', 'fadeLeft', 'fadeRight', 'fadeTop', 'fadeBottom', 'fadeTopLeft', 'fadeBottomRight',
+//            'blindsLeft', 'blindsRight', 'blindsTop', 'blindsBottom', 'blindsTopLeft', 'blindsBottomRight',
+//            'curtainLeft', 'curtainRight', 'interlaceLeft', 'interlaceRight', 'mosaic', 'bomb', 'fumes'
+//        ],
+        ie6Tidy: false, // IE6下精简效果
+        random: false, // 随机使用转场动画效果
+        duration: 3000, // 图片停留时长（毫秒）
+        speed: 900, // 转场效果时长（毫秒）
+    };
+    /* 创建轮播效果 */
+    $('#slider').vmcSlider(options);
+
+
+//    //垂直居中
+//
+//    function margintop(){
+//        $("#center-top").on("load",function(){
+//            var imgh = $(this).height();
+//            var top = parseInt((625-imgh))/2;
+//            alert(top)
+//            if(top<200){
+//                $(this).css("margin-top",top+"px");
+//            }
+//        });
+//    }
+//    // 初始化回调函数
+//    $('#slider').vmcSlider({
+//        flip: margintop(),
+//    });
+//    // 绑定vmcsliderflip事件
+//    $('#slider').on('vmcsliderflip', margintop());
+//
+//    // 初始化回调函数
+//    $('#slider').vmcSlider({
+//        create: margintop(),
+//    });
+//    // 绑定vmcslidercreate事件
+//    $('#slider').on('vmcslidercreate', margintop());
+
+
+	// 立即预定
+	$('.book_order_now').click(function(){		
+		var batchId = $('#select_batch').val();		
+		if (batchId == '0') {
+			alert('请选择出行的日期');			
+			return false;			
+		}
+		
+		var male = 0;
+		if ($('.man').find('.number').length > 0) {
+			male = parseInt($('.man').find('.number').html());
+		}
+		var woman = 0;
+		if ($('.woman').find('.number').length > 0) {
+			woman = parseInt($('.woman').find('.number').html());
+		}
+		var child = 0;
+		if ($('.children').find('.number').length > 0) {
+			child = parseInt($('.children').find('.number').html());
+		}				
+		if ((male + woman + child) == 0) {
+			alert('出行的总人数不能小于1人');			
+			return false;			
+		}
+		
+		location.href = '{:U("line/order")}/type/create/id/{$line.id}/b/'+batchId+'/m/'+male+'/w/'+woman+'/ch/'+child;
+	});
+
+
+</script>
+
+<include file="Common/right" />
+<include file="Common/bottom" />
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $('.search-header input').unbind();
+	    // 搜索栏
+        //搜索栏
+        $('.search-header input').focus(
+            function () {
+                $(this).parent().animate({width: '240px'}, 1000);
+                $(this).parent().animate({marginRight: '17px'}, 1000);
+            }
+        );
+        $('.search-header input').blur(
+            function () {
+                $(this).parent().animate({width: '220px'}, 1000);
+                $(this).parent().animate({marginRight: '17px'}, 1000);
+            }
+        );
+	});
+</script>

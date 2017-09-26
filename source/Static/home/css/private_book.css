@@ -1,0 +1,136 @@
+/*公共部分*/
+* { margin: 0; padding: 0; }
+body { min-width: 1200px; background-color: #fff; font-family: "微软雅黑"; font-size: 16px; }
+a { color: #000; text-decoration: none; }
+a:hover { text-decoration: none; }
+textarea { resize:none; border: 1px solid #999; }
+li { list-style: none; }
+/*头部*/
+
+#header { width: 100%; height: 70px; position: absolute; top: 0; left: 0; z-index: 99; background: rgba(0,0,0,0.65);}
+#nav { width: 1200px; height: 70px; margin: 0 auto; overflow: hidden; line-height: 70px;}
+#nav img { vertical-align: middle; }
+.nav-left { display: inline-block; }
+.nav-left-a { display: inline-block; }
+.nav-left-a a { margin-left: 40px; color: #fff; font-size: 16px;}
+.nav-right { float: right; margin-right: 30px; color: #fff;}
+.nav-right a{color: #fff;}
+.dingzhi { margin-right: 15px; margin-left: 50px; }
+.btn-warning { background: #f90; border: none; color: #fff; padding:6px 12px; border-radius: 5px; }
+.btn-warning:hover { background: #f60; }
+
+/*主体*/
+#section { width: 100%; position: relative; overflow: hidden; }
+.swiper-container { width: 100%; }
+.swiper-slide { width: 100%; text-align: center; font-size: 18px; background: #fff; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center; }
+.swiper-slide img { width: 100%; height: 700px; }
+
+
+.gerenxinxi { position: absolute; top: 95px; left: 25%; width: 350px; height: 450px; background-color: rgba(0,0,0,.5); z-index: 9; }
+.tianxiexinxi { width: 280px; margin: 0 auto; margin-top: 28px; overflow: hidden; }
+.tianxiexinxi img { float: right; }
+.tianxiexinxi p { color: #fff; font-size: 18px; margin-top: 5px; margin-bottom: 5px; }
+.tianxiexinxi input { width: 100%; padding: 5px;height:17px; }
+.tianxiexinxi select { width: 92px; font-size: 14px; padding: 5px; }
+.tianxiexinxi .first-p { margin-top: 40px; }
+.xuqiu { display: block; margin: 0 auto; margin-top: 30px; width: 150px; text-align: center; padding: 8px 12px; line-height: 20px; }
+.wenzixinxi { position: absolute; top: 228px; right: 23%; z-index: 9; color: #fff; }
+.wenzixinxi h1 { font-size: 36px; }
+.wenzixinxi p { font-size: 16px; line-height: 30px; }
+
+
+.neirong { width: 100%; margin: 0 auto; text-align: center;}
+.neirong01 { margin-top: 50px; }
+.neirong01 h1 { font-size: 36px; }
+.neirong01 img { margin-bottom: 28px; }
+.neirong01 p { margin-bottom: 10px; font-size: 1em; color: #646464; }
+.mytrip { display: block; width: 120px; margin: 0 auto; margin-top: 30px; color: #f90; padding: 10px; border: 1px solid #f90; border-radius: 20px; -moz-border-radius: 20px; -webkit-border-radius: 20px; }
+.mytrip:hover { background-color: #f90; color: #fff; border-color: #f60; }
+.neirong02 { position: relative; width: 1200px; overflow: hidden; margin: 0 auto; margin-top: 50px; }
+.neirong02-left { float: left; margin-left: 15px; }
+.neirong02-left .xizangwenzi { position: absolute; z-index: 9; top: 0; left: 15px; display: none; }
+.neirong02-right { float: right; margin-right: 15px; }
+.neirong02-right-top { margin-bottom: 26px; }
+.neirong02-right-top .xinjiang { margin-left: 30px; }
+.neirong02-right .yunnanwenzi { position: absolute; z-index: 9; top: 0px; right: 319px; display: none; }
+.neirong02-right .xinjiangwenzi { position: absolute; z-index: 9; top: 0px; right: 15px; display: none; }
+.neirong02-right .sichuanwenzi { position: absolute; z-index: 9; top: 300px; right: 15px; display: none; }
+.neirong-bottom { position: relative; width: 100%; margin-top: 50px; text-align: center; overflow: hidden; }
+.wenzi01 { position: absolute; top: 155px; left: 50%; margin-left: -385px; z-index: 9; }
+.neirong-bottom01 { text-align: center; }
+.neirong-bottom-main { position: absolute; top: 156px; left: 50%; width: 800px; margin-left: -400px; color: #fff; }
+.neirong-bottom-main img { margin-bottom: 28px; }
+.neirong-bottom-main p { font-size: 1em; margin-bottom: 10px; }
+.mytrip01 { position: absolute; z-index: 9; top: 400px; left: 50%; margin-left: -60px; }
+.neirong-bottom02 { padding-top: 50px; padding-bottom: 55px; background-color: #f7f2f2; overflow: hidden; }
+.neirong-bottom02 h1 { font-size: 36px; }
+.neirong-bottom02 > img { margin: 28px auto 80px auto; }
+.neirong-bottom02 ul { width: 1200px; margin: 0 auto; }
+.neirong-bottom02 ul li { float: left; width: 299px; text-align: center; border-right: 1px dotted #646464; }
+.neirong-bottom02 ul li:last-child { border: none; }
+.neirong-bottom02 ul li h1 { font-size: 26px; margin-top: 25px; margin-bottom: 15px; }
+.neirong-bottom02 ul li p { font-size: 1em; margin-bottom: 10px; }
+.neirong-bottom03 { margin-top: 80px; margin-bottom: 30px; text-align: center; }
+.neirong-bottom03 h1 { font-size: 36px; margin-top: 40px; margin-bottom: 28px; }
+.neirong-bottom03 p { font-size: 1em; }
+
+
+/*侧边栏*/
+#aside { position: fixed; top: 80%; right: 200px;}
+.aside-phone > img , .aside-weixin > img , .aside-up >img { padding: 5px; border: 1px solid #272636; border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%; margin-top: 5px; background: rgba(255,255,255,.2); }
+.aside-phone-show , .aside-weixin-show { position: absolute; z-index: 90; top: 10px; left: -130px; padding: 10px; background-color: #fff; color: #000; border: 1px solid #f90; display: none; }
+.aside-weixin-show { top: 70px; }
+.aside-show:after , .aside-show:before { border: solid transparent; content: ' '; height: 0; left: 100%; position: absolute; width: 0; }
+.aside-show:after { border-width: 9px; border-left-color: #fff; top: 11px; }
+.aside-show:before { border-width: 11px; border-left-color: #f90; top: 9px; }
+.aside-up { display: none; }
+
+/*底部*/
+#footer { width: 100%; height: 130px; background-color: #222; text-align: center; }
+.footer-top { color: #fff; padding-top: 30px; padding-bottom: 10px; }
+.footer-top a { color: #fff; }
+#footer p { color: #fff; font-size: 12px; }
+
+/*模态框*/
+.mark { position: fixed; display: none; z-index: 99; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.5); }
+.my-small-modal { position: fixed; top: -300%; right: 50%; width: 500px; height: 420px; margin-right: -250px; margin-top: -310px; z-index: 999; background-color: #eee; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+.small-ziliao { text-align: center; }
+.small-tianxie { margin: 0 60px; text-align: left; }
+.small-tianxie i { color: #f90; vertical-align: middle; }
+.small-tianxie span { display: inline-block; width: 80px; margin: 10px 10px 10px 30px; }
+.small-tianxie input { width: 220px; padding: 7px 10px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border: none; outline: none; }
+.small-dingzhi { display: block; width: 180px; margin: 0 auto; margin-top: 20px; }
+.small-close , .large-close { position: absolute; right: 10px; top: 10px; border: 1px solid #fff; border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%; background: rgba(0,0,0,.5); transition:all 0.5s linear; transform:rotate(0deg); }
+.small-close:hover , .large-close:hover { background-color: #f90; cursor: pointer; transform:rotate(-360deg); }
+
+.modal-large { position: fixed; top: -300%; right: 50%; width: 820px; height: 680px; margin-right: -410px; margin-top: -340px; z-index: 999; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; overflow: hidden; }
+.modal-large-left { float: left; width: 484px; height: 100%; background: #fff; }
+.modal-large-right { float: left; width: 336px; height: 100%; background: #eee; }
+.modal-large-left a { display: inline-block; width: 180px; height: 40px; line-height: 40px; font-size: 18px; text-align: center; color: #fff; margin-top: 10px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+.modal-large-left .chongtian { background: #dcdcdc; margin-left: 45px; margin-right: 30px; }
+.modal-large-left .chongtian:hover { background: #999; }
+.modal-large-left .tijiao { background: #f90; }
+.modal-large-left .tijiao:hover { background: #f60; }
+.modal-large-left h2 { height: 52px; line-height: 52px; width: 100%; padding-left: 40px; background: #fff5e6; font-weight: 500; font-size: 18px; }
+.modal-large-left-container { margin: 0 45px; }
+.modal-large-left-container i { color: #f90; vertical-align: middle; }
+.modal-large-left-container i.bai{ color:#fff;}
+.modal-large-left-container span { display: inline-block; width: 100px; margin: 15px 10px 15px 30px; }
+.modal-large-left-container input { width: 200px; padding: 7px 10px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border: 1px solid #999; outline: none; }
+.modal-large-left-container select { width: 222px; padding: 7px 10px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border: 1px solid #999; outline: none; }
+.modal-large-left-container option { font-size: 14px; }
+.modal-large-left-container .special { width: 140px; }
+#special { margin-left: 35px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; width: 346px; height: 75px; padding: 5px; }
+
+.modal-large-right h2 { height: 52px; line-height: 52px; width: 100%; padding-left: 40px; font-weight: 500; font-size: 18px; }
+.modal-large-right span { display: inline-block; width: 100px; height: 40px; line-height: 40px; text-align: right; vertical-align: top; margin-left: 20px; margin-right: 10px; margin-top: 2px; }
+.modal-large-right p { display: inline-block; background: #fff; padding: 7px; width: 165px; height: 20px; line-height: 20px; margin-top: 5px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; overflow: hidden; }
+.modal-large-right textarea { display: inline-block; background: #fff; padding: 5px; width: 165px; border-color: #fff; margin-top: 5px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+
+
+/*提交成功*/
+.success { position: fixed; display: none; text-align: center; top: 50%; right: 50%; width: 500px; height: 270px; margin-right: -250px; margin-top: -310px; z-index: 999; background-color: #fff; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+.success-close { position: absolute; right: 10px; top: 10px; border: 1px solid #fff; border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%; background: rgba(0,0,0,.5); transition:all 0.5s linear; transform:rotate(0deg); }
+.success-close:hover { background-color: #f90; cursor: pointer; transform:rotate(-360deg); }
+.success h2 { margin-top: 30px; margin-bottom: 20px; }
+.success p { margin-top: 20px; margin-bottom: 10px; }

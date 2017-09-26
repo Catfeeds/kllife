@@ -1,0 +1,40 @@
+<include file="common/top" />
+<div class="page">
+	<!-- mycss -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/images.css">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="{:U('line/article')}">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">{$article.short_title}</h1>
+		</header>
+		<include file="common/footer" />
+		<div class="content">
+			<notempty name="article.face_image">
+				<div class="images-top">
+					<img src="{$article.face_image}" alt="">
+				</div>
+			</notempty>
+			
+			<div class="images-content">
+				<div class="content-padded">
+					<h4><img src="__PUBLIC__/phone/images/index/images.png" alt="">{$article.title}</h4>
+					<volist id="cnt" name="article['content']">
+						<if condition="empty($cnt['image_url']) eq false">
+							<img src="{$cnt.image_url}" alt="">
+						<else />
+							<p>{$cnt.content}</p>
+						</if>
+					</volist>
+				</div>
+				
+			</div>
+		
+		</div>
+		
+		
+		
+<include file="common/js" />
+<include file="common/swt" />
+</body>
+</html>

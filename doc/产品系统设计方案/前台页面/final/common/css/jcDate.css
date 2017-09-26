@@ -1,0 +1,40 @@
+
+.clear { clear:both; height:0; visibility:hidden; }
+
+.jcDateIco { background:#fff; }
+input.jcDate { cursor:pointer; }
+#jcDate { background:#fefefe; width:616px; height:412px; position:absolute; z-index:1000; color:#333; font-size:0; overflow:hidden; }
+#jcDateTt { height:36px; line-height:36px; position:relative; }
+#jcDateTt a { color:#333; display:block; position:absolute; top:9px; width:17px; height:16px; cursor:pointer; }
+#jcDateTt a#d_prev { background-image:url(../../private/images/content_img/content.png); left:20px; background-position: -302px -26px; }
+#jcDateTt a#d_next { background-image:url(../../private/images/content_img/content.png); background-position: -224px 0; right:20px; }
+#jcDateTt a#d_prev:hover { background-position: -302px 0; }
+#jcDateTt a#d_next:hover { background-position: -328px 0; }
+#jcDateTt div { position:absolute; top:0; left:45px; right:45px; bottom:0px; color:#333; font-size:14px; font-weight:bold; text-align:center; }
+#jcDateTt div samp,#jcDateTt div span { margin:0 5px; color:#333; font-size:14px; font-weight:bold; }
+
+#jcDateMax { width:7416px; height:340px; position:relative; left: 0px; top:0;}
+#jcDateMax ul { width: 618px; height: 340px; font-size:0; float:left; display:inline-black; }
+
+#jcYeas,#jcMonth { display:none; overflow:hidden; padding-left:2px; margin-bottom:10px; }
+#jcYeas dt,#jcYeas dd { font-weight:bold; width:53px; height:30px; float:left; text-align:center; line-height:30px; cursor:pointer; }
+#jcYeas dt:hover,#jcYeas dd:hover,#jcMonth dt:hover,#jcMonth dd:hover { background:#5aaad8; color:#fff; }
+#jcYeas dt.visited,#jcYeas dd.visited,#jcMonth dt.visited,#jcMonth dd.visited { background:#2b84b5; }
+#jcMonth dt { font-weight:bold; width:53px; height:25px; float:left; text-align:center; line-height:25px; cursor:pointer; margin:10px 0; color: #000; font-size: 14px; }
+#jcDayWrap ul li,
+#jcDayCon dt { float:left; width:77px; height: 43px; display:inline; }
+#jcDayCon dt { width:88px; height: 36px; line-height: 36px; text-align:center; color: #fff; background-color: #999; }
+#jcDayCon dt:first-child { background-color: #ff7200; }
+#jcDayCon dt:last-child { background-color: #ff7200; }
+#jcDayWrap ul li { font-size: 14px; color:#bbb; border-right: 1px solid #dcdcdc; border-top: 1px solid #dcdcdc; padding-top: 13px; padding-left: 10px; }
+#jcDayCon dt { color:#fff; font-size:13px; }
+#jcDayWrap ul li.jcDateColor { position: relative; color:#555; }
+#jcDateMax { clear:both; }
+#jcDateBtn { clear:both; line-height:19px; height:19px; padding-top:10px; overflow:hidden; }
+#jcTimeWrap { float:right; width:54px; border:1px solid #999; border-left:1px solid #555; border-top:1px solid #555; height:17px; overflow:hidden; display:none; }
+#jcDateBtn label { width:6px; line-height:18px; height:17px; display:block; float:left; text-align:center; color:#333; }
+#jcDateBtn input { line-height:17px; height:17px; text-align:center; float:left; width:24px; border:0; }
+#jcDateBtn samp,#jcDateBtn span { float:left; margin-right:10px; cursor:pointer; }
+#jcDateBtn a#d_sub { width:37px; float:right; display:block; line-height:18px; height:17px; text-align:right; cursor:pointer; }
+#jcDateBtn a#d_sub:hover { text-decoration:none;  font-weight:bold; }
+/**************************************** jQuery jcdate - End ****************************************************/

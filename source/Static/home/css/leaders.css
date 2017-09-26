@@ -1,0 +1,31 @@
+header { position: relative; }
+#content { width: 1200px; margin: 0 auto; font-size: 14px;  }
+.bread-nav { padding-top: 30px; padding-bottom: 15px; color: #999; }
+.bread-nav a { color: #999; }
+.bread-nav .bread-final { color: #000; }
+/*领队列表*/
+.leaders-list-contet { width: 100%; margin-bottom: 30px; overflow: hidden; }
+	
+.leaders-list { margin-top: 26px; overflow: hidden; }
+.leaders-list ul li { position: relative; float: left; width: 188px; height: 334px; background: #9e5406; overflow: hidden; }
+.leaders-list ul li + li { margin-left: 14px; }
+.leaders-list ul li a { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 9; }
+.leaders-list ul li img { width: 100%; height: 280px; opacity: 0.8; -ms-transition: opacity 0.5s; -moz-transition: opacity 0.5s; -o-transition: opacity 0.5s; -webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s; }
+.leaders-list ul li:hover img { opacity: 0.4; }
+.leaders-list h6 { padding: 16px 0 24px 0; font-weight: normal; font-size: 14px; text-align: center; background-color: #fff; color: #000; }
+.leaders-describe { position: absolute; top: 0; left: 0; width: 100%; height: 280px; }
+.leaders-describe::before , .leaders-describe::after { position: absolute; top: 30px; right: 30px; bottom: 30px; left: 30px; content: ''; opacity: 0; -ms-transition: opacity 0.5s, -ms-transform 0.5s; -moz-transition: opacity 0.5s, -moz-transform 0.5s; -o-transition: opacity 0.5s, -o-transform 0.5s; -webkit-transition: opacity 0.5s, -webkit-transform 0.5s; transition: opacity 0.5s, transform 0.5s; }
+.leaders-describe::before { border-top: 1px solid #fff; border-bottom: 1px solid #fff; -ms-transform: scale(0,1); -moz-transform: scale(0,1); -o-transform: scale(0,1); -webkit-transform: scale(0,1); transform: scale(0,1); }
+.leaders-describe::after { border-right: 1px solid #fff; border-left: 1px solid #fff; -ms-transform: scale(1,0); -moz-transform: scale(1,0); -o-transform: scale(1,0); -webkit-transform: scale(1,0); transform: scale(1,0); }
+.leaders-describe p { text-align: center; padding: 40px 35px; line-height: 1.5; opacity: 0; -ms-transition: opacity 0.5s, -ms-transform 0.5s; -moz-transition: opacity 0.5s, -moz-transform 0.5s; -o-transition: opacity 0.5s, -o-transform 0.5s; -webkit-transition: opacity 0.5s, -webkit-transform 0.5s; transition: opacity 0.5s, transform 0.5s; -ms-transform: translate3d(0,20px,0); -moz-transform: translate3d(0,20px,0); -o-transform: translate3d(0,20px,0); -webkit-transform: translate3d(0,20px,0); transform: translate3d(0,20px,0); color: #fff; }
+.leaders-list ul li:hover .leaders-describe::before , .leaders-list ul li:hover .leaders-describe::after { opacity: 1; -ms-transform: scale(1); -moz-transform: scale(1); -o-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); }
+.leaders-list ul li:hover p { opacity: 1; -ms-transform: translate3d(0,0,0); -moz-transform: translate3d(0,0,0); -o-transform: translate3d(0,0,0); -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
+
+
+	
+
+    
+
+
+

@@ -1,0 +1,376 @@
+<include file="common/top" />
+	<!-- mycss -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/user_login.css">
+	<include file="common/js" />
+	<style>
+.stage{position:relative;padding: 0 15px;height:55px;}
+.slider{position:absolute; width: 200px; height:32px;box-shadow:0 0 3px #999;background-color:#ddd;left:6px;top:-17px;}
+.slider-text {
+    background: -webkit-gradient(linear, left top, right top, color-stop(0, #4d4d4d), color-stop(.4, #4d4d4d), color-stop(.5, white), color-stop(.6, #4d4d4d), color-stop(1, #4d4d4d));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: slidetounlock 3s infinite;
+    -webkit-text-size-adjust: none;
+    line-height: 32px;
+    height: 32px;
+    text-align: center;
+    font-size: 16px;
+    width: 200px;
+    color: #aaa;
+}
+@keyframes slidetounlock
+{
+    0%     {background-position:-200px 0;}
+    100%   {background-position:200px 0;}
+}
+@-webkit-keyframes slidetounlock
+{
+    0%     {background-position:-200px 0;}
+    100%   {background-position:200px 0;}
+}
+.button-off{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    transition: left 0s;
+    -webkit-transition: left 0s;
+}
+.button-on{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    transition: left 1s;
+    -webkit-transition: left .5s;
+}
+.track{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    overflow: hidden;
+    transition: width 0s;
+    -webkit-transition: width 0s;
+    z-index: 10;
+}
+.track-on{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    overflow: hidden;
+    transition: width 1s;
+    -webkit-transition: width .5s;
+}
+.icon-move  {
+    width: 32px;
+    height: 32px;
+    position: relative;
+    top:1px;
+    left:0;
+    font-family: sans-serif;
+}
+.icon-move:before{
+    content:'>>';
+    color:#ccc;
+    line-height:32px;
+}
+.spinner {
+    width: 20px;
+    height: 20px;	
+	background: url('__PUBLIC__/phone/images/order_create/code_ok.png') no-repeat;
+    position: relative;
+    top:6px;
+    left:6px;
+    background-size: 100% 100%;
+    display: none;
+}
+
+@-webkit-keyframes bouncedelay {
+    0%, 80%, 100% { -webkit-transform: scale(0.0) }
+    40% { -webkit-transform: scale(1.0) }
+}
+@keyframes bouncedelay {
+    0%, 80%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    } 40% {
+          transform: scale(1.0);
+          -webkit-transform: scale(1.0);
+      }
+}
+.bg-green {
+    line-height: 32px;
+    height: 32px;
+    text-align: center;
+    font-size: 16px;
+    background-color: #78c430;
+}
+.bg-red{background-color: rgb(255, 223, 223) !important;}
+</style>
+	<div class="page page-current" id="router">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">第三方登录绑定领袖户外账号</h1>
+		</header>
+		<include file="common/footer" />
+		<div class="content">
+			<input type="hidden" name="logintype" id="logintype" value="{$type}" />
+			<input type="hidden" name="openid" id="openid" value="{$openid}" />
+			<div class="login-header">
+				<div class="login-header-img">
+					<img src="__PUBLIC__/phone/images/user_login/myhead.png" alt="">				    
+				</div>
+				<div class="buttons-tab set-bind">
+					<a href="" id="tab-bot-1" class="tab-link active button">查找帐号</a>
+					<a href="" id="tab-bot-2" class="tab-link button">绑定帐号</a>
+				</div>
+				
+				<div class="buttons-tab set-password" style="display: none;">
+					<a href="" class="tab-link active button">设置密码</a>
+				</div>
+				
+				<div class="tabs">
+					<div id="tab1" class="tab active">
+						
+						<p class="arrow-up"></p>
+						
+						<div class="list-block">
+							<div class="item-content">
+								<div class="item-inner">
+									<div class="item-input">
+							  			<input type="text" class="search-account" placeholder="请输入帐号的手机号码/邮箱/用户名">
+									</div>
+								</div>
+				           </div>
+				       	</div>				        
+				        
+						<div class="login-btn">							
+							<a class="search-account-btn" href="javascript:;">查找</a>
+						</div>
+						<div class="register-btn">
+							<a class="creat-account" href="javascript:;">没有帐号？跳过，创建>></a>
+						</div>
+						
+					</div>
+					<div id="tab2" class="tab">
+						
+						<p class="arrow-up"></p>
+						
+						<div class="list-block">
+							<div class="item-content">
+								<div class="item-inner">
+									<div class="item-input">
+							  			<input type="checkbox" class="is_bind">
+										<p class="show_name"></p>
+										<input type="hidden" name="userid" id="userid" value="" />
+									</div>
+								</div>
+				           </div>
+				       	</div>
+				       	
+				       	<div class="login-btn" id="bind-account-box">							
+							<a class="bind-account" href="javascript:;">绑定并登录</a>							
+						</div>
+						<div class="login-btn" id="creat-account-box">							
+							<a class="creat-account" href="javascript:;">跳过，创建新账号并登录</a>							
+						</div>
+						<div class="register-btn">
+							<a class="return-search" href="javascript:;"><<返回上一步</a>
+						</div>
+						
+					</div>
+					
+					<div id="tab3" class="tab">
+						
+			            <div class="list-block">
+							<div class="item-content">
+								<div class="item-inner">
+									<div class="item-input">
+							  			<input type="text" class="nick_name" placeholder="一个个性的昵称">
+									</div>
+								</div>
+				           </div>
+				       	</div>
+				       	<div class="list-block">
+							<div class="item-content">
+								<div class="item-inner">
+									<div class="item-input">
+							  			<input type="password" class="login_password" placeholder="一个安全的密码">
+									</div>
+								</div>
+				           </div>
+				       	</div>	
+						
+						<div class="list-block">
+							<div class="item-content">
+								<div class="item-inner">
+									<div class="item-input">
+							  			<input type="password" class="confirm_password" placeholder="安全的密码一定要输入两遍">
+									</div>
+								</div>
+				           </div>
+				       	</div>	
+			
+			            
+			            <div class="login-btn">							
+							<a class="creat-account-btn" href="javascript:;">创建并登录</a>
+						</div>
+						
+						
+					</div>
+					
+					<div class="login-btn">							
+						<a class="bind-return" href="javascript:;">返回账号登录>></a>
+					</div>
+			    </div>
+
+			</div>
+		</div>
+	</div>
+
+	<script src="__PUBLIC__/common/js/verify.js" > </script>
+	<script type="text/javascript">
+		//跳转到帐号登录
+		$('.bind-return').click(function(){
+			location.href = '{:U("user/login")}';
+		});
+		
+		//查找帐号
+		$('.search-account-btn').click(function(){
+			$('#userid').val('');
+			var jsonData = {
+				account: $('.search-account').val(),
+			};
+			$.post('{:U("thirdLogin/findUser")}', jsonData, function(data){
+				$('#tab1').removeClass('active');
+				$('#tab-bot-1').removeClass('active');
+				$('#tab2').addClass('active');
+				$('#tab-bot-2').addClass('active');
+				if(data.result.errno == 0){
+					$('.is_bind').attr("checked", true);
+					$('.show_name').html(data.user.show_name);
+					$('#userid').val(data.user.id);
+					$('#creat-account-box').css('display', 'none');
+					$('#bind-account-box').css('display', 'block');
+				}else{
+					$('.is_bind').css("display", 'none');
+					$('.show_name').html('未找到相关信息');
+					$('#creat-account-box').css('display', 'block');
+					$('#bind-account-box').css('display', 'none');
+				}
+			});
+		});
+		
+		//绑定帐号登录
+		$('.bind-account').click(function(){
+			if($('#openid').val() == ''){				
+				alert('授权信息有误，请重试！');
+				return false;
+			}
+			if($('.is_bind').is(':checked') == true){
+				var jsonData = {
+					op_type: 'bind',
+					userid: $('#userid').val(),
+					logintype: $('#logintype').val(),
+					openid: $('#openid').val(),
+				};
+			}			
+			$.post('{:U("thirdLogin/bindAccount")}', jsonData, function(data){
+				if(data.result.errno == 0){
+					location.href = 'http://kllife.com';
+				}else{
+					alert(data.result.message);
+				}
+			});
+			
+		});
+		
+		//创建帐号登录
+		$('.creat-account-btn').click(function(){
+			login_password = $('.login_password').val();
+			confirm_password = $('.confirm_password').val();
+			
+			if(login_password == ''){
+				$('.login_password').addClass('bg-red');
+				return false;
+			}
+			
+			if(confirm_password == ''){
+				$('.confirm_password').addClass('bg-red');
+				return false;
+			}
+			
+			if(login_password != confirm_password){
+				$('.confirm_password').addClass('bg-red');
+				return false;
+			}
+			
+			var jsonData = {
+				op_type: 'creat',
+				logintype: $('#logintype').val(),
+				openid: $('#openid').val(),
+				nickname: $('.nick_name').val(),
+				password: $('.login_password').val(),
+			};
+			
+			$.post('{:U("thirdLogin/bindAccount")}', jsonData, function(data){
+				if(data.result.errno == 0){
+					location.href = 'http://kllife.com';
+				}else{
+					alert(data.result.message);
+				}
+			});
+			
+		});
+		
+		//复选框事件
+		$('.is_bind').click(function(){
+			if($(this).is(':checked') == true){				
+				$('#creat-account-box').css('display', 'none');
+				$('#bind-account-box').css('display', 'block');
+			}else{				
+				$('#creat-account-box').css('display', 'block');
+				$('#bind-account-box').css('display', 'none');
+			}
+		});
+		
+		//返回上一步
+		$('.return-search').click(function(){
+			$('#tab1').addClass('active');
+			$('#tab-bot-1').addClass('active');
+			$('#tab2').removeClass('active');
+			$('#tab-bot-2').removeClass('active');
+		});
+		
+		//创建帐号登录填写密码
+		$('.creat-account').click(function(){
+			$('#tab1').removeClass('active');
+			$('#tab2').removeClass('active');
+			$('.set-bind').css('display', 'none');
+			$('.set-password').css('display', 'block');
+			$('#tab3').addClass('active');
+		});
+		
+		//改变时清楚出错格式
+		$('.login_password').keyup(function(){
+			$(this).removeClass('bg-red');
+		});
+		$('.confirm_password').keyup(function(){
+			$(this).removeClass('bg-red');
+		});
+	</script>
+
+	
+<include file="common/swt" />
+</body>
+</html>

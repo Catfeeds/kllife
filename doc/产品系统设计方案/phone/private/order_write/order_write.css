@@ -1,0 +1,46 @@
+.order-write-information { padding: .5rem; background-color: #fff; }
+.order-write-information h4 { margin-top: .5rem; margin-bottom: .8rem; font-size: 0.75rem; font-weight: normal; }
+.order-write-information .list-block { margin: 0; color: #666; }
+.order-write-information .list-block .item-title.label { width: 24%; }
+.order-write-information .list-block .item-inner { min-height: 0; padding-bottom: 0; padding-right: 0; border-bottom: none; }
+.order-write-information .list-block .item-content { min-height: 0; padding-left: 0; font-size: 0.7rem; }
+.order-write-information .list-block .item-input input { height: 1.5rem; border: 1px solid #dcdcdc; font-size: .7rem; }
+.order-write-information .list-block .item-input p { font-size: .6rem; color: #3ea003; }
+.picker-items { font-size: .7rem; }
+
+.change-people-num { display: inline-block; height: 1.45rem; line-height: 1.45rem; margin-top: .5rem; border: 1px solid #dcdcdc; }
+.change-people-num span { display: inline-block; width: 1.4rem; text-align: center; color: #ff7200; }
+.change-people-num a { display: inline-block; width: 1.2rem; height: 100%; text-align: center; color: #666; }
+.change-people-num a:first-child { border-right: 1px solid #dcdcdc; }
+.change-people-num a:last-child { border-left: 1px solid #dcdcdc; }
+
+/*联系人信息*/
+.contact-information { padding-bottom: 1rem; background-color: #fff; }
+.contact-information h5 { margin: 0; margin-top: .5rem; padding: .5rem .5rem; font-size: 0.75rem; border-bottom: 1px solid #dcdcdc; }
+.contact-information h5 img { width: .15rem; height: .85rem; max-width: 100%; margin-right: .3rem; vertical-align: sub; }
+.contact-information .list-block { margin: 0; font-size: 0.7rem; }
+.contact-information .list-block .item-input { position: relative; }
+.contact-information .list-block input { font-size: 0.7rem; }
+.contact-information .list-block .item-title.label { width: 25%; text-align: right; }
+.contact-information .list-block .get-code { position: absolute; top: .45rem; right: -.5rem; background-color: #ff7200; color: #fff; border: none; border-radius: 15px; }
+
+/*旅客信息*/
+.passenger-information { background-color: #fff; }
+.passenger-information h5 { margin: 0; margin-top: .5rem; padding: .5rem .5rem; font-size: 0.75rem; border-bottom: 1px solid #dcdcdc; }
+.passenger-information h5 img { width: .15rem; height: .85rem; max-width: 100%; margin-right: .3rem; vertical-align: sub; }
+.passenger-information .list-block { margin: 0; font-size: 0.7rem; }
+.passenger-information .list-block .item-input { position: relative; }
+.passenger-information .list-block input { font-size: 0.7rem; }
+.passenger-information .list-block .item-title.label { width: 25%; text-align: right; }
+.passenger-information .list-block .get-code { position: absolute; top: .45rem; right: -.5rem; background-color: #ff7200; color: #fff; border: none; border-radius: 15px; }
+.passenger-information-list { margin-top: .5rem; } 
+.picker-items-col.picker-items-col-center { width: 100%; }
+
+/*出游人信息*/
+.travel-people-information { font-size: .6rem; }
+.travel-people-information h5 { margin: 0; margin-top: .5rem; padding: .5rem .5rem; font-size: 0.75rem; border-bottom: 1px solid #dcdcdc; font-weight: normal; }
+.travel-people-information .content-padded > p { margin-top: .5rem; color: #ff7200; }
+.travel-people-list { margin-top: .5rem; }
+.travel-people-list p { line-height: 2; }
+.travel-people-list p span { margin-right: 2rem; }
+.travel-people-list img { width: 0.7rem; height: 0.7rem; margin-right: .2rem; vertical-align: sub; }

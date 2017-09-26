@@ -1,0 +1,62 @@
+
+	<!-- 添加数据类型 -->
+	<div class="modal fade" id="gallery-type-data-modal" data-backdrop="static" style="z-index: 9999;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<h4 class="modal-title">数据类型添加</h4>
+				</div>
+				
+				<div class="modal-body">
+					
+					<div class="row">
+						<div class="col-md-12">
+							<label class="control-label" for="modal_data_key">主键<span style="color: red;">（*只能由字母、数字、短线、下划线其中任意类型组合而且不能为空）</span></label>
+							<input class="form-control" name="modal_data_key" id="modal_data_key" data-validate="required"/>
+						</div>						
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<label class="control-label" for="modal_data_desc">键值<span style="color: red;">（*只能由字母、数字、短线、下划线或者汉字其中任意类型组合而且不能为空）</span></label>
+							<input class="form-control" name="modal_data_desc" id="modal_data_desc" data-validate="required"/>
+						</div>						
+					</div>
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-secondary">添加</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">			
+		// 添加类型
+		var modal_type_key = null;
+		$('#gallery-type-data-modal').find('.btn-secondary').click(function(){
+			var jsonData = {
+				'type_key': modal_type_key,
+				'data_key': $('#modal_data_key').val(),
+				'data_desc': $('#modal_data_desc').val(),
+			}
+			$.post('{:U("help/appendtypedata")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					$('#gallery-type-data-modal').modal('hide');
+				} else {
+					alert(data.result.message);
+				}
+			});
+		});
+		
+		// 显示类型数据添加界面
+		function showModalTypeDataDialog(typeKey) {
+			modal_type_key = typeKey;
+			$('#modal_data_key').val('');
+ 			$('#modal_data_desc').val('');
+			$("#gallery-type-data-modal").modal('show');
+		}
+	</script>

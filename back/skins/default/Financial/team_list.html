@@ -1,0 +1,164 @@
+<include file="Common/header" />
+	<style>
+		.dataTables_wrapper .table thead > tr .sorting:before, .dataTables_wrapper .table thead > tr .sorting_asc:before, .dataTables_wrapper .table thead > tr .sorting_desc:before { content: ''; }
+		.create-coupon { position: relative; border: 1px solid #dcdcdc; margin-bottom:20px; padding: 15px; }
+		.create-coupon .row { margin-bottom:20px; }
+		.create-coupon-write .input-group { height: 36px; }
+		.create-coupon-write input { width: 100%; height: 36px; }
+		.input-group-addon { padding: 4px 40px; }
+		.coupon-img { text-align: center; }
+		.coupon-img img { width: 158px; height: 91px; margin: 10px 0; border: 1px solid #dcdcdc; cursor: pointer; }		
+		.btn-save-coupon { position : absolute; width:100px; right: 50px; bottom: 20px; background-color: #ffba00; color: #fff; }
+		.coupon-tbody img { width: 158px; height: 91px; border: 1px solid #dcdcdc; } 
+		.issuing-coupon-search { width: 70%; margin: 20px auto; }
+		
+		.list-page { width: 100%; text-align: right; }
+
+	.list-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+
+	.list-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+
+	.list-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }
+	</style>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> 
+						{:C('CONTENT_TITLE')}
+					</h3>
+				</div>
+				<div class="panel-body row">				
+				<!--在此地编辑内容-->
+					<!--{:p_a($sql)}-->
+					<!--{:p_a($teams)}-->
+					<!--团期列表搜索-->
+					<div class="issuing-coupon">
+						
+						<div class="issuing-coupon-search">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="搜索内容可以是编号、团期编号、线路标题、批次排期、领队、计调姓名等,另外您可以在输入搜索内容后肆无忌惮的敲下回车键进行搜索...祝您查找愉快!!!">
+								<div class="input-group-addon search_input" style="background-color: #68b828; color: #fff; cursor: pointer;">
+									<i style="font-style: normal;">搜索</i>
+								</div>
+							</div>
+						</div>
+						
+						<!--团期列表表格-->
+						<div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+							<table class="table table-bordered table-striped dataTable no-footer" id="table_data" role="grid" aria-describedby="example-2_info">
+								<thead>
+									<tr role="row" class="head">
+										<th class="sorting"	style="width: 50px;">编号</th>
+										<th class="sorting"	style="width: 100px;">团期编号</th>
+										<th class="sorting"	style="width: 150px;">线路批次</th>
+										<th class="sorting"	style="width: 80px;">容纳人数</th>
+										<th class="sorting"	style="width: 130px;">负责领队</th>
+										<th class="sorting"	style="width: 130px;">负责管理员</th>
+										<th class="sorting"	style="width: 130px;">负责地接社</th>
+										<th class="sorting"	style="width: 130px;">投保公司</th>
+										<th class="sorting"	style="width: 80px;">团期余额</th>
+										<th class="sorting"	style="width: 80px;">建团日期</th>
+										<th class="sorting"	style="width: 180px;">操作</th>
+									</tr>
+								</thead>
+							
+								<tbody class="middle-align coupon-tbody">
+									<!--{:p_a($teams)}-->
+									<volist id="t" name="teams">
+										<if condition="$key % 2 == 0">
+											<tr role="row" class="odd" data-id="{$t.id}">
+										<else />
+											<tr role="row" class="even" data-id="{$t.id}">
+										</if>
+											<td>{$t.id}</td>
+											<td>{$t.team_code}</td>
+											<td>{$t.line_data.title}<br>{$t.batch_show_text}</td>
+											<td>{$t.max_member}</td>
+											<td>{$t.leader_show_text}</td>
+											<td>{$t.admin_show_text}</td>
+											<td>{$t.dijie_data.name}</td>
+											<td>{$t.insurance_data.name}</td>
+											<td>{$t.balance}</td>
+											<td>{$t.create_time}</td>
+											<td>
+												<a href="{:U('financial/team')}/op/new/id/{$t.id}" class="btn btn-secondary btn-sm btn-icon icon-left" target="_blank">团期详细</a>
+											</td>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							<div class="list-page"></div>
+						</div>
+
+					</div>		
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="__PUBLIC__/home/js/page.js"></script>	
+<script type="text/javascript">	
+
+	function findTeam(p) {
+		var jsonData = {
+			op_type:'list',
+			page: p-1,
+		}
+		
+		var searchval = $('.issuing-coupon-search').find('input').val();
+		if (searchval != '') {
+			jsonData['cdstype'] = 4;			
+			jsonData['cdsstr'] = 'id|=|'+searchval+'|OR|team_code|LIKE|%'+searchval+'%|OR|line|LIKE|%'+searchval+'%|OR|batch|LIKE|%'+searchval+'%|OR|leader|LIKE|%'+searchval+'%|OR|admin|LIKE|%'+searchval+'%|OR';
+		}
+		
+		$.post('{:U("financial/team")}', jsonData, function(data){
+			var tabObj = $('#table_data');
+			$(tabObj).find('tbody').empty();
+			if (data.ds != null && data.ds != 'undefined') {	
+				for (var i = 0; i < data.ds.length; i ++){
+					var d = data.ds[i];
+					var trClass = i % 2 == 0 ? 'odd' : 'even';
+					
+					var dijieName = d.dijie_data != null && d.dijie_data.name != null ? d.dijie_data.name : '';
+					var insuranceName = d.insurance_data != null && d.insurance_data.name != null ? d.insurance_data.name : '';
+					var vhtml =	'<tr role="row" class="'+trClass+'" data-id="'+d.id+'">'+
+							'	<td>'+d.id+'</td>'+
+							'	<td>'+d.team_code+'</td>'+
+							'	<td>'+d.line_data.title+'<br />'+d.batch_show_text+'</td>'+
+							'	<td>'+d.max_member+'</td>'+
+							'	<td>'+d.leader_show_text+'</td>'+
+							'	<td>'+d.admin_show_text+'</td>'+
+							'	<td>'+dijieName+'</td>'+
+							'	<td>'+insuranceName+'</td>'+
+							'	<td>'+d.balance+'</td>'+
+							'	<td>'+d.create_time+'</td>'+
+							'	<td>'+
+							'		<a href="'+'{:U("financial/team")}/op/new/id/'+d.id+'" class="btn btn-secondary btn-sm btn-icon icon-left" target="_blank">团期详细</a>'+
+							'	</td>'+
+							'</tr>';
+					$(tabObj).find('tbody').append(vhtml);
+				}					
+			} else {	// 没有数据
+				toastr.warning('没有查到任何数据');
+			}
+			// 构建分页
+			constructionPage($('.list-page'), p, data.page_count, findTeam, false);			
+		})
+		
+	}
+	
+	// 绑定快捷查找
+	bindKeyUp($('html,body'),findTeam,1);
+		
+	//搜索团期
+	$('.issuing-coupon-search').find('.search_input').click(function(){
+		findTeam(1);
+	});
+	
+	// 搜索用户数据
+	constructionPage($('.list-page'), 1, '{$page_count}', findTeam, true);	
+
+</script>
+<include file="Common/footer" />

@@ -1,0 +1,409 @@
+<include file="Common/header" />
+	<style>
+		.dataTables_wrapper .table thead > tr .sorting:before, .dataTables_wrapper .table thead > tr .sorting_asc:before, .dataTables_wrapper .table thead > tr .sorting_desc:before { content: ''; }
+		.create { position: relative; border: 1px solid #dcdcdc; margin-bottom:20px; padding: 15px; }
+		.create .row { margin-bottom:20px; }
+		.create-write .input-group { height: 36px; }
+		.create-write input { width: 100%; height: 36px; }
+		.input-group-addon { padding: 4px 40px; }
+		.btn-save { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		.btn-clear { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		.list-tbody img { width: 158px; height: 91px; border: 1px solid #dcdcdc; } 
+		.issuing-list-search { width: 50%; margin: 20px auto; }
+		
+		.list-page { width: 100%; text-align: right; }
+
+		.list-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+
+		.list-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+
+		.list-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }
+		
+		.input-select { margin-left: -15px; min-width:288px; min-height: 36px;}
+		.input-select > select { height: 36px; }		
+	</style>
+
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description" >{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	
+	<!--信息录入创建-->
+	<div class="row">
+		<div class="col-sm-12">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">保险录入</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">			
+				<!--在此地编辑内容-->
+					<!--创建优惠券-->
+					<div class="create">
+						<div class="create-write" data-id="">
+						
+							<div class="row">
+								<div class="col-md-6">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">公司名称</i>
+										</div>
+										<input type="text" class="form-control data_company" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">联系人</i>
+										</div>
+										<input type="text" class="form-control data_contacts">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">联系人电话</i>
+										</div>
+										<input type="text" class="form-control data_contacts_mob" maxlength="11">
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">结单方式</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){
+												bindTypeDataDropMenu($('.data_pay_type'), 'cj_pay_type', '选择结单方式');
+											});
+										</script>
+										<input type="text" class="form-control data_pay_type">
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">所属线路</i>
+										</div>	
+										<script type="text/javascript">
+											$(document).ready(function(){
+												var voption = {obj:$('.data_line'), search:1, multiple:true, placeholder: '请输入搜索并选择线路', show_col:'title', select_col:'title'};
+												var vds = {tab:'line', search_col: 'title', cdsstr: 'invalid|=|0|AND|online|=|1|AND', cdtype:4}
+												var member_line = new MySelect2(voption, vds);
+											});
+										</script>
+										<input type="text" class="form-control data_line">
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">收款人</i>
+										</div>
+										<input type="text" class="form-control data_payee">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">银行账号</i>
+										</div>
+										<input type="number" class="form-control data_bank_card" maxlength="16">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">开户行与地址</i>
+										</div>
+										<input type="text" class="form-control data_bank_address">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<button class="btn btn-save">保存</button>	
+								<button class="btn btn-clear">重置</button>	
+							</div>
+							
+						</div>
+					</div>					
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+		
+	<!--查询信息，列表展示-->
+	<div class="row">
+		<div class="col-sm-12">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">保险查询</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">						
+					<!--用户列表-->
+					<div class="issuing-list">
+						
+						<div class="issuing-list-search">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="搜索内容可以是编号、所属线路、公司名称、联系人姓名、联系人手机">
+								<div class="input-group-addon btn_search" style="background-color: #68b828; color: #fff; cursor: pointer;">
+									<i style="font-style: normal;">搜索</i>
+								</div>
+							</div>
+						</div>
+						
+						<!--用户列表-->
+						<div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+							<table class="table table-bordered table-striped dataTable no-footer" id="table_list" role="grid" aria-describedby="example-2_info">
+								<thead>
+									<tr role="row" class="head">
+										<th class="sorting" rowspan="1" colspan="1" style="width: 50px;">编号</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 200px;">公司名称</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 100px;">联系人</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 100px;">联系人电话</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">所属线路</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">结算方式</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">操作</th>
+									</tr>
+								</thead>
+							
+								<tbody class="middle-align list-tbody">
+									<volist id="ds" name="datas">
+										<if condition="$key % 2 == 0">
+											<tr role="row" class="odd" data-id="{$ds.id}">
+										<else />
+											<tr role="row" class="even" data-id="{$ds.id}">
+										</if>
+											<td>{$ds.id}</td>
+											<td>{$ds.name}</td>
+											<td>{$ds.contacts}</td>
+											<td>{$ds.contacts_mob}</td>
+											<td>{$ds.line_show}</td>
+											<td>收款人:{$ds.payee}<br />卡号:{$ds.bank_card}<br />开户行:{$ds.bank_address}<br />结算方式:{$ds.pay_type_show}</td>
+											<td>
+												<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_item">价格项</a>
+												<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit">编辑</a>
+												<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left btn_del">删除</a>
+											</td>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							<div class="list-page"></div>
+						</div>
+					</div>		
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+<script src="__PUBLIC__/home/js/page.js"></script>	
+<include file="Common/footer" />
+
+<script type="text/javascript">
+
+	// 清除信息
+	function clearInfo() {
+		$('.create-write').attr('data-id', '');
+		$('.data_company').val('');
+		$('.data_contacts').val('');
+		$('.data_contacts_mob').val('');
+		$('.data_bank_card').val('');
+		$('.data_bank_address').val('');
+		setSelect2Value($('.data_line'), null);
+		$('.data_payee').val('');
+		$('.data_bank_card').val('');
+		$('.data_bank_address').val('');
+		setSelect2Value($('.data_pay_type'), null);
+	}	
+	
+	$('.btn-clear').click(function(){
+		clearInfo();
+	});
+
+	// 添加用户
+	$('.btn-save').click(function(){
+		var jsonData = {
+			op_type: 'save',
+			src: 'insurance',
+			id: $('.create-write').attr('data-id'),
+			name: $('.data_company').val(),
+			contacts: $('.data_contacts').val(),
+			contacts_mob: $('.data_contacts_mob').val(),
+			bank_card: $('.data_bank_card').val(),
+			bank_address: $('.data_bank_address').val(),
+			line: getSelect2Value($('.data_line'), ['id','title']),
+			payee: $('.data_payee').val(),
+			bank_card: $('.data_bank_card').val(),
+			bank_address: $('.data_bank_address').val(),
+			pay_type: getSelect2Value($('.data_pay_type')),
+		}	
+		
+		$.post('{:U("financial/source")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				if (data.op != null && data.op == 'create') {
+					location.href = '{:U("financial/source")}/src/insurance';
+				} else {
+					if (data.ds != null) {
+						var d = data.ds;
+						var trObj = $('tr[data-id="'+d.id+'"]');
+						$(trObj).find('td:eq(1)').html(d.name);
+						$(trObj).find('td:eq(2)').html(d.contacts);
+						$(trObj).find('td:eq(3)').html(d.contacts_mob);
+						$(trObj).find('td:eq(4)').html(d.line_show);
+						$(trObj).find('td:eq(5)').html('收款人:'+d.payee+'<br />卡号:'+d.bank_card+'<br />开户行:'+d.bank_address+'<br />结算方式:'+d.pay_type_show);
+					}
+					clearInfo();
+					toastr.success(data.result.message);
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		});
+	});
+		
+	// 详细信息
+	var itemObjs = {};
+	function itemData(){
+		var insuranceId = $(this).closest('tr').attr('data-id');
+		var itemObj = itemObjs['item_'+insuranceId];
+		if (itemObj == null) {
+			itemObj = new ModalCJItem(this, 'insurance', insuranceId);
+			itemObjs['item_'+insuranceId] = itemObj;
+		}	
+		itemObj.showItems();
+	}
+	$('.btn_item').click(itemData);
+	
+	// 编辑信息
+	function editData(){
+		var trObj = $(this).closest('tr');
+		var did = $(trObj).attr('data-id');		
+		$.post('{:U("financial/source")}', {op_type:'find', src:'insurance', id:did}, function(data){
+			if (data.ds != null) {
+				var d = data.ds;        		
+				$('.create-write').attr('data-id', d.id);
+				$('.data_company').val(d.name);
+				$('.data_contacts').val(d.contacts);
+				$('.data_contacts_mob').val(d.contacts_mob);
+				setSelect2Value($('.data_line'), d.line);
+				$('.data_payee').val(d.payee);
+				$('.data_bank_card').val(d.bank_card);
+				$('.data_bank_address').val(d.bank_address);
+				setSelect2Value($('.data_pay_type'), d.pay_type);
+		        flicker($('.data_company'));
+			}
+		});
+	}
+	$('.btn_edit').click(editData);
+	
+	// 删除信息
+	function deleteData() {
+		if (!confirm('您确定要删除这条保险信息?')) {
+			return false;
+		}
+		var trObj = $(this).closest('tr');
+		var did = $(trObj).attr('data-id');
+		$.post('{:U("financial/source")}', {op_type:'delete', src: 'insurance', id:did}, function(data){
+			if (data.result != null) {
+				if (data.result.errno == 0) {
+					toastr.success(data.result.message);
+					$(trObj).remove();
+				} else {
+					toastr.error(data.result.message);
+				}
+			}
+		});
+	}
+	$('.btn_del').click(deleteData);
+	
+	
+	//搜索用户
+	function searchPageData(){
+		itemObjs = {};
+		findPageData(1); 
+	}	
+	$('.issuing-list-search').find('.btn_search').click(searchPageData);
+	bindKeyUp($('.issuing-list-search').find('input'), searchPageData);
+	
+	// 搜索用户数据
+	constructionPage($('.list-page'), 1, '{$page_count}', findPageData, true);	
+	function findPageData(p) {			
+		var jsonData = {
+			op_type:'list',
+			src: 'insurance',
+			page: p-1,
+		}
+		
+		var searchval = $('.issuing-list-search').find('input').val();
+		if (searchval != '') {
+			jsonData['cdsstr'] = 'id|=|'+searchval+'|OR|line|LIKE|%'+searchval+'%|OR|name|LIKE|%'+searchval+'%|OR|contacts|LIKE|%'+searchval+'%|OR|contacts_mob|LIKE|%'+searchval+'%|OR|bank_card|LIKE|%'+searchval+'%|OR|bank_address|LIKE|%'+searchval+'%|OR';
+		}
+		
+		$.post('{:U("financial/source")}', jsonData, function(data){
+			var tabObj = $('#table_list');
+			if (data.result.errno == 0) {
+				$(tabObj).find('tbody').children().remove();
+				if (data.ds != null && data.ds != 'undefined') {	
+					for (var i = 0; i < data.ds.length; i ++){
+						var d = data.ds[i];
+						
+						var trClass = i % 2 == 0 ? 'odd' : 'even';
+						var vhtml =	'<tr role="row" class="'+trClass+'" data-id="'+d.id+'">'+
+								'	<td>'+d.id+'</td>'+
+								'	<td>'+d.name+'</td>'+
+								'	<td>'+d.contacts+'</td>'+
+								'	<td>'+d.contacts_mob+'</td>'+
+								'	<td>'+d.line_show+'</td>'+
+								'	<td>收款人:'+d.payee+'<br />卡号:'+d.bank_card+'<br />开户行:'+d.bank_address+'<br />结算方式:'+d.pay_type_show+'</td>'+
+								'	<td>'+
+								'		<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_item">价格项</a>'+
+								'		<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit">编辑</a>'+
+								'		<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left btn_del">删除</a>'+
+								'	</td>'+
+								'</tr>';
+						$(tabObj).find('tbody').append(vhtml);
+					}
+					$(tabObj).find('tbody').find('.btn_item').click(itemData);
+					$(tabObj).find('tbody').find('.btn_edit').click(editData);
+					$(tabObj).find('tbody').find('.btn_del').click(deleteData);
+					
+				} else {	// 没有数据
+					toastr.warning('没有查到任何数据');
+				}
+				// 构建分页
+				constructionPage($('.list-page'), p, data.page_count, findPageData, false);
+			} else {
+				toastr.error(data.result.message);	
+			}			
+		})
+		
+	}
+</script>
+<include file="Common/footer" />

@@ -1,0 +1,1798 @@
+				<style>
+					table { margin-top: 0; }
+					.fc th { width: 20%; }
+					.fc-ltr .fc-basic-view .fc-day-number { text-align: center; }
+					.fc .fc-day-header { background-color: #f4f4f4; padding: 5px 0; }
+					.batch_item { width: 100%; height: 100%; text-align: left; line-height: 1.3; background-color: #A3D165;}
+					.fc-row.fc-rigid .fc-content-skeleton { bottom: 0; }
+					.fc-content-skeleton table { width: 100%; height: 100%; }
+					td.fc-event-container { position: relative;}
+					td.fc-event-container td { position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; cursor: pointer; }
+					.batch-checked {background-color: #ffff00 !important;}
+					.border{border: 1px solid #dcdcdc; margin: 15px auto; position: relative;}
+					.small-title{width: 100%; height: 60px; line-height: 60px; font-size: 14px;}
+					.panel-body .table1 {margin-top: 20px;}
+					.panel-body .table1 thead tr th, .panel-body .table2 thead tr th {height: 50px; padding-bottom: 15px; text-align: center;}
+					.panel-body .table1 tr td, .panel-body .table2 tr td {padding-left: 0; padding-right: 0; text-align: center;}
+					.taocan-list{padding-bottom: 15px;}
+					.taocan-list .form-block{border-bottom: 1px solid #dcdcdc;}
+				</style>		
+
+				<div class="template_batch_item hidden_ctrl ">
+
+					<input type="checkbox" class="check_batch" /><br>
+
+					<span class="adult"></span><br>
+
+					<span class="child"></span><br>
+
+					<span class="sub_member"></span>
+
+				</div>
+
+				
+
+				<div class="row batch_root">	
+
+					<div class="col-md-6">	
+						<div class="row">	
+
+							<div class="col-md-12">
+
+								<div class="form-group">
+						
+									<span style="color: red;">使用日期前请先将日历锁定到今天日期</span>
+									
+								</div>
+						
+							</div>
+						
+						</div>
+						
+						<div class="row">	
+
+							<div class="col-md-12">
+
+								<div class="form-group">
+
+									<div id="calendar"></div>
+
+								</div>
+
+							</div>	
+
+						</div>
+
+					</div>
+
+					<div class="col-md-6">					
+
+						<div class="row">	
+
+							<div class="col-md-12">
+
+								<div class="form-group">
+
+									<label class="control-label" for="batch_title">批次标题</label> <!--data-validate="required"-->
+
+									<input class="form-control" name="batch_title" id="batch_title" placeholder="请输入批次的标题" />
+
+									<input class="hidden_ctrl" name="batch_id" id="batch_id" value="0" />
+
+								</div>
+
+							</div>	
+
+						</div>
+
+						
+
+						<div class="row">					
+
+							<div class="col-md-6">
+
+								<div class="form-group">
+
+									<label class="control-label" for="price_adult">成人起步价格</label>
+
+									<input class="form-control" name="price_adult" id="price_adult" data-validate="number" value="0.00" />
+
+								</div>
+
+							</div>
+
+							
+
+							<div class="col-md-6">
+
+								<div class="form-group">
+
+									<label class="control-label" for="price_child">小孩起步价</label>
+
+									<input class="form-control" name="price_child" id="price_child" data-validate="number" value="0.00" />
+
+								</div>
+
+							</div>
+
+							
+
+						</div>
+
+						
+
+						<div class="row">					
+
+							<div class="col-md-6">
+
+								<div class="form-group">
+
+									<label class="control-label" for="car_member">每车人次</label>
+
+									<input class="form-control" name="car_member" id="car_member" data-validate="number" value="1" />
+
+								</div>
+
+							</div>
+
+							
+
+							<div class="col-md-6">
+
+								<div class="form-group">
+
+									<label class="control-label" for="car_number">车次</label>
+
+									<input class="form-control" name="car_number" id="car_number" data-validate="number" value="1" />
+
+								</div>
+
+							</div>
+
+						</div>
+
+						
+
+						<div class="row">						
+
+							<div class="col-md-6">						
+
+								<div class="form-group">
+
+									<label class="control-label" for="batch_state">批次状态<span style="color:red;">(*必选)</span></label>
+
+									<script type="text/javascript">
+
+										$(document).ready(function(){
+
+											$("#batch_state").select2({
+
+		//										minimumInputLength: 1,
+
+												minimumResultsForSearch: Infinity,
+
+												placeholder: '选择批次的状态',
+
+												ajax: {
+
+													url: '{:U("help/listtypedata")}',
+
+													type: 'post',
+
+													dataType: 'json',
+
+													quietMillis: 100,
+
+													data: function(term, page) {
+
+														return {op:term, type_key:'line_batch_state'};
+
+													},
+
+													results: function(data, page){
+
+														if (data.result.errno == 0) {
+
+															if (data.ds == null) {
+
+																data.ds = new Array();	
+
+															}
+
+															data.ds[$(data.ds).length] = {'id':'-1','data_type_id':'-1','type_key':'','type_desc':'添加类型','can_delete':'0'};
+
+															return { results: data.ds }
+
+														} else {
+
+															return { results: '' };	
+
+														}
+
+													},
+
+													cache: true,
+
+												},
+
+												formatResult: function(data) { 					
+
+													if (data.type_desc == '添加类型') {
+
+														return '<button class="btn btn-blue btn-xs">添加类型</button>';
+
+													} else {
+
+														return '<div class="select2-user-result cx_border02">' + data.type_desc + '</div>';
+
+													}							
+
+												},	
+
+												formatSelection: function(data) {
+
+													if (data.type_desc == '添加类型') {													
+
+														showModalTypeDataDialog('line_batch_state');
+
+														return '添加后请移除我'
+
+													} else {											
+
+														return data.type_desc;	
+
+													}
+
+												},						
+
+											});
+
+										});
+
+									</script>
+
+									<input class="form-control" type="text" name="batch_state" id="batch_state" />
+
+								</div>							
+
+							</div>	
+
+							
+
+							<div class="col-md-6">
+
+								<div class="form-group">						
+
+									<label class="control-label" for="batch_holiday">节日备注</label>
+
+									<script type="text/javascript">
+
+										$(document).ready(function(){
+
+											var payTypeObj = $("#batch_holiday").select2({
+
+		//										minimumInputLength: 1,
+
+												minimumResultsForSearch: Infinity,
+
+												placeholder: '选择批次的节日状态',
+
+												ajax: {
+
+													url: '{:U("help/listtypedata")}',
+
+													type: 'post',
+
+													dataType: 'json',
+
+													quietMillis: 100,
+
+													data: function(term, page) {
+
+														return {op:term, type_key:'line_batch_holiday'};
+
+													},
+
+													results: function(data, page){
+
+														if (data.result.errno == 0) {
+
+															if (data.ds == null) {
+
+																data.ds = new Array();	
+
+															}
+
+															data.ds[$(data.ds).length] = {'id':'-1','data_type_id':'-1','type_key':'','type_desc':'添加类型','can_delete':'0'};
+
+		//														console.log(JSON.stringify(data.ds));
+
+															return { results: data.ds }
+
+														} else {
+
+															return { results: '' };	
+
+														}
+
+													},
+
+													cache: true,
+
+												},
+
+												formatResult: function(data) { 					
+
+													if (data.type_desc == '添加类型') {
+
+														return '<button class="btn btn-blue btn-xs">添加类型</button>';
+
+													} else {
+
+														return '<div class="select2-user-result cx_border02">' + data.type_desc + '</div>';
+
+													}							
+
+												},	
+
+												formatSelection: function(data) {
+
+													if (data.type_desc == '添加类型') {													
+
+														showModalTypeDataDialog('line_batch_holiday');
+
+														return '添加后请移除我'
+
+													} else {											
+
+														return data.type_desc;	
+
+													}
+
+												},						
+
+											});
+
+										});
+
+									</script>
+
+									<input class="form-control" type="text" name="batch_holiday" id="batch_holiday" />						
+
+								</div>
+
+							</div>		
+
+						</div>
+
+						
+
+						<div class="row">						
+
+							<div class="col-md-6">						
+
+								<div class="form-group">
+
+									<label class="control-label" for="batch_use">使用状态<span style="color:red;">(*必选)</span></label>
+
+									<script type="text/javascript">
+
+										$(document).ready(function(){
+
+											$("#batch_use").select2({
+
+		//										minimumInputLength: 1,
+
+												minimumResultsForSearch: Infinity,
+
+												placeholder: '选择批次使用状态',
+
+												ajax: {
+
+													url: '{:U("help/listtypedata")}',
+
+													type: 'post',
+
+													dataType: 'json',
+
+													quietMillis: 100,
+
+													data: function(term, page) {
+
+														return {op:term, type_key:'line_batch_use'};
+
+													},
+
+													results: function(data, page){
+
+														if (data.result.errno == 0) {
+
+															if (data.ds == null) {
+
+																data.ds = new Array();	
+
+															}
+
+															data.ds[$(data.ds).length] = {'id':'-1','data_type_id':'-1','type_key':'','type_desc':'添加类型','can_delete':'0'};
+
+															return { results: data.ds }
+
+														} else {
+
+															return { results: '' };	
+
+														}
+
+													},
+
+													cache: true,
+
+												},
+
+												formatResult: function(data) { 					
+
+													if (data.type_desc == '添加类型') {
+
+														return '<button class="btn btn-blue btn-xs">添加类型</button>';
+
+													} else {
+
+														return '<div class="select2-user-result cx_border02">' + data.type_desc + '</div>';
+
+													}							
+
+												},	
+
+												formatSelection: function(data) {
+
+													if (data.type_desc == '添加类型') {													
+
+														showModalTypeDataDialog('line_batch_use');
+
+														return '添加后请移除我'
+
+													} else {											
+
+														return data.type_desc;	
+
+													}
+
+												},						
+
+											});
+
+										});
+
+									</script>
+
+									<input class="form-control" type="text" name="batch_use" id="batch_use" />
+
+								</div>							
+
+							</div>	
+
+							
+
+							<div class="col-md-6">
+
+								<div class="form-group">
+
+									<label class="control-label" for="start_before_day">报名截止到出团前（天）<span style="color:red;">(*必填,大于0:出团日期前推,小于0:出团日期后推)</span></label>
+
+									<input class="form-control" name="start_before_day" id="start_before_day" data-validate="number" value="1" />
+
+								</div>
+
+							</div>	
+
+						</div>
+
+						
+
+						<div class="row">				
+
+							<div class="col-md-4">
+
+								<div class="form-group">
+
+									<label class="control-label" for="batch_stop_time">报名截止<span style="color:red;">(*必选，根据截至报名天数自动计算)</span></label>
+
+									<!--<input class="form-control datepicker" name="batch_stop_time" id="batch_stop_time" data-start-view="1" data-start-date="0d" placeholder="请选择出团日期" data-format="yyyy-mm-dd"  />-->
+
+									<input class="form-control" name="batch_stop_time" id="batch_stop_time" type="text" disabled="disabled"/>
+
+								</div>
+
+							</div>	
+
+											
+
+							<div class="col-md-4">
+
+								<div class="form-group">
+
+									<label class="control-label" for="batch_start_time">出团日期<span style="color:red;">(*必选，日历内选择出团日期)</span></label>
+
+									<!--<input class="form-control datepicker" name="batch_start_time" id="batch_start_time" data-start-view="1" data-start-date="0d" placeholder="请选择出团日期" data-format="yyyy-mm-dd"  />-->
+
+									<input class="form-control" name="batch_start_time" id="batch_start_time" type="text" disabled="disabled"/>
+
+								</div>
+
+							</div>			
+
+							
+
+							<div class="col-md-4">
+
+								<div class="form-group">
+
+									<label class="control-label" for="batch_end_time">散团日期<span style="color:red;">(*必选，根据行程天数自动计算)</span></label>
+
+									<!--<input class="form-control datepicker" name="batch_end_time" id="batch_end_time" data-start-view="1" data-start-date="0d" placeholder="请选择出团日期" data-format="yyyy-mm-dd"  />-->
+
+									<input class="form-control" name="batch_end_time" id="batch_end_time" type="text" disabled="disabled"/>
+
+								</div>
+
+							</div>				
+
+						</div>							
+
+							
+
+						<div class="row">							
+
+							<div class="col-md-12">
+
+								<div class="form-group">
+
+									<label class="control-label" for="batch_tip">批次备注提示</label>
+
+									<input class="form-control" name="batch_tip" id="batch_tip" placeholder="请输入批次备注提示" />
+
+								</div>
+
+							</div>							
+
+						</div>
+						
+												
+
+						<div class="row">							
+
+							<div class="col-md-12">
+
+								<div class="form-group">
+
+									<button class="btn btn-secondary btn_batch_append">添加批次</button>
+
+									<button class="btn btn-danger btn_batch_remove hidden_ctrl">移除批次</button>
+
+								</div>
+
+							</div>							
+
+						</div>
+						
+
+					</div>					
+
+				</div>
+
+				
+
+				<div class="form-group-separator"></div>
+
+				
+
+				<div class="row">
+
+					<div class="col-md-12">				
+
+						<div class="form-group">
+
+							<table id="table_batch" class="table text-left">
+
+								<thead>
+
+									<tr>
+										<th width="80px" class="source_check"><input type="checkbox" class="cbr cbr-replaced cbr-secondary check_all_budget" /></th>
+										
+										<th width="200px">批次标题</th>
+													   
+										<th width="150px">批次价格</th>
+													   
+										<th width="150px">报名截止</th>
+													   
+										<th width="150px">起始时间</th>
+													   
+										<th width="150px">结束时间</th>
+													   
+										<th width="200px">批次/节日/使用状态</th>
+													   
+										<th width="150px">车次人数</th>
+													   
+										<th width="200px">编辑/删除</th>
+
+									</tr>  
+
+									<tbody>
+
+									</tbody>
+
+								</thead>
+
+							</table>
+
+						</div>	
+
+					</div>
+
+				</div>
+				
+				<!--套餐内容开始-->
+				
+				<div class="row source_budget taocan-box">
+					<div class="col-sm-12">
+						<div class="panel panel-default edit">
+							<div class="panel-heading">
+								<h3 class="panel-title">产品套餐</h3>
+								<div class="panel-options">
+									<a href="#" data-toggle="panel">
+										<span class="collapse-icon">–</span>
+										<span class="expand-icon">+</span>
+									</a>
+								</div>
+							</div>
+							
+							<div class="panel-body">
+								
+								<div class="border">
+									<div class="row" style="margin: 0;">
+										<div class="col-md-12">
+											<div class="small-title">批次</div>											
+										</div>
+										
+										<div class="col-md-12">
+											<div class="form-block taocan-selece-batch-list">
+												
+											</div>
+										</div>
+										<div class="col-md-12">											
+											<button style="float: right;width:70px;" type="button" class="btn btn-primary btn-sm btn-clear-batch-select">清除</button>
+										</div>
+									</div>
+								</div>
+								<div class="border">
+									<div class="row" style="margin: 0;">
+										<div class="col-md-12">
+											<div class="small-title">套餐</div>											
+										</div>
+										
+										<volist id="tcType" name="taocans">
+											<div class="col-md-12 taocan-list">
+												<b>{$tcType.type.type_desc}</b>
+												<div class="form-block">
+													<volist id="tc" name="tcType.data">
+														<button class="btn btn-gray btn-sm select-taocan-btn" type="button" data-id="{$tc.id}">{$tc.name}</button>
+													</volist>
+													<button style="float: right;width:70px;" type="button" class="btn btn-primary btn-sm btn-clear-taocan-select">清除</button>
+												</div>
+											</div>
+										</volist>						
+										
+									</div>
+								</div>
+								
+								<div class="border">
+									<div class="row" style="margin: 0;">
+										<div class="col-md-12">
+											<div class="small-title">价格</div>											
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-3">
+												<div class="form-group">			
+													<label class="control-label" for="taocan_price_adult">成人价</label>			
+													<input class="form-control" name="taocan_price_adult" id="taocan_price_adult" data-validate="number" value="0.00" aria-invalid="false">			
+												</div>			
+											</div>
+											
+											<div class="col-md-3">
+												<div class="form-group">			
+													<label class="control-label" for="taocan_price_child">儿童价</label>			
+													<input class="form-control" name="taocan_price_child" id="taocan_price_child" data-validate="number" value="0.00" aria-invalid="false">			
+												</div>			
+											</div>
+											
+											<button type="button" style="float: right; width:70px;" class="btn btn-info btn-sm add-taocan-price-btn">保存</button>
+										</div>
+										
+									</div>										
+								</div>
+								
+								<table class="table table1 table_order">
+									<thead>
+										<tr>
+											<th style="width: 10%;" align="center">价格编号</th>
+											<th style="width: 20%;" align="center">批次</th>
+											<th style="width: 20%;" align="center">套餐</th>
+											<th style="width: 15%;" align="center">成人价</th>
+											<th style="width: 15%;" align="center">儿童价</th>
+											<th style="width: 20%;" align="center">操作</th>
+										</tr>
+									</thead>
+									<tbody id="taocan-price-list">
+										<volist id="tp" name="taocanPrices">
+											<tr data-id="{$tp.id}">
+												<td class="price-id">{$tp.id}</td>
+												<td class="batch-data" data-batch-id="{$tp.batch_data.id}">{$tp.batch_data.start_date_show}</td>
+												<td class="tacan-ids-desc" data-taocan-ids="{$tp.taocan_ids}">{$tp.tc_name_str}</td>
+												<td class="taocan-price-adult">{$tp.price_adult}</td>
+												<td class="taocan-price-child">{$tp.price_child}</td>
+												<td>
+													<button class="btn btn-secondary edit-taocan-price" data-id="{$tp.id}" type="button">编辑</button>
+													<button class="btn btn-danger remove-taocan-price" data-id="{$tp.id}" type="button">删除</button>
+												</td>
+											</tr>	
+										</volist>			
+									</tbody>
+								</table>
+								
+							</div>
+							
+						</div>
+					</div>
+				</div>
+											
+				<!--套餐内容结束-->
+				
+				<script type="text/javascript">
+
+					function getDateTime(unixDateTime) {
+
+						var d = new Date(unixDateTime);						
+
+						return d.getFullYear()+'-'+parseInt(d.getMonth()+1)+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+
+					}
+
+				
+
+					// 获取日期安排
+
+					function getDayPlan(start, end, timezone, callback) {
+						
+						console.log('获取日期安排.....');
+
+						var jsonData = {
+
+							'op_type': 'list',
+
+							'line_id': $('#line_id').val(),
+
+							'start_begin': '>=,'+start.format('YYYY-MM-DD HH:mm:ss'),
+
+							'start_end': '<=,'+end.format('YYYY-MM-DD HH:mm:ss'),
+
+						}
+
+						
+
+						var events = new Array();
+
+						$.post('{:U("line/batch")}', jsonData, function(data){
+
+							if (data.result.errno == 0) {
+
+								if (typeof(data.ds) != 'undefined' && data.ds != null) {
+
+									for (var i = 0; i < data.ds.length; i ++) {
+
+										var iData = data.ds[i];
+
+										var obj = {
+
+											id: iData.id,
+
+											title: iData.title,
+
+											start: iData.start_time,
+
+//											end: iData.end_time,
+
+//											batch_id: iData.id,
+
+//											adult:iData.price_adult,
+
+//											child:iData.price_child,
+
+//											sub_member: iData.sub_member,
+
+											ds: JSON.stringify(iData),
+
+											rendering: 'background',
+
+										}
+
+//										console.log(JSON.stringify(obj));
+
+										events.push(obj);
+
+									}
+
+									callback(events);
+
+								}
+
+							} else {
+
+								alert(data.result.message);
+
+							}
+
+						});
+
+//						console.log('start_type:'+typeof(start)+',start:'+start.format('YYYY-MM-DD HH:mm:ss')+',end:'+getDateTime(end)+',timezone:'+timezone);
+
+					}
+
+					
+
+					// 绘制日历
+
+					function renderDay(evnt, elemt, view) {
+
+//						console.log('绘制事件......'+evnt.start.format('YYYY-MM-DD HH:mm:ss'));
+
+						var iData = $.parseJSON(evnt.ds);						
+
+						var itemObj = $('.template_batch_item').clone(true);
+
+						$(itemObj).removeClass('hidden_ctrl');
+
+						$(itemObj).removeClass('template_batch_item');
+
+						$(itemObj).addClass('batch_item');
+
+						$(itemObj).attr('data-id', iData.id);
+
+						
+
+						$(itemObj).find('.adult').html('成人￥'+iData.price_adult);
+
+						$(itemObj).find('.child').html('儿童￥'+iData.price_child);
+
+						$(itemObj).find('.sub_member').html('剩余'+iData.sub_member);
+
+						
+						var vhtml = $(itemObj).prop('outerHTML');
+//						console.log(vhtml);
+						return vhtml;
+
+					}
+
+					
+
+					// 清除批次内容
+
+					function cleanBatch() {
+
+						$('#batch_id').val('');
+
+						$('#batch_title').val('');
+
+						$('#price_adult').val('0.00');
+
+						$('#price_child').val('0.00');
+
+						$('#car_member').val(1);
+
+						$('#car_number').val(1);
+
+						setSelect2Value('#batch_state', null);
+
+						setSelect2Value('#batch_holiday', null);
+
+						setSelect2Value('#batch_use', null);
+
+						$('#start_before_day').val(1);
+
+						$('#batch_stop_time').val('');
+
+						$('#batch_start_time').val('');
+
+						$('#batch_end_time').val('');
+
+						$('#sub_member').val('');
+
+						$('#batch_tip').val('');
+
+						$('.btn_batch_append').html('添加批次');
+
+						$('.btn_batch_remove').addClass('hidden_ctrl');
+
+					}
+
+					
+
+					// 点击没有事件的日期
+
+					function clickDayNotEvent(date, jsEvent, view) {
+
+						console.log('点击没有事件的日期......'+date.format('YYYY-MM-DD HH:mm:ss'));
+						
+						console.log('title:'+view.title+',name:'+view.name);
+						
+						// 设置选中颜色
+						$('.batch-checked').removeClass('batch-checked');
+						
+						$(this).addClass('batch-checked');
+						
+						var startDate = date.format('YYYY-MM-DD HH:mm:ss'); 
+						
+						// 判断该日期上是否有时间
+						var jsonData = {
+							
+							op_type: 'find',
+							
+							line_id: $('#line_id').val(),
+							
+							start_time: startDate,
+							
+						}
+						
+						$.post('{:U("line/batch")}', jsonData, function(data){
+							
+							if (data.ds != null) {		
+							
+								$('.btn_batch_append').html('保存批次');
+								
+								$('.btn_batch_remove').removeClass('hidden_ctrl');
+																						
+			        			setLineBatch(data.ds);
+			        			
+							} else {
+								
+								cleanBatch();
+
+								var endDate = moment(date);
+
+								var stopDate = moment(date);
+
+								$('#batch_start_time').val(date.format('YYYY-MM-DD HH:mm:ss'));
+
+								var endDay = parseInt($('#travel_day').val());
+
+								var endDateTime = endDate.add(endDay, 'days').subtract('1','seconds').format('YYYY-MM-DD HH:mm:ss');
+//								var endDateTime = endDate.add(endDay, 'days').format('YYYY-MM-DD HH:mm:ss');
+
+								$('#batch_end_time').val(endDateTime);
+
+								var stopDay = parseInt($('#start_before_day').val());
+
+								var stopDateTime = stopDate.subtract(stopDay, 'days').format('YYYY-MM-DD HH:mm:ss');						
+
+								$('#batch_stop_time').val(stopDateTime);
+							}
+						})
+					}
+
+					
+
+					// 点击有事件的日期
+
+					function clickDayForEvent(evnt, jsEvent, view) {	
+
+						console.log('点击有事件的日期......'+evnt.start.format('YYYY-MM-DD HH:mm:ss'));	
+
+						console.log('color:'+evnt.color+',backgroundColor:'+evnt.backgroundColor);	
+
+						$('.btn_batch_append').html('保存批次');
+
+						$('.btn_batch_remove').removeClass('hidden_ctrl');						
+
+			        	var ds = $.parseJSON(evnt.ds);
+
+			        	setLineBatch(ds);
+			        	
+			        	// 设置选中颜色
+			        	$('.batch-checked').removeClass('batch-checked');
+						
+						$(this).addClass('batch-checked');
+
+					}
+
+					
+
+					// 初始化日历控件
+
+					function initCarlendar() {
+						
+						console.log('初始化批次日历控件.....');
+
+						var m = moment();
+
+//						console.log(m.format('YYYY-MM-DD'));
+
+						// Calendar Initialization
+
+						$('#calendar').fullCalendar({
+
+							theme: true,
+
+							header: {
+
+							    left: 'prevYear,nextYear,today',
+
+							    center: 'title',
+
+							    right: 'month,agendaWeek,agendaDay prev,next'
+
+							},
+
+							buttonIcons: {
+
+								prev: 'prev fa-angle-left',
+
+								next: 'next fa-angle-right',
+
+							},
+
+							monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+
+							monthNamesShort: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"],
+
+							dayNames: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+
+							dayNamesShort: ["日", "一", "二", "三", "四", "五", "六"],
+
+							today: ["今天"],
+
+							firstDay: 1,
+
+							buttonText: {
+
+							    today: '今天',
+
+							    month: '月',
+
+							    week: '周',
+
+							    day: '日',
+
+							    prev: '上一月',
+
+							    next: '下一月',
+
+							    prevYear: '上一年',
+
+							    nextYear: '下一年',
+
+							},
+
+							defaultDate: m.format('YYYY-MM-DD'),
+
+							defaultView: 'month',
+
+							editable: true,
+
+							eventLimit: true,
+
+							eventRender: renderDay,
+
+							events: getDayPlan,
+
+							dayClick:clickDayNotEvent,
+
+							eventClick:clickDayForEvent,
+
+						});
+
+					}
+
+										
+
+					// 添加一条批次信息
+
+					function appendLineBatch(ds) {
+
+						if (ds == null || typeof(ds) == 'undefined') {
+
+							return false;
+
+						}
+
+						for (var i = 0; i < ds.length; i ++) {
+
+							var b = ds[i];
+
+							var vhtml = '<tr data-id="'+b.id+'">';
+							
+								vhtml += '<td class="source_check"><input type="checkbox" class="cbr cbr-replaced cbr-secondary selece-batch-taocan" /></td>';
+
+								vhtml += '	<td><span class="batch_title">['+b.id+']'+b.title+'</span></td>';
+												
+								vhtml += '	<td><span class="batch_price">'+b.price_adult+'<br />'+b.price_child+'</span></td>';
+												
+								vhtml += '	<td><span class="batch_stop">'+b.stop_time+'</span></td>';
+												
+								vhtml += '	<td><span class="batch_start">'+b.start_time+'</span></td>';
+												
+								vhtml += '	<td><span class="batch_end">'+b.end_time+'</span></td>';
+								
+								var bstate_desc = '';
+								
+								if (b.state != '' && b.state != null && typeof(b.state) != 'undefined'){
+									
+									var bstate = JSON.parse(b.state);
+									
+									if (bstate.type_desc != null && typeof(bstate.type_desc) != 'undefined') {
+										
+										bstate_desc = bstate.type_desc;
+										
+									}
+								} 
+								
+								var holiday_desc = '';
+								
+								if (b.holiday != '' && b.holiday != null && typeof(b.holiday) != 'undefined'){
+									
+									var holiday = JSON.parse(b.holiday);
+									
+									if (holiday.type_desc != null && typeof(holiday.type_desc) != 'undefined') {
+										
+										holiday_desc = holiday.type_desc;
+										
+									}
+									
+								} 
+								
+								var use_state_desc = '';
+								
+								if (b.use_state != '' && b.use_state != null && typeof(b.use_state) != 'undefined'){
+									
+									var use_state = JSON.parse(b.use_state);
+									
+									if (use_state.type_desc != null && typeof(use_state.type_desc) != 'undefined') {
+										
+										use_state_desc = use_state.type_desc;
+										
+									}
+									
+								}
+
+								vhtml += '	<td class="col-md-1"><span class="batch_state">'+bstate_desc+'<br />'+holiday_desc+'<br />'+use_state_desc+'</span></td>';
+
+								vhtml += '	<td class="col-md-1"><span class="batch_car">'+b.car_number+'车('+b.car_member+'人)</span></td>';
+
+								vhtml += '	<td class="col-md-2">';
+
+								vhtml += '		<button type="button" class="btn btn-secondary">编辑</button>';								
+
+								vhtml += '		<button type="button" class="btn btn-danger">删除</button>';
+
+								vhtml += '		<div class="batch_ds hidden_ctrl">'+JSON.stringify(b)+'</div>';				
+
+								vhtml += '	</td>';
+
+								vhtml += '</tr>';
+
+							$('#table_batch').find('tbody').append(vhtml);
+
+							$('#table_batch').find('tbody tr:last').find('.btn-secondary').click(function(ev){
+
+								ev.preventDefault();
+
+								$('.btn_batch_append').html('保存批次');
+
+								$('.btn_batch_remove').removeClass('hidden_ctrl');
+
+								var dsstr = $(this).parent().find('.batch_ds').html();
+
+								var ds = JSON.parse(dsstr);
+
+								setLineBatch(ds);								
+								
+        						$('body').animate({scrollTop:$('.batch_root').offset().top}, 500);
+
+							});
+
+							$('#table_batch').find('tbody tr:last').find('.btn-danger').click(function(ev){
+
+								ev.preventDefault();
+
+								var id = parseInt($(this).closest('tr').attr('data-id'));
+
+								deleteLineBatch(id);
+
+							});
+							
+							//绑定复选框事件
+							$('#table_batch').find('tbody tr:last').find('.selece-batch-taocan').change(function(ev){
+								ev.preventDefault();
+								var id = parseInt($(this).closest('tr').attr('data-id'));
+								addBatchToTaocan(id);
+							});
+
+						}
+
+					}
+
+					
+
+					// 更新一条显示的优惠信息
+
+					function updateLineBatch(ds) {
+
+						if (ds == null || typeof(ds) == 'undefined') {
+
+							return false;
+
+						}
+
+//						console.log(ds);
+
+						var trObj = $('#table_batch').find('tr[data-id="'+ds.id+'"]');
+
+						$(trObj).find('.batch_title').html(ds.title);
+
+						$(trObj).find('.batch_price').html(ds.price_adult+'<br />'+ds.price_child);
+
+						$(trObj).find('.batch_stop').html(ds.stop_time);
+
+						$(trObj).find('.batch_start').html(ds.start_time);
+
+						$(trObj).find('.batch_end').html(ds.end_time);
+						
+						var stateHtml = '';
+						
+						if (ds.state != null && ds.state != '') {
+							
+							var bstate = JSON.parse(ds.state);
+							
+							stateHtml += bstate.type_desc;
+							
+						}
+						
+						if (ds.holiday != null && ds.holiday != '') {
+							
+							var hstate = JSON.parse(ds.holiday);
+							
+							if (stateHtml != '') {
+							
+								stateHtml += '<br />';								
+								
+							} 
+								
+							stateHtml += hstate.type_desc;	
+							
+						}
+						
+						if (ds.use_state != null && ds.use_state != '') {
+							
+							var ustate = JSON.parse(ds.use_state);
+							
+							if (stateHtml != '') {
+							
+								stateHtml += '<br />';								
+								
+							} 
+								
+							stateHtml += ustate.type_desc;	
+							
+						}
+
+						$(trObj).find('.batch_state').html(stateHtml);
+
+						$(trObj).find('.batch_car').html(ds.car_number+'车('+ds.car_member+'人)');
+
+						$(trObj).find('.batch_ds').html(JSON.stringify(ds));
+
+					}
+
+					
+
+					// 设置编辑的批次信息
+
+					function setLineBatch(ds) {     	
+
+						$('#batch_id').val(ds.id);
+
+						$('#batch_title').val(ds.title);
+
+						$('#price_adult').val(ds.price_adult);
+
+						$('#price_child').val(ds.price_child);
+
+						$('#car_member').val(ds.car_member);
+
+						$('#car_number').val(ds.car_number);
+
+						setSelect2Value('#batch_state', ds.state);
+
+						setSelect2Value('#batch_holiday', ds.holiday);
+
+						setSelect2Value('#batch_use', ds.use_state);
+
+						$('#start_before_day').val(ds.start_before_day);
+
+						$('#batch_stop_time').val(ds.stop_time);
+
+						$('#batch_start_time').val(ds.start_time);
+
+						$('#batch_end_time').val(ds.end_time);
+
+						$('#sub_member').val(ds.sub_member);
+
+						$('#batch_tip').val(ds.tip);
+
+					}
+
+										
+
+					// 添加批次发送数据
+
+					function _ajaxAppendLineBatch(btnObj) {
+
+						var carMember = parseInt($('#car_member').val());						
+
+						var carNumber = parseInt($('#car_number').val());						
+
+						if (carMember < 1 || carNumber < 1) {
+
+							alert('每车人数和车数不能小于1');
+
+							return false;
+
+						}
+
+						
+
+						var opType = $(btnObj).html() == '添加批次' ? 'create' : 'save';
+
+						var aid = $('#batch_id').val();						
+
+						var jsonData = {
+
+							op_type: opType,
+
+							line_id: $('#line_id').val(),
+
+							id: aid,
+
+							title: $('#batch_title').val(),
+
+							price_adult: $('#price_adult').val(),
+
+							price_child: $('#price_child').val(),
+
+							car_member: carMember,
+
+							car_number: carNumber,
+
+							state: getSelect2Value('#batch_state'),
+
+							holiday: getSelect2Value('#batch_holiday'),
+
+							use_state: getSelect2Value('#batch_use'),
+
+//							stop_time: $('#batch_stop_time').val(),
+
+							start_time: $('#batch_start_time').val(),
+
+							start_before_day: $('#start_before_day').val(),
+
+							tip: $('#batch_tip').val(),
+
+						};
+
+//						console.log(JSON.stringify(jsonData));
+//						return false;
+
+						$.post('{:U("line/batch")}', jsonData, function(data){
+
+							if (data.result.errno == 0) {
+
+								if (opType == 'save') {	
+
+									$('#calendar').fullCalendar('removeEvents', aid);
+
+									updateLineBatch(data.ds);
+
+								} else {
+
+									var temp = [data.ds];
+
+									appendLineBatch(temp);
+
+								}
+
+								var evnt = {
+
+									id: data.ds.id,
+
+									title: data.ds.title,
+
+									start: data.ds.start_time,
+
+									ds: JSON.stringify(data.ds),
+
+								}
+
+								$('#calendar').fullCalendar('renderEvent', evnt);	
+
+							} else {
+
+								toastr.error(data.result.message);
+
+							}
+
+							cleanBatch();
+
+						});
+
+					}
+
+										
+
+					// 删除批次
+
+					function deleteLineBatch(aid) {
+
+						if (confirm('您确定删除该批次吗？') == false) {
+
+							return false;
+
+						}
+
+						var jsonData = {
+
+							op_type: 'delete',
+
+							id: aid,
+
+						}
+
+						$.post('{:U("line/batch")}', jsonData, function(data){
+
+							if (data.result.errno == 0) {
+
+								$('#calendar').fullCalendar('removeEvents', aid);
+
+								$('#table_batch').find('tr[data-id="'+aid+'"]').remove();
+
+								cleanBatch();
+
+							} else {
+
+								alert(data.result.message);
+
+							}
+
+						});
+
+					}
+
+					
+
+					// 当截止报名天数变化
+
+					function stopDateTimeChanged() {
+
+						if ($('#start_before_day').val() == '') {
+
+							return false;
+
+						}
+
+						var m = moment($('#batch_start_time').val());
+
+						var stopDay = parseInt($('#start_before_day').val());
+
+						var stopDateTime = m.subtract(stopDay, 'days').format('YYYY-MM-DD HH:mm:ss');						
+
+						$('#batch_stop_time').val(stopDateTime);
+
+						return true;
+
+					}
+
+					
+
+					$(document).ready(function(){
+
+						// 初始化日历控件
+
+						initCarlendar();
+
+						
+
+						// 截止报名天数发生变化
+
+						$('#start_before_day').blur(stopDateTimeChanged);
+
+						
+
+						// 保存或添加批次
+
+						$('.btn_batch_append').click(function(ev){
+
+							ev.preventDefault();
+
+							_ajaxAppendLineBatch(this);
+
+						});
+
+						
+
+						// 删除批次
+
+						$('.btn_batch_remove').click(function(ev){
+
+							ev.preventDefault();
+
+							var aid = parseInt($('#batch_id').val());	
+
+							deleteLineBatch(aid);
+
+						});																       
+
+					});
+					
+					
+					// 批次全选
+					$('.check_all_budget').change(function(ev){
+						ev.preventDefault();
+						var ck = $(this).prop('checked');
+						$(this).closest('table').find('tbody tr').each(function(i, ev){
+							$(this).find('td:first').find('.cbr').prop('checked', ck).trigger('change');
+						});
+					});
+					
+					//添加批次信息到套餐版块
+					function addBatchToTaocan(bid){
+						var ck = $('#table_batch').find('tr[data-id="'+bid+'"]').find('.selece-batch-taocan');
+						var aa = $('#table_batch').find('tr[data-id="'+bid+'"]').find('.batch_start').html();
+						aa = aa.split(' ');
+						if(ck.prop('checked')){
+							var addhtml = '<button class="btn btn-success btn-sm" type="button" data-id="'+bid+'">'+aa[0]+'</button>';
+							$('.taocan-selece-batch-list').append(addhtml);
+						}else{
+							$('.taocan-selece-batch-list').find('button[data-id="'+bid+'"]').remove();
+						}
+					}
+					
+					//清除套餐版块所选批次
+					$('.btn-clear-batch-select').click(function(){
+						$('#table_batch').find('tbody tr').each(function(i, ev){
+							$(this).find('td:first').find('.cbr').prop('checked', false).trigger('change');
+						});
+					});
+					
+					//套餐按钮点击事件
+					$('.select-taocan-btn').click(function(){
+						if($(this).hasClass('btn-success')){
+							$(this).removeClass('btn-success');
+							$(this).addClass('btn-gray');
+						}else{								
+							$(this).parent().find('button.select-taocan-btn').each(function(){
+								$(this).removeClass('btn-success');
+								$(this).addClass('btn-gray');
+							});
+							
+							$(this).removeClass('btn-gray');
+							$(this).addClass('btn-success');
+						}	
+					});
+					
+					//清除套餐版块所选套餐
+					$('.btn-clear-taocan-select').click(function(){
+						$(this).parent().find('button.select-taocan-btn').each(function(){
+							$(this).removeClass('btn-success');
+							$(this).addClass('btn-gray');
+						});
+					});
+					
+					//增加套餐按钮点击事件
+					$('.add-taocan-price-btn').click(function(){						
+						if(window.confirm('你确定要保存套餐价格？') == false){
+							return false;
+						}
+						
+						//选中套餐
+						var vtaocan_ids = ',',flagTcIds='',vttaocan_desc='';
+						$('.taocan-list').find('button.btn-success').each(function(){
+							vtaocan_ids += $(this).attr('data-id') + ',';
+							flagTcIds += $(this).attr('data-id');
+							vttaocan_desc += $(this).html() + ',';
+						});
+						
+						if(vtaocan_ids == ','){
+							toastr.error('请选择套餐信息!');
+							return false;							
+						}
+						
+						if($('.taocan-selece-batch-list').find('button.btn-success').length == 0){							
+							toastr.error('请选择批次信息!');
+							return false;
+						}
+						
+						if ($('#taocan_price_adult').val() == '') {
+							toastr.error('请填写套餐成人价格!');
+							return false;
+						}
+						
+						if ($('#taocan_price_child').val() == '') {
+							toastr.error('请填写套餐儿童价格!');
+							return false;
+						}
+							
+						var jsonData = {
+							op_type: 'create_taocan_price',
+							datas:[],
+						};
+						
+						$('.taocan-selece-batch-list').find('button.btn-success').each(function(){
+							var batchId = $(this).attr('data-id');
+							var dates = $(this).html().split(' ');
+							var startDate = dates.length > 0 ? dates[0] : batchId; 
+							var taocan = {
+								id: $('.add-taocan-price-btn').attr('data-price-id'),
+								line_id:$('#line_id').val(),
+								batch_id: batchId,
+								batch_date: startDate,
+								taocan_ids:vtaocan_ids,
+								taocan_ids_flag: flagTcIds,
+								taocan_ids_descs:vttaocan_desc,
+								price_adult:$('#taocan_price_adult').val(),
+								price_child:$('#taocan_price_child').val(),
+							}
+							jsonData.datas.push(taocan);
+						});
+							
+						$.post('{:U("line/taocan")}', jsonData, function(data) {
+							if (data.jumpUrl != null) {
+								location.href = data.jumpUrl;
+								return false;
+							}
+							if (data.errorDS != null) {										
+								console.log('未保存成功的数据:'+JSON.stringify(data.errorDS))
+							}
+					        if (data.result.errno == 0) {
+					            toastr.success(data.result.message);
+					            if (data.resultDS != null) {
+					            	for (var i=0; i < data.resultDS.length; i++) {
+					            		var d = data.resultDS[i];
+										console.log(JSON.stringify(d));
+					            		if (d.op == 'create') {
+					            			appendPriceHtml(d);
+					            		} else {
+					            			updatePriceHtml(d);
+					            		}		            		
+					            	}
+					            }
+					        }else{
+					            toastr.error(data.result.message);							        
+					        }
+						});						
+					});
+					
+					// 添加新的套餐价格到页面
+					function appendPriceHtml(addata) {
+						var addHtml = 	'<tr data-id="'+addata.id+'">';
+							addHtml += 	'	<td class="price-id">'+addata.id+'</td>';
+							addHtml += 	'	<td class="batch-data" data-batch-id="'+addata.batch_id+'">'+addata.batch_date+'</td>';
+							addHtml += 	'	<td class="tacan-ids-desc" data-taocan-ids="'+addata.taocan_ids+'">'+addata.taocan_ids_descs+'</td>';
+							addHtml += 	'	<td class="taocan-price-adult">'+addata.price_adult+'</td>';
+							addHtml += 	'	<td class="taocan-price-child">'+addata.price_child+'</td>';
+							addHtml += 	'	<td>';
+							addHtml += 	'		<button class="btn btn-secondary edit-taocan-price" data-id="'+addata.id+'" type="button">编辑</button>';
+							addHtml += 	'		<button class="btn btn-danger remove-taocan-price" data-id="'+addata.id+'" type="button">删除</button>';
+							addHtml += 	'	</td>';
+							addHtml += 	'</tr>';
+							
+						$('#taocan-price-list').append(addHtml);
+						
+						var trObj = $('#taocan-price-list').find('tr:last');
+						$(trObj).find('.edit-taocan-price').click(function(ev){
+							ev.preventDefault();
+							editTaocanPrice($(this).attr('data-id'));
+						});
+						
+						$(trObj).find('.remove-taocan-price').click(function(ev){
+							ev.preventDefault();
+							removeTaocanPrice($(this).attr('data-id'));
+						});
+					}
+					
+					// 更新编辑套餐时页面数据
+					function updatePriceHtml(update) {
+						if (update == null || typeof(update) == 'undefined') {
+							return false;
+						}
+						var trObj = $('#taocan-price-list').find('tr[data-id="'+update.id+'"]');						
+						$(trObj).find('td.batch-data').html(update.batch_date);
+						$(trObj).find('td.batch-data').attr('data-batch-id', update.batch_id);
+						$(trObj).find('td.tacan-ids-desc').html(update.taocan_ids_descs);
+						$(trObj).find('td.tacan-ids-desc').attr('data-taocan-ids', update.taocan_ids);
+						$(trObj).find('td.taocan-price-adult').html(update.price_adult);
+						$(trObj).find('td.taocan-price-child').html(update.price_child);		
+					}
+					
+					// 开始编辑套餐
+					function editTaocanPrice(tpid) {
+						var tpObj = $('#taocan-price-list').find('tr[data-id="'+tpid+'"]');
+						var tpBatchId = tpObj.find('td.batch-data').attr('data-batch-id');
+						var tpTaocanIds = tpObj.find('td.tacan-ids-desc').attr('data-taocan-ids');
+						// 设置套现价格编号
+						$('.add-taocan-price-btn').attr('data-price-id', tpid);
+						// 清除批次选中
+						$('#table_batch').find('tbody tr').each(function(i, ev){
+							$(this).find('td:first').find('.cbr').prop('checked', false).trigger('change');
+						});
+						// 选中该批次
+						$('#table_batch').find('tbody tr[data-id="'+tpBatchId+'"]').find('.selece-batch-taocan').prop('checked', true).trigger('change');
+						// 清除套餐选中
+						$('.taocan-list').find('button.select-taocan-btn').each(function(){
+							$(this).removeClass('btn-success');
+							$(this).addClass('btn-gray');
+						});
+						// 选中该套餐
+						tpTaocanIdsArr = tpTaocanIds.split(',');
+						for(var i = 0; i < tpTaocanIdsArr.length; i++){
+							if(tpTaocanIdsArr[i] != '') {								
+								$('.taocan-list').find('button[data-id="'+tpTaocanIdsArr[i]+'"]').each(function(){
+									$(this).removeClass('btn-gray');
+									$(this).addClass('btn-success');
+								});
+							}
+						}
+						//设置成人价
+						$('#taocan_price_adult').val(tpObj.find('td.taocan-price-adult').html());
+						//设置儿童价						
+						$('#taocan_price_child').val(tpObj.find('td.taocan-price-child').html());
+						//滚动到套餐编辑处
+						$('html,body').animate({scrollTop:$('.taocan-box').offset().top}, 500);
+					}
+					
+					// 删除已编辑的套餐价格
+					function removeTaocanPrice(tpid) {
+						
+						if (confirm('确定删除该批次套餐？') == false) {
+							return false;
+						}
+						var jsonData = {
+							op_type:'remove_taocan_price',
+							tp_id:tpid,
+						};
+						
+						$.post('{:U("line/taocan")}', jsonData, function(data){
+							console.log(JSON.stringify(data));
+							var trObj = $('#taocan-price-list').find('tr[data-id="'+tpid+'"]');
+							if (data.jumpUrl != null) {
+								location.href = data.jumpUrl;
+							}
+							
+							if(data.result.errno == 0){
+								toastr.success('批次套餐移除成功');
+								$(trObj).remove();
+							}else{
+								toastr.error(data.result.message);
+							}
+						});
+						
+					}
+					
+					$('.edit-taocan-price').click(function(ev){
+						ev.preventDefault();
+						var tpid = $(this).attr('data-id');	
+						editTaocanPrice(tpid);
+					});
+									
+					$('.remove-taocan-price').click(function(ev){
+						ev.preventDefault();
+						var tpid = $(this).attr('data-id');	
+						removeTaocanPrice(tpid);
+					});
+				</script>

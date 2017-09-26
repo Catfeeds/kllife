@@ -1,0 +1,38 @@
+<include file="Common/top" />
+<style>
+body{background: #fd7260;}
+.header .banner-content{display:none}
+.centent{margin-top:150px;  margin-bottom:100px;  }
+.centent .prompt{width:1200px;height:572px; background: #fff;  border-radius: 3px;  padding:100px;  margin:auto;}
+.centent .prompt .left,.centent .prompt .right{float: left;width:50%;height:378px;}
+.centent .prompt .right .type{text-align: center;text-align: -webkit-center;padding:60px 0px 40px;}
+.centent .prompt .right div p{font-size: 26px;text-align: center;text-align: -webkit-center;color:#999;line-height:40px;}
+.centent .prompt .right div{text-align: center}
+.centent .prompt .right div	.btn-back{background: #ff1c77;border-color:#ff1c77;color:#fff;width:150px;margin-top:35px;}
+</style>
+<div class="centent">
+	<div class="prompt">
+		<div class="left"><img src="__PUBLIC__/qinglvpai/common/images/error.jpg" alt=""></div>
+		<div class="right">
+			<div class="type">
+			</div>
+			<div>
+				<p> {$err.title} </p>
+				<p> {$err.content} </p>
+			</div>
+			<div>
+				<a href="{:U('Index/welcome')}" class="btn btn-lg btn-back" target="_blank">返回首页</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var errno = '{$err.errno}';
+		var errnoList = errno.split('');
+		for (var i = 0; i < $(errnoList).length; i ++) {		
+			$('.type').append('<span><img src="__PUBLIC__/qinglvpai/common/images/'+errnoList[i]+'.png" alt=""></span>');
+		}
+	});
+</script>
+<include file="Common/bottom" />

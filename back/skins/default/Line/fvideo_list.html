@@ -1,0 +1,160 @@
+
+<!-- css Reset -->
+<link rel="stylesheet" href="__PUBLIC__/home/common/css/cssreset.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/farticle_list.css"/>
+<style>
+	.article-information-img {
+	    position: relative;
+	    width: 1000px !important;
+	    height: 210px;
+	    margin: 0 auto;
+	    margin-bottom: 33px;
+	    background-color: #fff;
+	    overflow: visible !important;
+	}
+	.article-information-word {
+		width: 1000px !important;	
+	}
+	.article-information-img a , .article-information-word a { position: absolute; top:0; left:0; width: 100%; height: 100%; }
+	
+	.video-modal-list { width: 1200px; margin: 0 auto; padding-top: 22px; overflow: hidden; }
+	.video-modal-product-content-describe { position: relative; padding: 16px 10px; background: #fff; border: 1px solid #e5e5e5; border-top: none; }
+	.video-modal-product-content-describe h5 { padding-bottom: 9px; }
+	.video-modal-product-content-describe a:hover { color: #f90; }
+	.video-modal-product-content-describe { text-align: center; }
+	.video-modal-product-content-describe h5 { font-size: 14px; }
+	.video-modal-product-content-describe p { color: #999; }	
+	.video-modal-product-content { position: relative; float: left; width:285px; height: 270px; margin: 10px 7px; overflow: hidden; }
+	.video-modal-product-content .video_more { height: 270px; }
+	.video-modal-product-content > a { position: relative; display: inline-block; width: 285px; height: 200px; overflow: hidden; }
+
+	.video-img button { margin-top: 20px; }
+	.video-sure { position:absolute; bottom: 10px; right: 50px; }
+	.haschoosed-video-img { width: 285px; height:200px; margin-top:20px; border: 1px solid #dcdcdc; }
+	.video-modal-choose { position: absolute; top:0; left:0; width: 285px; height:30px; background-color:rgba(0,0,0,.3); color:#fff; }
+	.video-modal-choose i { display: inline-block; width:50%; height: 30px; line-height: 30px; text-align: center; font-style:normal; cursor: pointer; }
+	.video-modal-choose .video-choose-use { background-color:rgba(0,255,0,.3); }
+	.video-modal-choose .video-has-choosed { background-color:rgba(255,0,0,.7); }
+</style>
+
+<div class="modal fade custom-width" id="modalVideoSelect">
+	<div class="modal-dialog" style="width: 80%;">
+		<div class="modal-content">
+			
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h2 class="modal-title">视频选择</h2>
+			</div>
+			
+			<div class="modal-body">
+				<div class="modal-search">
+					<input id="video_title" type="text" placeholder="输入您想要的视频标题"><a class="modal_fvideo_search" href="javascript:;">搜索</a>
+				</div>
+				<div class="video-modal-list">
+				</div>
+				<!-- 翻页 -->
+				<div class="modal-page" data-page-count="1" data-page-index="1"></div>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="__PUBLIC__/home/js/page.js"></script>
+<script>
+		//打开modal
+		var funcModalVideoCallBack = null;
+		var modalVideoFireObject = null;
+		function showModalVideoSelect(obj, func) {
+			modalVideoFireObject = obj;
+			funcModalVideoCallBack = func;	
+			modalVideoSelectClear();		
+			$("#modalVideoSelect").modal('show', {backdrop: 'static'});	
+		}
+		
+		// 切换选择
+		function modalVideoSelectChangeChecked (){
+			$(this).toggleClass('video-has-choosed');
+		}
+		
+		// 清空选中
+		function modalVideoSelectClear (){
+			$("#modalVideoSelect").find('.video-has-choosed').removeClass('video-has-choosed');
+		}
+		
+		//切换选中
+		$(document).on('click','.video-choose',function(){
+			$(this).toggleClass('video-has-choosed');
+		});
+		
+		$('.modal_fvideo_search').click(function(){
+			changeModalVideoSelectPage($("#modalVideoSelect").find('.modal-page').attr('data-page-index'));
+		});
+
+		// 初始化翻页
+		constructionPage($("#modalVideoSelect").find('.modal-page'), 1, changeModalVideoSelectPage, true);
+	    
+	    // 切换页码
+	    function changeModalVideoSelectPage(p) {
+	    	var title = $("#modalVideoSelect").find('#video_title').val();
+	    	var cdsstr = 'tl|' +title+'|stl|'+title;
+	    	var jsonData = {
+	    		op_type: 'list',
+	    		cds: cdsstr,
+	    		page: p - 1 ,
+	    	}
+	    	$.post('{:U("line/video")}', jsonData, function(data){	    		
+				if (typeof(data.ds) != 'undefined' && data.ds != null) {
+					$('.video-modal-list').empty();
+					for (var i=0; i<data.ds.length; i++) {
+						var d = data.ds[i];
+						var include_image = typeof(d.face_image)=='undefined' ? false : true;
+						var vhtml = '<div class="video-modal-product-content">'
+//						           +	'<a href="javascript:;" onclick="addIframe(' + d.title +',' + d.href +');">'
+						           +	'<a href="javascript:;">'
+								   +		'<img src="'+d.img+'" alt="">'
+								   +	'</a>'
+						           +	'<div class="video-modal-product-content-describe">'
+//							       +    	'<h5><a href="javascript:;" onclick="addIframe('+ d.title + ',' + d.href +');">' + d.title + '</a></h5>'
+							       +    	'<h5><a href="javascript:;">' + d.title + '</a></h5>'
+								   +	 	'<p>' + d.subheading + '</p>'
+								   +    '</div>'
+								   +	'<div class="video-modal-choose">'
+								   +		'<i class="video-choose" data-id="'+d.id+'">选中</i><i class="video-choose-use">选中并使用</i>'
+								   +	'</div>'
+								   +'</div>';
+						
+						
+						$("#modalVideoSelect").find('.video-modal-list').append(vhtml);
+						$("#modalVideoSelect").find('.video-choose-use:last').click(modalVideoSelectComfirm);
+						//$("#modalVideoSelect").find('.video-choose:last').click(modalVideoSelectChangeChecked);
+					
+					}
+					
+					// 根据情况判断是否重构分页
+					constructionPage($("#modalVideoSelect").find('.modal-page'), p, data.page_count, changeModalVideoSelectPage);
+				} 
+	    	});
+	    }
+	    
+	    $(document).ready(function(){
+	    	changeModalVideoSelectPage(1);
+	    });
+	    
+	    function modalVideoSelectComfirm() {
+	    	if ($(this).prev().hasClass('video-has-choosed') == false) {
+	    		$(this).prev().addClass('video-has-choosed');
+	    	}
+	    	
+	    	var selIds = [];	    	
+	    	$("#modalVideoSelect").find('.video-has-choosed').each(function(i,ev){
+	    		selIds.push($(this).attr('data-id'));
+	    	});
+	    	
+			$("#modalVideoSelect").modal('hide');
+	    	funcModalVideoCallBack(modalVideoFireObject, selIds);
+	    }
+</script>

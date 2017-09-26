@@ -1,0 +1,635 @@
+	<!-- css Reset -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/cssreset.css">
+	<!-- 轮播样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/slide.css">
+	<!-- 公共样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/common.css">
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/content.css">
+		
+	<style type="text/css">
+		.travel_my_pic_border{
+			width: 350px;
+			height:300px;
+			border:1px solid #FCFCFC; 
+    		overflow: hidden;
+		}
+		.travel_my_pic { 
+   			position: relative;
+		}
+		.travel_day { position: relative; }
+		.travel_day > .col-md-1 { position: absolute; bottom: 45px; right:0; }
+		.days-img { margin-left: 15px; }
+		.after_insert_travel { margin-top: 15px; }
+		.show_intro { padding-left: 15px; line-height: 2; color: #666; font-size:14px; }
+		.clean-img-out { position: absolute; right: 10px; top: 10px; background: rgba(0,0,0,.5); color: #fff !important; }
+	</style>
+	
+	<!--行程模板功能按钮开始-->
+	<div class="col-md-12 before_insert_travel hidden_ctrl">
+		<div class="form-group">
+			<button class="btn btn-secondary btn_insert_travel">添加行程</button>
+		</div>
+	</div>
+	<div class="col-md-12 after_insert_travel hidden_ctrl">
+		<div class="form-group">
+			<button class="btn btn-secondary btn_insert_travel">添加行程</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		//图片距离顶部距离
+		var imgOffsetTop;
+		//沿途风光图片距离顶部距离
+		var btnOffsetTop;
+		var travel_ctrl_index = 1;
+		// 添加行程操作功能按钮
+		function appendInsertButtonToTravel(obj) {
+			if (typeof(obj) != 'object') {
+				alert('对象错误，添加插入按钮失败');
+				return false;
+			}
+			var bFirst = $(obj).has('tab-pane');			
+			if (bFirst == false) {
+				if ( typeof($(obj).attr('id')) == 'undefined') {
+					alert('对象错误，添加插入按钮失败');
+					return false;
+				}
+				var beforeObj = $('.before_insert_travel').clone(true);
+				var afterObj = $('.after_insert_travel').clone(true);
+				$(beforeObj).removeClass('hidden_ctrl');
+				$(afterObj).removeClass('hidden_ctrl');
+				$(beforeObj).attr('data-id', '#'+$(obj).attr('id'));
+				$(afterObj).attr('data-id', '#'+$(obj).attr('id'));
+				$(obj).prepend(beforeObj);
+				$(obj).append(afterObj);
+			} else {
+				var afterObj = $('.after_insert_travel').clone(true);
+				$(afterObj).removeClass('hidden_ctrl');
+				$(afterObj).attr('data-id', '.travel-arrangements-alldays');
+				$(obj).find('.travel-arrangements-alldays').append(afterObj);
+			}		
+			return true;
+		}
+		
+		// 移除插入按钮
+		function removeInsertButtonFromTravel(obj) {
+			if (typeof(obj) != 'object') {
+				alert('对象错误，移除插入按钮失败');
+				return false;
+			}
+			$(obj).find('.before_insert_travel').remove();
+			$(obj).find('.after_insert_travel').remove();
+			return true;
+		}	
+		
+		// 绑定插入按钮
+		function bindInsertButtonToTravel(obj) {
+			if (typeof(obj) != 'object') {
+				alert('对象错误，绑定插入按钮失败');
+				return false;
+			}
+			
+			$(obj).mouseenter(function(ev){
+				ev.preventDefault();
+				appendInsertButtonToTravel(obj);
+			});
+			$(obj).mouseleave(function(ev){
+				ev.preventDefault();
+				removeInsertButtonFromTravel(obj);
+			});
+			return true;
+		}
+		
+		// 添加行程
+		function insertTravelDay(obj) {
+			var containerObj = $(obj).parent().parent();	// 添加按钮的容器
+			var rootObj = $($(containerObj).attr('data-id'));
+			var bFirst = $(rootObj).hasClass('travel-arrangements-alldays');
+			var insertModebefore = false;
+			var thisSortIndex = 0;
+			if (bFirst == false) {
+				rootObj = $(obj).closest('.travel_day');
+				insertModebefore = $(containerObj).hasClass('before_insert_travel');
+				thisSortIndex = parseInt($(rootObj).attr('data-index'));
+			} else {
+				if ($(rootObj).find('.travel_day:last').length > 0) {
+					thisSortIndex = parseInt($(rootObj).find('.travel_day:last').attr('data-index'));					
+				}
+			}
+			var new_day = insertModebefore == true ? thisSortIndex : thisSortIndex + 1;
+			var jsonData = {
+				op_type: 'create',
+				line_id: $('#line_id').val(),
+				day_id: new_day,
+				day_count: $('#fwv-1').find('#travel_day').val(),
+			}
+			
+			$.post('{:U("line/travelday")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					var travelObj = $('.template_travel_day').clone(true);
+					$(travelObj).removeClass('template_travel_day');
+					$(travelObj).removeClass('hidden_ctrl');
+					$(travelObj).addClass('travel_day');
+					$(travelObj).attr('id', 'travel_day_'+travel_ctrl_index);
+					$(travelObj).attr('data-id', data.id);
+					$(travelObj).attr('data-index', new_day);
+					travel_ctrl_index ++;
+					$(travelObj).find('.day').html('第'+new_day+'天');
+					$(travelObj).find('.intro').wysihtml5({
+						size: 'white',
+						stylesheets: "__PUBLIC__/assets/js/wysihtml5/lib/css/wysiwyg-color.css",
+						image: false,
+					});
+					$(travelObj).find('.kindly_reminder').wysihtml5({
+						size: 'white',
+						stylesheets: "__PUBLIC__/assets/js/wysihtml5/lib/css/wysiwyg-color.css",
+						image: false,
+					});
+					// 其他行程索引偏移
+					if (bFirst == false) {
+						$('.travel-arrangements-alldays').find('travel_day').each(function(i, el){
+							var dayId = parseInt($(el).attr('data-index'));
+							if (dayId >= new_day) {
+								var realDayId = dayId+1;
+								alert(realDayId);
+								$(el).attr('data-index', realDayId);
+								$(el).find('.show_day').html(realDayId);
+								$(el).find('.day').html('第'+realDayId+'天');
+							}
+						});
+					}
+					// 绑定事件
+					bindInsertButtonToTravel(travelObj);
+					// 加入行程列表
+					if (insertModebefore) {						
+						bFirst == false ? $(rootObj).before(travelObj) : $(rootObj).prepend(travelObj);
+					} else {
+						bFirst == false ? $(rootObj).after(travelObj) : $(rootObj).append(travelObj);
+					}
+				} else {
+					alert(data.result.message);
+				}
+			});			
+		}
+		
+		// 显示编辑
+		function showEditTravelDay(rootObj, bshow) {
+			if (bshow) {
+				$(rootObj).find('.hidden_ctrl').each(function(i, el){
+					if ($(el).parent().parent().hasClass('travel_my_pic_border') == false){
+						$(el).removeClass('hidden_ctrl');
+						$(el).prev().addClass('hidden_ctrl');		
+					}
+				});
+			} else {
+				$(rootObj).find('.hidden_ctrl').each(function(i, el){
+					if ($(el).parent().parent().hasClass('travel_my_pic_border') == false){
+						$(el).removeClass('hidden_ctrl');
+						$(el).next().addClass('hidden_ctrl');	
+					}
+				});
+			}
+		}
+		
+		// 编辑行程
+		function editTravelDay(rootObj) {
+			var travelObj = $(rootObj).find('.travel-arrangements-days');
+			$(travelObj).find('.day').val('第'+$(travelObj).find('.show_day').html()+'天');
+			$(travelObj).find('.title').val($(travelObj).find('.show_title').html());
+			var vhtml = $(travelObj).find('.show_intro').html();
+			$(travelObj).find('.intro').data('wysihtml5').editor.setValue(vhtml);
+			$(travelObj).find('.hotel').val($(travelObj).find('.show_hotel').html());
+			$(travelObj).find('.eat_way').val($(travelObj).find('.show_eat_way').html());
+			$(travelObj).find('.view_point').val($(travelObj).find('.show_view_point').html());
+			var vhtml = $(travelObj).find('.prompt').html();
+			$(travelObj).find('.kindly_reminder').data('wysihtml5').editor.setValue(vhtml);
+			showEditTravelDay(rootObj,true);
+		}
+		
+		// 保存行程
+		function saveTravelDay(rootObj) {
+			var aid = $(rootObj).attr('data-id');
+			var introText = $(rootObj).find('.intro').data('wysihtml5').editor.getValue();
+			var kindlyText = $(rootObj).find('.kindly_reminder').data('wysihtml5').editor.getValue();
+			var jsonData = {
+				op_type: aid == 0 ? 'create' : 'save',
+				id: aid,
+				title: $(rootObj).find('.title').val(),
+				intro: introText,
+				hotel: $(rootObj).find('.hotel').val(),
+				eat_way: $(rootObj).find('.eat_way').val(),
+				view_point: $(rootObj).find('.view_point').val(),
+				kindly_reminder: kindlyText,
+			}
+			
+			for (var i = 1; i <= 3; i ++) {				
+				var imgSrc = $(rootObj).find('.img'+i).attr('src');
+				var imgDesc = $(rootObj).find('.img'+i).next().find('span').html();
+				if (imgSrc != '') {
+					var imgKey = 'img'+i;
+					jsonData[imgKey] = imgSrc;
+				} 				
+				if (imgDesc != '双击设置描述,双击保存') {
+					var imgDescKey = 'img'+i+'_desc';
+					jsonData[imgDescKey] = imgDesc;
+				}	
+			}
+			
+			if (aid == 0) {
+				jsonData['line_id'] = $('#line_id').val();
+				jsonData['day_id'] = $(rootObj).attr('data-index');
+			}
+			
+			$.post('{:U("line/travelday")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					var travelObj = $(rootObj).find('.travel-arrangements-days');
+					if (typeof(data.ds.id) != 'undefined') {
+						$(rootObj).attr('data-id', data.ds.id);	
+					}
+					$(rootObj).attr('data-index', data.ds.day_id);
+					$(travelObj).find('.show_day').html(data.ds.day_id);
+					$(travelObj).find('.show_title').html(data.ds.title);
+					$(travelObj).find('.show_intro').html(introText);
+					$(travelObj).find('.show_hotel').html(data.ds.hotel);
+					$(travelObj).find('.show_eat_way').html(data.ds.eat_way);
+					$(travelObj).find('.show_view_point').html(data.ds.view_point);
+					$(travelObj).find('.prompt').html(kindlyText);
+					showEditTravelDay(rootObj,false);
+				} else {
+					alert(data.result.message);
+				}
+			});	
+		}
+		
+		// 删除行程
+		function deleteTravelDay(rootObj) {		
+			var aid = $(rootObj).attr('data-id');
+			if (aid == '0') {
+				alert('数据未存入数据库,不能删除');
+				return false;
+			}
+			var dayIndex = $(rootObj).attr('data-index');
+			
+			$.post('{:U("line/travelday")}', {op_type:'delete', id:aid}, function(data){
+				if (data.result.errno == 0) {
+					// 其他行程索引偏移
+					$('.travel-arrangements-alldays').find('.travel_day').each(function(i, el){
+						var dayId = parseInt($(el).attr('data-index'));
+						if (dayId >= dayIndex) {
+							var realDayId = dayId-1;
+							$(el).attr('data-index', realDayId);
+							$(el).find('.show_day').html(realDayId);
+							$(el).find('.day').html('第'+realDayId+'天');
+						}
+					});					
+					$(rootObj).remove();
+				} else {
+					alert(data.result.message);
+				}
+			});	
+		}
+		
+		// 添加行程详细
+		function appendTravelDay(ds) {
+			if (ds == null || typeof(ds) == 'undefined') {
+				return false;
+			}
+			var rootObj = $('.travel-arrangements-alldays');
+			for (var i = 0; i < ds.length; i ++) {
+				var t = ds[i];				
+				var travelObj = $('.template_travel_day').clone(true);
+				$(travelObj).removeClass('template_travel_day');
+				$(travelObj).removeClass('hidden_ctrl');
+				$(travelObj).addClass('travel_day');
+				$(travelObj).attr('id', 'travel_day_'+travel_ctrl_index);
+				$(travelObj).attr('data-id', t.id);
+				$(travelObj).attr('data-index', t.day_id);
+				travel_ctrl_index ++;
+				
+				$(travelObj).find('.kindly_reminder').wysihtml5({
+					size: 'white',
+					stylesheets: "__PUBLIC__/assets/js/wysihtml5/lib/css/wysiwyg-color.css",
+					image: false,
+				});
+				
+				$(travelObj).find('.intro').wysihtml5({
+					size: 'white',
+					stylesheets: "__PUBLIC__/assets/js/wysihtml5/lib/css/wysiwyg-color.css",
+					image: false,
+				});
+				
+				// 设置其他元素内容					
+				$(travelObj).find('.show_day').html(t.day_id);
+				$(travelObj).find('.show_title').html(t.title);
+				$(travelObj).find('.show_intro').html(t.intro);
+				$(travelObj).find('.show_hotel').html(t.hotel);
+				$(travelObj).find('.show_eat_way').html(t.eat_way);
+				$(travelObj).find('.show_view_point').html(t.view_point);
+				$(travelObj).find('.prompt').html(t.kindly_reminder);
+				
+				var img1Desc = t.img1_desc == '点击添加选择图片' || t.img1_desc == '' || t.img1_desc == null ? '双击设置描述,再次双击保存' : t.img1_desc;
+				$(travelObj).find('.img1').attr('src', t.img1);
+				$(travelObj).find('.img1').next().find('span').html(img1Desc);
+				
+				var img2Desc = t.img2_desc == '点击添加选择图片' || t.img2_desc == '' || t.img2_desc == null ? '双击设置描述,再次双击保存' : t.img2_desc;
+				$(travelObj).find('.img2').attr('src', t.img2);
+				$(travelObj).find('.img2').next().find('span').html(img2Desc);
+				
+				var img3Desc = t.img3_desc == '点击添加选择图片' || t.img3_desc == '' || t.img3_desc == null ? '双击设置描述,再次双击保存' : t.img3_desc;
+				$(travelObj).find('.img3').attr('src', t.img3);
+				$(travelObj).find('.img3').next().find('span').html(img3Desc);
+				
+				$(travelObj).find('.btn_travel_edit').html('编辑');
+				
+				// 隐藏编辑
+				showEditTravelDay(travelObj, false);
+				
+				// 绑定事件
+				bindInsertButtonToTravel(travelObj);
+				
+				// 加入行程列表
+				$(rootObj).append(travelObj)
+			}
+		}
+		//回到点击位置
+		function goImgTop(e){
+			$(e).click(function(){
+				$('body,html').animate({'scrollTop':imgOffsetTop - 100},100);
+			})
+		}
+		
+		function goBtnTop(e){
+			$(e).click(function(){
+				$('body,html').animate({'scrollTop':btnOffsetTop},100);
+				console.log(btnOffsetTop);
+			})
+		}
+		
+		// 更换行程图片
+		function changeTravelDayImage(imageObj, imageList) {
+			var rootObj = $(imageObj).closest('.travel_day');
+			var jsonData = {
+				op_type: 'save',
+				id: $(rootObj).attr('data-id'),
+			};
+			if ($(imageObj).hasClass('img1')) {
+				jsonData['img1'] = imageList[0];
+			} else if($(imageObj).hasClass('img2')) {
+				jsonData['img2'] = imageList[0];
+			} else {
+				jsonData['img3'] = imageList[0];
+			}
+			$.post('{:U("line/travelday")}', jsonData, function(data){
+				if (data.result.errno == 0)	{
+					goBtnTop($('#gallery-image-upload-modal').find('.btn-use'));
+					$(imageObj).attr('src', imageList[0]);
+				} else {
+					alert(data.result.message);
+				}
+			});
+		}
+		
+		// 设置行程图片描述
+		function setTravelDayImageDesc(pObj) {
+			var rootObj = $(pObj).closest('.travel_day');
+			var bset = $(pObj).find('span').hasClass('hidden_ctrl');
+			if (bset) {
+				var desc = $(pObj).find('input').val();
+				var jsonData = {
+					op_type: 'save',
+					id: $(rootObj).attr('data-id'),
+				};
+				if ($(pObj).prev().hasClass('img1')) {
+					jsonData['img1_desc'] = desc;
+				} else if ($(pObj).prev().hasClass('img2')) {
+					jsonData['img2_desc'] = desc;
+				} else {
+					jsonData['img3_desc'] = desc;
+				}
+				$.post('{:U("line/travelday")}', jsonData, function(data){
+					if (data.result.errno == 0)	{
+						$(pObj).find('span').html(desc);
+					} else {
+						alert(data.result.message);
+					}
+					$(pObj).find('span').removeClass('hidden_ctrl');
+					$(pObj).find('span').next().addClass('hidden_ctrl');
+				});
+			} else {
+				$(pObj).find('span').addClass('hidden_ctrl');
+				$(pObj).find('span').next().removeClass('hidden_ctrl');
+				$(pObj).find('input').focus();
+				$(pObj).find('input').val($(pObj).find('span').html());
+			}
+		}		
+			
+		
+		
+		// 行程初始化
+		$(document).ready(function(){
+			// 添加行程
+			$('.btn_insert_travel').click(function(ev){
+				ev.preventDefault();
+				insertTravelDay(this);
+			});
+			
+			// 编辑行程
+			$('.btn_travel_edit').click(function(ev){		
+				ev.preventDefault();		
+				var rootObj = $(this).closest('.travel_day');
+				var btnText = $(this).html();
+				if (btnText == '保存') {
+					$(this).html('编辑');
+					saveTravelDay(rootObj)
+				} else {
+					$(this).html('保存');
+					editTravelDay(rootObj);	
+				}
+			});
+			
+			// 删除行程
+			$('.btn_travel_delete').click(function(ev){		
+				ev.preventDefault();		
+				var rootObj = $(this).closest('.travel_day');
+				deleteTravelDay(rootObj);
+			});
+			
+			
+			// 更换图片
+			$('.travel_my_pic').click(function(ev){
+				ev.preventDefault();
+				//获取图片距离顶部距离
+				imgOffsetTop = $(this).offset().top;
+				
+				funcModalImageSelectorCallBack = changeTravelDayImage;
+				showModalSelectorImageDialog(this);
+			});	
+			
+			
+			$('.btn_select_image').click(function(){
+				//获取图片距离顶部距离
+				btnOffsetTop = $(this).offset().top;
+			});
+			$('.btn_upload_image').click(function(){
+				//获取图片距离顶部距离
+				btnOffsetTop = $(this).offset().top;
+			});
+			
+			
+			//showModalSelectorImageDialog  结束后可以归位
+			
+			goImgTop('.close');
+			goImgTop($('#gallery-image-selector-modal').find('.btn-secondary'));
+			goImgTop($('#gallery-image-selector-modal').find('.btn-white'));
+			
+			goBtnTop('.close');
+			goBtnTop($('#gallery-image-selector-modal').find('.btn-secondary'));
+			goBtnTop($('#gallery-image-selector-modal').find('.btn-white'));		
+			goBtnTop($('#gallery-image-upload-modal').find('.btn-white'));
+			goBtnTop($('#gallery-image-upload-modal').find('.btn-use'));
+			
+			
+			// 设置图片描述
+			$('.travel_my_pic_border p').dblclick(function(ev){
+				ev.preventDefault();
+				setTravelDayImageDesc(this);
+			});	
+			
+			// 清除图片
+			$(document).on('click','.travel_my_pic_border .clean-img-out',function(ev){
+				ev.preventDefault();
+				var imgObj = $(this).parent().find('.travel_my_pic');
+				
+				changeTravelDayImage(imgObj, ['']);				
+			});
+					
+		});
+	</script>
+	<!--行程模板开始-->
+	<div class="row template_travel_day hidden_ctrl" data-id="0">
+		<div class="col-md-11">
+			<div class="travel-arrangements-days">
+				<div class="row">						
+					<h4 class="hidden_ctrl">Day<span class="show_day">1</span>：<span class="show_title"></span></h4>				
+					<div class="col-md-6">
+						<div class="form-group">
+							<h4 class="day"></h4>
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="title">行程标题：</label>
+							<input class="form-control title" placeholder="请输入行程的标题" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<p class="hidden_ctrl show_intro"></p>									
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label" for="intro">行程描述：</label>
+							<textarea class="form-control autogrow intro" placeholder="请输入行程的安排及描述"></textarea>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12 days-information hidden_ctrl">
+						<span><i class="days-zs"></i>住宿：<span class="show_hotel"></span></span>
+						<span><i class="days-cy"></i>餐饮：<span class="show_eat_way"></span></span>
+						<span><i class="days-zd"></i>浏览重点：<span class="show_view_point"></span></span>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label" for="hotel">入驻宾馆：</label>
+								<input class="form-control hotel" placeholder="请输入入驻宾馆"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label" for="eat_way">就餐说明：</label>
+								<input class="form-control eat_way" placeholder="请输入就餐说明"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label" for="view_point">参观重点：</label>
+								<input class="form-control view_point" placeholder="请输入重点参观项目"/>
+							</div>
+						</div>
+					</div>
+				</div>
+								
+				<div class="row">
+					<div class="col-md-12 days-prompt hidden_ctrl">
+						<span><i class="days-ts"></i>温馨提示：</span>
+						<div class="prompt"></div>		
+					</div>	
+					<div class="col-md-12">							
+						<div class="form-group">
+							<label class="control-label" for="kindly_reminder">温馨提示：</label>
+							<textarea class="form-control kindly_reminder" placeholder="请编辑温馨提示内容"></textarea>
+						</div>
+					</div>					
+				</div>
+				
+				<div class="row">
+					<div class="row days-img">
+						<div class="days-img-left travel_my_pic_border">
+							<img class="img1 travel_my_pic" src="" alt="请选择图片">
+							<a href="javascript:;" class="btn clean-img-out">清除</a>
+							<p style="bottom: -42px;">
+								<span>双击设置描述,双击保存</span>
+								<input type="text" class="form-control has-success hidden_ctrl" />
+							</p>
+						</div>
+						<div class="days-img-left travel_my_pic_border">
+							<img class="img2 travel_my_pic" src="" alt="请选择图片">
+							<a href="javascript:;" class="btn clean-img-out">清除</a>
+							<p style="bottom: -42px;">
+								<span>双击设置描述,双击保存</span>
+								<input type="text" class="form-control has-success hidden_ctrl"/>
+							</p>
+						</div>
+						<div class="days-img-left travel_my_pic_border">
+							<img class="img3 travel_my_pic" src="" alt="请选择图片">
+							<a href="javascript:;" class="btn clean-img-out">清除</a>
+							<p style="bottom: -42px;">
+								<span>双击设置描述,双击保存</span>
+								<input type="text" class="form-control has-success hidden_ctrl"/>
+							</p>
+						</div>
+					</div>
+					<div class="row">
+						<span style="margin-left:50px; color: red;">行程图片新旅拍规格[650x450],其他规格[385x260]</span>
+					</div>
+				</div>
+			</div> <!--结束一天安排-->
+		</div>
+		<div class="col-md-1">
+			<div class="form-group">
+				<button class="btn btn-secondary btn_travel_edit">保存</button>
+				<button class="btn btn-danger btn_travel_delete">删除</button>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">		
+		//days图片描述
+		$('.days-img-left').hover(
+			function () {
+				$(this).children('p').stop().animate({ bottom: '0' }, 500);
+			},
+			function () {
+				$(this).children('p').stop().animate({ bottom: '-42px' }, 500);
+			}
+		);
+		$('.days-img-right').hover(
+			function () {
+				$(this).children('p').stop().animate({ bottom: '0' }, 500);
+			},
+			function () {
+				$(this).children('p').stop().animate({ bottom: '-42px' }, 500);
+			}
+		);
+	</script>

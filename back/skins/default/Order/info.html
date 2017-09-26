@@ -1,0 +1,4636 @@
+<include file="Common/header" />
+
+	<style>
+
+		.cantuanrenshu span { margin-right: 1%; }
+
+		.ctr_xinxi label { margin-left: 2%; color: #fff; }
+
+		.ctr_top { margin-left: .1%; margin-top: 1%; background: #999; }
+
+		.ctr_top p { color: #fff; }
+
+		.ctr_input , .ctr_select { height: 32px; padding: 6px 12px; color: #000; }
+
+		.ctr_select { vertical-align: bottom; margin-left: -4px; }
+
+		#table td { vertical-align: middle; }
+
+		.ctr_xingming , .ctr_shouji , .ctr_birth, .ctr_beizhu{ width: 100%; height: 32px; padding: 6px 6px; border: 1px solid #40bbea; display: none; }
+
+		.ctr_baocun , .ctr_cancel , .ctr_sex , .ctr_card { display: none; }
+
+		#table .ctr_card_num { float: right; width: 73%; height: 32px; padding: 6px 6px; border: 1px solid #40bbea; display: none; }
+
+		.selectboxit-btn { background: #fff; border-color: #40bbea; }
+
+		.selectboxit-list { background-color: #fff; border: 1px solid #40bbea; }
+
+		.selectboxit-list .selectboxit-option-anchor { color: #979898; }
+
+		.form-control:focus { border-color: #40bbea; }
+
+		a { color: #979898; }
+
+		.add_xinxi { display: none; }
+
+		.dingdan_bianji , .dingdan_bianji01 , .dingdan_bianji02 { display: none; border: 1px solid #40bbea; }
+
+		.dingdan_bottom > p , .dingdan_bottom span{ margin-top: 7px; }
+
+		.add_xingming , .add_shouji , .add_card_btn_num { border: 1px solid #40bbea; }
+
+		.add_xingming , .add_shouji { outline: none; }
+
+		.add_xingming:focus , .add_shouji:focus { border: 1px solid #40bbea; }
+
+		
+
+		.cx_border02 , html .select2-container .select2-choice , #s2id_activity{ border-color: #40bbea !important; }
+
+		.cx_border02 , .select2-container , .select2-choice , .info-border-color{ border-color: #40bbea !important; }
+
+		#s2id_line_article { vertical-align: middle; }
+
+		.select2-arrow  { margin-top:0 !important; }
+		
+		/*改团样式 border-color: #40bbea;*/
+		.row-min-height { min-height: 40px; max-width:95%; margin-bottom: 10px; border-bottom: 1px dashed #18a8df; }
+		.col-indent	{ margin-left: -15px; }
+		.taocan-edit-style { padding: 5px 15px; margin-bottom:15px; border: 1px solid #18a8df; }
+		.taocan-edit-type-style { padding: 10px 10px; margin: 10px -10px; border-top: 1px dashed #18a8df; }
+		
+		/*模块标题*/
+		.module { margin-top: 2%; margin-left: 2%; }
+		.module-title { color: #cc3f44; font-size:20px; font-weight: 300; line-height: 1.4; border-bottom: 1px dashed #18a8df; }
+		.module-content { margin-top:10px; padding: 10px 15px; }
+
+	</style>
+
+	<div class="row">
+
+		<div class="col-sm-12">
+
+			<div class="panel panel-default">
+
+				<div class="panel-heading">
+
+					<h3 class="panel-title"> 
+
+						{:C('CONTENT_TITLE')}
+
+						<input id="order_id" type="hidden" value="{$order.id}"/>
+
+					</h3>
+
+				</div>
+
+				<div class="panel-body row">
+
+					<div id="dingdan_main" class="module">
+
+						<div class="module-content">
+
+							<div class="row">
+
+								<p id='err_msg' class="col-sm-3" style="color:#e4393c;"></p>
+
+							</div>
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">订单编号：</p>
+
+								<div class="input-group col-sm-6">
+
+									{$order.order_sn}
+
+								</div>
+
+							</div>
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">渠道订单编号：</p>
+
+								<span id="channel_order_sn_show" class="col-sm-3" style="padding-left: 0;">{$order.channel_order_sn}</span>
+
+								<input id="channel_order_sn_val" type="text" style="height: 32px;" class="dingdan_bianji col-sm-3">
+								
+								<if condition="$grant_improve eq true">
+								
+									<input name="channel_order_sn" class="btn btn-info dingdan_btn_bianji btn_edit" type="button" style="vertical-align: middle;" value="编辑">
+								
+									<input name="channel_order_sn" class="btn btn-info dingdan_btn_bianji btn_cancel" type="button" style="display:none; vertical-align: middle;" value="取消">
+								
+								</if>
+
+							</div>
+							
+							<div class="row" style="margin-left: 15px;">	
+								<div class="row line_show">
+									<div class="row row-min-height order_line">	
+										<p class="col-xs-1">线路名称：</p>
+										<span class="col-xs-3 order_line_show" data-line-id="{$order.lineid}">{$order.lineid_title}</span>	
+										<if condition="$grant_update_order eq true">
+											<input class="btn btn-info button_change_line_show" type="button" value="转团">
+										</if>
+									</div>
+									<div class="row row-min-height order_batch">
+										<p class="col-xs-1">线路批次：</p>
+										<span class="col-xs-3 order_batch_show" data-batch-id="{$order.hdid}">{$order.hdid_show_text}</span>										
+									</div>
+									<div class="row row-min-height order_taocan">
+										<p class="col-xs-1">订单套餐：</p>
+										<div class="taocan-checked btn-group order_taocan_show" data-price-id="{$order.tc_pirce_id}">
+											<button class="btn btn-write btn-xs disabled" style="margin-right:10px;" data-taocan-id="$order['taocan']['id']">{$order.taocan.tc_name_str}</button>									
+										</div>
+									</div>
+								</div>
+								<div class="row line_edit" style="display: none;">
+									<div class="row row-min-height order_line">
+										<p class="col-xs-1">线路名称：</p>
+										<div class="col-xs-4 col-indent">				
+											<input type="text" class="cx_border02 order_line_edit" />
+										</div>
+										<if condition="$grant_update_order eq true">
+											<input class="btn btn-info button_change_line_save" type="button" value="提交">
+											<input class="btn btn-info button_change_line_cancel" type="button" value="取消">
+										</if>
+									</div>
+									<div class="row row-min-height order_batch">
+										<p class="col-xs-1">线路批次：</p>
+										<div class="col-xs-4 col-indent">	
+											<input type="text" class="order_batch_edit" />
+										</div>
+									</div>	
+									<div class="row row-min-height order_taocan">
+										<p class="col-xs-1">订单套餐：</p>
+										<div class="col-xs-6 col-indent">
+											<input type="text" class="order_taocan_edit" />
+										</div>
+									</div>							
+								</div>								
+							</div>
+							
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">订单状态：</p>
+
+								<span id='zhuangtai_show' class="col-sm-3" style="padding-left: 0;">
+
+									{$order.zhuangtai_data.type_desc}
+
+								</span>	
+									
+								<select id="zhuangtai_val" style="height: 32px;" class="dingdan_bianji col-sm-3">
+
+									<volist id="os" name="orderState">
+
+										<option value="{$os.id}">{$os.type_desc}</option>
+
+									</volist>
+
+								</select>
+								
+								<if condition="$admin.account eq 'admin'">
+								
+									<input name="zhuangtai" class="btn btn-info dingdan_btn_bianji btn_edit" type="button" style="vertical-align: middle;" value="编辑">
+														   
+									<input name="zhuangtai" class="btn btn-info dingdan_btn_bianji btn_cancel" type="button" style="display:none; vertical-align: middle;" value="取消">
+								
+								</if>
+
+							</div>
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">锁定状态：</p>
+									
+								<if condition="$order['locked'] eq 0">
+
+									<span class="col-sm-3 lock_order" data-locked="{$order.locked}" style="padding-left: 0; color: green;">未锁定</span>
+																			
+								<else />
+
+									<span class="col-sm-3 lock_order" data-locked="{$order.locked}" style="padding-left: 0; color: red;">已锁定</span>
+									
+								</if>
+
+							</div>
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">订单总金额：</p>
+
+								<span id='order_sum_cash' class="col-sm-3" style="padding-left: 0;">
+
+									{$order.need_pay_money}
+
+								</span>	元
+
+							</div>
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">订单总团费：</p>
+
+								<span id='team_cut_price_show' class="col-sm-3 order_team_cash" style="padding-left: 0;">{$order.team_cut_price}</span>	元
+
+								<input id="team_cut_price_val" type="text" style="height: 32px;" class="dingdan_bianji col-sm-3">
+								
+								<if condition="$grant_improve_QD eq true">
+								
+									<input name="team_cut_price" class="btn btn-info dingdan_btn_bianji btn_edit" type="button" style="vertical-align: middle;" value="编辑">
+								
+									<input name="team_cut_price" class="btn btn-info dingdan_btn_bianji btn_cancel" type="button" style="display:none; vertical-align: middle;" value="取消">
+								
+								</if>
+
+							</div>
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">实付金额：</p>
+
+								<span id='order_sum_pay' class="col-sm-3" style="padding-left: 0;">
+
+									{$order.pay_cash}
+
+								</span>	元
+
+							</div>
+							
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">订单来源：</p>
+
+								<span id="from_id_show" class="col-sm-3" style="padding-left: 0;">{$order.from_id_data.type_desc}</span>
+																	
+								<select id="from_id_val" style="height: 32px;" class="dingdan_bianji col-sm-3">
+
+									<volist id="of" name="orderFrom">
+
+										<option value="{$of.id}">{$of.type_desc}</option>
+
+									</volist>
+
+								</select>
+								
+								<if condition="$grant_improve eq true">
+								
+									<input name="from_id" class="btn btn-info dingdan_btn_bianji btn_edit" type="button" style="vertical-align: middle;" value="编辑">
+														   
+									<input name="from_id" class="btn btn-info dingdan_btn_bianji btn_cancel" type="button" style="display:none; vertical-align: middle;" value="取消">
+								
+								</if>
+
+							</div>
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">客户来源：</p>
+
+								<span id='customer_from_show' class="col-sm-3" style="padding-left: 0;">{$order.customer_from}</span>
+
+								<input id="customer_from_val" type="text" style="height: 32px;" class="dingdan_bianji col-sm-3">
+								
+								<if condition="$grant_improve eq true">
+								
+									<input name="customer_from" class="btn btn-info dingdan_btn_bianji btn_edit" type="button" style="vertical-align: middle;" value="编辑">
+								
+									<input name="customer_from" class="btn btn-info dingdan_btn_bianji btn_cancel" type="button" style="display:none; vertical-align: middle;" value="取消">
+								
+								</if>
+
+							</div>
+							
+							<div class="row row-min-height">
+								<p class="col-sm-1">所属同行：</p>
+								<div class="input-group col-sm-5" style="border-color: #40bbea;">
+									<script type="text/javascript">
+										jQuery(document).ready(function($)
+										{
+											var voption = {obj:$('#tonghang'), placeholder:'请选择所属同行', show_col:'name', select_col:'name'};
+											var vds = {tab:'cj_agency', cdsstr:"agency_type|LIKE|%cj_agency_type_tonghang%|AND", cdtype:4};
+											var tg = new MySelect2(voption, vds);
+											if ('{$order.tonghang}' != '') {
+												setSelect2Value($('#tonghang'), '{$order.tonghang}');
+											}
+											
+											$('.btn-tonghang-reset').click(function(){$('#tonghang').select2('val', '');});
+										});
+									</script>
+									<input type="text" id="tonghang" style="height: 35px;"/>
+									<span class="input-group-btn">
+        								<button class="btn btn-default btn-tonghang-reset" type="button" style="height: 35px;border:1px solid #40bbea;"><span class="fa-remove"></span></button>
+										<if condition="$grant_improve eq true">								
+											<input class="btn btn-info dingdan_btn_bianji btn_tonghang_save" type="button" style="vertical-align: middle;height: 35px;" value="保存">								
+										</if>
+      								</span>
+								</div>								
+							</div>
+							
+							<div class="row row-min-height">
+								<p class="col-sm-1">订单来源域名：</p>
+								<span id='order_team_cash' class="col-sm-6" style="padding-left: 0;">
+									{$order.add_domain}
+								</span>	
+							</div>
+							
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">省份：</p>
+
+								<span id="shengfen_show" class="col-sm-3" style="padding-left: 0;">{$order.shengfen}</span>
+
+								<input id="shengfen_val" type="text" style="height: 32px;" class="dingdan_bianji col-sm-3">
+								
+								<if condition="$grant_improve eq true">
+								
+									<input name="shengfen" class="btn btn-info dingdan_btn_bianji btn_edit" type="button" style="vertical-align: middle;" value="编辑">
+								
+									<input name="shengfen" class="btn btn-info dingdan_btn_bianji btn_cancel" type="button" style="display:none; vertical-align: middle;" value="取消">
+								
+								</if>
+
+							</div>
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">城市：</p>
+
+								<span id="chengshi_show" class="col-sm-3" style="padding-left: 0;">{$order.chengshi}</span>
+
+								<input id="chengshi_val" type="text" style="height: 32px;" class="dingdan_bianji col-sm-3">
+								
+								<if condition="$grant_improve eq true">
+								
+									<input name="chengshi" class="btn btn-info dingdan_btn_bianji btn_edit" type="button" style="vertical-align: middle;" value="编辑">
+								
+									<input name="chengshi" class="btn btn-info dingdan_btn_bianji btn_cancel" type="button" style="display:none; vertical-align: middle;" value="取消">
+								
+								</if>
+
+							</div>
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">联系人姓名：</p>
+
+								<span id="names_show" class="col-sm-3" style="padding-left: 0;">{$order.names}</span>
+
+								<input id="names_val" type="text" style="height: 32px;" class="dingdan_bianji col-sm-3">
+								
+								<if condition="$grant_improve eq true">
+								
+									<input name="names" class="btn btn-info dingdan_btn_bianji btn_edit" type="button" style="vertical-align: middle;" value="编辑">
+								
+									<input name="names" class="btn btn-info dingdan_btn_bianji btn_cancel" type="button" style="display:none; vertical-align: middle;" value="取消">
+								
+								</if>
+
+							</div>
+
+							
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">联系人电话：</p>
+
+								<span id="mob_show" class="col-sm-3" style="padding-left: 0;">{$order.mob}</span>
+
+								<input id="mob_val" type="text" style="height: 32px;" class="dingdan_bianji col-sm-3">
+								
+								<if condition="$grant_improve eq true">
+								
+									<input name="mob" class="btn btn-info dingdan_btn_bianji btn_edit" type="button" style="vertical-align: inherit;" value="编辑">
+								
+									<input name="mob" class="btn btn-info dingdan_btn_bianji btn_cancel" type="button" style="display:none; vertical-align: middle;" value="取消">
+								
+								</if>
+
+							</div>
+							
+
+							<div class="row row-min-height">
+
+								<p class="cantuanrenshu col-sm-1">参团人数：</p>
+
+								<volist id="mt" name="memberType">
+
+									<span class="col-sm-1 text-left" style="padding-left: 0;">
+
+										<strong class="text-danger">{$mt.count}</strong>										
+
+										<input id="{$mt.type_key}" class="dingdan_bianji" style="width: 30%" maxlength="3" type="text"/>位{$mt.type_desc}
+
+									</span>
+
+								</volist>
+								
+								<if condition="$grant_improve eq true or $grant_force_team eq true">
+								
+									<input id="button_type_count" class="btn btn-info dingdan_btn_bianji" type="button" style="vertical-align: text-bottom;" value="编辑">								
+									
+								</if>
+
+							</div>
+								
+							<if condition="empty($order['special_member']) === false">
+														
+								<div class="row row-min-height">
+
+									<p class="cantuanrenshu col-sm-1">特殊参团人：</p>	
+									
+									<span class="col-sm-8 text-left" style="padding-left: 0;">{$order.special_member}</span>									
+									
+								</div>		
+								
+								<br />					
+									
+							</if>
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">信息员备注：</p>
+
+								<span id="kefu_beizhu_show" class="col-sm-8" style="padding-left: 0;">{$order.kefu_beizhu}</span>
+
+								<input id="kefu_beizhu_val" type="text" style="height: 32px;" class="dingdan_bianji col-sm-8">
+								
+								<if condition="$grant_improve eq true">
+								
+									<input name="kefu_beizhu" class="btn btn-info dingdan_btn_bianji btn_edit" type="button" style="vertical-align: inherit;" value="编辑">
+								
+									<input name="kefu_beizhu" class="btn btn-info dingdan_btn_bianji btn_cancel" type="button" style="display:none; vertical-align: middle;" value="取消">
+								
+								</if>
+
+							</div>
+
+							<div class="row row-min-height">
+
+								<p class="col-sm-1">客户留言：</p>
+
+								<span class="col-sm-8" style="padding-left: 0;">{$order.beizhu}</span>
+
+							</div>
+
+						</div>
+
+					</div>				
+					
+					<table class="template_member hidden_ctrl">
+						
+						<tr data-id="{$m.id}">			
+							
+							<td>
+
+								<input type="checkbox" name="checkList" value=''/>
+
+							</td>							
+
+							<td>
+
+								<span name="label_name"></span>
+
+								<input name="name" type="text" class="ctr_xingming">
+
+							</td>
+
+							<td>
+
+								<span name="label_tel"></span>
+
+								<input name="tel" type="text" maxlength="11" class="ctr_shouji">
+
+							</td>
+
+							<td>
+
+								<span name="label_type" data-id=""></span>
+
+								<select name="type" class="form-control ctr_sex">
+
+									<volist id="rmt" name="roomMemberType">
+
+										<option value="{$rmt.id}">{$rmt.type_desc}</option>
+
+									</volist>
+
+								</select>
+
+							</td>
+
+							<td>
+
+								<span name="label_cert" data-id=""></span>
+
+								<div class="input-group ctr_card">
+
+									<span class="input-group-btn" style="display: inline-block;">
+
+										<button type="button" class="btn btn-info dropdown-toggle ctr_card_btn" data-toggle="dropdown" data-id="{$certType[0]['id']}">
+
+											<span class="ctr_card_btn_num"></span> 
+
+											<span class="caret"></span>
+
+										</button>
+
+										<ul class="dropdown-menu dropdown-info ctr_card_change">
+
+											<volist id="ct" name="certType">
+
+												<li>
+
+													<a href="javascript:;">{$ct.type_desc}</a>
+
+													<input type="hidden" value="{$ct.id}"/>
+
+												</li>
+
+											</volist>
+
+										</ul>
+
+									</span>
+
+									<input name='cert' type="text" maxlength="18" class="form-control no-left-border form-focus-info ctr_card_num">
+
+								</div>
+
+							</td>
+							
+							<td>
+
+								<span name="label_birth"></span>
+								
+								<input type="text" name="birth" class="form-control datepicker ctr_birth" data-format="yyyy-mm-dd">
+								
+							</td>
+											
+							<td>
+								
+								<span name="label_beizhu">{$m.beizhu}</span>
+								
+								<input  type="text" name="beizhu" class="form-control ctr_birth" />
+								
+							</td>
+
+							<td>
+
+								<button type="button" class="btn btn-success ctr_bianji">编辑</button>
+
+								<button type="button" class="btn btn-info ctr_baocun">保存</button>
+
+								<button type="button" class="btn btn-info ctr_cancel">取消</button>
+
+								<if condition="$grant_send_sms eq true">
+
+									<button type="button" class="btn btn-info ctr_sendphone" style="display: none;">短信通知</button>
+
+								</if>
+							</td>
+
+						</tr>
+						
+					</table>
+					
+					<div class="module">
+
+						<p class="module-title">游客信息：</p>
+
+						<div class="module-content">
+
+							<table id="table" class="table text-left" style="width: 90%;">
+
+								<script type="text/javascript">
+
+									jQuery(document).ready(function($){
+										$(".ctr_sex").selectBoxIt().on('open', function(){
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});
+									});
+
+								</script>
+
+								<thead>
+
+									<tr>
+
+										<th width="40px;">退团</th>
+
+										<th width="100px;">姓名</th>
+
+										<th width="100px;">手机号</th>
+
+										<th width="100px;">分房类型</th>
+
+										<th width="200px;">证件</th>
+
+										<th width="150px;">生日</th>
+
+										<th width="200px;">备注(团期需求)</th>
+
+										<th width="150px;">操作</th>
+
+									</tr>
+
+								</thead>
+
+								<tbody>									
+									
+									<volist id="m" name="order.members">
+
+										<tr data-id="{$m.id}">			
+											
+											<td>
+
+												<input type="checkbox" name="checkList" value='{$m.id}'/>
+
+											</td>							
+
+											<td>
+
+												<span name="label_name">{$m.name}</span>
+
+												<input name="name" type="text" class="ctr_xingming">
+
+											</td>
+
+											<td>
+
+												<span name="label_tel">{$m.tel}</span>
+
+												<input name="tel" type="text" maxlength="11" class="ctr_shouji">
+
+											</td>
+
+											<td>
+
+												<span name="label_type" data-id="{$m.type_id}">{$m.type_id_data.type_desc}</span>
+
+												<select name="type" class="form-control ctr_sex">
+
+													<volist id="rmt" name="roomMemberType">
+
+														<option value="{$rmt.id}">{$rmt.type_desc}</option>
+
+													</volist>
+
+												</select>
+
+											</td>
+
+											<td>
+
+												<span name="label_cert" data-id="{$m.certificate_type_id}">{$m.certificate_type_id_data.type_desc}&nbsp;{$m.certificate_num}</span>
+
+												<div class="input-group ctr_card">
+
+													<span class="input-group-btn" style="display: inline-block;">
+
+														<button type="button" class="btn btn-info dropdown-toggle ctr_card_btn" data-toggle="dropdown" data-id="{$certType[0]['id']}">
+
+															<span class="ctr_card_btn_num">{$certType[0]['type_desc']}</span> 
+
+															<span class="caret"></span>
+
+														</button>
+
+														<ul class="dropdown-menu dropdown-info ctr_card_change">
+
+															<volist id="ct" name="certType">
+
+																<li>
+
+																	<a href="javascript:;">{$ct.type_desc}</a>
+
+																	<input type="hidden" value="{$ct.id}"/>
+
+																</li>
+
+															</volist>
+
+														</ul>
+
+													</span>
+
+													<input name='cert' type="text" maxlength="18" class="form-control no-left-border form-focus-info ctr_card_num">
+
+												</div>
+
+											</td>
+											
+											<td>
+
+												<span name="label_birth">{$m.birthday}</span>
+												
+												<input type="text" name="birth" class="form-control datepicker ctr_birth" data-format="yyyy-mm-dd">
+												
+											</td>
+											
+											<td>
+												
+												<span name="label_beizhu">{$m.beizhu}</span>
+												
+												<input  type="text" name="beizhu" class="form-control ctr_beizhu" />
+												
+											</td>
+
+											<td>
+
+												<button type="button" class="btn btn-success ctr_bianji">编辑</button>
+
+												<button type="button" class="btn btn-info ctr_baocun">保存</button>
+
+												<button type="button" class="btn btn-info ctr_cancel">取消</button>
+
+												<if condition="$grant_send_sms eq true">
+
+													<button type="button" class="btn btn-info ctr_sendphone" style="display: none;">短信通知</button>
+
+												</if>
+											</td>
+
+										</tr>
+
+									</volist>	
+									
+									<!--需要完善的参团人员-->
+									<for start="0" end="$order['sub_member_count']" comparison="lt" step="1" name="sm">
+										
+										<tr data-id="">
+											
+											<td>
+
+												<input type="checkbox" name="checkList" value=''/>
+
+											</td>							
+
+											<td>
+
+												<span name="label_name"></span>
+
+												<input name="name" type="text" class="ctr_xingming">
+
+											</td>
+
+											<td>
+
+												<span name="label_tel"></span>
+
+												<input name="tel" type="text" maxlength="11" class="ctr_shouji">
+
+											</td>
+
+											<td>
+
+												<span name="label_type" data-id=""></span>
+
+												<select name="type" class="form-control ctr_sex">
+
+													<volist id="rmt" name="roomMemberType">
+
+														<option value="{$rmt.id}">{$rmt.type_desc}</option>
+
+													</volist>
+
+												</select>
+
+											</td>
+
+											<td>
+
+												<span name="label_cert" data-id=""></span>
+
+												<div class="input-group ctr_card">
+
+													<span class="input-group-btn" style="display: inline-block;">
+
+														<button type="button" class="btn btn-info dropdown-toggle ctr_card_btn" data-toggle="dropdown" data-id="{$certType[0]['id']}">
+
+															<span class="ctr_card_btn_num"></span> 
+
+															<span class="caret"></span>
+
+														</button>
+
+														<ul class="dropdown-menu dropdown-info ctr_card_change">
+
+															<volist id="ct" name="certType">
+
+																<li>
+
+																	<a href="javascript:;">{$ct.type_desc}</a>
+
+																	<input type="hidden" value="{$ct.id}"/>
+
+																</li>
+
+															</volist>
+
+														</ul>
+
+													</span>
+
+													<input name='cert' type="text" maxlength="18" class="form-control no-left-border form-focus-info ctr_card_num">
+
+												</div>
+
+											</td>
+											
+											<td>
+
+												<span name="label_birth"></span>
+												
+												<input type="text" name="birth" class="form-control datepicker ctr_birth" data-format="yyyy-mm-dd">
+												
+											</td>
+											
+											<td>
+												
+												<span name="label_beizhu">{$m.beizhu}</span>
+												
+												<input  type="text" name="beizhu" class="form-control ctr_beizhu" />
+												
+											</td>
+
+											<td>
+
+												<button type="button" class="btn btn-success ctr_bianji">编辑</button>
+
+												<button type="button" class="btn btn-info ctr_baocun">保存</button>
+
+												<button type="button" class="btn btn-info ctr_cancel">取消</button>
+
+												<if condition="$grant_send_sms eq true">
+
+													<button type="button" class="btn btn-info ctr_sendphone" style="display: none;">短信通知</button>
+
+												</if>
+											</td>
+
+										</tr>
+										
+									</for>								
+
+								</tbody>
+
+							</table>
+
+						</div>
+						
+						<span>{$change_member_result.message}</span>
+
+						<br />
+
+						<br />
+						
+						<if condition="$grant_improve eq true or grant_force_team eq true">
+
+							<button id="exit_team" type="button" class="btn btn-blue" style="margin-left: 1%;">退出团队</button>
+						
+						</if>
+						
+						<if condition="$grant_review eq true">
+
+							<button id="review_commit" type="button" class="btn btn-secondary" style="margin-left: 1%;">线下付款</button>
+						
+						</if>
+
+						<if condition="$grant_send_sms eq true">
+
+							<button id="send_phone" type="button" class="btn btn-info" style="margin-left: 1%; display: none;">群发短信</button>
+
+						</if>
+
+						<if condition="$grant_response_review eq true">
+							
+							<if condition="$order['locked'] eq 0">
+							
+								<button id="lock_order" type="button" class="btn btn-warning" data-locked="{$order.locked}" style="margin-left: 1%;">锁定订单</button>
+								
+							<else />
+							
+								<button id="lock_order" type="button" class="btn btn-warning" data-locked="{$order.locked}" style="margin-left: 1%;">解锁订单</button>
+							
+							</if>
+
+						</if>
+
+						<if condition="$grant_review eq true">
+
+							<button id="compare_price" type="button" class="btn btn-warning" style="margin-left: 1%;">比价刷新团费</button>
+
+						</if>
+
+						<if condition="$grant_improve_review eq true">
+
+							<button id="review_pass" type="button" class="btn btn-warning" style="margin-left: 1%;">通过审核</button>
+
+						</if>
+
+						<if condition="$grant_order_alternate eq true">
+
+							<button id="order_alternate" type="button" class="btn btn-warning" style="margin-left: 1%;">设为替补</button>
+
+						</if>
+
+						<if condition="$grant_order_cancel_scheduling eq true">
+
+							<button id="order_cancel_scheduling" type="button" class="btn btn-warning" style="margin-left: 1%;">取消行程</button>
+
+						</if>
+
+						<button id="back_list" type="button" class="btn btn-secondary" style="margin-left: 1%;">返回列表</button>
+
+						<br />
+
+						<br />
+
+						<br />								
+
+					</div>
+					
+					<!--赠品信息-->
+					
+					<div class="module">
+
+						<p class="module-title">赠送物品：</p>
+						
+						<div class="module-content">
+							
+							<div class="col-sm-3">
+									
+								<input type="text" class="form-control largess_ctr_member" />
+								
+							</div>
+							
+							<div class="col-sm-3">
+									
+								<input type="text" class="form-control largess_ctr_type" />
+								
+							</div>
+							
+							<div class="col-sm-3">
+									
+								<input type="text"  class="form-control largess_ctr_data" />
+								
+							</div>
+							
+							<div class="col-sm-1">
+								
+								<button type="button" class="btn btn-blue largess_ctr_append" style="float: right; ">添加赠品</button>
+								
+							</div>
+							
+						</div>
+						<div class="module-content">
+
+							<table id="table_largess" class="table text-left">
+
+								<thead>
+
+									<tr>
+
+										<th width="100px;">姓名</th>
+
+										<th width="100px;">手机号</th>
+
+										<th width="200px;">证件</th>
+
+										<th width="150px;">赠品</th>
+
+										<th width="240px;">赠品类型</th>
+
+										<th width="150px;">操作</th>
+
+									</tr>
+
+								</thead>
+
+								<tbody>
+								
+									<volist id="m" name="order.members">		
+									
+										<volist id="l" name="m.largess">
+
+											<tr data-id="{$l.id}">
+
+												<td><span class="label_member_name">{$l.member_data.name}</span></td>
+
+												<td><span class="label_member_tel">{$l.member_data.tel}</span></td>
+
+												<td><span class="label_member_cert">{$l.member_data.certificate_type_id_data.type_desc}&nbsp;{$l.member_data.certificate_num}</span></td>
+												
+												<td><span class="label_largess" data-key="{$l.largess_data.type_key}">{$l.largess_data.type_desc}</span></td>
+												
+												<td><input  type="text" class="form-control largess_data" data-id="{$l.data_info.id}" /></td>
+
+												<td>
+
+													<button type="button" class="btn btn-secondary largess_ctr_baocun">保存</button>
+
+													<button type="button" class="btn btn-danger largess_ctr_delete">删除</button>
+													
+												</td>
+
+											</tr>
+
+										</volist>
+									
+									</volist>								
+
+								</tbody>
+
+							</table>
+
+						</div>						
+
+					</div>
+					
+					<script type="text/javascript">
+						// 添加赠品
+						$('.largess_ctr_append').click(function(){
+							var memberstr = getSelect2Value($('.largess_ctr_member'),['id', 'name', 'type_id', 'certficate_type_id', 'certificate_num', 'tel']);
+							if (memberstr == '' || memberstr == '{}') {
+								toastr.warning('请选择参团人');
+								return false;
+							}
+							var memberData = $.parseJSON(memberstr);
+							
+							var largessstr = getSelect2Value($('.largess_ctr_type'));
+							var largessdatastr = getSelect2Value($('.largess_ctr_data'));
+							if (largessstr == '' || largessstr == '{}' || largessdatastr == '' || largessdatastr == '{}') {
+								toastr.warning('请选择赠品与赠品参数');
+								return false;
+							}
+							
+							var jsonData = {
+								member_id: memberData.id,
+								member: memberData,
+								largess: largessstr,
+								data: largessdatastr,
+							}
+							$.post('{:U("order/largess")}', jsonData, function(data){
+								if (data.result.errno == 0) {
+									if (data.ds != null) {	
+										var d = data.ds;
+										var vhtml =	'<tr data-id="'+d.id+'">'+
+													'	<td><span class="label_member_name">'+d.member_data.name+'</span></td>'+
+													'	<td><span class="label_member_tel">'+d.member_data.tel+'</span></td>'+
+													'	<td><span class="label_member_cert">'+d.member_data.certificate_type_id_data.type_desc+'&nbsp;'+d.member_data.certificate_num+'</span></td>'+
+													'	<td><span class="label_largess" data-key="'+d.largess_data.type_key+'">'+d.largess_data.type_desc+'</span></td>'+						
+													'	<td><input  type="text" class="largess_data" class="form-control" data-id="'+d.data_info.id+'" /></td>'+
+													'	<td>'+
+													'		<button type="button" class="btn btn-secondary largess_ctr_baocun">保存</button>'+
+													'		<button type="button" class="btn btn-danger largess_ctr_delete">删除</button>'+														
+													'	</td>'+
+													'</tr>';
+										$('#table_largess').find('tbody').append(vhtml);
+										
+										// 事件绑定
+										var trObj = $('#table_largess').find('tbody').find('tr:last');
+										initLargessSelect($(trObj).find('.largess_data'));
+										// 保存事件
+										$(trObj).find('.largess_ctr_baocun').click(saveLargess);
+										// 删除事件
+										$(trObj).find('.largess_ctr_delete').click(deleteLargess);
+									}
+									toastr.success(data.result.message);
+								} else {
+									toastr.error(data.result.message);
+								}
+							});
+						});
+					
+						// 保存赠品
+						function saveLargess() {
+							if (confirm('您确定要删除该赠送物品') == false) {
+								return false;
+							}
+							var trObj = $(this).closest('tr');
+							var largessId = $(trObj).attr('data-id');
+							var jsonData = {
+								id: largessId,
+								data: getSelect2Value($(trObj).find('.largess_data')),
+							}
+							$.post('{:U("order/largess")}', jsonData, function(data){
+								if (data.result.errno == 0) {
+									toastr.success(data.result.message);
+								} else {
+									toastr.error(data.result.message);
+								}
+							});
+						}
+						$('.largess_ctr_baocun').click(saveLargess);
+						
+						// 删除赠品
+						function deleteLargess() {
+							var trObj = $(this).closest('tr');
+							var largessId = $(trObj).attr('data-id');
+							var jsonData = {
+								op_type: 'remove',
+								id: largessId,
+							}
+							$.post('{:U("order/largess")}', jsonData, function(data){
+								if (data.result.errno == 0) {
+									toastr.success(data.result.message);
+									$(trObj).remove();
+								} else {
+									toastr.error(data.result.message);
+								}
+							});
+						}
+						$('.largess_ctr_delete').click(deleteLargess);
+						
+						// 初始化选择
+						function initLargessSelect(vObj) {
+							var trObj = $(vObj).closest('tr');
+							var largessId = $(trObj).attr('data-id');
+							var key = $(trObj).find('.label_largess').attr('data-key');
+							var voption = {obj:vObj, placeholder:'请选择赠品参数', show_col:'type_desc', select_col:'type_desc'};
+							var vds = {tab:'type_data', cdsstr:'type_key|LIKE|'+key+'%|AND', cdtype:4}
+							var largessData = new MySelect2(voption, vds);
+							if (largessId != null && largessId != 'undefined' && largessId != '') {
+								$.post('{:U("order/largess")}', {op_type:'find', id: largessId}, function(data){
+									if (data.result.errno != 0) {
+										toastr.error(data.result.message);
+									}
+									if (data.ds != null) {
+										setSelect2Value($(trObj).find('.largess_data'), data.ds.data);
+									}
+								});
+							}
+						}
+						
+						// 赠品参数动态条件
+						function largessDataDynamicConds() {
+							var cdsstr = '';
+							var largesstypestr = getSelect2Value($('.largess_ctr_type'));
+							if (largesstypestr != '' && largesstypestr != '{}') {
+								var largessType = $.parseJSON(largesstypestr);
+								cdsstr += 'type_key|LIKE|'+largessType['type_key']+'_%|AND';
+							} else {
+								cdsstr += 'type_key|=|none|AND';
+							}
+							return cdsstr;
+						}
+						
+						$(document).ready(function(){							
+							// 初始化已选赠品的参数
+							$('#table_largess').find('.largess_data').each(function(i,ev){
+								initLargessSelect($(this));
+							});
+							
+							// 初始化参团人选择项
+							var orderId = '{$order.id}';
+							var voption = {obj:$('.largess_ctr_member'), placeholder:'请选择参团人', show_col:'name', select_col:'name'};
+							var vds = {tab:'signup_member', cdsstr:'order_id|=|'+orderId+'|AND|exit|=|0|AND|', cdtype:4};
+							var memberData = new MySelect2(voption, vds);
+							
+							// 初始化赠品类型
+							voption = {obj:$('.largess_ctr_type'), placeholder:'请选择赠品', show_col:'type_desc', select_col:'type_desc'};
+							vds = {tab:'type_data', cdsstr:'data_type_id|=|41|AND', cdtype:4, sort:'sort|asc'};
+							var largessTypeData = new MySelect2(voption, vds);
+							
+							// 初始化赠品参数
+							voption = {obj:$('.largess_ctr_data'), placeholder:'请选择赠品参数', show_col:'type_desc', select_col:'type_desc'};
+							vds = {tab:'type_data', cdtype:4, func_dynamic_conds:largessDataDynamicConds, sort:'sort|asc'};
+							var largessData = new MySelect2(voption, vds);
+						});
+						
+					</script>
+									
+					<!--发票信息-->	
+									
+					<if condition="$order[receipt_type] neq 0">	
+					
+						<div class="module">	
+
+							<p class="text-danger lead" style="margin-left: -15px;">发票信息：</p>
+
+							<div class="row">
+
+								<table id="table_receipt_info" class="table text-left">
+
+									<thead><tr><th class="col-sm-8"></th></tr></thead>
+									
+									<tbody>
+										
+										<tr><td>
+											
+											<if condition="$order[receipt_type] neq 2">
+
+												<div class="dingdan_bottom row">
+
+													<p class="col-sm-1">公司名称：</p>
+
+													<span id='order_receipt' class="col-sm-6" style="padding-left: 0;">{$order.receipt_company}</span>	
+
+												</div>
+
+												<div class="dingdan_bottom row">
+
+													<p class="col-sm-1">纳税人识别号：</p>
+
+													<span id='order_receipt' class="col-sm-6" style="padding-left: 0;">{$order.receipt_company_no}</span>	
+
+												</div>
+
+												<div class="dingdan_bottom row">
+
+													<p class="col-sm-1">公司地址：</p>
+
+													<span id='order_receipt' class="col-sm-6" style="padding-left: 0;">{$order.receipt_company_address}</span>	
+
+												</div>
+
+												<div class="dingdan_bottom row">
+
+													<p class="col-sm-1">公司电话：</p>
+
+													<span id='order_receipt' class="col-sm-6" style="padding-left: 0;">{$order.receipt_company_phone}</span>	
+
+												</div>
+											
+											</if>
+
+											<div class="dingdan_bottom row">
+
+												<p class="col-sm-1">收件人姓名：</p>
+
+												<span id='order_receipt' class="col-sm-6" style="padding-left: 0;">{$order.receipt_receiver}</span>	
+
+											</div>
+
+											<div class="dingdan_bottom row">
+
+												<p class="col-sm-1">收件人电话：</p>
+
+												<span id='order_receipt' class="col-sm-6" style="padding-left: 0;">{$order.receipt_receiver_phone}</span>	
+
+											</div>
+
+											<div class="dingdan_bottom row">
+
+												<p class="col-sm-1">收件人地址：</p>
+
+												<span id='order_receipt' class="col-sm-6" style="padding-left: 0;">{$order.receipt_receiver_address}</span>	
+
+											</div>
+
+											<div class="dingdan_bottom row">
+
+												<p class="col-sm-1">发票费用：</p>
+
+												<span id='order_receipt' class="col-sm-6" style="padding-left: 0;">{$order.lineid_data.receipt_price}元</span>	
+
+											</div>
+											
+										</td></tr>
+										
+									</tbody>
+							
+								</table>
+							
+							</div>
+							
+						</div>
+										
+					</if>
+					
+					
+					
+					<div class="module">	
+
+						<p class="module-title">用户优惠券：</p>
+
+						<div class="module-content">
+
+							<table id="table_user_coupon" class="table text-left">
+
+								<thead>
+
+									<tr>
+
+										<th class="col-sm-3">名称</th>
+
+										<th class="col-sm-1">金额</th>
+
+										<th class="col-sm-2">使用时间</th>
+
+										<th class="col-sm-2">有效时间</th>
+
+										<th class="col-sm-2">无效时间</th>
+
+									</tr>
+
+									<tbody>
+
+										<volist id="ucoupon" name="order.use_coupons">
+
+											<tr>
+
+												<td><span>{$ucoupon.title}</span></td>
+
+												<td><span>{$ucoupon.money}</span></td>
+
+												<td><span>{$ucoupon.use_time}</span></td>
+
+												<td><span>{$ucoupon.valid_time}</span></td>
+
+												<td><span>{$ucoupon.invalid_time}</span></td>
+
+											</tr>	
+
+										</volist>
+
+									</tbody>
+
+								</thead>
+
+							</table>
+
+						</div>
+
+					</div>
+					
+
+					<div class="module">				
+
+						<p class="module-title">额外费用：</p>
+
+						<div class="module-content">
+
+							<table id="table_extra_cash" class="table text-left">
+
+								<thead>
+
+									<tr>
+
+										<th class="col-sm-1">费用用途</th>
+
+										<th class="col-sm-1">费用</th>
+
+										<th class="col-sm-2">绑定时间</th>
+
+										<th class="col-sm-4">绑定原因</th>
+
+										<th class="col-sm-2">编辑/删除</th>
+
+									</tr>
+
+									<tbody>
+
+										<volist id="ext" name="order.extra_cash">
+
+											<tr>
+
+												<td><span>{$ext.cash_use_id_data.type_desc}</span></td>
+
+												<td>
+												
+													<span name='extra_cash'>{$ext.cash}</span>
+													
+													<input name='edit_extra_cash' type="text" style="display: none"/>
+													
+												</td>
+
+												<td><span>{$ext.bind_time}</span></td>
+
+												<td>
+													<span name="extra_reason">{$ext.reason}</span>
+													
+													<input name="edit_extra_reason" type="text" style="display: none"/>
+													
+												</td>
+
+												<td>
+
+													<input type="hidden" name="extra_cash_id" value="{$ext.id}"/>
+													
+													<button type="button" name="btn_extra_cash_edit" class="btn btn-secondary">编辑</button>	
+																									
+													<button type="button" name="btn_extra_cash_cancel" class="btn btn-secondary" style="display: none">取消</button>
+			
+													<if condition="$ext.cash_use_id_data.type_desc neq '团费'">
+													
+														<button type="button" name="btn_extra_cash_remove" class="btn btn-warning">删除</button>
+													
+													</if>
+													
+												</td>
+
+											</tr>	
+
+										</volist>
+
+									</tbody>
+
+								</thead>
+
+							</table>
+
+						</div>
+
+						<button id="btn_append_extra_cash" type="button" class="btn btn-secondary" style="margin-left: 1%;">添加额外费用</button>
+
+					</div>
+					
+					<div class="module">				
+
+						<p class="module-title">系统减免：</p>
+
+						<div class="module-content">
+
+							<table id="table_order_coupon" class="table text-left">
+
+								<thead>
+
+									<tr>
+
+										<th class="col-sm-2">减免类型</th>
+
+										<th class="col-sm-1">减免金额</th>
+
+										<th class="col-sm-1">操作管理员</th>
+
+										<th class="col-sm-2">绑定时间</th>
+
+										<th class="col-sm-4">绑定原因</th>
+
+										<th class="col-sm-2">编辑/删除</th>
+
+									</tr>
+
+									<tbody>
+
+										<volist id="ocp" name="order.coupons">
+
+											<tr>
+
+												<td><span>{$ocp.coupon_type_id_data.type_desc}</span></td>
+
+												<td>
+													<span name="coupon_cash">{$ocp.cash}</span>
+													
+													<input name="edit_coupon_cash" type="text" style="display: none"/>
+													
+												</td>
+
+												<td><span>{$ocp.admin_id_account}</span></td>
+
+												<td><span>{$ocp.bind_time}</span></td>
+
+												<td>
+													<span name="coupon_reason">{$ocp.reason}</span>
+													
+													<input name="edit_coupon_reason" type="text" style="display: none"/>
+													
+												</td>
+
+												<td>
+
+													<input type="hidden" name="coupon_bind_id" value="{$ocp.id}"/>
+													
+													<button type="button" name="btn_order_coupon_edit" class="btn btn-secondary">编辑</button>	
+																									
+													<button type="button" name="btn_order_coupon_cancel" class="btn btn-secondary" style="display: none">取消</button>
+													
+													<button type="button" name="btn_order_coupon_remove" class="btn btn-warning">删除</button>
+													
+												</td>
+
+											</tr>	
+
+										</volist>
+
+									</tbody>
+
+								</thead>
+
+							</table>
+
+						</div>
+
+						<button id="btn_append_order_coupon" type="button" class="btn btn-secondary" style="margin-left: 1%;">添加系统减免</button>
+
+					</div>
+
+					
+
+					<div class="module">				
+
+						<p class="module-title">留言信息：</p>
+
+						<div class="module-content">					
+
+							<label style="float:left;">留言：</label>
+
+							<input id="order_message" type="text" class="col-sm-8" style="float:left;"/>&nbsp;&nbsp;
+
+							<input id="btn_order_message" type="button" value="写入留言"/>
+
+						</div>		
+
+						<div class="module-content">
+
+							<table id="table_message" class="table text-left">
+
+								<thead>
+
+									<tr>
+
+										<th class="col-sm-2">留言管理员</th>
+
+										<th class="col-sm-2">留言时间</th>
+
+										<th class="col-sm-8">留言内容</th>	
+
+									</tr>
+
+									<tbody>
+
+										<volist id="msg" name="order.messages">
+
+											<tr>
+
+												<td><span>{$msg.admin_id_account}</span></td>
+
+												<td><span>{$msg.create_time}</span></td>
+
+												<td><span>{$msg.content}</span></td>
+
+											</tr>	
+
+										</volist>
+
+									</tbody>
+
+								</thead>
+
+							</table>
+
+						</div>
+
+					</div>
+
+					
+
+					<div class="module">				
+
+						<p class="module-title">线上付款记录：</p>		
+
+						<div class="module-content">
+
+							<table id="table_pay_online" class="table text-left">
+
+								<thead>
+
+									<tr>
+
+										<th class="col-sm-2">付款渠道</th>
+
+										<th class="col-sm-2">银行编码</th>
+
+										<th class="col-sm-2">费用金额</th>
+
+										<th class="col-sm-2">支付时间</th>
+
+										<th class="col-sm-2">审核时间</th>
+
+									</tr>
+
+									<tbody>
+
+										<volist id="pcon" name="order.pays_online">
+
+											<tr>
+
+												<td><span>{$pcon.PayChannel_data.item_desc}</span></td>
+
+												<td><span>{$pcon.InstCode}</span></td>
+
+												<td><span>{$pcon.TransAmount}</span></td>
+
+												<td><span>{$pcon.SendTime_show_text}</span></td>
+
+												<td><span>{$pcon.datetime_show_text}</span></td>
+
+											</tr>	
+
+										</volist>
+
+									</tbody>
+
+								</thead>
+
+							</table>
+
+						</div>
+
+					</div>
+
+					
+
+					<div class="module">				
+
+						<p class="module-title">线下付款记录：</p>
+
+						<div class="module-content">
+
+							<table id="table_pay_offline" class="table text-left">
+
+								<thead>
+
+									<tr>
+
+										<th class="col-sm-1">费用用途</th>
+
+										<th class="col-sm-1">费用功能</th>
+
+										<th class="col-sm-1">审核状态</th>
+
+										<th class="col-sm-1">费用金额</th>
+
+										<th class="col-sm-2">付款方式</th>
+
+										<th class="col-sm-2">支付时间</th>
+
+										<th class="col-sm-2">审核时间</th>
+
+									</tr>
+
+									<tbody>
+
+										<volist id="pcoff" name="order.pays_offline">
+
+											<tr>
+
+												<td><span>{$pcoff.cash_use_id_data.type_desc}</span></td>
+
+												<td><span>{$pcoff.cash_func_id_data.type_desc}</span></td>
+
+												<td><span>{$pcoff.review_type_id_data.type_desc}</span></td>
+
+												<td><span>{$pcoff.cash}</span></td>
+
+												<td><span>{$pcoff.pay}</span></td>
+
+												<td><span>{$pcoff.create_time}</span></td>
+
+												<td><span>{$pcoff.update_time}</span></td>
+
+											</tr>	
+
+										</volist>
+
+									</tbody>
+
+								</thead>
+
+							</table>
+
+						</div>
+
+					</div>
+
+					
+
+					<div class="module">				
+
+						<p class="module-title">跟踪记录：</p>		
+
+						<div class="module-content">
+
+							<table id="table_supervise" class="table text-left">
+
+								<thead>
+
+									<tr>
+
+										<th class="col-sm-2">操作管理员</th>
+
+										<th class="col-sm-2">跟踪时间</th>
+
+										<th class="col-sm-8">跟踪记录</th>	
+
+									</tr>
+
+									<tbody>
+
+										<volist id="s" name="order.supervises">
+
+											<tr>
+
+												<td><span>{$s.admin_id_account}</span></td>
+
+												<td><span>{$s.create_time}</span></td>
+
+												<td><span>{$s.reason}</span></td>
+
+											</tr>	
+
+										</volist>
+
+									</tbody>
+
+								</thead>
+
+							</table>
+
+						</div>
+
+					</div>	
+					
+					<!--测试显示-->
+				<!--	<div>
+						{:p_a($memberType)}
+						{:p_a($order)}						
+					</div>-->
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<style type="text/css">
+
+		#add_member_typeSelectBoxItContainer { width:196px !important; display:inline-block !important; vertical-align: middle;}
+
+	</style>
+
+<include file="Common/footer" />
+<script type="text/javascript">
+	// 显示转团操作面板
+	$('.button_change_line_show').click(function(){
+		$('.line_show').slideUp();
+		$('.line_edit').slideDown();
+	});
+	
+	// 提交转团审核
+	$('.button_change_line_save').click(function(){
+		var linestr = getSelect2Value('.order_line_edit', ['id', 'title']);
+		var batchstr = getSelect2Value('.order_batch_edit', ['id']);
+		if (linestr == '' || batchstr == '') {
+			toastr.warning('线路产品与线路批次均不能为空，必须选择，套餐为可选');
+			return false;
+		}
+		var line = $.parseJSON(linestr);
+		var batch = $.parseJSON(batchstr);
+											
+		var jsonData = {
+			op_type: 'request',
+			order_id: '{$order.id}',
+			lineid: line.id,
+			hdid: batch.id,
+		}
+		
+		var pricestr = getSelect2Value('.order_taocan_edit', ['id']);
+		if (pricestr != '') {
+			var price = $.parseJSON(pricestr);
+			jsonData['tc_price_id'] = price.id;
+		}
+		
+		$.post('{:U("review/changeline")}', jsonData, function(data){
+			if (data.result != null) {
+				if (data.result.errno == 0) {
+					if (data.line != null) {
+						$('.order_line_show').attr('data-line-id', data.line.id);
+						$('.order_line_show').html(data.line.title);
+					}
+					if (data.batch != null) {
+						$('.order_batch_show').attr('data-batch-id', data.batch.id);
+						$('.order_batch_show').html(data.batch.show_text);
+					}
+					if (data.taocan != null) {
+						$('.order_taocan_show').attr('data-price-id', data.taocan.id);
+						$('.order_taocan_show').empty();
+						$('.order_taocan_show').append('<button class="btn btn-write btn-xs disabled" style="margin-right:10px;" data-taocan-id="'+data.taocan.id+'">'+data.taocan.tc_name_str+'</button>');
+					}
+					$('.line_show').slideDown();
+					$('.line_edit').slideUp();
+				} else {
+					toastr.error(data.result.message);
+				}
+			}
+		});
+	});
+	
+	// 取消转团审核
+	$('.button_change_line_cancel').click(function(){
+		$('.line_show').slideDown();
+		$('.line_edit').slideUp();
+	});
+	
+	// 线路改变
+	function changeLineNew(ev) {
+		ev.stopPropagation();
+		setSelect2Value('.order_batch_edit', null);
+		setSelect2Value('.order_taocan_edit', null);
+	}
+	
+	// 初始化线路选择
+	function initSelect2LineNew() {
+		var voption = {obj:$('.order_line_edit'), search:1, placeholder: '请选择线路', show_col:'title', select_col:'title', func_select_changed:changeLineNew};
+		var vds = {tab:'line', search_col: 'title', cdsstr: 'invalid|=|0|AND', cdtype:4, sort:'id:desc'}
+		var member_line = new MySelect2(voption, vds);	
+	}
+	
+	// 绑定批次选择动态条件
+	function batchDynamicCondsNew() {
+		var selstr = getSelect2Value('.order_line_edit', ['id','title']);
+		if (selstr == '' || selstr == null) {
+			return 'line_id|=|0|AND';	
+		} else {
+			var selLine = $.parseJSON(selstr);
+			return 'line_id|=|'+selLine['id']+'|AND';
+		}
+	}
+	
+	// 批次选择文本显示格式
+	function batchShowTextNew(data) {
+		if (data.start_time != null && data.end_time != null) {
+			var st = data['start_time'].split(' ')[0];
+			var et = data['end_time'].split(' ')[0];
+			return st + ' 至 ' + et;	
+		} else {
+			return '';
+		}
+	}
+	
+	// 切换批次
+	function changeBatchNew(ev) {
+		ev.stopPropagation();
+		setSelect2Value('.order_taocan_edit', null);
+	}
+	
+	// 初始化选择批次
+	function initSelect2BatchNew() {
+		var voption = {obj:$('.order_batch_edit'), search:1, placeholder: '请选择批次', show_col:batchShowTextNew, select_col:batchShowTextNew, func_select_changed:changeBatchNew};
+		var vds = {tab:'batch', cdtype:4, func_dynamic_conds: batchDynamicCondsNew, search_col:'start_time', sort:'start_time|asc'}
+		var batch = new MySelect2(voption, vds);	
+	}
+																
+	// 绑定套餐选择动态条件
+	function taocanDynamicConds() {
+		var cdsstr = '';
+		var linestr = getSelect2Value('.order_line_edit', ['id', 'title']);
+		if (linestr != '') {
+			var line = $.parseJSON(linestr);
+			cdsstr += 'line_id|=|'+line['id']+'|AND';
+		}
+		var batchstr = getSelect2Value('.order_batch_edit', ['id']);
+		if (batchstr != '') {
+			if (cdsstr != '') {
+				cdsstr += '|';
+			}
+			var batch = $.parseJSON(batchstr);
+			cdsstr += 'batch_id|=|'+batch['id']+'|AND';
+		}
+		return cdsstr;
+	}
+								
+	// 套餐选择文本显示格式
+	function taocanShowText(data) {
+		var t = data;
+		var taocanText = '套餐:';
+		if (data.taocans != null) {
+			for (var x in data.taocans) {
+				var d = data.taocans[x];
+				if (taocanText != '套餐:') {
+					taocanText += '->';
+				}
+				taocanText += '['+d.type_data.type_desc+']'+d.name;
+			}
+		}
+		taocanText += ' 价格:[成人]'+t.price_adult+'元/人 [儿童]'+t.price_child+'元/人';
+		return taocanText;
+	}
+								
+	// 初始化选择套餐
+	function initSelect2Taocan() {
+		var vurl = '{:U("line/taocan")}';
+		var voption = {obj:$('.order_taocan_edit'), url:vurl, placeholder: '请选择套餐', show_col:taocanShowText, select_col:taocanShowText};
+		var vds = {op_type:'find_taocan_price', cdtype:4, func_dynamic_conds: taocanDynamicConds};
+		var taocan = new MySelect2(voption, vds);
+	}
+	
+	var modalDataEditData = new Object();
+	$(document).ready(function(){
+		// 初始化选择线路
+		initSelect2LineNew();									
+		// 初始化选择批次
+		initSelect2BatchNew();
+		// 初始化套餐价格
+		initSelect2Taocan();
+		// 初始化数据
+		initData();
+		
+		// 绑定输入额外费用检测		
+		$('input[name="edit_extra_cash"]').keyup(inputIntFloatCheck);		
+		// 编辑额外费用		
+		$('button[name="btn_extra_cash_edit"]').click(_editFunAjax);			
+		// 取消额外费用		
+		$('button[name="btn_extra_cash_cancel"]').click(_cancelFunAjax);
+		// 移除额外费用		
+	    $('button[name="btn_extra_cash_remove"]').click(_removeFunAjax);		
+		// 绑定输入额外费用检测		
+		$('input[name="edit_coupon_cash"]').keyup(inputIntFloatCheck);		
+		// 编辑减免		
+		$('button[name="btn_order_coupon_edit"]').click(_editCouponFunAjax);
+		// 取消编辑减免
+		$('button[name="btn_order_coupon_cancel"]').click(_cancelCouponFunAjax);
+		// 移除减免
+	    $('button[name="btn_order_coupon_remove"]').click(_removeCouponFunAjax);
+		// 修改订单信息数据
+		$('.btn_edit').click(updateBaseInfo);
+		// 取消订单信息数据
+		$('.btn_cancel').click(cancelUpdate);
+		// 修改参团人数
+		$('#button_type_count').click(updateTypeCount);	
+		// 添加跟踪记录
+		$('#btn_order_message').click(appendOrderMessage);	
+		// 修改证件类型		
+		$('.ctr_card_change li').click(certificateTypeChanged);
+		// 显示编辑参团人信息
+		$('.ctr_bianji').click(startMemberEdit);
+		// 保存参团人信息
+		$('.ctr_baocun').click(saveMemberEditNew);	// 旧保存方法用saveMemberEdit
+		// 取消保存参团人信息
+		$('.ctr_cancel').click(cancelMemberEdit);
+		// 短信通知参团人信息
+		$('.ctr_sendphone').click(sendSMSToPhone);
+		// 参团人退出
+		$('#exit_team').click(exitMemberOrder);
+		// 提交财务审核
+		$('#review_commit').click(commitOrderReview);
+		// 锁定订单，不允许修改
+		$('#lock_order').click(lockOrder);
+		// 订单对比当前批次价格刷新团费
+		$('#compare_price').click(compareTeamPrice);
+		// 通过审核
+		$('#review_pass').click(reviewPassOrder);
+		// 设置订单为替补
+		$('#order_alternate').click(alternateOrder);
+		// 取消订单行程
+		$('#order_cancel_scheduling').click(cancelSchedulingOrder);
+		// 群发短信
+		$('#send_phone').click(sendSMSToPhones);
+		// 返回列表
+		$('#back_list').click(function(){ history.back(-1); });		
+		// 添加额外费用
+		$('#btn_append_extra_cash').click(showExtraCash);
+		// 添加减免
+		$('#btn_append_order_coupon').click(showOrderCoupon);
+	});
+
+	// 检测申请费用
+	function inputIntFloatCheck() {
+		var val = $(this).val();
+	    if('' != val.replace(/\d{1,}\.{0,1}\d{0,}/,''))
+	    {
+	        var str = val.match(/\d{1,}\.{0,1}\d{0,}/) == null ? '' : val.match(/\d{1,}\.{0,1}\d{0,}/);
+	        $(this).val(str);
+	    }
+	}
+	
+
+	// 初始化数据
+
+	function initData() {		
+
+		$('.selectboxit-container').css('display','none');	
+
+//		var order_review = parseInt("{$order.zhuangtai_review}");
+
+//		if (order_review == 0) {
+
+//			$('#review_pass').css('display','none');
+
+//		}
+
+		$('#line_article').parent().hide();
+
+		$('#activity').parent().hide();	
+
+		$('#button_line_cancel').hide();
+
+	}		
+
+	// 编辑保存切换
+
+	function showEditTags111(btnObj, bFail) {
+		
+		var divObj = $(btnObj).parent();
+		
+		var editVal = $(btnObj).val();
+		
+		var namestr = $(btnObj).attr('name');
+			
+		var containerObj = $(divObj).find('#'+namestr+'_container');
+		
+		var showObj = $(divObj).find('#'+namestr+'_show');
+		
+		var valObj = $(divObj).find('#'+namestr+'_val');
+		
+		var showHtmlObj = $(containerObj).length > 0 ? containerObj : valObj;
+		
+		if (editVal == '编辑') {
+			
+			var dataText = $(showObj).html();
+			
+			var tagHtml = $(valObj).get(0).tagName;
+			
+			if (tagHtml == 'INPUT') {
+				
+				$(valObj).val(dataText);
+				
+			} else if (tagHtml == 'SELECT') {		
+			
+				var tagOptions = $(valObj).find('option');
+
+				for (var i = 0; i < $(tagOptions).length; i++) {
+
+					var optionHtml = $(tagOptions[i]).html();
+
+					if (dataText == optionHtml) {
+
+						var optionVal = $(tagOptions[i]).attr('value');
+
+						$(valObj).val(optionVal).trigger('change');					
+
+						break;
+
+					}
+
+				}	
+				
+			} else if (tagHtml == 'TEXTAREA') {
+				
+				$(valObj).html(dataText);
+				
+			}
+			
+			$(showObj).hide();
+			
+			$(showHtmlObj).show();
+			
+			$(divObj).find('.btn_edit').val('保存');
+			
+			$(divObj).find('.btn_cancel').show();
+			
+			return 'show';
+			
+		} else {
+			
+			$(showObj).show();
+			
+			$(showHtmlObj).hide();
+			
+			$(divObj).find('.btn_edit').val('编辑');
+			
+			$(divObj).find('.btn_cancel').hide();
+			
+			if (bFail == 0) {	
+			
+				var dataText = $(valObj).val();
+								
+				var tagHtml = $(valObj).get(0).tagName;
+				
+				if (tagHtml == 'SELECT') {
+
+					var tagOptions = $(valObj).find('option');
+
+					for (var i = 0; i < $(tagOptions).length; i++) {
+
+						var optionVal = $(tagOptions[i]).attr('value');
+
+						if (dataText == optionVal) {
+
+							dataText = $(tagOptions[i]).html();					
+
+							break;
+
+						}
+
+					}
+					
+				}
+				
+				$(showObj).html(dataText);
+				
+			}
+			
+			return 'hide';
+		}
+
+	}
+	
+	
+		
+	// 取消修改
+	
+	function cancelUpdate() {
+		
+		showEditTags111(this);
+		
+	}
+	
+	// 保存同行信息
+	
+	$('.btn_tonghang_save').click(function(){
+		
+		var orderId = $('#order_id').val();
+
+		$.post('{:U("order/info")}', 
+
+			{	
+
+				op:'update_order', 
+
+				cds:[{name:'id',value:orderId}],
+
+				data:[{name:'tonghang', value:getSelect2Value('#tonghang', ['id', 'name'])}],
+
+			},
+
+			function(data){
+
+				if (data.result.errno != 0){
+
+					toastr.error(data.result.message);
+
+				} else {
+					
+					toastr.success(data.result.message);
+					
+				}
+
+			});
+		
+	})
+	
+
+	// 修改数据
+
+	function updateBaseInfo() {
+
+		if($(this).val() == '编辑'){
+
+			showEditTags111(this);
+
+			return false;
+
+		}		
+		
+		var btnObj = $(this);
+		
+		var divObj = $(this).parent();
+		
+		var namestr = $(this).attr('name');
+		
+		var valObj = $(divObj).find('#'+namestr+'_val');
+		
+
+		var orderId = $('#order_id').val();
+
+		var saveData = $(valObj).val();
+
+		if (saveData == '') {
+
+			alert('修改的数据不能为空');
+
+			return false;
+
+		}	
+		
+		showLoading(true);
+
+		$.post('{:U("order/info")}', 
+
+			{	
+
+				op:'update_order', 
+
+				cds:[{name:'id',value:orderId}],
+
+				data:[{name:namestr, value:saveData}],
+
+			},
+
+			function(data){
+
+				showLoading(false);
+
+				if (data.result.errno != 0){
+
+					$('#err_msg').html(data.result.message);
+
+				} else {					
+				
+					if ($(btnObj).parent().find('.order_team_cash').length > 0) {
+						
+						if (data.refresh_money != null) {
+							
+							$('#order_sum_cash').html(data.refresh_money.need);
+							
+						}
+						
+						if (data.state != null && data.state.type_desc != null) {
+							
+							$('#zhuangtai_show').html(data.state.type_desc);
+							
+						} 
+						
+					}
+					
+					var oldVal = $(divObj).find('#'+namestr+'_show').html();
+					
+					ajaxAppendSupervise('订单的属性['+namestr+']的值由原来['+oldVal+']被修改为['+saveData+']');
+					
+				}
+				
+				showEditTags111(btnObj, data.result.errno);
+
+			})
+
+	}
+
+	
+
+	// 编辑保存切换
+
+	function showEditTags(obj, bShow, bFail) {
+
+		var tagInput = $(obj).parent().find('input[type="text"]');
+
+		if (bShow == true) {		
+
+			$('#err_msg').html('');			
+
+			$(tagInput).show();
+
+			$(tagInput).prev().hide();
+
+			$(obj).val('保存');
+
+			for (var i = 0; i < $(tagInput).length; i++) {
+
+				$(tagInput[i]).val($(tagInput[i]).prev().html());	
+
+			}	
+
+		} else {
+
+			$(tagInput).hide();
+
+			$(tagInput).prev().show();
+
+			$(obj).val('编辑');
+
+			if (bFail == 0) {
+
+				for (var i = 0; i < $(tagInput).length; i++) {
+
+					$(tagInput[i]).prev().html($(tagInput[i]).val());	
+
+				}		
+
+			}
+
+		}
+
+	}
+	
+	// 检查订单的可修改状态
+	
+	function checkOrderLock() {
+		
+		var lock = $('.lock_order').attr('data-locked');
+		
+		return lock == '0' ?  false : true;
+	}
+	
+
+	// 修改参团人数
+
+	function updateTypeCount() {
+		
+		if (checkOrderLock()) {
+			
+			toastr.warning('订单已被锁定，不允许再修改');
+			
+			return false;
+						
+		}		
+
+		var typeNums = $(this).parent().find('input[type="text"]');
+
+		if($(this).val() == '编辑'){			
+
+			showEditTags(this, true);
+
+			return false;
+
+		}
+
+		var orderId = $('#order_id').val();
+
+		var typeDatas = new Array();
+
+		for(var i = 0; i < $(typeNums).length; i++){
+
+			typeDatas[i] = {name:$(typeNums[i]).attr('id'), value:$(typeNums[i]).val()};
+
+		}				
+
+		showLoading(true);
+
+		$.post('{:U("review/changeCount")}', 
+		
+		{
+			
+			op_type: 'request',
+			
+			order_id: orderId,
+			
+			type: typeDatas,
+			
+		},
+		
+		function (data) {
+
+			showLoading(false);
+			
+			if (data.result.errno != 0) {
+				
+				alert(data.result.message);
+				
+			} else {
+				
+				if (data.review == true) {
+					
+					alert('提交审核成功');
+					
+					location.href = '{:U("order/list")}';
+					
+				} else {
+			 		
+		        	$('#order_sum_cash').html(data.refresh_money.need);
+			 		
+		        	$('.order_team_cash').html(data.refresh_money.cut);					
+					
+				}
+			}
+			
+			showEditTags($('#button_type_count'), false, data.result.errno);
+			
+		});
+
+	}
+
+	
+
+	// 添加跟踪记录
+
+	function ajaxAppendSupervise(reason) {
+
+		var jsonData = {
+
+			'op': 'save_supervise',
+
+			'order_id': $('#order_id').val(),	
+
+			'reason': reason,
+
+		}; 
+
+		
+
+		var result = false;
+
+		$.ajaxSetup({async:false});
+
+		showLoading(true);
+
+		$.post('{:U("order/info")}', jsonData, function(data){
+
+			showLoading(false);
+
+			if (data.result.errno == 0) {
+
+				var s = data['supervise'];
+
+				var html = '';
+
+					html += '<tr>';
+
+					html += '	<td><span>'+s['admin_id_account']+'</span></td>';
+
+					html += '	<td><span>'+s['create_time']+'</span></td>';
+
+					html += '	<td><span>'+s['reason']+'</span></td>';
+
+					html += '</tr>';
+
+				$('#table_supervise').find('tbody').prepend(html);
+
+				result = true;
+
+			} else {
+
+				alert(data.result.message);
+
+			}
+
+		});
+
+		return result;
+
+	}
+
+	
+
+	// 添加订单留言
+
+	function ajaxAppendOrderMessage(content) {
+
+		var jsonData = {
+
+			'op': 'save_message',
+
+			'order_id': $('#order_id').val(),	
+
+			'content': content,
+
+		}; 
+
+		
+
+		var result = false;
+
+		$.ajaxSetup({async:false});
+
+		showLoading(true);
+
+		$.post('{:U("order/info")}', jsonData, function(data){
+
+			showLoading(false);
+
+			if (data.result.errno == 0) {
+
+				var s = data['message'];
+
+				var html = '';
+
+					html += '<tr>';
+
+					html += '	<td><span>'+s['admin_id_account']+'</span></td>';
+
+					html += '	<td><span>'+s['create_time']+'</span></td>';
+
+					html += '	<td><span>'+s['content']+'</span></td>';
+
+					html += '</tr>';
+
+				$('#table_message').find('tbody').prepend(html);
+
+				result = true;
+
+			} else {
+
+				alert(data.result.message);
+
+			}
+
+		});
+
+		return result;
+
+	}
+
+	
+
+	// 添加跟踪记录
+	function appendOrderMessage() {
+		var content = $('#order_message').val();
+		if (content == '') {
+			alert('留言信息不能为空');
+			return false;
+		}	
+
+		if (ajaxAppendOrderMessage(content)) {
+			$('#order_message').val('');
+		}
+	}
+	
+
+	// 编辑参团人事件
+	function startMemberEdit() {
+		var obj = $(this).parent().parent();
+		showMemberEdit(obj, true, 1);
+	}
+
+
+	// 清除参团人信息	
+	function cleanMemberInfo(obj) {		
+		var ck = $(obj).find('checkbox[name="checkList"]');		
+		$(ck).val('');		
+		$(ck).hide();
+		$(obj).find('.ctr_xingming').prev().html('');
+		$(obj).find('.ctr_shouji').prev().html('');
+		$(obj).find('.ctr_sex').prev().html();
+		$(obj).find('.ctr_sex').prev().attr('data-id',0);
+		$(obj).find('.ctr_card').prev().html();
+		$(obj).find('.ctr_card').prev().attr('data-id', 0);
+	}
+	
+
+	// 显示编辑参团人信息
+
+	function showMemberEdit(obj, bShow, bFail){
+		
+		if (bShow) {
+
+			$(obj).find('.ctr_bianji').hide();
+
+//			$(obj).find('.ctr_sendphone').hide();
+
+			$(obj).find('.ctr_baocun').show();
+
+			$(obj).find('.ctr_cancel').show();
+			
+
+			// 姓名
+
+			var name = $(obj).find('.ctr_xingming');
+
+			$(name).show();
+
+			$(name).prev().hide();
+
+			$(name).val($(name).prev().html());
+
+			
+
+			// 电话
+
+			var tel = $(obj).find('.ctr_shouji');
+
+			$(tel).show();
+
+			$(tel).prev().hide();
+
+			$(tel).val($(tel).prev().html());
+
+			
+
+			// 性别
+
+			$(obj).find('.ctr_sex').prev().hide();
+
+			$(obj).find('.selectboxit-container').css('display','block');
+
+			var lis = $(obj).find('.selectboxit-container').find('li');
+
+			for (var i = 0; i <$(lis).length; i++) {
+
+				var txt = $(lis[i]).find('a').text();
+
+				if (txt == $(obj).find('.ctr_sex').prev().html()) {
+
+					$(obj).find('.selectboxit-container').prev().val($(lis[i]).attr('data-val')).trigger('change');
+
+					break;
+
+				}
+
+			}
+
+			
+
+			//证件
+
+			$(obj).find('.ctr_card').show();
+
+			$(obj).find('.ctr_card_num').show();
+
+			$(obj).find('.ctr_card').prev().hide();
+
+			var certval = $(obj).find('.ctr_card').prev().html();
+
+			var certVals = certval.split('&nbsp;');
+
+			if (certVals.length >= 2) {
+
+				// 证件类型
+
+				var liObj = $(obj).find('.ctr_card').find('li');			
+
+				for (var i = 0; i < $(liObj).length; i++) {
+
+					var certTypeDesc = $(liObj[i]).find('a').text();
+
+					if(certTypeDesc == certVals[0]) {
+
+						var certTypeId = $(liObj[i]).find('input[type="hidden"]').val();
+
+						$(obj).find('.ctr_card_btn').attr('data-id', certTypeId);
+
+						$(obj).find('.ctr_card_btn_num').html(certTypeDesc);
+
+						break;
+
+					}
+
+				}
+
+				// 证件号码
+
+				$(obj).find('.ctr_card_num').val(certVals[1]);	
+
+			}
+			
+			// 生日
+
+			var birth = $(obj).find('.ctr_birth');
+
+			$(birth).show();
+
+			$(birth).prev().hide();
+
+			$(birth).val($(birth).prev().html());
+			
+			// 备注
+
+			var beizhu = $(obj).find('.ctr_beizhu');
+
+			$(beizhu).show();
+
+			$(beizhu).prev().hide();
+
+			$(beizhu).val($(beizhu).prev().html());
+
+		} else {
+
+			$(obj).find('.ctr_bianji').show();
+
+//			$(obj).find('.ctr_sendphone').show();
+
+			$(obj).find('.ctr_baocun').hide();
+
+			$(obj).find('.ctr_cancel').hide();
+
+			
+
+			// 姓名
+
+			var name = $(obj).find('.ctr_xingming');
+
+			$(name).hide();
+
+			$(name).prev().show();
+
+			
+
+			// 电话
+
+			var tel = $(obj).find('.ctr_shouji');
+
+			$(tel).hide();
+
+			$(tel).prev().show();
+
+			
+
+			// 性别
+
+			$(obj).find('.ctr_sex').prev().show();
+
+			$(obj).find('.selectboxit-container').css('display','none');
+
+			
+
+			//证件
+
+			$(obj).find('.ctr_card').hide();
+
+			$(obj).find('.ctr_card_num').hide();
+
+			$(obj).find('.ctr_card').prev().show();
+
+			// 生日
+
+			var birth = $(obj).find('.ctr_birth');
+
+			$(birth).hide();
+
+			$(birth).prev().show();
+
+			// 备注
+
+			var beizhu = $(obj).find('.ctr_beizhu');
+
+			$(beizhu).hide();
+
+			$(beizhu).prev().show();
+
+			if (bFail == 0) {
+				
+				$(obj).find('input[type="checkbox"]').show();
+				
+				$(name).prev().html($(name).val());
+
+				$(tel).prev().html($(tel).val());
+
+				var typeId = $(obj).find('.ctr_sex').val();
+
+				var typeDesc = $(obj).find('.selectboxit-text').html();
+
+				$(obj).find('.ctr_sex').prev().html(typeDesc);
+
+				$(obj).find('.ctr_sex').prev().attr('data-id',typeId);
+
+				var certTypeId = $(obj).find('ctr_card_btn').attr('data-id');
+
+				var certType = $(obj).find('.ctr_card_btn').find('.ctr_card_btn_num').html();
+
+				var certNum = $(obj).find('.ctr_card_num').val()
+
+				$(obj).find('.ctr_card').prev().html(certType+'&nbsp;'+certNum);
+
+				$(obj).find('.ctr_card').prev().attr('data-id', certTypeId);
+
+				$(obj).find('.ctr_birth').prev().html($(birth).val());
+
+				$(obj).find('.ctr_beizhu').prev().html($(beizhu).val());
+
+			}
+
+		}
+
+	}
+	
+	
+	// 参团人退出
+	
+	function exitMemberOrder() {
+		
+		if (checkOrderLock()) {
+			
+			toastr.warning('订单已被锁定，不允许再修改');
+			
+			return false;
+						
+		}
+		
+		// 获取退团人ID
+		var exitMemberIds = '';
+		
+		var idcks = $('#table').find('input[type="checkbox"]');
+		
+		for (var i=0; i < $(idcks).length; i++) {
+			
+			if ($(idcks[i]).prop('checked')) {
+				
+				if (exitMemberIds != '') {
+					
+					exitMemberIds += ',';
+					
+				}
+				
+				exitMemberIds += $(idcks[i]).attr('value');
+				
+			}
+			
+		}		
+		
+		if (exitMemberIds == '') {
+			
+			alert('请选择参团人');
+			
+			return false;
+		}
+		
+		var orderId = $('#order_id').val();
+
+		showLoading(true);
+		
+		$.post('{:U("review/exitTeam")}', 
+		
+		{
+			
+			op_type: 'request',
+			
+			order_id: orderId,
+			
+			ids: exitMemberIds,
+			
+		},
+		
+		function (data) {
+
+			showLoading(false);
+				
+			alert(data.result.message);
+			
+			if (data.result.errno == 0) {				
+				
+				if (data.review == true) {
+					
+					alert('提交审核成功');
+					
+					location.href = '{:U("order/list")}';
+					
+				} else {
+			 		
+		        	$('#order_sum_cash').html(data.refresh_money.need);
+			 		
+		        	$('.order_team_cash').html(data.refresh_money.cut);					
+					
+				}
+				
+				location.href = '{:U("order/list")}';
+				
+			}
+			
+		});
+				
+	}
+	
+	// 提交财务审核
+		
+	function commitOrderReview() {
+		
+		var orderId = $('#order_id').val();
+
+		$.getJSON("{:U('review/request')}", {op:'review_request', id:orderId}, function(data){
+
+//			alert(JSON.stringify(data));
+
+			location.href=data.jumpUrl;
+
+		})
+		
+	}
+	
+	// 锁定订单，不允许修改
+	
+	function lockOrder() {
+		
+		var thisObj = $(this);
+		
+		var orderId = $('#order_id').val();
+		
+		var lock = $(thisObj).attr('data-locked');
+		
+		lock = lock == '0' ? '1' : '0';		
+
+		$.post('{:U("order/info")}', 
+
+			{	
+
+				op:'update_order', 
+
+				cds:[{name:'id',value:orderId}],
+
+				data:[{name:'locked', value:lock}],
+
+			},
+
+			function(data){
+
+				showLoading(false);
+
+				if (data.result.errno != 0){
+					
+					toastr.error(data.result.message);
+
+				} else {		
+					
+					$(thisObj).html(lock == '0' ? '锁定订单' : '解锁订单');
+				
+	            	ajaxAppendSupervise((lock == '0' ? '解锁' : '锁定') + '了订单');
+					
+					$(thisObj).attr('data-locked', lock);
+					
+					$('.lock_order').attr('data-locked', lock);
+					
+					$('.lock_order').html(lock == '0' ? '未锁定' : '已锁定');
+					
+					$('.lock_order').css('color', lock == '0' ? 'green' : 'red');
+					
+					toastr.success(lock == '0' ? '解锁成功' : '加锁成功');
+					
+				}
+
+			});
+	}
+	
+	
+	// 显示额外费用
+	
+	function showExtraCash() {
+		
+		if (checkOrderLock()) {
+			
+			toastr.warning('订单已被锁定，不允许再修改');
+			
+			return false;
+						
+		}
+		
+		// 初始化模态对话框
+		initModalDataEdit('extra_cash');
+		
+		// 显示窗口
+		showModalDataEdit();
+		
+	}
+	
+	// 显示系统减免添加窗口
+	
+	function showOrderCoupon() {
+		
+		if (checkOrderLock()) {
+			
+			toastr.warning('订单已被锁定，不允许再修改');
+			
+			return false;
+						
+		}
+		
+		// 初始化模态对话框
+		initModalDataEdit('order_coupon');
+		
+		// 显示窗口
+		showModalDataEdit();
+		
+	}
+	
+	// 获取管理员类型
+	function getTypeList(objType) {
+		
+		var jsonData = {
+			
+			type_obj: objType,
+						
+			op_type: 'list',
+			
+			iSortCol_0: 1,
+			
+			sSortDir_0: 'asc',
+			
+			iDisplayStart: 0,
+			
+			iDisplayLength: 0,
+			
+			sColumns: 1,
+			
+		}
+		
+		var rs = '';
+		
+		$.ajax({
+			
+			url: '{:U("type/list")}',
+			
+			type: "POST",
+			
+			async: false,
+			
+			data: jsonData,
+			
+			success: function(data, status) {
+				
+				if (data.result.errno == 0) {
+					
+					if (data.aaData != 'undefined' && data.aaData.length > 0) {
+						
+						rs = data['aaData'];
+						
+					}
+					
+				}
+				
+			}
+			
+		});
+		
+		return rs;
+	}
+	
+	// 设置类型列表
+	// objType: 后台获取数据的对象类型
+	// objId: 模态对话框中元素控件对象的ID值
+	function setTypeList(objType, objId) {
+		
+		var typeList = getTypeList(objType);
+		
+		if (typeList != '') {
+			
+			var html = '';
+			
+			for (var i = 0; i < typeList.length; i++) {
+				
+				if (objType == 'review_cash_use' && typeList[i]['type_key'] == 'team') {
+					
+					continue;
+					
+				}
+				
+				if (objType == 'order_coupon_type' && typeList[i]['type_desc'].indexOf('【团期】') != -1) {
+					
+					continue;
+					
+				}
+				
+				html += '<option value="' + typeList[i]['id'] + '">' + typeList[i]['type_desc'] + '</option>';
+				
+			}	
+			
+			var data = {elmt: [{id:objId, value:html}]}
+			
+			appendModalDataEditInputValues(data, true);
+			
+		}		
+		
+	}
+	
+	var thisModalType = '';
+	
+	// 初始化弹出编辑框数据
+	function initModalDataEdit(modalType) {	
+		
+		if (thisModalType == modalType) {
+			
+			return false;
+			
+		}	
+		
+		thisModalType = modalType;
+	
+		// 重置窗口
+		_resetModalDataEdit()
+	
+		// 初始化模态对话框数据
+		if (modalType == 'extra_cash') {
+			
+			modalDataEditData['lab_title_text'] = '额外费用';
+			
+			modalDataEditData['btn_confirm_text'] = '确认添加';
+			
+			modalDataEditData['elmt']=[
+			
+				{tag:'select', id:'Use', lab:'费用类型', attr:[]},
+				
+				{tag:'input', id:'Cash', lab:'费用', attr:[
+				
+					{op:'bind', name:'type',value:'text'},
+					
+					{op:'bind', name:'placeholder',value:'请输入用途所需费用'},
+					
+				]},
+				
+				{tag:'input', id:'Desc', lab:'原因', attr:[
+				
+					{op:'bind', name:'type',value:'text'},
+					
+					{op:'bind', name:'placeholder',value:'请输入添加原因'},
+					
+				]},
+				
+			];
+			
+			modalDataEditData['callback_confirm'] = _addFunAjax;
+			
+			initModalDataEditPage(modalDataEditData);
+			
+			// 设置费用用途
+			setTypeList('review_cash_use', 'Use');
+			
+			// 检测浮点型数字			
+			$('#field_modal_data_edit_Cash').keyup(inputIntFloatCheck);
+			
+		} else if (modalType == 'order_coupon') {
+			
+			modalDataEditData['lab_title_text'] = '系统减免';
+			
+			modalDataEditData['btn_confirm_text'] = '确认添加';
+			
+			modalDataEditData['elmt']=[
+			
+				{tag:'select', id:'Coupon', lab:'减免类型', attr:[]},
+				
+				{tag:'input', id:'Cash', lab:'面值', attr:[
+				
+					{op:'bind', name:'type',value:'text'},
+					
+					{op:'bind', name:'placeholder',value:'请输入减免的金额'},
+					
+				]},
+				
+				{tag:'input', id:'Desc', lab:'原因', attr:[
+				
+					{op:'bind', name:'type',value:'text'},
+					
+					{op:'bind', name:'placeholder',value:'请输入添加原因'},
+					
+				]},
+				
+			];
+			
+			modalDataEditData['callback_confirm'] = _addCouponFunAjax;
+			
+			initModalDataEditPage(modalDataEditData);
+			
+			// 设置费用用途
+			setTypeList('order_coupon_type', 'Coupon');
+			
+			// 检测浮点型数字			
+			$('#field_modal_data_edit_Cash').keyup(inputIntFloatCheck);
+		}
+	}
+	
+	/**
+	* 添加数据
+	* @private
+	*/
+	function _addFunAjax(ds) {
+		
+		if (ds['Use'] == null) {
+			
+			alert('费用用途不能为空');
+			
+			return false;
+		}
+		
+//		if (ds['Cash'] == '' || parseInt(ds['Cash']) == 0) {
+		if (ds['Cash'] == '') {
+			
+			alert('费用不能为空');
+			
+			return false;
+		}
+		
+		var jsonData = {
+			
+			'op': 'bind',
+			
+	    	'order_id': $('#order_id').val(),
+	    	
+	    	'cash_use_id': ds['Use'],	
+	    	
+	    	'cash': ds['Cash'],	
+	    	
+	    	'reason': ds['Desc'],
+	    	
+		};
+
+		showLoading(true);
+		
+		$.post('{:U("order/extraCash")}',jsonData,
+		
+		function(backdata,status) {
+
+			showLoading(false);
+			
+	        if (backdata['result']['errno'] == 0) {
+	        	
+	            hideModalDataEdit();
+	            
+	            var ext = backdata.ds;
+	            
+	            ajaxAppendSupervise('添加了用途为['+ext.cash_use_id_data.type_desc+'],费用为['+ext.cash+']的额外费用,原因:'+ext.reason);
+	           	            
+				var	html = '<tr>';
+
+					html += '		<td><span>'+ext.cash_use_id_data.type_desc+'</span></td>';
+												
+					html += '		<td>';
+										
+					html += '			<span name="extra_cash">'+ext.cash+'</span>';
+										
+					html += '			<input name="edit_extra_cash" type="text" style="display: none"/>';
+					
+					html += '		</td>';
+												
+					html += '		<td><span>'+ext.bind_time+'</span></td>';
+												
+					html += '		<td>';
+										
+					html += '			<span name="extra_reason">'+ext.reason+'</span>';
+										
+					html += '			<input name="edit_extra_reason" type="text" style="display: none"/>';
+					
+					html += '		</td>';
+
+					html += '		<td>';
+
+					html += '			<input type="hidden" name="extra_cash_id" value="'+ext.id+'"/>';
+					
+					html += '			<button type="button" name="btn_extra_cash_edit" class="btn btn-secondary">编辑</button>';
+																									
+					html += '			<button type="button" name="btn_extra_cash_cancel" class="btn btn-secondary" style="display: none">取消</button>';
+					
+					if (ext.cash_use_id_data.type_desc != '团费') {
+								
+						html += '			<button type="button" name="btn_extra_cash_remove" class="btn btn-warning">删除</button>';
+					
+					}
+								
+					html += '		</td>';
+
+					html += '	</tr>';
+	            
+	            $('#table_extra_cash').find('tbody').append(html);
+	            
+	            var editExtraCashs = $('#table_extra_cash').find('input[name="edit_extra_cash"]');
+	            	            
+	            $(editExtraCashs[editExtraCashs.length - 1]).keyup(inputIntFloatCheck);
+	            
+	            var btnsEdit = $('#table_extra_cash').find('button[name="btn_extra_cash_edit"]');
+	            	            
+	            $(btnsEdit[btnsEdit.length - 1]).click(_editFunAjax);
+	            
+	            var btnsCancel = $('#table_extra_cash').find('button[name="btn_extra_cash_cancel"]');
+	            	            
+	            $(btnsCancel[btnsCancel.length - 1]).click(_cancelFunAjax);
+	            
+	            var btnsDelete = $('#table_extra_cash').find('button[name="btn_extra_cash_remove"]');
+	            	            
+	            $(btnsDelete[btnsDelete.length - 1]).click(_removeFunAjax);
+		 	
+			 	// 重新设置总金额
+			 	if (backdata.refresh_money != null && backdata.refresh_money.need != null) {
+			 		
+		        	$('#order_sum_cash').html(backdata.refresh_money.need);
+				 		
+			        $('.order_team_cash').html(backdata.refresh_money.cut);
+			        
+			        // 跟踪记录
+	           		ajaxAppendSupervise('订单金额变为['+backdata.refresh_money.need+'],已支付金额['+backdata.refresh_money.pay+']');
+		        	
+		        }
+		        
+		        // 重新设置状态
+		        if (backdata.order_state != null) {
+			 		
+		        	$('#zhuangtai_show').html(backdata.order_state.type_desc);
+			        
+			        // 跟踪记录
+	           		ajaxAppendSupervise('订单状态变为['+backdata.order_state.type_desc+']');
+		        	
+		        }
+		        
+	            
+	        } else {
+	        	
+				setModalDataEditTips(backdata['result']['message']);
+				
+	        }
+	        
+		});
+		
+	}
+	
+	
+	// 显示编辑额外费用
+	
+	function showExtraCashEdit(trObj, bFail) {
+		
+		if ($(trObj).find('input[name="edit_extra_cash"]').is(':visible')) {			
+		
+			// 编辑中，取消编辑
+			
+			$(trObj).find('span[name="extra_cash"]').show();
+			
+			$(trObj).find('input[name="edit_extra_cash"]').hide();
+			
+			$(trObj).find('span[name="extra_reason"]').show();
+			
+			$(trObj).find('input[name="edit_extra_reason"]').hide();
+			
+			$(trObj).find('button[name="btn_extra_cash_cancel"]').hide();
+			
+			$(trObj).find('button[name="btn_extra_cash_edit"]').html('编辑');
+			
+			if (bFail == 0) {	
+			
+				var cash = $(trObj).find('input[name="edit_extra_cash"]').val();
+				
+				var reason = $(trObj).find('input[name="edit_extra_reason"]').val();
+	            
+	            ajaxAppendSupervise('修改额外费用用途为['+$(trObj).find('td:eq(0) span').html()+'],费用由['+$(trObj).find('td:eq(1) span').html()+']变更为['+cash+'],原因:'+reason);
+							
+				$(trObj).find('span[name="extra_cash"]').html(cash);
+				
+				$(trObj).find('span[name="extra_reason"]').html(reason);
+								
+			}
+			
+		} else {
+			
+			// 未编辑，显示编辑
+			
+			$(trObj).find('span[name="extra_cash"]').hide();
+			
+			var cash = $(trObj).find('span[name="extra_cash"]').html();
+			
+			$(trObj).find('input[name="edit_extra_cash"]').show();
+						
+			$(trObj).find('input[name="edit_extra_cash"]').val(cash);
+			
+			$(trObj).find('span[name="extra_reason"]').hide();
+			
+			var reason = $(trObj).find('span[name="extra_reason"]').html();
+			
+			$(trObj).find('input[name="edit_extra_reason"]').show();
+						
+			$(trObj).find('input[name="edit_extra_reason"]').val(reason);
+			
+			$(trObj).find('button[name="btn_extra_cash_cancel"]').show();
+			
+			$(trObj).find('button[name="btn_extra_cash_edit"]').html('保存');
+			
+		}		
+	}
+	
+	// 开始编辑额外费用
+	
+	function _editFunAjax() {
+		
+		var trObj = $(this).parent().parent();
+		
+		if ($(this).html() == '编辑') {
+			
+			showExtraCashEdit(trObj, -1);
+			
+			return true;
+			
+		}
+		
+		var extraId =  $(trObj).find('input[name="extra_cash_id"]').val();
+		
+		var extraCash =  $(trObj).find('input[name="edit_extra_cash"]').val();
+		
+		if (extraCash == '' || parseFloat(extraCash) < 0.01) {
+			
+			alert('额外费用不能为空或者0');
+			
+			return false;
+			
+		}
+		
+		var extraReason = $(trObj).find('input[name="edit_extra_reason"]').val();
+
+		showLoading(true);
+		
+		$.post('{:U("order/extraCash")}', 
+		
+		 {
+		 	op: 'edit',
+		 	
+		 	id: extraId,
+		 	
+		 	cash: extraCash,
+		 	
+		 	reason: extraReason,
+		 	
+		 }, 
+		 
+		 function(data) {
+
+			showLoading(false);
+		 	
+		 	if (data.result.errno != 0) {
+		 		
+		 		alert(data.result.message);
+		 		
+		 	}
+		 	
+		 	showExtraCashEdit(trObj, data.result.errno);
+		 	
+		 	// 重新设置总金额
+		 	if (data.refresh_money != null && data.refresh_money.need != null) {
+		 		
+//	        	$('#order_sum_cash').html(parseFloat(data.refresh_money.need) - parseFloat(data.refresh_money.pay));
+		 		
+	        	$('#order_sum_cash').html(data.refresh_money.need);
+		 		
+	        	$('.order_team_cash').html(data.refresh_money.cut);
+			        
+		        // 跟踪记录
+           		ajaxAppendSupervise('订单金额变为['+data.refresh_money.need+'],已支付金额['+data.refresh_money.pay+']');
+	        	
+	        }
+		        
+	        // 重新设置状态
+	        if (data.order_state != null) {
+		 		
+	        	$('#zhuangtai_show').html(data.order_state.type_desc);
+			        
+		        // 跟踪记录
+           		ajaxAppendSupervise('订单状态变为['+data.order_state.type_desc+']');
+	        	
+	        }
+		 	
+		 });
+		
+	}
+		
+	
+	// 取消编辑额外费用
+	
+	function _cancelFunAjax() {
+		
+		var trObj = $(this).parent().parent();
+		
+		showExtraCashEdit(trObj, -1);		
+		
+	}
+	
+	
+	// 移除绑定额外费用
+	
+	function _removeFunAjax() {
+		
+		if (confirm('您确定要移除该额外费用吗？') == false) {
+			
+			return false;
+			
+		}
+			
+		var trObj = $(this).parent().parent();
+		
+		var cash = $(trObj).find('span[name="extra_cash"]').html();		
+
+		showLoading(true);
+		
+		$.post('{:U("order/extraCash")}', 
+		
+			{			
+			
+				op: 'remove',
+				
+				id: $(this).parent().find('input[name="extra_cash_id"]').val()
+			},
+			
+			function(data) {
+
+				showLoading(false);
+				
+				if (data.result.errno == 0) {
+			        
+			        // 跟踪记录
+	           		ajaxAppendSupervise('移除了费用用途为['+$(trObj).find('td:eq(0) span').html()+'],费用为['+$(trObj).find('td:eq(1) span').html()+']的额外费用');
+		        	            		 	
+				 	// 重新设置总金额
+				 	if (data.refresh_money != null && data.refresh_money.need != null) {
+			 		
+		        		$('#order_sum_cash').html(data.refresh_money.need);
+		 		
+	        			$('.order_team_cash').html(data.refresh_money.cut);
+			        
+				        // 跟踪记录
+		           		ajaxAppendSupervise('订单金额变为['+data.refresh_money.need+'],已支付金额['+data.refresh_money.pay+']');
+		        				        	
+			        }
+			        // 重新设置状态
+			        if (data.order_state != null) {
+				 		
+			        	$('#zhuangtai_show').html(data.order_state.type_desc);
+			        
+				        // 跟踪记录
+		           		ajaxAppendSupervise('订单状态变为['+data.order_state.type_desc+']');
+			        	
+			        }
+			        
+										
+					$(trObj).remove();
+					
+				} else {
+					
+					alert(data.result.message);
+					
+				}
+				
+			});	
+				
+	}
+	
+	
+	// 添加减免数据
+	
+	function _addCouponFunAjax(ds) {	
+		
+		if (ds['Coupon'] == null) {
+			
+			alert('减免类型不能为空');
+			
+			return false;
+		}
+		
+		if (ds['Cash'] == '' || parseInt(ds['Cash']) == 0) {
+			
+			alert('面值不能为空或者为0');
+			
+			return false;
+		}
+		
+		var jsonData = {
+			
+			'op': 'bind',
+			
+	    	'order_id': $('#order_id').val(),
+	    	
+	    	'coupon_type_id': ds['Coupon'],	
+	    	
+	    	'cash': ds['Cash'],	
+	    	
+	    	'reason': ds['Desc'],
+	    	
+		};
+
+		showLoading(true);
+		
+		$.post('{:U("order/coupon")}',jsonData,
+		
+		function(backdata,status) {
+
+			showLoading(false);
+			
+	        if (backdata['result']['errno'] == 0) {
+	        	
+	            hideModalDataEdit();
+	            
+	            var coupon = backdata.ds;
+	            
+	            // 添加跟踪记录
+	            
+	            ajaxAppendSupervise('添加了类型为['+coupon.coupon_type_id_data.type_desc+'],金额为['+coupon.cash+']的系统减免,原因:'+coupon.reason);
+	            
+				var	html = '<tr>';
+
+					html += '		<td><span>'+coupon.coupon_type_id_data.type_desc+'</span></td>';
+												
+					html += '		<td>';
+										
+					html += '			<span name="coupon_cash">'+coupon.cash+'</span>';
+										
+					html += '			<input name="edit_coupon_cash" type="text" style="display: none"/>';
+					
+					html += '		</td>';
+												
+					html += '		<td><span>'+coupon.admin_id_account+'</span></td>';
+												
+					html += '		<td><span>'+coupon.bind_time+'</span></td>';
+												
+					html += '		<td>';
+										
+					html += '			<span name="coupon_reason">'+coupon.reason+'</span>';
+										
+					html += '			<input name="edit_coupon_reason" type="text" style="display: none"/>';
+					
+					html += '		</td>';
+
+					html += '		<td>';
+
+					html += '			<input type="hidden" name="coupon_bind_id" value="'+coupon.id+'"/>';
+					
+					html += '			<button type="button" name="btn_order_coupon_edit" class="btn btn-secondary">编辑</button>';
+																									
+					html += '			<button type="button" name="btn_order_coupon_cancel" class="btn btn-secondary" style="display: none">取消</button>';
+													
+					html += '			<button type="button" name="btn_order_coupon_remove" class="btn btn-warning">删除</button>';
+								
+					html += '		</td>';
+
+					html += '	</tr>';
+	            
+	            $('#table_order_coupon').find('tbody').append(html);
+	            
+	            var editCoupons = $('#table_order_coupon').find('input[name="edit_coupon_cash"]');
+	            	            
+	            $(editCoupons[editCoupons.length - 1]).keyup(inputIntFloatCheck);
+	            
+	            var btnsEdit = $('#table_order_coupon').find('button[name="btn_order_coupon_edit"]');
+	            	            
+	            $(btnsEdit[btnsEdit.length - 1]).click(_editCouponFunAjax);
+	            
+	            var btnsCancel = $('#table_order_coupon').find('button[name="btn_order_coupon_cancel"]');
+	            	            
+	            $(btnsCancel[btnsCancel.length - 1]).click(_cancelCouponFunAjax);
+	            
+	            var btnsDelete = $('#table_order_coupon').find('button[name="btn_order_coupon_remove"]');
+	            	            
+	            $(btnsDelete[btnsDelete.length - 1]).click(_removeCouponFunAjax);
+		 	
+			 	// 重新设置总金额
+			 	if (backdata.refresh_money != null && backdata.refresh_money.need != null) {
+			 		
+		        	$('#order_sum_cash').html(backdata.refresh_money.need);
+			 		
+		        	$('.order_team_cash').html(backdata.refresh_money.cut);
+			        
+			        // 跟踪记录
+	           		ajaxAppendSupervise('订单金额变为['+backdata.refresh_money.need+'],已支付金额['+backdata.refresh_money.pay+']');
+		        	
+		        }
+		        
+		        // 重新设置状态
+		        if (backdata.order_state != null) {
+			 		
+		        	$('#zhuangtai_show').html(backdata.order_state.type_desc);
+		        	
+	           		ajaxAppendSupervise('订单状态变更为:'+backdata.order_state.type_desc);
+		        	
+		        }
+	            
+	        } else {
+	        	
+				setModalDataEditTips(backdata['result']['message']);
+				
+	        }
+	        
+		});
+		
+	}
+	
+	
+	// 显示编辑系统减免
+	
+	function showOrderCouponEdit(trObj, bFail) {
+		
+		if ($(trObj).find('input[name="edit_coupon_cash"]').is(':visible')) {			
+		
+			// 编辑中，取消编辑
+			
+			$(trObj).find('span[name="coupon_cash"]').show();
+			
+			$(trObj).find('input[name="edit_coupon_cash"]').hide();
+			
+			$(trObj).find('span[name="coupon_reason"]').show();
+			
+			$(trObj).find('input[name="edit_coupon_reason"]').hide();
+			
+			$(trObj).find('button[name="btn_order_coupon_cancel"]').hide();
+			
+			$(trObj).find('button[name="btn_order_coupon_edit"]').html('编辑');
+			
+			if (bFail == 0) {
+				
+				var cash = $(trObj).find('input[name="edit_coupon_cash"]').val();
+				
+				var reason = $(trObj).find('input[name="edit_coupon_reason"]').val();
+	            
+	            ajaxAppendSupervise('类型为['+$(trObj).find('td:eq(0) span').html()+'],金额由['+$(trObj).find('td:eq(1) span').html()+']变更为['+cash+']的系统减免,原因:'+reason);
+				
+				$(trObj).find('span[name="coupon_cash"]').html(cash);
+				
+				$(trObj).find('span[name="coupon_reason"]').html(reason);
+				
+			}
+			
+		} else {
+			
+			// 未编辑，显示编辑
+			
+			$(trObj).find('span[name="coupon_cash"]').hide();
+			
+			var cash = $(trObj).find('span[name="coupon_cash"]').html();
+			
+			$(trObj).find('input[name="edit_coupon_cash"]').show();
+						
+			$(trObj).find('input[name="edit_coupon_cash"]').val(cash);
+			
+			$(trObj).find('span[name="coupon_reason"]').hide();
+			
+			var reason = $(trObj).find('span[name="coupon_reason"]').html();
+			
+			$(trObj).find('input[name="edit_coupon_reason"]').show();
+						
+			$(trObj).find('input[name="edit_coupon_reason"]').val(reason);
+			
+			$(trObj).find('button[name="btn_order_coupon_cancel"]').show();
+			
+			$(trObj).find('button[name="btn_order_coupon_edit"]').html('保存');
+			
+		}		
+	}
+	
+	// 开始编辑系统减免
+	
+	function _editCouponFunAjax() {
+		
+		var trObj = $(this).parent().parent();
+		
+		if ($(this).html() == '编辑') {
+			
+			showOrderCouponEdit(trObj, -1);
+			
+			return true;
+			
+		}
+		
+		var bindId =  $(trObj).find('input[name="coupon_bind_id"]').val();
+		
+		var couponCash =  $(trObj).find('input[name="edit_coupon_cash"]').val();
+		
+		if (couponCash == '' || parseFloat(couponCash) < 0.01) {
+			
+			alert('额外费用不能为空或者0');
+			
+			return false;
+			
+		}
+		
+		var couponReason = $(trObj).find('input[name="edit_coupon_reason"]').val();	
+
+		showLoading(true);	
+		
+		$.post('{:U("order/coupon")}', 
+		
+		 {
+		 	op: 'edit',
+		 	
+		 	id: bindId,
+		 	
+		 	cash: couponCash,
+		 	
+		 	reason: couponReason,
+		 }, 
+		 
+		 function(data) {
+
+			showLoading(false);
+		 	
+		 	showOrderCouponEdit(trObj, data.result.errno);
+		 	
+		 	if (data.result.errno != 0) {
+		 		
+		 		alert(data.result.message);
+		 		
+		 	} else {
+		 		
+			 	// 重新设置总金额
+			 	if (data.refresh_money != null && data.refresh_money.need != null) {
+			 		
+		        	$('#order_sum_cash').html(data.refresh_money.need);
+			 		
+		        	$('.order_team_cash').html(data.refresh_money.cut);
+			        
+			        // 跟踪记录
+	           		ajaxAppendSupervise('订单金额变为['+data.refresh_money.need+'],已支付金额['+data.refresh_money.pay+']');
+		        	
+		        }
+		        
+		        // 重新设置状态
+		        if (data.order_state != null) {
+			 		
+		        	$('#zhuangtai_show').html(data.order_state.type_desc);
+			        
+			        // 跟踪记录
+	           		ajaxAppendSupervise('订单状态变为['+data.order_state.type_desc+']');
+		        	
+		        }
+		 		
+		 	}
+		 	
+		 });
+		
+	}
+		
+	
+	// 取消编辑系统减免
+	
+	function _cancelCouponFunAjax() {
+		
+		var trObj = $(this).parent().parent();
+		
+		showOrderCouponEdit(trObj, -1);		
+		
+	}
+	
+	
+	// 移除绑定系统减免
+	
+	function _removeCouponFunAjax() {
+		
+		if (confirm('您确定要移除该绑定的系统减免吗？') == false) {
+			
+			return false;
+			
+		}
+			
+		var trObj = $(this).parent().parent();
+		
+		var cash = $(trObj).find('span[name="coupon_cash"]').html();	
+
+		showLoading(true);	
+		
+		$.post('{:U("order/coupon")}', 
+		
+			{			
+			
+				op: 'remove',
+				
+				id: $(this).parent().find('input[name="coupon_bind_id"]').val()
+			},
+			
+			function(data) {
+
+				showLoading(false);
+				
+				if (data.result.errno == 0) {
+					
+				 	// 重新设置总金额
+				 	if (data.refresh_money != null && data.refresh_money.need != null) {
+			 		
+		        		$('#order_sum_cash').html(data.refresh_money.need);
+				 		
+			        	$('.order_team_cash').html(data.refresh_money.cut);
+			        
+				        // 跟踪记录
+		           		ajaxAppendSupervise('订单金额变为['+data.refresh_money.need+'],已支付金额['+data.refresh_money.pay+']');
+			        	
+			        }
+		        
+			        // 重新设置状态
+			        if (data.order_state != null) {
+				 		
+			        	$('#zhuangtai_show').html(data.order_state.type_desc);
+			        
+				        // 跟踪记录
+		           		ajaxAppendSupervise('订单状态变为['+data.order_state.type_desc+']');
+			        	
+			        }
+			        
+			        // 跟踪记录
+	           		ajaxAppendSupervise('移除了类型为['+$(trObj).find('td:eq(0) span').html()+'],金额为['+$(trObj).find('td:eq(1) span').html()+']的系统减免');	            
+					
+					$(trObj).remove();
+					
+				} else {
+					
+					alert(data.result.message);
+					
+				}
+				
+			});	
+				
+	}
+		
+	// 订单对比当前批次价格刷新团费
+	
+	function compareTeamPrice() {
+		
+		if (checkOrderLock()) {
+			
+			toastr.warning('订单已被锁定，不允许再修改');
+			
+			return false;
+						
+		}
+		
+		$.post('{:U("order/info")}', {op: 'compare_price', id: $('#order_id').val()}, function(data){
+			
+			if (data.result.errno == 0) {
+				
+				if (data.refresh_money != null) {
+					
+					$('.order_sum_cash').html(data.refresh_money.need);
+				 		
+			        $('.order_team_cash').html(data.refresh_money.cut);
+					
+				}				
+				
+				toastr.success(data.result.message);
+				
+			} else {
+				
+				toastr.error(data.result.message);
+				
+			}
+			
+		});
+		
+	}
+	
+
+	// 设置订单为已审核
+
+	function reviewPassOrder() {
+
+		showLoading(true);
+
+		$.post('{:U("review/request")}', 
+
+			{	
+
+				op:'order_state', 
+
+				id:$('#order_id').val(),
+
+				state:'review',
+
+			},
+
+			function(data){
+
+				showLoading(false);
+
+				if (data.result.errno != 0){
+
+					alert(data.result.message);
+
+				} else {
+
+					alert('审核订单成功');
+
+					$('#zhuangtai_show').html('已审核');
+
+					ajaxAppendSupervise('通过审核');
+					
+					location.href = '{:U("order/list")}';
+
+				}
+
+			});
+
+	}
+	
+
+	// 设置订单为替补
+
+	function alternateOrder() {
+		
+		if (confirm("您确定要此订单设为替补吗？") == false) {
+			
+			return false;
+			
+		}
+
+		showLoading(true);
+
+		$.post('{:U("review/request")}', 
+
+			{	
+
+				op:'order_state', 
+
+				id:$('#order_id').val(),
+
+				state:'unjoin',
+
+			},
+
+			function(data){
+
+				showLoading(false);
+
+				if (data.result.errno != 0){
+
+					alert(data.result.message);
+
+				} else {
+
+					alert('设置替补成功');
+
+					$('#zhuangtai_show').html('替补');
+
+					ajaxAppendSupervise('设为替补');
+					
+					location.href = '{:U("order/list")}';
+
+				}
+
+			});
+
+	}
+	
+	
+	// 取消订单行程
+
+	function cancelSchedulingOrder() {
+		
+		if (confirm("您确定要取消此订单的行程吗？") == false) {
+			
+			return false;
+			
+		}
+
+		showLoading(true);
+
+		$.post('{:U("review/request")}', 
+
+			{	
+
+				op:'order_state', 
+
+				id:$('#order_id').val(),
+
+				state:'cancel_scheduling',
+
+			},
+
+			function(data){
+
+				showLoading(false);
+
+				if (data.result.errno != 0){
+
+					alert(data.result.message);
+
+				} else {
+
+					alert('取消行程成功');
+
+					$('#zhuangtai_show').html('取消行程');
+
+					ajaxAppendSupervise('取消行程');
+					
+					location.href = '{:U("order/list")}';
+
+				}
+
+			});
+
+	}
+	
+
+	// 选择证件类型
+
+	function certificateTypeChanged() {
+
+		var certTypeId = $(this).find('input[type="hidden"]').val();
+
+		var certTypeDesc =  $(this).find('a').html();
+
+		$(this).parent().prev().attr('data-id', certTypeId);
+
+		$(this).parent().prev().find('.ctr_card_btn_num').html(certTypeDesc);
+
+	}	
+	
+	// 检查成员信息是否完善
+	function checkMemberInfo(tr) {
+		
+		var name = $(tr).find('.ctr_xingming').val();
+		
+		if (name == '') {
+
+			alert('姓名不能为空');
+
+			return false;
+
+		}
+
+		var tel = $(tr).find('input[name="tel"]').val();
+
+		if (checkMobile(tel) === false) {
+
+			alert('手机号码不正确，请检查后再次保存');
+
+			return false;
+
+		} 
+		
+		var cardType = $(tr).find('.ctr_card_btn_num').html();
+
+		var cardNum = $(tr).find('.ctr_card_num').val();
+		
+		if (cardType == '身份证') {
+			
+			if (checkCard(cardNum) === false) {
+
+				alert('证件号码不正确，请检查后再次保存');
+
+				return false;
+				
+			}
+			
+		}
+		
+		return true;
+		
+	}
+//	
+//	// 刷新成员信息
+//	
+//	function refreshMember() {
+//		
+//		$.post('{:U("order/member")}', 
+//		
+//			{
+//				
+//				order_id: $('#order_id').val(),
+//				
+//				exit: 0,
+//				
+//			},
+//			
+//			function(data) {
+//				
+//				if (data.result.errno == 0) {
+//					
+//					if (data.ds != null && data.ds != 'undefined') {
+//						
+//						for (var i = 0; i < data.ds.length; i ++) {
+//							
+//							var d = data.ds[i];
+//							
+//							var trObj = $('.template_member').find('tr').clone(true);
+//							
+//							$(trObj).attr('data-id', d.id);
+//							
+//							$(trObj).find('input[name="checkList"]').val(d.id);
+//							
+//							$(trObj).find('.label_name').html(d.name);
+//							
+//							$(trObj).find('.label_tel').html(d.tel);
+//							
+//							$(trObj).find('.label_type').attr('data-id', d.type_id);
+//							
+//							$(trObj).find('.label_type').html(d.type_id_data.type_desc);
+//							
+//							$(trObj).find('.label_cert').attr('data-id', d.certificate_type_id);
+//							
+//							$(trObj).find('.label_cert').html(d.certificate_type_id_data.type_desc+'&nbsp;'+d.certificate_num);
+//							
+//							$('#table').find('tbody').append(trObj);
+//							
+//						}
+//						
+//					}
+//					
+//				} else {
+//					
+//					alert(data.ds.message);
+//					
+//				}
+//				
+//			}
+//		
+//		);
+//		
+//	}
+	
+	// 修改成员信息(新表保存参团人信息)
+	
+	function saveMemberEditNew() {
+
+		var trObj = $(this).closest('tr');		
+		
+		if (checkMemberInfo(trObj) == false) {
+			
+			return false;
+			
+		}
+
+		showLoading(true);
+
+		$.post('{:U("order/member")}', 
+
+			{	
+
+				op_type:'save', 
+				
+				id: $(trObj).attr('data-id'),
+				
+				order_id: $('#order_id').val(),
+				
+				name: $(trObj).find('.ctr_xingming').val(),
+				
+				type_id: $(trObj).find('.ctr_sex').val(),
+				
+				certificate_type_id: $(trObj).find('.ctr_card_btn').attr('data-id'),
+				
+				certificate_num: $(trObj).find('.ctr_card_num').val(),
+				
+				birthday: $(trObj).find('.ctr_birth').val(),
+				
+				beizhu: $(trObj).find('.ctr_beizhu').val(),
+				
+				tel: $(trObj).find('.ctr_shouji').val(),			
+
+			},
+
+			function(data){
+
+				showLoading(false);
+				
+				if (data.result.errno == 0){
+				
+					if (data.ds != null && data.ds != 'undefined') {
+							
+						$(trObj).attr('data-id', data.ds.id);						
+					
+						$(trObj).find('input[type="checkbox"]').val(data.ds.id);
+						
+						// 恢复已退团的参团人
+						if (data.recover_member != null) {
+
+							ajaxAppendSupervise('编号为['+data.ds.id+']的退团人['+data.ds.name+']已被恢复并且加入到团队中');
+							
+						}
+						
+					}
+
+					showMemberEdit(trObj, false, data.result.errno);
+
+					toastr.success(data.result.message);
+
+				} else {
+
+					toastr.error(data.result.message);
+					
+				}
+
+			});
+		
+	}
+	
+
+	// 修改成员(旧表保存参团人信息)
+
+	function saveMemberEdit() {
+
+		var tr = $(this).parent().parent();		
+		
+		if (checkMemberInfo(tr) == false) {
+			
+			return false;
+			
+		}
+
+		var members = getJsonMemberInfo(false, -1);		
+
+		if ($(members).length == 0) {
+
+			$('err_msg').html('没有更多的参团人员信息可供修改');
+
+			return false;
+
+		}
+		
+		var trIndex = $('#table tbody').find(tr).index();
+				
+		for (var k=0; k<$(members).length; k++) {
+			
+			if (members[k]['name'] == 'ct_types') {
+				
+				var typestr = members[k]['value'];
+				
+				var types = new Array();
+				
+				types = typestr.split('&nbsp;');
+				
+				if (types[trIndex] == '' || types[trIndex] == 0) {
+					
+					alert('人员类型错误，请改正后再次保存');
+					
+					return false;
+					
+				}
+										
+				break;	
+			}
+			
+		}
+		
+		console.log(JSON.stringify(members));
+		
+		console.log(trIndex);
+
+		var orderId = $('#order_id').val();
+
+		showLoading(true);
+
+		$.post('{:U("order/info")}', 
+
+			{	
+
+				op:'update_order', 
+				
+				op_info: 'member_edit',
+				
+				new_name: name,
+
+				cds:[{name:'id',value:orderId}],
+
+				data:members,
+
+			},
+
+			function(data){
+
+				showLoading(false);
+
+				var obj = $('#table tbody').find('tr').eq(trIndex);
+				if (data.result.errno != 0){
+
+//					$('#err_msg').html(data.result.message);
+					alert(data.result.message);
+
+				} else {		
+					
+					$(obj).attr('data-id', data.new_member_id);
+					
+					$(obj).find('input[type="checkbox"]').val(data.new_member_id);
+					
+				}
+
+				showMemberEdit(obj, false, data.result.errno);
+
+			});
+
+	}
+
+	
+
+	// 取消编辑参团人
+
+	function cancelMemberEdit() {
+
+		var tr = $(this).parent().parent();
+
+		showMemberEdit(tr, false, 1);
+
+	}
+
+	
+
+	// 短信通知参团人
+
+	function sendSMSToPhone() {
+
+		var tr = $(this).parent().parent();
+
+		var trIndex = $('#table tbody').find(tr).index();
+
+		
+
+		var certNum = '';
+
+		var certval = $(tr).find('span[name="label_cert"]').html();		
+
+		if (certval != 'undefined') {
+
+			var certVals = certval.split('&nbsp;');
+
+			if (certVals.length >= 2) {
+
+				certNum = certVals[1];
+
+			}
+
+		}
+
+		var ds = new Array();
+
+		ds[0] = {
+
+				name: $(tr).find('span[name="label_name"]').html(),
+
+				tel: $(tr).find('span[name="label_tel"]').html(),
+
+				type_id: $(tr).find('span[name="label_type"]').attr('data-id'),
+
+				cert_type_id: $(tr).find('span[name="label_cert"]').attr('data-id'),
+
+			cert_num: certNum,
+
+		};
+
+		
+
+		showLoading(true);
+
+		$.post('{:U("order/info")}', {op:'sms', sms_type:'order_info', data:ds}, function(data){
+
+			showLoading(false);
+
+			alert(data.result.message);
+
+		})		
+
+	}
+
+	
+
+	// 群发短信通知参团人
+
+	function sendSMSToPhones() {
+
+		var trs = $('#table tbody').find('tr');		
+
+		var ds = new Array();
+
+		for (var k=0; k<trs.length; k++) {
+
+			var tr = $(trs[k]);
+
+			var certNum = '';
+
+			var certval = $(tr).find('span[name="label_cert"]').html();
+
+			if (certval != 'undefined') {
+
+				var certVals = certval.split('&nbsp;');
+
+				if (certVals.length >= 2) {
+
+					certNum = certVals[1];
+
+				}
+
+			}
+
+			ds[k] = {
+
+				name: $(tr).find('span[name="label_name"]').html(),
+
+				tel: $(tr).find('span[name="label_tel"]').html(),
+
+				type_id: $(tr).find('span[name="label_type"]').attr('data-id'),
+
+				cert_type_id: $(tr).find('span[name="label_cert"]').attr('data-id'),
+
+				cert_num: certNum,
+
+			};
+
+		}
+
+
+		showLoading(true);		
+
+		$.post('{:U("order/info")}', {op:'sms', sms_type:'order_info', data:ds}, function(data){
+
+			showLoading(false);
+
+			alert(data.result.message);
+
+		})		
+
+	}
+
+	// 获取所有参团成员信息
+
+	function getMembersInfo(bCreate, delTrIndex) {
+
+		var members = new Array();
+
+		// 获取参团人列表
+
+		var trList = $('#table tbody').find('tr');
+
+		for(var i = 0; i < $(trList).length; i++){
+
+			if (i == delTrIndex) {
+
+				continue;
+
+			}
+
+			var tdList = $(trList[i]).find('td');
+
+			if ($(tdList).length >= 6) {
+
+				if ($(trList[i]).find('.ctr_bianji').is(":visible")) {
+
+					var cert = $(tdList[4]).find('span[name="label_cert"]').html().split('&nbsp;');
+					
+					members[i] = {
+						
+						'id': $(tdList[0]).find('input[name="checkList"]').attr('value'),
+
+						'name': $(tdList[1]).find('span').html(),
+
+						'tel':  $(tdList[2]).find('span').html(),
+
+						'type':  $(tdList[3]).find('span').attr('data-id'),
+
+					};	
+					
+					if ($(cert).length >= 2) {
+
+						members[i]['cert_desc'] = cert[0];
+
+						members[i]['cert_num'] = cert[1];
+
+					} else {
+
+						members[i]['cert_desc'] = '';
+
+						members[i]['cert_num'] = '';
+					}
+
+				} else {
+
+					members[i] = {
+						
+						'id': $(tdList[0]).find('input[name="checkList"]').attr('value'),
+
+						'name': $(tdList[1]).find('input').val(),
+
+						'tel':  $(tdList[2]).find('input').val(),
+
+						'type':  $(tdList[3]).find('.ctr_sex').val(),
+
+						'cert_desc': $(tdList[4]).find('.ctr_card_btn_num').html(),
+
+						'cert_num': $(tdList[4]).find('.ctr_card_num').val(),
+
+					};	
+
+				}
+
+			}
+
+		}
+
+		return members;
+
+	}
+
+	
+
+	// 获取参团人员的JSON数据
+
+	function getJsonMemberInfo(bCreate, delTrIndex) {
+
+		var members = getMembersInfo(bCreate, delTrIndex);
+
+		var ids='', names = '', tels = '', types = '', certTypes = '',certNums = '';
+
+		for (var i = 0; i <$(members).length; i ++) {
+
+			var m = members[i];
+
+			if (i == 0) {
+				
+				ids = m.id;
+
+				names = m.name;
+
+				tels = m.tel;
+
+				types = m.type;
+
+				certTypes = m.cert_desc;
+
+				certNums = m.cert_num;
+
+			} else {
+
+				ids += ('&nbsp;' + m.id);
+
+				names += ('&nbsp;' + m.name);
+
+				tels += ('&nbsp;' + m.tel);
+
+				types += ('&nbsp;' + m.type);
+
+				certTypes += ('&nbsp;' + m.cert_desc);
+
+				certNums += ('&nbsp;' + m.cert_num);
+
+			}
+
+		}
+
+		
+
+		var jsonData = [
+			
+			{name:'ct_ids', value:ids},
+
+			{name:'ct_names', value:names},
+
+			{name:'ct_sjnum', value:tels},
+
+			{name:'ct_types', value:types},
+
+			{name:'ct_zhengjian', value:certTypes},
+
+			{name:'ct_zjcode', value:certNums},
+
+		];
+
+		return jsonData;
+
+	}
+	
+	
+
+</script>

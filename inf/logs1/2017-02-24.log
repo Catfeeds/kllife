@@ -1,0 +1,641 @@
+[2017-02-24 18:31:58][info] ----------------------------------------
+[2017-02-24 18:31:58][info] []
+[2017-02-24 18:31:58][info] ----------------------------------------
+[2017-02-24 18:31:58][info] []
+[2017-02-24 18:32:13][info] ----------------------------------------
+[2017-02-24 18:32:13][info] []
+[2017-02-24 18:32:13][info] ----------------------------------------
+[2017-02-24 18:32:13][info] []
+[2017-02-24 18:32:30][info] ----------------------------------------
+[2017-02-24 18:32:30][info] []
+[2017-02-24 18:32:30][info] ----------------------------------------
+[2017-02-24 18:32:30][info] []
+[2017-02-24 18:33:02][info] ----------------------------------------
+[2017-02-24 18:33:02][info] []
+[2017-02-24 18:33:02][info] ----------------------------------------
+[2017-02-24 18:33:02][info] []
+[2017-02-24 18:33:56][info] ----------------------------------------
+[2017-02-24 18:33:56][info] POST:[]
+[2017-02-24 18:33:56][info] ----------------------------------------
+[2017-02-24 18:33:56][info] GET:[]
+[2017-02-24 18:34:06][info] ----------------------------------------
+[2017-02-24 18:34:06][info] POST:[]
+[2017-02-24 18:34:06][info] ----------------------------------------
+[2017-02-24 18:34:06][info] GET:[]
+[2017-02-24 18:34:22][info] ----------------------------------------
+[2017-02-24 18:34:22][info] POST:[]
+[2017-02-24 18:34:22][info] ----------------------------------------
+[2017-02-24 18:34:22][info] GET:[]
+[2017-02-24 18:34:53][info] ----------------------------------------
+[2017-02-24 18:34:53][info] POST:[]
+[2017-02-24 18:34:53][info] ----------------------------------------
+[2017-02-24 18:34:53][info] GET:[]
+[2017-02-24 18:36:04][info] ----------------------------------------
+[2017-02-24 18:36:04][info] POST:[]
+[2017-02-24 18:36:04][info] ----------------------------------------
+[2017-02-24 18:36:04][info] GET:[]
+[2017-02-24 18:37:55][info] ----------------------------------------
+[2017-02-24 18:37:55][info] POST:[]
+[2017-02-24 18:37:55][info] ----------------------------------------
+[2017-02-24 18:37:55][info] GET:[]
+[2017-02-24 18:51:08][info] ----------------------------------------
+[2017-02-24 18:51:08][info] POST:[]
+[2017-02-24 18:51:08][info] ----------------------------------------
+[2017-02-24 18:51:08][info] GET:[]
+[2017-02-24 18:51:08][info] ----------------------------------------
+[2017-02-24 18:51:08][info] XML:<xml><appid><![CDATA[wxefc029d4373dcac0]]></appid>
+<bank_type><![CDATA[CFT]]></bank_type>
+<cash_fee><![CDATA[1]]></cash_fee>
+<fee_type><![CDATA[CNY]]></fee_type>
+<is_subscribe><![CDATA[Y]]></is_subscribe>
+<mch_id><![CDATA[1244967502]]></mch_id>
+<nonce_str><![CDATA[gxft2pqj5hf7elzaoe73yiydg7t06rwu]]></nonce_str>
+<openid><![CDATA[orYumuAFxLGdyO7Su3wb9ENumlPo]]></openid>
+<out_trade_no><![CDATA[LX-17021412244065201-e]]></out_trade_no>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<return_code><![CDATA[SUCCESS]]></return_code>
+<sign><![CDATA[28625839830FA963D3D1552B13BD4212]]></sign>
+<time_end><![CDATA[20170224185108]]></time_end>
+<total_fee>1</total_fee>
+<trade_type><![CDATA[NATIVE]]></trade_type>
+<transaction_id><![CDATA[4000442001201702241166835917]]></transaction_id>
+</xml>
+[2017-02-24 18:51:18][info] ----------------------------------------
+[2017-02-24 18:51:18][info] POST:[]
+[2017-02-24 18:51:18][info] ----------------------------------------
+[2017-02-24 18:51:18][info] GET:[]
+[2017-02-24 18:51:18][info] ----------------------------------------
+[2017-02-24 18:51:18][info] XML:<xml><appid><![CDATA[wxefc029d4373dcac0]]></appid>
+<bank_type><![CDATA[CFT]]></bank_type>
+<cash_fee><![CDATA[1]]></cash_fee>
+<fee_type><![CDATA[CNY]]></fee_type>
+<is_subscribe><![CDATA[Y]]></is_subscribe>
+<mch_id><![CDATA[1244967502]]></mch_id>
+<nonce_str><![CDATA[gxft2pqj5hf7elzaoe73yiydg7t06rwu]]></nonce_str>
+<openid><![CDATA[orYumuAFxLGdyO7Su3wb9ENumlPo]]></openid>
+<out_trade_no><![CDATA[LX-17021412244065201-e]]></out_trade_no>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<return_code><![CDATA[SUCCESS]]></return_code>
+<sign><![CDATA[28625839830FA963D3D1552B13BD4212]]></sign>
+<time_end><![CDATA[20170224185108]]></time_end>
+<total_fee>1</total_fee>
+<trade_type><![CDATA[NATIVE]]></trade_type>
+<transaction_id><![CDATA[4000442001201702241166835917]]></transaction_id>
+</xml>
+[2017-02-24 18:51:34][info] ----------------------------------------
+[2017-02-24 18:51:34][info] POST:[]
+[2017-02-24 18:51:34][info] ----------------------------------------
+[2017-02-24 18:51:34][info] GET:[]
+[2017-02-24 18:51:34][info] ----------------------------------------
+[2017-02-24 18:51:34][info] XML:<xml><appid><![CDATA[wxefc029d4373dcac0]]></appid>
+<bank_type><![CDATA[CFT]]></bank_type>
+<cash_fee><![CDATA[1]]></cash_fee>
+<fee_type><![CDATA[CNY]]></fee_type>
+<is_subscribe><![CDATA[Y]]></is_subscribe>
+<mch_id><![CDATA[1244967502]]></mch_id>
+<nonce_str><![CDATA[gxft2pqj5hf7elzaoe73yiydg7t06rwu]]></nonce_str>
+<openid><![CDATA[orYumuAFxLGdyO7Su3wb9ENumlPo]]></openid>
+<out_trade_no><![CDATA[LX-17021412244065201-e]]></out_trade_no>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<return_code><![CDATA[SUCCESS]]></return_code>
+<sign><![CDATA[28625839830FA963D3D1552B13BD4212]]></sign>
+<time_end><![CDATA[20170224185108]]></time_end>
+<total_fee>1</total_fee>
+<trade_type><![CDATA[NATIVE]]></trade_type>
+<transaction_id><![CDATA[4000442001201702241166835917]]></transaction_id>
+</xml>
+[2017-02-24 18:52:07][info] ----------------------------------------
+[2017-02-24 18:52:07][info] POST:[]
+[2017-02-24 18:52:07][info] ----------------------------------------
+[2017-02-24 18:52:07][info] GET:[]
+[2017-02-24 18:52:07][info] ----------------------------------------
+[2017-02-24 18:52:07][info] XML:<xml><appid><![CDATA[wxefc029d4373dcac0]]></appid>
+<bank_type><![CDATA[CFT]]></bank_type>
+<cash_fee><![CDATA[1]]></cash_fee>
+<fee_type><![CDATA[CNY]]></fee_type>
+<is_subscribe><![CDATA[Y]]></is_subscribe>
+<mch_id><![CDATA[1244967502]]></mch_id>
+<nonce_str><![CDATA[gxft2pqj5hf7elzaoe73yiydg7t06rwu]]></nonce_str>
+<openid><![CDATA[orYumuAFxLGdyO7Su3wb9ENumlPo]]></openid>
+<out_trade_no><![CDATA[LX-17021412244065201-e]]></out_trade_no>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<return_code><![CDATA[SUCCESS]]></return_code>
+<sign><![CDATA[28625839830FA963D3D1552B13BD4212]]></sign>
+<time_end><![CDATA[20170224185108]]></time_end>
+<total_fee>1</total_fee>
+<trade_type><![CDATA[NATIVE]]></trade_type>
+<transaction_id><![CDATA[4000442001201702241166835917]]></transaction_id>
+</xml>
+[2017-02-24 18:55:09][info] ----------------------------------------
+[2017-02-24 18:55:09][info] POST:[]
+[2017-02-24 18:55:09][info] ----------------------------------------
+[2017-02-24 18:55:09][info] GET:[]
+[2017-02-24 18:55:09][info] ----------------------------------------
+[2017-02-24 18:55:09][info] XML:<xml><appid><![CDATA[wxefc029d4373dcac0]]></appid>
+<bank_type><![CDATA[CFT]]></bank_type>
+<cash_fee><![CDATA[1]]></cash_fee>
+<fee_type><![CDATA[CNY]]></fee_type>
+<is_subscribe><![CDATA[Y]]></is_subscribe>
+<mch_id><![CDATA[1244967502]]></mch_id>
+<nonce_str><![CDATA[gxft2pqj5hf7elzaoe73yiydg7t06rwu]]></nonce_str>
+<openid><![CDATA[orYumuAFxLGdyO7Su3wb9ENumlPo]]></openid>
+<out_trade_no><![CDATA[LX-17021412244065201-e]]></out_trade_no>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<return_code><![CDATA[SUCCESS]]></return_code>
+<sign><![CDATA[28625839830FA963D3D1552B13BD4212]]></sign>
+<time_end><![CDATA[20170224185108]]></time_end>
+<total_fee>1</total_fee>
+<trade_type><![CDATA[NATIVE]]></trade_type>
+<transaction_id><![CDATA[4000442001201702241166835917]]></transaction_id>
+</xml>
+[2017-02-24 18:57:41][info] ----------------------------------------
+[2017-02-24 18:57:41][info] POST:[]
+[2017-02-24 18:57:41][info] ----------------------------------------
+[2017-02-24 18:57:41][info] GET:[]
+[2017-02-24 18:57:41][info] ----------------------------------------
+[2017-02-24 18:57:41][info] XML:Array
+[2017-02-24 18:57:50][info] ----------------------------------------
+[2017-02-24 18:57:50][info] POST:[]
+[2017-02-24 18:57:50][info] ----------------------------------------
+[2017-02-24 18:57:50][info] GET:[]
+[2017-02-24 18:57:50][info] ----------------------------------------
+[2017-02-24 18:57:50][info] XML:Array
+[2017-02-24 18:58:06][info] ----------------------------------------
+[2017-02-24 18:58:06][info] POST:[]
+[2017-02-24 18:58:06][info] ----------------------------------------
+[2017-02-24 18:58:06][info] GET:[]
+[2017-02-24 18:58:06][info] ----------------------------------------
+[2017-02-24 18:58:06][info] XML:Array
+[2017-02-24 18:58:40][info] ----------------------------------------
+[2017-02-24 18:58:40][info] POST:[]
+[2017-02-24 18:58:40][info] ----------------------------------------
+[2017-02-24 18:58:40][info] GET:[]
+[2017-02-24 18:58:40][info] ----------------------------------------
+[2017-02-24 18:58:40][info] XML:Array
+[2017-02-24 18:59:11][info] ----------------------------------------
+[2017-02-24 18:59:11][info] POST:[]
+[2017-02-24 18:59:11][info] ----------------------------------------
+[2017-02-24 18:59:11][info] GET:[]
+[2017-02-24 18:59:11][info] ----------------------------------------
+[2017-02-24 18:59:11][info] XML:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"71tssl7mpfzrdjlxx3lpvd3ah86mfcsp","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-0","result_code":"SUCCESS","return_code":"SUCCESS","sign":"2997098098CD98AD81BB118286B482D7","time_end":"20170224185910","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241168634789"}
+[2017-02-24 18:59:26][info] ----------------------------------------
+[2017-02-24 18:59:26][info] POST:[]
+[2017-02-24 18:59:26][info] ----------------------------------------
+[2017-02-24 18:59:26][info] GET:[]
+[2017-02-24 18:59:26][info] ----------------------------------------
+[2017-02-24 18:59:26][info] XML:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"71tssl7mpfzrdjlxx3lpvd3ah86mfcsp","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-0","result_code":"SUCCESS","return_code":"SUCCESS","sign":"2997098098CD98AD81BB118286B482D7","time_end":"20170224185910","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241168634789"}
+[2017-02-24 18:59:43][info] ----------------------------------------
+[2017-02-24 18:59:43][info] POST:[]
+[2017-02-24 18:59:43][info] ----------------------------------------
+[2017-02-24 18:59:43][info] GET:[]
+[2017-02-24 18:59:43][info] ----------------------------------------
+[2017-02-24 18:59:43][info] XML:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"71tssl7mpfzrdjlxx3lpvd3ah86mfcsp","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-0","result_code":"SUCCESS","return_code":"SUCCESS","sign":"2997098098CD98AD81BB118286B482D7","time_end":"20170224185910","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241168634789"}
+[2017-02-24 19:00:15][info] ----------------------------------------
+[2017-02-24 19:00:15][info] POST:[]
+[2017-02-24 19:00:15][info] ----------------------------------------
+[2017-02-24 19:00:15][info] GET:[]
+[2017-02-24 19:00:15][info] ----------------------------------------
+[2017-02-24 19:00:15][info] XML:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"71tssl7mpfzrdjlxx3lpvd3ah86mfcsp","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-0","result_code":"SUCCESS","return_code":"SUCCESS","sign":"2997098098CD98AD81BB118286B482D7","time_end":"20170224185910","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241168634789"}
+[2017-02-24 19:01:42][info] ----------------------------------------
+[2017-02-24 19:01:42][info] POST:[]
+[2017-02-24 19:01:42][info] ----------------------------------------
+[2017-02-24 19:01:42][info] GET:[]
+[2017-02-24 19:01:42][info] ----------------------------------------
+[2017-02-24 19:01:42][info] XML:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"k3yfsicassy434hal1ho1elb98bd1ygt","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-8","result_code":"SUCCESS","return_code":"SUCCESS","sign":"37F9802224C946C0BA2ADB4EA954DD30","time_end":"20170224185741","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241165094901"}
+[2017-02-24 19:03:16][info] ----------------------------------------
+[2017-02-24 19:03:16][info] POST:[]
+[2017-02-24 19:03:16][info] ----------------------------------------
+[2017-02-24 19:03:16][info] GET:[]
+[2017-02-24 19:03:16][info] ----------------------------------------
+[2017-02-24 19:03:16][info] XML:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"71tssl7mpfzrdjlxx3lpvd3ah86mfcsp","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-0","result_code":"SUCCESS","return_code":"SUCCESS","sign":"2997098098CD98AD81BB118286B482D7","time_end":"20170224185910","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241168634789"}
+[2017-02-24 19:06:05][info] ----------------------------------------
+[2017-02-24 19:06:05][info] POST:[]
+[2017-02-24 19:06:05][info] ----------------------------------------
+[2017-02-24 19:06:05][info] GET:[]
+[2017-02-24 19:06:05][info] ----------------------------------------
+[2017-02-24 19:06:05][info] XML:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"iko8unzmy1twlgaz80ybo6lf3o75lrje","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-7","result_code":"SUCCESS","return_code":"SUCCESS","sign":"F73BA8FF3C6D2F0F1959F88DE36E58C5","time_end":"20170224183158","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241163245610"}
+[2017-02-24 19:07:57][info] ----------------------------------------
+[2017-02-24 19:07:57][info] POST:[]
+[2017-02-24 19:07:57][info] ----------------------------------------
+[2017-02-24 19:07:57][info] GET:[]
+[2017-02-24 19:07:57][info] ----------------------------------------
+[2017-02-24 19:07:57][info] XML:{
+	"appid":"wxefc029d4373dcac0",
+	"bank_type":"CFT",
+	"cash_fee":"1",
+	"fee_type":"CNY",
+	"is_subscribe":"Y",
+	"mch_id":"1244967502",
+	"nonce_str":"zs74uhj1s6yjxzxck0tzq2vr2xanboav",
+	"openid":"orYumuAFxLGdyO7Su3wb9ENumlPo",
+	"out_trade_no":"LX-17021412244065201-1",
+	"result_code":"SUCCESS",
+	"return_code":"SUCCESS",
+	"sign":"BFCB69D10F45C7F58D5ABDB627E2453F",
+	"time_end":"20170224183355",
+	"total_fee":"1",
+	"trade_type":"NATIVE",
+	"transaction_id":"4000442001201702241161739475"
+}
+[2017-02-24 19:18:59][info] ----------------------------------------
+[2017-02-24 19:18:59][info] XML_DATA:null
+[2017-02-24 19:18:59][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:19:10][info] ----------------------------------------
+[2017-02-24 19:19:10][info] XML_DATA:null
+[2017-02-24 19:19:10][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:19:26][info] ----------------------------------------
+[2017-02-24 19:19:26][info] XML_DATA:null
+[2017-02-24 19:19:26][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:19:58][info] ----------------------------------------
+[2017-02-24 19:19:58][info] XML_DATA:null
+[2017-02-24 19:19:58][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:22:11][info] ----------------------------------------
+[2017-02-24 19:22:11][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>kiht511lu0sr3cd8vj8aakqlk1fd8gjt}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-b}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>DB0FB89DE85B971D363889746287AF3C}{time_end=>20170224192210}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241167989350}]
+[2017-02-24 19:22:11][info] ----------------------------------------
+[2017-02-24 19:22:11][info] XML_DATA:null
+[2017-02-24 19:22:11][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:22:22][info] ----------------------------------------
+[2017-02-24 19:22:22][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>kiht511lu0sr3cd8vj8aakqlk1fd8gjt}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-b}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>DB0FB89DE85B971D363889746287AF3C}{time_end=>20170224192210}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241167989350}]
+[2017-02-24 19:22:22][info] ----------------------------------------
+[2017-02-24 19:22:22][info] XML_DATA:null
+[2017-02-24 19:22:22][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:22:39][info] ----------------------------------------
+[2017-02-24 19:22:39][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>kiht511lu0sr3cd8vj8aakqlk1fd8gjt}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-b}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>DB0FB89DE85B971D363889746287AF3C}{time_end=>20170224192210}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241167989350}]
+[2017-02-24 19:22:39][info] ----------------------------------------
+[2017-02-24 19:22:39][info] XML_DATA:null
+[2017-02-24 19:22:39][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:22:59][info] ----------------------------------------
+[2017-02-24 19:22:59][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>mp6rjxo6ql51ujmxedhrrb3kqscfxc2b}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-3}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>0C609A54DB4876CE3770B1D846FA6821}{time_end=>20170224191859}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241167891321}]
+[2017-02-24 19:22:59][info] ----------------------------------------
+[2017-02-24 19:22:59][info] XML_DATA:null
+[2017-02-24 19:22:59][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:23:11][info] ----------------------------------------
+[2017-02-24 19:23:11][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>kiht511lu0sr3cd8vj8aakqlk1fd8gjt}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-b}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>DB0FB89DE85B971D363889746287AF3C}{time_end=>20170224192210}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241167989350}]
+[2017-02-24 19:23:11][info] ----------------------------------------
+[2017-02-24 19:23:11][info] XML_DATA:null
+[2017-02-24 19:23:11][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:25:10][info] ----------------------------------------
+[2017-02-24 19:25:10][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>gxft2pqj5hf7elzaoe73yiydg7t06rwu}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-e}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>28625839830FA963D3D1552B13BD4212}{time_end=>20170224185108}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241166835917}]
+[2017-02-24 19:25:10][info] ----------------------------------------
+[2017-02-24 19:25:10][info] XML_DATA:null
+[2017-02-24 19:25:10][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:25:42][info] ----------------------------------------
+[2017-02-24 19:25:42][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>xpgkrw04qf47d2sy7g85cd8eau588xsj}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-9}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>0D8C88A11706CE039F14EEB64D43987D}{time_end=>20170224192542}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241171242882}]
+[2017-02-24 19:25:42][info] ----------------------------------------
+[2017-02-24 19:25:42][info] XML_DATA:null
+[2017-02-24 19:25:42][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:25:58][info] ----------------------------------------
+[2017-02-24 19:25:58][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>xpgkrw04qf47d2sy7g85cd8eau588xsj}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-9}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>0D8C88A11706CE039F14EEB64D43987D}{time_end=>20170224192542}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241171242882}]
+[2017-02-24 19:25:58][info] ----------------------------------------
+[2017-02-24 19:25:58][info] XML_DATA:null
+[2017-02-24 19:25:58][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:26:12][info] ----------------------------------------
+[2017-02-24 19:26:12][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>kiht511lu0sr3cd8vj8aakqlk1fd8gjt}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-b}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>DB0FB89DE85B971D363889746287AF3C}{time_end=>20170224192210}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241167989350}]
+[2017-02-24 19:26:12][info] ----------------------------------------
+[2017-02-24 19:26:12][info] XML_DATA:null
+[2017-02-24 19:26:12][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:26:14][info] ----------------------------------------
+[2017-02-24 19:26:14][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>xpgkrw04qf47d2sy7g85cd8eau588xsj}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-9}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>0D8C88A11706CE039F14EEB64D43987D}{time_end=>20170224192542}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241171242882}]
+[2017-02-24 19:26:14][info] ----------------------------------------
+[2017-02-24 19:26:14][info] XML_DATA:null
+[2017-02-24 19:26:14][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:26:47][info] ----------------------------------------
+[2017-02-24 19:26:47][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>xpgkrw04qf47d2sy7g85cd8eau588xsj}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-9}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>0D8C88A11706CE039F14EEB64D43987D}{time_end=>20170224192542}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241171242882}]
+[2017-02-24 19:26:47][info] ----------------------------------------
+[2017-02-24 19:26:47][info] XML_DATA:null
+[2017-02-24 19:26:47][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:28:32][info] ----------------------------------------
+[2017-02-24 19:28:32][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>0f70wm1iggmepfg8quwn1yzh9az2ffz5}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-4}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>C4644DE48F399C3569B3B3D02FE57682}{time_end=>20170224192831}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241166292113}]
+[2017-02-24 19:28:32][info] k:appid=>[wxefc029d4373dcac0]
+[2017-02-24 19:28:32][info] k:bank_type=>[CFT]
+[2017-02-24 19:28:32][info] k:cash_fee=>[1]
+[2017-02-24 19:28:32][info] k:fee_type=>[CNY]
+[2017-02-24 19:28:32][info] k:is_subscribe=>[Y]
+[2017-02-24 19:28:32][info] k:mch_id=>[1244967502]
+[2017-02-24 19:28:32][info] k:nonce_str=>[0f70wm1iggmepfg8quwn1yzh9az2ffz5]
+[2017-02-24 19:28:32][info] k:openid=>[orYumuAFxLGdyO7Su3wb9ENumlPo]
+[2017-02-24 19:28:32][info] k:out_trade_no=>[LX-17021412244065201-4]
+[2017-02-24 19:28:32][info] k:result_code=>[SUCCESS]
+[2017-02-24 19:28:32][info] k:return_code=>[SUCCESS]
+[2017-02-24 19:28:32][info] k:sign=>[C4644DE48F399C3569B3B3D02FE57682]
+[2017-02-24 19:28:32][info] k:time_end=>[20170224192831]
+[2017-02-24 19:28:32][info] k:total_fee=>[1]
+[2017-02-24 19:28:32][info] k:trade_type=>[NATIVE]
+[2017-02-24 19:28:32][info] k:transaction_id=>[4000442001201702241166292113]
+[2017-02-24 19:28:32][info] ----------------------------------------
+[2017-02-24 19:28:32][info] XML_DATA:null
+[2017-02-24 19:28:32][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:28:46][info] ----------------------------------------
+[2017-02-24 19:28:46][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>0f70wm1iggmepfg8quwn1yzh9az2ffz5}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-4}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>C4644DE48F399C3569B3B3D02FE57682}{time_end=>20170224192831}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241166292113}]
+[2017-02-24 19:28:46][info] k:appid=>[wxefc029d4373dcac0]
+[2017-02-24 19:28:46][info] k:bank_type=>[CFT]
+[2017-02-24 19:28:46][info] k:cash_fee=>[1]
+[2017-02-24 19:28:46][info] k:fee_type=>[CNY]
+[2017-02-24 19:28:46][info] k:is_subscribe=>[Y]
+[2017-02-24 19:28:46][info] k:mch_id=>[1244967502]
+[2017-02-24 19:28:46][info] k:nonce_str=>[0f70wm1iggmepfg8quwn1yzh9az2ffz5]
+[2017-02-24 19:28:46][info] k:openid=>[orYumuAFxLGdyO7Su3wb9ENumlPo]
+[2017-02-24 19:28:46][info] k:out_trade_no=>[LX-17021412244065201-4]
+[2017-02-24 19:28:46][info] k:result_code=>[SUCCESS]
+[2017-02-24 19:28:46][info] k:return_code=>[SUCCESS]
+[2017-02-24 19:28:46][info] k:sign=>[C4644DE48F399C3569B3B3D02FE57682]
+[2017-02-24 19:28:46][info] k:time_end=>[20170224192831]
+[2017-02-24 19:28:46][info] k:total_fee=>[1]
+[2017-02-24 19:28:46][info] k:trade_type=>[NATIVE]
+[2017-02-24 19:28:46][info] k:transaction_id=>[4000442001201702241166292113]
+[2017-02-24 19:28:46][info] ----------------------------------------
+[2017-02-24 19:28:46][info] XML_DATA:null
+[2017-02-24 19:28:46][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:29:02][info] ----------------------------------------
+[2017-02-24 19:29:02][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>0f70wm1iggmepfg8quwn1yzh9az2ffz5}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-4}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>C4644DE48F399C3569B3B3D02FE57682}{time_end=>20170224192831}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241166292113}]
+[2017-02-24 19:29:02][info] k:appid=>[wxefc029d4373dcac0]
+[2017-02-24 19:29:02][info] k:bank_type=>[CFT]
+[2017-02-24 19:29:02][info] k:cash_fee=>[1]
+[2017-02-24 19:29:02][info] k:fee_type=>[CNY]
+[2017-02-24 19:29:02][info] k:is_subscribe=>[Y]
+[2017-02-24 19:29:02][info] k:mch_id=>[1244967502]
+[2017-02-24 19:29:02][info] k:nonce_str=>[0f70wm1iggmepfg8quwn1yzh9az2ffz5]
+[2017-02-24 19:29:02][info] k:openid=>[orYumuAFxLGdyO7Su3wb9ENumlPo]
+[2017-02-24 19:29:02][info] k:out_trade_no=>[LX-17021412244065201-4]
+[2017-02-24 19:29:02][info] k:result_code=>[SUCCESS]
+[2017-02-24 19:29:02][info] k:return_code=>[SUCCESS]
+[2017-02-24 19:29:02][info] k:sign=>[C4644DE48F399C3569B3B3D02FE57682]
+[2017-02-24 19:29:02][info] k:time_end=>[20170224192831]
+[2017-02-24 19:29:02][info] k:total_fee=>[1]
+[2017-02-24 19:29:02][info] k:trade_type=>[NATIVE]
+[2017-02-24 19:29:02][info] k:transaction_id=>[4000442001201702241166292113]
+[2017-02-24 19:29:02][info] ----------------------------------------
+[2017-02-24 19:29:02][info] XML_DATA:null
+[2017-02-24 19:29:02][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:29:33][info] ----------------------------------------
+[2017-02-24 19:29:33][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>0f70wm1iggmepfg8quwn1yzh9az2ffz5}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-4}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>C4644DE48F399C3569B3B3D02FE57682}{time_end=>20170224192831}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241166292113}]
+[2017-02-24 19:29:33][info] k:appid=>[wxefc029d4373dcac0]
+[2017-02-24 19:29:33][info] k:bank_type=>[CFT]
+[2017-02-24 19:29:33][info] k:cash_fee=>[1]
+[2017-02-24 19:29:33][info] k:fee_type=>[CNY]
+[2017-02-24 19:29:33][info] k:is_subscribe=>[Y]
+[2017-02-24 19:29:33][info] k:mch_id=>[1244967502]
+[2017-02-24 19:29:33][info] k:nonce_str=>[0f70wm1iggmepfg8quwn1yzh9az2ffz5]
+[2017-02-24 19:29:33][info] k:openid=>[orYumuAFxLGdyO7Su3wb9ENumlPo]
+[2017-02-24 19:29:33][info] k:out_trade_no=>[LX-17021412244065201-4]
+[2017-02-24 19:29:33][info] k:result_code=>[SUCCESS]
+[2017-02-24 19:29:33][info] k:return_code=>[SUCCESS]
+[2017-02-24 19:29:33][info] k:sign=>[C4644DE48F399C3569B3B3D02FE57682]
+[2017-02-24 19:29:33][info] k:time_end=>[20170224192831]
+[2017-02-24 19:29:33][info] k:total_fee=>[1]
+[2017-02-24 19:29:33][info] k:trade_type=>[NATIVE]
+[2017-02-24 19:29:33][info] k:transaction_id=>[4000442001201702241166292113]
+[2017-02-24 19:29:33][info] ----------------------------------------
+[2017-02-24 19:29:33][info] XML_DATA:null
+[2017-02-24 19:29:33][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:29:49][info] ----------------------------------------
+[2017-02-24 19:29:49][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>xpgkrw04qf47d2sy7g85cd8eau588xsj}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-9}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>0D8C88A11706CE039F14EEB64D43987D}{time_end=>20170224192542}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241171242882}]
+[2017-02-24 19:29:49][info] k:appid=>[wxefc029d4373dcac0]
+[2017-02-24 19:29:49][info] k:bank_type=>[CFT]
+[2017-02-24 19:29:49][info] k:cash_fee=>[1]
+[2017-02-24 19:29:49][info] k:fee_type=>[CNY]
+[2017-02-24 19:29:49][info] k:is_subscribe=>[Y]
+[2017-02-24 19:29:49][info] k:mch_id=>[1244967502]
+[2017-02-24 19:29:49][info] k:nonce_str=>[xpgkrw04qf47d2sy7g85cd8eau588xsj]
+[2017-02-24 19:29:49][info] k:openid=>[orYumuAFxLGdyO7Su3wb9ENumlPo]
+[2017-02-24 19:29:49][info] k:out_trade_no=>[LX-17021412244065201-9]
+[2017-02-24 19:29:49][info] k:result_code=>[SUCCESS]
+[2017-02-24 19:29:49][info] k:return_code=>[SUCCESS]
+[2017-02-24 19:29:49][info] k:sign=>[0D8C88A11706CE039F14EEB64D43987D]
+[2017-02-24 19:29:49][info] k:time_end=>[20170224192542]
+[2017-02-24 19:29:49][info] k:total_fee=>[1]
+[2017-02-24 19:29:49][info] k:trade_type=>[NATIVE]
+[2017-02-24 19:29:49][info] k:transaction_id=>[4000442001201702241171242882]
+[2017-02-24 19:29:49][info] ----------------------------------------
+[2017-02-24 19:29:49][info] XML_DATA:null
+[2017-02-24 19:29:49][warn] alipay数据接口接受到的数据为空
+[2017-02-24 19:30:31][info] ----------------------------------------
+[2017-02-24 19:30:31][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>jo254jlstw13uztm1i7oy1sljpdo81j7}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-f}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>AFD1E3A405FDB010939D10F97998B2FE}{time_end=>20170224193030}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241172376084}]
+[2017-02-24 19:30:31][info] k:appid=>wxefc029d4373dcac0
+[2017-02-24 19:30:31][info] k:bank_type=>CFT
+[2017-02-24 19:30:31][info] k:cash_fee=>1
+[2017-02-24 19:30:31][info] k:fee_type=>CNY
+[2017-02-24 19:30:31][info] k:is_subscribe=>Y
+[2017-02-24 19:30:31][info] k:mch_id=>1244967502
+[2017-02-24 19:30:31][info] k:nonce_str=>jo254jlstw13uztm1i7oy1sljpdo81j7
+[2017-02-24 19:30:31][info] k:openid=>orYumuAFxLGdyO7Su3wb9ENumlPo
+[2017-02-24 19:30:31][info] k:out_trade_no=>LX-17021412244065201-f
+[2017-02-24 19:30:31][info] k:result_code=>SUCCESS
+[2017-02-24 19:30:31][info] k:return_code=>SUCCESS
+[2017-02-24 19:30:31][info] k:sign=>AFD1E3A405FDB010939D10F97998B2FE
+[2017-02-24 19:30:31][info] k:time_end=>20170224193030
+[2017-02-24 19:30:31][info] k:total_fee=>1
+[2017-02-24 19:30:31][info] k:trade_type=>NATIVE
+[2017-02-24 19:30:31][info] k:transaction_id=>4000442001201702241172376084
+[2017-02-24 19:30:31][info] ----------------------------------------
+[2017-02-24 19:30:31][info] XML_DATA:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"jo254jlstw13uztm1i7oy1sljpdo81j7","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-f","result_code":"SUCCESS","return_code":"SUCCESS","sign":"AFD1E3A405FDB010939D10F97998B2FE","time_end":"20170224193030","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241172376084"}
+[2017-02-24 19:30:32][info] 数据存储反馈成功！
+[2017-02-24 19:30:32][info] success
+[2017-02-24 19:30:32][info] 写入结束!!!
+[2017-02-24 19:31:43][info] ----------------------------------------
+[2017-02-24 19:31:43][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>k3yfsicassy434hal1ho1elb98bd1ygt}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-8}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>37F9802224C946C0BA2ADB4EA954DD30}{time_end=>20170224185741}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241165094901}]
+[2017-02-24 19:31:43][info] k:appid=>wxefc029d4373dcac0
+[2017-02-24 19:31:43][info] k:bank_type=>CFT
+[2017-02-24 19:31:43][info] k:cash_fee=>1
+[2017-02-24 19:31:43][info] k:fee_type=>CNY
+[2017-02-24 19:31:43][info] k:is_subscribe=>Y
+[2017-02-24 19:31:43][info] k:mch_id=>1244967502
+[2017-02-24 19:31:43][info] k:nonce_str=>k3yfsicassy434hal1ho1elb98bd1ygt
+[2017-02-24 19:31:43][info] k:openid=>orYumuAFxLGdyO7Su3wb9ENumlPo
+[2017-02-24 19:31:43][info] k:out_trade_no=>LX-17021412244065201-8
+[2017-02-24 19:31:43][info] k:result_code=>SUCCESS
+[2017-02-24 19:31:43][info] k:return_code=>SUCCESS
+[2017-02-24 19:31:43][info] k:sign=>37F9802224C946C0BA2ADB4EA954DD30
+[2017-02-24 19:31:43][info] k:time_end=>20170224185741
+[2017-02-24 19:31:43][info] k:total_fee=>1
+[2017-02-24 19:31:43][info] k:trade_type=>NATIVE
+[2017-02-24 19:31:43][info] k:transaction_id=>4000442001201702241165094901
+[2017-02-24 19:31:43][info] ----------------------------------------
+[2017-02-24 19:31:43][info] XML_DATA:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"k3yfsicassy434hal1ho1elb98bd1ygt","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-8","result_code":"SUCCESS","return_code":"SUCCESS","sign":"37F9802224C946C0BA2ADB4EA954DD30","time_end":"20170224185741","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241165094901"}
+[2017-02-24 19:31:44][info] 数据存储反馈成功！
+[2017-02-24 19:31:44][info] success
+[2017-02-24 19:31:44][info] 写入结束!!!
+[2017-02-24 19:32:36][info] ----------------------------------------
+[2017-02-24 19:32:36][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>0f70wm1iggmepfg8quwn1yzh9az2ffz5}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-4}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>C4644DE48F399C3569B3B3D02FE57682}{time_end=>20170224192831}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241166292113}]
+[2017-02-24 19:32:36][info] k:appid=>wxefc029d4373dcac0
+[2017-02-24 19:32:36][info] k:bank_type=>CFT
+[2017-02-24 19:32:36][info] k:cash_fee=>1
+[2017-02-24 19:32:36][info] k:fee_type=>CNY
+[2017-02-24 19:32:36][info] k:is_subscribe=>Y
+[2017-02-24 19:32:36][info] k:mch_id=>1244967502
+[2017-02-24 19:32:36][info] k:nonce_str=>0f70wm1iggmepfg8quwn1yzh9az2ffz5
+[2017-02-24 19:32:36][info] k:openid=>orYumuAFxLGdyO7Su3wb9ENumlPo
+[2017-02-24 19:32:36][info] k:out_trade_no=>LX-17021412244065201-4
+[2017-02-24 19:32:36][info] k:result_code=>SUCCESS
+[2017-02-24 19:32:36][info] k:return_code=>SUCCESS
+[2017-02-24 19:32:36][info] k:sign=>C4644DE48F399C3569B3B3D02FE57682
+[2017-02-24 19:32:36][info] k:time_end=>20170224192831
+[2017-02-24 19:32:36][info] k:total_fee=>1
+[2017-02-24 19:32:36][info] k:trade_type=>NATIVE
+[2017-02-24 19:32:36][info] k:transaction_id=>4000442001201702241166292113
+[2017-02-24 19:32:36][info] ----------------------------------------
+[2017-02-24 19:32:36][info] XML_DATA:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"0f70wm1iggmepfg8quwn1yzh9az2ffz5","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-4","result_code":"SUCCESS","return_code":"SUCCESS","sign":"C4644DE48F399C3569B3B3D02FE57682","time_end":"20170224192831","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241166292113"}
+[2017-02-24 19:32:36][info] 数据存储反馈成功！
+[2017-02-24 19:32:36][info] success
+[2017-02-24 19:32:36][info] 写入结束!!!
+[2017-02-24 19:33:19][info] ----------------------------------------
+[2017-02-24 19:33:19][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>71tssl7mpfzrdjlxx3lpvd3ah86mfcsp}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-0}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>2997098098CD98AD81BB118286B482D7}{time_end=>20170224185910}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241168634789}]
+[2017-02-24 19:33:19][info] k:appid=>wxefc029d4373dcac0
+[2017-02-24 19:33:19][info] k:bank_type=>CFT
+[2017-02-24 19:33:19][info] k:cash_fee=>1
+[2017-02-24 19:33:19][info] k:fee_type=>CNY
+[2017-02-24 19:33:19][info] k:is_subscribe=>Y
+[2017-02-24 19:33:19][info] k:mch_id=>1244967502
+[2017-02-24 19:33:19][info] k:nonce_str=>71tssl7mpfzrdjlxx3lpvd3ah86mfcsp
+[2017-02-24 19:33:19][info] k:openid=>orYumuAFxLGdyO7Su3wb9ENumlPo
+[2017-02-24 19:33:19][info] k:out_trade_no=>LX-17021412244065201-0
+[2017-02-24 19:33:19][info] k:result_code=>SUCCESS
+[2017-02-24 19:33:19][info] k:return_code=>SUCCESS
+[2017-02-24 19:33:19][info] k:sign=>2997098098CD98AD81BB118286B482D7
+[2017-02-24 19:33:19][info] k:time_end=>20170224185910
+[2017-02-24 19:33:19][info] k:total_fee=>1
+[2017-02-24 19:33:19][info] k:trade_type=>NATIVE
+[2017-02-24 19:33:19][info] k:transaction_id=>4000442001201702241168634789
+[2017-02-24 19:33:19][info] ----------------------------------------
+[2017-02-24 19:33:19][info] XML_DATA:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"71tssl7mpfzrdjlxx3lpvd3ah86mfcsp","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-0","result_code":"SUCCESS","return_code":"SUCCESS","sign":"2997098098CD98AD81BB118286B482D7","time_end":"20170224185910","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241168634789"}
+[2017-02-24 19:33:19][info] 数据存储反馈成功！
+[2017-02-24 19:33:19][info] success
+[2017-02-24 19:33:19][info] 写入结束!!!
+[2017-02-24 19:36:07][info] ----------------------------------------
+[2017-02-24 19:36:07][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>iko8unzmy1twlgaz80ybo6lf3o75lrje}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-7}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>F73BA8FF3C6D2F0F1959F88DE36E58C5}{time_end=>20170224183158}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241163245610}]
+[2017-02-24 19:36:07][info] k:appid=>wxefc029d4373dcac0
+[2017-02-24 19:36:07][info] k:bank_type=>CFT
+[2017-02-24 19:36:07][info] k:cash_fee=>1
+[2017-02-24 19:36:07][info] k:fee_type=>CNY
+[2017-02-24 19:36:07][info] k:is_subscribe=>Y
+[2017-02-24 19:36:07][info] k:mch_id=>1244967502
+[2017-02-24 19:36:07][info] k:nonce_str=>iko8unzmy1twlgaz80ybo6lf3o75lrje
+[2017-02-24 19:36:07][info] k:openid=>orYumuAFxLGdyO7Su3wb9ENumlPo
+[2017-02-24 19:36:07][info] k:out_trade_no=>LX-17021412244065201-7
+[2017-02-24 19:36:07][info] k:result_code=>SUCCESS
+[2017-02-24 19:36:07][info] k:return_code=>SUCCESS
+[2017-02-24 19:36:07][info] k:sign=>F73BA8FF3C6D2F0F1959F88DE36E58C5
+[2017-02-24 19:36:07][info] k:time_end=>20170224183158
+[2017-02-24 19:36:07][info] k:total_fee=>1
+[2017-02-24 19:36:07][info] k:trade_type=>NATIVE
+[2017-02-24 19:36:07][info] k:transaction_id=>4000442001201702241163245610
+[2017-02-24 19:36:07][info] ----------------------------------------
+[2017-02-24 19:36:07][info] XML_DATA:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"iko8unzmy1twlgaz80ybo6lf3o75lrje","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-7","result_code":"SUCCESS","return_code":"SUCCESS","sign":"F73BA8FF3C6D2F0F1959F88DE36E58C5","time_end":"20170224183158","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241163245610"}
+[2017-02-24 19:36:07][info] 数据存储反馈成功！
+[2017-02-24 19:36:07][info] success
+[2017-02-24 19:36:07][info] 写入结束!!!
+[2017-02-24 19:37:58][info] ----------------------------------------
+[2017-02-24 19:37:58][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>zs74uhj1s6yjxzxck0tzq2vr2xanboav}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-1}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>BFCB69D10F45C7F58D5ABDB627E2453F}{time_end=>20170224183355}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241161739475}]
+[2017-02-24 19:37:58][info] k:appid=>wxefc029d4373dcac0
+[2017-02-24 19:37:58][info] k:bank_type=>CFT
+[2017-02-24 19:37:58][info] k:cash_fee=>1
+[2017-02-24 19:37:58][info] k:fee_type=>CNY
+[2017-02-24 19:37:58][info] k:is_subscribe=>Y
+[2017-02-24 19:37:58][info] k:mch_id=>1244967502
+[2017-02-24 19:37:58][info] k:nonce_str=>zs74uhj1s6yjxzxck0tzq2vr2xanboav
+[2017-02-24 19:37:58][info] k:openid=>orYumuAFxLGdyO7Su3wb9ENumlPo
+[2017-02-24 19:37:58][info] k:out_trade_no=>LX-17021412244065201-1
+[2017-02-24 19:37:58][info] k:result_code=>SUCCESS
+[2017-02-24 19:37:58][info] k:return_code=>SUCCESS
+[2017-02-24 19:37:58][info] k:sign=>BFCB69D10F45C7F58D5ABDB627E2453F
+[2017-02-24 19:37:58][info] k:time_end=>20170224183355
+[2017-02-24 19:37:58][info] k:total_fee=>1
+[2017-02-24 19:37:58][info] k:trade_type=>NATIVE
+[2017-02-24 19:37:58][info] k:transaction_id=>4000442001201702241161739475
+[2017-02-24 19:37:58][info] ----------------------------------------
+[2017-02-24 19:37:58][info] XML_DATA:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"zs74uhj1s6yjxzxck0tzq2vr2xanboav","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-1","result_code":"SUCCESS","return_code":"SUCCESS","sign":"BFCB69D10F45C7F58D5ABDB627E2453F","time_end":"20170224183355","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241161739475"}
+[2017-02-24 19:37:58][info] 数据存储反馈成功！
+[2017-02-24 19:37:58][info] success
+[2017-02-24 19:37:58][info] 写入结束!!!
+[2017-02-24 19:53:01][info] ----------------------------------------
+[2017-02-24 19:53:01][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>mp6rjxo6ql51ujmxedhrrb3kqscfxc2b}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-3}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>0C609A54DB4876CE3770B1D846FA6821}{time_end=>20170224191859}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241167891321}]
+[2017-02-24 19:53:01][info] k:appid=>wxefc029d4373dcac0
+[2017-02-24 19:53:01][info] k:bank_type=>CFT
+[2017-02-24 19:53:01][info] k:cash_fee=>1
+[2017-02-24 19:53:01][info] k:fee_type=>CNY
+[2017-02-24 19:53:01][info] k:is_subscribe=>Y
+[2017-02-24 19:53:01][info] k:mch_id=>1244967502
+[2017-02-24 19:53:01][info] k:nonce_str=>mp6rjxo6ql51ujmxedhrrb3kqscfxc2b
+[2017-02-24 19:53:01][info] k:openid=>orYumuAFxLGdyO7Su3wb9ENumlPo
+[2017-02-24 19:53:01][info] k:out_trade_no=>LX-17021412244065201-3
+[2017-02-24 19:53:01][info] k:result_code=>SUCCESS
+[2017-02-24 19:53:01][info] k:return_code=>SUCCESS
+[2017-02-24 19:53:01][info] k:sign=>0C609A54DB4876CE3770B1D846FA6821
+[2017-02-24 19:53:01][info] k:time_end=>20170224191859
+[2017-02-24 19:53:01][info] k:total_fee=>1
+[2017-02-24 19:53:01][info] k:trade_type=>NATIVE
+[2017-02-24 19:53:01][info] k:transaction_id=>4000442001201702241167891321
+[2017-02-24 19:53:01][info] ----------------------------------------
+[2017-02-24 19:53:01][info] XML_DATA:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"mp6rjxo6ql51ujmxedhrrb3kqscfxc2b","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-3","result_code":"SUCCESS","return_code":"SUCCESS","sign":"0C609A54DB4876CE3770B1D846FA6821","time_end":"20170224191859","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241167891321"}
+[2017-02-24 19:53:02][info] 数据存储反馈成功！
+[2017-02-24 19:53:02][info] success
+[2017-02-24 19:53:02][info] 写入结束!!!
+[2017-02-24 19:55:13][info] ----------------------------------------
+[2017-02-24 19:55:13][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>gxft2pqj5hf7elzaoe73yiydg7t06rwu}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-e}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>28625839830FA963D3D1552B13BD4212}{time_end=>20170224185108}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241166835917}]
+[2017-02-24 19:55:13][info] k:appid=>wxefc029d4373dcac0
+[2017-02-24 19:55:13][info] k:bank_type=>CFT
+[2017-02-24 19:55:13][info] k:cash_fee=>1
+[2017-02-24 19:55:13][info] k:fee_type=>CNY
+[2017-02-24 19:55:13][info] k:is_subscribe=>Y
+[2017-02-24 19:55:13][info] k:mch_id=>1244967502
+[2017-02-24 19:55:13][info] k:nonce_str=>gxft2pqj5hf7elzaoe73yiydg7t06rwu
+[2017-02-24 19:55:13][info] k:openid=>orYumuAFxLGdyO7Su3wb9ENumlPo
+[2017-02-24 19:55:13][info] k:out_trade_no=>LX-17021412244065201-e
+[2017-02-24 19:55:13][info] k:result_code=>SUCCESS
+[2017-02-24 19:55:13][info] k:return_code=>SUCCESS
+[2017-02-24 19:55:13][info] k:sign=>28625839830FA963D3D1552B13BD4212
+[2017-02-24 19:55:13][info] k:time_end=>20170224185108
+[2017-02-24 19:55:13][info] k:total_fee=>1
+[2017-02-24 19:55:13][info] k:trade_type=>NATIVE
+[2017-02-24 19:55:13][info] k:transaction_id=>4000442001201702241166835917
+[2017-02-24 19:55:13][info] ----------------------------------------
+[2017-02-24 19:55:13][info] XML_DATA:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"gxft2pqj5hf7elzaoe73yiydg7t06rwu","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-e","result_code":"SUCCESS","return_code":"SUCCESS","sign":"28625839830FA963D3D1552B13BD4212","time_end":"20170224185108","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241166835917"}
+[2017-02-24 19:55:14][info] 数据存储反馈成功！
+[2017-02-24 19:55:14][info] success
+[2017-02-24 19:55:14][info] 写入结束!!!
+[2017-02-24 19:56:15][info] ----------------------------------------
+[2017-02-24 19:56:15][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>kiht511lu0sr3cd8vj8aakqlk1fd8gjt}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-b}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>DB0FB89DE85B971D363889746287AF3C}{time_end=>20170224192210}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241167989350}]
+[2017-02-24 19:56:15][info] k:appid=>wxefc029d4373dcac0
+[2017-02-24 19:56:15][info] k:bank_type=>CFT
+[2017-02-24 19:56:15][info] k:cash_fee=>1
+[2017-02-24 19:56:15][info] k:fee_type=>CNY
+[2017-02-24 19:56:15][info] k:is_subscribe=>Y
+[2017-02-24 19:56:15][info] k:mch_id=>1244967502
+[2017-02-24 19:56:15][info] k:nonce_str=>kiht511lu0sr3cd8vj8aakqlk1fd8gjt
+[2017-02-24 19:56:15][info] k:openid=>orYumuAFxLGdyO7Su3wb9ENumlPo
+[2017-02-24 19:56:15][info] k:out_trade_no=>LX-17021412244065201-b
+[2017-02-24 19:56:15][info] k:result_code=>SUCCESS
+[2017-02-24 19:56:15][info] k:return_code=>SUCCESS
+[2017-02-24 19:56:15][info] k:sign=>DB0FB89DE85B971D363889746287AF3C
+[2017-02-24 19:56:15][info] k:time_end=>20170224192210
+[2017-02-24 19:56:15][info] k:total_fee=>1
+[2017-02-24 19:56:15][info] k:trade_type=>NATIVE
+[2017-02-24 19:56:15][info] k:transaction_id=>4000442001201702241167989350
+[2017-02-24 19:56:15][info] ----------------------------------------
+[2017-02-24 19:56:15][info] XML_DATA:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"kiht511lu0sr3cd8vj8aakqlk1fd8gjt","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-b","result_code":"SUCCESS","return_code":"SUCCESS","sign":"DB0FB89DE85B971D363889746287AF3C","time_end":"20170224192210","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241167989350"}
+[2017-02-24 19:56:15][info] 数据存储反馈成功！
+[2017-02-24 19:56:15][info] success
+[2017-02-24 19:56:15][info] 写入结束!!!
+[2017-02-24 19:59:51][info] ----------------------------------------
+[2017-02-24 19:59:51][info] XML_DATA:[{appid=>wxefc029d4373dcac0}{bank_type=>CFT}{cash_fee=>1}{fee_type=>CNY}{is_subscribe=>Y}{mch_id=>1244967502}{nonce_str=>xpgkrw04qf47d2sy7g85cd8eau588xsj}{openid=>orYumuAFxLGdyO7Su3wb9ENumlPo}{out_trade_no=>LX-17021412244065201-9}{result_code=>SUCCESS}{return_code=>SUCCESS}{sign=>0D8C88A11706CE039F14EEB64D43987D}{time_end=>20170224192542}{total_fee=>1}{trade_type=>NATIVE}{transaction_id=>4000442001201702241171242882}]
+[2017-02-24 19:59:51][info] k:appid=>wxefc029d4373dcac0
+[2017-02-24 19:59:51][info] k:bank_type=>CFT
+[2017-02-24 19:59:51][info] k:cash_fee=>1
+[2017-02-24 19:59:51][info] k:fee_type=>CNY
+[2017-02-24 19:59:51][info] k:is_subscribe=>Y
+[2017-02-24 19:59:51][info] k:mch_id=>1244967502
+[2017-02-24 19:59:51][info] k:nonce_str=>xpgkrw04qf47d2sy7g85cd8eau588xsj
+[2017-02-24 19:59:51][info] k:openid=>orYumuAFxLGdyO7Su3wb9ENumlPo
+[2017-02-24 19:59:51][info] k:out_trade_no=>LX-17021412244065201-9
+[2017-02-24 19:59:51][info] k:result_code=>SUCCESS
+[2017-02-24 19:59:51][info] k:return_code=>SUCCESS
+[2017-02-24 19:59:51][info] k:sign=>0D8C88A11706CE039F14EEB64D43987D
+[2017-02-24 19:59:51][info] k:time_end=>20170224192542
+[2017-02-24 19:59:51][info] k:total_fee=>1
+[2017-02-24 19:59:51][info] k:trade_type=>NATIVE
+[2017-02-24 19:59:51][info] k:transaction_id=>4000442001201702241171242882
+[2017-02-24 19:59:51][info] ----------------------------------------
+[2017-02-24 19:59:51][info] XML_DATA:{"appid":"wxefc029d4373dcac0","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"Y","mch_id":"1244967502","nonce_str":"xpgkrw04qf47d2sy7g85cd8eau588xsj","openid":"orYumuAFxLGdyO7Su3wb9ENumlPo","out_trade_no":"LX-17021412244065201-9","result_code":"SUCCESS","return_code":"SUCCESS","sign":"0D8C88A11706CE039F14EEB64D43987D","time_end":"20170224192542","total_fee":"1","trade_type":"NATIVE","transaction_id":"4000442001201702241171242882"}
+[2017-02-24 19:59:52][info] 数据存储反馈成功！
+[2017-02-24 19:59:52][info] success
+[2017-02-24 19:59:52][info] 写入结束!!!

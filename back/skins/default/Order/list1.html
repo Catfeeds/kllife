@@ -1,0 +1,1723 @@
+<include file="Common/header" />
+
+<style>
+
+	.form-control { width: 30%; }
+
+	.form-control:focus { border-color: #40bbea; }
+
+	.chaxun { margin-right: 100px; margin-bottom: 30px; }
+
+	#activitySelectBoxIt , #sboxit-5SelectBoxIt , #order_fromSelectBoxIt , #order_stateSelectBoxIt , #sboxit-8SelectBoxIt , #cash_funcSelectBoxIt{ border-radius: 0 15px 15px 0 ; background-color: #fff; border-color: #40bbea; overflow: hidden; }
+
+	#activitySelectBoxItOptions , #sboxit-5SelectBoxItOptions , #order_fromSelectBoxItOptions , #order_stateSelectBoxItOptions , #sboxit-8SelectBoxItOptions , #cash_funcSelectBoxItOptions { border-radius: 0 15px 15px 15px; background-color: #fff; border-color: #40bbea; }
+
+	#activitySelectBoxItOptions li a , #sboxit-5SelectBoxItOptions li a , #order_fromSelectBoxItOptions li a , #order_stateSelectBoxItOptions li a , #sboxit-8SelectBoxItOptions li a , #cash_funcSelectBoxItOptions li a { color: #000; }
+
+
+
+	.selectboxit-option-icon-container { overflow: hidden; }
+
+	.cx_border01 { border-radius: 15px 0 0 15px; border-color: #40bbea; }
+
+	.cx_border02 , html .select2-container .select2-choice , #s2id_activity{ border-radius: 0 15px 15px 0 !important; border-color: #40bbea !important; }
+
+	.tab-pane > div { margin-top: 10px; height: 35px; }
+
+	.ctr_card_btn_num:focus { border-color: #40bbea; }
+
+	.dropdown-menu.dropdown-info > li > a { color: #000; }
+
+	.dropdown-menu.dropdown-info > li > a:hover { background-color: #999 !important; }
+
+	.nav.nav-tabs > li.active > a { border: 1px solid #40bbea; border-bottom: 2px solid #fff; }
+
+	.nav.nav-tabs > li > a { padding-left: 30px; padding-right: 30px; }
+
+	.nav.nav-tabs > li > a:hover { background-color: #40bbea; color: #fff; }
+
+	.hvr-curl-top-left {
+
+	  display: inline-block;
+
+	  vertical-align: middle;
+
+	  -webkit-transform: translateZ(0);
+
+	  transform: translateZ(0);
+
+	  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+
+	  -webkit-backface-visibility: hidden;
+
+	  backface-visibility: hidden;
+
+	  -moz-osx-font-smoothing: grayscale;
+
+	  position: relative;
+
+	}
+
+	.hvr-curl-top-left:before {
+
+	  pointer-events: none;
+
+	  position: absolute;
+
+	  content: '';
+
+	  height: 0;
+
+	  width: 0;
+
+	  top: 0;
+
+	  left: 0;
+
+	  background: white;
+
+	  /* IE9 */
+
+	  background: linear-gradient(135deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
+
+	  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff', endColorstr='#000000');
+
+	  /*For IE7-8-9*/
+
+	  z-index: 1000;
+
+	  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+
+	  -webkit-transition-duration: 0.3s;
+
+	  transition-duration: 0.3s;
+
+	  -webkit-transition-property: width, height;
+
+	  transition-property: width, height;
+
+	}
+
+	.hvr-curl-top-left:hover:before, .hvr-curl-top-left:focus:before {
+
+	  width: 15px;
+
+	  height: 15px;
+
+	}
+
+	.info-color { background-color: #40bbea !important; border-color: #40bbea !important; }
+
+	.info-border-color { border-color: #40bbea !important; }
+
+	.select2-arrow { color: #fff !important; }
+
+	#select2-drop { border-color: #40bbea;  } 
+
+	.mybtn { margin-left: 0 !important; }
+
+	.dataTables_wrapper table.dataTable thead > tr > th { padding: 15px 0px 15px 0px; }
+
+	.selectboxit-btn { background-color: #fff; border-color: #40bbea; } 
+
+	.selectboxit-list { background-color: #fff; border-color: #40bbea; }
+	
+	.selectboxit-list .selectboxit-option-anchor { color: #000; }
+
+	.selectboxit-container .selectboxit-options { border-radius: 0 0 0 15px; }
+
+	#order_stateSelectBoxItOptions { border-radius: 0 0 0 15px; }
+
+	.selectboxit-container .selectboxit { border-radius: 0 15px 15px 0 !important; }
+
+	.selectboxit-arrow-container { background-color: #40bbea; }
+
+	.selectboxit-arrow-container i { color: #fff; }
+</style>
+
+	<div class="row">
+
+		<div class="panel panel-default">
+
+		<div class="panel-heading">
+
+			<h3 class="panel-title">{:C('CONTENT_TITLE')}</h3>
+
+			
+
+			<div class="panel-options">
+
+				<a href="#" data-toggle="panel">
+
+					<span class="collapse-icon">&ndash;</span>
+
+					<span class="expand-icon">+</span>
+
+				</a>
+
+			</div>
+
+		</div>
+
+		<div class="panel-body">
+
+			<!-- 查询 -->
+
+			<div class="row chaxun">
+
+				<!-- tab标签 -->
+
+				<div class="col-sm-12">
+				
+					<ul class="nav nav-tabs">
+
+						<li class="active hvr-curl-top-left">
+
+							<a href="#order" data-toggle="tab">
+
+								<span class="visible-xs"><i class="fa-home"></i></span>
+
+								<span class="hidden-xs">订单</span>
+
+							</a>
+
+						</li>
+
+						<li class="hvr-curl-top-left">
+
+							<a href="#line" data-toggle="tab">
+
+								<span class="visible-xs"><i class="fa-user"></i></span>
+
+								<span class="hidden-xs">产品</span>
+
+							</a>
+
+						</li>
+
+						<li class="hvr-curl-top-left">
+
+							<a href="#member" data-toggle="tab">
+
+								<span class="visible-xs"><i class="fa-envelope-o"></i></span>
+
+								<span class="hidden-xs">客户</span>
+
+							</a>
+
+						</li>
+
+					</ul>
+
+					<div class="tab-content"  style="border-top: 1px solid #40bbea; margin-top: -1px;">
+
+						<div class="tab-pane active" id="order">
+
+							<div class="col-sm-3">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">订单号码:</span>
+
+									<input type="text" class="form-control cx_border02" id="order_sn">
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-3">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">订单来源:</span>
+
+									<script type="text/javascript">
+
+											jQuery(document).ready(function($)
+
+											{
+
+												$("#order_from").selectBoxIt({
+
+													showEffect: 'fadeIn',
+
+													hideEffect: 'fadeOut'
+
+												});
+
+											});
+
+									</script>
+
+									<select class="form-control" name="" id="order_from">
+
+										<option value="-1">不限</option>
+
+										<notempty name="OrderFrom">
+
+											<volist id="from" name="OrderFrom">											
+
+												<option value="{$from.id}">{$from.type_desc}</option>
+
+											</volist>
+
+										</notempty>
+
+									</select>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-3">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">订单状态:</span>
+
+									<script type="text/javascript">
+
+											jQuery(document).ready(function($)
+
+											{
+
+												$("#order_state").selectBoxIt({
+
+													showEffect: 'fadeIn',
+
+													hideEffect: 'fadeOut'
+
+												});
+
+											});
+
+									</script>
+
+									<select class="form-control" name="" id="order_state">
+
+										<option value="-1">不限</option>
+
+										<notempty name="OrderState">
+
+											<volist id="os" name="OrderState">											
+
+												<option value="{$os.id}">{$os.type_desc}</option>
+
+											</volist>
+
+										</notempty>
+
+									</select>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-3">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">费用功能:</span>
+
+									<script type="text/javascript">
+
+											jQuery(document).ready(function($)
+
+											{
+
+												$("#cash_func").selectBoxIt({
+
+													showEffect: 'fadeIn',
+
+													hideEffect: 'fadeOut'
+
+												});
+
+											});
+
+									</script>
+
+									<select class="form-control" name="" id="cash_func">
+
+										<option value="-1">不限</option>
+
+										<notempty name="CashFunc">
+
+											<volist id="cf" name="CashFunc">											
+
+												<option value="{$cf.id}">{$cf.type_desc}</option>
+
+											</volist>
+
+										</notempty>
+
+									</select>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-3">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">用户名:</span>
+
+									<input type="text" class="form-control cx_border02" id="username">
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-3">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">联 系 人:</span>
+
+									<input type="text" class="form-control cx_border02" id="contact">
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-3">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">联系人电话:</span>
+
+									<input type="text" class="form-control cx_border02" id="contact_phone">
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-3">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">所属站点:</span>
+
+									<script type="text/javascript">
+
+											jQuery(document).ready(function($)
+
+											{
+
+												$("#station").selectBoxIt({
+
+													showEffect: 'fadeIn',
+
+													hideEffect: 'fadeOut'
+
+												});
+
+											});
+
+									</script>
+
+									<select class="form-control" name="" id="station">
+
+										<option value="-1">不限</option>
+
+										<notempty name="Stations">
+
+											<volist id="station" name="Stations">											
+
+												<option value="{$station.id}">{$station.name}</option>
+
+											</volist>
+
+										</notempty>
+
+									</select>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-3">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">订单编号:</span>
+
+									<input type="text" class="form-control cx_border02" id="order_id">
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-9" style="position: relative;">
+
+								<div class="input-group col-sm-6">			
+
+									<span class="input-group-btn">
+
+										<button id="date_type" type="button" class="btn btn-info dropdown-toggle cx_border01" data-toggle="dropdown" data-type="create" style="background-color: #40bbea; color: #555;">
+
+											<span class="date_type_desc" style="background-color: #40bbea; color: #fff;">下单时间</span> <span class="caret text-white"></span>
+
+										</button>
+
+										<ul class="dropdown-menu dropdown-info ctr_date_type_change" style="background-color: #fff; border-color: #40bbea;">
+
+											<li><a href="javascript:;" name="none">不限</a></li>
+
+											<li><a href="javascript:;" name="create">下单日期</a></li>
+
+											<li><a href="javascript:;" name="pay">支付日期</a></li>
+
+											<li><a href="javascript:;" name="start">出行日期</a></li>
+
+										</ul>
+
+									</span>
+
+									<input type="text" class="form-control datepicker info-border-color" style="display: inline-block;" data-format="yyyy-mm-dd" id="start_date">
+
+									<div class="input-group-addon info-color text-white" style="border-radius: 0 15px 15px 0;">
+
+										<a href="#"><i class="linecons-calendar text-white"></i></a>
+
+									</div>
+
+									<span style="display: table-cell; vertical-align: middle;">&nbsp;到&nbsp;</span>
+
+									<input type="text" class="form-control datepicker info-border-color" style="display: inline-block; border-radius:15px 0 0 15px;" data-format="yyyy-mm-dd" id="end_date">
+
+									<div class="input-group-addon info-color text-white cx_border02">
+
+										<a href="#"><i class="linecons-calendar text-white"></i></a>
+
+									</div>
+
+								</div>
+									
+								<span style="position: absolute; top: 7px; right: 38%; color: red;">最大支持1个月内数据查询</span>
+
+							</div>						
+
+						</div>  <!--end tab order panel-->
+
+						<div class="tab-pane" id="line">						
+
+							<div class="row">
+
+								<div class="col-sm-6">
+
+									<div class="input-group">
+
+										<span class="input-group-addon info-color text-white cx_border01">产品名称:</span>
+
+										<script type="text/javascript">
+
+											jQuery(document).ready(function($)
+
+											{
+												
+												var lineObj = $("#line_article").select2({
+
+													minimumInputLength: 1,
+
+													placeholder: '搜索',
+
+													ajax: {
+
+														url: '{:U("order/linefind")}',
+
+														type: 'post',
+
+														dataType: 'json',
+
+														quietMillis: 100,
+
+														data: function(term, page) {
+
+															return {
+
+																limit: -1,
+
+																q: term,
+																
+																new_line: $('.new_line').is(':checked') == false ? 0 : 1,
+
+															};
+
+														},
+
+														results: function(data, page ) {
+
+															if (data['result']['errno'] == 0) {
+
+																return { results: data['data'] }	
+
+															} else {
+
+																return { results: '' };	
+
+															}
+
+														}
+
+													},
+
+													formatResult: function(data) { 
+														
+														return "<div class='select2-user-result cx_border02'>" + data.title + "</div>"; 
+
+													},
+
+													formatSelection: function(data) { 			
+														
+														var newLine = $('.new_line').is(':checked') == false ? 0 : 1;
+
+														$.post('{:U("order/activityFind")}', {aid:data.id, new_line:newLine}, function(resp){
+
+															var html = ''; var id=0;
+
+															if (resp['result']['errno'] == 0 ){
+
+																html += '<option value="-1">不限</option>'
+
+																for (var i = 0; i < resp['data'].length; i ++) {																
+
+																	var ds = resp['data'][i];
+
+																	html += '<option value="'+ds['id']+'">'+ds['show_text']+'</option>';
+																	
+//																	if (id == 0) {
+//																		
+//																		id = ds['id'];
+//																		
+//																	}
+
+																}
+
+															} else {
+
+																html += '<option value="-1">未能查到更多信息</option>';	
+																
+																id = -1;
+
+															}
+
+															$("#activity").html(html);
+															
+															if (id != 0) {
+																
+																$("#activity").val(id).trigger('change');
+																
+															}
+
+														});													
+
+														return  data.title; 
+
+													}
+
+												});
+												
+											});
+
+										</script>								
+
+										<input type="hidden" class="cx_border02" id="line_article" />								
+
+									</div>
+
+								</div>
+								
+								<div class="col-sm-1">
+									
+									<div class="input-group">										
+										
+										<label>
+										
+											<input type="checkbox" checked class="iswitch iswitch-secondary new_line" />	
+											<!--<input type="checkbox" class="cbr cbr-secondary">-->
+											
+											新线路
+										
+										</label>
+										
+									</div>
+									
+								</div>
+
+							</div>
+
+
+
+							<div class="row">
+
+								<div class="col-sm-6 text-center">
+
+									<div class="input-group">
+
+										<span class="input-group-addon info-color text-white cx_border01">产品批次:</span>
+
+										<script type="text/javascript">
+
+												jQuery(document).ready(function($)
+
+												{
+
+													var s2exp = $("#activity").select2({
+
+														placeholder: '请选择批次',
+
+														allowClear: true,
+
+	//													minimumResultsForSearch: -1, // Hide the search bar
+
+														formatResult: function(ds){
+
+															return "<div class='select2-user-result cx_border02'>" + ds.text + "</div>"; 
+
+														}
+
+													});
+
+													
+
+													$(s2exp).on('select2-open', function(){	
+
+														$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+
+													});
+
+												});
+
+										</script>
+
+										<select class="form-control" id="activity">
+
+											<option value="-1" selected>不限</option>
+
+										</select>
+
+									</div>
+
+								</div>
+
+							</div>
+
+
+
+							<div class="row">
+
+								<div class="col-sm-3">
+
+									<div class="input-group">
+
+										<span class="input-group-addon info-color text-white cx_border01">订单状态:</span>
+
+										<script type="text/javascript">
+
+												jQuery(document).ready(function($)
+
+												{
+
+													$("#line_order_state").selectBoxIt({
+
+														showEffect: 'fadeIn',
+
+														hideEffect: 'fadeOut'
+
+													});
+
+												});
+
+										</script>
+
+										<select class="form-control" name="" id="line_order_state">
+
+											<option value="-1">不限</option>
+
+											<notempty name="OrderState">
+
+												<volist id="os" name="OrderState">											
+
+													<option value="{$os.id}">{$os.type_desc}</option>
+
+												</volist>
+
+											</notempty>
+
+										</select>
+
+									</div>
+
+								</div>
+								
+								
+								<div class="col-sm-3">
+
+									<div class="input-group">
+
+										<span class="input-group-addon info-color text-white cx_border01">订单来源:</span>
+
+										<script type="text/javascript">
+
+												jQuery(document).ready(function($)
+
+												{
+
+													$("#order_from_product").selectBoxIt({
+
+														showEffect: 'fadeIn',
+
+														hideEffect: 'fadeOut'
+
+													});
+
+												});
+
+										</script>
+
+										<select class="form-control" name="" id="order_from_product">
+
+											<option value="-1">不限</option>
+
+											<notempty name="OrderFrom">
+
+												<volist id="from" name="OrderFrom">											
+
+													<option value="{$from.id}">{$from.type_desc}</option>
+
+												</volist>
+
+											</notempty>
+
+										</select>
+
+									</div>
+
+								</div>
+
+							</div>			
+
+						</div> <!--end tab line panel-->
+
+						<div class="tab-pane" id="member">
+
+							<div class="col-sm-3 text-center">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">姓名:</span>
+
+									<input type="text" class="form-control cx_border02" id="member_name">
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-3 text-center">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">电话:</span>
+
+									<input type="text" class="form-control cx_border02" id="member_phone">
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-3 text-center">
+
+								<div class="input-group">
+
+									<span class="input-group-addon info-color text-white cx_border01">证件:</span>
+
+									<input type="text" class="form-control cx_border02" id="member_certificate">
+
+								</div>
+
+							</div>
+
+						</div> <!--end tab member panel-->
+
+					</div>
+
+					<div>
+
+						<button class="btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_search" style="float: right; margin-top: 30px;">
+
+							<i class="fa-search"></i>
+
+							<span>查 询</span>
+
+						</button>
+
+						<button class="btn btn-warning btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_reset" style="float: right; margin-top: 30px; margin-right: 10px;">
+
+							<i class="fa-refresh"></i>
+
+							<span>重 置</span>
+
+						</button>
+
+									<button class="btn btn-secondary btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_export" style="float: right; margin-top: 30px; margin-right: 10px;">
+
+						<i class="fa-arrow-circle-up"></i>
+
+						<span>导 出</span>
+
+					</button>
+
+						<!--<button class="btn btn-secondary btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_import" style="float: right; margin-top: 30px; margin-right: 10px;">
+
+								<input id='file_import_order' type="file" style="display: none" name="file[]" accept=".xls,.xlsx" multiple/>
+
+								<i class="fa-arrow-circle-down"></i>
+
+								<span>导 入</span>
+
+						</button>-->
+
+						<button class="btn btn-secondary btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_robot" style="float: right; margin-top: 30px; margin-right: 10px;">
+
+							<i class="fa-check"></i>
+
+							<span>过滤人气</span>
+
+						</button>
+
+					</div>
+
+				</div>
+
+			</div>
+			
+			<!-- 结果统计 -->
+			
+			<div class="row bs-example" id="statisticsDiv"></div>
+
+			<table class="table table-bordered table-striped" id="example-1">
+
+				<thead>
+
+					<tr>
+
+						<th width="3%">订单ID</th>
+
+						<th width="10%">订单编号</th>
+
+						<th width="20%">线路名称</th>
+						
+						<th width="5%">用户名</th>
+
+						<th>报名人数</th>
+
+						<th>信息已完善</th>
+
+						<th>单价</th>
+
+						<th>合计</th>
+
+						<th>下单时间</th>
+
+						<th>订单来源</th>
+
+						<th>所属站点</th>
+
+						<th>订单状态</th>
+
+						<th>联系人</th>
+							
+						<th>订单操作</th>
+
+					</tr>
+
+				</thead>
+
+			</table>	
+
+			<button class="btn btn-secondary btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_export1" style="float: right; margin-top: 30px; margin-right: 10px;">
+
+					<i class="fa-arrow-circle-up"></i>
+
+					<span>导 出</span>
+
+			</button>				
+
+		</div>
+
+	</div>
+
+</div>	
+
+<include file="Common/footer" />
+
+
+
+
+
+<script type="text/javascript">
+
+	var myTable, pageRequestData;
+
+	var pageData = new Array();
+
+	var modalDataEditData = new Object();
+	
+	var refreshStatistic = true;
+
+	$(document).ready(function(){	
+		
+
+		// 初始化数据表格
+
+		myTable = initDataTable();
+
+		
+
+		// 初始化导入
+
+		initFileImport();
+		
+
+
+		// 修改查询时间类型		
+
+		$('.ctr_date_type_change').find('li').click(dateTypeChanged);
+				
+
+		// 搜索
+
+		$("#button_search").click(function(){
+				
+	    	// 统计订单数量
+	    	refreshStatistic = true;
+
+	    	myTable.fnReloadAjax(myTable.fnSettings());
+
+		});
+		
+
+		// 导入
+
+		$("#button_import").click(importData);
+		
+
+		// 顶部导出
+
+		$("#button_export").click(exportData);
+		
+
+		// 底部导出
+		
+		$("#button_export1").click(exportData);
+
+		
+		// 显示人气
+
+		$("#button_robot").click(showRobotOrder);
+
+		
+		// 重置条件
+
+		$("#button_reset").click(function(){
+
+				$('#order_sn').val('');
+
+				$('#order_from').val(-1).trigger('change');
+
+				$('#order_state').val(-1).trigger('change');
+
+				$('#cash_func').val(-1).trigger('change');
+
+				$('#username').val('')
+
+				$('#contact').val('')
+
+				$('#contact_phone').val('');
+
+				$('#start_date').val('');
+
+				$('#end_date').val('');
+
+				$('#line_article').select2('data', null).trigger('change');
+
+				$('#activity').select2('data', null).trigger('change');
+
+				$('#line_order_state').val(-1).trigger('change');
+
+				$('#order_from_product').val(-1).trigger('change');
+
+				$('#member_name').val('');
+
+				$('#member_phone').val('');
+
+				$('#member_certificate').val('');
+				
+		    	// 统计订单数量
+//		    	refreshStatistic = true;
+
+//	    		myTable.fnReloadAjax(myTable.fnSettings());
+
+		});
+
+	});
+	
+	// 线路类型切换清空线路选择
+	
+	$('.new_line').change(function(){
+
+		$('#line_article').select2('data', null).trigger('change');
+
+		$('#activity').select2('data', null).trigger('change');
+		
+	});	
+
+	// 选择证件类型
+
+	function dateTypeChanged() {
+
+		var dateType = $(this).find('a').attr('name');
+
+		var dateTypeDesc =  $(this).find('a').html();
+
+		$(this).parent().prev().attr('data-type', dateType);
+
+		$(this).parent().prev().find('.date_type_desc').html(dateTypeDesc);
+
+	}	
+
+	
+
+	// 初始化导入
+
+	function initFileImport() {
+
+		$("#file_import_order").fileupload({
+
+			url: "{:U('order/importExcel')}",
+
+			done: function(e, data) {
+
+				console.log(JSON.stringify(data));
+
+			}
+
+		});
+
+	}
+
+	
+
+	// 导入
+
+	function importData() {
+
+		document.getElementById('file_import_order').click();
+
+	}
+
+	
+
+	// 导出
+
+	function exportData() {
+
+		location.href = '{:U("order/exportExcel")}';
+		
+	}
+
+	
+	// 过滤人气按钮改变
+	function showRobotOrder() {
+
+		var i = $(this).find('i');
+
+		var span = $(this).find('span');
+
+		if ($(i).hasClass('fa-check')) {
+
+			$(i).removeClass('fa-check');
+
+			$(i).addClass('fa-close');
+
+			$(span).html('不过滤人气');
+
+		} else {
+
+			$(i).removeClass('fa-close');
+
+			$(i).addClass('fa-check');
+
+			$(span).html('过滤人气');
+
+		}
+
+	    myTable.fnReloadAjax(myTable.fnSettings());
+
+	}
+	
+	
+	// 统计订单信息
+	function statisticsOrder() {
+		
+		if (refreshStatistic == false) {
+			
+			return false;
+			
+		}
+		
+		
+		var jsonData = {
+			
+			op_type: 'statistics',
+			
+		}
+		
+		$.post('{$ajaxReqUrl}', jsonData, function(data){
+			
+			if (typeof(data.ds) != 'undefined') {
+				
+				// 清除统计信息
+				$('#statisticsDiv').html("");
+				
+				var normal_count = parseInt(data.total) - parseInt(data.robot);
+				
+				var html = '<span>本线路批次下共'+data.total+'个订单，其中普通订单'+normal_count+'个，人气订单'+data.robot+'个</span><br /><br />';
+				
+				var statisticsCount = data.ds.length
+				
+				if (statisticsCount > 0) {
+					
+					var labels = new Array('primary', 'secondary', 'info', 'warning', 'danger', 'success', 'purple', 'red', 'blue');
+					
+					for (var i = 0; i < statisticsCount; i ++) {
+						
+						var ds = data.ds[i];
+						
+						var labIndex = i % labels.length;
+						
+						
+//						html += '<div class="ctr_search btn btn-sm btn-'+labels[labIndex]+'" data_ctrl_tab="'+ds.tab+'" data-ctrl-id="'+ds.search_ctrls+'" data-ctrl-val="'+ds.search_vals+'">'+ds.show_text+'</div>'
+						
+						html += '<div class="ctr_search btn btn-sm btn-info" data_ctrl_tab="'+ds.tab+'" data-ctrl-id="'+ds.search_ctrls+'" data-ctrl-val="'+ds.search_vals+'">'+ds.show_text+'</div>'
+						
+						
+					}
+					
+					$('#statisticsDiv').html(html);		
+								
+					$('#statisticsDiv').find('.ctr_search').click(setSearchContent);
+					
+				}				
+			
+			}
+			
+		});
+		
+		refreshStatistic = false;
+		
+		return true;
+	}
+
+
+
+	// 初始化数据列表
+
+	function initDataTable() {	
+
+		var vTable = $("#example-1").dataTable({
+
+			"bSort": true,
+
+			"bAutoWidth": true,
+
+			"bFilter": true,
+
+			"searching": false,
+
+			"bInfo": true,//页脚信息
+
+			"bPaginate": true, //翻页功能
+
+			"bLengthChange": true, //改变每页显示数据数量
+
+			"bStateSave": true,	//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+
+			"sPaginationType": "full_numbers", //显示数字的翻页样式"
+
+			"aLengthMenu": [[50, 100, 200],[50, 100, 200]],	// 可分页的数量值与显示
+
+			"isDisplayLength": 50,	// 当前每页显示数量
+
+			"oLanguage": {
+
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+
+				"sZeroRecords": "抱歉， 没有找到",
+
+				"sInfo": "从 _START_ 到 _END_ / 共 _TOTAL_ 条数据",
+
+				"sInfoEmpty": "没有数据",
+
+				"sInfoFiltered": "(从_MAX_条数据中检索)",
+
+				"oPaginate": {
+
+					"sFirst": "首页",
+
+					"sPrevious": "前一页",
+
+					"sNext": "后一页",
+
+					"sLast": "尾页"
+
+				},
+
+				"sZeroRecords": "没有检索到数据",
+
+				"sProcessing": "<src='__PUBLIC__/images/loader.gif' />",
+
+			},
+
+			//Ajax获取信息
+
+			"bProcessing": true,
+
+			"bServerSide": true,
+
+			"sAjaxSource": "{$ajaxReqUrl}",
+
+			//如果加上下面这段内容，则使用post方式传递数据
+
+			"fnServerData": getPageData,
+
+			"aoColumns": dataTablesBindCols(),//$_GET[‘sColumns’]将接收到aoColumns传递数据
+
+			"aoColumnDefs": [{"sDefaultContent": "", "aTargets": ["_all"]}],
+
+		});
+
+		return vTable;
+
+	}
+
+
+
+	// 绑定列
+
+	function dataTablesBindCols() {
+
+		var cols = new Array();
+
+		cols = [
+
+				{"bSortable": false, "mData": "id", "aTargets": [0]},
+
+				{"bSortable": false, "mData": "order_sn", "aTargets": [1]},
+
+				{"bSortable": false, "mData": "lineid_show_text", "aTargets": [2], "fnCreatedCell": replaceContent},
+				
+				{"bSortable": false, "mData": "userid_show_text", "aTargets": [3], "fnCreatedCell": replaceContent},
+
+				{"bSortable": false, "mData": "member_count", "aTargets": [4]},
+
+				{"bSortable": false, "mData": "member_complated", "aTargets": [5], "fnCreatedCell": replaceContent},
+
+				{"bSortable": false, "mData": "price", "aTargets": [6]},
+
+				{"bSortable": false, "mData": "sum_price", "aTargets": [7]},
+
+				{"bSortable": false, "mData": "addtime_show_text", "aTargets": [8], "fnCreatedCell": replaceContent},
+
+				{"bSortable": false, "mData": "from_id_data", "aTargets": [9], "fnCreatedCell": replaceContent},
+
+				{"bSortable": false, "mData": "station_id_data", "aTargets": [10], "fnCreatedCell": replaceContent},
+
+				{"bSortable": false, "mData": "zhuangtai_data", "aTargets": [11], "fnCreatedCell": replaceContent},
+
+				{"bSortable": false, "mData": "names", "aTargets": [12], "fnCreatedCell": replaceContent},
+				
+				{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [13], "fnCreatedCell": appendLastCol},
+
+			];	//$_GET[‘sColumns’]将接收到aoColumns传递数据
+
+		return cols;
+
+	}
+
+	
+
+	function getFindData() {
+
+		var tabs = new Array('order','line','member');		
+
+		var findType = 'order';
+
+		for (var i=0; i < tabs.length; i++) {
+
+			if ($('#'+tabs[i]).hasClass('active')) {
+
+				findType = tabs[i];
+
+				break;
+
+			}
+
+		}
+
+		
+
+		var robot = 'unfilter';
+
+		if ($('#button_robot').find('i').hasClass('fa-check')) {
+
+			robot = 'filter';
+
+		}
+
+		
+
+		var jsonData = {
+
+			'type': 'order', // findType,
+
+			'robot': robot,
+
+			'order': [
+
+				{'name':'order_sn', 'value':$('#order_sn').val()},
+
+				{'name':'from', 'value':$('#order_from').val()},
+
+				{'name':'state', 'value':$('#order_state').val()},
+
+				{'name':'cash_func', 'value':$('#cash_func').val()},
+
+				{'name':'username', 'value':$('#username').val()},
+
+				{'name':'contact', 'value':$('#contact').val()},
+
+				{'name':'phone', 'value':$('#contact_phone').val()},
+
+				{'name':'station', 'value':$('#station').val()},
+
+				{'name':'id', 'value':$('#order_id').val()},
+
+				{'name':'date_type', 'value':$('#date_type').attr('data-type')},
+
+				{'name':'sdate', 'value':$('#start_date').val()},
+
+				{'name':'edate', 'value':$('#end_date').val()},
+
+//			],
+
+//			'line': [
+
+				{'name':'lid', 'value':$('#line_article').val()},
+
+				{'name':'aid', 'value':$('#activity').val()},
+
+				{'name':'newline', 'value':$('.new_line').is(':checked') == false ? 0 : 1},
+
+				{'name':'line_state', 'value':$('#line_order_state').val()},
+
+				{'name':'line_from', 'value':$('#order_from_product').val()},
+
+//			],
+
+//			'member': [
+
+				{'name':'member_name', 'value':$('#member_name').val()},
+
+				{'name':'member_phone', 'value':$('#member_phone').val()},
+
+				{'name':'member_certificate', 'value':$('#member_certificate').val()},
+
+			],
+
+		};
+
+		
+
+		return jsonData;
+
+	}
+
+
+
+	//Ajax获取数据
+
+	function getPageData ( sSource, aoData, fnCallback ) {
+		
+		showLoading(true);	
+		
+		var jsonData = getFindData();
+
+		$.post('{$ajaxReqUrl}', {'op_type': 'cddata', 'cds': jsonData}, function(data){		
+		
+			// 刷新统计订单统计信息
+			
+			statisticsOrder();	
+
+			aoData.push({'name':'op_type','value':'list'});
+
+			aoData.push({'name':'test','value':'1'});
+
+//			console.log(JSON.stringify(jsonData));
+
+			pageRequestData = aoData;
+		
+			$.post(sSource, aoData, function(data,status){
+		
+//					console.log(JSON.stringify(data.output));
+					if (data['result']['errno'] == 0) {
+
+						pageData = data.aaData;
+
+						fnCallback(data);
+
+					} else {
+
+						alert(data['result']['message']);
+
+					}		
+												
+					showLoading(false);	
+
+				},'JSON');
+
+		})
+
+		
+
+	}
+
+
+	// 设置搜索内容并搜索	
+	
+	function setSearchContent() {
+
+		var tabs = new Array('order','line','member');
+		
+		var tab = $(this).attr('data_ctrl_tab');
+
+		for (var i=0; i < tabs.length; i++) {
+			
+			if (tab == tabs[i]) {
+				
+				$('#'+tabs[i]).addClass('active');
+				
+				$('a[href="#'+tabs[i]+'"]').parent().addClass('active');
+				
+			} else {
+				
+				$('#'+tabs[i]).removeClass('active');
+				
+				$('a[href="#'+tabs[i]+'"]').parent().removeClass('active');
+			}
+
+		}
+		
+		var names = $(this).attr('data-ctrl-id').split(',');
+		
+		var values = $(this).attr('data-ctrl-val').split(',');
+		
+		for (var i = 0; i < $(names).length; i++) {
+		
+			var searchObj = '#' + names[i];
+			
+			var searchVal = values[i];
+						
+			var tagName = $(searchObj).get(0).tagName;
+			
+			console.log('obj:'+searchObj+"  val:"+searchVal+"  type:"+tagName);
+			
+			if (tagName == 'SELECT') {
+				
+				$(searchObj).val(searchVal).trigger('change');
+				
+			} else {
+				
+				$(searchObj).val(searchVal);
+				
+			}
+				
+		}
+		
+		myTable.fnReloadAjax();
+	}
+		
+
+	// 内容替换
+
+	function replaceContent(nTd, sData, oData, iRow, iCol) {
+		
+		if (iCol == 2) {	
+
+			var html = '<span class="ctr_search" data_ctrl_tab="line" data-ctrl-id="line_article" data-ctrl-val="'+oData['lineid']+'">'+oData['lineid_show_text']+'</span>'
+			
+			$(nTd).html(html);	
+			
+			$(nTd).find('.ctr_search').click(setSearchContent);
+
+		} else if (iCol == 3) {
+
+			var html = '<span class="ctr_search" data_ctrl_tab="order" data-ctrl-id="username" data-ctrl-val="'+oData['userid_data']['show_name']+'">'+oData['userid_show_text']+'</span>'
+			
+			$(nTd).html(html);	
+			
+			$(nTd).find('.ctr_search').click(setSearchContent);
+
+		} else if (iCol == 5) {
+			
+			if (oData['member_complated'] == 0) {
+				
+				$(nTd).html('已完善');
+				
+			} else {
+				
+				$(nTd).html('<span style="color:red;">未完善</span>');
+				
+			}
+
+		} else if (iCol == 8) {
+
+			$(nTd).html(oData['addtime_show_text']);	
+
+		} else if (iCol == 9) {
+			var fromText = '';
+			if (oData['fenxiao_data'] != null) {
+				if (oData['fenxiao_data']['user_id_data'] != null) {
+					fromText = oData['fenxiao_data']['user_id_data']['show_name'];
+				}
+				fromText += '(分销)';
+			} else {
+				if (oData.from_id_data != null) {
+					fromText = oData['from_id_data']['type_desc'];	
+				} else {
+					fromText = '未知来源';
+				}
+			}
+
+			var html = '<span class="ctr_search" data_ctrl_tab="order" data-ctrl-id="order_from" data-ctrl-val="'+oData['from_id']+'">'+fromText+'</span>'
+			
+			$(nTd).html(html);	
+			
+			$(nTd).find('.ctr_search').click(setSearchContent);	
+
+		} else if (iCol == 10) {
+			
+			if (oData.station_id_data != null) {
+
+				var html = '<span class="ctr_search" data_ctrl_tab="order" data-ctrl-id="order_station" data-ctrl-val="'+oData['station_id']+'">'+oData.station_id_data.name+'</span>'
+			
+				$(nTd).html(html);	
+				
+				$(nTd).find('.ctr_search').click(setSearchContent);	
+				
+			}			
+
+		} else if (iCol == 11) {
+			
+			if (oData.zhuangtai_data != null) {
+				
+				var html = '<span class="ctr_search" style="color:'+oData['zhuangtai_color']+';" data_ctrl_tab="order" data-ctrl-id="order_state" data-ctrl-val="'+oData['zhuangtai']+'">'+oData['zhuangtai_data']['type_desc']+'</span>'
+				
+				$(nTd).html(html);	
+				
+				$(nTd).find('.ctr_search').click(setSearchContent);	
+				
+			}			
+
+		} else if (iCol == 12) {
+
+			var html = '<span class="ctr_search" data_ctrl_tab="order" data-ctrl-id="contact" data-ctrl-val="'+oData['names']+'">'+oData['names']+'</span>'
+			
+			$(nTd).html(html);	
+			
+			$(nTd).find('.ctr_search').click(setSearchContent);	
+			
+		}		
+
+	}
+
+
+
+	// 添加最后一列控件
+
+	function appendLastCol(nTd, sData, oData, iRow, iCol) {
+
+//		alert(nTd+'|'+JSON.stringify(sData)+'|'+JSON.stringify(oData)+'|'+iRow+'|'+iCol);
+
+		var id = parseInt(oData['id']);
+
+		var html = '';	
+
+		if ('{$grant_review}' == true) {
+
+			if (oData['zhuangtai_show_btn_account'] == 'show') {
+
+				html += '<a href="'+'{:U("review/request")}/oid/'+id+'" class="btn btn-warning btn-sm btn-icon icon-left" target="_blank">线 下 付 款</a>';
+
+			}
+
+		}
+		
+		html += '<a href="'+'{:U("order/info")}/id/'+id+'" class="btn btn-secondary btn-sm btn-icon icon-left mybtn" target="_blank">订 单 详 细</a>';	
+
+		$(nTd).html(html);
+
+	}
+
+
+	/*
+
+	add this plug in
+
+	// you can call the below function to reload the table with current state
+
+	Datatables刷新方法
+
+	oTable.fnReloadAjax(oTable.fnSettings());
+
+	*/
+
+	$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings) {
+
+		//oSettings.sAjaxSource = sNewSource;
+
+		this.fnClearTable(this);
+
+		this.oApi._fnProcessingDisplay(oSettings, true);
+
+		var that = this;
+
+
+
+		$.getJSON(oSettings.sAjaxSource, null, function (json) {
+
+		    /* Got the data - add it to the table */
+
+		    for (var i = 0; i < json.aaData.length; i++) {
+
+		        that.oApi._fnAddData(oSettings, json.aaData[i]);
+
+		    }
+
+		    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+
+		    that.fnDraw(that);
+
+		    that.oApi._fnProcessingDisplay(oSettings, false);
+
+		});
+
+	}
+
+
+
+</script>
+
+	

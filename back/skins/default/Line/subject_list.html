@@ -1,0 +1,244 @@
+<include file="Common/header" />
+<style>
+	.subject-list {
+		width: 1000px;
+    	margin: 0 auto;
+    	padding-top: 22px;
+	}
+	
+	.subject_delete { position: absolute; z-index: 99; bottom: 0px; right: 20px; }
+	.subject_preview { position: absolute; z-index: 99; bottom: 0px; right: 76px; }
+	.update_cache { position: absolute; z-index: 99; bottom: 0px; right: 132px; }
+	.subject-move { position: absolute; z-index: 99; top: 10px; right: 20px; }
+	.subject-move input { width: 52px; height: 32px; margin-bottom: 10px; text-align: center; }
+	.subject-move .btn { vertical-align: top; }
+	.subject-information-img {
+		position: relative;
+	    width: 100%;
+	    height: 210px;
+	    margin-bottom: 33px;
+	    background-color: #fff;
+	    overflow: hidden
+	}
+	.subject-information-img a {
+		position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	}
+	.subject-information-img:hover .subject-information-img-right h3 { 
+		color: #ff7200; 
+	}
+	.subject-information-img-left img {
+	    width: 100%;
+	    height: 100%;
+	}
+	.subject-information-img-left {
+	    float: left;
+	    width: 280px;
+	    height: 210px;
+	    overflow: hidden;
+	}
+	.subject-information-img-right {
+	    float: right;
+	    width: 676px;
+	    padding: 0 22px;
+	}
+	.subject-information-img-right h3 {
+	    padding-top: 40px;
+	    margin-top: 0;
+	    margin-bottom: 26px;
+	    font-weight: normal;
+	    font-size: 24px;
+	    color: #333;
+	}
+	.subject-information-img-right p {
+	    color: #666;
+	}
+	.subject-information-img-right i {
+	    display: block;
+	    margin-top: 20px;
+	    font-style: normal;
+	}
+	.footer { position: absolute; top: 170px; left: 60px; }
+	/*分页*/
+	.list-page { width: 100%; text-align: right; }
+
+	.list-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+
+	.list-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+
+	.list-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }
+</style>	
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	
+	<!--面板内容结束-->
+	<div class="row">		
+		
+		<div class="subject-information-img template_subject hidden_ctrl subject_root" data-id="{$sub.id}">
+			<a class="detail" href="javascript:;" target="_blank"></a>
+			<div class="subject-move">
+				
+				<input class="sort" type="text" maxlength="4"/>
+				<button class="btn btn-secondary btn_sort">保存</button>
+				
+			</div>
+			<div class="subject-information-img-left">
+				<img class="banner" src="" alt="">
+			</div>
+			<div class="subject-information-img-right">
+				<h3 class="title"></h3>
+				<p class="desc"></p>
+				<p class="keywords"></p>
+				<i class="time"></i>
+				<button class="btn btn-secondary update_cache" data-set="cache_set_subject_" data-op="LIKE">更新缓存</button>	
+				<button class="btn btn-secondary subject_preview" data-id="">预览</button>
+				<button class="btn btn-danger subject_delete" data-id="">删除</button>
+			</div>
+		</div>
+	
+		<div id="content">
+			
+			<div class="subject-list">
+				
+				<volist id="sub" name="subjects">
+					<div class="subject-information-img subject_root" data-id="{$sub.id}">
+						<a class="detail" href="{:U('line/subject')}/type/edit/id/{$sub.id}" target="_blank"></a>
+						
+						<div class="subject-move">
+							<input class="sort" type="text" maxlength="4" value="{$sub.sort}"/>
+							<button class="btn btn-secondary btn_sort">排序</button>
+						</div>
+						
+						<div class="subject-information-img-left">
+							<img class="banner" src="{$sub.banner}" alt="">
+						</div>
+						<div class="subject-information-img-right">
+							<h3 class="title">{$sub.title}(No.{$sub.id})</h3>
+							<p class="desc">{$sub.desc}</p>
+							<p class="keywords">{$sub.keywords}</p>
+							<i class="time">{$sub.create_time}</i>
+							<button class="btn btn-danger subject_delete" data-id="{$sub.id}">删除</button>
+						</div>
+						<button class="btn btn-secondary subject_preview" data-id="{$sub.id}">预览</button>
+						<button class="btn btn-secondary update_cache" data-set="cache_set_subject_{$sub.id}" data-op="LIKE">更新缓存</button>			
+					</div>
+					
+				</volist>
+				
+			</div>
+			
+			
+			
+		</div>
+		<div class="list-page"></div>
+	
+	</div>
+	<div class="footer" style="text-align: right; margin-top: 20px;">						
+		<a href="{:U('line/subject')}/type/edit" target="_blank" class="btn btn-secondary">创建专题</a>	
+	</div>
+	<!--面板内容结束-->
+	
+	<script src="__PUBLIC__/home/js/page.js"></script>
+	<script>
+		// 预览专题
+		$('.subject_preview').click(function(){
+			var sid = $(this).attr('data-id');
+			var w = window.open();
+			$.post('{:U("line/subject")}',{op_type:'preview_url',id: sid}, function(data){
+				if (data.result.errno != 0) {
+					toastr.error(data.result.message);
+				}
+				if (data.jumpUrl != null && data.jumpUrl != 'undefined') {						
+					w.location = data.jumpUrl;
+				} else {
+					w.close();
+				}
+			})
+		});
+		
+		// 修改专题排序
+		$('.btn_sort').click(function(){
+			var rootObj = $(this).closest('.subject_root');
+			var jsonData = {
+				op_type: 'edit',
+				id: $(rootObj).attr('data-id'),
+				sort: $(rootObj).find('.sort'),
+			}
+			
+			$.post('{:U("line/subject")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					toastr.success('设置专题排序成功');
+				} else {
+					toastr.error(data.result.message);
+				}
+			});
+		});
+	
+		// 删除专题
+		$('.subject_delete').click(function(){
+			var rootObj = $(this).closest('.subject-information-img');
+			
+			$.post('{:U("line/subject")}', {op_type:'delete', id:$(this).attr('data-id')}, function(data){
+				if (data.result.errno == 0) {
+					$(rootObj).remove();
+				} else {
+					alert(data.result.message);
+				}
+			});
+		});
+	
+		// 分页初始化
+		constructionPage($('.list-page'), 1, '{$page_count}', loadMoreData, true);
+		
+		// 加载更多数据
+		function loadMoreData(p) {	
+			var jsonData = {
+				op_type: 'list',
+				page: parseInt(p)-1,
+			}
+			
+			$.post('{:U("line/subject")}', jsonData, function(data){			
+				if (data.result.errno == 0) {
+					$('.subject-list').empty();
+					if (data.ds != null && data.ds != 'undefined') {				
+						var vhtml = '';
+						for (var i = 0; i < data.ds.length; i ++){
+							var d = data.ds[i];
+							
+							var subjectObj = $('.template_subject').clone(true);
+							$(subjectObj).removeClass('template_subject');
+							$(subjectObj).removeClass('hidden_ctrl');
+							$(subjectObj).attr('data-id', d.id);
+							$(subjectObj).find('.sort').val(d.sort);
+							var vhref = '{:U("line/subject")}/type/edit/id/'+d.id;
+							$(subjectObj).find('.detail').attr('href', vhref);
+							$(subjectObj).find('.banner').attr('src', d.banner);
+							$(subjectObj).find('.title').html(d.title+'(No.'+d.id+')');
+							$(subjectObj).find('.desc').html(d.desc);
+							$(subjectObj).find('.keywords').html(d.keywords);
+							$(subjectObj).find('.time').html(d.create_time);
+							$(subjectObj).find('.subject_delete').attr('data-id', d.id);	
+							$(subjectObj).find('.subject_preview').attr('data-id', d.id);	
+							$(subjectObj).find('.update_cache').attr('data-set', 'cache_set_subject_'+d.id);						
+							$('.subject-list').append(subjectObj);
+						}
+					} else {	// 没有数据
+						alert('没有查到任何数据');
+					}
+					// 构建分页
+					constructionPage($('.list-page'), p, data.page_count, loadMoreData, false);
+				} else {
+					alert(data.result.message);	
+				}			
+			})			
+		}
+	</script>
+	
+<include file="Common/footer" />

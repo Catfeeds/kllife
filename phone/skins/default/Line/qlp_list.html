@@ -1,0 +1,143 @@
+<include file="common/top" />
+
+<link rel="stylesheet" href="__PUBLIC__/qlpphone/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/phone/css/list.css">
+<style>
+	.travel a{text-decoration: none;}
+	.list .travel .item:nth-child(5){border-top:none;}
+	.line-list {margin-top: 30px;}
+	body{overflow: inherit}
+	.bar-tab{position: fixed;table-layout:initial;}
+	.tab-item i{font-size: 1.2rem;}
+</style>
+<!-旅拍线路->
+<div>
+	<div class="phone index list">
+		<div class="top" style="z-index:100;background: #fff;">
+			<img style="width:100%;" class="img-responsive" src="__PUBLIC__/qlpphone/images/list/top-image.jpg" alt="">
+		</div>
+		<div class="travel">
+			<img style="width:100%;" src="__PUBLIC__/qlpphone/images/index/phone+.jpg" alt="">
+			<div style="height:10px;width:100%;background: #f2f4f5;"><!--此div只用于显示灰色条--></div>
+			<h2>每刻美 初体验</h2>
+			<div class="line-list">
+				<volist id="line" name="lines">
+					<a href="{:U('line/info')}/id/{$line.id}">
+						<div class="item">
+							<h3>{$line.title}</h3>
+							<h4>- 每刻美 初体验 -</h4>
+							<img class="img img-responsive" src="{$line.img1}" alt="">
+							<p class="detail">{$line.subheading}</p>
+							<p class="price">
+								<if condition="empty($line['check_price'])">
+									<span>核算中</span>
+								<else />
+									¥<span>{$line.start_price_adult}</span>元起
+								</if>
+							</p>
+							<a type="button" class="btn btn-orange-two" href="{:U('line/info')}/id/{$line.id}">查看线路</a>
+						</div>
+					</a>
+				</volist>
+			</div>
+			<!-更多内容->
+			<div class="more" data-more="1" data-page-index="0">更多线路</div>
+		</div>
+	</div>
+</div>
+<!--点击返回顶部-->
+<div class="return-top"><i class="iconfont" style="font-size: 50px;">&#xe68f;</i></div>
+<script>
+    //更换目的地
+    $(".place-name").on("click",function(){
+        if($(".place-name-more").is(":hidden")==true){
+            $(".place-name-more").slideDown(700);
+            $(this).find(".span").addClass("rotate").removeClass("rotate1");
+        }else{
+            $(".place-name-more").slideUp(700)
+            $(this).find(".span").removeClass("rotate").addClass("rotate1")
+        }
+    })
+
+    $(".place-name-more li").on("click",function(){
+        var html=$(this).html();
+        $(".place-name .name").html(html);
+        $(".place-name").find(".span").removeClass("rotate").addClass("rotate1");
+        $('.more').attr('data-page-index', -1);
+        $('.more').attr('data-more','1');
+        $('.more').html('更多线路');
+        $('.line-list').children().remove();
+        findMore();
+    })
+    //屏幕滚动显示一键返回顶部按钮
+    $(window).scroll( function (){
+        if ($(this).scrollTop() > 100) {
+            $('.return-top').fadeIn();
+        }else{
+            $('.return-top').fadeOut();
+        };
+    });
+    //点击返回顶部
+    $(".return-top").on("click",function(){
+        $("html,body").animate({scrollTop: 0}, 1000)
+    });
+
+    // 刷新列表
+    function findMore() {
+        if ($('.more').attr('data-more') != '1') {
+            $('.more').attr('data-more','0');
+            $('.more').html('没有更多的数据了');
+            return false;
+        }
+        var pageIndex = parseInt($('.more').attr('data-page-index'))+1;
+        var jsonData = {
+            op_type: 'list',
+            page: pageIndex,
+            slowly: 0,
+        };
+
+        var dest = $('.place-name').find('span.name').html();
+        if (dest != '全部') {
+            jsonData['cds'] = 'destination|LIKE|%'+dest+'%';
+        }
+
+        $.post('{:U("line/xiezhenlvxing")}', jsonData, function(data){
+            if (data.result.errno == 0) {
+                if (data.ds != null && data.ds != 'undefined') {
+                    for (var i=0; i < data.ds.length; i++) {
+                        var d = data.ds[i];
+                        var priceText = '<span>核算中</span>';
+                        if (d.check_price != 0) {
+                        	priceText = '¥ <span>'+d.start_price_adult+'</span>元起';
+                        }
+                        var vhtml = '<a href="'+'{:U("line/info")}/id/'+d.id+'">'+
+									'<div class="item">'+
+									'    <h3>'+d.title+'</h3>'+
+									'    <h4>— 新旅拍 —</h4>'+
+									'    <img class="img img-responsive" src="'+d.img1+'" alt="">'+
+									'    <p class="detail">'+d.subheading+'</p>'+
+									'    <p class="price">'+priceText+'</p>'+
+									'    <a type="button" class="btn btn-orange-two" href="'+'{:U("line/info")}/id/'+d.id+'">查看线路</a>'+
+									'</div>'+
+									'</a>';
+                        $('.line-list').append(vhtml);
+                        $('.more').attr('data-page-index', pageIndex);
+                    }
+                    if (data.ds.length < data.page_size || pageIndex >= data.page_count) {
+                        $('.more').attr('data-more','0');
+                        $('.more').html('没有更多的数据了');
+                    }
+                } else {
+                    $('.more').attr('data-more','0');
+                    $('.more').html('没有更多的数据了');
+                }
+            } else {
+                $('.more').html(data.result.message);
+            }
+        });
+    }
+
+    $('.more').click(findMore);
+</script>
+
+<include file="common/footer"/>

@@ -1,0 +1,23 @@
+.hidden_ctrl { display: none; }
+
+/*自消失弹出框*/
+.toast-top-center {
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+.toast-bottom-center {
+  bottom: 0;
+  right: 0;
+  width: 100%;
+}
+#toast-container.toast-top-center > div,
+#toast-container.toast-bottom-center > div {
+  width: 300px;
+  margin: auto;
+}
+
+.line_theme_xtmlx { background-color: #2C6FB6 !important; color:#fff !important; padding: 4px 5px !important; }
+.line_theme_qlp { background-color: #FF1C77 !important; color:#fff !important; padding: 4px 5px !important; }
+.line_theme_sheying { background-color: #FABE00 !important; color:#fff !important; padding: 4px 5px !important; }
+.line_theme_minzuxing, .line_theme_shendu, .line_theme_surrounding, .line_theme_mfhd, .line_theme_cjy { background-color: #42B312 !important;  color:#fff !important; padding: 4px 5px !important; }

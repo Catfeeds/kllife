@@ -1,0 +1,539 @@
+<include file="Common/header" /> 
+	<style type="text/css">		
+		.div-condition { 
+			margin: 10px -50px 30px -50px;
+			border-bottom: 2px solid #eeeeee; 
+			padding: 20px 20px 30px 20%; 
+			text-align: center; 
+		}
+	</style>
+	<div class="row">
+		<div class="panel panel-color panel-info panel-content-pos">
+			<div class="panel panel-heading">
+				<span class="description">{:C(CONTENT_TITLE)}</span>					
+			</div>
+			<div class="panel panel-color panel-content">
+	
+				<div class="div-condition">
+					<div class="input-group col-sm-8">
+						<input id="find_val" type="text" class="form-control" placeholder="请输入查询内容，可以是编号、账户、昵称、账户类型、站点、权限组、电话、邮件等信息">
+						<span class="input-group-addon find_info" style="min-width: 150px;">查找</span>
+					</div>
+				</div>
+				
+                <table id="test" class="table aspTable lcnp" cellpadding="0" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>账户</th>
+                            <th>昵称</th>
+                            <th>站点</th>
+                            <th>账户类型</th>
+                            <th>权限组</th>
+                            <th>电话号码</th>
+                            <th>电子邮件</th>
+                            <th>禁用</th>
+                            <th>最后登录时间</th>
+                            <th>最后登录IP</th>                
+                           	<th class="TAC">禁用/详细/编辑/删除</th>
+                        </tr>
+                    </thead>
+                </table>   
+                <br />
+                <br />
+                <br />
+				<div class="row">
+					<if condition="$grant_create eq true">
+						<a href="#" class="btn btn-primary" id="btn_create_type">创建管理员</a>
+					</if>
+				</div>
+			</div>
+		</div>		
+	</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+	var myTable, pageRequestData;
+	var modalDataEditData = new Object();
+	$(document).ready(function(){
+		
+		// 初始化数据表格
+		myTable = initDataTable();
+		
+		// 初始化弹出窗口
+		initModalDataEdit();
+		
+		// 创建类型
+		$("#btn_create_type").click(_addFun);
+		
+		// 搜索人员
+		$(".find_info").click(findInfo);
+	});
+	
+	// 查找人员
+	function findInfo() {
+			
+		myTable.fnReloadAjax();
+		
+	}
+	
+	// 获取管理员类型
+	function getTypeList(objType) {
+		var jsonData = {
+			type_obj: objType,
+			op_type: 'list',
+			iSortCol_0: 1,
+			sSortDir_0: 'asc',
+			iDisplayStart: 0,
+			iDisplayLength: 0,
+			sColumns: 1,
+		}
+		
+		var rs = '';
+		$.ajax({
+			url: '{:U("type/list")}',
+			type: "POST",
+			async: false,
+			data: jsonData,
+			success: function(data, status) {
+				if (data.result.errno == 0) {
+					if (data.aaData != 'undefined' && data.aaData.length > 0) {
+						rs = data['aaData'];
+					}
+				}
+			}
+		});
+		return rs;
+	}
+	
+	// 设置类型列表
+	function setTypeList(objType, objId) {
+		var typeList = getTypeList(objType);
+		if (typeList != '') {
+			var html = '';
+			for (var i = 0; i < typeList.length; i++) {
+				html += '<option value="' + typeList[i]['id'] + '">' + typeList[i]['type_desc'] + '</option>';
+			}	
+			var data = {elmt: [{id:objId, value:html}]}
+			appendModalDataEditInputValues(data, true);
+		}		
+	}
+	
+	// 设置站点列表
+	function setStationList(objType, objId) {
+		var jsonData = {
+			obj: objType,
+		}
+		
+		$.ajax({
+			url: '{:U("help/list")}',
+			type: "POST",
+			async: false,
+			data: jsonData,
+			success: function(data, status) {
+				if (data.result.errno == 0) {
+					if (data.ds != 'undefined' && data.ds.length > 0) {
+						var html = '';
+						for (var i = 0; i < data.ds.length; i++) {
+							var d = data.ds[i];
+							html += '<option value="' + d['id'] + '">' + d['name'] + '</option>';
+						}	
+						var sel_data = {elmt: [{id:objId, value:html}]}
+						appendModalDataEditInputValues(sel_data, true);
+					}
+				}
+			}
+		});
+	}
+	
+	// 初始化弹出编辑框数据
+	function initModalDataEdit() {
+		modalDataEditData['lab_title_text'] = '类型信息';
+		modalDataEditData['btn_confirm_text'] = '确认保存';
+		
+		modalDataEditData['elmt']=[
+			{tag:'input', id:'Id', lab:'', attr:[
+				{op:'bind', name:'type',value:'hidden'},
+			]},
+			{tag:'input', id:'Account', lab:'账户名称', attr:[
+				{op:'bind', name:'type',value:'text'},
+				{op:'bind', name:'placeholder',value:'请输入唯一的类型键值且不能超过50字符'},
+			]},
+			{tag:'input', id:'Password', lab:'账户密码', attr:[
+				{op:'bind', name:'type',value:'password'},
+				{op:'bind', name:'placeholder',value:'请输入类型描述且不能超过50字符'},
+			]},
+			{tag:'input', id:'Nickname', lab:'昵称', attr:[
+				{op:'bind', name:'type',value:'text'},
+				{op:'bind', name:'placeholder',value:'请输入昵称且不能超过50字符'},
+			]},
+			{tag:'input', id:'Tel', lab:'电话号码', attr:[
+				{op:'bind', name:'type',value:'text'},
+				{op:'bind', name:'placeholder',value:'请输入电话号码且不能超过12字符'},
+			]},
+			{tag:'input', id:'Email', lab:'电子邮件', attr:[
+				{op:'bind', name:'type',value:'text'},
+				{op:'bind', name:'placeholder',value:'请输入电子邮件且不能超过100字符'},
+			]},
+			{tag:'select', id:'Station', lab:'站点类型', attr:[]},
+			{tag:'select', id:'Type', lab:'账户类型', attr:[]},
+			{tag:'select', id:'Group', lab:'账户权限组', attr:[]},
+		];
+//		var elmtLen = $(modalDataEditData['elmt']).length;
+//		if ('$admin["station_id_data"]["key"]' == 'main') {
+//			modalDataEditData['elmt'][elmtLen] = {tag:'select', id:'Station', lab:'站点类型', attr:[]};
+//			elmtLen = $(modalDataEditData['elmt']).length;
+//		}
+//		modalDataEditData['elmt'][elmtLen] = {tag:'select', id:'Type', lab:'账户类型', attr:[]};
+//		elmtLen = $(modalDataEditData['elmt']).length;
+//		modalDataEditData['elmt'][elmtLen] = {tag:'select', id:'Group', lab:'账户权限组', attr:[]};
+		modalDataEditData['callback_confirm'] = _addFunAjax;
+		initModalDataEditPage(modalDataEditData);
+		
+		// 设置可选站点类型
+		setStationList('station_info', 'Station');		
+		// 设置可选管理员类型
+		setTypeList('admin_type', 'Type');
+		// 设置账户权限组
+		setTypeList('admin_grant_group', 'Group');
+	}
+
+	// 初始化数据列表
+	function initDataTable() {	
+		var vTable = $(".aspTable").dataTable({
+			"bSort": true,
+			"bAutoWidth": true,
+			"bFilter": true,
+			"searching": false,
+			"bInfo": true,//页脚信息
+			"bPaginate": true, //翻页功能
+			"bLengthChange": true, //改变每页显示数据数量
+			"bStateSave": false,	//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+			"sPaginationType": "full_numbers", //显示数字的翻页样式"
+			"aLengthMenu": [[5, 10, 25, 50, -1],[5, 10, 25, 50, '所有']],	// 可分页的数量值与显示
+			"isDisplayLength": 5,	// 当前每页显示数量
+			"oLanguage": {
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+				"sZeroRecords": "抱歉， 没有找到",
+				"sInfo": "从 _START_ 到 _END_ / 共 _TOTAL_ 条数据",
+				"sInfoEmpty": "没有数据",
+				"sInfoFiltered": "(从_MAX_条数据中检索)",
+				"oPaginate": {
+					"sFirst": "首页",
+					"sPrevious": "前一页",
+					"sNext": "后一页",
+					"sLast": "尾页"
+				},
+				"sZeroRecords": "没有检索到数据",
+				"sProcessing": "<src='__PUBLIC__/images/loader.gif' />",
+			},
+			//Ajax获取信息
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "{$ajaxReqUrl}",
+			//如果加上下面这段内容，则使用post方式传递数据
+			"fnServerData": getPageData,
+			"aoColumns": dataTablesBindCols(),
+			"aoColumnDefs": [{"sDefaultContent": "", "aTargets": ["_all"]}],
+		});
+		return vTable;
+	}
+
+	// 绑定列
+	function dataTablesBindCols() {
+		var cols = new Array();
+		cols = [
+				{"mData": "id", "aTargets": [0]},
+				{"mData": "account", "aTargets": [1]},
+				{"mData": "nickname", "aTargets": [2]},
+				{"mData": "station_id_name", "aTargets": [3]},
+				{"mData": "type_id_type_desc", "aTargets": [4], "fnCreatedCell": replaceContent},
+				{"mData": "grant_group_id_type_desc", "aTargets": [5], "fnCreatedCell": replaceContent},
+				{"mData": "tel", "aTargets": [6]},
+				{"mData": "email", "aTargets": [7]},
+				{"mData": "forbidden_show_text", "aTargets": [8], "fnCreatedCell": replaceContent},
+				{"mData": "last_login_time", "aTargets": [9]},
+				{"mData": "last_login_ip", "aTargets": [10]},
+			];	//$_GET[‘sColumns’]将接收到aoColumns传递数据
+			
+		if ('{$grant_update}' == true || '{$grant_delete}' == true) {			
+			cols[cols.length] =	{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [11], "fnCreatedCell": appendLastCol};
+		}
+		return cols;
+	}
+
+	//Ajax获取数据
+	function getPageData ( sSource, aoData, fnCallback ) {
+		showLoading(true);
+		var typeObj = '{$typeObj}';
+		aoData.push({'name':'type_obj','value':typeObj});
+		aoData.push({'name':'op_type','value':'list'});
+		aoData.push({'name':'cds','value':$('#find_val').val()});
+//		alert(JSON.stringify(aoData));
+		pageRequestData = aoData;
+		$.post(sSource, aoData, function(data,status){
+//				alert(JSON.stringify(data));
+				if (data['result']['errno'] == 0) {
+					fnCallback(data);
+				} else {
+					alert(data['result']['message']);
+				}			
+				showLoading(false);
+			},'JSON');
+	}
+	
+	// 内容替换
+	function replaceContent(nTd, sData, oData, iRow, iCol) {
+		if (iCol == 4) {
+			$(nTd).html(oData['type_id_type_desc']);	
+		} else if (iCol == 5) {
+			$(nTd).html(oData['group_id_type_desc']);	
+		} else if (iCol == 8) {
+			$(nTd).html(oData['forbidden_show_text']);	
+		}
+	}
+
+	// 添加最后一列控件
+	function appendLastCol(nTd, sData, oData, iRow, iCol) {
+//		alert(nTd+'|'+JSON.stringify(sData)+'|'+JSON.stringify(oData)+'|'+iRow+'|'+iCol);
+		var id = parseInt(oData['id']);
+//    	$(nTd).html('<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_editFun('+id+')">编辑</a>');
+//    	$(nTd).append('<a href="#" class="btn btn-danger btn-sm btn-icon icon-left" onclick="_deleteFun('+id+')">删除</a>');
+    		
+//    	alert('{$grant_update}');
+    	var html = '';
+    	if ('{$grant_forbid}' == true) {
+	    	if (typeof(oData['show_forbid_button']) == 'undefined') {
+	    		var show_text = '禁用', btn_class='danger';
+	    		if (oData['forbidden'] == 1) {
+	    			show_text = '启用', btn_class='secondary';
+	    		}
+	    		
+	    		html += '<a href="#" class="btn btn-'+btn_class+' btn-sm btn-icon icon-left" onclick="_forbidFun('+id+')">'+show_text+'</a>';	
+	    	}
+    	}
+    	html += '<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_infoFun('+id+')">详细</a>';
+    	if ('{$grant_update}' == true) {
+    		html += '<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_editFun('+id+')">编辑</a>';
+    	} 
+    	
+    	if ('{$grant_delete}' == true && typeof(oData['show_delete_button']) == 'undefined') {
+    		html += '<a href="#" class="btn btn-danger btn-sm btn-icon icon-left" onclick="_deleteFun('+id+')">删除</a>';
+    	}
+    	$(nTd).html(html);
+	}
+
+	/**
+	* 创建类型
+	* @private
+	*/
+	function _addFun() {
+		// 绑定创建回调函数
+		bindModalDataEditConfirmEvent(_addFunAjax);
+		// 显示窗口
+		showModalDataEdit();
+	}
+	 
+	/**
+	* 添加数据
+	* @private
+	*/
+	function _addFunAjax(ds) {
+		console.log(JSON.stringify(ds));
+		if (ds['Account'] == '' || ds['Password'] == '') {
+			alert('账户或者密码不能为空');
+			return false;
+		}
+		if (ds['Type'] == null || ds['Group'] == null) {
+			alert('类型和权限不能为空');
+			return false;
+		}
+		var jsonData = {
+			'type_obj':'{$typeObj}', 
+			'op_type': 'create',
+		    'data': {
+		    	'account': ds['Account'],	
+		    	'password': ds['Password'],	
+		    	'nickname': ds['Nickname'],	
+		    	'tel': ds['Tel'],	
+		    	'email': ds['Email'],
+		    	'station_id': ds['Station'],
+		    	'type_id': ds['Type'],	
+		    	'group_id': ds['Group'],
+		    }
+		};
+		
+		$.post('{$ajaxReqUrl}',jsonData,
+		function(backdata,status) {
+//	    	alert(JSON.stringify(backdata));
+			console.log(JSON.stringify(backdata));
+	        if (backdata['result']['errno'] == 0) {
+	            hideModalDataEdit();
+	            myTable.fnReloadAjax(myTable.fnSettings());
+	        } else {
+//	            alert(backdata['result']['message']);
+				setModalDataEditTips(backdata['result']['message']);
+	        }
+		});
+	}
+
+	// 弹出编辑数据界面
+	function _editFun(aid) {	
+		var typeObj = '{$typeObj}';
+		$.post('{$ajaxReqUrl}',
+			{type_obj:typeObj, op_type:'find', id:aid},
+			function(data,status){
+				if (data['result']['errno'] == 0) {			
+					// 填充数据		
+					var ds = {
+						'elmt': [
+							{id:'Id', value:data['data']['id']},
+							{id:'Account', value:data['data']['account']},
+							{id:'Password', value:data['data']['password']},
+							{id:'Nickname', value:data['data']['nickname']},
+							{id:'Tel', value:data['data']['tel']},
+							{id:'Email', value:data['data']['email']},
+							{id:'Station', value:data['data']['station_id']},
+							{id:'Type', value:data['data']['type_id']},
+							{id:'Group', value:data['data']['group_id']},
+						]
+					};			
+					setModalDataEditInputValues(ds);	
+					// 超管特殊处理
+					var bind = 'unbind';
+					if (data['data']['account'] == 'admin') {
+						bind = 'bind';
+					}
+					var attr = {
+						'elmt': [
+							{id: 'Station', attr:[{op: bind, name:'disabled', value:'disabled'}]},
+							{id: 'Type', attr:[{op: bind, name:'disabled', value:'disabled'}]},
+							{id: 'Group', attr:[{op: bind,name:'disabled', value:'disabled'}]},
+						]
+					}
+					// 绑定控件是否可用
+					bindModalDataEditInputAttr(attr);
+					// 绑定编辑回调函数
+					bindModalDataEditConfirmEvent(_editFunAjax);
+					// 显示窗口
+					showModalDataEdit();
+				} else {
+					alert(data['result']['message']);					
+				}
+			});	
+	}
+	
+	// 禁用账户
+	function _forbidFun(aid) {
+		var jsonData = {
+			'type_obj':'{$typeObj}', 
+			'op_type': 'forbid',
+			'id' : aid,
+		};
+		
+	    $.post('{$ajaxReqUrl}',jsonData,
+		    function(backData,status){
+//		    	console.log(JSON.stringify(backData));
+		    	if (backData['result']['errno']==0){
+		            myTable.fnReloadAjax(myTable.fnSettings());
+		    	} else {
+					alert(backData['result']['message']);
+		    	}
+		    });
+	}
+	
+	// 详细信息按钮
+	function _infoFun(aid) {
+		$.post('{:U("admin/info")}', {op_type:'url', id:aid}, function(data){
+			if (typeof('jumpUrl') != 'undefined') {
+				location.href = data.jumpUrl;
+			} else {
+				alert(data.result.message);
+			}
+		})
+	}
+
+	function _editFunAjax(ds) {
+		if (ds['Account'] == '' || ds['Password'] == '') {
+			alert('账户或者密码不能为空');
+			return false;
+		}
+		
+		if (ds['Type'] == null || ds['Group'] == null) {
+			alert('类型和权限不能为空');
+			return false;
+		}
+		
+		var jsonData = {
+			'type_obj':'{$typeObj}', 
+			'op_type': 'edit',
+			'cd' : {'id': ds['Id']},
+			'data' : {
+//		    	'account': ds['Account'],	// 账户不能改变
+		    	'password': ds['Password'],	
+		    	'nickname': ds['Nickname'],	
+		    	'tel': ds['Tel'],	
+		    	'email': ds['Email'],
+		    	'station_id': ds['Station'],		
+		    	'type_id': ds['Type'],	
+		    	'group_id': ds['Group'],	
+			},
+		};
+//		console.log(JSON.stringify(jsonData));
+	    $.post('{$ajaxReqUrl}',jsonData,
+		    function(backData,status){
+//		    	console.log(JSON.stringify(backData));
+		    	if (backData['result']['errno']==0){
+		    		hideModalDataEdit();
+		            myTable.fnReloadAjax(myTable.fnSettings());
+		    	} else {
+//					alert(backData['result']['message']);
+		    		setModalDataEditTips(backData['result']['message']);
+		    	}
+		    });
+	} 	 
+
+	/**
+	* 删除
+	* @param id
+	* @private
+	*/
+	function _deleteFun(aid) {
+		if (!confirm("您确定要删除id=["+aid+"]该条类型记录吗？")) {
+			return false;
+		}
+		var typeObj = '{$typeObj}';
+		$.post('{$ajaxReqUrl}',
+			{type_obj:typeObj, op_type:'delete', id:aid},
+			function(data,status){
+	        	if(data['result']['errno'] == 0){
+					myTable.fnReloadAjax(myTable.fnSettings());
+				} else {
+					alert(data['result']['message']);	
+				}
+			});	
+	}
+
+	/*
+	add this plug in
+	// you can call the below function to reload the table with current state
+	Datatables刷新方法
+	oTable.fnReloadAjax(oTable.fnSettings());
+	*/
+	$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings) {
+		//oSettings.sAjaxSource = sNewSource;
+		this.fnClearTable(this);
+		this.oApi._fnProcessingDisplay(oSettings, true);
+		var that = this;
+
+		$.getJSON(oSettings.sAjaxSource, null, function (json) {
+		    /* Got the data - add it to the table */
+		    for (var i = 0; i < json.aaData.length; i++) {
+		        that.oApi._fnAddData(oSettings, json.aaData[i]);
+		    }
+		    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+		    that.fnDraw(that);
+		    that.oApi._fnProcessingDisplay(oSettings, false);
+		});
+	}
+	
+</script>

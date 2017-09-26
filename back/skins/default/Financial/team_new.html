@@ -1,0 +1,2728 @@
+<include file="Common/header" />
+	<style type="text/css">		
+		.dataTables_wrapper .table thead > tr .sorting:before, .dataTables_wrapper .table thead > tr .sorting_asc:before, .dataTables_wrapper .table thead > tr .sorting_desc:before { content: ''; }
+		.create { position: relative; border: 1px solid #dcdcdc; margin-bottom:20px; padding: 15px; }
+		.create .row { margin-bottom:20px; }
+		.create-write .input-group { height: 36px; }
+		.create-write input { width: 100%; height: 36px; }
+		.input-group-addon { padding: 4px 40px; }
+		.btn-save { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		.btn-clear { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		
+		.row{margin-left:0px;}
+		.panel-body .table .btn{margin-bottom:0px;padding:0px 10px;width:70px;}
+		.panel-body .name .col-xs-2{padding-top:5px;}
+		.panel-body .table1{margin-top:20px;}
+		.panel-body .table1 thead tr th,.panel-body .table2 thead tr th{height:50px;padding-bottom:15px;text-align: center;}
+		.panel-body .table1 tr td,.panel-body .table2 tr td{text-align: center;padding-left:0px;padding-right:0px;}
+		.panel-body .confirm .col-xs-1{padding:0px;}
+		.edit .panel-body .col-xs-4,.edit .panel-body .col-xs-4 .col-xs-9,.edit .panel-body .col-xs-4 .col-xs-10{padding-left:10px;padding-right:0px;}
+		.edit .panel-body .col-xs-12{margin:10px 0px;padding-left:10px;padding-right:0px;}
+		.edit .panel-body .col-xs-12 .col-xs-11{padding-left:8px;padding-right:0px;}
+		.edit .panel-body .col-xs-6{padding-left:10px;padding-right:0px;}
+		.edit .panel-body .col-xs-6 .col-xs-10{padding-left:10px;}
+	</style>
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	
+	<!--信息录入创建-->
+	<div class="row">
+		<div class="col-sm-12">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">团期录入</h3><h5 class="team_code" style="margin-left:75px; margin-top: 4px; color: red;"></h5>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">			
+				<!--在此地编辑内容-->
+					<!--创建优惠券-->
+					<div class="create">
+						<div class="create-write" data-id="{$team.id}">							
+							<div class="row">							
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">最大容纳人数</i>
+										</div>
+										<input type="text" class="form-control data_max_member" />
+									</div>
+								</div>
+								<div class="col-md-2">
+									<label>小包团团期</label>
+									<input type="checkbox" class="iswitch iswitch-secondary data_is_team" />
+								</div>					
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">团期收费</i>
+										</div>
+										<input type="number" class="form-control data_team_money" value="0.00" placeholder="出团中领队或地接收客人的尾款，用于冲抵团款，默认0元" />
+									</div>
+								</div>	
+							</div>
+												
+							<div class="row module_line">
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">产品</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){
+												var voption = {obj:$('.data_line'), search:1, placeholder: '请选择线路', show_col:'title', select_col:'title'};
+												var vds = {tab:'line', search_col: 'title', cdsstr: 'invalid|=|0|AND', cdtype:4}
+												var line = new MySelect2(voption, vds);
+											});
+										</script>
+										<input type="text" class="form-control data_line" >
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">批次</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){
+												function batchDynamicConds() {
+													var selstr = getSelect2Value('.data_line', ['id','title']);
+													var selLine = $.parseJSON(selstr);
+													return 'line_id|=|'+selLine['id']+'|AND';
+												}
+												function batchShowText(data) {
+													var st = data['start_time'].split(' ')[0];
+													var et = data['end_time'].split(' ')[0];
+													return st + ' 至 ' + et;
+												}
+												var voption = {obj:$('.data_batch'), search:1, placeholder: '请选择批次', show_col:batchShowText, select_col:batchShowText};
+												var vds = {tab:'batch', cdtype:4, func_dynamic_conds: batchDynamicConds, sort:'start_time|desc', search_col:'start_time'}
+												var batch = new MySelect2(voption, vds);
+											});
+										</script>
+										<input type="text" class="form-control data_batch" >
+									</div>
+								</div>
+							</div>
+						
+							<div class="row module_team hidden_ctrl">
+								<div class="col-md-6">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">包团名称</i>
+										</div>
+										<script type="text/javascript">
+											function changeTeamOrder(ev) {
+												var teamstr = getSelect2Value($('.data_team_line'), ['id','title','meet_time']);
+												if (teamstr != null && teamstr != '') {
+													var team = $.parseJSON(teamstr);
+													$('.data_team_batch').val(team.meet_time);
+												}
+											}
+										
+											$(document).ready(function(){
+												var voption = {obj:$('.data_team_line'), search:1, placeholder: '请选择线路', show_col:'title', select_col:'title', func_select_changed:changeTeamOrder};
+												var vds = {tab:'team_group', search_col: 'title', cdsstr: 'dispose_state_id|=|19', cdtype:4}
+												var line = new MySelect2(voption, vds);
+											});
+										</script>
+										<input type="text" class="form-control data_team_line" >
+									</div>
+								</div>						
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">集合时间</i>
+										</div>
+										<input type="text" class="form-control data_team_batch" readonly />
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">负责计调</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){
+												bindAdminDropMenu($('.data_admin'), 'operator', '点击选择计调或者输入关键字查询');
+											});
+										</script>
+										<input type="text" class="form-control data_admin">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">负责领队</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){
+												function leaderShowText(data) {
+													if (data.name == '' || data.name == null) {
+														return data.name;
+													} else if (data.nickname == '' || data.nickname == null) {
+														return data.nickname;
+													} else if (data.stagename == '' || data.stagename == null) {
+														return data.stagename;
+													} else {
+														return '';
+													}
+												}
+												var voption = {obj:$('.data_leader'), search:1, placeholder: '点击选择领队或者输入关键字查询', show_col:'name', select_col:'name'};
+												var vds = {tab:'cj_leader', search_col: 'name|nickname|stagename', cdsstr: 'invalid|=|0|AND', cdtype:4}
+												var line = new MySelect2(voption, vds);
+											});
+										</script>
+										<input type="text" class="form-control data_leader">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">负责地接社</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){																
+												var voption = {obj:$('.data_agency_dijie'), search:1, placeholder: '请选择地接社', show_col:'name', select_col:'name'};
+												var vds = {tab:'cj_agency', search_col: 'name', cdsstr: 'invalid|=|0|AND|agency_type|LIKE|%cj_agency_type_dijie%|AND', cdtype:4}
+												var select2TeamSourceObj = new MySelect2(voption, vds);
+											});
+										</script>
+										<input type="text" class="form-control data_agency_dijie">
+										<span class="input-group-btn">
+	        								<button class="btn btn-default btn_agency_dijie_append" type="button" style="border:1px solid #ccc; height: 37px;"><span class="glyphicon glyphicon-pencil"></span></button>
+	      								</span>
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">负责保险</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){																
+												var voption = {obj:$('.data_insurance'), search:1, placeholder: '请选择保险公司', show_col:'name', select_col:'name'};
+												var vds = {tab:'cj_insurance', search_col: 'name', cdsstr: 'invalid|=|0|AND', cdtype:4}
+												var select2TeamInsuranceObj = new MySelect2(voption, vds);
+											});
+										</script>
+										<input type="text" class="form-control data_insurance">
+										<span class="input-group-btn">
+	        								<button class="btn btn-default btn_insurance_append" type="button" style="border:1px solid #ccc; height: 37px;"><span class="glyphicon glyphicon-pencil"></span></button>
+	      								</span>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">备注</i>
+										</div>
+										<input type="text" class="form-control data_beizhu" placeholder="请输入需要备注的内容">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<button class="btn btn-save">保存团期</button>	
+							</div>
+							
+						</div>
+					</div>					
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<script type="text/javascript">
+		// 团期创建类型选择
+		$('.data_is_team').change(function(){			
+			if ($(this).prop('checked') ==  false) {
+				$('.module_team').addClass('hidden_ctrl');
+				$('.module_line').removeClass('hidden_ctrl');
+			} else {
+				$('.module_line').addClass('hidden_ctrl');
+				$('.module_team').removeClass('hidden_ctrl');
+			}
+		});
+	
+		// 初始化团期
+		function initTeam() {
+			$('.team_code').html('团期编号:[{$team.team_code}]');
+			$('.data_is_team').prop('checked', '{$team.is_team}' == '1' ? true : false).trigger('change');
+			if ('{$team.is_team}' == '0') {
+				setSelect2Value($('.data_line'), '{$team.line}');
+				setSelect2Value($('.data_batch'), '{$team.batch}');	
+			} else {
+				setSelect2Value($('.data_team_line'), '{$team.line}');
+				$('.data_team_batch').val('{$team.line_data.meet_time}');
+			}
+			$('.data_max_member').val('{$team.max_member}');
+			$('.data_team_money').val('{$team.team_money}');
+			setSelect2Value($('.data_leader'), '{$team.leader}');
+			setSelect2Value($('.data_admin'), '{$team.admin}');
+			setSelect2Value($('.data_agency_dijie'), '{$team.dijie}');
+			setSelect2Value($('.data_insurance'), '{$team.insurance}');
+			$('.data_beizhu').val('{$team.beizhu}');
+		}
+		
+		$(document).ready(function(){
+			if ('{$team.id}' != '') {
+				initTeam();
+			}	
+		});
+					
+		// 编辑创建地接社						
+		$('.btn_agency_dijie_append').click(function(){
+			window.open('{:U("financial/source")}/src/agency');	
+		});
+					
+		// 编辑创建保险公司						
+		$('.btn_insurance_append').click(function(){
+			window.open('{:U("financial/source")}/src/insurance');	
+		});
+		
+		// 创建团期
+		function createTeam(jsonData) {
+			showLoading(true);
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				showLoading(false);
+				if (data.result.errno == 0) {		
+					if (data.ds != null) {
+						$('.create-write').attr('data-id', data.ds.id);
+						$('.team_code').html('团期编号:['+data.ds.team_code+']');
+						toastr.success('团期保存成功，团期编号为:'+data.ds.team_code);	
+					} else {
+						toastr.success('团期保存成功');
+					}
+				} else {
+					if (data.result.errno == 1) {
+						if (confirm(data.result.message) != false) {
+							jsonData['force'] = 1;
+							createTeam(jsonData);
+						}
+					} else {
+						toastr.error(data.result.message);	
+					}
+				}
+			});
+		}
+	
+		// 生成或者保存团期
+		$('.btn-save').click(function(){
+			var jsonData = {
+				op_type: 'save',
+				id: $('.create-write').attr('data-id'),
+				is_team: $('.data_is_team').prop('checked') ==  false ? 0 : 1,
+				admin: getSelect2Value($('.data_admin'), ['id', 'account', 'nickname']),
+				leader: getSelect2Value($('.data_leader'), ['id', 'name', 'nickname', 'stagename']),
+				dijie: getSelect2Value($('.data_agency_dijie'), ['id', 'name']),
+				insurance: getSelect2Value($('.data_insurance'), ['id', 'name']),
+				max_member: $('.data_max_member').val(),
+				team_money: $('.data_team_money').val(),
+			}
+			if (jsonData.is_team == 0) {				
+				jsonData['line'] = getSelect2Value($('.data_line'), ['id', 'title']);
+				jsonData['batch'] = getSelect2Value($('.data_batch'), ['id', 'start_time', 'end_time']);
+			} else {
+				jsonData['line'] = getSelect2Value($('.data_team_line'), ['id', 'title', 'meet_time']);
+				jsonData['batch'] = jsonData['line'];
+			}
+			
+			createTeam(jsonData);
+		});
+	</script>
+	
+	<!--参团人编辑创建-->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">编辑参团人</h3>
+						<button type="button" class="btn btn-info btn-sm btn-lock-order" style="padding: 1px 5px; margin-left:10px;">锁定订单</button>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">		
+				<!--在此地编辑内容-->
+					<div class="row name">
+						<div class="col-xs-4 row">
+							<div class="col-xs-2">产品：</div>
+							<div class="col-xs-10 input-group">							
+								<script type="text/javascript">
+									$(document).ready(function(){
+										function changeLine(ev) {
+											setSelect2Value($('.data_member_batch'), null);
+											setSelect2Value($('.data_member_order'), null);
+										}
+										var voption = {obj:$('.data_member_line'), search:1, placeholder: '请选择线路', show_col:'title', select_col:'title', func_select_changed:changeLine};
+										var vds = {tab:'line', search_col: 'title', cdsstr: 'invalid|=|0|AND', cdtype:4, sort:'id:desc'}
+										var member_line = new MySelect2(voption, vds);
+									});
+								</script>
+								<input type="text" class="form-control data_member_line" >	
+								<span class="input-group-btn">
+    								<button class="btn btn-default btn_order_find_clear" type="button" style="border:1px solid #ccc; height: 37px;"><span class="fa-close"></span></button>
+  								</span>							
+							</div>
+						</div>
+						<div class="col-xs-4 row">
+							<div class="col-xs-2">批次：</div>
+							<div class="col-xs-10 input-group">
+								<script type="text/javascript">
+									$(document).ready(function(){
+										function batchDynamicConds() {
+											var selstr = getSelect2Value('.data_member_line', ['id','title']);
+											if (selstr == '' || selstr == null) {
+												return 'line_id|=|0|AND';	
+											} else {
+												var selLine = $.parseJSON(selstr);
+												return 'line_id|=|'+selLine['id']+'|AND';
+											}
+										}
+										function batchShowText(data) {
+											if (data.start_time != null && data.end_time != null) {
+												var st = data['start_time'].split(' ')[0];
+												var et = data['end_time'].split(' ')[0];
+												return st + ' 至 ' + et;	
+											} else {
+												return '';
+											}
+										}
+										function changeBatch(ev) {
+											setSelect2Value($('.data_member_order'), null);
+										}
+										var voption = {obj:$('.data_member_batch'), search:1, placeholder: '请选择批次', show_col:batchShowText, select_col:batchShowText, func_select_changed:changeBatch};
+										var vds = {tab:'batch', cdtype:4, func_dynamic_conds: batchDynamicConds, search_col:'start_time', sort:'start_time|asc'}
+										var member_batch = new MySelect2(voption, vds);
+									});
+								</script>
+								<input type="text" class="form-control data_member_batch" >
+								<span class="input-group-btn">
+    								<button class="btn btn-default btn_order_find_clear" type="button" style="border:1px solid #ccc; height: 37px;"><span class="fa-close"></span></button>
+  								</span>								
+							</div>
+						</div>
+						<div class="col-xs-4 row">
+							<div class="col-xs-2">订单：</div>
+							<div class="col-xs-10 input-group">
+								<input type="text" class="form-control data_member_order" >	
+								<span class="input-group-btn">
+    								<button class="btn btn-default btn_order_find_clear" type="button" style="border:1px solid #ccc; height: 37px;"><span class="fa-close"></span></button>
+  								</span>								
+							</div>
+						</div>
+					</div>
+					<table class="table table1 table_order">
+						<thead>
+							<tr>
+								<th style="width: 130px;">产品名称</th>
+								<th style="width: 130px;">产品批次</th>
+								<th style="width: 200px;">订单编号</th>
+								<th style="width: 90px;">订单状态</th>
+								<th style="width: 90px;">姓名</th>
+								<th style="width: 90px;">类型</th>
+								<th style="width: 130px;">手机</th>
+								<th style="width: 230px;">证件</th>
+								<th style="width: 150px;">生日</th>
+								<th style="width: 260px;">备注<button style="float: right;" type="button" class="btn btn-info btn-sm btn-append-all-member">加入团期</button></th>
+								<!--<th><button style="float: right;" type="button" class="btn btn-info btn-sm btn-append-all-member">全部添加</button></th>-->
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					<div class="row">						
+						<div class="panel-heading">
+							<h3 class="panel-title">已确认参团人</h3>
+						</div>
+						<table class="table table2 table_team">
+							<thead>
+							<tr>
+								<th style="width: 130px;">产品名称</th>
+								<th style="width: 130px;">产品批次</th>
+								<th style="width: 200px;">订单编号</th>
+								<th style="width: 90px;">订单状态</th>
+								<th style="width: 90px;">姓名</th>
+								<th style="width: 90px;">类型</th>
+								<th style="width: 130px;">手机</th>
+								<th style="width: 230px;">证件</th>
+								<th style="width: 150px;">生日</th>
+								<th style="width: 260px;">备注</th>
+								<th><button style="float: right;" type="button" class="btn btn-danger btn-sm btn-remove-all-member">全部移除</button></th>
+							</tr>
+							</thead>
+							<tbody>
+								<volist id="m" name="team.members">
+									<tr data-id="{$m.id}" data-order-id="{$m.order_id}">
+										<td>{$m['order_id_data']['lineid_title']}</td>
+										<td>{$m['order_id_data']['hdid_start_date']}</td>
+										<td>{$m['order_id_data']['order_sn']}</td>
+										<td>{$m['order_id_data']['zhuangtai_data']['type_desc']}</td>
+										<td>{$m.name}</td>
+										<td>{$m.type_id_data.type_desc}</td>
+										<td>{$m.tel}</td>
+										<td>{$m.certificate_type_id_data.type_desc} {$m.certificate_num}</td>
+										<td>{$m.birthday}</td>
+										<td>{$m.beizhu}</td>
+										<td>
+											<button style="float: right;" class="btn btn-warning btn-sm btn-remove-member">移除</button>
+											<button style="float: right;" class="btn btn-secondary btn-sm btn-order-info">订单</button>												
+										</td>
+									</tr>
+								</volist>
+							</tbody>
+						</table>
+					</div>	
+					<div class="row">					
+						<div class="col-xs-6 row">
+							<p style="border-top: 1px solid #eee; width: 300px; padding-top: 10px;">
+								<span style="color: red; font-size: 18px">团期人数：<b class="order_member_count">{:count($team['members'])}</b>人</span><br />
+							</p>
+						</div>				
+						<div class="col-xs-6 row">
+							<p style="float: right; text-align: right; border-top: 1px solid #eee; width: 300px; padding-top: 10px;">
+								<span style="color: red; font-size: 18px">已收团款：<b class="order_pay_money">{$team.order_money.pay}</b>元</span><br />
+								<span style="color: red; font-size: 18px">尾款：<b class="order_sub_money">{$team['order_money']['sub']}</b>元</span><br />
+								<span style="color: red; font-size: 18px">总团款：<b class="order_sum_money">{$team.order_money.need}</b>元</span><br />
+							</p>
+						</div>
+					</div>				
+					<!--结束面板-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		// 选择订单
+		function changeOrder(ev) {
+			if (ev.data == null || ev.data.obj == null) {
+				console.log('订单绑定的对象错误');
+				return false;
+			}
+			var thisObj = ev.data.obj;
+			var orderstr = getSelect2Value($('.data_member_order'), ['id','zhuangtai']);
+			var order = $.parseJSON(orderstr);
+			
+			var jsonData = {
+				op_type: 'list',
+				cdsstr: 'order_id|=|'+order.id+'|AND|team_id|=|0|AND',
+			}
+			
+			if (order.zhuangtai != 13) {
+				jsonData['cdsstr'] += '|exit|=|0|AND';
+			}
+			
+			$('.table_order').find('tbody').children().remove();
+			$.post('{:U("order/member")}', jsonData, function(data){
+				if (data.ds != null) {
+					var title = '', startDate = '', orderSN = '', orderState = '';
+					var orderstr = getSelect2Value('.data_member_order', ['id', 'order_sn', 'zhuangtai']);
+					if (orderstr != null && orderstr != '') {
+						var order = $.parseJSON(orderstr);
+						var stateMap = {'state_1':'已审核', 'state_2':'已付全款', 'state_3':'无效', 'state_4':'已取消', 'state_5':'替补', 'state_6':'付款中', 'state_7':'已付预付款', 'state_8':'已付全款', 'state_9':'退款中', 'state_10':'已付部分款', 'state_11':'信息变更申请中', 'state_12':'等待退款', 'state_13':'退团', 'state_14':'忒多了，呵呵', 'state_15':'已完成', 'state_28':'取消行程', 'state_29':'未审核'}
+						orderSN = order.order_sn;
+						orderState = stateMap['state_'+order.zhuangtai];
+						if (order.order_sn.indexOf('YD-') == 0) {
+							var teamstr = getSelect2Value('.data_team_line', ['id', 'title', 'meet_time']);
+							if (teamstr != null && teamstr != '') {
+								var team = $.parseJSON(teamstr);
+								title = team.title;
+								startDate = team.meet_time;
+							}
+						} else {
+							var linestr = getSelect2Value('.data_member_line', ['id','title']);
+							if (linestr != null && linestr != '') {
+								var line = $.parseJSON(linestr);
+								title = line.title;
+							}
+							var batchstr = getSelect2Value('.data_member_batch', ['id', 'start_time']);
+							if (batchstr != null && batchstr != '') {
+								var batch = $.parseJSON(batchstr);
+								startDate = batch.start_time.split(' ')[0];
+							}
+						}
+					}
+					for (var i = 0; i < data.ds.length; i ++) {
+						var d = data.ds[i];
+						var vhtml = '<tr data-id="'+d.id+'" data-order-id="'+d.order_id+'">'+
+									'	<td>'+title+'</td>'+
+									'	<td>'+startDate+'</td>'+
+									'	<td>'+orderSN+'</td>'+
+									'	<td>'+orderState+'</td>'+
+									'	<td>'+d.name+'</td>'+
+									'	<td>'+d.type_id_data.type_desc+'</td>'+
+									'	<td>'+d.tel+'</td>'+
+									'	<td>'+d.certificate_type_id_data.type_desc+' '+d.certificate_num+'</td>'+
+									'	<td>'+d.birthday+'</td>'+
+									'	<td>'+d.beizhu+'</td>'+
+//									'	<td><button style="float: right;" type="button" class="btn btn-secondary btn-sm btn-append-member">添加</button></td>'+
+									'</tr>';
+						$('.table_order').find('tbody').append(vhtml);
+					}
+//					$('.table_order').find('.btn-append-member').click(appendMember);
+				} else {
+					toastr.warning('没有参团人信息');
+				}
+			});
+		}
+		
+		// 锁定订单
+		$('.btn-lock-order').click(function(){			
+			var jsonData = {
+				op_type: 'lock_order',
+			}
+			var linestr = getSelect2Value('.data_member_line',['id']);
+			var batchstr = getSelect2Value('.data_member_batch',['id']); 
+			if (linestr != '' && batchstr != '') {
+				var line = $.parseJSON(linestr);
+				var batch = $.parseJSON(batchstr);
+				jsonData['lineid'] = line['id'];
+				jsonData['hdid'] = batch['id'];
+			} else {
+				var orderstr = getSelect2Value('.data_member_order', ['id']);
+				if (orderstr == '') {
+					toastr.warning('请先选择批次或者订单');
+					return false;
+				}
+				var order = $.parseJSON(orderstr);
+				jsonData['id'] = order['id'];
+			}
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result.errno != 0) {
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}
+			});
+		});
+		
+		// 添加参团人
+		function appendMember() {
+			var teamId = $('.create-write').attr('data-id');		
+			if (teamId == '') {
+				toastr.warning('还没有创建团期，请先创建团期在添加参团人员');
+				return false;
+			}
+			
+			var orderstr = getSelect2Value('.data_member_order', ['id', 'zhuangtai']);
+			if (orderstr == null || orderstr == '') {
+				toastr.warning('请选择线路、批次、订单');
+				return false;
+			}
+			var order = $.parseJSON(orderstr);
+			
+			var trObj = $(this).closest('tr');
+			var jsonData = {
+				op_type: 'member',
+				op: 'add',
+				team_id: teamId,
+				member_id: $(trObj).attr('data-id'),
+				incluede_exit: order.zhuangtai == 13 ? 1 : 0,
+			}
+			
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					$(trObj).find('td:last').remove();
+					var vthml = '<td>'+
+								'	<button style="float: right;" class="btn btn-warning btn-sm btn-remove-member">移除</button>'+
+								'	<button style="float: right;" class="btn btn-secondary btn-sm btn-order-info">订单</button>' +
+								'</td>'
+					$(trObj).append(vthml)
+					$(trObj).find('.btn-remove-member').click(removeMember);
+					$(trObj).find('.btn-order-info').click(orderInfo);
+					$('.table_team').find('tbody').append(trObj);
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);	
+				}				
+			});
+		}
+		
+		// 绑定添加参团人事件
+		$('.btn-append-member').click(appendMember);
+		
+		// 绑定添加全部参团人事件
+		$('.btn-append-all-member').click(function(){
+			var teamId = $('.create-write').attr('data-id');		
+			if (teamId == '') {
+				toastr.warning('还没有创建团期，请先创建团期在添加参团人员');
+				return false;
+			}
+			
+			var orderstr = getSelect2Value('.data_member_order', ['id', 'zhuangtai']);
+			if (orderstr == null || orderstr == '') {
+				toastr.warning('请选择线路、批次、订单');
+				return false;
+			}
+			var order = $.parseJSON(orderstr);
+			
+			var ids = '';
+			var memberCount = $('.table_order').find('tbody tr').length;
+			if (order.id != null && order.id != '' && memberCount == 0) {
+				toastr.warning('没有可供添加的参团人');
+				return false;
+			}
+			
+			console.log(JSON.stringify(order));
+			var jsonData = {
+				op_type: 'member',
+				op: 'add',
+				team_id: teamId,
+				order_id: order.id,
+				include_exit: order.zhuangtai == 13 ? 1 : 0,
+			}
+			showLoading(true, '请求已经提交，请耐心等待......');
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				showLoading(false);
+				if (data.result.errno == 0) {					
+					// 将上面数据添加到下面
+					$('.table_order').find('tbody tr').each(function(i, el){
+						var vthml = '<td>'+
+									'	<button style="float: right;" class="btn btn-warning btn-sm btn-remove-member">移除</button>'+
+									'	<button style="float: right;" class="btn btn-secondary btn-sm btn-order-info">订单</button>' +
+									'</td>'
+						$(this).append(vthml)
+						$(this).find('.btn-remove-member').click(removeMember);
+						$(this).find('.btn-order-info').click(orderInfo);
+						$('.table_team').find('tbody').append(this);
+					});
+					
+					// 重新计算订单金额
+					if (data.order_money != null) {
+						console.log(JSON.stringify(data.order_money));
+						$('.order_pay_money').html(data.order_money.pay);
+						$('.order_sub_money').html(data.order_money.sub);
+						$('.order_sum_money').html(data.order_money.need);	
+					}
+					// 重新计算人数
+					$('.order_member_count').html($('.table_team').find('tbody tr').length);
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);	
+				}				
+			});
+		});
+		
+		// 移除参团人
+		function removeMember() {
+			var teamId = $('.create-write').attr('data-id');		
+			if (teamId == '') {
+				toastr.warning('还没有创建团期，请先创建团期在添加参团人员');
+				return false;
+			}
+			
+			if (confirm('您确定要移除该参团人员') == false) {
+				return false;
+			}
+						
+			var trObj = $(this).closest('tr');
+			var orderId = $(trObj).attr('data-order-id');
+			var trObjs = $('.table_team').find('tbody').find('tr[data-order-id="'+orderId+'"]');
+			var jsonData = {
+				op_type: 'member',
+				op: 'remove',
+				order_id: orderId,
+			}
+			showLoading(true, '请求已经提交，请耐心等待......');
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				showLoading(false);
+				if (data.result.errno == 0) {
+					// 如果团期人员属于当前被选订单，添加到上面
+					var order = null;			
+					var orderstr = getSelect2Value($('.data_member_order'), ['id']);											
+					if (orderstr != '{}' && orderstr != '') {
+						order = $.parseJSON(orderstr);
+					}
+					
+					// 移除订单添加到上面的搜索订单中
+					var thisOrderId = $(trObj).attr('data-order-id');
+					if (order != null && thisOrderId == order.id) {
+						$(trObjs).find('td:last').remove();
+						
+//						$(trObjs).find('.btn-sm').removeClass('btn-remove-member').addClass('btn-append-member');
+//						$(trObjs).find('.btn-sm').removeClass('btn-warning').addClass('btn-secondary');
+//						$(trObjs).find('.btn-sm').html('添加');
+//						$(trObjs).find('.btn-sm').unbind();
+//						$(trObjs).find('.btn-sm').click(appendMember);
+						$('.table_order').find('tbody').append(trObjs);	
+					} else {
+						// 移除团期人员的
+						$(trObjs).remove();
+					}
+					
+					// 重新计算订单总额
+					if (data.order_money != null) {
+						console.log(JSON.stringify(data.order_money));
+						$('.order_pay_money').html(data.order_money.pay);
+						$('.order_sub_money').html(data.order_money.sub);
+						$('.order_sum_money').html(data.order_money.need);	
+					}
+					// 重新计算人数
+					$('.order_member_count').html($('.table_team').find('tbody tr').length);
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);	
+				}				
+			});
+		}		
+		// 绑定移除参团人事件
+		$('.btn-remove-member').click(removeMember);
+		
+		// 订单详细
+		function orderInfo() {
+			var trObj = $(this).closest('tr');
+			var orderId = $(trObj).attr('data-order-id');
+			window.open('{:U("order/info")}/id/'+orderId);
+		}
+		// 绑定查看订单详细事件
+		$('.btn-order-info').click(orderInfo);
+		
+		// 绑定移除全部参团人事件
+		$('.btn-remove-all-member').click(function(){	
+			var teamId = $('.create-write').attr('data-id');		
+			if (teamId == '') {
+				toastr.warning('还没有创建团期，请先创建团期在添加参团人员');
+				return false;
+			}
+					
+			var memberCount = $('.table_team').find('tbody tr').length
+			
+			if (teamId == '' || memberCount == 0) {
+				toastr.warning('没有可供移除的参团人');
+				return false;
+			}
+			
+			if (confirm('您确定要移除团期内的所有参团人员') == false) {
+				return false;
+			}
+			
+			var jsonData = {
+				op_type: 'member',
+				op: 'remove',
+				team_id: teamId,
+			}
+			
+			showLoading(true, '请求已经提交，请耐心等待......');
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				showLoading(false);
+				if (data.result.errno == 0) {
+					// 如果团期人员属于当前被选订单，添加到上面
+					var order = null;			
+					var orderstr = getSelect2Value($('.data_member_order'), ['id']);
+					if (orderstr != '{}' && orderstr != '') {
+						order = $.parseJSON(orderstr);	
+					}					
+					
+					// 移除订单添加到上面的搜索订单中
+					$('.table_team').find('tbody tr').each(function(i, el){
+						var thisOrderId = $(this).attr('data-order-id');
+						if (order != null && thisOrderId == order.id) {
+							$(this).find('td:last').remove();
+//							$(this).find('.btn-sm').removeClass('btn-remove-member').addClass('btn-append-member');
+//							$(this).find('.btn-sm').removeClass('btn-warning').addClass('btn-secondary');
+//							$(this).find('.btn-sm').html('添加');
+//							$(this).find('.btn-sm').unbind();
+//							$(this).find('.btn-sm').click(appendMember);
+							console.log('remove append:'+$(this)[0].tagName+' el:'+$(el)[0].tagName);
+							$('.table_order').find('tbody').append(this);
+						} else {
+							console.log('remove:'+$(this)[0].tagName+' el:'+$(el)[0].tagName);
+							$(this).remove();
+						}
+					});
+					
+					// 重新计算订单总额
+					if (data.order_money != null) {
+						$('.order_pay_money').html(data.order_money.pay);
+						$('.order_sub_money').html(data.order_money.sub);
+						$('.order_sum_money').html(data.order_money.need);	
+					}
+					// 重新计算人数
+					$('.order_member_count').html($('.table_team').find('tbody tr').length);
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}
+			});
+		});
+		
+		// 清除筛选订单条件
+		$('.btn_order_find_clear').click(function(){
+			setSelect2Value($('.data_member_line'), null);
+			setSelect2Value($('.data_member_batch'), null);
+			setSelect2Value($('.data_member_order'), null);
+		});
+		
+		// 订单动态条件
+		function batchDynamicConds() {
+			var linestr = getSelect2Value('.data_member_line', ['id']);
+			var batchstr = getSelect2Value('.data_member_batch', ['id']);
+			var lineId = '0', batchId = '0';
+			if (linestr != '' && linestr != null) {
+				lineId = $.parseJSON(linestr).id;
+			} 
+			if (batchstr != '' && batchstr != null) {
+				batchId = $.parseJSON(batchstr).id;
+			}
+			
+			if (lineId == '0' && batchId == '0') {
+				if ($('.data_is_team').prop('checked') == true) {
+					var teamstr = getSelect2Value($('.data_team_line'),['id','title','meet_time']);
+					if (teamstr != null && teamstr != '') {
+						var team = $.parseJSON(teamstr);
+						return 'lineid|=|'+team.id+'|AND|order_sn|LIKE|YD-%|AND';	
+					}
+				}	
+			}			
+			return 'lineid|=|'+lineId+'|AND|hdid|=|'+batchId+'|AND';
+		}
+		
+		// 订单显示内容
+		function orderShowText(data) {
+			var state = {'state1':'已审核','state2':'已付全款','state3':'无效','state4':'已取消','state5':'替补','state6':'付款中','state7':'已付预付款','state8':'已付全款','state9':'退款中','state10':'已付部分款','state11':'信息变更申请中','state12':'等待退款','state13':'退团','state14':'忒多了，呵呵','state15':'已完成','state28':'取消行程','state29':'未审核'};
+			if (data.team_id > 0 ) {
+				return data.order_sn+'[状态:'+state['state'+data.zhuangtai]+'][团编:'+data.team_id+']';
+			} else{
+				return data.order_sn+'[状态:'+state['state'+data.zhuangtai]+']';
+			}
+		}
+		
+		// 初始化订单参团人选择
+		$(document).ready(function(){
+			var voption = {obj:$('.data_member_order'), search:1, placeholder: '请选择订单', show_col:orderShowText, select_col:orderShowText, func_select_changed:changeOrder };
+			var vds = {tab:'lineenertname', prefix:'xz_', cdsstr:'order_sn|NOT LIKE|RQ-%|AND|zhuangtai|NOT IN|(3,4,5,28,29)|AND', cdtype:4, func_dynamic_conds: batchDynamicConds, sort:'start_time|desc', search_col:'start_time' }
+			var member_order = new MySelect2(voption, vds);
+		});
+	</script>
+	<!--资源编辑-->
+	<div class="row source_budget">
+		<div class="col-sm-12">
+			<div class="panel panel-default edit">
+				<div class="panel-heading">
+					<h3 class="panel-title">资源预算</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<!--在此地编辑内容-->
+					<div class="row name source_edit">
+						<div class="col-xs-4 row">
+							<div class="col-xs-12">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1">资源类型</span>
+									<input type="text" class="form-control data_source_type">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4 row">
+							<div class="col-xs-12">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon2">资源</span>
+									<input type="text" class="form-control data_source_obj" placeholder="请选择资源">
+									<span class="input-group-btn">
+        								<button class="btn btn-default btn_source_append" type="button" style="border:1px solid #ccc; height: 37px;"><span class="glyphicon glyphicon-pencil"></span></button>
+      								</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4 row">
+							<div class="col-xs-12">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon3">消费项</span>
+									<input type="text" class="form-control data_source_item" placeholder="请选择消费项">
+									<span class="input-group-btn">
+        								<button class="btn btn-default btn_item_append" type="button" style="border:1px solid #ccc; height: 37px;"><span class="glyphicon glyphicon-pencil"></span></button>
+      								</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 row">
+							<div class="col-xs-12">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon4">价格项</span>
+									<input type="text" class="form-control data_source_price" placeholder="请选择价格项">
+									<span class="input-group-btn">
+        								<button class="btn btn-default btn_price_append" type="button" style="border:1px solid #ccc; height: 37px;"><span class="glyphicon glyphicon-pencil"></span></button>
+      								</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 row">
+							<div class="col-xs-3">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon5">数量</span>
+									<input type="number" class="form-control data_source_num" placeholder="请输入数量" maxlength="4">
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon5">超支/多出</span>
+									<input type="number" class="form-control data_source_extra_money" placeholder="请输入超支或多出的金额。超支为正值，多出为负值">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 row">
+							<div class="col-xs-9">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon6">备注</span>
+									<input type="text" class="form-control data_source_beizhu" placeholder="请输入要备注的内容" >
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 row">
+							<button style="float: right;width:70px; margin-left: 20px;" type="button" class="btn btn-info btn-sm btn_source_clear">清空资源</button>
+							<button style="float: right;width:70px;" type="button" class="btn btn-primary btn-sm btn_source_save">保存资源</button>
+						</div>
+					</div>
+					
+					<div class="form-group-separator"></div>
+										
+					<table class="table table1 table_budget">
+						<thead>
+							<tr>
+								<th style="width: 40px;"><input type="checkbox" class="cbr cbr-replaced cbr-secondary check_all_budget" /></th>
+								<th style="width: 80px;">资源类型</th>
+								<th style="width: 200px;">资源名称</th>
+								<th style="width: 100px;">消费项</th>
+								<th style="width: 60px;">数量</th>
+								<th style="width: 500px;">价格</th>
+								<th style="width: 80px;">预算类型</th>
+								<th style="width: 110px;">超支</th>
+								<th style="width: 110px;">总价</th>
+								<th style="width: 500px;">备注</th>
+								<th style="width: 80px;">提审编号</th>
+								<th style="width: 110px;">提审状态</th>
+								<th><button style="float: right;margin-left:70px;" type="button" class="btn btn-warning btn-sm btn_source_remove_all">全部移除</button></th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist id="s" name="team.sources">
+								<tr class="source" data-id="{$s.id}" data-type="insurance" data-review-id="{$s.review_id}">
+									<if condition="empty($s['review_data'])">
+									<td class="source_check"><input type="checkbox" class="cbr cbr-replaced cbr-secondary" /></td>
+									<else />
+									<td></td>
+									</if>
+									<td class="source_type" data-obj-type-id="{$s.obj_type_data.id}">{$s.obj_type_data.type_desc}</td>
+									<td class="source" data-obj-id="{$s.obj_id}">{$s.obj_data.show_name}</td>
+									<td class="source_item">{$s.item_data.name}</td>
+									<td class="source_num">{$s.num}</td>
+									<td class="source_price">{$s.price_data.show_name}</td>
+									<td class="source_money_type">{$s.money_type}</td>
+									<td class="source_extra_money">{$s.extra_money}</td>
+									<td class="source_money">{$s.money}</td>
+									<td class="source_beizhu">{$s.beizhu}</td>
+									<if condition="empty($s['review_data'])">
+									<td class="source_review_id">{$s.review_id}</td>
+									<td class="source_review">未提审</td>
+									<else />
+									<td class="source_review_id">{$s.review_id}</td>
+									<td class="source_review">{$s.review_data.review_type_data.type_desc}</td>
+									</if>
+									<td>
+										<if condition="empty($s['item_data']['is_recycle']) == false">
+											<button type="button" class="btn btn-danger btn-sm btn_source_recycle">回收</button>
+										</if>									
+										<if condition="empty($s['review_data']) eq false">
+											<if condition="empty($s['allow_review']) eq false">
+												<button type="button" class="btn btn-info btn-sm btn_source_edit">编辑</button>
+												<button type="button" class="btn btn-warning btn-sm btn_review_resubmit">重新提审</button>
+											</if>
+											<button type="button" class="btn btn-secondary btn-sm btn_review_info">提审详细</button>
+										<else />
+											<button type="button" class="btn btn-info btn-sm btn_source_edit">编辑</button>
+											<button type="button" class="btn btn-warning btn-sm btn_source_remove">移除</button>
+										</if>
+									</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+					
+					
+					<div class="row">		
+						<div class="col-xs-3">
+							<button class="btn btn-success btn-sm btn_submit_budget">提审预算</button>
+						</div>				
+						<div class="col-xs-9">
+							<p style="float: right; text-align: right; /*border-top: 1px solid #eee; width: 300px;*/ padding-top: 10px;">
+								<span style="font-size: 18px; margin-left: 20px;">总预算：<b class="source_total_money" style="color: red;">{$team.money}</b>元</span>
+								<span style="font-size: 18px; margin-left: 20px;">提审预算：<b class="source_total_budget" style="color: red;">{$team.deposit_money}</b>元</span>
+								<span style="font-size: 18px; margin-left: 20px;">预算减免：<b class="source_total_derate" style="color: red;">{$team.deposit_derate}</b>元</span>
+								<span style="font-size: 18px; margin-left: 20px;">拨款金额：<b class="source_total_approval" style="color: red;">{$team.deposit_complated_money}</b>元</span>
+								<span style="font-size: 18px; margin-left: 20px;">剩余尾款：<b class="source_total_order_sub_money" style="color: red;">{$team.order_money.sub}</b>元</span>
+								<span style="font-size: 18px; margin-left: 20px;">预算结余：<b class="source_total_budget_sub" style="color: red;">{$team.budget_sub}</b>元</span>
+								<a href="javascript:;" class="refresh_source_balance" style="margin-left: 5px;">刷新<i class="fa-refresh"></i></a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	
+		// select2 对象	
+		var select2SourceType = null;
+		var select2SourceObj = null;
+		var select2SourceItem = null;
+		var select2SourcePrice = null;
+		
+		// 切换资源类型
+		function changeSourceType(ev) {
+			setSelect2Value($('.data_source_obj'), null);
+			setSelect2Value($('.data_source_item'), null);
+			setSelect2Value($('.data_source_price'), null);
+			if (select2SourceObj != null) {
+				var typestr = getSelect2Value($('.data_source_type'));				
+				if (typestr != {} && typestr != '') {
+					var type = $.parseJSON(typestr);
+					if (type.type_key.indexOf('insurance') != -1) {
+						select2SourceObj.ds.tab = 'cj_insurance';
+					} else if (type.type_key.indexOf('leader') != -1) {
+						select2SourceObj.ds.tab = 'cj_leader';
+					} else if (type.type_key.indexOf('hotel') != -1) {
+						select2SourceObj.ds.tab = 'cj_hotel';
+					} else if (type.type_key.indexOf('driver') != -1) {
+						select2SourceObj.ds.tab = 'cj_driver';
+					} else if (type.type_key.indexOf('bus') != -1) {
+						select2SourceObj.ds.tab = 'cj_bus';
+					} else if (type.type_key.indexOf('view') != -1) {
+						select2SourceObj.ds.tab = 'cj_view';
+					} else if (type.type_key.indexOf('agency') != -1) {
+						select2SourceObj.ds.tab = 'cj_agency';
+					} else {
+						select2SourceObj.ds.tab = 'cj_source';
+					}
+				}
+			}
+		}
+		
+		// 初始化资源类型
+		function initSourceType() {
+			var voption = {obj:$('.data_source_type'), search:1, placeholder: '请选择资源类型', show_col:'type_desc', select_col:'type_desc', func_select_changed:changeSourceType};
+			var vds = {tab:'type_data', search_col: 'type_desc', cdsstr: 'type_key|LIKE|cj_source_obj_%', cdtype:3, sort:'sort|asc'}
+			select2SourceType = new MySelect2(voption, vds);
+		}
+		
+		// 显示选择资源文本
+		function sourceObjShowText(ds) {
+			if (select2SourceObj == null) {
+				return '未初始化资源下拉框';
+			}
+			
+			var showText = '';
+			if (ds.name != null) {
+				showText = ds.name;
+			}
+			var vtab = select2SourceObj.ds.tab;
+			if (vtab.indexOf('insurance') != -1) {
+			} else if (vtab.indexOf('leader') != -1) {
+				if (showText == null || showText == '') {
+					if (ds.nickname != null && ds.nickname != '') {
+						showText = ds.nickname;
+					} else if (ds.stagename != null && ds.stagename != '') {
+						showText = ds.stagename;
+					}
+				}
+			} else if (vtab.indexOf('hotel') != -1) {
+				if (ds.city != null && ds.city != '') {
+					showText += '['+ds.city+']';
+				}
+			} else if (vtab.indexOf('driver') != -1) {
+			} else if (vtab.indexOf('bus') != -1) {
+				if (ds.seat != null && ds.seat != '') {
+					showText += '['+ds.seat+'座]';
+				} 
+				if (ds.bus_log != null && ds.bus_log != '') {
+					showText += '['+ds.bus_log+']';
+				}
+			} else if (vtab.indexOf('view') != -1) {
+				if (ds.city != null && ds.city != '') {
+					showText += '['+ds.city+']';
+				} 
+				if (ds.province != null && ds.province != '') {
+					showText += '['+ds.province+']';
+				}
+			} else if (vtab.indexOf('agency') != -1) {
+				if (ds.agency_type != null && ds.agency_type != ''){
+					var typeObj = $.parseJSON(ds.agency_type);
+					showText += '['+typeObj.type_desc+']';
+				} 
+			} else {
+			}
+			if (ds.pay_type != null && ds.pay_type != '') {
+				var payType = $.parseJSON(ds.pay_type);
+				showText += '['+payType.type_desc+']';
+			}
+			return showText;
+		}
+		
+		// 资源消费项动态条件
+		function sourceObjDynamicConds() {
+			var cdsstr = '';
+			if (select2SourceObj.ds.tab == 'cj_agency') {
+				cdsstr += 'agency_type|LIKE|%dijie%|AND';
+			}
+			return cdsstr;
+		}
+		
+		// 改变资源选择
+		function changeSourceObj(ev) {
+			setSelect2Value($('.data_source_item'), null);
+			setSelect2Value($('.data_source_price'), null);
+		}
+		
+		// 初始化资源
+		function initSourceObj() {				
+			var voption = {obj:$('.data_source_obj'), search:1, placeholder: '请选择资源', show_col:sourceObjShowText, select_col:sourceObjShowText, func_select_changed:changeSourceObj};
+			var vds = {tab:'cj_leader', search_col: 'name', cdsstr: 'invalid|=|0|AND', cdtype:4, func_dynamic_conds: sourceObjDynamicConds}
+			select2SourceObj = new MySelect2(voption, vds);
+		}
+		
+		// 资源消费项动态条件
+		function sourceItemDynamicConds() {
+			var cdsstr = '';
+			var sourcetypestr = getSelect2Value($('.data_source_type'));
+			if (sourcetypestr != '' && sourcetypestr != '{}') {
+				var sourceType = $.parseJSON(sourcetypestr);
+				cdsstr += 'obj_type|LIKE|%'+sourceType['type_key']+'%|AND';	
+			}
+			var sourcestr = getSelect2Value($('.data_source_obj'), ['id']);
+			if (sourcestr != '' && sourcestr != '{}') {
+				var vsource = $.parseJSON(sourcestr);
+				if (cdsstr != '') {
+					cdsstr += '|';
+				}
+				cdsstr += 'obj_id|=|'+vsource['id']+'|AND';	
+			}
+			return cdsstr;
+		}
+		
+		// 改变资源消费项选择
+		function changeSourceItem(ev) {
+			setSelect2Value($('.data_source_price'), null);
+		}
+		
+		// 初始化消费项
+		function initSourceItem() {
+			var voption = {obj:$('.data_source_item'), search:1, placeholder: '请选择消费项', show_col:'name', select_col:'name', func_select_changed:changeSourceItem};
+			var vds = {tab:'cj_item', search_col: 'name', cdsstr: 'invalid|=|0|AND', cdtype:4, func_dynamic_conds: sourceItemDynamicConds}
+			select2SourceItem = new MySelect2(voption, vds);
+		}
+		
+		// 资源消费项价格动态条件
+		function sourcePriceDynamicConds() {
+			var cdsstr = '';
+			var itemstr = getSelect2Value('.data_source_item', ['id']);
+			if (itemstr != '' && itemstr != '{}') {
+				var vitem = $.parseJSON(itemstr);
+				cdsstr += 'item_id|=|'+vitem['id']+'|AND';	
+			}
+			return cdsstr;
+		}
+		
+		// 显示选择资源价格文本
+		function sourcePriceShowText(ds) {
+			var txt = ds.title;
+				txt += ' / 报价:'+ds.price+'，实价:'+ds.real_price;
+				if (ds.is_time == 1) {
+					txt +=	' / [按时报价:'+ds.start_time+'至'+ds.end_time+']';
+				}
+				if (ds.is_member == 1) {
+					txt += ' / [按人报价:人数在'+ds.min_num+'至'+ds.max_num+']';
+				}
+				if (ds.is_day == 1) {
+					txt += ' / [按天报价:天数在'+ds.min_day+'至'+ds.max_day+']';
+				}
+				if (ds.is_line == 1) {
+					if (ds.line != null && ds.line != '') {
+						var line = $.parseJSON(ds.line);
+						txt += ' / [按线路报价:'+line.title+']';
+					}
+				}
+			return txt;
+		}
+		
+		// 初始化价格项
+		function initSourcePrice() {
+			var voption = {obj:$('.data_source_price'), search:1, placeholder: '请选择价格项', show_col:sourcePriceShowText, select_col:sourcePriceShowText};
+			var vds = {tab:'cj_price', search_col: 'name', cdsstr: 'review_type|LIKE|%review_pass%|AND|invalid|=|0|AND', cdtype:4, func_dynamic_conds: sourcePriceDynamicConds}
+			select2SourcePrice = new MySelect2(voption, vds);
+		}
+		
+		// JS初始化
+		$(document).ready(function(){
+			// 初始化资源类型
+			initSourceType();	
+			// 初始化资源
+			initSourceObj();	
+			// 初始化消费项
+			initSourceItem();	
+			// 初始化价格项
+			initSourcePrice();			
+		});
+		
+		// 刷新资源总几个
+		function refreshSourceMoney() {
+			var jsonData = {
+				op_type: 'refresh_money',				
+				team_id: $('.create-write').attr('data-id'),
+			}
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (data.team != null) {
+						var d = data.team;
+						if (d.money != null) {
+							$('.source_total_money').html(d.money);
+						}
+						if (d.deposit_money != null) {
+							$('.source_total_budget').html(d.deposit_money);
+						}
+						if (d.deposit_derate != null) {
+							$('.source_total_derate').html(d.eposit_derate);
+						}
+						if (d.deposit_total_complated_money != null) {
+							$('.source_total_approval').html(d.deposit_complated_money);
+						}
+						if (d.order_money != null && d.order_money.sub != null) {
+							$('.source_total_order_sub_money').html(d.order_money.sub);
+						}
+						if (d.budget_sub != null) {
+							$('.source_total_budget_sub').html(d.budget_sub);
+						}
+					}
+				} else {
+					toastr.error('刷新资源预算失败,原因:'+data.result.message);
+				}	
+			});
+		}
+		$('.refresh_source_balance').click(refreshSourceMoney);
+		
+		// 添加新资源
+		$('.btn_source_append').click(function(){
+			var sourcetypestr = getSelect2Value($('.data_source_type'));
+			if (sourcetypestr == '' || sourcetypestr == '{}') {
+				toastr.warning('请选择要添加资源的类型');
+				return false;
+			}
+			
+			var vhref = '';
+			var sourceType = $.parseJSON(sourcetypestr);
+			if (sourceType.type_key != null) {
+				var typeKey = sourceType.type_key;			
+				var basestr = 'cj_source_obj_';
+				vhref = '{:U("financial/source")}/src/'+typeKey.substr(basestr.length);
+				window.open(vhref);
+			} else {
+				toastr.warning('错误的资源类型');
+			}			
+		});
+		
+		// 添加新消费项
+		var modalFloatItem = null;
+		$('.btn_item_append').click(function(){
+			if (modalFloatItem == null) {
+				modalFloatItem = new ModalFCJItem(); 
+			}
+			
+			var sourcetypestr = getSelect2Value($('.data_source_type'));
+			var sourceobjstr = getSelect2Value($('.data_source_obj'));			
+			if (sourcetypestr == '' || sourcetypestr == '{}' || sourceobjstr == '' || sourceobjstr == '{}') {
+				toastr.warning('请先选择资源类型与资源对象');
+				return false;
+			}
+			
+			var sourceType = $.parseJSON(sourcetypestr);
+			var basestr = 'cj_source_obj_';
+			var vsource = sourceType.type_key.substr(basestr.length);
+			var sourceObj = $.parseJSON(sourceobjstr);
+			
+			var itemId = null;
+//			var sourceitemstr = getSelect2Value($('.data_source_item'), ['id']);
+//			if (sourceitemstr != '' || sourceitemstr != '{}') {
+//				var itemData = $.parseJSON(sourceitemstr);
+//				itemId = itemData.id;
+//			}
+			
+			modalFloatItem.showModal(null, vsource, sourceObj.id, itemId, null);
+		});
+		
+		// 添加新价格项
+		var modalFloatPrice = null;
+		$('.btn_price_append').click(function(){
+			if (modalFloatPrice == null) {
+				modalFloatPrice = new ModalFCJPrice(); 
+			}
+			
+			var sourcetypestr = getSelect2Value($('.data_source_type'));
+			var sourceobjstr = getSelect2Value($('.data_source_obj'), ['id']);		
+			var sourceitemstr = getSelect2Value($('.data_source_item'), ['id']);	
+			if (sourcetypestr == '' || sourcetypestr == '{}' || sourceobjstr == '' || sourceobjstr == '{}' || sourceitemstr == '' || sourceitemstr == '{}') {
+				toastr.warning('请先选择资源类型、资源对象以及消费项');
+				return false;
+			}
+			
+			var sourceType = $.parseJSON(sourcetypestr);
+			var basestr = 'cj_source_obj_';
+			var vsource = sourceType.type_key.substr(basestr.length);
+			var sourceObj = $.parseJSON(sourceobjstr);
+			var itemData = $.parseJSON(sourceitemstr);
+			
+			var priceId = null;
+//			var sourcepricestr = getSelect2Value($('.data_source_price'));
+//			if (sourcepricestr != '' || sourcepricestr != '{}') {
+//				var priceData = $.parseJSON(sourcepricestr);
+//				priceId = priceData.id;
+//			}
+			
+			modalFloatPrice.showModal(null, vsource, sourceObj.id, itemData.id, priceId, null);
+		});
+		
+		// 保存资源
+		function _ajaxSourceSave() {
+			var teamId = $('.create-write').attr('data-id');		
+			if (teamId == '') {
+				toastr.warning('还没有创建团期，请先创建团期在添加参团人员');
+				return false;
+			}
+			
+			var sourcetypestr = getSelect2Value($('.data_source_type'));
+			if (sourcetypestr == '' || sourcetypestr == '{}') {
+				toastr.warning('请选择资源类型');
+				return false;
+			}
+			
+			var sourceobjstr = getSelect2Value($('.data_source_obj'),['id']);
+			if (sourceobjstr == '' || sourceobjstr == '{}') {
+				toastr.warning('请选择资源对象');
+				return false;
+			}
+			
+			var sourceitemstr = getSelect2Value($('.data_source_item'),['id']);
+			if (sourceitemstr == '' || sourceitemstr == '{}') {
+				toastr.warning('请选择资源消费项');
+				return false;
+			}
+			
+			var sourcepricestr = getSelect2Value($('.data_source_price'),['id']);
+			if (sourcepricestr == '' || sourcepricestr == '{}') {
+				toastr.warning('请选择资源消费项价格');
+				return false;
+			}
+			
+			var sourceObj = $.parseJSON(sourceobjstr);
+			var sourceItem = $.parseJSON(sourceitemstr);
+			var sourcePrice = $.parseJSON(sourcepricestr);
+				
+			var jsonData = {
+				op_type: 'source',
+				op: 'save',
+				id: $('.source_edit').attr('data-id'),
+				team_id: teamId,
+				obj_type: sourcetypestr,
+				obj_id: sourceObj.id,
+				item_id: sourceItem.id,
+				price_id: sourcePrice.id,
+				num: $('.data_source_num').val(),
+				extra_money: $('.data_source_extra_money').val(),
+				beizhu: $('.data_source_beizhu').val(),
+				recycle: 0,
+			}
+			
+			var thisObj = this;
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (data.op != 'remove' && data.ds != null) {
+						var d = data.ds;
+						var sourceType = 'other', sourceTypeId = 0, sourceTypeDesc = '未知资源';
+						if (d.obj_type_data != null) {
+							sourceTypeId = d.obj_type_data.id;
+							typeKey = d.obj_type_data.type_key;	
+							var basetypestr = 'cj_source_obj_';
+							sourceType = typeKey.substr(basetypestr.length);
+							sourceTypeDesc = d.obj_type_data.type_desc;
+						}				
+						
+						var obj_show_text = d.obj_data != null ? d.obj_data.show_name : '';
+						var item_name = d.item_data != null ? d.item_data.name : '';
+						var price_show_text = d.price_data != null ? d.price_data.show_name : '';
+						var recycle_text = d.item_data.is_recycle > 0 ? d.recycle : '不可回收资源';
+						var review_text = d.review_data != null ? d.review_data.review_type_data.type_desc : '未提审';
+						if (data.op == 'create') {
+							var vhtml = '<tr class="source" data-id="'+d.id+'" data-type="'+sourceType+'" data-review-id="'+d.review_id+'">';
+								if (data.review_data != null) {
+									vhtml +='	<td class="source_check"><input type="checkbox" class="cbr cbr-replaced cbr-secondary" /></td>';	
+								} else {
+									vhtml +='	<td class="source_check"></td>';	
+								}
+								vhtml +='	<td class="source_type" data-obj-type-id="'+sourceTypeId+'">'+sourceTypeDesc+'</td>';
+								vhtml +='	<td class="source data-obj-id="'+d.obj_id+'">'+obj_show_text+'</td>';
+								vhtml +='	<td class="source_item">'+item_name+'</td>';
+								vhtml +='	<td class="source_num">'+d.num+'</td>';
+								vhtml +='	<td class="source_price">'+price_show_text+'</td>';
+								vhtml +='	<td class="source_money_type">'+d.money_type+'</td>';
+								vhtml +='	<td class="source_extra_money">'+d.extra_money+'</td>';
+								vhtml +='	<td class="source_money">'+d.money+'</td>';
+								vhtml +='	<td class="source_beizhu">'+d.beizhu+'</td>';
+								vhtml +='	<td class="source_review_id">'+d.review_id+'</td>';
+								vhtml +='	<td class="source_review">'+review_text+'</td>';
+								vhtml +='	<td>';
+								if (d.item_data != null && d.item_data.is_recycle > 0) {
+									vhtml +='		<button  type="button" class="btn btn-danger btn-sm btn_source_recycle">回收</button>';
+								}
+								if (data.review_data != null) {
+									if (data.allow_review == 1) {
+										vhtml +='		<button type="button" class="btn btn-info btn-sm btn_source_edit">编辑</button>';
+										vhtml +='		<button type="button" class="btn btn-warning btn-sm btn_review_resubmit">重新提审</button>';
+									}
+									vhtml +='		<button type="button" class="btn btn-secondary btn-sm btn_review_info">提审详细</button>';
+								} else {
+									vhtml +='		<button type="button" class="btn btn-info btn-sm btn_source_edit">编辑</button>';
+									vhtml +='		<button type="button" class="btn btn-warning btn-sm btn_source_remove">移除</button>';
+								}
+								vhtml +='	</td>';
+								vhtml +='</tr>';
+							$('.table_budget').find('tbody').append(vhtml);
+							var trObj = $('.table_budget').find('tbody').find('tr:last');
+							$(trObj).find('.btn_source_edit').click(_ajaxSourceEdit);
+							$(trObj).find('.btn_source_remove').click(_ajaxSourceRemove);
+							$(trObj).find('.btn_source_recycle').click(_ajaxSourceRecycle);
+							$(trObj).find('.btn_review_resubmit').click(resubmitSourceReview);
+							$(trObj).find('.btn_review_info').click(jumpSourceReview);
+						} else {
+							var trObj = $(thisObj).closest('tr');
+							$(trObj).find('td.source_type').attr('data-obj-type-id', sourceTypeId);
+							$(trObj).find('td.source_type').html(sourceTypeDesc);
+							$(trObj).find('td.source').attr('data-obj-id', d.obj_id);
+							$(trObj).find('td.source').html(obj_show_text);
+							$(trObj).find('td.source_item').html(item_name);
+							$(trObj).find('td.source_num').html(d.num);
+							$(trObj).find('td.source_price').html(price_show_text);
+							$(trObj).find('td.source_money_type').html(d.money_type);
+							$(trObj).find('td.source_extra_money').html(d.extra_money);
+							$(trObj).find('td.source_money').html(d.money);
+							$(trObj).find('td.source_beizhu').html(d.beizhu);
+							$(trObj).find('td.source_review_id').html(d.review_id);
+							$(trObj).find('td.source_review').html(d.review_text);
+						}
+					}	
+					clearSource();
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}	
+			});
+		
+		}		
+		// 绑定保存资源
+		$('.btn_source_save').click(_ajaxSourceSave);
+		
+		// 清空编辑的资源
+		function clearSource(){
+			$('.source_edit').attr('data-id', '');
+			setSelect2Value($('.data_source_type'), null);
+			setSelect2Value($('.data_source_obj'), null);
+			setSelect2Value($('.data_source_item'), null);
+			setSelect2Value($('.data_source_price'), null);
+			$('.data_source_num').val('');
+			$('.data_source_extra_money').val(''),
+			$('.data_source_beizhu').val('');
+		}
+		$('.btn_source_clear').click(clearSource);
+		
+		// 全选预算资源
+		$('.check_all_budget').change(function(ev){
+			ev.preventDefault();
+			var ck = $(this).prop('checked');
+			$(this).closest('table').find('tbody tr').each(function(i, ev){
+				$(this).find('td:first').find('.cbr').prop('checked', ck).trigger('change');
+			});
+		});
+		
+		// 编辑资源
+		function _ajaxSourceEdit() {
+			var trObj = $(this).closest('tr');
+			var jsonData = {
+				op_type: 'source',
+				op: 'find',
+				id: $(trObj).attr('data-id'),
+			}
+			
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result != null && data.result.errno != 0) {
+					toastr.error(data.result.message);
+				}	
+				
+		        $('body').animate({scrollTop:$('.source_budget').offset().top - 100}, 500);
+				if (data.op == 'find' && data.ds != null) {
+					var d = data.ds;
+					$('.source_edit').attr('data-id', d.id);
+					setSelect2Value($('.data_source_type'), d.obj_type);
+					setSelect2Value($('.data_source_obj'), '{"id":"'+d.obj_id+'","name":"'+d.obj_data.name+'","province":"'+d.obj_data.province+'","city":"'+d.obj_data.city+'"}');
+					setSelect2Value($('.data_source_item'), '{"id":"'+d.item_id+'","name":"'+d.item_data.name+'"}');
+					var pricestr = JSON.stringify(d.price_data);
+					setSelect2Value($('.data_source_price'), pricestr);
+					$('.data_source_num').val(d.num);
+					$('.data_source_extra_money').val(d.extra_money),
+					$('.data_source_beizhu').val(d.beizhu);
+					refreshSourceMoney();
+				}	
+			});
+		}
+		// 绑定编辑资源
+		$('.btn_source_edit').click(_ajaxSourceEdit);
+			
+		
+		// 移除资源
+		function _ajaxSourceRemove() {
+			var teamId = $('.create-write').attr('data-id');		
+			if (teamId == '') {
+				toastr.warning('还没有创建团期，请先创建团期在添加参团人员');
+				return false;
+			}
+			
+			if (confirm('您确定要移除该资源吗?') == false) {
+				return false
+			}
+			
+			var trObj = $(this).closest('tr');
+			var jsonData = {
+				op_type: 'source',
+				op: 'remove',
+				id: $(trObj).attr('data-id'),
+			}
+			
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (data.op == 'remove') {
+						$(trObj).remove();
+					}	
+					refreshSourceMoney();
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}	
+			});
+		}
+		// 绑定移除资源
+		$('.btn_source_remove').click(_ajaxSourceRemove);
+		
+		
+		// 移除所有资源
+		$('.btn_source_remove_all').click(function(){
+			var teamId = $('.create-write').attr('data-id');		
+			if (teamId == '') {
+				toastr.warning('还没有创建团期，请先创建团期在添加参团人员');
+				return false;
+			}
+			
+			if (confirm('您确定要移除该资源吗?') == false) {
+				return false
+			}
+			
+			var tabObj = $(this).closest('table');
+			var trObj = $(this).closest('tr');
+			var jsonData = {
+				op_type: 'source',
+				op: 'remove',
+				source: $(tabObj).attr('data-type'),
+				team_id: teamId,
+			}
+			
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (data.op == 'remove') {
+						$(tabObj).find('tbody tr').remove();
+					}	
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}	
+			});
+		});
+		
+		// 回收资源
+		function _ajaxSourceRecycle() {
+			var trObj = $(this).closest('tr');
+			var vcount = prompt('请输入回收的数量', $(trObj).find('td:eq(3)').html());
+			if (vcount == null || $.isNumeric(vcount) == false || parseInt(vcount) <= 0) {
+				toastr.warning('输入的内容不正确，数量必须大于0');
+				return false;
+			}
+			var jsonData = {
+				op_type: 'recycle_source',
+				id: $(trObj).attr('data-id'),
+				count: vcount,
+			}
+			$.post('{:U(financial/team)}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					$(trObj).find('td:eq(6)').html(vcount);
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}
+			})
+		}
+		// 绑定回收资源
+		$('.btn_source_recycle').click(_ajaxSourceRecycle);
+		
+		// 显示提审预算浮动框
+		var fReviewModalObj = null;
+		function showDepositModal(vobj, ids, reviewId, func){
+			if (fReviewModalObj == null) {
+				fReviewModalObj = new ModalFCJDeposit();
+			}	
+//			console.log($(vobj).attr('class')+'/'+ids+'/'+reviewId);
+			var teamId = $('.create-write').attr('data-id');
+			fReviewModalObj.showModal(vobj, teamId, ids, reviewId, func);
+		}
+		
+		// 初次提审预算成功后操作
+		function submitSourceReviewSuccess(obj, data) {
+			if (data != null && data.ds != null) {	
+				var d = data.ds;
+				$('.table_budget').find('tbody tr').each(function(i,ev){
+					if ($(this).find('.cbr').prop('checked')) {
+						$(this).attr('data-review-id', d.id);
+						if (d.review_type_data != null) {
+							$(this).find('.source_review').html(d.review_type_data.type_desc);
+							
+							// 移除可选复选框按钮
+							$(this).find('.source_check').children().remove();
+							
+							// 存在审核便删除移除按钮
+							$(this).find('.btn_source_remove').remove();
+							$(this).find('.btn_source_edit').remove();
+							
+							// 可编辑并重新提交审核情
+							var reviewKey = d.review_type_data.type_key;
+							if (reviewKey != 'reviewing' && reviewKey != 'review_fail')	{
+								$(this).find('.btn_source_edit').remove();
+								$(this).find('.btn_review_resubmit').remove();
+							} else {
+								$(this).find('td:last').append('<button type="button" class="btn btn-info btn-sm btn_source_edit">编辑</button>');
+								$(this).find('td:last').append('<button type="button" class="btn btn-warning btn-sm btn_review_resubmit">重新提审</button>');
+								$(this).find('.btn_source_edit').click(_ajaxSourceEdit);
+								$(this).find('.btn_review_resubmit').click(resubmitSourceReview);
+							}
+							
+							// 存在审核则添加查看详细按钮
+							if ($(this).find('.btn_review_info').length == 0) {
+								$(this).find('td:last').append('<button type="button" class="btn btn-secondary btn-sm btn_review_info">提审详细</button>');
+								$(this).find('.btn_review_info').click(jumpSourceReview);
+							}
+						}
+					}
+				});	
+			}
+		}
+		
+		// 重新提审预算资金审批
+		function resubmitSourceReview() {
+			var trObj = $(this).closest('tr');
+			var reviewId = $(trObj).attr('data-review-id');
+			if (reviewId == '') {
+				toastr.warning('本条资源预算还没有提交资金审批，不能提交重审');
+				return false;
+			}
+			showDepositModal(this, null, reviewId, submitSourceReviewSuccess);
+		}		
+		// 绑定重新提审预算资金审批
+		$('.btn_review_resubmit').click(resubmitSourceReview);
+		
+		// 跳转至审批详细
+		function jumpSourceReview() {
+			var trObj = $(this).closest('tr');
+			var reviewId = $(trObj).attr('data-review-id');
+			if (reviewId == '') {
+				toastr.warning('本条资源预算还没有提交资金审批，不能查看资金审批详细');
+				return false;
+			}
+			window.open('{:U("financial/deposit")}/id/'+reviewId);
+		}
+		// 绑定跳转至审批详细
+		$('.btn_review_info').click(jumpSourceReview);		
+		
+		// 提审预算
+		$('.btn_submit_budget').click(function(){			
+			var ids = '', thisObj = $(this), objTypeId = null, objId = null, warningMessage=null;
+			$('.table_budget').find('tbody tr').each(function(i,ev){				
+				if ($(this).find('.cbr').prop('checked')) {
+					// 重复提交判断
+					if ($(this).attr('data-review-id') != '') {
+						warningMessage = '您所选的预算存在已参加资金审批请求，请确认后再提交';
+						return false;
+					}
+					
+					// 同资源提交判断
+//					if (objTypeId == null && objId == null) {
+//						objTypeId = $(this).find('.source_type').attr('data-obj-type-id');
+//						objId = $(this).find('.source').attr('data-obj-id');
+//					} else {
+//						var otid = $(this).find('.source_type').attr('data-obj-type-id');
+//						var obid = $(this).find('.source').attr('data-obj-id');
+//						if (otid != objTypeId || obid != objId) {
+//							warningMessage = '你所选的预算存在不同资源对象，请确认选择的预算为同一资源对象';
+//							return false;
+//						}
+//					}
+					if (ids != '') {
+						ids += ',' + $(this).attr('data-id');
+					} else {
+						ids = $(this).attr('data-id');
+					}
+				}
+			});
+			
+			if (warningMessage != null) {
+				toastr.warning(warningMessage);
+				return false;
+			}
+			
+			if (ids == '') {
+				toastr.warning('您未选择要申请资金的预算资源');
+				return false;
+			}
+			
+			showDepositModal(thisObj, ids, null, submitSourceReviewSuccess);			
+		});
+	</script>
+	
+	<!--资金收回-->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default edit">
+				<div class="panel-heading">
+					<h3 class="panel-title">资金收回</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<!--在此地编辑内容-->
+					<div class="row name cash_review_edit">
+						<!--<div class="col-xs-12 row">
+							<div class="col-xs-4">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1">送审对象</span>			
+									<script type="text/javascript">
+										function changeCashObjType() {
+											var cashobjtypestr = getSelect2Value($('.data_cash_obj'));
+											if (cashobjtypestr != '' && cashobjtypestr != '{}') {
+												var cashObjType = $.parseJSON(cashobjtypestr);
+												if (cashObjType.type_key == 'cj_deposit_obj_team') {
+													$('.data_cash_source').css('display', 'none');
+												} else {
+													$('.data_cash_source').css('display', 'block');
+												}
+											}
+										}
+										$(document).ready(function(){
+											bindTypeDataDropMenu($('.data_cash_obj'), 'cj_deposit_obj', '选择资金审批方式', false, null, false, changeCashObjType);		
+										});
+									</script>
+									<input type="text" class="form-control data_cash_obj">
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1">资金方式</span>				
+									<script type="text/javascript">
+										$(document).ready(function(){
+											bindTypeDataDropMenu($('.data_cash_type'), 'cj_deposit_type', '选择资金审批方式', false, null, false, null);		
+										});
+									</script>
+									<input type="text" class="form-control data_cash_type">
+								</div>
+							</div>
+						</div>-->
+						<div class="col-xs-12 row data_cash_source">
+							<div class="col-xs-4">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1">资源类型</span>
+									<input type="text" class="form-control data_cash_source_type">
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon2">资源</span>
+									<input type="text" class="form-control data_cash_source_obj" placeholder="请选择资源">
+									<span class="input-group-btn">
+        								<button class="btn btn-default btn_cash_source_append" type="button" style="border:1px solid #ccc; height: 37px;"><span class="glyphicon glyphicon-pencil"></span></button>
+      								</span>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i style="font-style: normal;">指定审批人</i>
+									</div>
+									<script type="text/javascript">
+										$(document).ready(function(){
+											bindAdminDropMenu($('.data_cash_review_admin'), 'operator', '点击选择审批管理员或者输入关键字查询');
+											setSelect2Value('.data_cash_review_admin', '{"id":"85","account":"郭煜","show_name":"郭煜"}');	
+										});
+									</script>
+									<input type="text" class="form-control data_cash_review_admin">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 row">
+							<div class="col-xs-4">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i style="font-style: normal;">结算方式</i>
+									</div>
+									<script type="text/javascript">
+										$(document).ready(function(){
+											bindTypeDataDropMenu($('.data_cash_pay_type'), 'cj_pay_type', '选择结算类型');											
+										});
+									</script>
+									<input type="text" class="form-control data_cash_pay_type">
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i style="font-style: normal;">收款人</i>
+									</div>
+									<input type="text" class="form-control data_cash_payee">
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i style="font-style: normal;">收款账号</i>
+									</div>
+									<input type="number" class="form-control data_cash_bank_card" maxlength="16">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="col-xs-12">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i style="font-style: normal;">开户行与地址</i>
+									</div>
+									<input type="text" class="form-control data_cash_bank_address">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 row">
+							<div class="col-xs-3">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon5">收回金额</span>
+									<input type="number" class="form-control data_cash_money" placeholder="请输入申请金额" maxlength="8">
+								</div>
+							</div>
+							<div class="col-xs-9">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon6">备注</span>
+									<input type="text" class="form-control data_cash_beizhu" placeholder="请输入要备注的内容" >
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 row">
+							<button style="float: right;width:70px; margin-left: 20px;" type="button" class="btn btn-info btn-sm btn_cash_clear">清空资料</button>
+							<button style="float: right;width:70px;" type="button" class="btn btn-primary btn-sm btn_cash_review">回收资金</button>
+						</div>
+					</div>
+					<!--<div class="row">
+						<p style="float: right; text-align: right; border-top: 1px solid #eee; width: 300px; padding-top: 10px;">
+							<span style="color: red; font-size: 18px">团期余额：<b class="team_balance">{$team.balance}</b>元</span>
+							<a href="javascript:;" class="refresh_team_balance" style="margin-left: 5px;">刷新<i class="fa-refresh"></i></a>
+						</p>
+					</div>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">	
+		// select2 对象	
+		var select2CashSourceType = null;
+		var select2CashSourceObj = null;
+		
+		// 切换资源类型
+		function changeCashSourceType(ev) {
+			setSelect2Value($('.data_cash_source_obj'), null);
+			if (select2CashSourceObj != null) {
+				var typestr = getSelect2Value($('.data_cash_source_type'));				
+				if (typestr != {} && typestr != '') {
+					var type = $.parseJSON(typestr);
+					if (type.type_key.indexOf('insurance') != -1) {
+						select2CashSourceObj.ds.tab = 'cj_insurance';
+					} else if (type.type_key.indexOf('leader') != -1) {
+						select2CashSourceObj.ds.tab = 'cj_leader';
+					} else if (type.type_key.indexOf('hotel') != -1) {
+						select2CashSourceObj.ds.tab = 'cj_hotel';
+					} else if (type.type_key.indexOf('driver') != -1) {
+						select2CashSourceObj.ds.tab = 'cj_driver';
+					} else if (type.type_key.indexOf('bus') != -1) {
+						select2CashSourceObj.ds.tab = 'cj_bus';
+					} else if (type.type_key.indexOf('view') != -1) {
+						select2CashSourceObj.ds.tab = 'cj_view';
+					} else if (type.type_key.indexOf('agency') != -1) {
+						select2CashSourceObj.ds.tab = 'cj_agency';
+					} else {
+						select2CashSourceObj.ds.tab = 'cj_source';
+					}
+				}
+			}
+		}
+		
+		// 初始化资源类型
+		function initCashSourceType() {											
+			var voption = {obj:$('.data_cash_source_type'), search:1, placeholder: '请选择资源类型', show_col:'type_desc', select_col:'type_desc', func_select_changed:changeCashSourceType};
+			var vds = {tab:'type_data', search_col: 'type_desc', cdsstr: 'type_key|LIKE|cj_source_obj_%', cdtype:3, sort:'sort|asc'}
+			select2CashSourceType = new MySelect2(voption, vds);
+		}
+		
+		// 显示选择资源文本
+		function cashSourceObjShowText(ds) {
+			if (select2CashSourceObj == null) {
+				return '未初始化资源下拉框';
+			}
+			
+			setSelect2Value($('.data_cash_pay_type'), ds.pay_type);
+			$('.data_cash_payee').val(ds.payee);					
+			$('.data_cash_bank_address').val(ds.bank_address);
+			$('.data_cash_bank_card').val(ds.bank_card);
+			
+			var showText = '';
+			if (ds.name != null) {
+				showText = ds.name;
+			}			
+			var vtab = select2CashSourceObj.ds.tab;
+			if (vtab.indexOf('insurance') != -1) {
+			} else if (vtab.indexOf('leader') != -1) {
+				if (showText == null || showText == '') {
+					if (ds.nickname != null && ds.nickname != '') {
+						showText = ds.nickname;
+					} else if (ds.stagename != null && ds.stagename != '') {
+						showText = ds.stagename;
+					}
+				}
+			} else if (vtab.indexOf('hotel') != -1) {
+				if (ds.city != null && ds.city != '') {
+					showText += '['+ds.city+']';
+				}
+			} else if (vtab.indexOf('driver') != -1) {
+			} else if (vtab.indexOf('bus') != -1) {
+				if (ds.seat != null && ds.seat != '') {
+					showText += '['+ds.seat+'座]';
+				} 
+				if (ds.bus_log != null && ds.bus_log != '') {
+					showText += '['+ds.bus_log+']';
+				}
+			} else if (vtab.indexOf('view') != -1) {
+				if (ds.city != null && ds.city != '') {
+					showText += '['+ds.city+']';
+				} 
+				if (ds.province != null && ds.province != '') {
+					showText += '['+ds.province+']';
+				}
+			} else if (vtab.indexOf('agency') != -1) {
+				if (ds.agency_type != null && ds.agency_type != ''){
+					var typeObj = $.parseJSON(ds.agency_type);
+					showText += '['+typeObj.type_desc+']';
+				} 
+			} else {
+			}
+			if (ds.pay_type != null && ds.pay_type != '') {
+				var payType = $.parseJSON(ds.pay_type);
+				showText += '['+payType.type_desc+']';
+			}
+			return showText;
+		}
+		
+		
+		// 初始化资源
+		function initCashSourceObj() {				
+			var voption = {obj:$('.data_cash_source_obj'), search:1, placeholder: '请选择资源', show_col:cashSourceObjShowText, select_col:cashSourceObjShowText};
+			var vds = {tab:'cj_leader', search_col: 'name', cdsstr: 'invalid|=|0|AND', cdtype:4}
+			select2CashSourceObj = new MySelect2(voption, vds);
+		}
+		
+		// JS初始化
+		$(document).ready(function(){
+			// 初始化资金审批的资源类型
+			initCashSourceType();	
+			// 初始化资金审批的资源
+			initCashSourceObj();			
+		});
+		
+		// 添加新审批信息
+		$('.btn_cash_source_append').click(function(){
+			var sourcetypestr = getSelect2Value($('.data_cash_source_type'));
+			if (sourcetypestr == '' || sourcetypestr == '{}') {
+				toastr.warning('请选择要添加资源的类型');
+				return false;
+			}
+			
+			var vhref = '';
+			var sourceType = $.parseJSON(sourcetypestr);
+			if (sourceType.type_key != null) {
+				var typeKey = sourceType.type_key;			
+				var basestr = 'cj_source_obj_';
+				vhref = '{:U("financial/source")}/src/'+typeKey.substr(basestr.length);
+				window.open(vhref);
+			} else {
+				toastr.warning('错误的资源类型');
+			}			
+		});
+		
+		// 编辑审批审批信息
+		function _ajaxReviewEdit() {
+			var trObj = $(this).closest('tr');
+			var jsonData = {
+				op_type: 'deposit',
+				op: 'find',
+				id: $(trObj).attr('data-id'),
+			}
+			
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result != null && data.result.errno != 0) {
+					toastr.error(data.result.message);
+				}	
+				if (data.op == 'find' && data.ds != null) {
+					var d = data.ds;
+					$('.cash_review_edit').attr('data-id', d.id);
+//					setSelect2Value($('.data_cash_obj'), d.deposit_obj);
+//					setSelect2Value($('.data_cash_type'), d.deposit_type);
+					if (d.deposit_obj_data != null && d.deposit_obj_data.type_key == 'cj_deposit_obj_source') {
+						setSelect2Value($('.data_cash_source_type'), d.obj_type);
+						if (d.obj_data != null) {
+							var s = d.obj_data;
+							setSelect2Value($('.data_cash_source_obj'), '{"id":"'+s.id+'","name":"'+s.name+'","province":"'+s.province+'","city":"'+s.city+'"}');							
+						}
+					}
+					setSelect2Value($('.data_cash_pay_type'), d.pay_type);
+					$('.data_cash_payee').val(d.payee);					
+					$('.data_cash_bank_address').val(d.bank_address);
+					$('.data_cash_bank_card').val(d.bank_card);
+					$('.data_cash_money').val(d.money);
+					$('.data_cash_beizhu').val(d.beizhu);
+				}	
+			});
+		}
+		// 绑定编辑审批信息事件
+		$('.btn_cash_source_edit').click(_ajaxReviewEdit);
+		
+		// 移除审批信息
+		function _ajaxReviewRemove() {
+			var teamId = $('.create-write').attr('data-id');		
+			if (teamId == '') {
+				toastr.warning('还没有创建团期，请先创建团期在添加参团人员');
+				return false;
+			}
+			
+			if (confirm('您确定要移除该资源吗?') == false) {
+				return false
+			}
+			
+			var trObj = $(this).closest('tr');
+			var jsonData = {
+				op_type: 'deposit',
+				op: 'remove',
+				id: $(trObj).attr('data-id'),
+			}
+			
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (data.op == 'remove') {
+						$(trObj).remove();
+					}	
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}	
+			});
+		}
+		// 绑定移除审批信息事件
+		$('.btn_cash_source_remove').click(_ajaxReviewRemove);
+				
+		// 保存审批信息
+		function _ajaxCashReviewSave() {
+			var teamId = $('.create-write').attr('data-id');		
+			if (teamId == '') {
+				toastr.warning('还没有创建团期，请先创建团期在添加参团人员');
+				return false;
+			}
+			
+//			var cashobjstr = getSelect2Value($('.data_cash_obj'));
+//			if (cashobjstr == '' || cashobjstr == '{}') {
+//				toastr.warning('请选择送审对象');
+//				return false;
+//			}
+			
+//			var cashtypestr = getSelect2Value($('.data_cash_type'));
+//			if (cashtypestr == '' || cashtypestr == '{}') {
+//				toastr.warning('请选择资金操作方式');
+//				return false;
+//			}
+//			var cashObjType = $.parseJSON(cashobjstr);
+				
+			
+			var vpayee = $('.data_cash_payee').val();
+			var bankCard = $('.data_cash_bank_card').val();
+			var vmoney = parseFloat($('.data_cash_money').val());
+			if (vpayee == '' || bankCard == '' || vmoney <= 0) {
+				toastr.warning('收款人、收款账号、提审金额不能为空，且提审金额必须大于0');
+				return false;
+			}
+			var jsonData = {
+				op_type: 'deposit',
+				op: 'save',
+				id: $('.cash_review_edit').attr('data-id'),
+				team_id: teamId,
+//				deposit_obj: cashobjstr,
+//				deposit_type: cashtypestr,
+				deposit_type: 'recycle',
+				bank_address: $('.data_cash_bank_address').val(),
+				bank_card: bankCard,
+				payee: vpayee,
+				pay_type: getSelect2Value($('.data_cash_pay_type')),
+				money: vmoney,
+				approval_amount: vmoney,
+				beizhu: $('.data_cash_beizhu').val(),
+			}
+			
+//			if (cashObjType.type_key == 'cj_deposit_obj_source') {
+				var sourcetypestr = getSelect2Value($('.data_cash_source_type'));
+				if (sourcetypestr == '' || sourcetypestr == '{}') {
+					toastr.warning('请选择资源类型');
+					return false;
+				}
+				
+				var sourceobjstr = getSelect2Value($('.data_cash_source_obj'),['id']);
+				if (sourceobjstr == '' || sourceobjstr == '{}') {
+					toastr.warning('请选择资源对象');
+					return false;
+				}
+				var adminstr = getSelect2Value($('.data_cash_review_admin'), ['id', 'account', 'nickname']);
+				if (adminstr == '' || adminstr == '{}') {
+					toastr.warning('请指定审批管理员');
+					return false;
+				}
+				
+				var sourceObj = $.parseJSON(sourceobjstr);
+				jsonData['obj_type'] = sourcetypestr
+				jsonData['obj_id'] = sourceObj.id
+								
+				var admin = $.parseJSON(adminstr);
+				admin['show_name'] = admin.nickname != '' && admin.nickname != 'undefined' ? admin.nickname : admin.account;
+				jsonData['review_admin'] = JSON.stringify(admin);
+//			}
+			
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (data.op != 'remove' && data.ds != null) {
+						var d = data.ds;
+						var depositObjContent = d.deposit_obj_data != null ? d.deposit_obj_data.type_desc : '';
+						var depositTypeContent = d.deposit_type_data != null ? d.deposit_type_data.type_desc : '';
+						var reviewTypeContent = d.review_type_data != null ? d.review_type_data.type_desc : '';
+						var requestAdmin = d.request_admin_data != null ? d.request_admin_data.account : '';
+						var payType = d.pay_type_data != null ? d.pay_type_data.type_desc : '';
+						var reviewAdmin = d.review_admin_data != null ? d.review_admin_data.account : '';
+						var confirmAdmin = d.confirm_admin_data != null ? d.confirm_admin_data.account : '';
+						var requestContent = '送审人员:'+requestAdmin+'<br />预算金额:'+d.money+'<br />减免金额:'+d.derate+'<br />请款金额:'+d.approval_amount+'<br />送审时间:'+d.request_time+'<br />送审附言:'+d.beizhu;
+						var payeeContent = '收款方式:'+payType+'<br />收款人:'+d.payee+'<br />收款账号:'+d.bank_card+'<br />开户行地址:'+d.bank_address;
+						var reviewContent = '审核人员:'+reviewAdmin+'<br />审核金额:'+d.finnal_money+'<br />审核时间:'+d.review_time+'<br />审核附言:'+d.review_beizhu;
+						var confirmContent = '审核人员:'+confirmAdmin+'<br />已支付金额:'+d.complated_money+'<br />审核金额:'+d.confirm_money+'<br />审核时间:'+d.confirm_time+'<br />审核附言:'+d.confirm_beizhu;
+						if (data.op == 'create') {
+							var vhtml = '<tr class="insurance" data-id="'+d.id+'">';
+								vhtml +='	<td>'+depositObjContent+'<br />'+d.deposit_obj_show+'</td>';
+								vhtml +='	<td>'+depositTypeContent+'</td>';
+								vhtml +='	<td>'+requestContent+'</td>';
+								vhtml +='	<td>'+payeeContent+'</td>';
+								vhtml +='	<td>'+reviewTypeContent+'</td>';
+								vhtml +='	<td>'+reviewContent+'</td>';
+								vhtml +='	<td>'+confirmContent+'</td>';
+								vhtml +='	<td>';
+								vhtml +='		<a class="btn btn-secondary btn-sm" href="'+'{:U("financial/deposit")}/id/'+d.id+'" style="float: right;" target="_blank">审批详细</a>';
+//								vhtml +='		<button style="float: right;" type="button" class="btn btn-warning btn-sm btn_cash_source_remove">取消送审</button>';
+//								vhtml +='		<button style="float: right;" type="button" class="btn btn-info btn-sm btn_cash_source_edit">编辑送审</button>';
+								vhtml +='	</td>';
+								vhtml +='</tr>';
+							$('.table_cash_review').find('tbody').append(vhtml);
+							var trObj = $('.table_cash_review').find('tbody').find('tr:last');
+							$(trObj).find('.btn_cash_source_edit').click(_ajaxReviewEdit);
+							$(trObj).find('.btn_cash_source_remove').click(_ajaxReviewRemove);
+						} else {
+							var trObj = $('.table_cash_review').find('tbody').find('tr[data-id="'+d.id+'"]');
+							$(trObj).find('td:eq(0)').html(d.deposit_obj_show);
+							$(trObj).find('td:eq(1)').html(depositTypeContent);
+							$(trObj).find('td:eq(2)').html(requestContent);
+							$(trObj).find('td:eq(3)').html(payeeContent);
+							$(trObj).find('td:eq(4)').html(reviewTypeContent);
+							$(trObj).find('td:eq(5)').html(reviewContent);
+							$(trObj).find('td:eq(6)').html(confirmContent);
+						}
+					}	
+					clearCashReview();
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}	
+			});
+		
+		}		
+		// 绑定保存资源
+		$('.btn_cash_review').click(_ajaxCashReviewSave);
+		
+		// 清空编辑的审批信息
+		function clearCashReview(){
+			$('.cash_review_edit').attr('data-id', '');
+//			setSelect2Value($('.data_cash_obj'), null);
+//			setSelect2Value($('.data_cash_type'), null);
+			setSelect2Value($('.data_source_type'), null);
+			setSelect2Value($('.data_source_obj'), null);
+			setSelect2Value($('.data_cash_review_admin'), null);
+			setSelect2Value($('.data_cash_pay_type'), null);
+			$('.data_cash_payee').val('');
+			$('.data_cash_bank_card').val('');
+			$('.data_cash_bank_address').val('');
+			$('.data_cash_money').val('');
+			$('.data_cash_beizhu').val('');
+		}
+		$('.btn_cash_clear').click(clearCashReview);		
+	</script>
+	
+	
+	<!--同行返利-->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default edit">
+				<div class="panel-heading">
+					<h3 class="panel-title">同行返利</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<!--在此地编辑内容-->
+					<div class="row name rebate_review_edit">
+						<div class="col-xs-12 row">
+							<div class="col-xs-4">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon2">同行</span>
+									<input type="text" class="form-control data_rebate_source_obj" placeholder="请选择资源">
+									<span class="input-group-btn">
+        								<button class="btn btn-default btn_rebate_source_append" type="button" style="border:1px solid #ccc; height: 37px;"><span class="glyphicon glyphicon-pencil"></span></button>
+      								</span>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i style="font-style: normal;">指定审批人</i>
+									</div>
+									<script type="text/javascript">
+										$(document).ready(function(){
+											bindAdminDropMenu($('.data_rebate_review_admin'), 'finance', '点击选择审批管理员或者输入关键字查询');
+											setSelect2Value('.data_rebate_review_admin', '{"id":"82","account":"张丹","show_name":"可乐"}');
+										});
+									</script>
+									<input type="text" class="form-control data_rebate_review_admin">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 row">
+							<div class="col-xs-4">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i style="font-style: normal;">结算方式</i>
+									</div>
+									<script type="text/javascript">
+										$(document).ready(function(){
+											bindTypeDataDropMenu($('.data_rebate_pay_type'), 'cj_pay_type', '选择结算类型');	
+										});
+									</script>
+									<input type="text" class="form-control data_rebate_pay_type">
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i style="font-style: normal;">收款人</i>
+									</div>
+									<input type="text" class="form-control data_rebate_payee">
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i style="font-style: normal;">收款账号</i>
+									</div>
+									<input type="number" class="form-control data_rebate_bank_card" maxlength="16">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="col-xs-12">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i style="font-style: normal;">开户行与地址</i>
+									</div>
+									<input type="text" class="form-control data_rebate_bank_address">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 row">
+							<div class="col-xs-3">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon5">返利金额</span>
+									<input type="number" class="form-control data_rebate_money" placeholder="请输入申请金额" maxlength="8">
+								</div>
+							</div>
+							<div class="col-xs-9">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon6">备注</span>
+									<input type="text" class="form-control data_rebate_beizhu" placeholder="请输入要备注的内容" >
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 row">
+							<button style="float: right;width:70px; margin-left: 20px;" type="button" class="btn btn-info btn-sm btn_rebate_clear">清空资料</button>
+							<button style="float: right;width:70px;" type="button" class="btn btn-primary btn-sm btn_rebate_review">申请返利</button>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		// select2 对象	
+		var select2RebateSourceObj = null;		
+		// 显示选择资源文本
+		function rebateSourceObjShowText(ds) {		
+			setSelect2Value($('.data_rebate_pay_type'), ds.pay_type);
+			$('.data_rebate_payee').val(ds.payee);					
+			$('.data_rebate_bank_address').val(ds.bank_address);
+			$('.data_rebate_bank_card').val(ds.bank_card);
+			
+			var showText = '';
+			if (ds.name != null) {
+				showText = ds.name;
+			}			
+			var vtab = select2RebateSourceObj.ds.tab;
+			if (vtab.indexOf('agency') != -1) {
+				if (ds.agency_type != null && ds.agency_type != ''){
+					var typeObj = $.parseJSON(ds.agency_type);
+					showText += '['+typeObj.type_desc+']';
+				} 
+			} else {
+			}
+			if (ds.pay_type != null && ds.pay_type != '') {
+				var payType = $.parseJSON(ds.pay_type);
+				showText += '['+payType.type_desc+']';
+			}
+			return showText;
+		}
+		
+		
+		// 初始化资源
+		function initRebateSourceObj() {				
+			var voption = {obj:$('.data_rebate_source_obj'), search:1, placeholder: '请选择资源', show_col:rebateSourceObjShowText, select_col:rebateSourceObjShowText};
+			var vds = {tab:'cj_agency', search_col: 'name', cdsstr: 'agency_type|LIKE|%tonghang%|AND|invalid|=|0|AND', cdtype:4}
+			select2RebateSourceObj = new MySelect2(voption, vds);
+		}
+		
+		// JS初始化
+		$(document).ready(function(){
+			// 初始化资金审批的资源
+			initRebateSourceObj();			
+		});
+		
+		// 添加新审批信息
+		$('.btn_rebate_source_append').click(function(){	
+			var vhref = '{:U("financial/source")}/src/agency';
+			window.open(vhref);
+		});
+		
+		// 保存审批信息
+		function _ajaxRebateReviewSave() {
+			var teamId = $('.create-write').attr('data-id');		
+			if (teamId == '') {
+				toastr.warning('还没有创建团期，请先创建团期在添加参团人员');
+				return false;
+			}				
+			
+			var vpayee = $('.data_rebate_payee').val();
+			var bankCard = $('.data_rebate_bank_card').val();
+			var vmoney = parseFloat($('.data_rebate_money').val());
+			if (vpayee == '' || bankCard == '' || vmoney < 0.01) {
+				toastr.warning('收款人、收款账号、提审金额不能为空，且提审金额必须大于0');
+				return false;
+			}
+			var jsonData = {
+				op_type: 'deposit',
+				op: 'save',
+				id: $('.rebate_review_edit').attr('data-id'),
+				team_id: teamId,
+				deposit_type: 'rebate',
+				bank_address: $('.data_rebate_bank_address').val(),
+				bank_card: bankCard,
+				payee: vpayee,
+				pay_type: getSelect2Value($('.data_rebate_pay_type')),
+				money: vmoney,
+				approval_amount: vmoney,
+				beizhu: $('.data_rebate_beizhu').val(),
+			}
+							
+			var sourceobjstr = getSelect2Value($('.data_rebate_source_obj'),['id']);
+			if (sourceobjstr == '' || sourceobjstr == '{}') {
+				toastr.warning('请选择资源对象');
+				return false;
+			}
+			var adminstr = getSelect2Value($('.data_rebate_review_admin'), ['id', 'account', 'nickname']);
+			if (adminstr == '' || adminstr == '{}') {
+				toastr.warning('请指定审批管理员');
+				return false;
+			}
+			var sourceObj = $.parseJSON(sourceobjstr);
+			jsonData['obj_id'] = sourceObj.id
+			
+			var admin = $.parseJSON(adminstr);
+			admin['show_name'] = admin.nickname != '' && admin.nickname != 'undefined' ? admin.nickname : admin.account;
+			jsonData['review_admin'] = JSON.stringify(admin);
+			
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (data.op != 'remove' && data.ds != null) {
+						var d = data.ds;
+						var depositObjContent = d.deposit_obj_data != null ? d.deposit_obj_data.type_desc : '';
+						var depositTypeContent = d.deposit_type_data != null ? d.deposit_type_data.type_desc : '';
+						var reviewTypeContent = d.review_type_data != null ? d.review_type_data.type_desc : '';
+						var requestAdmin = d.request_admin_data != null ? d.request_admin_data.account : '';
+						var payType = d.pay_type_data != null ? d.pay_type_data.type_desc : '';
+						var reviewAdmin = d.review_admin_data != null ? d.review_admin_data.account : '';
+						var confirmAdmin = d.confirm_admin_data != null ? d.confirm_admin_data.account : '';
+						var requestContent = '送审人员:'+requestAdmin+'<br />预算金额:'+d.money+'<br />减免金额:'+d.derate+'<br />请款金额:'+d.approval_amount+'<br />送审时间:'+d.request_time+'<br />送审附言:'+d.beizhu;
+						var payeeContent = '收款方式:'+payType+'<br />收款人:'+d.payee+'<br />收款账号:'+d.bank_card+'<br />开户行地址:'+d.bank_address;
+						var reviewContent = '审核人员:'+reviewAdmin+'<br />审核金额:'+d.finnal_money+'<br />审核时间:'+d.review_time+'<br />审核附言:'+d.review_beizhu;
+						var confirmContent = '审核人员:'+confirmAdmin+'<br />已支付金额:'+d.complated_money+'<br />审核金额:'+d.confirm_money+'<br />审核时间:'+d.confirm_time+'<br />审核附言:'+d.confirm_beizhu;
+						if (data.op == 'create') {
+							var vhtml = '<tr class="insurance" data-id="'+d.id+'">';
+								vhtml +='	<td>'+depositObjContent+'<br />'+d.deposit_obj_show+'</td>';
+								vhtml +='	<td>'+depositTypeContent+'</td>';
+								vhtml +='	<td>'+requestContent+'</td>';
+								vhtml +='	<td>'+payeeContent+'</td>';
+								vhtml +='	<td>'+reviewTypeContent+'</td>';
+								vhtml +='	<td>'+reviewContent+'</td>';
+								vhtml +='	<td>'+confirmContent+'</td>';
+								vhtml +='	<td>';
+								vhtml +='		<a class="btn btn-secondary btn-sm" href="'+'{:U("financial/deposit")}/id/'+d.id+'" style="float: right;" target="_blank">审批详细</a>';
+//								vhtml +='		<button style="float: right;" type="button" class="btn btn-warning btn-sm btn_cash_source_remove">取消送审</button>';
+//								vhtml +='		<button style="float: right;" type="button" class="btn btn-info btn-sm btn_cash_source_edit">编辑送审</button>';
+								vhtml +='	</td>';
+								vhtml +='</tr>';
+							$('.table_cash_review').find('tbody').append(vhtml);
+							var trObj = $('.table_cash_review').find('tbody').find('tr:last');
+							$(trObj).find('.btn_cash_source_edit').click(_ajaxReviewEdit);
+							$(trObj).find('.btn_cash_source_remove').click(_ajaxReviewRemove);
+						} else {
+							var trObj = $('.table_cash_review').find('tbody').find('tr[data-id="'+d.id+'"]');
+							$(trObj).find('td:eq(0)').html(d.deposit_obj_show);
+							$(trObj).find('td:eq(1)').html(depositTypeContent);
+							$(trObj).find('td:eq(2)').html(requestContent);
+							$(trObj).find('td:eq(3)').html(payeeContent);
+							$(trObj).find('td:eq(4)').html(reviewTypeContent);
+							$(trObj).find('td:eq(5)').html(reviewContent);
+							$(trObj).find('td:eq(6)').html(confirmContent);
+						}
+					}	
+					clearRebateReview();
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}	
+			});
+		
+		}		
+		// 绑定保存资源
+		$('.btn_rebate_review').click(_ajaxRebateReviewSave);
+		
+		// 清空编辑的审批信息
+		function clearRebateReview(){
+			$('.rebate_review_edit').attr('data-id', '');			
+			setSelect2Value($('.data_rebate_source_obj'), null);
+			setSelect2Value($('.data_rebate_pay_type'), null);
+			setSelect2Value($('.data_rebate_review_admin'), null);
+			$('.data_rebate_payee').val('');
+			$('.data_rebate_bank_card').val('');
+			$('.data_rebate_bank_address').val('');
+			$('.data_rebate_money').val('');
+			$('.data_rebate_beizhu').val('');
+		}
+		$('.btn_rebate_clear').click(clearRebateReview);
+	</script>
+	
+	<!--审批列表-->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default edit">
+				<div class="panel-heading">
+					<h3 class="panel-title">审批列表</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<!--在此地编辑内容-->
+					<table class="table table1 table_cash_review">
+						<thead>
+						<tr>
+							<th>送审对象</th>
+							<th>操作方式</th>
+							<th>提审内容</th>
+							<th>收款人信息</th>
+							<th>审核状态</th>
+							<th>审核内容</th>
+							<th>确认内容</th>
+							<th>信息操作</th>
+						</tr>
+						</thead>
+						<tbody>
+							<!--{:p_a($team['deposits'])}-->
+							<volist id="d" name="team.deposits">
+								<tr class="insurance" data-id="{$d.id}">
+									<td>{$d.deposit_obj_data.type_desc}<br/>{$d.deposit_obj_show}</td>
+									<td>{$d.deposit_type_data.type_desc}</td>
+									<td>送审人员:{$d.request_admin_data.account}<br />预算金额:{$d.money}<br />减免金额:{$d.derate}<br />请款金额:{$d.approval_amount}<br />送审时间:{$d.request_time}<br />送审附言:{$d.beizhu}</td>	
+									<td>收款方式:{$d.pay_type_data.type_desc}<br />收款人:{$d.payee}<br />收款账号:{$d.bank_card}<br />开户行地址:{$d.bank_address}</td>
+									<td>{$d.review_type_data.type_desc}</td>
+									<td>审核人员:{$d.review_admin_data.account}<br />审批资金:{$d.finnal_money}<br />审核时间:{$d.review_time}<br />审核附言:{$d.review_beizhu}</td>
+									<td>确认人员:{$d.confirm_admin_data.account}<br />已支付金额:{$d.complated_money}<br />本次确认金额:{$d.confirm_money}<br />确认时间:{$d.confirm_time}<br />审核附言:{$d.confirm_beizhu}</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" href="{:U('financial/deposit')}/id/{$d.id}" style="float: right;" target="_blank">审批详细</a>
+										<!--<button style="float: right;" type="button" class="btn btn-warning btn-sm btn_cash_source_remove">取消送审</button>
+										<button style="float: right;" type="button" class="btn btn-info btn-sm btn_cash_source_edit">编辑送审</button>-->
+									</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+					<!--<div class="row">
+						<p style="float: right; text-align: right; border-top: 1px solid #eee; width: 300px; padding-top: 10px;">
+							<span style="color: red; font-size: 18px">团期余额：<b class="team_balance">{$team.balance}</b>元</span>
+							<a href="javascript:;" class="refresh_team_balance" style="margin-left: 5px;">刷新<i class="fa-refresh"></i></a>
+						</p>
+					</div>-->
+					<div class="row">
+						<a href="javascript:;" class="btn btn-secondary pdf_create_insurance">生成保单</a>
+						<a href="javascript:;" class="btn btn-secondary xlsx_create_team">生成派团单</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">		
+		// 刷新团期资金
+		$('.refresh_team_balance').click(function(){
+			var jsonData = {
+				op_type:'refresh_balance', 
+				team_id: $('.create-write').attr('data-id'),
+			}
+			$.post('{:U("financial/team")}', jsonData, function(data){
+				if (data.result != null) {
+					if (data.result.errno == 0) {
+						toastr.success(data.result.message);
+					} else {
+						toastr.error(data.result.message);
+					}
+				}
+				if (data.ds != null) {
+					$('.team_balance').html(data.ds.balance);
+				}
+			});
+		});
+		
+		// 生成保单
+		$('.pdf_create_insurance').click(function(){
+			location.href = '{:U("financial/team")}/export/insurance/id/'+$('.create-write').attr('data-id');
+		});
+		
+		// 生成派团单
+		$('.xlsx_create_team').click(function(){
+			location.href = '{:U("financial/team")}/export/team/id/'+$('.create-write').attr('data-id');
+		});
+		
+	</script>
+	
+	
+	<!--跟踪记录-->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default edit">
+				<div class="panel-heading">
+					<h3 class="panel-title">跟踪记录</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table class="table table1 table_supervise">
+						<thead>
+						<tr>
+							<th width="80">跟踪编号</th>
+							<th width="100">操作人员</th>
+							<th>操作内容</th>
+							<th width="180">操作时间</th>
+						</tr>
+						</thead>
+						<tbody>
+							<volist id="s" name="team.supervise">
+								<tr class="insurance" data-id="{$s.id}">
+									<td>{$s.id}</td>
+									<td>{$s.admin_data.show_name}</td>
+									<td style="text-align: left;">{$s.content}</td>	
+									<td>{$s.create_time}</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+<include file="Common/footer" />

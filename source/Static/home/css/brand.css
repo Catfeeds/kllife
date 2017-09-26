@@ -1,0 +1,186 @@
+*{
+  padding:0px;
+  margin:0px;
+  font-family: "微软雅黑";
+}
+/*content*/
+.brand{background: #f5f5f5;  padding-bottom:50px;}
+.brand .content{
+  width:1200px;
+  margin:auto;
+}
+.brand .content .crumbs{
+  margin:0px;
+  padding-top:15px;
+  padding-bottom:15px;
+  font-size: 16px;
+}
+.brand .content .brand-detail{
+  background: #fff;
+  padding-bottom:50px;
+  overflow: hidden;
+}
+.brand .content .brand-detail .index-eq{
+  overflow: hidden;
+}
+.brand .content .brand-detail .nav-list-one{
+  overflow: hidden;
+}
+.brand .content .brand-detail .nav-list-one div{
+  float: left;
+  width:24.5%;
+  font-size: 16px;
+  border-right:2px solid #e0dfdf;
+  text-align: center;
+  cursor: pointer;
+  height:70px;
+  line-height:70px;
+}
+.brand .content .brand-detail .nav-list-one div:last-child{
+  border-right:none;
+}
+.brand .content .brand-detail .nav-list-one .active{
+  color:#ff7200;
+}
+.brand .content .brand-detail .title{
+  padding-top:50px;
+  width:650px;
+  margin:auto;
+  overflow: hidden;
+}
+.brand .content .brand-detail .title .detail{
+  overflow: hidden;
+  margin-bottom:20px;
+}
+.brand .content .brand-detail .title .detail div{
+  float: left;
+  overflow: hidden;
+}
+.brand .content .brand-detail .title .detail .left{
+  width:90px;
+}
+.brand .content .brand-detail .title .detail .left h4{
+  font-size: 22px;
+  color:#444;
+  font-weight: 100;
+}
+.brand .content .brand-detail .title .detail .right{
+  width:560px;
+}
+.brand .content .brand-detail .title .detail .right p{
+  font-size: 15px;
+  line-height:22px;
+  margin-bottom:10px;
+  white-space:nowrap;/*强制文本在一行内显示*/
+  text-overflow:ellipsis; /*溢出省略号，支持ie、safari（webkit）*/
+  -o-text-overflow:ellipsis; /*溢出省略号，支持opera*/
+  overflow:hidden;/*溢出隐藏*/
+  -moz-binding:url('ellipsis.xml#ellipsis');
+}
+.brand .content .brand-detail .title h3{
+  margin:20px 0px 50px;
+  font-size: 24px;
+  color:#444;
+  font-weight: 100;
+}
+.brand .content .brand-detail .index-eq .one .detail .left{
+  width:15%;
+}
+.brand .content .brand-detail .index-eq .one .detail .right{
+  width:85%;
+}
+.brand .content .brand-detail .index-eq .one .detail div{
+  display: block;
+  margin-bottom:20px;
+  width:650px;
+  float: left;
+}
+.brand .content .brand-detail .index-eq .one .detail div p{
+  font-size: 16px;
+  line-height: 22px;
+  color:#333;
+  width:100%;
+}
+.brand .content .brand-detail .index-eq .one .width div p{
+  line-height:30px;
+  width:630px;
+}
+.brand .content .brand-detail .index-eq .one .year{
+  width:750px;
+  margin:auto;
+  overflow: hidden;
+  padding-top:90px;
+}
+.brand .content .brand-detail .index-eq .one .year div{
+  float: left;
+}
+.brand .content .brand-detail .index-eq .one .year .left{
+  width:100px;
+}
+.brand .content .brand-detail .index-eq .one .year .right{
+  width:550px;
+  padding-left:100px;
+}
+.brand .content .brand-detail .index-eq .one .year .right p{
+  margin-top:20px;
+  line-height:25px;
+  height:50px;
+  font-size: 15px;
+}
+.brand .content .brand-detail .index-eq .one .vision{
+  margin-top:60px;
+  text-align: center;
+  text-align: -webkit-center;
+}
+.brand .content .brand-detail .index-eq .one .vision h3,.brand .content .brand-detail .index-eq .one .values h3{
+  font-size: 24px;
+  color:#444;
+  font-weight: 100;
+}
+.brand .content .brand-detail .index-eq .one .vision p,.brand .content .brand-detail .index-eq .one .values p{
+  font-size: 14px;
+  color:#666;
+  line-height:25px;
+}
+.brand .content .brand-detail .index-eq .one .vision h4,.brand .content .brand-detail .index-eq .one .values h4{
+  font-size: 22px;
+  padding:20px 0px;
+  color:#444;
+  font-weight: 100;
+}
+.brand .content .brand-detail .index-eq .one .values{
+  margin-top:60px;
+  text-align: center;
+  text-align: -webkit-center;
+}
+.brand .content .brand-detail .index-eq .one .xian{
+  margin-top:70px;
+  padding:0px 195px;
+}
+.brand .content .brand-detail .index-eq .one .margin-top{
+  margin-top:30px;
+}
+.brand .content .brand-detail .index-eq .one .xian p{
+  font-size: 14px;
+  color:#666;
+  line-height:25px;
+}
+.brand .content .brand-detail .index-eq .one .size p{
+  font-size: 15px;
+}
+.brand .content .brand-detail .index-eq .one .xian h3{
+  font-size: 24px;
+  color:#ff7200;
+  margin:45px 0px;
+}
+.brand .content .brand-detail .index-eq .one .xian .img{
+  margin-bottom:45px;
+}
+.brand .content .brand-detail .index-eq .one .xian p{}
+
+
+
+
+
+
+

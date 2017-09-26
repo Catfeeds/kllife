@@ -1,0 +1,28 @@
+body { background-color: #f3f5f6; }
+#content { width: 1200px; margin: 0 auto; margin-top: 148px; padding-top: 20px; padding-bottom: 25px; background-color: #fff; font-size: 14px; }
+/*订单详情头部*/
+.order-details-top { width: 1158px; margin: 0 auto; background-color: #fffceb; border: 1px solid #fdb67c; }
+.order-details-top p { margin: 24px 17px; line-height: 1.5; color: #333; }
+.order-details-top p span { color: #ff7200; }
+/*订单详情*/
+.order-details-content { width: 1158px; margin: 0 auto; margin-top: 20px; border: 1px solid #ebebeb; }
+.order-details { margin: 20px 20px; padding-bottom: 20px; border-bottom: 1px solid #ebebeb; }
+.order-details h3 { font-size: 14px; color: #333; }
+.order-details p { margin-top: 25px; color: #666; }
+.order-details p span { margin-left: 20px; color: #f00; }
+.order-details p i { margin-right: 30px; font-style: normal; color: #ff7200; }
+/*发票信息*/
+.invoice-information { margin: 20px 20px; padding-bottom: 20px; border-bottom: 1px solid #ebebeb; }
+.invoice-information h3 { font-size: 14px; color: #333; }
+.invoice-information h3 span { font-weight: normal; font-size: 12px; color: #666; }
+.invoice-information p { margin-top: 25px; color: #666; }
+/*订单联系人信息*/
+.contact-information { margin: 20px 20px; padding-bottom: 10px; }
+.contact-information h3 { font-size: 14px; color: #333; }
+.contact-information > p { margin-top: 30px; text-align: right; color: #666; }
+.contact-information > p strong { font-size: 24px; color: #ff7200; }
+.contact-information table { width: 100%; margin-top: 20px; color: #666; }
+.contact-information table thead tr { background-color: #f6f6f6; }
+.contact-information table thead th { width: 25%; padding: 15px 0; text-align: center; font-weight: normal; color: #666; }
+.contact-information table tbody tr { border-bottom: 1px solid #ebebeb; }
+.contact-information table tbody td { padding: 15px 0; text-align: center; }

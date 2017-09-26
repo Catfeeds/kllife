@@ -1,0 +1,203 @@
+<include file="Common/header" /> 
+		
+		<style type="text/css">
+			.user_password { border-bottom: 1px #ececec solid; margin-bottom: 20px; }
+			.user_info { border-bottom: 1px #ececec solid; margin-bottom:20px; }
+			.user_info > div { line-height: 40px; }
+			.user_info > div > input { line-height:initial; height: 30px; vertical-align: middle; padding-left:5px; }
+		</style>
+		
+		<div class="row">
+			<div class="panel panel-color panel-info panel-content-pos">
+				<div class="panel panel-heading">
+					<span class="description">{:C(CONTENT_TITLE)}</span>					
+				</div>
+				<div class="panel panel-color panel-content">
+					<div class="row user_password">
+						<div class="col-md-11">
+							<div class="row">
+								<div class="col-md-1">
+									<label for="" class="control-label">当前密码:</label>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">							
+										<input type="password" id="old_pwd" class="form-control">
+									</div>							
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-1">
+									<label for="" class="control-label">新密码:</label>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">							
+										<input type="password" id="new_pwd" class="form-control">
+									</div>							
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-1">
+									<label for="" class="control-label">重复密码:</label>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">							
+										<input type="password" id="repeat_pwd" class="form-control">
+									</div>							
+								</div>
+							</div>
+						</div>
+					</div>
+                    
+					<div class="row">
+						<div class="col-md-6">
+							<a href="#" class="btn btn-danger" id='btn_pwd' >确认保存</a>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+		
+		<div class="row">
+			<div class="panel panel-color panel-info panel-content-pos">
+				<div class="panel panel-heading">
+					<span class="description">个人信息</span>					
+				</div>
+				<div class="panel panel-color panel-content">
+					<div class="row">
+						<div class="col-md-11">
+							<br />
+							<div class="row user_info">
+								<div class="data_account">
+									<label for="" class="control-label">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;户:</label>
+									<span>{$admin.account}</span>
+								</div>
+								<div class="data_nickname">
+									<label for="" class="control-label">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</label>
+									<span>{$admin.nickname}</span>
+									<input type="text" maxlength="50" class="hidden_ctrl" style="min-width: 400px;"/>
+								</div>
+								<div class="data_type">
+									<label for="" class="control-label">账户类型:</label>
+									<span>{$admin.type_id_data.type_desc}</span>
+								</div>
+								<div class="data_station">
+									<label for="" class="control-label">所属站点:</label>
+									<span>{$admin.station_id_data.name}</span>
+								</div>
+								<div class="data_grant_group">
+									<label for="" class="control-label">权限类型:</label>
+									<span>{$admin.group_id_data.type_desc}</span>
+								</div>
+								<div class="data_email">
+									<label for="" class="control-label">电子邮件:</label>
+									<span>{$admin.email}</span>
+									<input type="email" maxlength="50" class="hidden_ctrl" style="min-width: 400px;"/>
+								</div>
+								<div class="data_tel">
+									<label for="" class="control-label">电话号码:</label>
+									<span>{$admin.tel}</span>
+									<input type="number" maxlength="50" class="hidden_ctrl" style="min-width: 400px;"/>
+								</div>
+							</div>
+							<div class="row">
+								<a href="javascript:;" class="btn btn-info" style="margin-left: 15px; min-width: 150px;">编辑</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 修改管理员密码
+		$("#btn_pwd").click(modifyPassword);
+		// 修改管理员信息
+		$(".btn-info").click(modifyAdminInfo);
+	});	
+	
+	// 修改密码
+	function modifyPassword(){
+		var oPwd = $('#old_pwd').val();
+		var nPwd = $('#new_pwd').val();
+		var rPwd = $('#repeat_pwd').val();
+		if (oPwd == '' || nPwd == '' || rPwd == '') {
+			alert('密码不能为空');
+			return false;
+		}
+		
+		if (nPwd != rPwd) {
+			alert('输入的新密码不一致，请重新输入');
+			return false;
+		}
+		$.post('{:U("settle/modifypassword")}', 
+			{'old_pwd': oPwd, 'new_pwd': nPwd},
+			function(data) {
+				console.log(JSON.stringify(data));
+				alert(data['result']['message']);
+			}
+		);
+	}
+	
+	// 修改管理员信息
+	function modifyAdminInfo(){
+		var aObj = $(this);		
+		if (!$(aObj).hasClass('save')) {
+			$(aObj).html('保存');
+			$(aObj).addClass('save');
+			$('.user_info').find('input').each(function(){
+				$(this).removeClass('hidden_ctrl');
+				$(this).prev().addClass('hidden_ctrl');
+				$(this).val($(this).prev().html());
+			});
+			return false;
+		}
+		
+		var nickname = $('.data_nickname').find('input').val();
+		var email = $('.data_email').find('input').val();
+		var tel = $('.data_tel').find('input').val();
+		
+		if (tel != '' && checkMobile(tel) == false && checkTel(tel) == false) {
+			toastr.warning('所填写的电话号码有误，请检查后再次提交');
+			return false;
+		}
+		
+		if (email != '' && checkEmail(email) == false) {
+			toastr.warning('所填写的邮箱信息有误，请检查后再次提交');
+			return false;
+		}
+		
+		var aid = '{$admin.id}';
+		$.post('{:U("admin/info")}', 
+			{
+				op_type: 'edit',
+				cd: {id: aid},
+				data: [
+					{name:'nickname', value:nickname},
+					{name:'tel', value:tel},
+					{name:'email', value:email},
+				],
+			},
+			function(data) {
+				if (data.result.errno == 0) {
+					$('.user_info').find('input').each(function(){
+						$(this).prev().html($(this).val());
+					});						
+				} else {
+					if (data.result.errno == -4) {
+						toastr.warning('新的数据未发生变化，不需要更新');
+					} else {
+						toastr.error(data.result.message);	
+					}
+				}
+				$(aObj).removeClass('save');
+				$(aObj).html('编辑');
+				$('.user_info').find('input').each(function(){
+					$(this).addClass('hidden_ctrl');
+					$(this).prev().removeClass('hidden_ctrl');
+					$(this).val('');
+				});
+			}
+		);
+	}
+</script>
+<include file="Common/footer" />

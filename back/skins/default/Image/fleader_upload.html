@@ -1,0 +1,277 @@
+
+	<!-- 上传图片确认 -->
+	<div class="modal fade custom-width" id="gallery-leader-upload-modal" data-backdrop="static">
+		<div class="modal-dialog" style="width: 60%">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<h4 class="modal-title">上传图片</h4>
+				</div>
+				
+				<div class="modal-body">
+						
+					<div class="row">
+					
+						<div class="row">					
+							<div class="col-md-12">
+								<div class="form-group">
+									<p>作品标题：</p><br />
+									<input type="text" style="height: 32px;" class="dingdan_bianji col-sm-12 modal_img_title" placeholder="请输入作品标题">
+								</div>
+							</div>
+						</div>
+						<br />
+						
+						<div class="row">					
+							<div class="col-md-12">
+								<div class="form-group">
+									<p>作品描述：</p><br />
+									<input type="text" style="height: 32px;" class="dingdan_bianji col-sm-12 modal_img_intro" placeholder="请输入作品描述">
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">					
+							<div class="col-md-12">
+								<div class="form-group">
+									<p>作品标签：</p><br />
+									<input type="text" style="height: 32px;" class="dingdan_bianji col-sm-12 modal_img_tags" placeholder="多个标签请用','隔开">
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="row">
+			
+						<!-- Auto initialization -->
+						<form id="ModalImageUpload" class="dropzone"></form>
+						
+					</div>
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-secondary btn-use">上传并使用</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		// 上传成功的回调函数
+		var funcModalUploadCallBack = null;
+		var modaLeaderlUploadCallBack = null;
+		var modaLeaderlId = null;
+		var modalLeaderDropZone = null;
+		var modalLeaderImageList = null;
+		var modaLeaderlUploadMaxFileCount = 20;
+		var modaLeaderlUploadMaxFileSize = 3;
+		var modaLeaderlUploadInitialized = false; // 已初始化
+				
+		// 显示上传插件
+		function showModalLeaderUploadDialog(obj, leaderId) {
+			if (modaLeaderlUploadInitialized == false) {
+				_modalInitDropZone();
+				// 一键上传所有图片
+				$('#gallery-leader-upload-modal').find('.btn-use').click(_modaLeaderlUploadAllImage);
+			}
+			modaLeaderlUploadCallBack = obj;
+			modaLeaderlId = leaderId;
+			_modalClearAllImage();
+			$("#gallery-leader-upload-modal").modal('show');
+		}
+		
+		// 初始化上传插件
+//		$(document).ready(function() {
+//			Dropzone.autoDiscover = false;
+//			Dropzone.options.myAwesomeDropzone = false;
+//			_modalInitDropZone();	
+//			
+//			// 上传所有图片
+//			$('#gallery-leader-upload-modal').find('.btn-use').click(_modaLeaderlUploadAllImage);
+//		});	
+		
+		// 初始化dropzone
+		function _modalInitDropZone() {
+			$('#ModalImageUpload').dropzone({
+				url: '{:U("image/fuploadleader")}',
+				maxFiles: modaLeaderlUploadMaxFileCount,	// 允许上传的文件个数
+				maxFilesize: modaLeaderlUploadMaxFileSize,	// 单个文件最大上传大小，3MB
+				acceptFiles:'.jpg,.jpeg,.png,.gif',
+				addRemoveLinks: true,
+				uploadMultiple: false,
+				autoProcessQueue: false,
+				dictDefaultMessage: '点击此处添加图片',
+				dictRemoveFile: '删除',
+				init:function(){
+					modalLeaderDropZone = this;
+					this.on('addedfile', _modalAddUploadImage);
+					this.on('removedfile', _modalRemoveUploadImage);
+					this.on('error', _modalLeaderImageError);
+					this.on('processing', _modalLeaderImageProcessing);
+					this.on('uploadprogress', _modalLeaderImageUploadProgress);
+					this.on('sending', _modalLeaderImageSending);
+					this.on('success', _modalLeaderImageSucess);
+					this.on('complete', _modalLeaderImageComplete);
+					this.on('canceled', _modalLeaderImagecanceled);
+					this.on('maxfilesreached', _modalLeaderImageMaxFilesReached);
+					this.on('maxfilesexceeded', _modalLeaderImageMaxFilesExceeded);
+									
+				},
+			});
+			modaLeaderlUploadInitialized = true;
+		}
+		
+		
+		// 检测是否可以添加图片
+		var modalFileCount = 0;
+		function _modalCheckAllowUpload() {
+			modalFileCount = modalLeaderDropZone.getAcceptedFiles().length;	
+			if (modalFileCount < 1) {
+				alert('请上传照片...');
+				return false;
+			}
+			if (modalFileCount > 20) {
+				alert('您一次上传的照片不应该超过20张');
+				return false;
+			}
+			return true;
+		}
+		
+		// 检查编辑图片的信息
+		function _modalcheckImageInfo() {
+			var rootObj = $('#gallery-leader-upload-modal');
+			var title = $(rootObj).find('.modal_img_title').val();
+			if (title == '') {
+				alert('图片的标题不能为空，可能的话请尽量补全其它图片信息，谢谢合作!');
+				return false;
+			}
+			return true;
+		}
+		
+		// 添加所有图片
+		function _modaLeaderlUploadAllImage(){
+			// 检查是否允许上传
+		    if (_modalCheckAllowUpload() == false) {
+		    	return false;
+		    }
+		    // 检查图片描述
+		    if (_modalcheckImageInfo() == false) {
+		    	return false;
+		    }
+			
+			// 加载上传等待层
+			showLoading(true);
+			// 开始上传
+			modalLeaderDropZone.processQueue();
+			
+			modalLeaderImageList = new Array();
+//			var fs = modalLeaderDropZone.getAcceptedFiles();
+//			for (var i = 0; i < fs.length; ++ i) {
+//			}			
+		}
+		
+		// 清除所有添加的图片
+		function _modalClearAllImage(){	
+			// console.log('_modalClearAllImage->清除所有图片');
+			modalLeaderDropZone.removeAllFiles(true);
+		}
+		
+		// 添加图片
+		function _modalAddUploadImage(f) {	
+			// console.log('_modalAddUploadImage->'+JSON.stringify(f));		
+			//alert('add:' + f.name);
+//			f.previewElement.addEventListener("click", function(f) {
+//				alert(111);
+//				modalLeaderDropZone.removeFile(f);
+//			});			
+		}
+		
+		// 删除图片
+		function _modalRemoveUploadImage(f) {
+			// console.log('_modalRemoveUploadImage->'+JSON.stringify(f));	
+		}
+		
+		// 出错时. 接受 errorMessage 作为第二个参数，并且如果错误是 XMLHttpRequest对象， 那就作为第三个参数.
+		function _modalLeaderImageError(f, errMsg, xhr) {
+			// console.log('_modalLeaderImageError->'+ JSON.stringify(f) + ",error:" + errMsg);	
+		}
+		
+		// 当一个文件获取处理 （因为不是所有的文件会立即得到处理的队列）。以前，此事件被称为 processingfile
+		function _modalLeaderImageProcessing(f) {
+			// console.log('_modalLeaderImageProcessing->'+JSON.stringify(f));	
+		}
+		
+		//	无论文件在什么时候被改变都会调用此函数.
+		//	处理进度作为第二个参数，范围为(0-100); 发送到服务的字节数作为第三个参数
+		//	当上传文件完成确保至少一次处理进度被设置为100%
+		//	警告: 函数可能同时被多次调用
+		function _modalLeaderImageUploadProgress(f, p, b) {
+			// console.log('_modalLeaderImageUploadProgress->'+JSON.stringify(f) + ",process" + p + ",byte:" + b + "KB");
+		}
+		
+		// 在每个文件被发送前调用. 得到 xhr 对象 和 formData 对象作为第二个和第三个参数, 所以你可以修改他们(add a CSRF token) 或者追加额外的数据.
+		function _modalLeaderImageSending(f, xhr, formData) {	
+			var rootObj = $('#gallery-leader-upload-modal');
+			var tags = $(rootObj).find('.modal_img_tags').val().replace(/，/g, ',');
+			formData.append('leader_id', modaLeaderlId);
+			formData.append('title', $(rootObj).find('.modal_img_title').val());
+			formData.append('intro', $(rootObj).find('.modal_img_intro').val());
+			formData.append('tags', tags);
+		}
+		
+		// 文件已经成功上传，获得服务器返回信息作为第二个参数(这个时间又被称作finished)
+		function _modalLeaderImageSucess(f, backData) {
+			// console.log('_modalLeaderImageSucess->'+JSON.stringify(f)+JSON.stringify(backData));
+			if (backData['result']['errno'] == 0) {
+				// 调用上传成功图片函数
+				var imageUrl = backData.ds.url;
+				modalLeaderImageList.push(imageUrl);
+				// 上传成功后移除该文件
+				modalLeaderDropZone.removeFile(f);			
+				
+			} else {
+				toastr.error('上传失败,原因如下:\n' + backData['result']['message']);
+			}
+		}
+		
+		// 当上传完成，成功或者出现错误时调用
+		function _modalLeaderImageComplete(f) {
+			// console.log('_modalLeaderImageComplete->'+JSON.stringify(f));
+//			goBtnTop($('#gallery-leader-upload-modal').find('.btn-use'));
+//			console.log(123);
+			modalFileCount--;
+			if (modalFileCount == 0) {
+				if (typeof(funcModalUploadCallBack) == 'function') {
+					funcModalUploadCallBack(modaLeaderlUploadCallBack, modalLeaderImageList);
+					
+				}
+				showLoading(false);
+				// 关闭窗口
+				$('#gallery-leader-upload-modal').modal('hide');
+				
+			}
+			if (f.accepted != false) {
+				modalLeaderDropZone.processQueue();	
+			}
+		}
+		
+		// 当取消文件上传式调用
+		function _modalLeaderImagecanceled(f) {
+			// console.log('_modalImagecanceled->'+JSON.stringify(f));
+		}
+		
+		// 当文件的数量达到maxFiles限制时调用
+		function _modalLeaderImageMaxFilesReached(f) {
+			// console.log('_modalLeaderImageMaxFilesReached->'+JSON.stringify(f));
+		}
+		
+		// 由于文件数量达到 maxFiles 限制数量被拒绝时调用
+		function _modalLeaderImageMaxFilesExceeded(f) {
+			// console.log('_modalLeaderImageMaxFilesExceeded->'+JSON.stringify(f));
+			modalLeaderDropZone.removeFile(f);
+		}		
+		
+	</script>

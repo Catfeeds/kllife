@@ -1,0 +1,36 @@
+<include file="Common/top" />
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/images.css">
+	<style>
+		body {background-color: #ececec;}
+		.content{margin-bottom:70px;}
+		.images-top{height:auto;}
+		.images-content h1,.images-content h3,.images-content h4,.images-content p,.images-content .content-padded div{padding:0px 10px;font-size: 15px;}
+		.images-content p{text-indent:0rem;}
+		.images-content p b,.images-content p span,blockquote{font-size: 15px;}
+		.images-content div b,.images-content div span{font-size: 15px;}
+		.content-padded{font-size: 15px;}
+		.images-content .tit-h4{padding:20px 10px 10px;}		
+	</style>
+	<div class="page" style="position: absolute;top:60px;max-width:750px;">
+		<div class="content">
+			<!--<notempty name="article.face_image">-->
+				<!--<div class="images-top" style="height:auto;">-->
+					<!--<img src="{$article.face_image}" alt="" style="height:auto;">-->
+				<!--</div>-->
+			<!--</notempty>-->
+			<div class="images-content">
+				<div class="content-padded">
+					<h4 class="tit-h4">{$article.title}</h4>
+					<volist id="cnt" name="article['content']">
+						<if condition="empty($cnt['image_url']) eq false">
+							<img src="{$cnt.image_url}" alt="">
+							<else />
+							<p>{$cnt.content}</p>
+						</if>
+					</volist>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<include file="Common/bottom" />

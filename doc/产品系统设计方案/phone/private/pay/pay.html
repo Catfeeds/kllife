@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 1:1显示 -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+	<!-- 忽略页面中的数字识别为电话号码和邮箱 -->
+	<meta name="format-detection" content="telephone=no,email=no" />
+	<!-- 允许全屏浏览 ios -->
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 不让百度转码 -->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+	<!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+	<title>领袖户外</title>
+	<link rel="stylesheet" href="../../common/css/light7.css">
+	<!-- mycss -->
+	<link rel="stylesheet" href="pay.css">
+</head>
+<body>
+	<div class="page">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="#">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">支付</h1>
+		</header>
+		<nav class="bar bar-tab">
+		    <a class="tab-item" href="../index/index.html" external>
+		      <i class="iconfont">&#xe605;</i>
+		      <p>首页</p>
+		    </a>
+		    <a class="tab-item" href="../list/list.html" external>
+		      <i class="iconfont">&#xe604;</i>
+		      <p>目的地</p>
+		    </a>
+		    <a class="tab-item" href="../index1/index1.html" external>
+		      <i class="iconfont">&#xe602;</i>
+		      <p>首页2</p>
+		    </a>
+		    <a class="tab-item" href="http://form.mikecrm.com/mOmPgD" external>
+		      <i class="iconfont">&#xe603;</i>
+		      <p>意见反馈</p>
+		    </a>
+		    <a class="tab-item" href="../personal_center/personal_center.html" external>
+		      <i class="iconfont">&#xe601;</i>
+		      <p>我的</p>
+		    </a>
+		</nav>
+		<div class="content">
+			<!-- 消费总额 -->
+			<div class="all-money">
+				<div class="content-padded">
+					消费总额：<span>￥3580</span>
+				</div>
+			</div>
+			<!-- 优惠券 -->
+			<div class="coupon">
+				<div class="content-padded">
+					<i class="iconfont">&#xe60e;</i>
+					优惠券
+					<span>无可用</span>
+					<i class="iconfont up-down">&#xe60f;</i>
+				</div>
+				<div class="coupon-content">
+					<div class="content-padded">
+						<div class="row no-gutter">
+							<div class="col-70">
+								<div class="content-padded">
+									<p>每人每次限用一张，仅限6日以上长线使用，不可与其他优惠活动同时使用</p>
+									<span>本劵有效期即日起到2016年12月31日</span>
+								</div>
+							</div>
+							<div class="col-30">
+								<div class="content-padded">
+									<p><span data-money='300'>300</span>元</p>
+									<strong>现金券</strong>
+								</div>
+							</div>
+						</div>
+						<div class="row no-gutter">
+							<div class="col-70">
+								<div class="content-padded">
+									<p>每人每次限用一张</p>
+									<span>本劵有效期即日起到2016年12月31日</span>
+								</div>
+							</div>
+							<div class="col-30">
+								<div class="content-padded">
+									<p><span data-money='200'>200</span>元</p>
+									<strong>现金券</strong>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 优惠码 -->
+			<div class="promo-codes">
+				<div class="content-padded">
+					<i class="iconfont">&#xe60e;</i>
+					优惠码
+					<span>无可用</span>
+					<i class="iconfont up-down">&#xe60f;</i>
+				</div>
+				<div class="promo-codes-content">
+					<div class="content-padded">
+						<h5>请输入优惠兑换码：</h5>
+						<div class="write-code">
+							<input type="text" maxlength="4">
+							—
+							<input type="text" maxlength="4">
+							—
+							<input type="text" maxlength="4">
+							—
+							<input type="text" maxlength="4">
+						</div>
+						<a href="javascript:;" external>兑换</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- 消费总额 -->
+			<div class="pay-money">
+				<div class="content-padded">
+					<div class="row no-gutter">
+						<div class="col-70">消费总额</div><div class="col-30">￥3580</div>
+						<div class="col-70">优惠券</div><div class="col-30">-￥<span>0</span></div>
+						<div class="col-70">实付金额</div><div class="col-30">￥3480</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 选择支付方式 -->
+			<div class="pay-mode">
+				<h5>选择支付方式</h5>
+				<div class="content-padded">
+					<div class="list-block media-list">
+						<ul>
+							<li>
+								<label class="label-checkbox item-content">
+									<input type="radio" name="my-radio" checked>
+									<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+									<div class="item-inner">
+										<div class="item-subtitle"><img src="wx.png" alt="">微信支付</div>
+									</div>
+								</label>
+							</li>
+							<li>
+								<label class="label-checkbox item-content">
+									<input type="radio" name="my-radio">
+									<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+									<div class="item-inner">
+										<div class="item-subtitle"><img src="ali.png" alt="">支付宝支付</div>
+									</div>
+								</label>
+							</li>
+							<li>
+								<label class="label-checkbox item-content">
+									<input type="radio" name="my-radio">
+									<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+									<div class="item-inner">
+										<div class="item-subtitle"><img src="atm.png" alt="">银行卡支付</div>
+									</div>
+								</label>
+							</li>
+						</ul>
+					</div>
+					<a href="../pay_success/pay_success.html" external><span>3480元</span> 确认支付</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- jq -->
+	<script src="../../common/js/jquery.min.js"></script>
+	<!-- light7 -->
+	<script src="../../common/js/light7.js"></script>
+	<!-- i18n 中文 -->
+	<script src="../../common/js/cn.js"></script>
+
+	<script>
+		$( function(){
+			$.init();
+
+			
+			//显示与隐藏优惠券
+			$('.coupon > .content-padded').click( 
+				function (){
+					$(this).parent('.coupon').children('.coupon-content').slideToggle();
+					//优惠券等高以及文本垂直
+					$('.coupon-content .col-30').height($('.coupon-content .col-70').height());
+					var ww = $('.coupon-content .row .col-30 .content-padded').width();
+					var www = parseInt(ww) / -2; 
+					var hh = $('.coupon-content .row .col-30 .content-padded').height();
+					var hhh = parseInt(hh) / -2;
+					$('.coupon-content .row').each( 
+						function () {
+							$(this).children('.col-30').height($(this).children('.col-70').height());
+							$(this).children('.col-30').find('.content-padded').css({'marginTop':hhh,'marginLeft':www});
+						}
+					);
+				}
+			);
+			//选择优惠券后
+			$('.coupon-content .row').click( function () {
+				$('.coupon > .coupon-content').slideUp();
+				//优惠券金额
+				
+				$('.pay-money span').html(parseInt($(this).find('.col-30 span').attr('data-money')));
+			} );
+			//显示与隐藏优惠码
+			$('.promo-codes > .content-padded').click(
+				function () {
+					$(this).parent('.promo-codes').children('.promo-codes-content').slideToggle();
+				}
+			);
+			
+		})
+	</script>
+</body>
+</html>

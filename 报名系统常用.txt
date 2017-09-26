@@ -1,0 +1,158 @@
+周念咏	财务	财务主管	13319253044	455643706@qq.com	
+张丹	财务	财务主管	15891736362	2120247437@qq.com
+苏雪迪	财务	财务权限	18509271520	284415295@qq.com	
+郑韬	客服	主站客服	15809270023	272096775@qq.com	
+龙玥	客服	实习客服	15596605082	3424804640@qq.com	
+邓育宁	客服	实习客服	18309203496	753802352@qq.com	
+袁潇	客服	实习客服	13227799237	582443944@qq.com	
+王文凯	客服	主站客服	18392583687	491579726@qq.com	
+吴花格	客服	数据客服	13279370725	2803970993@qq.com	
+华亚梅	客服	主站客服	15891397840	1091772981@qq.com	
+陈萌	客服	渠道客服	15209234051	1509246773@qq.com	
+康怡	客服	渠道客服	18082252127	3220789959@qq.com	
+袁钰喻	客服	渠道客服	18220535455	2016908272@qq.com	
+张小娥	客服	主站客服	13679185509	2731822141@qq.com	
+周莉莎	客服	客服主管	15802997867	3251436572@qq.com	
+刘红棉	计调	计调分站	13706508969	1581912300@qq.com	
+张媛	计调	计调权限	15319731335	3484426661@qq.com	
+任莹	计调	计调权限	18628618031	1052028106@qq.com	
+沈青	计调	计调分站	13572855404	1077930@qq.com	
+吴莉莉	计调	计调权限	18710308720	1975406623@qq.com	
+任京维	计调	计调权限	18706845032	2395418323@qq.com	
+贺婧	计调	计调权限	13772491385	3330486829@qq.com	
+郭煜	计调	计调主管	13572845045	505644981@qq.com
+
+报名系统后台：SUPERmima4008822kllife5860
+
+测试网址：manage.kllife.com
+
+报名系统ftp:managekllife/manageKLLIFE88225622/IP:121.40.88.19:
+
+db:managekllife/B8QRKSDrVHE8HUFb
+onlinedb: kllife/kuaile1@#3
+
+phpadmin:http://121.40.88.19:8088/phpmyadmin/
+
+摄影fpt:kllife_wsq/cjzJrwLnJfbrsqZN/IP:121.40.88.19:21
+摄影DB:sheying/tJAQQCQCJcrpRnYr
+
+阿里云服务器：用户名:root,密码:0e7mJjHz,（实例名称: iZ23hytfrljZ, 公网IP：121.40.88.19）
+
+产品系统测试ftp:pro_manage/KLLIFEproduct123/IP:121.40.88.19
+产品系统测试地址:http://test.quxingshe.com/
+产品系统前台展示地址:http://shequ.kllife.com/3g/farandfar/pc/show/index.html
+产品系统手机站展示地址:http://shequ.kllife.com/3g/farandfar/phone/private/list/list.
+
+旧后台登录地址:http://old.kllife.com/LX_sysadmin/login.php
+
+高德 18691891927/kllife88225622s
+
+开发论坛FTP-shequ.kllife.com
+ftp:地　址：121.40.88.19
+ftp:用户名：test_kllife
+ftp:密　码：073d1e8435953ea1
+
+合同下载访问地址：项目访问地址/fpdf/demo/pfd.php?did=订单编号
+上传图像网上实例：http://open.web.meitu.com/products/#M4
+
+SELECT  `id` ,  `station_id` ,  `type` ,  `key` , FROM_UNIXTIME(  `value` ) 
+FROM  `kl_set` 
+WHERE  `type` LIKE  'pc_home_index'
+AND  `key` LIKE  'config_update_time'
+LIMIT 0 , 30
+
+SELECT `id`,`station_id`,`type`,`key`, FROM_UNIXTIME(`value`) AS `val`,`sort` 
+FROM `kl_set` WHERE `key` = 'config_update_time' ORDER BY `id` DESC
+
+SELECT `u`.id, `u`.`name`, COUNT(`p`.userid) AS '评论数'  
+FROM `think_users` AS `u` INNER JOIN `think_pinglun` AS `p` ON `u`.`id`=`p`.`userid` 
+WHERE `p`.createtime >= '2016-07-01 00:00:00' AND `p`.createtime <= '2016-07-31 23:59:59' 
+GROUP BY `p`.userid 
+ORDER BY COUNT(`p`.userid) DESC;
+
+
+SELECT `u`.id, `u`.`name`, COUNT(`y`.uid) AS '发帖数'  
+FROM `think_users` AS `u` INNER JOIN `think_youji` AS `y` ON `u`.`id`=y.uid 
+WHERE `y`.sta=1 AND `y`.createtime >= LIKE '%2016-08%'
+GROUP BY `y`.uid 
+ORDER BY COUNT(`y`.uid) DESC;
+
+SELECT `u`.id, `u`.`name`,COUNT(`u`.id) AS '评论数',`p`.content,`p`.createtime
+FROM `think_users` AS `u`
+INNER JOIN `think_pinglun` AS `p` ON `u`.`id` = `p`.`userid`
+WHERE `p`.createtime >= '2016-07-01 00:00:00' AND `p`.createtime <= '2016-07-31 23:59:59'
+GROUP BY `u`.id
+ORDER BY count(`u`.id) DESC;
+
+SELECT `u`.id, `u`.`name`,COUNT(`u`.id) AS '评论数'
+FROM `think_users` AS `u`
+INNER JOIN `think_pinglun` AS `p` ON `u`.`id` = `p`.`userid`
+WHERE `p`.createtime LIKE '%2016-08%'
+GROUP BY `u`.id
+ORDER BY count(`u`.id) DESC;
+
+查询图片数据顺序错误
+SELECT `id`,`line_id`,`type_id`,`index`, COUNT(*) AS `count` 
+FROM `kl_line_point_scenery` 
+GROUP BY `line_id`,`type_id`,`index` 
+HAVING `index`=1 AND `count`>1
+
+13819100879
+8ee0098f180b14a3139529c497c68597
+8ee0098f180b14a3139529c497c68597
+	
+easy829
+15249227398
+
+合同下载地址：http://kllife.com/fpdf/domo/pdf.php?did=17884&startdate=2016.07.28&enddate=2016.08.09
+
+love829
+sv ftp 阿里云
+
+电信卡
+18092978859
+18092978223
+18092978151
+
+SELECT 
+`p1`.`id`,`p1`.`start_time`,`p1`.`end_time`,
+`p2`.`id`,`p2`.`title`,`p2`.`travel_day`, 
+`p3`.`id`,`p3`.`day`,`p3`.`sec`
+FROM `kl_batch` AS `p1` INNER JOIN `kl_line` AS `p2` ON `p1`.`line_id` = `p2`.`id` 
+INNER JOIN (
+SELECT `id`,
+((UNIX_TIMESTAMP(`end_time`)-UNIX_TIMESTAMP(`start_time`)) / 86400) AS `day`,
+((UNIX_TIMESTAMP(`end_time`)-UNIX_TIMESTAMP(`start_time`)) % 86400) AS `sec` 
+FROM `kl_batch`
+ ) AS `p3` ON `p1`.`id`=`p3`.`id` 
+WHERE  `p1`.`end_time` LIKE '%00:00:00' AND `p2`.`travel_day` != `p3`.`day` 
+ORDER BY `p1`.`id` DESC
+LIMIT 0 , 100
+
+
+UPDATE `kl_batch` SET DATE_ADD(`end_time`, INTERVAL 86399 SECOND)
+WHERE  `id` = (SELECT 
+`p1`.`id` AS `p1_id`,`p1`.`start_time`,`p1`.`end_time`,
+`p2`.`id`,`p2`.`title`,`p2`.`travel_day`, 
+`p3`.`id`,`p3`.`day`,`p3`.`sec`
+FROM `kl_batch` AS `p1` INNER JOIN `kl_line` AS `p2` ON `p1`.`line_id` = `p2`.`id` 
+INNER JOIN (
+SELECT `id`,
+((UNIX_TIMESTAMP(`end_time`)-UNIX_TIMESTAMP(`start_time`)) / 86400) AS `day`,
+((UNIX_TIMESTAMP(`end_time`)-UNIX_TIMESTAMP(`start_time`)) % 86400) AS `sec` 
+FROM `kl_batch`
+ ) AS `p3` ON `p1`.`id`=`p3`.`id` 
+WHERE  `p1`.`end_time` LIKE '%00:00:00' AND `p2`.`travel_day` != `p3`.`day`).`p1_id`
+
+
+UPDATE `kl_batch1` SET `end_time`=FROM_UNIXTIME(UNIX_TIMESTAMP(`end_time`)+86399) 
+WHERE `id` IN (SELECT 
+`p1`.`id` AS `id` 
+FROM `kl_batch` AS `p1` INNER JOIN `kl_line` AS `p2` ON `p1`.`line_id` = `p2`.`id` 
+INNER JOIN (
+SELECT `id`,
+((UNIX_TIMESTAMP(`end_time`)-UNIX_TIMESTAMP(`start_time`)) / 86400) AS `day`,
+((UNIX_TIMESTAMP(`end_time`)-UNIX_TIMESTAMP(`start_time`)) % 86400) AS `sec` 
+FROM `kl_batch`
+ ) AS `p3` ON `p1`.`id`=`p3`.`id` 
+WHERE  `p1`.`end_time` LIKE '%00:00:00' AND `p2`.`travel_day` != `p3`.`day`)

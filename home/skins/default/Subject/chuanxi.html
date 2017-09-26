@@ -1,0 +1,610 @@
+<include file="Common/top" />	
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/subject.css">
+<!--<link rel="stylesheet" href="__PUBLIC__/home/css/ejina.css">-->
+<style css="text/css">	
+	.hot-sale-product a .hot-sale-img { position: absolute; top: 85px; left: 0; width: 100%; height: 31px; text-align: center; font-size: 24px; text-decoration: none; text-shadow: 1px 1px 1px #000; }
+	.hot-sale-product .hot-sale-big .hot-sale-img { width: 287px; top: 200px; left: 136px; }
+	.main-two > ul{position:initial;width:100%;display: block}
+	.main-two > ul li a{font-size:26px;padding-bottom:0px;}
+	.clear-margin{margin:0 !important;}
+	.clear-margin{margin-top:20px !important;}
+	#content .zt-main>div{font-size: 16px;color:#666;line-height:25px;}
+	.zt-list ul li{display:block;cursor: pointer;}
+	.zt-list ul .active{background: #fcc60a;}
+	.indulgence img,.zt-sublist-img .today-hot img{width:73px;height:84px;}
+	.zt-sublist-describe .color{color:#333;font-weight:500;line-height:1.5}
+	.zt-list ul{background: #2c6fb7;}
+	.zt-list ul .active{background: #fabe00;}
+	.zt-sublist-content:last-child{border:none;}
+</style>
+<!--主要内容-->
+<div class="zt-top">
+	<img src="__PUBLIC__/home/images/ejina/chuanxi.jpg" original="http://img.kllife.com/2017-06-13_593fbe2d3853a.jpg">
+</div>
+<!--订单滚动-->
+<include file="Common/scroll_order" />
+<div style="width:100%;text-align: center;background:#3474bb;"><a href="http://kllife.com/home/index.php?s=/home/subject/brand" target="_blank"><img src="__PUBLIC__/home/images/index_img/index-code.jpg" alt=""></div></a>
+<div id="content">
+	<div class="zt-list main main-two">
+    		
+		<div class="zt-sublist-content line_template hidden_ctrl">
+			<a class="zt-href" href="" target="_blank"></a>
+			<div class="zt-sublist-img">
+				<img class="face_image" src=""/>
+				<div class="jiriyou">
+					<p><span class="day">{$line.travel_day}</span>日游</p>
+				</div>
+				<div class="today-hot">
+					<img src="" alt="">
+				</div>
+			</div>
+			<div class="zt-sublist-describe">
+				<h5>
+					<a href="javascript:;" target="_blank" class="title"></a>
+					<u class="theme-travel">
+						<a href="javascript:;"></a>
+					</u>
+				</h5>
+				<h5 class="color"></h5>
+				<p class="zt-sublist-line">线路简介：<span class="send_word"></span></p>
+				<p>价格：<strong>成人：￥<em class="adult_price"></em>元起</strong></p>
+				<p>活动时间：<span class="batch_list"></span></p>
+				<p>集合地点：<span class="assembly"></span></p>
+				<p>目的地：<span class="dest"></span></p>
+			</div>
+			<a class="baoming" href="javascript:;">立即报名</a>
+		</div>
+			
+		<!--甘南-->
+		<div class="subject_tab_gannan">
+	    	<div class="content">
+	    		<div class="tit">
+		            <ul class="recommend_filter">
+		                <volist id="tab" name="subject_line_tab_gannan">
+		                	<if condition="$key eq 0">
+		                    <li class="subject_tab active" data-subject="gannan" data-tab="{$tab.type_key}">甘南{$tab.type_desc}</li>
+		                	<else />
+		                    <li class="subject_tab" data-subject="gannan" data-tab="{$tab.type_key}">{$tab.type_desc}</li>
+		                	</if>
+		                </volist>
+		            </ul>
+		        </div>
+	    	</div>
+
+			<div class="zt-sublist subject_gannan">
+				<volist id="line" name="subject_line_gannan">
+						<div class="zt-sublist-content" data-id="{$line.id}">											
+							<a class="zt-href" href="{:U('line/info')}/id/{$line.id}" target="_blank"></a>
+							<div class="zt-sublist-img">
+								<img class="face_image" src="{$line.img1}"/>
+								<div class="jiriyou">
+									<p><span class="day">{$line.travel_day}</span>日游</p>
+								</div>
+								<if condition="empty($line['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img src="__PUBLIC__/home/images/index_img/{$line['line_especial_icon']}" alt="">
+									</div>
+								</if>
+							</div>
+							<div class="zt-sublist-describe">
+								<h5>
+									<a href="{:U('line/info')}/id/{$line.id}" target="_blank" class="title">{$line.title}</a>
+									<php> $theme = $line['theme_type_list'][0]; </php>
+									<u class="theme-travel">
+										<a class="{$theme.type_key}" href="javascript:;">{$line.theme_type_show_text}</a>
+										<div class="qj-box">
+
+											<img src="__PUBLIC__/home/images/content_img/yellow_arrow_top.png" alt="">
+
+											<div class="qj-box-content">
+
+												<h6>{$theme.type_desc}</h6>
+
+												<if condition="$theme['type_desc'] eq '小团慢旅行'">
+
+												<p>小团慢旅行是指在单团人数控制在28人以内，让旅行整体节奏和行进速度慢下来的同时，还要在美景中漫步呼吸，品味悠然新心情，为不期而遇的风景停车，与当地人充分互动，尽量与美景相拥而眠的高品质旅行。</p>
+
+												<elseif condition="$theme['type_desc'] eq '免费活动'" />
+
+												<p>领袖户外旅行网提供的免费游玩活动，包括郊游、徒步、桌游等项目。</p>
+
+												<elseif condition="$theme['type_desc'] eq '周边游'" />
+
+												<p>领袖户外或领袖户外严选本地有旅行社资质的户外旅游合作商提供的周边游产品。</p>
+
+												<elseif condition="$theme['type_desc'] eq '摄影游'" />
+
+												<p>领袖户外摄影创作团，为摄影爱好者提供全面、深度、准确的摄影创作服务。</p>
+
+												<elseif condition="$theme['type_desc'] eq '民族行'" />
+
+												<p>户外旅游综合平台，由具有完整资质的户外旅游机构提供服务的旅行服务。</p>
+
+												<else />
+
+												<p>本产品由领袖户外提供相关服务</p>
+
+												</if>
+
+											</div>
+
+										</div>
+									</u>
+								</h5>
+								<h5 class="color">{$line.subheading}</h5>
+								<p class="zt-sublist-line">线路简介：<span class="send_word">{$line.send_word}</span></p>							
+								<p>价格：
+									<if condition="empty($line['check_price'])">
+										<strong>核算中</strong>
+									<else />
+										<strong>成人：￥<em class="adult_price">{$line.start_price_adult}</em>元起</strong>
+									</if>
+								</p>
+								<p>活动时间：<span class="batch_list">{$line.start_time} 至 {$line.end_time}</span></p>
+								<p>集合地点：<span class="assembly">{$line.assembly_point_show_text}</span></p>
+								<p>目的地：<span class="dest">{$line.destination_show_text}</span></p>
+							</div>
+							<a class="baoming" href="{:U('line/info')}/id/{$line.id}">立即报名</a>
+
+						</div>
+				</volist>
+			</div>
+		</div>
+				
+			
+		<!--色达-->
+		<div class="subject_tab_seda">
+	    	<div class="content">
+	    		<div class="tit">
+		            <ul class="recommend_filter subject_tab_seda">
+		                <volist id="tab" name="subject_line_tab_seda">
+		                	<if condition="$key eq 0">
+		                    <li class="subject_tab active" data-subject="seda" data-tab="{$tab.type_key}">色达{$tab.type_desc}</li>
+		                	<else />
+		                    <li class="subject_tab" data-subject="seda" data-tab="{$tab.type_key}">{$tab.type_desc}</li>
+		                	</if>
+		                </volist>
+		            </ul>
+		        </div>
+	    	</div>
+
+			<div class="zt-sublist subject_seda">
+				<volist id="line" name="subject_line_seda">
+						<div class="zt-sublist-content" data-id="{$line.id}">											
+							<a class="zt-href" href="{:U('line/info')}/id/{$line.id}" target="_blank"></a>
+							<div class="zt-sublist-img">
+								<img class="face_image" src="{$line.img1}"/>
+								<div class="jiriyou">
+									<p><span class="day">{$line.travel_day}</span>日游</p>
+								</div>
+								<if condition="empty($line['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img src="__PUBLIC__/home/images/index_img/{$line['line_especial_icon']}" alt="">
+									</div>
+								</if>
+							</div>
+							<div class="zt-sublist-describe">
+								<h5>
+									<a href="{:U('line/info')}/id/{$line.id}" target="_blank" class="title">{$line.title}</a>
+									<php> $theme = $line['theme_type_list'][0]; </php>
+									<u class="theme-travel">
+										<a class="{$theme.type_key}" href="javascript:;">{$line.theme_type_show_text}</a>
+										<div class="qj-box">
+
+											<img src="__PUBLIC__/home/images/content_img/yellow_arrow_top.png" alt="">
+
+											<div class="qj-box-content">
+
+												<h6>{$theme.type_desc}</h6>
+
+												<if condition="$theme['type_desc'] eq '小团慢旅行'">
+
+												<p>小团慢旅行是指在单团人数控制在28人以内，让旅行整体节奏和行进速度慢下来的同时，还要在美景中漫步呼吸，品味悠然新心情，为不期而遇的风景停车，与当地人充分互动，尽量与美景相拥而眠的高品质旅行。</p>
+
+												<elseif condition="$theme['type_desc'] eq '免费活动'" />
+
+												<p>领袖户外旅行网提供的免费游玩活动，包括郊游、徒步、桌游等项目。</p>
+
+												<elseif condition="$theme['type_desc'] eq '周边游'" />
+
+												<p>领袖户外或领袖户外严选本地有旅行社资质的户外旅游合作商提供的周边游产品。</p>
+
+												<elseif condition="$theme['type_desc'] eq '摄影游'" />
+
+												<p>领袖户外摄影创作团，为摄影爱好者提供全面、深度、准确的摄影创作服务。</p>
+
+												<elseif condition="$theme['type_desc'] eq '民族行'" />
+
+												<p>户外旅游综合平台，由具有完整资质的户外旅游机构提供服务的旅行服务。</p>
+
+												<else />
+
+												<p>本产品由领袖户外提供相关服务</p>
+
+												</if>
+
+											</div>
+
+										</div>
+									</u>
+								</h5>
+								<h5 class="color">{$line.subheading}</h5>
+								<p class="zt-sublist-line">线路简介：<span class="send_word">{$line.send_word}</span></p>							
+								<p>价格：
+									<if condition="empty($line['check_price'])">
+										<strong>核算中</strong>
+									<else />
+										<strong>成人：￥<em class="adult_price">{$line.start_price_adult}</em>元起</strong>
+									</if>
+								</p>
+								<p>活动时间：<span class="batch_list">{$line.start_time} 至 {$line.end_time}</span></p>
+								<p>集合地点：<span class="assembly">{$line.assembly_point_show_text}</span></p>
+								<p>目的地：<span class="dest">{$line.destination_show_text}</span></p>
+							</div>
+							<a class="baoming" href="{:U('line/info')}/id/{$line.id}">立即报名</a>
+
+						</div>
+				</volist>
+			</div>
+		</div>
+		
+		<!--川西-->
+		<div class="subject_tab_chuanxi">
+	    	<div class="content">
+	    		<div class="tit">
+		            <ul class="recommend_filter subject_tab_chuanxi">
+		                <volist id="tab" name="subject_line_tab_chuanxi">
+		                	<if condition="$key eq 0">
+		                    <li class="subject_tab active" data-subject="chuanxi" data-tab="{$tab.type_key}">川西{$tab.type_desc}</li>
+		                	<else />
+		                    <li class="subject_tab" data-subject="chuanxi" data-tab="{$tab.type_key}">{$tab.type_desc}</li>
+		                	</if>
+		                </volist>
+		            </ul>
+		        </div>
+	    	</div>
+
+			<div class="zt-sublist subject_chuanxi">
+				<volist id="line" name="subject_line_chuanxi">
+						<div class="zt-sublist-content" data-id="{$line.id}">											
+							<a class="zt-href" href="{:U('line/info')}/id/{$line.id}" target="_blank"></a>
+							<div class="zt-sublist-img">
+								<img class="face_image" src="{$line.img1}"/>
+								<div class="jiriyou">
+									<p><span class="day">{$line.travel_day}</span>日游</p>
+								</div>
+								<if condition="empty($line['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img src="__PUBLIC__/home/images/index_img/{$line['line_especial_icon']}" alt="">
+									</div>
+								</if>
+							</div>
+							<div class="zt-sublist-describe">
+								<h5>
+									<a href="{:U('line/info')}/id/{$line.id}" target="_blank" class="title">{$line.title}</a>
+									<php> $theme = $line['theme_type_list'][0]; </php>
+									<u class="theme-travel">
+										<a class="{$theme.type_key}" href="javascript:;">{$line.theme_type_show_text}</a>
+										<div class="qj-box">
+
+											<img src="__PUBLIC__/home/images/content_img/yellow_arrow_top.png" alt="">
+
+											<div class="qj-box-content">
+
+												<h6>{$theme.type_desc}</h6>
+
+												<if condition="$theme['type_desc'] eq '小团慢旅行'">
+
+												<p>小团慢旅行是指在单团人数控制在28人以内，让旅行整体节奏和行进速度慢下来的同时，还要在美景中漫步呼吸，品味悠然新心情，为不期而遇的风景停车，与当地人充分互动，尽量与美景相拥而眠的高品质旅行。</p>
+
+												<elseif condition="$theme['type_desc'] eq '免费活动'" />
+
+												<p>领袖户外旅行网提供的免费游玩活动，包括郊游、徒步、桌游等项目。</p>
+
+												<elseif condition="$theme['type_desc'] eq '周边游'" />
+
+												<p>领袖户外或领袖户外严选本地有旅行社资质的户外旅游合作商提供的周边游产品。</p>
+
+												<elseif condition="$theme['type_desc'] eq '摄影游'" />
+
+												<p>领袖户外摄影创作团，为摄影爱好者提供全面、深度、准确的摄影创作服务。</p>
+
+												<elseif condition="$theme['type_desc'] eq '民族行'" />
+
+												<p>户外旅游综合平台，由具有完整资质的户外旅游机构提供服务的旅行服务。</p>
+
+												<else />
+
+												<p>本产品由领袖户外提供相关服务</p>
+
+												</if>
+
+											</div>
+
+										</div>
+									</u>
+								</h5>
+								<h5 class="color">{$line.subheading}</h5>
+								<p class="zt-sublist-line">线路简介：<span class="send_word">{$line.send_word}</span></p>							
+								<p>价格：
+									<if condition="empty($line['check_price'])">
+										<strong>核算中</strong>
+									<else />
+										<strong>成人：￥<em class="adult_price">{$line.start_price_adult}</em>元起</strong>
+									</if>
+								</p>
+								<p>活动时间：<span class="batch_list">{$line.start_time} 至 {$line.end_time}</span></p>
+								<p>集合地点：<span class="assembly">{$line.assembly_point_show_text}</span></p>
+								<p>目的地：<span class="dest">{$line.destination_show_text}</span></p>
+							</div>
+							<a class="baoming" href="{:U('line/info')}/id/{$line.id}">立即报名</a>
+
+						</div>
+				</volist>
+			</div>
+		</div>		
+		
+	</div>
+	<!--精彩游记-->
+	<div class="wonderful-travels">
+		<h3>精彩游记</h3>
+		<ul>
+			<volist id="youji" name="subject_youji_gannan">
+			<li>
+				<a href="{$youji.url}" target="_blank">
+					<img src="{$youji.img}"/>
+					<div style="background: #f4f4f4;">
+						<p style="padding-right:10px;">{$youji.desc}</p>
+					</div>
+				</a>		
+			</li>
+			</volist>
+			<volist id="youji" name="subject_youji_seda">
+			<li>
+				<a href="{$youji.url}" target="_blank">
+					<img src="{$youji.img}"/>
+					<div style="background: #f4f4f4;">
+						<p style="padding-right:10px;">{$youji.desc}</p>
+					</div>
+				</a>		
+			</li>
+			</volist>
+			<volist id="youji" name="subject_youji_chuanxi">
+			<li>
+				<a href="{$youji.url}" target="_blank">
+					<img src="{$youji.img}"/>
+					<div style="background: #f4f4f4;">
+						<p style="padding-right:10px;">{$youji.desc}</p>
+					</div>
+				</a>		
+			</li>
+			</volist>
+		</ul>
+	</div>
+	
+</div>
+
+<!--私人定制-->
+<include file="Common/private_book" />
+
+<!-- 精选热卖 -->
+	<div class="bg-white">
+		<div class="hot-sale main">
+			<h2>精选热卖</h2>
+			<div class="hot-sale-product set_root" id="hot_line_recommend" data-set="hot_line_recommend">
+				<div class="hot-sale-product-small">
+					<php>$rd0 = $subject_hot_line_gannan['hot_line_recommend0']</php>
+					<a href="{:U('line/info')}/id/{$rd0.id}">
+						<img src="{$rd0.img1}" alt="">
+						<u class="hot-sale-img">{$rd0.title}</u>
+						<div class="aaa">
+							<h4>{$rd0.title}</h4>
+							<span>{$rd0.subheading}</span>
+							<if condition="empty($rd0['check_price'])">
+								<p><em>核算中</em></p>
+							<else />
+								<p>￥<em>{$rd0.start_price_adult}</em>元起</p>
+							</if>						
+							<strong>查看详情></strong>
+						</div>
+					</a>
+					<php>$rd1 = $subject_hot_line_gannan['hot_line_recommend1']</php>
+					<a href="{:U('line/info')}/id/{$rd1.id}">
+						<img src="{$rd1.img1}" alt="">
+						<u class="hot-sale-img">{$rd1.title}</u>
+						<div class="aaa">
+							<h4>{$rd1.title}</h4>
+							<span>{$rd1.subheading}</span>
+							<if condition="empty($rd1['check_price'])">
+								<p><em>核算中</em></p>
+							<else />
+								<p>￥<em>{$rd1.start_price_adult}</em>元起</p>
+							</if>						
+							<strong>查看详情></strong>
+						</div>
+					</a>
+				</div>
+				<php>$rd2 = $subject_hot_line_gannan['hot_line_recommend2']</php>
+				<a class="hot-sale-big" href="{:U('line/info')}/id/{$rd2.id}">
+					<img src="{$rd2.img1}" alt="">
+					<u class="hot-sale-img">{$rd2.title}</u>
+					<div>
+						<h4>{$rd2.title}</h4>
+						<span>{$rd2.subheading}</span>
+						<if condition="empty($rd2['check_price'])">
+							<p><em>核算中</em></p>
+						<else />
+							<p>￥<em>{$rd2.start_price_adult}</em>元起</p>
+						</if>						
+						<strong>查看详情></strong>
+					</div>
+				</a>
+				<div class="hot-sale-product-small">
+					<php>$rd3 = $subject_hot_line_gannan['hot_line_recommend3']</php>
+					<a href="{:U('line/info')}/id/{$rd3.id}">
+						<img src="{$rd3.img1}" alt="">
+						<u class="hot-sale-img">{$rd3.title}</u>
+						<div class="aaa">
+							<h4>{$rd3.title}</h4>
+							<span>{$rd3.subheading}</span>
+							<if condition="empty($rd3['check_price'])">
+								<p><em>核算中</em></p>
+							<else />
+								<p>￥<em>{$rd3.start_price_adult}</em>元起</p>
+							</if>						
+							<strong>查看详情></strong>
+						</div>
+					</a>
+					<php>$rd4 = $subject_hot_line_gannan['hot_line_recommend4']</php>
+					<a href="{:U('line/info')}/id/{$rd4.id}">
+						<img src="{$rd4.img1}" alt="">
+						<u class="hot-sale-img">{$rd4.title}</u>
+						<div class="aaa">
+							<h4>{$rd4.title}</h4>
+							<span>{$rd4.subheading}</span>
+							<if condition="empty($rd4['check_price'])">
+								<p><em>核算中</em></p>
+							<else />
+								<p>￥<em>{$rd4.start_price_adult}</em>元起</p>
+							</if>						
+							<strong>查看详情></strong>
+						</div>
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+<!-- 超级目的地 -->
+<include file="Common/zhuanti" />
+
+
+<!--专题新闻资讯开始-->
+<div class="arcitle_con" style="display: none;">
+	<h2>新闻资讯</h2>
+	<p><a href="{:U('line/news')}/classid/{$subject.id}" target="_blank">更多</a></p>
+	<ul class="arcitle_li">
+		<volist id="article" name="seoarticles">
+			<li>
+				<p class="arc_title"><a href="{:U('line/news')}/id/{$article.id}"></a>{$article.title}</p>
+				<p class="arc_keyword">{$article.keywords}</p>
+				<p class="arc_description">{$article.send_word}</p>
+			</li>
+		</volist>
+	</ul>
+</div>
+<!--专题新闻资讯结束-->
+
+<!--锚点定位-->
+<include file="Common/fix_tags" />
+
+<script type="text/javascript">
+	    //点击切换线路
+    $(".content ul li").on("click",function(){
+    	$(this).addClass("active").siblings().removeClass("active");
+//  	$(this).parent().siblings().find("li").removeClass("active");
+		var subject = $(this).attr('data-subject');
+		var tab = $(this).attr('data-tab');
+    	findLine(subject, tab);
+    })
+
+	$(document).ready(function(){    	
+		// 绑定锚点
+		var fixedTag = new FixedTag({x:260,y:200}, true);
+		fixedTag.appendFixedTag('.subject_tab_gannan','gannan','甘南旅游');
+		fixedTag.appendFixedTag('.subject_tab_seda','seda','色达旅游');
+		fixedTag.appendFixedTag('.subject_tab_chuanxi','chuanxi','川西旅游');
+		fixedTag.appendFixedTag('.wonderful-travels','youji','精彩游记');
+		fixedTag.appendFixedTag('.hot-sale','hot','精选热卖');
+		fixedTag.enabledFixedTag();
+	});
+        
+    
+    // 查找线路
+    function findLine(subject, vtab) {
+        var jsonData = {
+        	op: subject,
+            tab: vtab,
+        }
+        
+        if ('{$refresh}' != '') {
+            jsonData['refresh'] = '{$refresh}';
+        }
+        
+        $.post('{:U("subject/chuanxi")}', jsonData, function(data){
+			$('.zt-sublist.subject_'+subject).empty();
+			if (data.ds != null) {
+				for (var i = 0; i < data.ds.length; i ++) {
+					var d = data.ds[i];
+					var lineObj = $('.line_template').clone(true);
+					$(lineObj).removeClass('line_template');
+					$(lineObj).removeClass('hidden_ctrl');
+					$(lineObj).attr('data-id', d.id);
+					$(lineObj).find('.face_image').attr('src', d.img1);
+					$(lineObj).find('.title').attr('href', '{:U("line/info")}/id/'+d.id);
+					$(lineObj).find('.zt-href').attr('href', '{:U("line/info")}/id/'+d.id);
+					$(lineObj).find('.title').html(d.title);
+					$(lineObj).find('.day').html(d.travel_day);
+					$(lineObj).find('.color').html(d.subheading);
+					$(lineObj).find('.theme-travel a').html(d.theme_type_show_text);
+					$(lineObj).find('.theme-travel a').addClass(d.theme_type_list[0].type_key);
+					$(lineObj).find('.send_word').html(d.send_word_show);
+					$(lineObj).find('.baoming').attr('href', '{:U("line/info")}/id/'+d.id);
+					if (d.check_price == 0) {
+						$(lineObj).find('.adult_price').parent().html('核算中');		
+					} else {	
+						$(lineObj).find('.adult_price').html(d.start_price_adult);
+					}
+					$(lineObj).find('.batch_list').html(d.start_time + ' 至 ' + d.end_time);				
+					$(lineObj).find('.assembly').html(d.assembly_point_show_text);
+					$(lineObj).find('.dest').html(d.destination_show_text);
+					
+					if (d.line_especial_icon != null && d.line_especial_icon != '' && d.line_especial_icon != 'undefined') {
+						$(lineObj).find('.today-hot img').attr('src', '__PUBLIC__/home/images/index_img/'+d.line_especial_icon)
+					} else {
+						$(lineObj).find('.today-hot').remove();
+					}
+					
+					$('.zt-sublist.subject_'+subject).append(lineObj);
+					
+					$('.theme-travel a').each(function(i, ev){
+						if($(this).html()=='民族行'){
+							$(this).addClass('zhuti');
+						}else if($(this).html()=='摄影游'){
+							$(this).addClass('sheying');
+						}
+					});
+				}
+			} 
+        });
+    }
+    
+
+    
+	//热门单品
+	$('.hot-sale-product a').hover(
+		function () {
+			$(this).find('.hot-sale-img').stop().hide(500);
+		},
+		function () {
+			$(this).find('.hot-sale-img').stop().show(1000);
+		}
+	);
+    
+    // 产品主题类型浮动框
+    $("body").on("mouseover",".theme-travel",function () {
+        $(this).find('.qj-box').show();
+    });
+    
+    $("body").on("mouseout",".theme-travel",function () {
+        $(this).find('.qj-box').hide();
+    }); 
+</script>
+
+
+
+
+<include file="Common/right" />
+<include file="Common/bottom" />

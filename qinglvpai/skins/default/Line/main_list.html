@@ -1,0 +1,871 @@
+<include file="Common/top" />
+<!-- 轮播样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/common/css/slide.css">
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/css/list.css">
+<style type="text/css">
+	body { background-color:#f3f5f6; }
+	.select > .select-list {height: 60px; }
+	.select-list { min-height: 35px; }
+	.select-all { width: 50px !important; }
+	.select-body { max-width: 1000px; }
+	.select-body a { max-width: 160px !important; }
+	.select-checkbox { min-width: 50px; }
+	.select-head .select-all,.select-up-down,.select-body a:hover,.select-more:hover,.double-row-describe-price h6 strong,.list-page a,.list-menu-sort-left .sort-checked{color:#ff1c77;}
+	.list-page span.current{background: #ff1c77;border-color:#ff1c77;color:#fff;}
+	.select-up-down i,.select-more i,.list-menu-sort-right i,.list-menu-sort-right i,.select-mine .select-body span,.list-menu-sort-left i{background-image: url(__PUBLIC__/qinglvpai/images/list/small_icon.png);}
+	.jiriyou p,.select-mine .select-body a:hover{background: #ff1c77;}
+	.select-mine .select-body span,.btns button:hover,.select-mine .select-body a{border-color:#ff1c77;color:#ff1c77;}
+	.select-up-down:hover,.list-menu-sort-left a:hover,.single-row-describe-price h6 strong,.select-up-down:focus{color:#ff1c77;}
+	.single-row-describe-bottom .appointment{background: url(__PUBLIC__/qinglvpai/images/list/appointment.jpg)}
+</style>
+	<!-- 主要内容 -->
+	<div id="content" style="margin-top: 20px; margin-bottom: 50px;">
+		<div class="commodity-menu">
+			<ul class="select">
+				<li class="select-mine">
+					<div class="select-head">
+						<span>您的选择:</span>
+					</div>
+					<div class="select-body">
+						<a class="select-clear" href="javascript:;">清除筛选条件</a>
+					</div>
+				</li>
+				<li class="select-list">
+					<div class="select-head">
+						<span>产品主题:</span>
+						<a class="select-all" href="javascript:;">全部</a>
+					</div>
+					<div class="select-body select-cpzt select-list">
+						<volist id="lt" name="line_theme">
+							<a href="javascript:;" data-id="{$lt.id}">{$lt.type_desc}</a>
+						</volist>
+					</div>
+					<div class="select-foot">
+
+					</div>
+				</li>
+				<li class="select-list">
+					<div class="select-head">
+						<span>产品区域:</span>
+						<a class="select-all" href="javascript:;">全部</a>
+					</div>
+					<div class="select-body select-cpqy select-list">
+						<volist id="la" name="line_area">
+							<a href="javascript:;" data-id="{$la.id}">{$la.type_desc}</a>
+						</volist>
+					</div>
+					<div class="select-foot">
+
+					</div>
+				</li>
+				<li>
+					<div class="select-head">
+						<span>目的地:</span>
+						<a class="select-all" href="javascript:;">全部</a>
+					</div>
+					<div class="select-body select-mdd select-list">
+						<volist id="d" name="dest">
+							<a href="javascript:;" data-id="{$d.id}">{$d.type_desc}</a>
+						</volist>
+					</div>
+					<div class="select-foot">
+						<a class="select-more select-more02" href="javascript:;">更多<i class="show-more"></i></a>
+					</div>
+				</li>
+				<li class="select-hide">
+					<div class="select-head">
+						<span>包含景点:</span>
+						<a class="select-all" href="javascript:;">全部</a>
+					</div>
+					<div class="select-body select-jd select-list multiselect">
+						<volist id="vp" name="view_point">
+							<a href="javascript:;"  data-id="{$vp.id}">
+								<span class="no-checked multiselect-span multiselect-hide"></span>
+								<span>{$vp.type_desc}</span>
+							</a>
+						</volist>
+						<div class="btns btn-hide">
+							<button type="button" class="btn-submit">确定</button>
+							<button type="button" class="btn-cancel">取消</button>
+						</div>
+					</div>
+					<div class="select-foot">
+						<a class="select-checkbox" href="javascript:;"><span>+</span>多选</a>
+						<a class="select-more select-more01" href="javascript:;">更多<i class="show-more"></i></a>
+					</div>
+				</li>
+				<li class="select-hide">
+					<div class="select-head">
+						<span>集合地:</span>
+						<a class="select-all" href="javascript:;">全部</a>
+					</div>
+					<div class="select-body select-cfd select-list">
+						<volist id="ap" name="assembly_place">
+							<a href="javascript:;" data-id="{$ap.id}">{$ap.type_desc}</a>
+						</volist>
+					</div>
+				</li>
+
+				<li class="select-hide">
+					<div class="select-head">
+						<span>旅行时间:</span>
+						<a class="select-all" href="javascript:;">全部</a>
+					</div>
+					<div class="select-body select-lxsj select-list">
+						<volist id="m" name="month">
+							<a href="javascript:;" data-id="{$m.id}">{$m.type_desc}</a>
+						</volist>
+					</div>
+				</li>
+				<li class="select-hide">
+					<div class="select-head">
+						<span>行程天数:</span>
+						<a class="select-all" href="javascript:;">全部</a>
+					</div>
+					<div class="select-body select-xcts select-list ">
+						<for start="1" end="31">
+							<a href="javascript:;" data-id="{$i}">{$i}天</a>
+						</for>
+					</div>
+				</li>
+			</ul>
+			<a class="select-up-down" href="javascript:;">
+				<span>查看更多选项<i class="show-more"></i></span>
+			</a>
+		</div>
+		<!--单排列表模板-->		
+		<div class="single-row-content template_single_row hidden_ctrl">
+			<a href="javascript:;" target="_blank"></a>
+			<div class="single-row-img">
+				<img src="" alt="">
+			</div>
+			<div class="jiriyou">
+				<p><span class="day"></span>日游</p>
+			</div>
+			<div class="single-row-describe">
+				<div class="single-row-describe-top">
+					<h4 class="title"></h4>
+					<h5 class="subheading"></h5>
+					<span class="send_word"></span>
+					<p><u class="assembly">集合地点：</u><u class="batch">批次：全年0期</u></p>
+					<p class="destination">目的地：</p>
+					<div class="single-row-describe-price">
+						<h6><!--<s class="price">0元</s>--><strong class="cut_price"></strong>元起</h6>
+					</div>
+				</div>
+				<div class="single-row-describe-bottom">
+					<span class="travel_date">旅行时间：</span>
+					<em class="appointment""></em>
+				</div>
+			</div>
+		</div>
+		
+		<!--双排列表模板-->		
+		<div class="double-row-content template_double_row hidden_ctrl">
+			<div class="template_content"> <!--double-row-left/double-row-right-->
+				<a href="javascript:;" target="_blank"></a>
+				<div class="template_img"> <!--double-row-left-top/double-row-right-top-->
+					<img src="" alt="">
+				</div>
+				<div class="jiriyou">
+					<p><span class="day"></span>日游</p>
+				</div>
+				<div class="double-row-describe">
+					<h4 class="title"></h4>
+					<h5 class="subheading"></h5>
+					<p class="send_word describe-content"></p>
+					<p><u class="assembly">集合地点：</u><u class="batch">批次：全年0期</u></p>
+					<p class="destination">目的地：</p>
+					<div class="double-row-describe-price">
+						<h6><!--<s class="price">0元</s>--><strong class="cut_price"></strong>元起</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 列表菜单 -->
+		<div class="list-menu">
+			<div class="list-menu-sort">
+				<div class="list-menu-sort-left">
+					<a class="list-menu-sort-comprehensive sort-checked" href="javascript:;">综合排序</a>
+					<a class="list-menu-sort-sales" href="javascript:;">销量<i></i></a>
+					<!--<a class="list-menu-sort-price" href="javascript:;">价格<i></i></a>-->
+				</div>
+				<div class="list-menu-sort-right">
+					<a class="list-menu-sort-x" href="javascript:;"><i class="sort-x"></i></a>
+					<a class="list-menu-sort-y" href="javascript:;"><i></i></a>
+				</div>
+			</div>
+			<if condition="empty($lines) eq true">
+				<span class="no-more-data" style="text-indent:2em;">领袖户外暂时没有你所要查询的信息，产品经理们正在努力开发线路中...</span>
+			</if>
+			
+			<!-- 单排列表 -->
+			<div class="single-row">
+				<volist id="line" name="lines">
+					<div class="single-row-content" data-id="{$line.id}">
+						<a href="{:U("line/content")}/id/{$line.id}" target="_blank"></a>
+						<div class="single-row-img">
+							<img src="{$line.img1}" alt="">
+						</div>
+						<div class="jiriyou">
+							<p><span class="day">{$line.travel_day}</span>日游</p>
+						</div>
+						<div class="single-row-describe">
+							<div class="single-row-describe-top">
+								<h4 class="title">{$line.title}</h4>
+								<h5 class="subheading">{$line.subheading_show}</h5>
+								<span class="send_word">{$line.send_word_show}</span>
+								<p>
+									<u class="assembly">集合地点：{$line.assembly_point_show_text}</u>
+									<u class="batch">批次：全年{:count($line['batchs'])}期</u>
+								</p>
+								<p class="destination">目的地：{$line.destination_show_text}</p>
+								<div class="single-row-describe-price">
+									<h6>
+										<if condition="empty($line['check_price'])">
+											<strong class="cut_price">核算中</strong>
+										<else />
+											<strong class="cut_price">{$line.start_price_adult}</strong>元起
+										</if>
+									</h6>
+								</div>
+							</div>
+							<div class="single-row-describe-bottom">
+								<span class="travel_date">旅行时间： {$line.start_time}&nbsp;至&nbsp;{$line.end_time}</span>
+								<em class="appointment" href="{:U("line/content")}/id/{$line.id}"></em>
+							</div>
+						</div>
+					</div>
+				</volist>
+			</div>
+			<!-- 双排列表 -->
+			<div class="double-row">
+				<volist id="line" name="lines" >
+					<if condition="$key % 2 eq 0" >
+						<div class="double-row-content">
+							<div class="double-row-left">
+								<div class="double-row-left-top">
+					<else />
+							<div class="double-row-right">
+								<div class="double-row-right-top">
+					</if>
+									<img src="{$line.img1}" alt="">
+								</div>
+								<div class="jiriyou">
+									<p><span class="day">{$line.travel_day}</span>日游</p>
+								</div>
+								<a href="{:U("line/content")}/id/{$line.id}" target="_blank"></a>
+								<div class="double-row-describe">
+									<h4 class="title">{$line.title}</h4>
+									<h5 class="subheading">{$line.subheading_show}</h5>
+									<p class="send_word describe-content">{$line.send_word_show}</p>
+									<p>
+										<u class="assembly">集合地点：{$line.assembly_point_show_text}</u>
+										<u class="batch">批次：全年{:count($line['batchs'])}期</u>
+									</p>
+									<p class="destination">目的地：{$line.destination_show_text}</p>
+									<div class="double-row-describe-price">
+										<h6>
+											<if condition="empty($line['check_price'])">
+												<strong class="cut_price">核算中</strong>
+											<else />
+												<strong class="cut_price">{$line.start_price_adult}</strong>元起
+											</if>
+										</h6>
+									</div>
+								</div>
+							</div>					
+					<if condition="$key % 2 gt 0">
+						</div> <!--double-row-content 结束符-->
+					</if>
+				</volist>
+					<!--数据为单数时添加double-row-content 结束符-->
+					<if condition="count($lines) % 2 gt 0">
+						</div> <!--double-row-content 结束符-->
+					</if>
+			</div>
+			<!-- 翻页 -->
+			<div class="list-page" data-page-count="{$page_count}" data-page-index="1"></div>
+		</div>
+	</div>
+	<!-- 私人定制 -->
+	<include file="Common/private_book" />
+	<!-- 精彩专题 -->
+	<include file="Common/zhuanti" />
+	<!-- 为什么选择我们 -->
+	<include file="Common/choose_us" />
+	<!-- 分页 -->
+	<script src="__PUBLIC__/home/js/page.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(
+			function($){
+				$("img").lazyload({
+					placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+					effect      : "fadeIn",
+					threshold : 100,
+					failure_limit : 10
+				});
+			});
+	</script>
+	<script type="text/javascript">
+		
+		// 获取基本信息
+		function getConditions() {
+			var cdsstr = '';			
+			var aObj = $('.select-mine').find('.select-body').find('a').each(function(i,ev){
+				var cdstr = '';
+				var did = $(this).attr('data-id');
+				if ($(this).hasClass('select-cpzt0')) {
+					cdstr = 'c0|'+did;
+				} else if ($(this).hasClass('select-mdd0')) {
+					cdstr = 'c1|'+did;
+				} else if ($(this).hasClass('select-jd0')) {
+//					var t = textstr.replace(/(^\s*)|(\s*$)/g, ""); 
+					cdstr = 'c2|'+did;
+				} else if ($(this).hasClass('select-cfd0')) {
+					cdstr = 'c3|'+did;
+				} else if ($(this).hasClass('select-lxsj0')) {
+					cdstr = 'c4|'+did;
+				} else if ($(this).hasClass('select-xcts0')) {
+//					var day = daystr.substring(0,daystr.length - 1);
+					cdstr = 'c5|'+did;
+				} else if ($(this).hasClass('select-cpqy0')) {
+					cdstr = 'c6|'+did;
+				}
+				if (cdstr != '') {
+					if (cdsstr != '') {
+						cdsstr += '|';
+					}
+					cdsstr += cdstr;
+				}
+			});
+			return cdsstr;
+		}
+		
+		// 获取排序规则
+		function getSorts() {
+			var ssort = '';
+			var sortObj = $('.list-menu-sort').find('.sort-checked');
+			var iclass = $(sortObj).find('i').attr('class');
+			if ($(sortObj).hasClass('list-menu-sort-sales')) {		
+				ssort = 'sell_count|'+(iclass == ''?'desc':'asc');
+			} else if ($(sortObj).hasClass('list-menu-sort-price')) {				
+				ssort = 'start_price_adult|'+(iclass == ''?'desc':'asc');
+			}
+			return ssort;
+		}
+		
+		// 初始化页码数据
+		constructionPage('.list-page', 1, '{$page_count}', findLine, true);
+		
+		// 查找产品
+		function findLine(pageIndex) {
+			var jsonData = {
+				page: pageIndex - 1,
+				cds: getConditions(),
+				sorts: getSorts(),
+			}
+			
+			console.log(JSON.stringify(jsonData));
+			
+			$.post('{:U("line/slowly")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					$('.single-row').empty();
+					$('.double-row').empty();
+					if (data.ds != null && data.ds != 'undefined') {
+						if ($('.no-more-data').length > 0) {
+							$('.no-more-data').addClass('hidden_ctrl');
+						}
+						
+						for (var i=0; i < data.ds.length; i++) {
+							var d = data.ds[i];		
+							// 单排
+							var lineObj = $('.template_single_row').clone(true);
+							$(lineObj).removeClass('hidden_ctrl');
+							$(lineObj).removeClass('template_single_row');
+							$(lineObj).attr('data-id', d.id);
+							
+							$(lineObj).find('img').attr('src',d.img1);
+							$(lineObj).find('.day').html(d.travel_day);
+							$(lineObj).find('.title').html(d.title);
+							$(lineObj).find('.subheading').html(d.subheading);
+							$(lineObj).find('.send_word').html(d.send_word_show);
+							$(lineObj).find('a').attr('href','{:U("line/content")}/id/'+ d.id);
+							$(lineObj).find('.assembly').html('集合地点：'+d.assembly_point_show_text);
+							$(lineObj).find('.batch').html('批次：全年'+d.batchs==null?0:$(d.batchs).length+'期');
+							$(lineObj).find('.destination').html('目的地：'+d.destination_show_text);
+							if (d.check_price == 0) {
+								$(lineObj).find('.cut_price').parent().html('<strong class="cut_price">核算中</strong>');								
+							} else {
+								$(lineObj).find('.cut_price').html(d.min_batch.adult_cut+'元起');
+							}
+							$(lineObj).find('.travel_date').html('旅行时间： '+d.start_time+'&nbsp;至&nbsp;'+d.end_time);			
+							$('.single-row').append(lineObj);
+							
+							// 双排
+							var mLineObj = null, mRootObj = null, mContentClass = '', mImageClass = '';
+							if (i % 2 == 0) {
+								mRootObj = $('.template_double_row').clone(true);
+								$(mRootObj).removeClass('template_double_row');
+								$(mRootObj).removeClass('hidden_ctrl');
+								mLineObj = $(mRootObj).find('.template_content');
+								mContentClass = 'double-row-left'; 
+								mImageClass = 'double-row-left-top';
+							} else {
+								mRootObj = $('.double-row').find('.double-row-content:last');
+								mLineObj = $('.template_double_row').find('.template_content').clone(true);
+								mContentClass = 'double-row-right'; 
+								mImageClass = 'double-row-right-top';
+							}
+							
+							$(mLineObj).removeClass('template_content');
+							$(mLineObj).addClass(mContentClass);
+							$(mLineObj).attr('data-id', d.id);
+							var imgObj = $(mLineObj).find('.template_img');
+							$(imgObj).removeClass('template_img');
+							$(imgObj).addClass(mImageClass);
+							$(imgObj).find('img').attr('src',d.img1);	
+							$(mLineObj).find('.day').html(d.travel_day);
+							$(mLineObj).find('.title').html(d.title);
+							$(mLineObj).find('.subheading').html(d.subheading_show);
+							$(mLineObj).find('.send_word').html(d.send_word_show);
+							$(mLineObj).find('a').attr('href','{:U("line/content")}/id/'+ d.id);
+							$(mLineObj).find('.assembly').html('集合地点：'+d.assembly_point_show_text);
+							$(mLineObj).find('.batch').html('批次：全年'+d.batchs==null?0:$(d.batchs).length+'期');
+							$(mLineObj).find('.destination').html('目的地：'+d.destination_show_text);
+							if (d.check_price == 0) {
+								$(mLineObj).find('.cut_price').parent().html('<s class="price">核算中</s><strong class="cut_price">核算中</strong>');								
+							} else {
+								$(mLineObj).find('.price').html(d.start_price_adult+'元');
+								$(mLineObj).find('.cut_price').html(d.start_price_adult);
+							}
+							if (i % 2 == 0) {		
+								$('.double-row').append(mRootObj);
+							} else {
+								$(mRootObj).append(mLineObj);
+							}
+						} // end for
+					} else {
+						if ($('.no-more-data').length > 0) {
+							$('.no-more-data').removeClass('hidden_ctrl');	
+						} else {
+							var vhtml = '<span class="no-more-data" style="text-indent:2em;">领袖户外暂时没有你所要查询的信息，产品经理们正在努力开发线路中...</span>';
+							$('.list-menu-sort').after(vhtml);
+						}
+					}
+					
+					// 判断页面总数是否发生变化  	
+					constructionPage('.list-page', pageIndex, data.page_count, findLine);
+					double('.double-row-left', '.double-row-left-top');
+					double('.double-row-right', '.double-row-right-top');
+				} else {
+					console.log(data.result.message);
+				}
+			});
+		}
+		
+		// 查询线路
+		function refreshLine() {    	
+			var thisPageIndex = $('.list-page').attr('data-page-index');
+			findLine(thisPageIndex);
+		}
+	</script>
+
+<script type="text/javascript">
+	
+//您的选择
+
+	function less () {
+
+		if ( $('.select-mine .select-body a').length < 2 ){
+
+			$('.select-mine').hide();
+
+		}
+
+	};
+
+
+
+	function YourChoice ( c , d) {
+
+		$( "." + c ).find('a').click( function () {
+
+			$('.select-mine').show();
+			
+			var did = $(this).attr('data-id');
+			
+			console.log('您选择了->id:'+did+',content:'+$(this).html());
+
+			var myHtml = '';
+
+			myHtml += '<a class="'+ c +'0" href="javascript:;" data-id="'+did+'">'
+
+					+'<b class="b0">'+d+'</b>'
+
+					+'<b class="b1">'+$(this).text()+'</b>'
+
+					+' <span></span>'
+
+					+'</a>';
+
+			$('.select-mine .select-body' + ' .' + c + '0' ).remove();
+
+			$('.select-mine .select-body').prepend(myHtml);
+
+			refreshLine();
+
+		} );
+
+	};
+
+
+
+	//景点的选择
+
+	$('.select-jd a').click( function () {
+
+		if ($('.select-checkbox').css('display') != 'none') {
+
+			$('.select-mine').show();
+
+			var myHtml = '';
+
+			myHtml += '<a class="select-jd0" href="javascript:;">'
+
+					+'包含景点-'
+
+					+'<b class="b1">'+$(this).text()+'</b>'
+
+					+' <span></span>'
+
+					+'</a>';
+
+			$('.select-mine .select-body .select-jd0').remove();
+
+			$('.select-mine .select-body').prepend(myHtml);
+
+			refreshLine();
+
+		}else {
+
+			return false;
+
+		}
+
+	} );
+
+	//去除
+
+	$(document).on('click', '.select-mine .select-body a span', function () {
+
+		$(this).parent().remove();
+
+		less();
+
+		refreshLine();
+
+	});
+
+	//清楚所有
+
+	$('.select-clear').click( function () {
+
+		$(this).siblings('a').remove();
+
+		$('.select-mine').hide();
+
+		refreshLine();
+
+	} );
+
+	//非多选的选择
+
+	YourChoice('select-cpzt', '产品主题-');
+	
+	YourChoice('select-cpqy', '产品区域-');
+
+	YourChoice('select-cfd', '集合地-');
+
+	YourChoice('select-mdd', '目的地-');
+
+	YourChoice('select-lxsj', '旅行时间-');
+
+	YourChoice('select-xcts', '行程天数-');
+
+	//多选
+
+	$('.select-checkbox').click( function () {
+
+		$(this).parents('li').find('.multiselect a .multiselect-span').removeClass('checked');
+
+		$(this).parents('li').find('.multiselect a .multiselect-span').toggleClass('multiselect-hide');
+
+		$(this).hide();
+
+		$(this).next().html('收起<i class="close-more"></i>');
+
+		$(this).parents('li').find('.select-list').css({ "overflow": "auto", "height": "74px" });
+
+		$(this).parents('li').find('.btns').removeClass('btn-hide');
+
+	} );
+
+	//勾选
+
+	$('.multiselect a').click( function () {
+
+		$(this).children('.multiselect-span').toggleClass('checked');
+
+	} );
+
+	//取消
+
+	$('.btn-cancel').click( function () {
+
+		$(this).parents('li').find('.select-checkbox').show();
+
+		$(this).parent('.btns').addClass('btn-hide');
+
+		$(this).parents('li').find('.multiselect a .multiselect-span').addClass('multiselect-hide');
+
+	} );
+
+	//确定
+
+	$('.btn-submit').click( function () {
+
+		if ( !$(this).parents('li').find('.multiselect a .multiselect-span').hasClass('checked') ){
+
+			alert('请至少选择其中一项');
+
+			return false;
+
+		}else {
+
+			$('.select-mine .select-body .select-jd0').remove();
+
+			$('.select-mine').show();
+
+			$('.checked').each( function () {
+
+				var myHtml = '';
+
+				myHtml += '<a class="select-jd0" href="javascript:;">'
+
+						+'包含景点-'
+
+						+'<b class="b1">'+$(this).next().text()+'</b>'
+
+						+' <span></span>'
+
+						+'</a>';
+
+				$('.select-mine .select-body').prepend(myHtml); 
+
+			} );
+
+			$(this).parents('li').find('.multiselect a .multiselect-span').removeClass('checked');
+
+			$(this).parents('li').find('.multiselect a .multiselect-span').addClass('multiselect-hide');
+
+			$(this).parents('li').find('.select-checkbox').show();
+
+			$(this).parent('.btns').addClass('btn-hide');
+
+			refreshLine();
+
+		}
+
+	} );
+
+	//更多
+
+	$('.select-more01').click( function () {	
+
+		if( $(this).children('i').hasClass('show-more') ) {
+
+			$(this).children('i').remove();
+
+			$(this).parents('li').find('.select-list').css({ "overflow": "auto", "height": "74px" });
+
+			$(this).html('收起<i class="close-more"></i>');
+
+		}else {
+
+			$(this).parents('li').find('.select-list').css({ "overflow": "hidden", "height": "37px" });
+
+			$(this).html('更多<i class="show-more"></i>');
+
+			$(this).parents('li').find('.multiselect a .multiselect-span').removeClass('checked');
+
+			$(this).parents('li').find('.multiselect a .multiselect-span').addClass('multiselect-hide');
+
+			$(this).parents('li').find('.select-checkbox').show();
+
+			$(this).parents('li').find('.btns').addClass('btn-hide');
+
+		}
+
+	} );
+
+
+
+	//显示更多
+
+		function ShowMore ( b ) {
+
+			$( b ).click( function () {	
+
+				if( $(this).children('i').hasClass('show-more') ) {
+
+					$(this).children('i').remove();
+
+					$(this).parents('li').find('.select-list').css({ "overflow": "auto", "height": "74px" });
+
+					$(this).html('收起<i class="close-more"></i>');
+
+				}else {
+
+					$(this).parents('li').find('.select-list').css({ "overflow": "hidden", "height": "37px" });
+
+					$(this).html('更多<i class="show-more"></i>');
+
+				}
+
+			} );
+
+		};
+
+		ShowMore('.select-more02');
+
+	//查看更多选项
+
+		$('.select-up-down').click( function () {
+
+			if( $('.select-hide').css('display') == 'none' ) {
+
+				$(this).children('span').remove();
+
+				$(this).html('<span>收起更多选项<i class="close-more"></i></span>');
+
+			}else {
+
+				$(this).html('<span>查看更多选项<i class="show-more"></i></span>');
+
+			}
+
+			$('.select-hide').slideToggle();
+
+		} );
+
+//列表菜单
+
+	//菜单排序
+
+	$('.list-menu-sort-comprehensive').click ( function () {
+
+		$(this).addClass('sort-checked');
+
+		$(this).siblings().removeClass('sort-checked');
+
+		refreshLine();
+
+	} );
+
+	$('.list-menu-sort-sales').click( function () {
+
+		$(this).children('i').toggleClass('sort-sales');
+
+		$(this).addClass('sort-checked');
+
+		$(this).siblings().removeClass('sort-checked');
+
+		refreshLine();
+
+	} );
+
+	$('.list-menu-sort-price').click( function () {
+
+		$(this).children('i').toggleClass('sort-price');
+
+		$(this).addClass('sort-checked');
+
+		$(this).siblings().removeClass('sort-checked');
+
+		refreshLine();
+
+	} );
+
+	$('.list-menu-sort-x').click( function () {
+
+		$(this).children('i').toggleClass('sort-x');
+
+		$(this).siblings().children('i').removeClass('sort-y');
+
+		$('.single-row').hide();
+
+		$('.double-row').show();
+
+	} );
+
+	$('.list-menu-sort-y').click( function () {
+
+		$(this).children('i').toggleClass('sort-y');
+
+		$(this).siblings().children('i').removeClass('sort-x');
+
+		$('.single-row').show();
+
+		$('.double-row').hide();
+
+	} );
+
+
+
+
+
+	//双排菜单效果
+
+	function double( h, i ) {
+
+		$(h).hover( 
+
+			function () {		
+
+				$(this).children(i).stop().animate({top: '-90px'}, 500);
+
+				$(this).children('.double-row-describe').find('p').stop().animate({opacity: '1'}, 500);
+
+				$(this).children('.double-row-describe').stop().animate({top: '258px'}, 1000);
+
+			},
+
+			function () {
+
+				$(this).children(i).stop().animate({top: '0'}, 500);
+
+				$(this).children('.double-row-describe').find('p').stop().animate({opacity: '0'}, 500);
+
+				$(this).children('.double-row-describe').stop().animate({top: '348px'}, 1000);
+
+				
+
+			}
+
+		);
+
+	}
+
+	double('.double-row-left', '.double-row-left-top');
+
+	double('.double-row-right', '.double-row-right-top');
+</script>
+
+<include file="Common/bottom" />
+<!-- 头部js -->
+<script src="__PUBLIC__/home/js/unslider.min.js"></script>
+<script src="__PUBLIC__/home/common/js/showAndHide.js"></script>
+<script src="__PUBLIC__/home/common/js/headroom.js"></script>

@@ -1,0 +1,80 @@
+
+
+	<div class="bg-gray">
+
+		<div class="special main">
+
+			<h2>超级目的地</h2>
+
+			<div class="special-exhibition">
+
+				<ul>
+					<assign name="idx" value="0" />
+					
+					<for start="0" end="12" name="k">
+						
+						<php> 
+							
+							$zt = $set_subjects['zhuanti'.$k];
+							
+							if (empty($zt['url'])) {
+								
+								continue;
+								
+							}
+							
+						</php>
+						
+						<if condition="$idx % 4 eq 0">						
+						
+							<li>
+						
+						</if>
+
+						<a class="special-exhibition-product" href="{$zt.url}" target="_blank">
+
+							<img class="special-bg" src="{$zt.img_main}" alt="">
+
+							<img class="special-img" src="{$zt.img_banner}" alt="">
+
+							<div class="special-exhibition-describe">
+
+								<h4>{$zt.title}</h4>
+
+								<h4>{$zt.subheading}</h4>
+
+								<p>{$zt.desc}</p>
+
+							</div>
+
+						</a>
+						
+						<if condition="$idx % 4 eq 3">
+							
+							</li>
+							
+						</if>						
+						
+						<php>$idx ++;</php>
+						
+					</for>
+					
+				</ul>
+
+			</div>
+
+		</div>
+
+	</div>
+	<!-- 顶部轮播 -->
+<script src="__PUBLIC__/home/common/js/showAndHide.js"></script>
+<script src="__PUBLIC__/home/js/unslider.min.js"></script>
+
+<script type="text/javascript">
+	//精彩专题
+	$('.special-exhibition').unslider({ 
+		dots: true
+	});
+
+	$('.special-exhibition-product').fadeInAndOut('special-img', 'div');
+</script>

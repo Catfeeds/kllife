@@ -1,0 +1,206 @@
+<include file="Common/header" />
+<link rel="stylesheet" href="__PUBLIC__/common/css/page.css">
+<style type="text/css">
+	.issuing-list-search { width: 50%; margin: 20px auto; }
+</style>
+<!--查询信息，列表展示-->
+<div class="row">
+	<div class="col-sm-12">
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">资源价格审核</h3>
+				<div class="panel-options">
+					<a href="#" data-toggle="panel">
+						<span class="collapse-icon">–</span>
+						<span class="expand-icon">+</span>
+					</a>
+				</div>
+			</div>
+			<div class="panel-body">						
+				<!--用户列表-->
+				<div class="issuing-list">
+						
+					<div class="issuing-list-search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="搜索内容可以是编号、资源类型、资源名称、资源项名称、资源价格标题、提审人、审核人、审核状态">
+							<div class="input-group-addon btn_search" style="background-color: #68b828; color: #fff; cursor: pointer;">
+								<i style="font-style: normal;">搜索</i>
+							</div>
+						</div>
+					</div>
+					
+					<!--价格列表-->
+					<div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+						<table class="table table-bordered table-striped dataTable no-footer" id="table_list" role="grid" aria-describedby="example-2_info">
+							<thead>
+								<tr role="row" class="head">
+									<th class="sorting" rowspan="1" colspan="1" style="width: 80px;">编号</th>
+									<th class="sorting" rowspan="1" colspan="1" style="width: 350px;">价格所属</th>
+									<th class="sorting" rowspan="1" colspan="1" style="width: 350px;">价格条件</th>
+									<th class="sorting" rowspan="1" colspan="1" style="width: 100px;">提审价格</th>
+									<th class="sorting" rowspan="1" colspan="1" style="width: 100px;">审核状态</th>
+									<th class="sorting" rowspan="1" colspan="1" style="width: 100px;">提审人</th>
+									<th class="sorting" rowspan="1" colspan="1" style="width: 100px;">审批人</th>
+									<th class="sorting" rowspan="1" colspan="1" style="width: 180px;">操作</th>
+								</tr>
+							</thead>
+						
+							<tbody class="middle-align list-tbody">
+								<volist id="p" name="prices">
+									<if condition="$key % 2 == 0">
+										<tr role="row" class="odd" data-id="{$p.id}">
+									<else />
+										<tr role="row" class="even" data-id="{$p.id}">
+									</if>
+										<td>{$p.id}</td>
+										<td>{$p.obj_type_data.type_desc}->{$p.obj_data.show_name}->{$p.item_data.name}</td>
+										<td>{$p.show_name}</td>
+										<td class="price">{$p.price}</td>
+										<td class="review">{$p.review_type.type_desc}</td>
+										<td>{$p.commit_admin.show_name}</td>
+										<td>{$p.review_admin.show_name}</td>
+										<td>
+											<if condition="$p['review_type']['type_key'] eq 'reviewing' and empty($grant_review_price) eq false">
+												<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left btn_agree">同意</a>
+												<a href="javascript:;" class="btn btn-warning btn-sm btn-icon icon-left btn_refuse">拒绝</a>
+											</if>
+										</td>
+									</tr>
+								</volist>
+							</tbody>
+						</table>
+						<div class="list-page"></div>
+					</div>
+				</div>		
+				
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+<script src="__PUBLIC__/common/js/page.js"></script>	
+<include file="Common/footer" />
+
+<script type="text/javascript">	
+	// 审核
+	function _ajaxReview(id, fprice, bReview) {
+		var jsonData = {
+			op_type: 'review',
+			op: 'review',
+			price_id: id,
+			review: bReview,
+			price:fprice,				
+		}
+		
+		$.post('{:U("financial/price")}', jsonData, function(data){
+			if (data.jumpUrl) {
+				location.href = data.jumpUrl;
+				return false;
+			}
+			if (data.result != null) {
+				if (data.result.errno == 0) {
+					toastr.success(data.result.message);
+					$('tr[data-id="'+id+'"]').find('td:last').children().remove();
+					if (data.review_type != null) {							
+						$('tr[data-id="'+id+'"]').find('td.review').html(data.review_type.type_desc);
+					}
+				} else {
+					toastr.error(data.result.message);
+				}
+			}				
+		});
+	}
+	
+	// 通过审核
+	function reviewPass() {
+		var trObj = $(this).closest('tr');
+		var id = $(trObj).attr('data-id');
+		var price = $(trObj).find('td.price').html();
+		_ajaxReview(id, price, 'pass');
+	}
+	$('.btn_agree').click(reviewPass);
+	
+	// 拒绝审核
+	function reviewFail() {
+		var trObj = $(this).closest('tr');
+		var id = $(trObj).attr('data-id');
+		var price = $(trObj).find('td.price').html();
+		_ajaxReview(id, price, 'fail');
+	}
+	$('.btn_refuse').click(reviewFail);
+	
+	function findPageData(p) {			
+		var jsonData = {
+			op_type:'review',
+			page: p-1,
+		}
+		
+		var searchval = $('.issuing-list-search').find('input').val();
+		if (searchval != '') {
+			jsonData['cdsstr'] = 'id|=|'+searchval+'|OR|obj_type|LIKE|%'+searchval+'%|OR|objstr|LIKE|%'+searchval+'%|OR|itemstr|LIKE|%'+searchval+'%|OR|title|LIKE|%'+searchval+'%|OR|commit_admin|LIKE|%'+searchval+'%|OR|review_admin|LIKE|%'+searchval+'%|OR|review_type|LIKE|%'+searchval+'%|OR';
+		}
+		
+		$.post('{:U("financial/price")}', jsonData, function(data){
+			var tabObj = $('#table_list');
+			if (data.result.errno == 0) {
+				$(tabObj).find('tbody').children().remove();
+				if (data.ds != null && data.ds != 'undefined') {	
+					for (var i = 0; i < data.ds.length; i ++){
+						var d = data.ds[i];
+						var price_desc = '';
+						if (d.obj_type_data != null) { 
+							price_desc = d.obj_type_data.type_desc;
+						}
+						if (d.obj_data != null) {
+							price_desc += (price_desc != '' ? ('->'+d.obj_data.show_name) : d.obj_data.show_name);
+						}
+						if (d.item_data != null) {
+							price_desc += (price_desc != '' ? ('->'+d.item_data.name) : d.item_data.name);
+						}
+						var commitAdmin = d.commit_admin != null ? d.commit_admin.show_name : '';
+						var reviewAdmin = d.review_admin != null ? d.review_admin.show_name : '';
+												
+						var trClass = i % 2 == 0 ? 'odd' : 'even';
+						var vhtml =	'<tr role="row" class="'+trClass+'" data-id="'+d.id+'">';
+							vhtml +='	<td>'+d.id+'</td>';
+							vhtml +='	<td>'+price_desc+'</td>';
+							vhtml +='	<td>'+d.show_name+'</td>';
+							vhtml +='	<td class="price">'+d.price+'</td>';
+							vhtml +='	<td class="review">'+d.review_type.type_desc+'</td>';
+							vhtml +='	<td>'+commitAdmin+'</td>';
+							vhtml +='	<td>'+reviewAdmin+'</td>';
+							vhtml +='	<td>';
+							if (d.review_type.type_key == 'reviewing' && '{$grant_review_price}' == '1') {
+								vhtml +='		<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left btn_agree">同意</a>';
+								vhtml +='		<a href="javascript:;" class="btn btn-warning btn-sm btn-icon icon-left btn_refuse">拒绝</a>';	
+							}
+							vhtml +='	</td>';
+							vhtml +='</tr>';
+						$(tabObj).find('tbody').append(vhtml);
+					}
+					$(tabObj).find('tbody').find('.btn_agree').click(reviewPass);
+					$(tabObj).find('tbody').find('.btn_refuse').click(reviewFail);
+					
+				} else {	// 没有数据
+					toastr.warning('没有查到任何数据');
+				}
+				// 构建分页
+				constructionPage($('.list-page'), p, data.page_count, findPageData, false);
+			} else {
+				toastr.error(data.result.message);	
+			}			
+		});
+	}
+		
+	//搜索用户
+	function searchPageData(){ 
+		findPageData(1); 
+	}	
+	$('.issuing-list-search').find('.btn_search').click(searchPageData);
+	bindKeyUp($('.issuing-list-search').find('input'), searchPageData);
+	
+	// 初始化分页
+	constructionPage($('.list-page'), 1, '{$page_count}', findPageData, true);
+</script>

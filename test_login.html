@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title></title>
+<meta charset="UTF-8">
+<meta name="" content="">
+<!-- 引用jq -->
+<script src="http://kllife.com/source/Static/home/common/js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<a class="login" href="javascript:;">登录</a><br />
+<a href="http://kllife.com/home" target="_blank">跳转到主站</a>
+<script type="text/javascript">
+	$('.login').click(function(){
+		$.ajax({
+			url: 'http://kllife.com/home/index.php?s=/home/user/login',
+			type: 'POST',
+			data: {account:'15991164339', password:'a1b2c3'}, 
+			error: function(resp, errstr) {
+				console.log('error->'+JSON.stringify(resp));
+				console.log('error content->'+errstr);
+			},
+			success: function(data) {
+				console.log('success->'+JSON.stringify(data));
+				location.href=data.qlp_url;
+			},
+			complete: function(resp, s) {
+				console.log('complete->'+JSON.stringify(resp));
+				console.log('complete content->'+s);
+			}
+		});
+//		$.post('http://kllife.com/home/index.php?s=/home/user/login', 
+//			{account:'15991164339', password:'a1b2c3'}, 
+//			function(data){		
+//				alert(data.result.message);
+//			});
+	});
+</script>
+</body>
+</html>

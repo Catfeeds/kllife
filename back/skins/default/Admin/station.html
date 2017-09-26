@@ -1,0 +1,364 @@
+<include file="Common/header" /> 
+		<div class="row">
+			<div class="panel panel-color panel-info panel-content-pos">
+				<div class="panel panel-heading">
+					<span class="description">{:C(CONTENT_TITLE)}</span>					
+				</div>
+				<div class="panel panel-color panel-content">
+                    <table id="test" class="table aspTable lcnp" cellpadding="0" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>站键值</th>
+                                <th>站名称</th>
+                                <th>电话号码</th>
+                                <th>附属站点</th>
+                                <th>禁用状态</th>
+                                <th>站简介</th>
+                                <th>创建时间</th>
+                               	<th class="TAC">编辑/删除</th>
+                            </tr>
+                        </thead>
+                    </table>   
+                    <br />
+                    <br />
+                    <br />
+					<div class="row">
+						<if condition="$grant_create eq true">
+							<a href="#" class="btn btn-primary" id="btn_create_type">添加站点</a>
+						</if>
+					</div>
+				</div>
+			</div>		
+		</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+	var myTable, pageRequestData;
+	var modalDataEditData = new Object();
+	$(document).ready(function(){
+		
+		// 初始化数据表格
+		myTable = initDataTable();
+		
+		// 初始化弹出窗口
+		initModalDataEdit();
+		
+		// 创建类型
+		$("#btn_create_type").click(_addFun);
+	});
+	
+	// 设置类型列表
+	function setTypeList(objType, objId) {
+		var typeList = getTypeList(objType);
+		if (typeList != '') {
+			var html = '';
+			for (var i = 0; i < typeList.length; i++) {
+				html += '<option value="' + typeList[i]['id'] + '">' + typeList[i]['type_desc'] + '</option>';
+			}	
+			var data = {elmt: [{id:objId, value:html}]}
+			appendModalDataEditInputValues(data, true);
+		}		
+	}
+	
+	// 初始化弹出编辑框数据
+	function initModalDataEdit() {
+		modalDataEditData['lab_title_text'] = '站点信息';
+		modalDataEditData['btn_confirm_text'] = '确认保存';
+		
+		modalDataEditData['elmt']=[
+			{tag:'input', id:'Id', lab:'', attr:[
+				{op:'bind', name:'type',value:'hidden'},
+			]},
+			{tag:'input', id:'Key', lab:'站键值', attr:[
+				{op:'bind', name:'type',value:'text'},
+				{op:'bind', name:'maxlength',value:'100'},
+				{op:'bind', name:'placeholder',value:'请输入唯一的站键值且不能超过100字符'},
+			]},
+			{tag:'input', id:'Name', lab:'站名称', attr:[
+				{op:'bind', name:'type',value:'text'},
+				{op:'bind', name:'maxlength',value:'255'},
+				{op:'bind', name:'placeholder',value:'请输入站名称且不能超过255字符'},
+			]},
+			{tag:'input', id:'Tel', lab:'电话', attr:[
+				{op:'bind', name:'type',value:'text'},
+				{op:'bind', name:'maxlength',value:'15'},
+				{op:'bind', name:'placeholder',value:'请输入电话号码且不能超过15个字符'},
+			]},
+			{tag:'select', id:'Attached', lab:'附属站', attr:[]},
+			{tag:'select', id:'Forbidden', lab:'禁用', attr:[]},
+			{tag:'textarea', id:'Intro', lab:'站简介', attr:[
+				{op:'bind', name:'maxlength',value:'511'},
+				{op:'bind', name:'placeholder',value:'请输入站简介且不能超过511字符'},
+			]},
+		];
+		modalDataEditData['callback_confirm'] = _addFunAjax;
+		initModalDataEditPage(modalDataEditData);
+		var data = {elmt: [
+			{
+				id:'Attached', 
+				value:'<option value="0">非附属站点</option><option value="1">附属站点</option>',
+			},
+			{
+				id:'Forbidden', 
+				value:'<option value="0">启用</option><option value="1">禁用</option>',
+			},
+			]}
+		appendModalDataEditInputValues(data, true);
+	}
+
+	// 初始化数据列表
+	function initDataTable() {	
+		var vTable = $(".aspTable").dataTable({
+			"bSort": true,
+			"bAutoWidth": true,
+			"bFilter": true,
+			"bInfo": true,//页脚信息
+			"bPaginate": true, //翻页功能
+			"bLengthChange": true, //改变每页显示数据数量
+			"bStateSave": false,	//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+			"sPaginationType": "full_numbers", //显示数字的翻页样式"
+			"aLengthMenu": [[5, 10, 25, 50, -1],[5, 10, 25, 50, '所有']],	// 可分页的数量值与显示
+			"isDisplayLength": 5,	// 当前每页显示数量
+			"oLanguage": {
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+				"sZeroRecords": "抱歉， 没有找到",
+				"sInfo": "从 _START_ 到 _END_ / 共 _TOTAL_ 条数据",
+				"sInfoEmpty": "没有数据",
+				"sInfoFiltered": "(从_MAX_条数据中检索)",
+				"oPaginate": {
+					"sFirst": "首页",
+					"sPrevious": "前一页",
+					"sNext": "后一页",
+					"sLast": "尾页"
+				},
+				"sZeroRecords": "没有检索到数据",
+				"sProcessing": "<src='__PUBLIC__/images/loader.gif' />",
+			},
+			//Ajax获取信息
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "{$ajaxReqUrl}",
+			//如果加上下面这段内容，则使用post方式传递数据
+			"fnServerData": getPageData,
+			"aoColumns": dataTablesBindCols(),
+			"aoColumnDefs": [{"sDefaultContent": "", "aTargets": ["_all"]}],
+		});
+		return vTable;
+	}
+
+	// 绑定列
+	function dataTablesBindCols() {
+		var cols = new Array();
+		cols = [
+				{"mData": "id", "aTargets": [0]},
+				{"mData": "key", "aTargets": [1]},
+				{"mData": "name", "aTargets": [2]},
+				{"mData": "tel", "aTargets": [3]},
+				{"mData": "attached", "aTargets": [4], "fnCreatedCell": replaceContent},
+				{"mData": "forbidden", "aTargets": [5], "fnCreatedCell": replaceContent},
+				{"mData": "intro", "aTargets": [6]},
+				{"mData": "create_time", "aTargets": [7]},
+			];	//$_GET[‘sColumns’]将接收到aoColumns传递数据
+			
+		if ('{$grant_update}' == true || '{$grant_delete}' == true) {			
+			cols[cols.length] =	{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [8], "fnCreatedCell": appendLastCol};
+		}
+		return cols;
+	}
+
+	//Ajax获取数据
+	function getPageData ( sSource, aoData, fnCallback ) {
+		showLoading(true);
+		aoData.push({'name':'op_type','value':'list'});
+//		alert(JSON.stringify(aoData));
+		pageRequestData = aoData;
+		$.post(sSource, aoData, function(data,status){
+//				alert(JSON.stringify(data));
+				if (data['result']['errno'] == 0) {
+					fnCallback(data);
+				} else {
+					toastr.error(data['result']['message']);
+				}			
+				showLoading(false);
+			},'JSON');
+	}
+	
+	// 内容替换
+	function replaceContent(nTd, sData, oData, iRow, iCol) {
+		if (iCol == 4) {
+			$(nTd).html(oData['attached'] == '0' ? '非附属站' : '附属站');	
+		}
+		if (iCol == 5) {
+			$(nTd).html(oData['forbidden'] == '0' ? '已启用' : '<span style="color:red;">已禁用</span>');	
+		}
+	}
+
+	// 添加最后一列控件
+	function appendLastCol(nTd, sData, oData, iRow, iCol) {
+		var id = parseInt(oData['id']);
+		
+		var html = '';
+		if ('{$grant_update}' == true) {
+    		html += '<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_editFun('+id+')">编辑</a>';
+    	} 
+    	
+    	if ('{$grant_delete}' == true && typeof(oData['show_delete_button']) == 'undefined') {
+    		html += '<a href="#" class="btn btn-danger btn-sm btn-icon icon-left" onclick="_deleteFun('+id+')">删除</a>';
+    	}
+    	$(nTd).html(html);
+	}
+
+	/**
+	* 创建类型
+	* @private
+	*/
+	function _addFun() {
+		// 绑定创建回调函数
+		bindModalDataEditConfirmEvent(_addFunAjax);
+		// 显示窗口
+		showModalDataEdit();
+	}
+	 
+	/**
+	* 添加数据
+	* @private
+	*/
+	function _addFunAjax(ds) {
+		if (ds['Key'] == '' || ds['Name'] == '') {
+			toastr.warning('站键值和站名称不能为空');
+			return false;
+		}
+		console.log(JSON.stringify(ds));
+		var jsonData = {
+			'op_type': 'create',
+		    'data': {
+		    	'key': ds['Key'],	
+		    	'name': ds['Name'],
+		    	'tel': ds['Tel'],
+		    	'attached': ds['Attached'],
+		    	'forbidden': ds['Forbidden'],
+		    	'intro': ds['Intro'],
+		    }
+		};
+		
+		$.post('{$ajaxReqUrl}',jsonData,
+		function(backdata,status) {
+//	    	alert(JSON.stringify(backdata));
+			console.log(JSON.stringify(backdata));
+	        if (backdata['result']['errno'] == 0) {
+	            hideModalDataEdit();
+	            myTable.fnReloadAjax(myTable.fnSettings());
+	        } else {
+//	            alert(backdata['result']['message']);
+				setModalDataEditTips(backdata['result']['message']);
+	        }
+		});
+	}
+
+	// 弹出编辑数据界面
+	function _editFun(aid) {	
+		$.post('{$ajaxReqUrl}',
+			{op_type:'find', id:aid},
+			function(data,status){
+				if (data['result']['errno'] == 0) {			
+					// 填充数据		
+					var ds = {
+						'elmt': [
+							{id:'Id', value:data['data']['id']},
+							{id:'Key', value:data['data']['key']},
+							{id:'Name', value:data['data']['name']},
+							{id:'Tel', value:data['data']['tel']},
+							{id:'Attached', value:data['data']['attached']},
+							{id:'Forbidden', value:data['data']['forbidden']},
+							{id:'Intro', value:data['data']['intro']},
+						]
+					};			
+					setModalDataEditInputValues(ds);	
+					// 绑定编辑回调函数
+					bindModalDataEditConfirmEvent(_editFunAjax);
+					// 显示窗口
+					showModalDataEdit();
+				} else {
+					toastr.error(data['result']['message']);					
+				}
+			});	
+	}
+	
+	function _editFunAjax(ds) {
+		if (ds['Key'] == '' || ds['Name'] == '') {
+			toastr.warning('站键值和站名称不能为空');
+			return false;
+		}
+		
+		console.log(JSON.stringify(ds));
+		var jsonData = {
+			'op_type': 'edit',
+			'cd' : {'id': ds['Id']},
+			'data' : {
+		    	'key': ds['Key'],	// 账户不能改变
+		    	'name': ds['Name'],	
+		    	'tel': ds['Tel'],
+		    	'attached': ds['Attached'],
+		    	'forbidden': ds['Forbidden'],
+		    	'intro': ds['Intro'],
+			},
+		};
+//		console.log(JSON.stringify(jsonData));
+	    $.post('{$ajaxReqUrl}',jsonData,
+		    function(backData,status){
+//		    	console.log(JSON.stringify(backData));
+		    	if (backData['result']['errno']==0){
+		    		hideModalDataEdit();
+		            myTable.fnReloadAjax(myTable.fnSettings());
+		    	} else {
+//					alert(backData['result']['message']);
+		    		setModalDataEditTips(backData['result']['message']);
+		    	}
+		    });
+	} 	 
+
+	/**
+	* 删除
+	* @param id
+	* @private
+	*/
+	function _deleteFun(aid) {
+		if (!confirm("您确定要删除id=["+aid+"]该条类型记录吗？")) {
+			return false;
+		}
+		
+		$.post('{$ajaxReqUrl}',
+			{op_type:'delete', id:aid},
+			function(data,status){
+	        	if(data['result']['errno'] == 0){
+					myTable.fnReloadAjax(myTable.fnSettings());
+				} else {
+					toastr.error(data['result']['message']);	
+				}
+			});	
+	}
+
+	/*
+	add this plug in
+	// you can call the below function to reload the table with current state
+	Datatables刷新方法
+	oTable.fnReloadAjax(oTable.fnSettings());
+	*/
+	$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings) {
+		//oSettings.sAjaxSource = sNewSource;
+		this.fnClearTable(this);
+		this.oApi._fnProcessingDisplay(oSettings, true);
+		var that = this;
+
+		$.getJSON(oSettings.sAjaxSource, null, function (json) {
+		    /* Got the data - add it to the table */
+		    for (var i = 0; i < json.aaData.length; i++) {
+		        that.oApi._fnAddData(oSettings, json.aaData[i]);
+		    }
+		    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+		    that.fnDraw(that);
+		    that.oApi._fnProcessingDisplay(oSettings, false);
+		});
+	}
+	
+</script>

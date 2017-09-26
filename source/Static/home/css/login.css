@@ -1,0 +1,274 @@
+body { width: #fff; }
+
+#content { position: relative; width: 100%; height: 800px; background-image: url(../images/login_img/bg-2.jpg); background-size: 100% 100%; font-size: 14px; }
+
+input { outline: none; }
+
+.footer-bottom { background-color: #fff; color: #999; }
+
+.footer-bottom-content { color: #999; }
+
+.footer-bottom-content p { padding-top: 48px; padding-bottom: 13px; }
+
+.footer-bottom-content p a { color: #999; }
+
+.footer-bottom-content span { margin-bottom: 13px; }
+
+/*登录*/
+
+.login-content { position: absolute; left: 50%; top: 21%; width: 478px; margin-left: -239px; padding-top: 36px; padding-bottom: 46px; background-color: #fff; border-radius: 5px; }
+
+.login { width: 280px; margin: 0 auto; }
+
+.login > img { display: block; margin: 0 auto; }
+
+.login > .go-welcome { display: block; width:63px; margin: 0 auto; background-color: #fff; }
+
+.login > h2 { margin-top: 40px; margin-bottom: 20px; font-size: 30px; font-weight: normal; color: #666; text-align: center; }
+
+.login > input { width: 280px; height: 38px; line-height: normal; margin-bottom: 18px; padding-left: 20px; border: 1px solid #dcdcdc; border-radius: 5px; }
+
+.login > a { display: block; width: 280px; height: 40px; line-height: 40px; margin-bottom: 12px; background-color: #ff7200; color: #fff; text-align: center; }
+.login > .disabled,.msg >.disabled{background: #ddd;}
+.login > p { margin-top: 13px; color: #666; text-align: center; }
+
+.login > p a { color: #ff7200; }
+
+.msg-login { text-align: right; margin-bottom: 12px; color: #333; font-size: 12px; cursor: pointer; }
+
+.msg-login img { margin-right: 7px; vertical-align: bottom; }
+
+.automatic-forget { position: relative; width: 280px; margin-bottom: 30px; }
+
+.automatic-forget p { color: #666; }
+
+.automatic-forget i { display: inline-block; width: 13px; height: 13px; margin-right: 6px; background-image: url(../images/login_img/login.png); background-position: -26px 0; vertical-align: bottom; cursor: pointer; }
+
+.automatic-forget .checked { background-position: 0 0; }
+
+.automatic-forget a { position: absolute; right: 0; top: 0; color: #ff7200; }
+
+.else-login { margin-top: 12px; text-align: center; }
+
+.qq-login { margin-right: 17px; }
+
+/*注册*/
+
+.register-content { position: absolute; left: 50%; top: 11%; width: 478px; margin-left: -239px; padding-top: 36px; padding-bottom: 46px; background-color: #fff; border-radius: 5px; }
+
+.register { width: 420px; margin: 0 auto; }
+
+.register > img { display: block; margin: 0 auto; }
+
+.register > .go-welcome { display: block; width:63px; margin: 0 auto; background-color: #fff; }
+
+.register > h2 { margin-top: 40px; margin-bottom: 50px; font-size: 30px; font-weight: normal; color: #666; text-align: center; }
+
+.register > p { position: relative; margin-bottom: 16px; }
+
+.register > p strong { display: inline-block; width: 60px; margin-right: 10px; font-weight: normal; text-align: right; }
+
+.register > p input { width: 280px; height: 38px; line-height: normal; padding-left: 10px; border: 1px solid #dcdcdc; border-radius: 5px; }
+
+.register .verification-code input { width: 197px; }
+
+.register .verification-code img { vertical-align: bottom; }
+
+.register .verification-code a { color: #089ef5; }
+
+.register .get-code { position: relative; }
+
+.register .get-code input { width: 180px; }
+
+.register .get-code a { position: absolute; right: 70px; top: 0; display: inline-block; width: 108px; height: 38px; line-height: 40px; color: #fff; background-color: #ff7200; text-align: center; }
+
+.register-now { width: 280px; margin: 0 auto; }
+
+.register-now p { font-size: 12px; color: #666; }
+
+.register-now p a { color: #089ef5; }
+
+.register-now p i { display: inline-block; width: 13px; height: 13px; margin-right: 6px; background-image: url(../images/login_img/login.png); background-position: -26px 0; vertical-align: bottom; cursor: pointer; }
+
+.register-now p .checked { background-position: 0 0; }
+
+.register-now > a { display: block; height: 40px; line-height: 40px; margin: 20px 0; color: #fff; background-color: #ff7200; border-radius: 5px; text-align: center; }
+
+.register-now h6 { font-weight: normal; color: #666; }
+
+.register-now h6 a { color: #ff7200; }
+
+
+#idcode {
+	position: absolute;	
+	top: 0;
+}
+
+#ehong-code-input{
+	width:126px;
+	height: 40px;
+	letter-spacing:2px;
+	margin:0px 8px 0px 0px;
+}
+.ehong-idcode-val{
+	position: absolute;
+	width: 88px;
+	height: 36px;
+	
+	left:-6px;
+	letter-spacing:4px;
+	display:inline;
+	cursor:pointer;
+	font-size:30px;
+	font-family:"Courier New", Courier, monospace;
+	text-decoration:none;
+	font-weight:bold;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	overflow: hidden;
+}
+.ehong-idcode-val0{
+	border:solid 1px #dcdcdc;	
+	background-color:#fff;
+}
+
+.ehong-idcode-val1{
+	border:solid 1px #dcdcdc;	
+	background-color:#fff;
+}
+.ehong-idcode-val2{
+	border:solid 1px #dcdcdc;	
+	background-color:#fff;
+}
+.ehong-idcode-val3{
+	border:solid 1px #dcdcdc;	
+	background-color:#fff;
+}
+.ehong-idcode-val4{
+	border:solid 1px #dcdcdc;	
+	background-color:#fff;
+}
+.ehong-idcode-val5{
+	border:solid 1px #dcdcdc;	
+	background-color:#fff;
+}
+.ehong-code-val-tip{
+	font-size:12px;
+	color:#1098EC;
+	top:0px;
+	*top:-3px;	
+	position:relative;	
+	margin:0px 0px 0px 4px;
+	cursor:pointer;	
+}
+
+.bg-red {
+	background-color: rgb(255, 223, 223) !important;
+}
+.bg-green {
+	background-color: green !important;
+}
+.bg-white {
+	background-color: #dcdcdc;
+}
+/*短信登陆*/
+.msg-content { position: absolute; left: 50%; top: 63px; width: 478px; margin-left: -239px; padding-top: 36px; padding-bottom: 46px; background-color: #fff; border-radius: 5px; }
+.msg { width: 420px; margin: 0 auto; }
+.msg > img { display: block; margin: 0 auto; }
+.msg > h2 { margin-top: 40px; margin-bottom: 36px; font-size: 30px; font-weight: normal; color: #666; text-align: center; }
+.msg > a { display: block; width: 280px; height: 40px; line-height: 40px; margin: 0 auto; margin-top: 15px; text-align: center;color: #fff; background-color: #ff7200; border-radius: 5px; }
+.msg > p { margin-top: 15px; text-align: center; color: #ff7200; cursor: pointer; }
+.msg-content-title { width: 280px; margin: 0 auto; margin-bottom: 12px; color: #333; font-size: 12px; }
+.msg-content-title img { margin-right: 7px; vertical-align: bottom; }
+.msg-content-login { width: 280px; margin: 0 auto; overflow: hidden; }
+.msg-content-login > input { width: 258px; padding: 8px 10px; border: 1px solid #dcdcdc; line-height: normal; font-size: 14px; border-radius: 5px; }
+.msg-content-login .msg-write-code { width: 140px; margin-top: 18px; padding: 8px 10px; border: 1px solid #dcdcdc; line-height: normal; font-size: 14px; border-radius: 5px; }
+.msg-content-login .msg-send-code { float: right; width: 108px; margin-top: 18px; border: 1px solid #dcdcdc; line-height: normal; font-size: 14px; border-radius: 5px; cursor: pointer; outline: none; background-color:#ff7200; color:#fff; }
+/*忘记密码*/
+.forget-psd-content { position: absolute; left: 50%; top: 15%; width: 478px; margin-left: -239px; padding-top: 36px; padding-bottom: 46px; background-color: #fff; border-radius: 5px; }
+.forget-psd { width: 280px; margin: 0 auto; }
+.forget-psd > img { display: block; margin: 0 auto; }
+.forget-psd > .go-welcome { display: block; width:63px; margin: 0 auto; background-color: #fff; }
+.forget-psd > h2 { margin-top: 40px; margin-bottom: 50px; font-size: 30px; font-weight: normal; color: #666; text-align: center; }
+.forget-psd > a { display: block; width: 280px; height: 40px; line-height: 40px; margin: 0 auto; margin-top: 24px; text-align: center;color: #fff; background-color: #ff7200; border-radius: 5px; }
+.forget-psd > p { margin-bottom: 16px; }
+.forget-psd > p input { width: 268px; height: 38px; line-height: normal; padding-left: 10px; border: 1px solid #dcdcdc; border-radius: 5px; }
+.forget-psd .verification-code { position: relative; }
+.forget-psd .verification-code input { width: 138px; }
+.forget-psd .verification-code img { vertical-align: bottom; }
+.forget-psd .verification-code a { position: absolute; top: 10px; right: -65px; margin-left: 10px; color: #089ef5; }
+.forget-psd .get-code { position: relative; }
+.forget-psd .get-code input { width: 162px; }
+.forget-psd .get-code a { position: absolute; right: 0px; top: 0; display: inline-block; width: 108px; height: 40px; line-height: 40px; color: #fff; background-color: #ff7200; text-align: center; }
+.forget-psd .forget-psd-bottom { margin-top: 20px; }
+.forget-psd .forget-psd-bottom a { color: #ff7200; }
+/*重置密码*/
+.reset-psd-content { display: none; position: absolute; left: 50%; top: 63px; width: 478px; margin-left: -239px; padding-top: 36px; padding-bottom: 46px; background-color: #fff; border-radius: 5px; }
+.reset-psd { width: 280px; margin: 0 auto; }
+.reset-psd > img { display: block; margin: 0 auto; }
+.reset-psd > h2 { margin-top: 40px; margin-bottom: 40px; font-size: 30px; font-weight: normal; color: #666; text-align: center; }
+.reset-psd > p { color: #333; }
+.reset-psd > a { display: block; width: 280px; height: 40px; line-height: 40px; margin: 0 auto; margin-top: 24px; text-align: center;color: #fff; background-color: #ff7200; border-radius: 5px; }
+.reset-psd > input { width: 258px; margin-top: 17px; padding: 8px 10px; border: 1px solid #dcdcdc; line-height: normal; font-size: 14px; border-radius: 5px; }
+.reset-psd .reset-return { text-align: center; color: #ff7200; margin-top: 20px; cursor: pointer; }
+/*重置密码成功*/
+.reset-psd-success-content { display: none; position: absolute; left: 50%; top: 63px; width: 478px; margin-left: -239px; padding-top: 36px; padding-bottom: 46px; background-color: #fff; border-radius: 5px; }
+.reset-psd-success { width: 280px; margin: 0 auto; }
+.reset-psd-success > img { display: block; margin: 0 auto; }
+.reset-psd-success > h2 { margin-top: 40px; margin-bottom: 40px; font-size: 30px; font-weight: normal; color: #666; text-align: center; }
+.reset-psd-success > span { display: block; margin-top: 20px; color: #666; text-align: center; }
+.reset-psd-success .reset-success-return { text-align: center; color: #ff7200; margin-top: 20px; cursor: pointer; }
+
+
+#alert-modal {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	height: 200px;
+	margin-left: -200px;
+	margin-top: -100px;
+	background-color: #fff;
+	border-radius: 5px;
+	z-index: 200;
+}
+.alert-modal-top {
+	width: 100%;
+	height: 50px;-moz-appearance;
+	line-height: 50px;
+	background-color: #ff7200;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	text-align: right;
+}
+
+.alert-modal-top a {
+	display: block;
+	margin-right: 10px;
+	padding-top: 13px;
+}
+
+.alert-modal-content p {
+	margin-top: 40px;
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+    padding: 0 10px;
+    line-height: 1.5;	
+}
+
+/*第三方登录绑定帐号*/
+.bind-content { position: absolute; left: 50%; top: 63px; width: 478px; margin-left: -239px; padding-top: 36px; padding-bottom: 46px; background-color: #fff; border-radius: 5px; }
+.bind { width: 420px; margin: 0 auto; }
+.bind > img { display: block; margin: 0 auto; }
+.bind > h2 { margin-top: 40px; margin-bottom: 36px; font-size: 30px; font-weight: normal; color: #666; text-align: center; }
+.bind > div > a { display: block; width: 280px; height: 40px; line-height: 40px; margin: 0 auto; margin-top: 15px; text-align: center;color: #fff; background-color: #ff7200; border-radius: 5px; }
+.bind > p { margin-top: 15px; text-align: center; color: #ff7200; cursor: pointer; }
+.bind > div > p { margin-top: 15px; text-align: center; color: #ff7200; cursor: pointer; }
+.bind-content-title { width: 280px; margin: 0 auto; margin-bottom: 12px; color: #333; font-size: 12px; }
+.bind-content-title img { margin-right: 7px; vertical-align: bottom; }
+.bind-content-login { width: 280px; margin: 0 auto; overflow: hidden; }
+.bind-content-login > input { width: 258px; padding: 8px 10px; border: 1px solid #dcdcdc; line-height: normal; font-size: 14px; border-radius: 5px; }
+.bind-content-login .bind-write-code { width: 140px; margin-top: 18px; padding: 8px 10px; border: 1px solid #dcdcdc; line-height: normal; font-size: 14px; border-radius: 5px; }
+.bind-content-login .bind-send-code { float: right; width: 108px; margin-top: 18px; border: 1px solid #dcdcdc; line-height: normal; font-size: 14px; border-radius: 5px; cursor: pointer; outline: none; background-color:#ff7200; color:#fff; }

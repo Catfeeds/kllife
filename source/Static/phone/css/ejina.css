@@ -1,0 +1,23 @@
+#j-bournBox{background: #fff;}
+#j-bournBox .scrollBox{border-bottom: 1px #f2f2f2 solid;  }
+#j-bournBox .scrollBox ul{overflow: hidden;padding:5px;width: 358px; margin: auto;}
+#j-bournBox .scrollBox ul li{padding:0px 8px; float: left;text-align: center;font-size: 14px;height: 30px;line-height: 30px;}
+#j-bournBox .scrollBox ul .active{background: #ff7200;border-radius: 14px;height:30px;line-height:30px;color:#fff;}
+.bournChildList {margin: 5px 10px;}
+.bournChildList ul{overflow: hidden;}
+.bournChildList ul li{float: left;padding: 3px 0;border-radius: 3px;border: 1px transparent solid;text-align: center;font-size: 13px;margin-bottom: 5px;width: 25%;}
+.bournChildList ul .hover{background-color: #ff8000;border: 1px #ff8000 solid;color:#fff;}
+@media screen and (max-width: 350px) {
+	#j-bournBox .scrollBox ul{overflow: hidden;padding:5px;width: 314px; margin: auto;}
+	#j-bournBox .scrollBox ul li{padding:0px 4px; float: left;text-align: center;font-size: 14px;height: 30px;line-height: 30px;}
+}
+.bournChildList ul:nth-child(2) li{width:20%}
+.bournChildList ul:nth-child(4) li:nth-child(2){width:30%}
+.bournChildList ul:nth-child(4) li:nth-child(3){width:45%}
+.ejina-img{overflow: hidden;}
+.ejina-img div{
+	width:50%;
+	float: left;
+	line-height:.5rem
+}
+.ejina-img div img{width:100%;}

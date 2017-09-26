@@ -1,0 +1,164 @@
+<include file="common/top" />
+<link rel="stylesheet" href="__PUBLIC__/qlpphone/common/css/top2.css">
+<link rel="stylesheet" href="__PUBLIC__/qlpphone/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/phone/css/content.css">
+<style type="text/css">
+	.active { background: #ff1c77; border-color: #ff1c77;}
+	.content .travel .may-apply div .active p{color: #fff; }
+	h2,h3,h4{font-weight: 500}
+	.detail img{width:100%;height:auto;}
+/*	.content .travel .may-apply div .active .color {color: #3BB412; }*/
+</style>
+<div class="phone index content">
+	<div class="top" style="background: #fff;">
+		<div href="javascript:;" style="position: relative;display: block">
+			<img class="img-responsive" style="width:100%;" src="{$line.img1}" alt="">
+			<div style="position: absolute;bottom:5px;left:0px;height:40px;line-height:40px;padding-left:10px;font-size:15px;width:100%;color:#fff;background: rgba(0,0,0,0.5)">编号：{$line.id}</div>
+		</div>
+		<div class="recommend">
+			<h2>{$line.title}</h2>
+			<p>{$line.subheading}</p>
+			<div>
+				<span class="price">
+					<if condition="empty($line['check_price'])">
+						<span class="number">核算中</span>
+					<else />
+						¥<span class="number">{$line.start_price_adult}</span><span class="yuan">元起</span>
+					</if>
+				</span>
+				<span class="place">出发地：{$line.assembly_point_show_text}</span>
+			</div>
+		</div>
+	</div>
+    <!-出行日期->
+    <div class="travel">
+        <div class="data"><span class="see">查看出行日期</span> <span style="float: right;margin-top:-5px;"><i id="down" class="iconfont">&#xe632;</i></span></div>
+        <div class="may-apply">
+        	<volist id="bv" name="line.batchs">
+	            <div class="batch-container">
+	                <div class="batch-item" data-id="{$bv['id']}">
+	                    <p class="color" data-id="{$bv['id']}">{$bv['start_date_show']}</p>
+	                    <p>[{$bv['state_data']['type_desc']}]</p>
+	                </div>
+	            </div>
+        	</volist>
+        </div>
+        <div class="detail">
+        	<volist id="point" name="line.phone_points">
+				<if condition="$point.image_url neq ''">
+        			<img class="img-responsive" src="{$point.image_url}" alt="">
+				</if>
+        	</volist>
+        </div>
+    </div>
+    <!-行程说明->
+    <div class="line explain">
+        <h2>行程说明</h2>
+        <div class="border-bottom"><!-此div只用于显示birder-></div>
+		<volist id="travel" name="line.travels">
+	        <div class="item">
+        		<if condition="empty($travel['img1']) eq false">
+	            	<img class="img-responsive" src="{$travel['img1']}" alt="">
+        		<elseif condition="empty($travel['img2']) eq false" />
+	            	<img class="img-responsive" src="{$travel['img2']}" alt="">
+        		<elseif condition="empty($travel['img3']) eq false" />
+	            	<img class="img-responsive" src="{$travel['img3']}" alt="">
+        		</if>
+	            <if condition="$key eq 0">
+	            <div>
+	            <else />
+            	<div class="background-color">
+	            </if>
+	                <h4>Day{$travel.day_id}：{$travel.title}</h4>
+					<notempty name="travel.view_point"><div class="div">> 浏览重点：{$travel.view_point}</div></notempty>
+	                <div>{$travel.intro}</div>
+	                <notempty name="travel.hotel"><div class="div">> 住宿：{$travel.hotel}</div></notempty>
+					<notempty name="travel.eat_way"><div class="div">> 餐饮：{$travel.eat_way}</div></notempty>
+					<notempty name="travel.kindly_reminder"><div>> 温馨提示：{$travel.kindly_reminder}</div></notempty>
+	            </div>
+	        </div>
+        </volist>
+    </div>
+    <!-费用说明->
+    <div class="line reserve">
+        <h2>预定须知</h2>
+        <div class="border-bottom"><!-此div只用于显示birder-></div>
+        <div class="item">
+            <h4><span>|</span>费用说明</h4>
+        	<div>{$line.cost_description}</div>
+        </div>
+    </div>
+    <!-预定须知->
+    <div class="line reserve reserve-two">
+        <div class="item">
+            <h4><span>|</span>预订须知</h4>
+			<div>{$line.booking_notes}</div>
+        </div>
+    </div>
+    <!-沿途风光->
+    <div class="line reserve reserve-two scenery">
+        <div class="item">
+            <h4><span>|</span>沿途风光</h4>
+        </div>
+		<volist id="sc" name="scenery">
+	        <div class="scenery-two">
+	            <img class="img-responsive" src="{$sc.image}" alt="">
+	            <div>{$sc.text}</div>
+	        </div>
+		</volist>
+    </div>
+    
+    <!--footer-->
+    <div class="footer-two" style="z-index:99999999">
+        <a href="javascript:;"><div class="div"><img class="img-responsive" src="__PUBLIC__/qlpphone/images/content/zx2.jpg" alt=""></div></a>
+        <a href="javascript:;"><div class="reserve-btn book_order_now">立即预定</div></a>
+    </div>
+	<!--点击返回顶部-->
+	<div class="return-top" style="z-index:100000000;"><i class="iconfont" style="font-size: 50px;">&#xe68f;</i></div>
+</div>
+
+<script>
+    //点击展开出行日期
+    $("#down").on("click",function(){
+        if($(".may-apply").is(":hidden")){
+            $(".may-apply").slideDown(700);
+            $(this).addClass("rotate").removeClass("rotate1");
+        }else{
+            $(".may-apply").slideUp(700);
+            $(this).removeClass("rotate").addClass("rotate1")
+        }
+    })
+
+
+	// 选择定日期
+	$('.batch-container').click(function(){
+		$(this).parent().find('.batch-item').removeClass('active');
+		$(this).find('.batch-item').addClass('active');
+		var batchId = $(this).find('.batch-item').attr('data-id');
+		location.href = '{:U("line/order")}/id/{$line.id}/type/create/b/'+batchId+'/m/0/w/0/ch/0';
+	});
+
+	// 立即预定
+	$('.book_order_now').click(function(){
+//		if ($('.may-apply').find('.active').length == 0) {
+//			alert('请选择出行的日期');	
+//			return false;
+//		}			
+//		var batchId = $('.may-apply').find('active').attr('data-id');
+
+		location.href = '{:U("line/order")}/id/{$line.id}/type/create/b/0/m/0/w/0/ch/0';
+	});
+
+    //屏幕滚动显示一键返回顶部按钮
+    $(window).scroll(function(){
+        if ($(this).scrollTop() > 100) {
+            $(".return-top").show();
+        }else{
+            $(".return-top").hide();
+        }
+    });
+    //点击返回顶部
+    $(".return-top").on("click",function(){
+        $("html,body").animate({scrollTop: 0}, 1000);
+    });
+</script>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="领袖户外" name="author"/>
+	<if condition="empty($PageKeyword) eq false">
+	<meta content="{$PageKeyword.title}" name="title"/>
+	<meta content="{$PageKeyword.keywords}" name="keywords"/>
+	<meta content="{$PageKeyword.description}" name="description"/>
+	<title>{$PageKeyword.title}</title>
+	<else />
+	<title>第三方登陆绑定帐号-领袖户外</title>
+	</if>
+	<!-- css Reset -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/cssreset.css">
+	<!-- 公共样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/common.css">
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/login.css">
+	<!-- 公共样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/common/css/common.css">
+	<!-- Imported toastr -->
+	<script src="__PUBLIC__/assets/js/toastr/toastr.min.js"></script>		
+	<script src="__PUBLIC__/common/js/functions.js"></script>
+	<!--[if lt IE 9]>
+		<script>
+			(function() {
+				if (! 
+					/*@cc_on!@*/
+				0) return;
+				var e = "abbr, article, aside, audio, canvas, datalist, details, dialog, eventsource, figure, footer, header, hgroup, mark, menu, meter, nav, output, progress, section, time, video".split(', ');
+				var i= e.length;
+				while (i--){
+					document.createElement(e[i])
+				} 
+			})() ;
+		</script>
+    	<script src="__PUBLIC__/home/common/js/html5shiv.min.js"></script>
+    <![endif]-->
+   
+</head>
+<body>
+	<!-- 引用jq -->
+	<script src="__PUBLIC__/home/common/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+        jQuery(document).ready(
+            function($){
+         		var userstr = '{:my_json_encode($user)}';
+         		if(userstr != ''){
+         			var user = $.parseJSON(userstr);
+					loginShequ(user, '{$jumpUrl}');
+         		}
+            });
+	</script>
+
+</body>
+</html>

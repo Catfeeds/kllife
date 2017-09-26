@@ -1,0 +1,54 @@
+.bar { z-index: 9; }
+.bar-nav { position: static; }
+
+/*顶部*/
+.content-top { position: relative; background-color: #fff; }
+.content-top img { width: 100%; height: 9.5rem; max-width: 100%; }
+.content-top h3 { margin: 0; padding: 0 0.5rem; font-size: .8rem; }
+.content-top > p { position: absolute; left: 0; top: 8.1rem; width: 100%; height: 1.4rem; padding-left: 1rem; line-height: 1.4rem; font-size: .7rem; background: rgba(0, 0, 0, 0.5); color: #fff; }
+.card-footer { margin-top: .5rem; padding: 0 .5rem; min-height: 0; line-height: normal; border-top: none; }
+.card-footer a { color: #999; font-size: 0.6rem; }
+.card-footer a span { color: #ff7200; }
+.card-footer a strong { font-size: 1rem; margin-top: -4px; color: #ff7200; }
+/*选择出发日期和人数*/
+.choose-startday { background-color: #fff; }
+.choose-startday h3 { padding: .7rem 0.5rem; font-size: .8rem; }
+/*切换*/
+#tabs { background-color: #fff; border-bottom: 1px solid #e4e4e4; }
+#tabs a { display: inline-block; width: 33.333333334%; padding: 0.5rem 0; font-size: .8rem; color: #333; text-align: center; }
+#tabs a.active { color: #ff7200; border-bottom: 2px solid #ff7200; }
+/*线路特色*/
+#line-special { padding-bottom: 0.9rem; background-color: #fff; }
+#line-special .content-padded { margin: 0; padding: .5rem; background-color: #fff; }
+#line-special h4 { margin: 0; padding-bottom: .5rem; font-size: .8rem; font-weight: normal; border-bottom: 1px solid #828181; }
+#line-special img { display: block; width: 100%; max-width: 100%; }
+/*行程介绍*/
+.travel-introduction-header { position: relative; height: .8rem; line-height: .8rem; margin: 0 .5rem; padding-top: 1rem; margin-bottom: 1rem; }
+.travel-introduction-header p { border-top: 1px solid #dbdbdb; }
+.travel-introduction-header h4 { position: absolute; top: .6rem; left: 50%; width: 4.2rem; margin: 0; margin-left: -2.1rem; font-size: .8rem; font-weight: normal; text-align: center; background-color: #efeff4; }
+.day-introduction .content-padded { margin: 0; padding: .5rem; background-color: #fff; }
+.day-introduction .content-padded > img { width: 0.15rem; height: 0.85rem; max-width: 100%; vertical-align: middle; }
+.day-introduction .content-padded > span { font-size: .8rem; }
+.days-list { position: relative; margin-top: 1rem; font-size: .7rem; color: #333; line-height: 1; }
+.days-list > i { position: absolute; top: 0; left: 0; color: #ff7200; }
+.days-sublist { padding-left: 2rem; line-height: 1.5; }
+.days-sublist > p { margin: .5rem 0; }
+.days-img { margin-top: .5rem; }
+.days-img img { width: 6.875rem; height: 4.6rem; max-width: 100%; }
+/*预定须知*/
+.reserve-notes-header { position: relative; height: .8rem; line-height: .8rem; margin: 0 .5rem; padding-top: 1rem; margin-bottom: 1rem; }
+.reserve-notes-header p { border-top: 1px solid #dbdbdb; }
+.reserve-notes-header h4 { position: absolute; top: .6rem; left: 50%; width: 4.2rem; margin: 0; margin-left: -2.1rem; font-size: .8rem; font-weight: normal; text-align: center; background-color: #efeff4; }
+.reserve-notes-list .content-padded { margin: 0; padding: .5rem; background-color: #fff; border-bottom: 1px solid #dcdcdc; }
+.reserve-notes-list .content-padded > img { width: 0.15rem; height: 0.85rem; max-width: 100%; vertical-align: middle; }
+.reserve-notes-list .content-padded > span { font-size: .8rem; }
+.reserve-notes-sublist { margin-top: .5rem; }
+.reserve-notes-sublist p { line-height: 2; font-size: .7rem; color: #333; } 
+.reserve-notes-sublist img { max-width: 100%; }
+
+
+
+
+@media screen and ( max-width:359px ) {
+	.days-img img { width: 100%; height: 100%; }
+} 

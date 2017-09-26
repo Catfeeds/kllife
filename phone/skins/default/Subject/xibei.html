@@ -1,0 +1,306 @@
+<include file="common/top" />
+<!-- swiper -->
+<link rel="stylesheet" href="__PUBLIC__/phone/common/css/swiper-3.3.1.min.css">
+<!-- mycss -->
+<link rel="stylesheet" href="__PUBLIC__/phone/css/northwest.css">
+<style>
+    .module{padding:10px;background: #fff;}
+    .module .sm{font-size: 14px;height:40px;overflow: hidden;
+        display: -webkit-box;
+        text-overflow:ellipsis;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        word-break: break-all;}
+        .today-hot{position:absolute;top:0px;right:10px;}
+        .other .today-hot img,.zhoubian .today-hot img{width:70%;}
+</style>
+<header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left back" href="javascript:history.back();">
+        <i class="iconfont">&#xe606;</i>
+    </a>
+    <h1 class="title">慢游西北</h1>
+</header>
+<div class="content">
+    <div class="xinjiang northwest">
+        <!--banner-->
+        <div class="top">
+            <img class="img-responsive" src="__PUBLIC__/phone/images/northwest/banner.jpg" alt="">
+            <!--<img style="width:100%;" src="__PUBLIC__/home/images/northwest/cuxiao-phone.jpg" alt="">-->
+            <!--<video poster="__PUBLIC__/phone/images/silk/video.jpg" width="100%" height="100%" controls="controls"  x5-video-player-type="h5"/>-->
+            <!--<source src="__PUBLIC__/home/mp4/10029799-1.mp4" type="video/mp4">-->
+            <!--</video>-->
+        </div>
+        <!--推荐线路-->
+        <div class="item template_item hidden_ctrl" data-id="">
+            <img class="img-responsive" src="" alt="">
+            <div class="detail">
+                <p class="lg"></p>
+                <p class="sm subheading"></p>
+                <p class="sm">本线路已有 <span class="order_member_count"></span> 人已报名</p>
+            </div>
+            <div class="price">
+                <span class="place">出发地 : </span>
+                <span class="right">￥<span class="money"></span>元起</span>
+            </div>
+            <a href="javascript" external></a>
+        </div>
+        <!--盛夏西北-->
+        <div class="recommend-one">
+            <div class="tit"><img src="__PUBLIC__/home/images/northwest/recommend-tit1.png" alt=""></div>
+            <!--标签切换-->
+            <div class="tit-tag">
+            	<volist id="tab" name="subject_line_tab_xibei1">
+            		<if condition="$key eq 0">
+               			<span class="active" data-subject="xibei1" data-tab="{$tab.type_key}">{$tab.type_desc}</span>
+            		<else />
+                		<span data-subject="xibei1" data-tab="{$tab.type_key}">{$tab.type_desc}</span>
+            		</if>
+            	</volist>
+                <div class="border"><!--此div只用于border--></div>
+            </div>
+            <div class="recommend-result line_container xibei1">
+                <volist id="l" name="subject_line_xibei1">
+                    <div class="item" data-id="{$l.id}">
+                        <img class="img-responsive" src="{$l.img1}" alt="">
+                        <if condition="empty($l['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img src="__PUBLIC__/home/images/index_img/{$l['line_especial_icon']}" alt="">
+									</div>
+								</if>
+                        <div class="detail">
+                            <p class="lg">{$l.title}</p>
+                            <p class="sm subheading">{$l.subheading}</p>
+                            <p class="sm">本线路已有 <span>{$l.order_member_count}</span> 人已报名</p>
+                        </div>
+                        <div class="price">
+                            <span class="place">出发地 : {$l.assembly_point_show_text}</span>
+                            <span class="right">￥<span class="money">{$l.start_price_adult}</span>元起</span>
+                        </div>
+                        <a href="{:U('line/info')}/id/{$l.id}" external></a>
+                    </div>
+                </volist>
+            </div>
+        </div>
+        <!--金秋西北-->
+        <div class="recommend-two">
+            <div class="tit"><img src="__PUBLIC__/home/images/northwest/recommend-tit2.png" alt=""></div>
+            <div class="tit-tag">
+            	<volist id="tab" name="subject_line_tab_xibei2">
+            		<if condition="$key eq 0">
+               			<span class="active" data-subject="xibei2" data-tab="{$tab.type_key}">{$tab.type_desc}</span>
+            		<else />
+                		<span data-subject="xibei2" data-tab="{$tab.type_key}">{$tab.type_desc}</span>
+            		</if>
+            	</volist>
+                <div class="border"></div>
+            </div>
+            <div class="recommend-result line_container xibei2">
+                <volist id="l" name="subject_line_xibei2">
+                    <div class="item" data-id="{$l.id}">
+                        <img class="img-responsive" src="{$l.img1}" alt="">
+                        <if condition="empty($l['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img src="__PUBLIC__/home/images/index_img/{$l['line_especial_icon']}" alt="">
+									</div>
+								</if>
+                        <div class="detail">
+                            <p class="lg">{$l.title}</p>
+                            <p class="sm subheading">{$l.subheading}</p>
+                            <p class="sm">本线路已有 <span>{$l.order_member_count}</span> 人已报名</p>
+                        </div>
+                        <div class="price">
+                            <span class="place">出发地 : {$l.assembly_point_show_text}</span>
+                            <span class="right">￥<span class="money">{$l.start_price_adult}</span>元起</span>
+                        </div>
+                        <a href="{:U('line/info')}/id/{$l.id}" external></a>
+                    </div>
+                </volist>
+            </div>
+        </div>
+
+        <!--小团慢每刻美切换-->
+        <div class="photo">
+            <div class="tit">
+                <span id="kllife"><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/kllife-phone.png" alt=""></span>
+                <span id="meikemei"><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/meikemei-phone1.png" alt=""></span>
+            </div>
+            <div class="photo-list kllife-photo-list">
+                <span><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/kllife-photo-list.png" alt=""></span>
+            </div>
+            <div class="photo-list meikemei-photo-list" style="display: none;">
+                <span><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/meikemei-photo-list.png" alt=""></span>
+            </div>
+        </div>
+        <!--私人定制-->
+        <div class="customized">
+            <span class="span1"><img src="__PUBLIC__/home/images/silk/earth.gif" alt=""></span>
+            <span class="span3"><img class="img-responsive" src="__PUBLIC__/phone/images/silk/customized2.png" alt=""></span>
+            <a href="{:U('line/book')}" class="btn-customized" external>定制我的旅行</a>
+        </div>
+        <!--往期游记-->
+        <div class="review">
+            <div class="tit"><img src="__PUBLIC__/home/images/northwest/review-tit.png" alt=""></div>
+            <div class="module">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" style="position: relative">
+                            <div><img style="width:100%;" src="__PUBLIC__/phone/images/northwest/youji1.jpg" alt=""></div>
+                            <p class="sm">七月的丝路之行！</p>
+                            <a href="http://shequ.kllife.com/Mobile/Index/youjidetail/id/1495.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+                        </div>
+                        <div class="swiper-slide" style="position: relative">
+                            <div><img style="width:100%;" src="__PUBLIC__/phone/images/northwest/youji2.jpg" alt=""></div>
+                            <p class="sm">西北偏北———额济纳</p>
+                            <a href="http://shequ.kllife.com/Mobile/Index/youjidetail.html?id=2034" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+                        </div>
+                        <div class="swiper-slide" style="position: relative">
+                            <div><img style="width:100%;" src="__PUBLIC__/phone/images/northwest/youji3.jpg" alt=""></div>
+                            <p class="sm">兰州集合，丝路经典9天西北大环线领略水上魔鬼城--2016.8.7</p>
+                            <a href="http://shequ.kllife.com/Mobile/Index/youjidetail.html?id=1783" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+                        </div>
+                        <div class="swiper-slide" style="position: relative">
+                            <div><img style="width:100%;" src="__PUBLIC__/phone/images/northwest/youji4.jpg" alt=""></div>
+                            <p class="sm">有了纵情丝路，其它的都弱爆了——直播，有大量美女，看的时候口水不要滴键盘上</p>
+                            <a href="http://shequ.kllife.com/Mobile/Index/youjidetail.html?id=3050" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+                        </div>
+                        <div class="swiper-slide" style="position: relative">
+                            <div><img style="width:100%;" src="__PUBLIC__/phone/images/northwest/youji5.jpg" alt=""></div>
+                            <p class="sm">西北行漫记——大漠传奇意象</p>
+                            <a href="http://shequ.kllife.com/Mobile/Index/youjidetail.html?id=2186" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+                        </div>
+                        <div class="swiper-slide" style="position: relative">
+                            <div><img style="width:100%;" src="__PUBLIC__/phone/images/northwest/youji6.jpg" alt=""></div>
+                            <p class="sm">西北游</p>
+                            <a href="http://shequ.kllife.com/Mobile/Index/youjidetail/id/2013.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+                        </div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <!--<div class="swiper-pagination"></div>-->
+                </div>
+            </div>
+        </div>
+
+        <!--其他推荐-->
+        <div class="other">
+            <div class="tit">
+                <span class="left"><img class="img-responsive" src="__PUBLIC__/home/images/northwest/qita-tit.png" alt=""></span>
+            </div>
+            <div class="recommend-result">
+                <volist id="rd" name="recommend">
+                    <div class="item" data-id="{$rd.id}">
+                        <img class="img-responsive" src="{$rd.img1}" alt="">
+                        <if condition="empty($rd['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img style="height:70%;" src="__PUBLIC__/home/images/index_img/{$rd['line_especial_icon']}" alt="">
+									</div>
+								</if>
+                        <div class="detail">
+                            <p class="lg">{$rd.title}</p>
+                            <p class="sm">本线路已有 <span>{$rd.order_member_count}</span> 人已报名</p>
+                        </div>
+                        <div class="price">
+                            <span class="right">￥<span class="money">{$rd.start_price_adult}</span>元起</span>
+                        </div>
+                        <a href="{:U('line/info')}/id/{$rd.id}" external></a>
+                    </div>
+                </volist>
+            </div>
+        </div>
+
+        <!--周边游-->
+        <div class="zhoubian">
+            <span class="zhoubian-img"><img class="img-responsive" src="__PUBLIC__/home/images/northwest/zhoubian-tit.png" alt=""></span>
+            <div class="recommend-result">
+                <volist id="sur" name="surrounding">                   
+	                <div class="item" data-id="{$sur.id}">
+	                    <img class="img-responsive" src="{$sur.img1}" alt="">
+	                    <if condition="empty($sur['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img style="height:70%;" src="__PUBLIC__/home/images/index_img/{$sur['line_especial_icon']}" alt="">
+									</div>
+								</if>
+	                    <div class="detail">
+	                        <p class="lg">{$sur.title}</p>
+	                        <p class="sm">本线路已有 <span>{$sur.order_member_count}</span> 人已报名</p>
+	                    </div>
+	                    <div class="price">
+	                        <span class="right">￥<span class="money">{$sur.start_price_adult}</span>元起</span>
+	                    </div>
+	                    <a href="{:U('line/info')}/id/{$sur.id}" external></a>
+	                </div>
+                </volist>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- swiper -->
+<script src="__PUBLIC__/phone/common/js/swiper-3.3.1.min.js"></script>
+<script>
+    //专题滚动
+    var swiper = new Swiper('.module .swiper-container', {
+        slidesPerView: 2.4,
+        paginationClickable: true,
+        spaceBetween: 20,
+        freeMode: true
+    });
+
+    //推荐标签切换
+    $(".tit-tag span").on("click",function(){
+        $(this).addClass("active").siblings().removeClass("active");
+        var opModal = $(this).attr('data-subject');
+        var jsonData = {
+        	op: opModal,
+            tab: $(this).attr('data-tab'),
+        };
+        if ('{$refresh}' != '') {
+            jsonData['refresh'] = '{$refresh}';
+        }
+        $.post('{:U("subject/xibei")}', jsonData, function(data){
+            if (data.result != null && data.result.errno != 0) {
+                alert(data.result.message);
+            }
+
+            $('.line_container.'+opModal).find('.item').remove();
+            if (data.ds != null) {
+                for (var i=0; i < data.ds.length; i++) {
+                    var d = data.ds[i];
+                    var itemObj = $('.template_item').clone();
+                    $(itemObj).removeClass('hidden_ctrl');
+                    $(itemObj).removeClass('template_item');
+                    $(itemObj).attr('data-id', d.id);
+                    $(itemObj).find('img').attr('src', d.img1);
+                    $(itemObj).find('.lg').html(d.title);
+                    $(itemObj).find('.subheading').html(d.subheading);
+                    $(itemObj).find('.order_member_count').html(d.order_member_count);
+                    $(itemObj).find('.place').html('出发地：'+d.assembly_point_show_text);
+                    $(itemObj).find('.money').html(d.start_price_adult);
+                    $(itemObj).find('a').attr('href', '{:U("line/info")}/id/'+d.id);
+                    $('.line_container.'+opModal).append(itemObj);
+                    if (d.line_especial_icon == 0) {
+						$(itemObj).find('.today-hot').remove();
+					}
+                }
+            }
+        });
+    })
+
+    //图片列表切换
+    $("#kllife").on("click",function(){
+        $(".kllife-photo-list").show();
+        $(".meikemei-photo-list").hide();
+        $(this).find("img").attr("src","__PUBLIC__/phone/images/xinjiang/kllife-phone.png");
+        $("#meikemei").find("img").attr("src","__PUBLIC__/phone/images/xinjiang/meikemei-phone1.png");
+    })
+
+    $("#meikemei").on("click",function(){
+        $(".meikemei-photo-list").show();
+        $(".kllife-photo-list").hide();
+        $(this).find("img").attr("src","__PUBLIC__/phone/images/xinjiang/meikemei-phone.png");
+        $("#kllife").find("img").attr("src","__PUBLIC__/phone/images/xinjiang/kllife-phone1.png");
+    })
+</script>
+<include file="common/js" />
+<include file="common/swt"/>
+</body>
+<include file="common/footer"/>
+</html>

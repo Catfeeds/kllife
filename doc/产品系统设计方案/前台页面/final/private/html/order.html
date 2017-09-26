@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>领袖户外</title>
+	<!-- css Reset -->
+	<link rel="stylesheet" href="../../common/css/cssreset.css">
+	<!-- 公共样式 -->
+	<link rel="stylesheet" href="../../common/css/common.css">
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="../css/order.css">
+	<!-- echo -->
+	<script src="../../common/js/echo.min.js"></script>
+	<script>
+		//echo
+		echo.init({
+		    offset: 0, //离可视区域多少像素的图片可以被加载
+		    throttle: 0 //图片延迟多少毫秒加载
+		});
+	</script>
+	<!--[if lt IE 9]>
+		<script>
+			(function() {
+				if (! 
+					/*@cc_on!@*/
+				0) return;
+				var e = "abbr, article, aside, audio, canvas, datalist, details, dialog, eventsource, figure, footer, header, hgroup, mark, menu, meter, nav, output, progress, section, time, video".split(', ');
+				var i= e.length;
+				while (i--){
+					document.createElement(e[i])
+				} 
+			})() ;
+		</script>
+    	<script src="../common/js/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<header>
+		<div class="nav01">
+			<div class="nav-top">
+				<div class="nav-top-left">
+					<img src="../../common/images/login_header.png" alt="">
+					<a href="javascript:;" target="_blank">登录</a> |
+					<a href="javascript:;" target="_blank">注册</a>
+				</div>
+				<div class="nav-top-right">
+					<a href="javascript:;" target="_blank">杭州站</a> |
+					<a href="javascript:;" target="_blank">西安站</a> |
+					<a href="javascript:;" target="_blank">服务中心</a> |
+					<a href="javascript:;" target="_blank">加入收藏</a> |
+					<img src="../../common/images/tel_header.png" alt="联系电话">
+					<span>400-080-5860</span>
+				</div>
+			</div>
+		</div>
+		<div class="nav02">
+			<div class="nav-list">
+				<img src="../../common/images/logo_header.png" alt="领袖户外">
+				<ul>
+					<li>
+						首页
+					</li>
+					<li class="nav-list-top">
+						深度游
+						<div>
+							<ul>
+								<li><a href="javascript:;">四川</a></li>
+								<li><a href="javascript:;">石林</a></li>
+								<li><a href="javascript:;">西双版纳</a></li>
+								<li><a href="javascript:;">丽江</a></li>
+								<li><a href="javascript:;">大理</a></li>
+								<li><a href="javascript:;">玉龙雪山</a></li>
+								<li><a href="javascript:;">滇池</a></li>
+								<li><a href="javascript:;">洱海</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">新疆</a></li>
+								<li><a href="javascript:;">赛里木湖</a></li>
+								<li><a href="javascript:;">伊犁</a></li>
+								<li><a href="javascript:;">昭苏</a></li>
+								<li><a href="javascript:;">夏特古道</a></li>
+								<li><a href="javascript:;">喀拉峻</a></li>
+								<li><a href="javascript:;">巴音布鲁克</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">西藏</a></li>
+								<li><a href="javascript:;">拉萨</a></li>
+								<li><a href="javascript:;">林芝</a></li>
+								<li><a href="javascript:;">纳木措</a></li>
+								<li><a href="javascript:;">鲁朗</a></li>
+								<li><a href="javascript:;">拉姆拉措</a></li>
+								<li><a href="javascript:;">羊湖</a></li>
+								<li><a href="javascript:;">日喀则</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">贵州</a></li>
+								<li><a href="javascript:;">秘境茂兰</a></li>
+								<li><a href="javascript:;">荔波</a></li>
+								<li><a href="javascript:;">黔东南</a></li>
+								<li><a href="javascript:;">镇远</a></li>
+								<li><a href="javascript:;">西江苗寨</a></li>
+								<li><a href="javascript:;">黄果树深</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">东北</a></li>
+								<li><a href="javascript:;">哈尔滨</a></li>
+								<li><a href="javascript:;">鹤城齐齐哈尔</a></li>
+								<li><a href="javascript:;">阿荣旗</a></li>
+								<li><a href="javascript:;">草原蒙古部落</a></li>
+								<li><a href="javascript:;">异域满洲里</a></li>
+								<li><a href="javascript:;">蒙兀室韦</a></li>
+								<li><a href="javascript:;">哈乌尔河湿地</a></li>
+								<li><a href="javascript:;">海拉尔</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">广西</a></li>
+								<li><a href="javascript:;">漓江徒步</a></li>
+								<li><a href="javascript:;">阳朔漫游</a></li>
+								<li><a href="javascript:;">德天大瀑布</a></li>
+								<li><a href="javascript:;">龙脊梯田</a></li>
+								<li><a href="javascript:;">悠游涠洲岛</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-list-top">
+						摄影游
+						<div>
+							<ul>
+								<li><a href="javascript:;">四川2</a></li>
+								<li><a href="javascript:;">石林</a></li>
+								<li><a href="javascript:;">西双版纳</a></li>
+								<li><a href="javascript:;">丽江</a></li>
+								<li><a href="javascript:;">大理</a></li>
+								<li><a href="javascript:;">玉龙雪山</a></li>
+								<li><a href="javascript:;">滇池</a></li>
+								<li><a href="javascript:;">洱海</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">新疆2</a></li>
+								<li><a href="javascript:;">赛里木湖</a></li>
+								<li><a href="javascript:;">伊犁</a></li>
+								<li><a href="javascript:;">昭苏</a></li>
+								<li><a href="javascript:;">夏特古道</a></li>
+								<li><a href="javascript:;">喀拉峻</a></li>
+								<li><a href="javascript:;">巴音布鲁克</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">西藏2</a></li>
+								<li><a href="javascript:;">拉萨</a></li>
+								<li><a href="javascript:;">林芝</a></li>
+								<li><a href="javascript:;">纳木措</a></li>
+								<li><a href="javascript:;">鲁朗</a></li>
+								<li><a href="javascript:;">拉姆拉措</a></li>
+								<li><a href="javascript:;">羊湖</a></li>
+								<li><a href="javascript:;">日喀则</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">贵州2</a></li>
+								<li><a href="javascript:;">秘境茂兰</a></li>
+								<li><a href="javascript:;">荔波</a></li>
+								<li><a href="javascript:;">黔东南</a></li>
+								<li><a href="javascript:;">镇远</a></li>
+								<li><a href="javascript:;">西江苗寨</a></li>
+								<li><a href="javascript:;">黄果树深</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">东北2</a></li>
+								<li><a href="javascript:;">哈尔滨</a></li>
+								<li><a href="javascript:;">鹤城齐齐哈尔</a></li>
+								<li><a href="javascript:;">阿荣旗</a></li>
+								<li><a href="javascript:;">草原蒙古部落</a></li>
+								<li><a href="javascript:;">异域满洲里</a></li>
+								<li><a href="javascript:;">蒙兀室韦</a></li>
+								<li><a href="javascript:;">哈乌尔河湿地</a></li>
+								<li><a href="javascript:;">海拉尔</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">广西2</a></li>
+								<li><a href="javascript:;">漓江徒步</a></li>
+								<li><a href="javascript:;">阳朔漫游</a></li>
+								<li><a href="javascript:;">德天大瀑布</a></li>
+								<li><a href="javascript:;">龙脊梯田</a></li>
+								<li><a href="javascript:;">悠游涠洲岛</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-list-top">
+						主题游
+						<div>
+							<ul>
+								<li><a href="javascript:;">四川3</a></li>
+								<li><a href="javascript:;">石林</a></li>
+								<li><a href="javascript:;">西双版纳</a></li>
+								<li><a href="javascript:;">丽江</a></li>
+								<li><a href="javascript:;">大理</a></li>
+								<li><a href="javascript:;">玉龙雪山</a></li>
+								<li><a href="javascript:;">滇池</a></li>
+								<li><a href="javascript:;">洱海</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">新疆3</a></li>
+								<li><a href="javascript:;">赛里木湖</a></li>
+								<li><a href="javascript:;">伊犁</a></li>
+								<li><a href="javascript:;">昭苏</a></li>
+								<li><a href="javascript:;">夏特古道</a></li>
+								<li><a href="javascript:;">喀拉峻</a></li>
+								<li><a href="javascript:;">巴音布鲁克</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">西藏3</a></li>
+								<li><a href="javascript:;">拉萨</a></li>
+								<li><a href="javascript:;">林芝</a></li>
+								<li><a href="javascript:;">纳木措</a></li>
+								<li><a href="javascript:;">鲁朗</a></li>
+								<li><a href="javascript:;">拉姆拉措</a></li>
+								<li><a href="javascript:;">羊湖</a></li>
+								<li><a href="javascript:;">日喀则</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">贵州3</a></li>
+								<li><a href="javascript:;">秘境茂兰</a></li>
+								<li><a href="javascript:;">荔波</a></li>
+								<li><a href="javascript:;">黔东南</a></li>
+								<li><a href="javascript:;">镇远</a></li>
+								<li><a href="javascript:;">西江苗寨</a></li>
+								<li><a href="javascript:;">黄果树深</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">东北3</a></li>
+								<li><a href="javascript:;">哈尔滨</a></li>
+								<li><a href="javascript:;">鹤城齐齐哈尔</a></li>
+								<li><a href="javascript:;">阿荣旗</a></li>
+								<li><a href="javascript:;">草原蒙古部落</a></li>
+								<li><a href="javascript:;">异域满洲里</a></li>
+								<li><a href="javascript:;">蒙兀室韦</a></li>
+								<li><a href="javascript:;">哈乌尔河湿地</a></li>
+								<li><a href="javascript:;">海拉尔</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">广西3</a></li>
+								<li><a href="javascript:;">漓江徒步</a></li>
+								<li><a href="javascript:;">阳朔漫游</a></li>
+								<li><a href="javascript:;">德天大瀑布</a></li>
+								<li><a href="javascript:;">龙脊梯田</a></li>
+								<li><a href="javascript:;">悠游涠洲岛</a></li>
+							</ul>
+						</div>
+					</li>
+					<li>私人定制</li>
+					<li>论坛</li>
+				</ul>
+				<div class="search-header">
+					<img src="../../common/images/search_header.png" alt="">
+					<input type="text" placeholder="特惠线路...">
+					<a href="javascript:;">搜索</a>
+				</div>
+			</div>
+		</div>		
+	</header>
+	<!-- 主要内容 -->
+	<div class="order-content">
+		<!-- 支付顺序 -->
+		<!-- <div class="order-priority">
+			<div class="priority-word">
+				<span style="color: #ff7200;">选择线路</span>
+				<span>填写订单</span>
+				<span>签约付款</span>
+				<span>预定成功</span>
+			</div>
+			<div class="priority-img">
+				<img src="../images/order_img/order_priority.png" alt="">
+			</div>
+		</div> -->
+		<!-- 支付详情 -->
+		<div class="order-details">
+			<div class="order-details-left">
+				<div class="order-details-place">
+					<h3>喀纳斯-白哈巴-禾木-五彩滩-魔鬼城-可可托海 9日深度游</h3>
+					<div class="order-details-choose">
+						出发日期：
+						<div class="cfrq-choose">
+							<span>2016.08.17(周三)--2016.08.22(周一)  成人：2980.00元</span>
+							<img src="../images/content_img/down.png" alt="">
+							<ul>
+								<li>2016.08.17(周三)--2016.08.22(周一)  成人：2980.00元</li>
+								<li>2016.08.17(周三)--2016.08.22(周一)  成人：2980.00元</li>
+								<li>2016.08.17(周三)--2016.08.22(周一)  成人：22980.00元</li>
+								<li>2016.08.17(周三)--2016.08.22(周一)  成人：12980.00元</li>
+								<li>2016.08.17(周三)--2016.08.22(周一)  成人：2980.00元</li>
+							</ul>
+						</div>
+					</div>
+					<div class="order-details-line-money">
+						线路价格：
+						<div class="xljg">
+							<span>￥2345/成人</span>
+							<span>￥2345/儿童</span>
+						</div>
+					</div>
+					<div class="order-details-people">
+						出游人数：
+						<div class="cyrs">
+							<div class="adult-num">
+								<a class="minus-adult" href="javascript:;"><i class="adult-minus"></i></a>
+								<span>0</span>
+								<a class="add-adult" href="javascript:;"><i class="adult-add"></i></a>
+								<u>成人</u>
+							</div>
+							<div class="children-num">
+								<a class="minus-children" href="javascript:;"><i class="children-minus"></i></a>
+								<span>0</span>
+								<a class="add-children" href="javascript:;"><i class="children-add"></i></a>
+								<u>儿童</u>
+							</div>
+							<a class="child-standard" href="javascript:;">儿童标准</a>
+						</div>
+					</div>
+					<!-- 出游人确认 -->
+					<div class="order-details-people-sure">
+						<div class="people-sure-content">
+							<h6>出游人确认</h6>
+							<div>
+								<p>出游人中是否有60周岁(含)至80周岁(不含)的老人？</p>
+								<div class="old-man">
+									<i></i><span>有</span>
+									<i class="choose-man"></i><span>没有</span>
+								</div>
+							</div>
+							<div>
+								<p>出游人中是否有外籍友人？</p>
+								<div class="foreign-man">
+									<i></i><span>有</span>
+									<i class="choose-man"></i><span>没有</span>
+								</div>
+							</div>
+							<p>本产品不支持孕妇或者80周岁(含)以上的老人出游，18周岁以下的未成年人必须有成年人陪同出游，敬请谅解！</p>
+						</div>
+					</div>
+				</div>
+				<!-- 联系人信息 -->
+				<div class="order-details-contact">
+					<h3>联系人信息</h3>
+					<div class="order-details-contact-write">
+						<p><span>姓名：</span><input type="text"></p>
+						<p><span>联系电话：</span><input type="text"></p>
+						<p class="send-code"><span>校验码：</span><input type="text"><input id="btnSendCode" type="button" onclick="sendMessage()" value="发送校验码" /></p>
+					</div>
+				</div>
+				<!-- 发票信息 -->
+				<div class="order-details-invoice">
+					<h3>发票信息</h3>
+					<div class="order-details-invoice-choose">
+						<label><input id="no-invoice" name="invoice" type="radio" value="" checked />不需要发票</label> 
+						<label><input id="enterprise-invoice" name="invoice" type="radio" value="" />企业发票</label> 
+						<label><input id="personal-invoice" name="invoice" type="radio" value="" />个人发票</label>
+					</div>
+					<div class="order-details-invoice-write-enterprise">
+						<div class="invoice-write-enterprise01">
+							<span>单位名称：<input type="text" placeholder="请输入单位名称"></span>
+							<span>纳税人识别号：<input type="text" placeholder="请输入纳税人识别号"></span>
+						</div>
+						<div class="invoice-write-enterprise02">
+							<span>单位地址：<input type="text" placeholder="请输入单位地址"></span>
+						</div>
+						<div class="invoice-write-enterprise03">
+							<span>单位电话：<input type="text" placeholder="请输入单位电话"></span>
+							<span>收件人：<input type="text" placeholder="请输入真实姓名"></span>
+							<span>收件电话：<input type="text" placeholder="请输入收件电话"></span>
+						</div>
+						<div class="invoice-write-enterprise04">
+							<span>收件地址：</span><input type="text" placeholder="请输入收件地址">
+						</div>
+					</div>
+					<div class="order-details-invoice-write-personal">
+						<div class="invoice-write-personal01">
+							<span>姓名：</span><input type="text" placeholder="请输入真实姓名">
+							<span>电话：</span><input type="text" placeholder="请输入手机号码">
+						</div>
+						<div class="invoice-write-personal02">
+							<span>收件地址：</span><input type="text" placeholder="请输入收件地址">
+						</div>
+					</div>
+				</div>
+				<!-- 出游人信息 -->
+				<div class="order-details-travel-people">
+					<h3>出游人信息</h3>
+					<div class="travel-people-warning">
+						<p>· 为了保障您的合法权益，请准确、完整地填写游客证件信息，错误的身份信息可能造成额外的退、改费用。</p>
+						<p>· 儿童游客如无相关证件，证件类型请选择"其他"，并填写出生日期。</p>
+						<p>· 出游人信息不完整会影响您的正常出游；因信息不完整、填写不正确造成的额外损失、保险拒赔等问题，我司不承担相应责任，需由客人自行承担。</p>
+					</div>
+					<div class="adult-div">
+						
+					</div>
+					<div class="children-div">
+						
+					</div>
+					
+				</div>
+				<!-- 提交订单 -->
+				<div class="order-details-submit">
+					<a href="javascript:;">我已阅读预定须知,提交订单</a>
+				</div>
+				<!-- 旅游合同 -->
+				<div class="order-details-contract">
+					<h3>旅游合同<span>(为了保障双方的合法权益，我们将与您使用在线签约方式签署合同，此合同在得到资源确认并付款完成时正式生效。)</span></h3>
+					<div class="contract-img">
+						<img src="../images/order_img/contract.jpg" alt="">
+						<img src="../images/order_img/contract.jpg" alt="">
+						<img src="../images/order_img/contract.jpg" alt="">
+						<img src="../images/order_img/contract.jpg" alt="">
+					</div>
+				</div>
+				<!-- 预定须知 -->
+				<div class="order-details-reserve">
+					<h3>预订须知</h3>
+					<div class="reserve-content">
+						<h6>*预订须知</h6>
+						<p>1、正常阴雨天气不影响正常出游，如遇不可抗逆因素导致不能出游我司会提前与您联系；</p>
+						<p>2、如您预订的出游日期最终不成行，我司会提前与您沟通解决方案，届时您可以选择改期出游、更改出游产品；</p>
+						<p>3、病患者、孕妇及行动不便者预订提示：为了确保旅游顺利出行，防止旅途中发生人身意外伤害事故，请旅游者在出行前做一次必要的身体检查 ；</p>
+						<p>4、如与您同行的儿童超出了儿童价标准，以儿童价出游时，儿童不占床，并需要按照浏览景点或项目的规定，现补门票或其他费用</p>
+						<h6>*出游费用包含</h6>
+						<p>1、交通：往返团队/散客机票含税费（团队机票将统一出票，散客机票因实时计价预定后即刻出票）</p>
+						<p>2、交通：当地旅游巴士</p>
+						<p>3、住宿：酒店标准2人间。</p>
+						<p>4、用餐：行程中团队标准用餐，（中式餐或自助餐或特色餐，含飞机上用餐，自由活动期间用餐请自理；如因自身原因放弃用餐，则餐费不退）。</p>
+						<p>5、门票：行程中所含的景点首道大门票，具体请参考行程描述。</p>
+						<p>6、导服：专职领队和当地中文导游，特殊情况领队兼任导游，亦无退费，请见谅。</p>
+						<p>7、儿童价标准：年龄2~12周岁（不含），不占床，不含早，其他服务同成人。</p>
+						<p>8、赠送：赠送项目不退费</p>
+						<p>1、交通：往返团队/散客机票含税费（团队机票将统一出票，散客机票因实时计价预定后即刻出票）</p>
+						<p>2、交通：当地旅游巴士</p>
+						<p>3、住宿：酒店标准2人间。</p>
+						<p>4、用餐：行程中团队标准用餐，（中式餐或自助餐或特色餐，含飞机上用餐，自由活动期间用餐请自理；如因自身原因放弃用餐，则餐费不退）。</p>
+						<p>5、门票：行程中所含的景点首道大门票，具体请参考行程描述。</p>
+						<p>6、导服：专职领队和当地中文导游，特殊情况领队兼任导游，亦无退费，请见谅。</p>
+						<p>7、儿童价标准：年龄2~12周岁（不含），不占床，不含早，其他服务同成人。</p>
+						<p>8、赠送：赠送项目不退费</p>
+					</div>
+				</div>
+			</div>
+			<!-- 右侧 -->
+			<div class="order-details-right">
+				<h3>支付信息</h3>
+				<div class="order-details-right-top">
+					<h6>产品名称</h6>
+					<span>秘境茂兰-荔波-黔东南-镇远-西江苗寨-黄果树深度纯玩九日游</span>
+					<h6>旅行团费</h6>
+					<div class="order-details-right-people">
+						<p class="adult-money"><span>0</span> 成人 x ￥<u>2345</u><i>￥<b>0</b></i></p>
+						<p class="children-money"><span>0</span> 儿童 x ￥<u>2345</u><i>￥<b>0</b></i></p>
+						<p class="invoice-money" style="display: none;"><span>1</span> 发票邮寄 x ￥<u>20</u><i>￥<b>20</b></i></p>
+					</div>
+				</div>
+				<div class="order-details-right-money">
+					<p>订单金额</p>
+					<span>￥<strong>0</strong></span>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<!-- 右侧侧边栏 -->
+	<aside>
+		<div class="join-us">
+			<a href="javascript:;"></a>
+		</div>
+		<a class="aside_hot" href="javascript:;">
+			<i></i>
+			<div class="aside_show aside_show_hot">
+				<p>热门推荐</p>
+			</div>
+		</a>
+		<a class="aside_mine" href="javascript:;">
+			<i></i>
+			<div class="aside_show aside_show_mine">
+				<p>个人中心</p>
+			</div>
+		</a>
+		<a class="aside_order" href="javascript:;">
+			<i></i>
+			<div class="aside_show aside_show_order">
+				<p>订单中心</p>
+			</div>
+		</a>
+		<a class="aside_weixin" href="javascript:;">
+			<i></i>
+			<div class="aside_show aside_show_weixin">
+				<img src="../../common/images/aside_erweima.png" alt="二维码">
+			</div>
+		</a>
+		<a class="aside_tel" href="javascript:;">
+			<i></i>
+			<div class="aside_show aside_show_tel">
+				<p>400-080-5860</p>
+			</div>
+		</a>
+		<a class="aside_qq" href="javascript:;">
+			<i></i>
+			<div class="aside_show aside_show_qq">
+				<p>我的QQ</p>
+			</div>
+		</a>
+		<a class="aside_top" href="#">
+			<i></i>
+		</a>
+	</aside>
+
+	<footer>
+		<div class="footer-content">
+			<div class="footer-content-left">
+				<ul class="clear-footer-content-marginLeft">
+					<li>注册与登录</li>
+					<li><a href="javascript:;">如何注册与激活</a></li>
+					<li><a href="javascript:;">无法登录</a></li>
+					<li><a href="javascript:;">安全提示</a></li>
+					<li><a href="javascript:;">忘记密码</a></li>
+				</ul>
+				<ul>
+					<li>参与活动</li>
+					<li><a href="javascript:;">退款付款说明</a></li>
+					<li><a href="javascript:;">合同样本及下载指南</a></li>
+					<li><a href="javascript:;">一日游活动报名流程</a></li>
+					<li><a href="javascript:;">如何在线报名</a></li>
+				</ul>
+				<ul>
+					<li>付款与发票</li>
+					<li><a href="javascript:;">三种付款方式</a></li>
+					<li><a href="javascript:;">预付款支付后如何缴纳尾</a></li>
+					<li><a href="javascript:;">领袖户外旅游基金（代金</a></li>
+					<li><a href="javascript:;">如何索取发票</a></li>
+				</ul>
+				<ul>
+					<li>常见问题与反馈</li>
+					<li><a href="javascript:;">纯玩是什么意思？</a></li>
+					<li><a href="javascript:;">单房差是什么？</a></li>
+					<li><a href="javascript:;">独立成团可以吗</a></li>
+					<li><a href="javascript:;">每个人的身份证都需要填</a></li>
+				</ul>
+				<div class="small-link small-link-top">
+					<p>
+						主题旅游：
+						<a href="javascript:;">华东</a>
+						<a href="javascript:;">坝上</a>
+						<a href="javascript:;">柬埔寨</a>
+						<a href="javascript:;">西藏</a>
+						<a href="javascript:;">额济纳旗</a>
+						<a href="javascript:;">雪乡旅游</a>
+						<a href="javascript:;">云南摄影</a>
+						<a href="javascript:;">行摄陕西</a>
+						<a href="javascript:;">黔东南</a>
+						<a href="javascript:;">四川</a>
+						<a href="javascript:;">青海</a>
+						<a href="javascript:;">新疆</a>
+						<a href="javascript:;">甘南</a>
+						<a href="javascript:;">川藏</a>
+						<a href="javascript:;">呼伦贝尔</a>
+					</p>
+				</div>
+				<div class="small-link small-link-bottom">
+					<p>
+						友情链接：
+						<a href="javascript:;">蓬莱</a>
+						<a href="javascript:;">北京会展</a>
+						<a href="javascript:;">驴友论坛</a>
+						<a href="javascript:;">天涯户外</a>
+						<a href="javascript:;">户外轨迹路线</a>
+						<a href="javascript:;">张家界旅游</a>
+						<a href="javascript:;">渭南户外港</a>
+						<a href="javascript:;">农家院旅游</a>
+						<a href="javascript:;">行者物语网</a>
+						<a href="javascript:;">携程主题游</a>
+					</p>
+				</div>
+			</div>
+			<div class="footer-content-right">
+				<img src="../../common/images/footer_erweima.png" alt="">
+			</div>
+		</div>
+	</footer>
+	<div class="footer-bottom">
+		<div class="footer-bottom-content">
+			<p>
+				领袖户外服务信息：
+				<a href="javascript:;">关于我们</a>
+				|
+				<a href="javascript:;">联系我们</a>
+				|
+				<a href="javascript:;">招贤纳士</a>
+				|
+				<a href="javascript:;">帮助中心</a>
+				|
+				<a href="javascript:;">商务合作</a>
+			</p>
+			<span>Copyright © 2006-2014 kllife.com | 陕西浪客国际旅行社有限责任公司版权所有</span><em>公司地址：陕西省西安市雁塔区太白南路上上国际</em>
+			<br>
+			<span>领袖户外经营许可证号：L-SNX00306 陕ICP备14011728号-1</span>
+		</div>
+	</div>
+
+
+
+	<!-- 引用jq -->
+	<script src="../../common/js/jquery-1.11.3.min.js"></script>
+	<!-- 头部js -->
+	<script src="../../common/js/headroom.js"></script>
+	<!-- 自绑定 -->
+	<script src="../../common/js/showAndHide.js"></script>
+	<!-- 出生日期 -->
+	<script src="../js/birthday.js"></script>
+	<!-- 侧边栏&头部 -->
+	<script src="../../common/js/aside-header.js"></script>
+	<script>
+	
+	//出游人数
+		//总金额
+		function totalMoney() {
+			if($('.invoice-money').css('display') == 'none'){
+				$('.order-details-right-money strong').html(parseInt($('.adult-money b').html())+parseInt($('.children-money b').html())+'.00');
+			}else{
+				$('.order-details-right-money strong').html(parseInt($('.adult-money b').html())+parseInt($('.children-money b').html())+parseInt($('.invoice-money b').html())+'.00');
+			}
+		}
+
+		//添加人数					
+		function  addANum( a , b , c ){
+			$(a).click( function () {
+				//人数
+				
+				var ANum = parseInt($(this).prev('span').html());
+				$(this).prev('span').html(++ANum);
+				$(b + ' span').html(ANum);
+				//成人信息		
+				var adultHtml = '<div class="adult-information">'
+									+'<div class="adult-information-num">'
+										+'<p>第<span>' + ANum + '</span>位</p>'
+										+'<u>成人</u>'
+									+'</div>'
+									+'<div class="adult-information-write">'
+										+'<p>'
+											+'<span>姓名：</span><input type="text" placeholder="请输入真实姓名">'
+										+'</p>'
+										+'<div class="adult-information-card">'
+											+'<span>证件类型：</span>'
+											+'<div class="adult-information-card-choose">'
+												+'<span>身份证</span>'
+												+'<img src="../images/content_img/down.png" alt="">'
+												+'<ul>'
+													+'<li>身份证</li>'
+													+'<li>学生证</li>'
+													+'<li>驾照</li>'
+													+'<li class="hongkong-macao">港澳证<li>'
+												+'</ul>'
+											+'</div>'
+											+'<input type="text" placeholder="请输入证件号码">'
+										+'</div>'
+										+'<div class="adult-information-birth">'
+											+'<span>出生日期：</span>'
+											+'<div class="adult-information-birth-year">'
+												+'<span>2016</span>'
+												+'<img src="../images/content_img/down.png" alt="">'
+												+'<ul></ul>'
+											+'</div>'
+											+'<div class="adult-information-birth-month">'
+												+'<span>1</span>'
+												+'<img src="../images/content_img/down.png" alt="">'
+												+'<ul></ul>'
+											+'</div>'
+											+'<div class="adult-information-birth-day">'
+												+'<span>1</span>'
+												+'<img src="../images/content_img/down.png" alt="">'
+												+'<ul></ul>'
+											+'</div>'
+										+'</div>'
+										+'<p>'
+											+'<span>联系电话：</span><input type="text" placeholder="请输入手机号码">'
+										+'</p>'
+									+'</div>'
+								+'</div>';
+				//单价
+				var uMoney = parseInt($( b + ' u').html());
+				//增加人数后，总金额
+				$( b + ' b').html(ANum * uMoney);
+				totalMoney();
+				//添加填写信息
+				$(c).append(adultHtml);
+				//成人选择证件
+				chooseDown('adult-information-card-choose');
+				//港澳证
+				$('.hongkong-macao').click( function () {
+
+					$(this).parents('.adult-information-write').find('.adult-information-birth').show();
+
+				} );
+				$('.hongkong-macao').siblings('li').click( function () {
+
+					$(this).parents('.adult-information-write').find('.adult-information-birth').hide();
+
+				} );
+				//出生日期
+				$('.adult-information').birthday('.adult-information-birth-year', '.adult-information-birth-month' , '.adult-information-birth-day' , '.adult-information-birth' , 100);
+				chooseDown('adult-information-birth-year');
+				chooseDown('adult-information-birth-month');
+				chooseDown('adult-information-birth-day');
+			} );
+		};
+		function addCNum( x , y, z ) {
+			$(x).click( function () {
+				//人数
+				var CNum = parseInt($(this).prev('span').html());
+				$(this).prev('span').html(++CNum);
+				$(y + ' span').html(CNum);
+				//儿童信息
+				var childrenHtml =  '<div class="children-information">'
+										+'<div class="children-information-num">'
+											+'<p>第<span>' + CNum + '</span>位</p>'
+											+'<u>儿童</u>'
+										+'</div>'
+										+'<div class="children-information-write">'
+											+'<p>'
+												+'<span>姓名：</span><input type="text" placeholder="请输入真实姓名">'
+											+'</p>'
+											+'<div class="children-information-card">'
+												+'<span>证件类型：</span>'
+												+'<div class="children-information-card-choose">'
+													+'<span>身份证</span>'
+													+'<img src="../images/content_img/down.png" alt="">'
+													+'<ul>'
+														+'<li>身份证</li>'
+														+'<li>学生证</li>'
+														+'<li>驾照</li>'
+														+'<li>身份证</li>'
+														+'<li>学生证</li>'
+														+'<li>驾照</li>'
+													+'</ul>'
+												+'</div>'
+												+'<input type="text" placeholder="请输入证件号码">'
+											+'</div>'
+											+'<div class="children-information-birth">'
+												+'<span>出生日期：</span>'
+												+'<div class="children-information-birth-year">'
+													+'<span>2016</span>'
+													+'<img src="../images/content_img/down.png" alt="">'
+													+'<ul></ul>'
+												+'</div>'
+												+'<div class="children-information-birth-month">'
+													+'<span>1</span>'
+													+'<img src="../images/content_img/down.png" alt="">'
+													+'<ul></ul>'
+												+'</div>'
+												+'<div class="children-information-birth-day">'
+													+'<span>1</span>'
+													+'<img src="../images/content_img/down.png" alt="">'
+													+'<ul></ul>'
+												+'</div>'
+											+'</div>'
+											+'<p>'
+												+'<span>联系电话：</span><input type="text" placeholder="请输入手机号码">'
+											+'</p>'
+										+'</div>'
+									+'</div>';
+		
+				//单价
+				var uMoney = parseInt($( y + ' u').html());
+				//增加人数后，总金额
+				$( y + ' b').html(CNum * uMoney);
+				totalMoney();
+				//添加填写信息
+				$(z).append(childrenHtml);
+				
+				//儿童选择证件
+				chooseDown('children-information-card-choose');
+				//出生日期
+				$('.children-information').birthday('.children-information-birth-year', '.children-information-birth-month' , '.children-information-birth-day' , '.children-information-birth' , 16);
+				chooseDown('children-information-birth-year');
+				chooseDown('children-information-birth-month');
+				chooseDown('children-information-birth-day');
+			} );
+		}
+		addANum('.add-adult', '.adult-money', '.adult-div');
+		addCNum('.add-children', '.children-money', '.children-div');
+		//减少人数
+		function minusNum( g, h, i ) {
+			$(g).click( function () {
+				var minusNum = parseInt($(this).next('span').html());
+				//人数大于等于1
+				if( minusNum >= 1 ){
+					$(this).next('span').html(--minusNum);
+					$( h + ' span').html(minusNum);
+					// j--;
+					//单价
+					var uMoney = parseInt($( h + ' u').html());
+					//减少人数后，总金额
+					$( h + ' b').html(minusNum * uMoney);
+					totalMoney();
+					//去除最后一个成人信息
+					$( i + ':eq(-1)').remove();
+				}else {
+					return;
+				}	
+			} );
+		};
+		minusNum('.minus-adult', '.adult-money', '.adult-information');
+		minusNum('.minus-children', '.children-money', '.children-information');
+
+	//老人&外国友人
+	$('.old-man i , .foreign-man i').click( function () {
+		$(this).addClass('choose-man');
+		$(this).siblings('i').removeClass('choose-man');
+	} );
+
+	//发票
+	$('.order-details-invoice-choose label').click( function () {
+		if ( $('#enterprise-invoice').is(':checked') ) {
+			$('.order-details-invoice-write-enterprise').show();
+			$('.order-details-invoice-write-personal').hide();
+			$('.invoice-money').show();
+			totalMoney();
+			//清空个人发票信息
+			$('.order-details-invoice-write-personal input').val('');
+		}else if ( $('#personal-invoice').is(':checked') ) {
+			$('.order-details-invoice-write-personal').show();
+			$('.order-details-invoice-write-enterprise').hide();
+			$('.invoice-money').show();
+			totalMoney();
+			//清空企业发票信息
+			$('.order-details-invoice-write-enterprise input').val('');
+		}else {
+			$('.order-details-invoice-write-enterprise').hide();
+			$('.order-details-invoice-write-personal').hide();
+			$('.invoice-money').hide();
+			totalMoney();
+		}
+	} );
+
+
+
+	//回到顶部隐藏于显示
+	$(window).scroll( function (){
+		if ($(this).scrollTop() > 10) {
+			$('.aside_top').show();
+		}else{
+			$('.aside_top').hide();
+		};
+	});
+	
+
+	//选择下拉框
+	function chooseDown( f ) {
+		$( '.' + f + ' span').click( function () {
+			$(this).parent( '.' + f ).children('ul').show();
+		} );
+		$( '.' + f + ' ul li').click( function () {
+			$(this).parents( '.' + f ).children('span').html($(this).html());
+			$(this).parent('ul').hide();
+		} );
+	};
+
+	//选择出发日期
+	chooseDown('cfrq-choose');
+	//成人选择证件
+	chooseDown('adult-information-card-choose');
+	//儿童选择证件
+	chooseDown('children-information-card-choose');
+	//出生日期
+	chooseDown('adult-information-birth-year');
+	chooseDown('adult-information-birth-month');
+	chooseDown('adult-information-birth-day');
+	chooseDown('children-information-birth-year');
+	chooseDown('children-information-birth-month');
+	chooseDown('children-information-birth-day');
+	
+	//右侧固定（随窗口大小不同改变）
+	var Width = $(window).width();
+	$('.order-details-right').css('right', (Width - 1200)/2 );
+	$(window).resize(function(){
+		var WidthR = $(window).width();
+        if( WidthR > 1210 ) {
+        	$(".order-details-right").stop().animate({
+            	right: (WidthR - 1200)/2
+        	},150);
+        	console.log(WidthR);
+        }else {
+        	$(".order-details-right").css('right', '44px' );
+        }
+    }); 
+	</script>
+	<script>
+		//获取验证码
+		var InterValObj; //timer变量，控制时间
+		var count = 60; //间隔函数，1秒执行
+		var curCount;//当前剩余秒数
+
+		function sendMessage() {
+			curCount = count;
+		　　//设置button效果，开始计时
+			$("#btnSendCode").attr("disabled", "true");
+			$("#btnSendCode").val(curCount + "秒内输入");
+			InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+		　　  //向后台发送处理数据
+		// 	$.ajax({
+		// 　　		type: "POST", //用POST方式传输
+		// 　　		dataType: "text", //数据格式:JSON
+		// 　　		url: '', //目标地址
+		//  　　 		data: "dealType=" + dealType +"&uid=" + uid + "&code=" + code,
+		// 　　 		error: function (XMLHttpRequest, textStatus, errorThrown) { },
+		// 　　		success: function (msg){  }
+		// 	});
+		}
+
+		//timer处理函数
+		function SetRemainTime() {
+			if (curCount == 0) {          
+				window.clearInterval(InterValObj);//停止计时器
+				$("#btnSendCode").removeAttr("disabled");//启用按钮
+				$("#btnSendCode").val("重新发送");
+			}
+			else {
+				curCount--;
+				$("#btnSendCode").attr("disabled", "disabled");
+				$("#btnSendCode").val(curCount + "秒内输入");
+			}
+		}
+	</script>
+</body>
+</html>

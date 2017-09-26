@@ -1,0 +1,364 @@
+<style type="text/css">
+	.price-container { margin-top:10px; padding-top:10px; border-top: 3px solid #eee; }
+	.price-title { font-family: '微软雅黑'; font-size:18px; }
+	.price-border { margin-top:10px; border-top: 3px solid #eee; }
+	.price-footer { margin-top: 15px; }
+	.price { border-left: 5px solid #f1871d; margin-top: 10px; padding-left: 30px; }
+	.price-opreate > a { margin-left: 30px; cursor: pointer; text-decoration: underline; }
+	.price-price { border-left: 5px solid #5ca323; margin-top: 10px; padding-left: 30px; }
+	.btn-price-append { margin-left: 20px; font-family: '微软雅黑'; font-size: 14px; text-decoration: underline; color: #8e262a; }
+	.separator-line { border-top:1px dashed #00b19d; margin-top: 15px; margin-bottom: 15px; }
+</style>
+
+<include file="Input/fcj_price" />
+
+<div class="price template_price hidden_ctrl" data-id="">
+	<div class="row">
+		<div class="col-md-3 data_price_title">
+			<label>名称：</label>
+			<span></span>
+		</div>
+		<div class="col-md-1 data_price_rebate">
+			<label>返利：</label>
+			<span></span>
+		</div>
+		<div class="col-md-1 data_price_price">
+			<label>报价：</label>
+			<span></span>
+		</div>
+		<div class="col-md-1 data_price_real_price">
+			<label>实价：</label>
+			<span></span>
+		</div>		
+		<div class="col-md-1 data_price_review">
+			<label>状态：</label>
+			<span></span>
+		</div>
+	</div>
+	<div class="row price-condition">
+		<div class="col-md-3 data_price_time">
+			<label>有效时间：</label>
+			<span></span>		
+		</div>
+		<div class="col-md-3 data_price_member">
+			<label>有效人数：</label>
+			<span></span>
+		</div>
+		<div class="col-md-3 data_price_day">
+			<label>有效天数：</label>
+			<span></span>
+		</div>
+		<div class="col-md-3 data_price_line">
+			<label>有效线路：</label>
+			<span></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 data_price_beizhu">
+			<label>备注：</label>
+			<span></span>
+		</div>
+	</div>
+	<div class="row price-opreate">
+		<a class="btn-price-edit"><i>编辑信息</i></a>
+		<a class="btn-price-delete"><i style="color: red">删除信息</i></a>
+	</div>
+</div>
+
+<!--详细内容，消费项，价格详细-->
+<div class="source-container price-container template_price_container hidden_ctrl">
+	<div class="title" style="background-color: rgba(241,135,29,0.5);">
+		<span class="price-title">价格列表</span>
+		<a class="btn-price-append"><i>添加价格</i></a>
+		<a class="expand-fold" style="float: right; "><b>折叠</b><i class="fa-chevron-down"></i></a>
+	</div>
+	<div class="price-border">
+	</div>
+</div>
+
+<script type="text/javascript">
+	function ModalCJPrice(vobj, objType, objId, itemId) {
+		if (vobj == null || objType == null || objId == null || itemId == null) {
+			toastr.error('Error:显示价格的参数有误');
+			return false;
+		}
+		
+		this.root = $('.template_price_container').clone(true);
+		$(this.root).removeClass('template_price_container');
+		this.obj = vobj;
+		this.obj_type = objType;
+		this.obj_id = objId;
+		this.item_id = itemId;
+		this.page = 0;
+		this.max_page = 1;
+		this.modal_price = new ModalFCJPrice();
+			
+		// 添加价格到表格
+		$(this.obj).append(this.root);
+			
+		// 加载消费项
+		this.loadMorePrices();
+		
+		// 显示添加消费项弹出框
+		$(this.root).find('.btn-price-append').bind('click', {obj:this}, this.showAppendPrice);
+	}
+
+	ModalCJPrice.prototype.showPrices = function(){	
+		$(this.root).removeClass('hidden_ctrl');
+	}
+
+	// 显示添加消费项弹出框
+	ModalCJPrice.prototype.showAppendPrice = function(ev) {
+		if (ev.data != null && ev.data.obj != null) {
+			var thisObj = ev.data.obj;
+			var price_id = null;
+			if ($(this).closest('.price').length > 0) {
+				price_id = $(this).closest('.price').attr('data-id');	
+			}		
+			ev.data.obj.modal_price.showModal(thisObj, thisObj.obj_type, thisObj.obj_id, thisObj.item_id,  price_id, thisObj._ajaxSavePrice);	
+		} else {
+			console.log('没有绑定对象');
+		}
+	}
+
+	// 添加编辑消费项
+	ModalCJPrice.prototype._ajaxSavePrice = function(priceObj, d, op) {
+		if (d != null) {
+			var rootObj = null;
+			if (op == 'create') {
+				rootObj = $('.template_price').clone();
+				$(rootObj).removeClass('template_price');
+				$(rootObj).removeClass('hidden_ctrl');
+				$(rootObj).attr('data-id', d.id);
+			} else {
+				rootObj = $('.price[data-id="'+d.id+'"]');
+			}
+							
+			// 标题
+			$(rootObj).find('.data_price_title span').html(d.title);				
+			// 返利
+			$(rootObj).find('.data_price_rebate span').html(d.is_rebate == 0 ? '非返利' : '返利');					
+			// 报价
+			$(rootObj).find('.data_price_price span').html(d.price);				
+			// 实价
+			$(rootObj).find('.data_price_real_price span').html(d.real_price);				
+			// 审核状态
+			if (d.review_type != null) {
+				$(rootObj).find('.data_price_real_price span').html(d.review_type.type_desc);	
+			}
+			
+			var existCondition = false;
+			// 按时报价
+			if (d.is_time != null && d.is_time != '0') {
+				$(rootObj).find('.data_price_time').removeClass('hidden_ctrl');
+				$(rootObj).find('.data_price_time span').html(d.start_time+' 至 '+d.end_time);	
+				existCondition = true;
+			} else {
+				$(rootObj).find('.data_price_time').addClass('hidden_ctrl');
+			}
+			
+			// 按人报价
+			if (d.is_member != null && d.is_member != '0') {
+				$(rootObj).find('.data_price_member').removeClass('hidden_ctrl');
+				$(rootObj).find('.data_price_member span').html(d.min_num+' 至 '+d.max_num);	
+				existCondition = true;
+			} else {
+				$(rootObj).find('.data_price_member').addClass('hidden_ctrl');
+			}
+			
+			// 按天报价
+			if (d.is_day != null && d.is_day != '0') {
+				$(rootObj).find('.data_price_day').removeClass('hidden_ctrl');
+				$(rootObj).find('.data_price_day span').html(d.min_day+' 至 '+d.max_day);	
+				existCondition = true;
+			} else {
+				$(rootObj).find('.data_price_day').addClass('hidden_ctrl');
+			}
+			
+			// 按线路报价
+			if (d.is_line != null && d.is_line != '0') {
+				$(rootObj).find('.data_price_line').removeClass('hidden_ctrl');
+				if (d.line != null && d.line != '') {
+					var l = $.parseJSON(d.line);
+					$(rootObj).find('.data_price_line span').html(l.title);	
+				}
+				existCondition = true;
+			} else {
+				$(rootObj).find('.data_price_line').addClass('hidden_ctrl');
+			}
+				
+			if (existCondition == false) {
+				$(rootObj).find('.price-condition').addClass('hidden_ctrl');
+			} else {
+				$(rootObj).find('.price-condition').removeClass('hidden_ctrl');
+			}
+						
+			// 备注
+			$(rootObj).find('.data_price_beizhu span').html(d.beizhu);
+						
+			// 添加消费项
+			if (op == 'create') {
+				$(priceObj.root).find('.price-border').prepend('<hr class="separator-line"/>');
+				$(priceObj.root).find('.price-border').prepend(rootObj);
+				
+				// 绑定编辑事件
+				$(rootObj).find('.btn-price-edit').bind('click', {obj:priceObj}, priceObj.showAppendPrice);
+				// 绑定删除事件
+				$(rootObj).find('.btn-price-delete').bind('click', {obj:priceObj}, priceObj._ajaxDeletePrice);
+			}
+		}
+	}
+
+	// 删除消费项
+	ModalCJPrice.prototype._ajaxDeletePrice = function(e) {
+		if (e.data == null || e.data.obj == null) {
+			toastr.warning('未绑定对象，不能触发事件');
+			return false;
+		}
+		var thisObj = e.data.obj;
+		
+		if (!confirm('您确定要删除该价格')) {
+			console.log('取消删除价格');
+			return false;
+		}
+		
+		var rootObj = $(this).closest('.price');
+		var price_id = $(rootObj).attr('data-id');
+		if (price_id == 'null' || price_id == 'undefined' || price_id == '') {
+			toastr.warning('价格编号无效');
+			return false;
+		}	
+		$.post('{:U("financial/price")}',{op_type:'delete', id:price_id}, function(data){
+			if (data.result.errno == 0) {
+				$(rootObj).remove();
+				// 移除分割线
+				$(rootObj).next().remove();
+			} else {
+				toastr.error(data.result.message);
+			}
+		})
+	}
+
+	// 加载更多消费项
+	ModalCJPrice.prototype.loadMorePrices = function() {
+		var thisRootObj = this.root;
+		if ($(thisRootObj).find('.price-more').attr('data-more') == '0') {
+			console.log('没有更多的价格项');
+			return false;
+		}
+		
+		var jsonData = {
+			op_type: 'list',
+			item_id: this.item_id,
+		}
+		
+		var thisObj = this;
+		$.post('{:U("financial/price")}', jsonData, function(data){
+			if (data.ds != null) {
+				for (var i=0; i < data.ds.length; i++) {
+					var d = data.ds[i];
+					var rootObj = $('.template_price').clone();
+					$(rootObj).removeClass('template_price');
+					$(rootObj).removeClass('hidden_ctrl');
+					$(rootObj).attr('data-id', d.id);
+								
+					// 标题
+					$(rootObj).find('.data_price_title span').html(d.title);			
+					// 返利
+					$(rootObj).find('.data_price_rebate span').html(d.is_rebate == 0 ? '非返利' : '返利');					
+					// 报价
+					$(rootObj).find('.data_price_price span').html(d.price);				
+					// 实价
+					$(rootObj).find('.data_price_real_price span').html(d.real_price);				
+					// 审核状态
+					if (d.review_type != null) {
+						$(rootObj).find('.data_price_review span').html(d.review_type.type_desc);	
+					}
+					
+					var existCondition = false;
+					// 有效时间
+					if (d.is_time != null && d.is_time != '0') {
+						$(rootObj).find('.data_price_time').removeClass('hidden_ctrl');
+						$(rootObj).find('.data_price_time span').html(d.start_time+' 至 '+d.end_time);	
+						existCondition = true;
+					} else {
+						$(rootObj).find('.data_price_time').addClass('hidden_ctrl');
+					}
+					
+					// 有效人数
+					if (d.is_member != null && d.is_member != '0') {
+						$(rootObj).find('.data_price_member').removeClass('hidden_ctrl');
+						$(rootObj).find('.data_price_member span').html(d.min_num+' 至 '+d.max_num);
+						existCondition = true;	
+					} else {
+						$(rootObj).find('.data_price_member').addClass('hidden_ctrl');
+					}
+					
+					// 有效天数
+					if (d.is_day != null && d.is_day != '0') {
+						$(rootObj).find('.data_price_day').removeClass('hidden_ctrl');
+						$(rootObj).find('.data_price_day span').html(d.min_day+' 至 '+d.max_day);
+						existCondition = true;
+					} else {
+						$(rootObj).find('.data_price_day').addClass('hidden_ctrl');
+					}
+					
+					// 有效线路
+					if (d.is_line != null && d.is_line != '0') {
+						$(rootObj).find('.data_price_line').removeClass('hidden_ctrl');
+						if (d.line != null && d.line != null && d.line != '') {
+							var l = $.parseJSON(d.line);
+							$(rootObj).find('.data_price_line span').html(l.title);
+						}
+						existCondition = true;
+					} else {
+						$(rootObj).find('.data_price_line').addClass('hidden_ctrl');
+					}
+					
+					if (existCondition == false) {
+						$(rootObj).find('.price-condition').addClass('hidden_ctrl');
+					} else {
+						$(rootObj).find('.price-condition').removeClass('hidden_ctrl');
+					}
+								
+					// 备注
+					$(rootObj).find('.data_price_beizhu span').html(d.beizhu);
+					
+					// 添加消费项
+					$(thisRootObj).find('.price-border').append(rootObj);
+					$(thisRootObj).find('.price-border').append('<hr class="separator-line"/>');
+					
+					// 绑定编辑事件
+					$(rootObj).find('.btn-price-edit').bind('click', {obj:thisObj}, thisObj.showAppendPrice);
+					// 绑定删除事件
+					$(rootObj).find('.btn-price-delete').bind('click', {obj:thisObj}, thisObj._ajaxDeletePrice);
+				}
+				
+				if (data.ds.length < data.page_size) {
+					var aObj = $(thisRootObj).find('.price-more').find('a');
+					$(aObj).attr('data-more', '0');
+					$(aObj).html('没有更多价格内容');
+				}
+			} else {
+				var aObj = $(thisRootObj).find('.price-more').find('a');
+				$(aObj).attr('data-more', '0');
+				$(aObj).html('没有更多价格内容');
+			}
+		});
+	}
+
+	// 隐藏消费项
+	ModalCJPrice.prototype.hidePrices = function() {
+		$(this.root).addClass('hidden_ctrl');
+	}
+
+	// 销毁消费项
+	ModalCJPrice.prototype.destoryPrices = function() {
+		this.obj_type = null;
+		this.obj_id = null;
+		this.page = 0;
+		this.max_page = 1;
+		$(this.root).remove();
+	}
+
+</script>

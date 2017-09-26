@@ -1,0 +1,198 @@
+<include file="Common/top" />
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/bootstrap.min.css">
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/animate.css">
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/style/style.css">
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/style.css">
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/iconfont.css">
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/welcome.css">
+<style>
+    .list-group .line{padding-top:25px;}
+    body { background-color: #ffffff; font-size:12px; }
+    .nav02 { margin-top:-10px; }
+    .nav-list .go-welcome img { vertical-align: inherit; }
+    .search-header input { width: 171px; height: 35px; padding: 8px 0; padding-left: 35px; outline: none; line-height: 15px; font-family: '微软雅黑'; font-size: 14px; }
+    a { text-decoration: none !important;}
+</style>
+<!--header-->
+<div class="header">
+    <div class="banner" style="background-image: url({$qlp_set.content_banner});"></div>
+</div>
+<!--什么是跟拍游？-->
+<div class="background-two">
+	<div class="tit">为什么选择我们？</div>
+	<div class="group">
+		<div class="item">
+			<p class="p1">深度畅玩 X 全程跟拍</p>
+			<p class="p2">深入目的地，沉浸式游玩</p>
+			<p class="p2">专业摄影师全程跟队拍摄</p>
+		</div>
+		<span></span>
+		<div class="item">
+			<p class="p1">精品小团 X 慢旅行</p>
+			<p class="p2">12-28人小团 20%空座率</p>
+			<p class="p2">重新定义“中国式”旅游</p>
+		</div>
+		<span></span>
+		<div class="item">
+			<p class="p1">精修 X 美丽计划</p>
+			<p class="p2">底片全送，免费赠送3张精修</p>
+			<p class="p2">照片永久储存，增值服务多样</p>
+		</div>
+	</div>
+	<p class="bottom-p1">时光会老去，记忆会模糊。每刻美拥有十年深度旅行策划经验及专业摄影师团队，让你玩好拍美，珍藏美好瞬间！</p>
+</div>
+<!--列表-->
+<div class="list-group">
+    <div class="line">
+        <h3>每刻美初体验线路</h3>
+        <!--<div class="name">
+            <span class="place-name">全部</span>
+            <span class="glyphicon glyphicon-menu-down"></span>
+            <div>
+                <ul>
+                	<li>全部</li>
+                	<volist id="val" name="qlp_set">
+                		<if condition="stripos($key, 'travel_tab_') heq 0 and stripos($key, '_line_') heq false and stripos($key, '_line_image') heq false">
+                			<li>{$val}</li>
+                		</if>
+                	</volist>
+                </ul>
+            </div>
+        </div>-->
+    </div>
+    <volist id="line" name="lines">
+        <a href="{:U('line/info')}/id/{$line.id}" target="_blank">
+            <div class="item">
+                <h2>{$line.title}</h2>
+                <h4>— 每刻美 初体验 —</h4>
+                <div><img src="{$line.img2}" style="width: 1000px; height: 625px;" alt=""></div>
+                <h4 class="detail">{$line.subheading}</h4>
+                <if condition="empty($line['check_price'])">
+                	<p>核算中</p>
+                <else />
+                	<p>¥ <span>{$line.start_price_adult}</span>元起</p>
+                </if>
+                <a type="button" class="btn btn-black" href="{:U('line/info')}/id/{$line.id}" target="_blank">更多内容</a>
+            </div>
+        </a>
+    </volist>
+    <a href="javascript:;"><div class="more" data-more="1" data-page-index="0">更多线路</div></a>
+</div>
+<script>
+    //头部点击选中状态
+    $(".header ul a").on("click",function(){
+        $(this).addClass("active").siblings("a").removeClass("active");
+    })
+
+    //
+    $(".list-group .line .name").on("click",function(){
+        if($(".list-group .line .name div").is(':hidden')){
+            $(this).find("div").slideDown();
+            $(this).find(".glyphicon").addClass("glyphicon-menu-up").removeClass("glyphicon-menu-down");
+        }else{
+            $(this).find("div").slideUp();
+            $(this).find(".glyphicon").addClass("glyphicon-menu-down").removeClass("glyphicon-menu-up")
+        }
+    })
+
+    // 刷新列表
+    function findMore() {
+    	if ($('.more').attr('data-more') != '1') {
+			$('.more').attr('data-more','0');
+			$('.more').html('没有更多的数据了');
+    		return false;
+    	}
+		var pageIndex = parseInt($('.more').attr('data-page-index'))+1;
+		var jsonData = {
+			op_type: 'list',
+			page: pageIndex,
+		};
+
+//		var dest = $('.line').find('.place-name').html();
+//		if (dest != '全部') {
+//			jsonData['cds'] = 'destination|LIKE|%'+dest+'%';
+//		}
+
+		$.post('{:U("line/xiezhenlvxing")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				if (data.ds != null && data.ds != 'undefined') {
+					for (var i=0; i < data.ds.length; i++) {
+						var d = data.ds[i];
+						
+						var priceText = '核算中';
+						if (d.check_price != 0) {
+							priceText = '¥ <span>'+d.start_price_adult+'</span>元起';
+						}
+						var vhtml = '<a href="'+'{:U("line/info")}/id/'+d.id+'" target="_blank">'+
+									'	<div class="item">'+
+								    '   	<h2>'+d.title+'</h2>'+
+								    '   	<h4>— 每刻美 初体验 —</h4>'+
+								    '   	<div><img src="'+d.img2+'" style="width: 1000px; height: 625px;" alt=""></div>'+
+								    '   	<h4 class="detail">'+d.subheading+'</h4>'+
+								    '   	<p>'+priceText+'</p>'+
+								    '   	<a type="button" class="btn btn-black" href="'+'{:U("line/info")}/id/'+d.id+'" target="_blank">更多内容</a>'+
+								    '	</div>'+
+								    '</a>';
+						$('.more').parent().before(vhtml);
+						$('.more').attr('data-page-index', pageIndex);
+					}
+					if (data.ds.length < data.page_size || pageIndex >= data.page_count) {
+						$('.more').attr('data-more','0');
+						$('.more').html('没有更多的数据了');
+					}
+				} else {
+					$('.more').attr('data-more','0');
+					$('.more').html('没有更多的数据了');
+				}
+			} else {
+				$('.more').html(data.result.message);
+			}
+		});
+    }
+    
+    $(".list-group .line .name li").on("click",function(){
+        var Name=$(this).html();
+        $(this).parents(".name").find(".place-name").html(Name);
+		$('.more').attr('data-page-index', 0);
+		$('.more').attr('data-more','1');
+		$('.more').html('更多线路');
+		$('.item').remove();
+		findMore();
+    })
+	
+	$('.more').parent().click(findMore);
+</script>
+
+<include file="Common/right" />
+<include file="Common/bottom" />
+<!--图片延迟加载-->
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(
+        function($){
+            $("img").lazyload({
+                placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+                effect      : "fadeIn",
+                threshold : 100,
+                failure_limit : 10
+            });
+        });
+</script>
+<script type="text/javascript">	
+	$(document).ready(function(){
+	    $('.search-header input').unbind();
+        //搜索栏
+        $('.search-header input').focus(
+            function () {
+                $(this).parent().animate({width: '240px'}, 1000);
+                $(this).parent().animate({marginRight: '17px'}, 1000);
+            }
+        );
+        $('.search-header input').blur(
+            function () {
+                $(this).parent().animate({width: '220px'}, 1000);
+                $(this).parent().animate({marginRight: '17px'}, 1000);
+            }
+        );
+	});
+</script>

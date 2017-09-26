@@ -1,0 +1,34 @@
+<include file="Common/header" />
+{:p_a($data)}
+{:date('Y-m-d H:i:s', 1467331200)}<br />
+<img src="{:U('help/verify')}/w/150/h/60/l/4/f/16" style="vertical-align: middle; cursor: pointer;"/>
+<input type="text" id="test_val" value="114.247.50.2"/>
+<input type="button" class="test_button" value="测试" />
+<input type="radio" class="test_rd" name="type" value="0" checked />高德
+<input type="radio" class="test_rd" name="type" value="1" />淘宝
+<div class="msg"></div>
+<script>
+	$('img').click(function(){
+//		$.getJSON({:U("help/verify")},'', function(data){			
+//		});
+		$(this).attr('src', '{:U("help/verify")}');
+	});
+	
+	$('.test_button').click(function(data){
+//		var jsonData = {
+//			ip: $('#test_val').val(), 
+//			type: $('.test_rd:checked').val(),
+//		}
+
+		var unixTime = DatetimeToUnixtime($('#test_val').val());
+		var dateTime = UnixtimeToDatetime(unixTime, true);
+		console.log(unixTime);
+		console.log(dateTime);
+		
+		
+//		$.post('{:U("index/test")}', '{"a":"1","b":"2"}', function(data){
+//			$('.msg').html(JSON.stringify(data));	
+//		});
+	});
+</script>
+<include file="Common/footer" />

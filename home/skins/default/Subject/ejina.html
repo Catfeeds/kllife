@@ -1,0 +1,813 @@
+<include file="Common/top" />	
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/subject.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/ejina.css">
+<style css="text/css">	
+	.hot-sale-product a .hot-sale-img { position: absolute; top: 85px; left: 0; width: 100%; height: 31px; text-align: center; font-size: 24px; text-decoration: none; text-shadow: 1px 1px 1px #000; }
+	.hot-sale-product .hot-sale-big .hot-sale-img { width: 287px; top: 200px; left: 136px; }
+	.main-two > ul{position:initial;width:100%;display: block}
+	.main-two > ul li a{font-size:26px;padding-bottom:0px;}
+	.clear-margin{margin:0 !important;}
+	.clear-margin{margin-top:20px !important;}
+	#content .zt-main>div{font-size: 16px;color:#666;line-height:25px;}
+</style>
+<!--主要内容-->
+<div class="zt-top">
+	<img src="http://img.kllife.com/2017-06-13_593fbe2d3853a.jpg" original="http://img.kllife.com/2017-06-13_593fbe2d3853a.jpg">
+</div>
+<!--订单滚动-->
+<include file="Common/scroll_order" />
+<div style="width:100%;text-align: center;background:#3474bb;"><a href="http://kllife.com/home/index.php?s=/home/subject/brand" target="_blank"><img src="__PUBLIC__/home/images/index_img/index-code.jpg" alt=""></div></a>
+<div id="content">
+		<div class="zt-list main main-two dest_ejina">
+			<div>
+				<ul class="tab-list-tit">
+					<li><a href="javascript:;">游玩种类</a></li>
+					<li><a href="javascript:;">集合地</a></li>
+					<li><a href="javascript:;">乘车方式</a></li>
+					<li><a href="javascript:;">目的地</a></li>
+					<li><a href="javascript:;">价格</a></li>
+					<li><a href="javascript:;">天数</a></li>
+				</ul>
+			</div>
+			<div class="tab-list-group">
+				<ul class="tab-list-item line_theme">
+					<li><a href="javascript:;">全部</a></li>
+					<li data-val="line_theme_xtmlx"><a href="javascript:;">小团慢旅行</a></li>
+					<li data-val="line_theme_sheying"><a href="javascript:;">摄影游</a></li>
+					<li data-val="line_theme_qlp"><a href="javascript:;">跟拍游</a></li>
+				</ul>
+				<ul class="tab-list-item line_assembly">
+					<li><a href="javascript:;">全部</a></li>
+					<li data-val="西安"><a href="javascript:;">西安</a></li>
+					<li data-val="兰州"><a href="javascript:;">兰州</a></li>
+					<li data-val="西宁"><a href="javascript:;">西宁</a></li>
+					<li data-val="嘉峪关"><a href="javascript:;">嘉峪关</a></li>
+				</ul>
+				<ul class="tab-list-item line_traffic">
+					<li><a href="javascript:;">全部</a></li>
+					<li data-val="汽车"><a href="javascript:;">汽车</a></li>
+					<li data-val="汽车|汽车"><a href="javascript:;">动车+汽车</a></li>
+				</ul>
+				<ul class="tab-list-item line_view_point" >
+					<li><a href="javascript:;">额济纳</a></li>
+					<li data-val="鸣沙山|莫高窟"><a href="javascript:;">额济纳+敦煌</a></li>
+					<li data-val="青海湖|茶卡"><a href="javascript:;">额济纳+青海湖+茶卡</a></li>
+				</ul>
+				<ul class="tab-list-item line_price">
+					<li><a href="javascript:;">全部</a></li>
+					<li data-min-val="2000" data-max-val="3000"><a href="javascript:;">2000-3000</a></li>
+					<li data-min-val="3000" data-max-val="4000"><a href="javascript:;">3000-4000</a></li>
+					<li data-min-val="4001"><a href="javascript:;">4000以上</a></li>
+				</ul>
+				<ul class="tab-list-item line_travel_day">
+					<li><a href="javascript:;">全部</a></li>
+					<li data-min-val="5" data-max-val="7"><a href="javascript:;">5—7天</a></li>
+					<li data-min-val="8" data-max-val="9"><a href="javascript:;">8-9天</a></li>
+					<li data-min-val="10"><a href="javascript:;">10天及以上</a></li>
+				</ul>
+			</div>
+			<div class="big">				
+			</div>
+	
+			<div class="zt-sublist-content line_template hidden_ctrl">
+				<a class="zt-href" href="" target="_blank"></a>
+				<div class="zt-sublist-img">
+					<img class="face_image" src=""/>
+					<div class="jiriyou">
+						<p><span class="day">{$line.travel_day}</span>日游</p>
+					</div>
+					<div class="today-hot">
+						<img src="" alt="">
+					</div>
+					<div class="indulgence">
+						<img src="__PUBLIC__/home/images/index_img/indulgence.png" alt="">
+					</div>
+				</div>
+				<div class="zt-sublist-describe">
+					<h5>
+						<a href="javascript:;" target="_blank" class="title"></a>
+						<u class="theme-travel">
+							<a href="javascript:;"></a>
+						</u>
+					</h5>
+					<h3></h3>
+					<p class="zt-sublist-line">线路简介：<span class="send_word"></span></p>
+					<p>价格：<strong>成人：￥<em class="adult_price"></em>元起</strong></p>
+					<p>活动时间：<span class="batch_list"></span></p>
+					<p>集合地点：<span class="assembly"></span></p>
+					<p>目的地：<span class="dest"></span></p>
+				</div>
+				<a class="baoming" href="javascript:;">立即报名</a>
+			</div>
+	
+			<div class="zt-sublist">
+				<volist id="line" name="dest_line_ejina">
+						<div class="zt-sublist-content" data-id="{$line.id}">											
+							<a class="zt-href" href="{:U('line/info')}/id/{$line.id}" target="_blank"></a>
+							<div class="zt-sublist-img">
+								<img class="face_image" src="{$line.img1}"/>
+								<div class="jiriyou">
+									<p><span class="day">{$line.travel_day}</span>日游</p>
+								</div>
+								<if condition="empty($line['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img src="__PUBLIC__/home/images/index_img/{$line['line_especial_icon']}" alt="">
+									</div>
+								</if>
+							</div>
+							<div class="zt-sublist-describe">
+								<h5>
+									<a href="{:U('line/info')}/id/{$line.id}" target="_blank" class="title">{$line.title}</a>
+									<php> $theme = $line['theme_type_list'][0]; </php>
+									<u class="theme-travel">
+										<a class="{$theme.type_key}" href="javascript:;">{$theme.type_desc}</a>
+										<div class="qj-box">
+	
+											<img src="__PUBLIC__/home/images/content_img/yellow_arrow_top.png" alt="">
+	
+											<div class="qj-box-content">
+	
+												<h6>{$theme.type_desc}</h6>
+	
+												<if condition="$theme['type_desc'] eq '小团慢旅行'">
+	
+												<p>小团慢旅行是指在单团人数控制在28人以内，让旅行整体节奏和行进速度慢下来的同时，还要在美景中漫步呼吸，品味悠然新心情，为不期而遇的风景停车，与当地人充分互动，尽量与美景相拥而眠的高品质旅行。</p>
+	
+												<elseif condition="$theme['type_desc'] eq '免费活动'" />
+	
+												<p>领袖户外旅行网提供的免费游玩活动，包括郊游、徒步、桌游等项目。</p>
+	
+												<elseif condition="$theme['type_desc'] eq '周边游'" />
+	
+												<p>领袖户外或领袖户外严选本地有旅行社资质的户外旅游合作商提供的周边游产品。</p>
+	
+												<elseif condition="$theme['type_desc'] eq '摄影游'" />
+	
+												<p>领袖户外摄影创作团，为摄影爱好者提供全面、深度、准确的摄影创作服务。</p>
+	
+												<elseif condition="$theme['type_desc'] eq '民族行'" />
+	
+												<p>户外旅游综合平台，由具有完整资质的户外旅游机构提供服务的旅行服务。</p>
+	
+												<else />
+	
+												<p>本产品由领袖户外提供相关服务</p>
+	
+												</if>
+	
+											</div>
+	
+										</div>
+									</u>
+								</h5>
+								<h3>{$line.subheading}</h3>
+								<p class="zt-sublist-line">线路简介：<span class="send_word">{$line.send_word}</span></p>							
+								<p>价格：
+									<if condition="empty($line['check_price'])">
+										<strong>核算中</strong>
+									<else />
+										<strong>成人：￥<em class="adult_price">{$line.start_price_adult}</em>元起</strong>
+									</if>
+								</p>
+								<p>活动时间：<span class="batch_list">{$line.start_time} 至 {$line.end_time}</span></p>
+								<p>集合地点：<span class="assembly">{$line.assembly_point_show_text}</span></p>
+								<p>目的地：<span class="dest">{$line.destination_show_text}</span></p>
+							</div>
+							<a class="baoming" href="{:U('line/info')}/id/{$line.id}">立即报名</a>
+	
+						</div>
+				</volist>
+			</div>
+		</div>
+		<!--图片链接-->
+		<div class="ejina-img">
+			<div class="ejina-group">
+				<div class="ejina-item"></div>
+				<a href="http://kllife.com/home/index.php?s=/home/line/info/id/207" target="_blank"><div class="ejina-item ejina-item-hover"></div></a>
+				<a href="http://kllife.com/home/index.php?s=/home/line/info/id/209" target="_blank"><div class="ejina-item ejina-item-hover"></div></a>
+				<a href="http://kllife.com/home/index.php?s=/home/line/info/id/201" target="_blank"><div class="ejina-item ejina-item-hover"></div></a>
+				<a href="http://kllife.com/home/index.php?s=/home/line/info/id/356" target="_blank"><div class="ejina-item ejina-item-hover"></div></a>
+				<a href="http://kllife.com/home/index.php?s=/home/line/info/id/353" target="_blank"><div class="ejina-item ejina-item-hover"></div></a>
+				<a href="http://kllife.com/home/index.php?s=/home/line/info/id/346" target="_blank"><div class="ejina-item ejina-item-hover"></div></a>
+				<a href="http://kllife.com/home/index.php?s=/home/line/info/id/348" target="_blank"><div class="ejina-item ejina-item-hover"></div></a>
+				<a href="http://kllife.com/home/index.php?s=/home/line/info/id/347" target="_blank"><div class="ejina-item ejina-item-hover"></div></a>
+				<a href="http://kllife.com/home/index.php?s=/home/line/info/id/338" target="_blank"><div class="ejina-item ejina-item-hover"></div></a>
+				<a href="http://kllife.com/home/index.php?s=/home/line/info/id/349" target="_blank"><div class="ejina-item ejina-item-hover"></div></a>
+				<a href="http://kllife.com/home/index.php?s=/home/line/info/id/214" target="_blank"><div class="ejina-item ejina-item-hover"></div></a>
+			</div>
+		</div>
+	
+		<div class="recommend-lines">
+			<h3 style="text-align: center; padding: 26px 0px; font: bold 24px/35px 微软雅黑;">推荐线路</h3>
+			<volist id="line" name="recommend">
+				<div class="zt-sublist-content" data-id="{$line.id}">											
+					<a class="zt-href" href="{:U('line/info')}/id/{$line.id}" target="_blank"></a>
+					<div class="zt-sublist-img">
+						<img class="face_image" src="{$line.img1}"/>
+						<div class="jiriyou">
+							<p><span class="day">{$line.travel_day}</span>日游</p>
+						</div>
+						<if condition="empty($line['line_especial_icon']) eq false">
+							<div class="today-hot">
+								<img src="__PUBLIC__/home/images/index_img/{$line['line_especial_icon']}" alt="">
+							</div>
+						</if>
+					</div>
+					<div class="zt-sublist-describe">
+						<h5>
+							<a href="{:U('line/info')}/id/{$line.id}" target="_blank" class="title">{$line.title}</a>
+							<php> $theme = $line['theme_type_list'][0]; </php>
+							<u class="theme-travel">
+								<a class="{$theme.type_key}" href="javascript:;">{$line.theme_type_show_text}</a>
+								<div class="qj-box">
+
+									<img src="__PUBLIC__/home/images/content_img/yellow_arrow_top.png" alt="">
+
+									<div class="qj-box-content">
+
+										<h6>{$theme.type_desc}</h6>
+
+										<if condition="$theme['type_desc'] eq '小团慢旅行'">
+
+										<p>小团慢旅行是指在单团人数控制在28人以内，让旅行整体节奏和行进速度慢下来的同时，还要在美景中漫步呼吸，品味悠然新心情，为不期而遇的风景停车，与当地人充分互动，尽量与美景相拥而眠的高品质旅行。</p>
+
+										<elseif condition="$theme['type_desc'] eq '免费活动'" />
+
+										<p>领袖户外旅行网提供的免费游玩活动，包括郊游、徒步、桌游等项目。</p>
+
+										<elseif condition="$theme['type_desc'] eq '周边游'" />
+
+										<p>领袖户外或领袖户外严选本地有旅行社资质的户外旅游合作商提供的周边游产品。</p>
+
+										<elseif condition="$theme['type_desc'] eq '摄影游'" />
+
+										<p>领袖户外摄影创作团，为摄影爱好者提供全面、深度、准确的摄影创作服务。</p>
+
+										<elseif condition="$theme['type_desc'] eq '民族行'" />
+
+										<p>户外旅游综合平台，由具有完整资质的户外旅游机构提供服务的旅行服务。</p>
+
+										<else />
+
+										<p>本产品由领袖户外提供相关服务</p>
+
+										</if>
+
+									</div>
+
+								</div>
+							</u>
+						</h5>
+						<h5 class="color">{$line.subheading}</h5>
+						<p class="zt-sublist-line">线路简介：<span class="send_word">{$line.send_word}</span></p>							
+						<p>价格：
+							<if condition="empty($line['check_price'])">
+								<strong>核算中</strong>
+							<else />
+								<strong>成人：￥<em class="adult_price">{$line.start_price_adult}</em>元起</strong>
+							</if>
+						</p>
+						<p>活动时间：<span class="batch_list">{$line.start_time} 至 {$line.end_time}</span></p>
+						<p>集合地点：<span class="assembly">{$line.assembly_point_show_text}</span></p>
+						<p>目的地：<span class="dest">{$line.destination_show_text}</span></p>
+					</div>
+					<a class="baoming" href="{:U('line/info')}/id/{$line.id}">立即报名</a>
+
+				</div>
+			</volist>
+		</div>
+	
+		<!--精彩游记-->
+		<div class="wonderful-travels">
+			<h3>精彩游记</h3>
+			<ul>
+				<volist id="youji" name="subject_youji_ejina">
+				<li>
+					<a href="{$youji.url}" target="_blank">
+						<img src="{$youji.img}"/>
+						<div style="background: #f4f4f4;">
+							<p style="padding-right:10px;">{$youji.desc}</p>
+						</div>
+					</a>		
+				</li>
+				</volist>
+			</ul>
+		</div>
+</div>
+<!--小团慢每刻美切换-->
+    <div class="xiaotuanman">
+        <div class="xiaotuanman2">
+            <div class="kllife"><a href="javascript:;"><img src="__PUBLIC__/home/images/xinjiang/kllife.png" alt=""></a></div>
+            <div class="meikemei"><a href="javascript:;"><img src="__PUBLIC__/home/images/xinjiang/meikemei1.png" alt=""></a></div>
+        </div>
+        <div class="box box-one">
+            <!--第一行-->
+            <div class="lineS" style="top:-166px;">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina1.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/01.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina2.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/02.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina3.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/03.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina4.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/04.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina5.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/05.PNG">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--第2行-->
+            <div class="lineF" style="padding-left:222px">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina6.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/06.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina7.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/07.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina8.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/08.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina9.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/09.PNG">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--第3行-->
+            <div class="lineS">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina10.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/10.JPG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina11.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/11.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina12.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/12.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina13.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/13.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF">
+                    <div class="boxS">
+                        <a href="{:U('index/welcome')}" target="_blank"><div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/kllife-add.png);"></div></a>
+                    </div>
+                </div>
+            </div>
+            <div class="lg-left"></div>
+            <div class="lg-right"></div>
+        </div>
+        <div class="box box-two">
+            <!--第一行-->
+            <div class="lineS" style="top:-166px;">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina14.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/14.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina15.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/15.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina16.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/16.JPG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina17.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/17.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina18.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/18.PNG">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--第2行-->
+            <div class="lineF" style="padding-left:222px;">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina19.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/19.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina20.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/20.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina21.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/21.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina22.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/22.PNG">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--第3行-->
+            <div class="lineS">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina23.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/23.JPG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina24.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/24.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina25.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/25.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/ejina/ejina26.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/26.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF">
+                    <div class="boxS">
+                        <a href="http://xiezhenlvxing.com" target="_blank"><div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/meikemei-add.png);"></div></a>
+                    </div>
+                </div>
+            </div>
+            <div class="lg-left" style="background-color: #fff;background-repeat: no-repeat;background-position: center center;background-size:auto 100%;"></div>
+            <div class="lg-right" style="background-color: #fff;background-repeat: no-repeat;background-position: center center;background-size:auto 100%;"></div>
+        </div>
+    </div>
+<!--私人定制-->
+<include file="Common/private_book" />
+
+<!-- 精选热卖 -->
+	<div class="bg-white">
+		<div class="hot-sale main">
+			<h2>精选热卖</h2>
+			<div class="hot-sale-product set_root" id="hot_line_recommend" data-set="hot_line_recommend">
+				<div class="hot-sale-product-small">
+					<php>$rd0 = $subject_hot_line_ejina['hot_line_recommend0']</php>
+					<a href="{:U('line/info')}/id/{$rd0.id}">
+						<img src="{$rd0.img1}" alt="">
+						<u class="hot-sale-img">{$rd0.title}</u>
+						<div class="aaa">
+							<h4>{$rd0.title}</h4>
+							<span>{$rd0.subheading}</span>
+							<if condition="empty($rd0['check_price'])">
+								<p><em>核算中</em></p>
+							<else />
+								<p>￥<em>{$rd0.start_price_adult}</em>元起</p>
+							</if>						
+							<strong>查看详情></strong>
+						</div>
+					</a>
+					<php>$rd1 = $subject_hot_line_ejina['hot_line_recommend1']</php>
+					<a href="{:U('line/info')}/id/{$rd1.id}">
+						<img src="{$rd1.img1}" alt="">
+						<u class="hot-sale-img">{$rd1.title}</u>
+						<div class="aaa">
+							<h4>{$rd1.title}</h4>
+							<span>{$rd1.subheading}</span>
+							<if condition="empty($rd1['check_price'])">
+								<p><em>核算中</em></p>
+							<else />
+								<p>￥<em>{$rd1.start_price_adult}</em>元起</p>
+							</if>						
+							<strong>查看详情></strong>
+						</div>
+					</a>
+				</div>
+				<php>$rd2 = $subject_hot_line_ejina['hot_line_recommend2']</php>
+				<a class="hot-sale-big" href="{:U('line/info')}/id/{$rd2.id}">
+					<img src="{$rd2.img1}" alt="">
+					<u class="hot-sale-img">{$rd2.title}</u>
+					<div>
+						<h4>{$rd2.title}</h4>
+						<span>{$rd2.subheading}</span>
+						<if condition="empty($rd2['check_price'])">
+							<p><em>核算中</em></p>
+						<else />
+							<p>￥<em>{$rd2.start_price_adult}</em>元起</p>
+						</if>						
+						<strong>查看详情></strong>
+					</div>
+				</a>
+				<div class="hot-sale-product-small">
+					<php>$rd3 = $subject_hot_line_ejina['hot_line_recommend3']</php>
+					<a href="{:U('line/info')}/id/{$rd3.id}">
+						<img src="{$rd3.img1}" alt="">
+						<u class="hot-sale-img">{$rd3.title}</u>
+						<div class="aaa">
+							<h4>{$rd3.title}</h4>
+							<span>{$rd3.subheading}</span>
+							<if condition="empty($rd3['check_price'])">
+								<p><em>核算中</em></p>
+							<else />
+								<p>￥<em>{$rd3.start_price_adult}</em>元起</p>
+							</if>						
+							<strong>查看详情></strong>
+						</div>
+					</a>
+					<php>$rd4 = $subject_hot_line_ejina['hot_line_recommend4']</php>
+					<a href="{:U('line/info')}/id/{$rd4.id}">
+						<img src="{$rd4.img1}" alt="">
+						<u class="hot-sale-img">{$rd4.title}</u>
+						<div class="aaa">
+							<h4>{$rd4.title}</h4>
+							<span>{$rd4.subheading}</span>
+							<if condition="empty($rd4['check_price'])">
+								<p><em>核算中</em></p>
+							<else />
+								<p>￥<em>{$rd4.start_price_adult}</em>元起</p>
+							</if>						
+							<strong>查看详情></strong>
+						</div>
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+<!-- 超级目的地 -->
+<include file="Common/zhuanti" />
+
+
+<!--专题新闻资讯开始-->
+<div class="arcitle_con" style="display: none;">
+	<h2>新闻资讯</h2>
+	<p><a href="{:U('line/news')}/classid/{$subject.id}" target="_blank">更多</a></p>
+	<ul class="arcitle_li">
+		<volist id="article" name="seoarticles">
+			<li>
+				<p class="arc_title"><a href="{:U('line/news')}/id/{$article.id}"></a>{$article.title}</p>
+				<p class="arc_keyword">{$article.keywords}</p>
+				<p class="arc_description">{$article.send_word}</p>
+			</li>
+		</volist>
+	</ul>
+</div>
+<!--专题新闻资讯结束-->
+
+<!--额济纳弹框-->
+<div class="Popup" style="background: rgba(0,0,0,0.5);width:100%;height:100%;position: fixed;top:0px;left:0px;z-index:1000;">
+	<div style="text-align: center;text-align: -webkit-center;margin-top:12%;">
+        <span style="position: relative;display: inline-block;cursor: pointer;">
+            <img src="__PUBLIC__/home/images/ejina/ejina-pc.jpg" alt="">
+            <img style="position: absolute;top:10px;right:10px;" src="__PUBLIC__/home/images/index_img/xiaotuanmannone.png" alt="">
+        </span>
+	</div>
+</div>
+
+<!--锚点定位-->
+<include file="Common/fix_tags" />
+
+<!-- 更改tab-bg -->
+<script src="__PUBLIC__/home/common/js/movebg.js"></script>
+<!-- tab -->
+<script src="__PUBLIC__/home/common/js/tab.js"></script>
+<!--图片延迟加载-->
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){    	
+		// 绑定锚点
+		var fixedTag = new FixedTag({x:260,y:200}, true);
+		fixedTag.appendFixedTag('.dest_ejina','ejina','额&nbsp;济&nbsp;纳');
+		fixedTag.appendFixedTag('.recommend-lines','recommend','推荐线路');
+		fixedTag.appendFixedTag('.wonderful-travels','youji','精彩游记');
+		fixedTag.appendFixedTag('.hot-sale','hot','精选热卖');
+		fixedTag.enabledFixedTag();
+	});
+        
+    //关闭额济纳弹框
+    $(".Popup , .GPopup").on("click",function(){
+        $(this).fadeOut("slow");
+    })
+    
+    
+    
+    //tab切换
+    $(".tab-list-tit li").on("mouseover",function(){
+    	var index = $(this).index();
+    	$(this).addClass("active").siblings().removeClass("active");
+    	$(".tab-list-group").find(".tab-list-item").eq(index).show().siblings(".tab-list-item").hide();
+    })
+
+
+	$('.zt-main ul li').mouseenter( function () {
+
+    	$(this).find('.zt-text').stop().animate({top: 0}, 500);
+
+    	$(this).find('.zt-img').stop().fadeOut(1000);
+
+  	} );
+
+  	$('.zt-main ul li').mouseleave( function () {
+
+    	$(this).find('.zt-text').stop().animate({top: "-369px"}, 1000);
+
+    	$(this).find('.zt-img').stop().fadeIn(1500);
+
+  	} );
+    
+    // 查找线路
+    function findLine() {
+        var jsonData = {
+        	op: 'ejina',
+            assembly: $('.line_assembly').find('.active').attr('data-val'),
+            traffic: $('.line_traffic').find('.active').attr('data-val'),
+            theme: $('.line_theme').find('.active').attr('data-val'),
+            view: $('.line_view_point').find('.active').attr('data-val'),
+            min_price: $('.line_price').find('.active').attr('data-min-val'),
+            min_day: $('.line_travel_day').find('.active').attr('data-min-val'),
+        }
+        
+        if ('{$refresh}' != '') {
+            jsonData['refresh'] = '{$refresh}';
+        }
+
+        var max_price = $('.line_price').find('.active').attr('data-max-val');
+        if (max_price != null && max_price != 'undefined' && max_price != '') {
+            jsonData['max_price'] = max_price;
+        }
+
+        var max_day = $('.line_travel_day').find('.active').attr('data-max-val');
+        if (max_day != null && max_day != 'undefined' && max_day != '') {
+            jsonData['max_day'] = max_day;
+        }
+        
+        $.post('{:U("subject/ejina")}', jsonData, function(data){
+			$('.zt-sublist').empty();
+			if (data.ds != null) {
+				for (var i = 0; i < data.ds.length; i ++) {
+					var d = data.ds[i];
+					var lineObj = $('.line_template').clone(true);
+					$(lineObj).removeClass('line_template');
+					$(lineObj).removeClass('hidden_ctrl');
+					$(lineObj).attr('data-id', d.id);
+					$(lineObj).find('.face_image').attr('src', d.img1);
+					$(lineObj).find('.title').attr('href', '{:U("line/info")}/id/'+d.id);
+					$(lineObj).find('.zt-href').attr('href', '{:U("line/info")}/id/'+d.id);
+					$(lineObj).find('.title').html(d.title);
+					$(lineObj).find('.day').html(d.travel_day);
+					$(lineObj).find('h3').html(d.subheading);
+					$(lineObj).find('.theme-travel a').html(d.theme_type_show_text);
+					$(lineObj).find('.theme-travel a').addClass(d.theme_type_list[0].type_key);
+					$(lineObj).find('.send_word').html(d.send_word_show);
+					$(lineObj).find('.baoming').attr('href', '{:U("line/info")}/id/'+d.id);
+					if (d.check_price == 0) {
+						$(lineObj).find('.adult_price').parent().html('核算中');		
+					} else {	
+						$(lineObj).find('.adult_price').html(d.start_price_adult);
+					}
+					$(lineObj).find('.batch_list').html(d.start_time + ' 至 ' + d.end_time);				
+					$(lineObj).find('.assembly').html(d.assembly_point_show_text);
+					$(lineObj).find('.dest').html(d.destination_show_text);
+					
+					if (d.line_especial_icon == 0) {
+						$(lineObj).find('.today-hot').remove();
+					}
+					
+					$('.zt-sublist').append(lineObj);
+					
+					$('.theme-travel a').each(function(){
+						if($(this).html()=='民族行'){
+							$(this).addClass('zhuti');
+						}else if($(this).html()=='摄影游'){
+							$(this).addClass('sheying');
+						}
+					});
+				}
+			} 
+        });
+    }
+    //点击切换线路
+    $(".tab-list-group .tab-list-item li").on("click",function(){
+    	$(this).addClass("active").siblings().removeClass("active");
+    	$(this).parent().siblings().find("li").removeClass("active");
+    	findLine();
+    })
+    // 产品主题类型浮动框
+    $("body").on("mouseover",".theme-travel",function () {
+        $(this).find('.qj-box').show();
+    });
+    $("body").on("mouseout",".theme-travel",function () {
+        $(this).find('.qj-box').hide();
+    }); 
+</script>
+
+<script>
+	//kliiife和meikemei图片切换
+    $(".xiaotuanman2 .kllife").on("mouseover",function(){
+        $(".box-one").show();
+        $(".box-two").hide();
+        $(this).find("img").attr("src","__PUBLIC__/home/images/xinjiang/kllife.png")
+        $(".meikemei").find("img").attr("src","__PUBLIC__/home/images/xinjiang/meikemei1.png")
+    })
+    $(".xiaotuanman2 .meikemei").on("mouseover",function(){
+        $(".box-two").show();
+        $(".box-one").hide();
+        $(this).find("img").attr("src","__PUBLIC__/home/images/xinjiang/meikemei.png")
+        $(".kllife").find("img").attr("src","__PUBLIC__/home/images/xinjiang/kllife1.png")
+    })
+    $(".box-B").on("mouseover",function(){
+        var index = $(this).index();
+        var img = $(this).find(".boxT").attr("data-img");
+        if(index<2){
+            $(".lg-right").show();
+            $(".lg-left").hide();
+            $(".lg-right").css({"background":"url("+ img +")","background-repeat":"no-repeat","background-color":"#fff","background-position":"center center","background-size":"auto 100%"});
+        }else{
+            $(".lg-left").show();
+            $(".lg-right").hide();
+            $(".lg-left").css({"background":"url("+ img +")","background-repeat":"no-repeat","background-color":"#fff","background-position":"center center","background-size":"auto 100%"});
+        }
+    })
+    $(".box-B").on("mouseout",function(){
+        $(".lg-right").hide();
+        $(".lg-left").hide();
+    })
+
+
+	//热门单品
+	$('.hot-sale-product a').hover(
+		function () {
+			$(this).find('.hot-sale-img').stop().hide(500);
+		},
+		function () {
+			$(this).find('.hot-sale-img').stop().show(1000);
+		}
+	);
+	
+	//move-bg
+ 	$(".tab-list").movebg({
+ 		width:60/*滑块的大小*/,
+        extra:0/*额外反弹的距离*/,
+        speed:500/*滑块移动的速度*/,
+        rebound_speed:400/*滑块反弹的速度*/
+    });
+  	
+</script>
+
+
+
+<include file="Common/right" />
+
+<include file="Common/bottom" />

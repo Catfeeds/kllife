@@ -1,0 +1,49 @@
+<include file="Common/top1" />
+<div class="page">
+	<!-- mycss -->
+	<link rel="stylesheet" href="__PUBLIC__/qlpphone/common/css/top2.css">
+	<style>
+		body , .content { background:#fff;padding-bottom:60px;}
+		.bar { z-index: 9; }
+		.bar-nav { position: static; }
+		.questions-content p { margin-bottom: .5rem; font-size: .65rem; color:#333; text-indent: 2em; line-height:1.8; }
+		.help-list h4 span{display:inline-block;font-size: .8rem!important;}
+		.bar .button-link{color:#ff1c77;}
+		.question-content{ position: relative; }
+		.question-content > img { width: 100%; }
+		img{width:100%;}
+		.content-padded h5{font-size: 16px}
+		.content-padded h3,.content-padded b{font-size: 15px}
+	</style>
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="javascript:history.back();">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">帮助中心</h1>
+		</header>
+		<include file="Common/footer" />
+		<include file="Common/bottom1" />
+		
+		<div class="content">
+		
+			<div class="questions-content">
+				
+				<div class="content-padded">
+					<h5>{$show_question.content}</h5>
+					<if condition="count($show_question['answers']) gt 0">
+						<p class="question-content">{$show_question['answers'][0]['content']}</p>
+					<else />
+						<p class="question-content">暂时没有更好的答案</p>
+					</if>
+					
+				</div>
+				
+			</div>
+		
+		</div>
+		
+<include file="Common/js" />
+
+
+</body>
+</html>

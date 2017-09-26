@@ -1,0 +1,295 @@
+<include file="Common/top" />
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/pay_immediately.css">
+	<style>
+		.pay-mark { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background:rgba(0,0,0,.5); z-index:999; }
+		.pay-code-content { display: none; position: fixed; top: 50%; left: 37.5%; margin-top: -150px; width:25%; height: 330px; padding: 10px 15px; background: #fff; z-index:1000; }
+		.pay-code-content h4 { position: relative; margin-bottom: 17px; font-size: 20px; line-height:2; text-align: center;text-align: -webkit-center;}
+		.pay-code-content a { 
+			width: 16px;
+		    height: 16px;
+		    position: absolute;
+		    right: 0;
+		    top: -2px;
+		    color: #999;
+		    text-decoration: none;
+		    font-size: 16px;
+		 }
+		.pay-code { text-align:center; }
+		.pay-code img { width:185px; height: 185px; }
+		.pay-code-content .btn_pay {
+			display: block;
+			width: 60%;
+			height: 2.7rem;
+			line-height: 2.7rem;
+			margin-top: 17.5rem;
+			color: #fff;
+			background-color: #ff7200;
+			border-radius: 5px;
+			text-align: center;
+			right:20%;
+			cursor:pointer;
+		}
+	</style>
+	<!-- 主要内容 -->
+	<div id="content">
+		<!-- 总金额 -->
+		<div class="all-money">
+			<h5>订单提交成功，请您尽快付款！ 订单号：{$order.order_sn}</h5>
+			<!--<p>请您在提交订单后 <i>24小时</i> 内完成支付，否则订单会自动取消。</p>-->
+			<span>总金额：<strong>￥{$order.need_pay_money}</strong>元</span>
+		</div>
+		<!-- 选择支付形式 -->
+		<div class="payment-form">
+			<div class="choose-payment-form">
+				<div class="all-or-part">
+					<h3>请选择你的支付形式</h3>
+					<div class="choose-all-or-part">
+						<a class="pay-checked all" href="javascript:;">支付全款</a>
+						<if condition="$order['exist_pay_log'] eq 0">
+							<a class="part" href="javascript:;">支付部分款</a>
+							<span>* （为了方便您的出行领袖户外为您提供了两种付款方式：1支付全款，一次性支付所有费用：2支付预付款,支付订单金额都50%作为预付款，剩   余尾款在参团前一并付清。请您根据实际情况选择一项适合您定方式进行付）</span>							
+						</if>
+					</div>
+					<p>你本次付款需支付：<strong>￥</strong><strong class="final_pay_money">{$order.final_pay_money}</strong>元</p>
+				</div>
+				<div class="card-pay" style="display: none;">
+					<h3><i class="card-pay-checked"></i>储蓄卡/信用卡支付</h3>
+					<a id="chuxuka" class="card-checked" href="javascript:;">网上银行</a>
+					<a id="xinyongka" href="javascript:;">信用卡</a>
+					<div class="choose-card">
+						<!-- 网上银行 -->
+						<div class="choose-bank-card">
+							<ul>
+								<li id="bank-gongshang" data-bank="ICBC"><i></i></li>
+								<li id="bank-jianshe" data-bank="CCB"><i></i></li>
+								<li id="bank-zhaoshang" data-bank="CMB"><i></i></li>
+								<li id="bank-xingye" data-bank="CIB"><i></i></li>
+								<li id="bank-zhongguo" data-bank="BOC"><i></i></li>
+								<li id="bank-jiaotong" data-bank="COMM"><i></i></li>
+								<li id="bank-minsheng" data-bank="CMBC"><i></i></li>
+								<li id="bank-youzheng" data-bank="PSBC"><i></i></li>
+								<li id="bank-nongye" data-bank="ABC"><i></i></li>
+								<li id="bank-zhongxin" data-bank="CITIC"><i></i></li>
+								<li id="bank-guangda" data-bank="CEB"><i></i></li>
+								<li id="bank-guangfa" data-bank="GDB"><i></i></li>
+								<li id="bank-beijing" data-bank="BCCB"><i></i></li>
+								<li id="bank-huaxia" data-bank="HXB"><i></i></li>
+								<li id="bank-pingan" data-bank="SZPAB"><i></i></li>
+								<li id="bank-pufa" data-bank="SPDB"><i></i></li>
+								<li id="bank-bohai" data-bank="CBHB"><i></i></li>
+								<!--<li id="bank-fazhan" data-bank="bank-fazhan"><i></i></li>-->
+							</ul>
+						</div>
+						<!-- 信用卡 -->
+						<div class="choose-credit-card">
+							<ul>
+								<li id="credit-gongshang" data-bank="ICBC"><i></i></li>
+								<li id="credit-jianshe" data-bank="CCB"><i></i></li>
+								<li id="credit-zhaoshang" data-bank="CMB"><i></i></li>
+								<li id="credit-xingye" data-bank="CIB"><i></i></li>
+								<li id="credit-zhongguo" data-bank="BOC"><i></i></li>
+								<li id="credit-jiaotong" data-bank="COMM"><i></i></li>
+								<li id="credit-minsheng" data-bank="CMBC"><i></i></li>
+								<li id="credit-guangda" data-bank="PSBC"><i></i></li> <!--邮政-->
+								<li id="credit-guangfa" data-bank="BCCB"><i></i></li> <!--北京-->
+								<li id="credit-pingan" data-bank="SZPAB"><i></i></li>
+								<li id="credit-pufa" data-bank="SPDB"><i></i></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="platform-pay">
+					<h3><i class="platform-pay-checked"></i>平台支付</h3>
+					<ul style="display: block;">
+						<li id="zhifubao" class="platform-checked"><i></i></li>
+						<li id="weixin"><i></i></li>
+					</ul>
+				</div>
+				<if condition="$order['id'] eq '27364'">
+					<div class="xiyin-pay">
+						<h3><i></i>西银在线</h3>
+					</div>
+				</if>
+				<a class="btn_pay" href="javascript:;">立即支付</a>
+				<div id="popup_pay"></div>
+			</div>
+		</div>           
+	</div>
+	
+	
+	<!--弹出二维码-->
+	<div class="pay-mark"></div>
+	<div class="pay-code-content">
+		<h4>微信扫描二维码完成付款<a href="javascript:;">x</a></h4>
+		<div class="pay-code">
+			<img src="" alt="二维码"/><br>
+			<a id="btn_pay_complated" class="btn_pay" type="button" >付款完成，点击查看结果</a>
+		</div>
+	</div>
+
+
+	<!--图片延迟加载-->
+	<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(
+			function($){
+				$("img").lazyload({
+					placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+					effect      : "fadeIn",
+					threshold : 100,
+					failure_limit : 10
+				});
+			});
+	</script>
+	<script>
+
+		function showPayQrcode(img, order_sn) {
+			$('.pay-mark').show();
+			$('.pay-code-content').show();
+			$('.pay-code-content').find('img').attr('src', img);
+			$('.pay-code-content').find('#btn_pay_complated').attr('data-val', order_sn);
+		}
+		$('.pay-code-content a').click(function(){
+			$('.pay-mark').hide();
+			$('.pay-code-content').hide();
+		});
+		
+		$('#btn_pay_complated').click(function(){				
+			$.post('{:U("line/wxpayresult")}', 
+			{'order_sn': $(this).attr('data-val')},
+			function(data){
+				if (data.result != null && data.result.errno != 0) {
+					alert (data.result.message);
+				}
+				if (data.jumpUrl != null) {
+					location.href = data.jumpUrl;
+				} 
+			})
+		});
+	
+		//选择储蓄卡、银行卡支付
+		$('.card-pay h3 i').click( function () {
+			//添加选定样式
+			$(this).addClass('card-pay-checked');
+			//移除选择平台
+			$('.platform-pay h3 i').removeClass('platform-pay-checked');
+			$('.xiyin-pay h3 i').removeClass('xiyin-pay-checked');
+			
+			
+			$('.choose-card').show();
+			$('.card-pay > a').show();
+			$('.platform-pay ul').hide();
+			//移除已经选择的平台样式
+			$('.platform-pay li').removeClass('platform-checked');
+		} );
+		//选择平台支付
+		$('.platform-pay h3 i').click( function () {
+			//添加选定样式
+			$(this).addClass('platform-pay-checked');
+			//移除选择储蓄卡、银行卡支付
+			$('.card-pay h3 i').removeClass('card-pay-checked');
+			$('.xiyin-pay h3 i').removeClass('xiyin-pay-checked');
+			$('.platform-pay ul').show();
+			$('.choose-card').hide();
+			$('.card-pay > a').hide();
+			//移除已经选择的银行样式
+			$('.choose-card li').removeClass('bank-checked');
+		} );
+		//选择西银支付
+		$('.xiyin-pay h3 i').click( function () {
+			//添加选定样式
+			$(this).addClass('xiyin-pay-checked');
+			//移除选择储蓄卡、银行卡支付
+			$('.card-pay h3 i').removeClass('card-pay-checked');
+			$('.platform-pay h3 i').removeClass('platform-pay-checked');
+			$('.choose-card').hide();
+			$('.card-pay > a').hide();
+			$('.platform-pay ul').hide();
+			//移除已经选择的银行样式
+			$('.choose-card li').removeClass('bank-checked');
+			//移除已经选择的平台样式
+			$('.platform-pay li').removeClass('platform-checked');
+		} );
+		
+		//改变class
+		function changeClass(a , b , c){
+			$(a).click( function () {
+				$(this).siblings(c).removeClass(b);
+				$(this).addClass(b);
+				if ($(this).parent().hasClass('choose-all-or-part')) {
+					var finalPayMoney = '{$order.final_pay_money}';
+					if ($(this).hasClass('part')) {
+						finalPayMoney = 0.5 * parseFloat('{$order.final_pay_money}');		
+					}
+					$(this).parent().next().find('.final_pay_money').html(finalPayMoney);
+				}
+			} );
+		};
+		changeClass('.choose-all-or-part > a', 'pay-checked' , 'a');
+		changeClass('.card-pay > a', 'card-checked' , 'a');
+		changeClass('.choose-bank-card li', 'bank-checked' , 'li');
+		changeClass('.choose-credit-card li', 'bank-checked' , 'li');
+		changeClass('.platform-pay li', 'platform-checked' , 'li');
+
+		//网上银行、信用卡切换
+		$('#chuxuka').click( function () {
+			$('.choose-bank-card').show();
+			$('.choose-credit-card').hide();
+			//信用卡选择移除样式
+			$('.choose-credit-card li').removeClass('bank-checked');
+		} );
+		$('#xinyongka').click( function () {
+			$('.choose-bank-card').hide();
+			$('.choose-credit-card').show();
+			//储蓄卡选择移除样式
+			$('.choose-bank-card li').removeClass('bank-checked');
+		} );
+		
+		$('.btn_pay').click(function(){			
+			var payType = '', payChannel='', payBank='';
+			var payTypeObj = $('.platform-pay-checked').parent().parent();
+			if ($(payTypeObj).hasClass('platform-pay')) {
+				//西银在线支付
+				if($('.xiyin-pay').find('h3').find('i').hasClass('xiyin-pay-checked')){
+					payType = 'pay_menu_xianbank_pay';
+					payChannel = 'pay_menu_xianbank_pay';
+				}else{
+					payType = 'platform';
+					payChannel = $('.platform-checked').attr('id');
+				}	
+			} else {	
+				payType = 'chuxuxinyong';
+				payChannel = $('.card-checked').attr('id');
+				payBank = $('.bank-checked').attr('data-bank');		
+			}
+			var payMoneyType = $('.choose-all-or-part').find('.pay-checked').hasClass('all') ?  1 : 0;
+			var jsonData = {
+				op_type: 'pay',
+				id: '{$order.id}',
+				pay_money_all: payMoneyType,
+				pay_type: payType,
+				pay_channel: payChannel,
+				pay_bank: payBank,
+			}
+			$.post('{:U("line/order")}', jsonData, function(data){
+//				console.log(JSON.stringify(data));
+//				alert('支付接口正在维护，请稍后再试，谢谢配合!!!');
+				if (data.html != null) {
+					$('#popup_pay').html(data.html);
+					return true;
+				}
+				if (data.image != null) {
+					showPayQrcode(data.image, data.order_sn);
+				}
+			 	if (data.result != null) {
+			 		alert(data.result.message);
+			 	}
+				if (data.jumpUrl != null) {
+			 		location.href = data.jumpUrl;
+			 	}
+			});
+		});
+	</script>
+<include file="Common/right" />
+<include file="Common/bottom" />

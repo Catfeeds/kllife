@@ -1,0 +1,274 @@
+<include file="common/top" />
+<div class="page">
+	<!-- mycss -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/line_list.css">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="{:U('index/welcome')}">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <div class="searchbar">
+				<!--<a class="searchbar-cancel">取消</a>-->
+				<div class="search-input">
+					<i class="iconfont">&#xe607;</i>
+					<label class="icon icon-search" for="search"></label>	
+					<input type="search" id="search" placeholder="搜索产品..." value="{$search_value}">
+				</div>
+		    </div>
+		</header>
+		<include file="common/footer" />
+		<div class="content">
+			<!-- 筛选 -->
+			<div class="row no-gutter">
+				<div class="col-33">
+					产品类型<i class="iconfont">&#xe608;</i>
+					<input type="text" placeholder="类型" id="theme" readonly="" style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; border: none; font-size: .75rem;">
+				</div>
+				<div class="col-33">
+					集合地点<i class="iconfont">&#xe608;</i>
+					<input type="text" placeholder="集合地" id="assembly" readonly="" style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; border: none; font-size: .75rem;">
+				</div>
+				<!--<div class="col-33">
+					目的地<i class="iconfont">&#xe608;</i>
+					<input type="text" placeholder="目的地" id="dest" readonly="" style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; border: none; font-size: .75rem;">
+				</div>
+				<div class="col-33">
+					景点<i class="iconfont">&#xe608;</i>
+					<input type="text" placeholder="景点" id="view" readonly="" style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; border: none; font-size: .75rem;">
+				</div>-->
+				<div class="col-33">
+					<i class="iconfont">&#xe609;</i>其他<i class="iconfont">&#xe608;</i>
+					<input type="text" placeholder="其他" id="other" readonly="" style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; border: none; font-size: .75rem;">
+				</div>
+			</div>
+			<!-- 列表内容 -->
+			<div class="list">
+				<div class="list-content">
+					<div class="content infinite-scroll infinite-scroll-bottom" data-distance="100">
+			          <div class="list-block">
+			              <ul class="list-container">
+			              </ul>
+			          </div>
+			          <!-- 加载提示符 -->
+			          <div class="infinite-scroll-preloader" style="position: relative">
+			              <span class="preloader" style="position: absolute;left:30%;"></span><span style="position: absolute;top:2px;left:40%;">正在加载中...</span>
+			          </div>
+			      </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<include file="common/js" />
+<script>
+
+	// 获取条件
+	function getConditions() {
+		var cdsstr = '';
+		// 线路标题
+		var searchval = $('#search').val();	
+		if (searchval != '') {
+			cdsstr += 'title|'+searchval;
+		}		
+		// 主题
+		var theme = $('#theme').val();	
+		if (theme != '' && theme != '全部') {
+			if (cdsstr != ''){
+				cdsstr += '|';
+			}
+			cdsstr += 'theme_type|'+theme;
+		}
+		// 集合地点
+		var assembly = $('#assembly').val();
+		if (assembly != '' && assembly != '全部') {
+			if (cdsstr != ''){
+				cdsstr += '|';
+			}
+			cdsstr += 'assembly_point|'+assembly;
+		}
+		// 目的地、月份、行程天数
+		var other = $('#other').val();
+		if (other != '') {
+			var vals = other.split(' ');
+			var cols = ['destination','trip_month','travel_day'];
+			for (var i=0; i < vals.length; i ++) {
+				if (vals[i] != '全部') {
+					if (cdsstr != ''){
+						cdsstr += '|';
+					}
+					cdsstr += cols[i]+'|'+vals[i];
+				}	
+			}
+		}			
+		return cdsstr;
+	}
+	
+	// 获取排序规则
+	function getSorts() {
+		
+	}		
+	
+	// 查找产品		
+	var loading = false;	// 是否在加载中
+	var pageIndex = 0;
+	var noMoreData = false;
+	function loadMoreData(p) {
+		var jsonData = {
+			page: p,
+			cds: getConditions(),
+//				sorts: getSorts(),
+		}
+		
+		console.log(JSON.stringify(jsonData));
+		loading = true;
+		$.post('{:U("line/list")}', jsonData, function(data){
+			loading = false;
+			var containerObj = $('.infinite-scroll-bottom .list-container');
+			if (data.result.errno == 0) {
+				if (data.ds != null && data.ds != 'undefined') {
+					var html = '';
+					for (var i=0; i < data.ds.length; i++) {
+						var d = data.ds[i];
+						var priceText = '<span>核算中</span>'
+						if (d.check_price != 0) {
+							priceText = '				<s>原价：'+d.start_price_adult+'</s>' +
+										'				<span>￥'+d.start_price_adult+'</span>';
+						}		
+						html += '<li class="item-content">' + 
+								'	<div class="travel-content-list">' +
+								'		<div class="travel-content-sublist">' +
+								'			<div class="travel-content-img">' +
+								'				<img src="'+d.img1+'" alt="">' +
+								'			</div>' +
+								'			<div class="travel-content-word">' +
+								'				<h4>'+d.title+'</h4>' +
+								'				<p>出发地：'+d.assembly_point_show_text+'</p>' + priceText +								
+								'			</div>' +
+								'			<a href="'+'{:U("line/info")}/id/'+d.id+'" external></a>' +
+								'		</div>' +
+								'	</div>' + 
+								'</li>';
+					} // end for
+					// 添加新条目
+					$(containerObj).append(html);
+					pageIndex ++;
+				} else {
+					if ($(containerObj).parent().find('.no-more-data').length > 0) {
+						$(containerObj).find('.no-more-data').html('没有更多数据...');
+					} else {
+						var vhtml = '<div class="no-more-data">没有更多数据...</div>';
+						$(containerObj).parent().append(vhtml);
+					}
+					noMoreData = true;
+					// 处理么有数据可加载情况
+					procLoadEnd();
+				}
+			} else {
+				console.log(data.result.message);
+			}
+		});
+	}
+	
+	// 添加筛选条件
+	function attachSelect(obj, title, colList) {
+		$(obj).picker({
+			toolbarTemplate:'<header class="bar bar-nav">'+
+							'	<button data-id="'+obj+'" class="button button-link pull-right close-picker">确定</button>'+
+							'	<h1 class="title">'+title+'</h1>'+
+							'</header>',
+			cols: colList,
+			onClose: function(){
+				var containerObj = $('.infinite-scroll-bottom .list-container');
+				$(containerObj).empty();
+				$(containerObj).parent().find('.no-more-date').remove();
+				pageIndex = 0;
+				loadMoreData(pageIndex);
+			}
+		});
+	}
+		
+	// 处理加载
+	function procLoadEnd() {
+//			??????????????
+	}
+	
+	$(function (){
+		$.init();				
+		if ('{$init_theme_type}' != '') {	
+			$('#theme').val('{$init_theme_type}');
+		}
+		// 产品类型
+		var theme = $.parseJSON('{$line_theme}');
+		var tempCols = [{textAlign:'center', values:theme}];
+		attachSelect('#theme', '产品类型', tempCols);
+		// 集合地点
+		var assembly = $.parseJSON('{$assembly_place}');
+		tempCols = [{textAlign:'center', values:assembly}];
+		attachSelect('#assembly', '集合地点', tempCols);
+		// 目的地点
+		var dest = $.parseJSON('{$dest}');
+		// 包含景点
+//		var view = $.parseJSON('{$view_point}');
+		// 出行月份
+		var month = $.parseJSON('{$month}');
+		var day = ['全部','1天','2天','3天','4天','5天','6天','7天','8天','9天','10天','11天','12天','13天','14天','15天'];
+		
+		tempCols = [
+			{textAlign:'center', values:dest},
+			{textAlign:'center', values:month},
+			{textAlign:'center', values:day},
+		];
+		attachSelect('#other', '目的地   出行月份   出行天数', tempCols);		
+		
+		// 第一次加载
+		loadMoreData(pageIndex);
+		
+		// 搜索框查询
+		
+		$("#search").keydown(function(event){ 
+			if(event.which == 13){
+				$('#search').blur();
+			} 
+		});
+		$('#search').blur(function(){
+			var containerObj = $('.infinite-scroll-bottom .list-container');
+			$(containerObj).empty();
+			$(containerObj).parent().find('.no-more-date').remove();
+			pageIndex = 0;
+			loadMoreData(pageIndex);
+		});
+		
+		// 注册'infinite'事件处理函数
+		$(document).on('infinite', '.infinite-scroll-bottom',function() {
+
+			// 如果正在加载，则退出
+			if (loading) return;
+
+			// 设置flag
+			loading = true;
+
+			// 模拟1s的加载过程
+			setTimeout(function() {
+				// 重置加载flag
+				loading = false;
+
+				if (noMoreData == true) {
+					// 加载完毕，则注销无限加载事件，以防不必要的加载
+					$.detachInfiniteScroll($('.infinite-scroll'));
+					// 删除加载提示符
+					$('.infinite-scroll-preloader').hide();
+					return;
+				}
+				loadMoreData(pageIndex);
+				//容器发生改变,如果是js滚动，需要刷新滚动
+				//$.refreshScroller();
+				
+			}, 1000);
+		});
+
+		
+	});
+	</script>
+<include file="common/swt" />
+</body>
+</html>

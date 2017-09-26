@@ -1,0 +1,60 @@
+#content { width: 100%; margin-top: 148px; font-size: 14px; }
+.order-center-content { width: 1200px; margin: 0 auto; overflow: hidden; }
+/*订单中心左侧*/
+.order-center-left { float: left; }  
+.order-center-mine { width: 227px; border: 1px solid #e5e5e5; text-align: center; color: #333; background-color: #fff; }
+.order-center-mine img { width: 140px; height: 140px; margin-top: 19px; margin-bottom: 18px; }
+.order-center-mine a { display: inline-block; margin-top: 16px; margin-bottom: 21px; padding: 10px 64px; font-size: 12px; color: #fff; background-color: #70a8eb; }
+	/*订单问题*/
+.order-question { width: 227px; margin-top: 13px; border: 1px solid #e5e5e5; background-color: #fff; }
+.order-question h4 { padding: 17px 0 15px 14px; border-bottom: 1px solid #e5e5e5; font-size: 14px; font-weight: normal; color: #333; }
+.order-question-content { margin-top: 17px; }
+.order-question-content p { margin-bottom: 15px; padding-left: 14px; font-size: 12px; color: #666; }
+.order-question-content p a { color: #666; }
+.order-question-content p:hover { color: #ff7200; }
+.order-question-content p:hover a { color: #ff7200; }
+
+
+/*订单中心右侧*/
+.order-center-right { float: right; width: 956px; height: 960px; margin-bottom: 23px; border: 1px solid #e5e5e5; background-color: #fff; overflow: hidden; }
+.order-center-list { width: 100%; overflow: hidden; background-color: #fcfcfc; }
+.order-center-list a { float: left; width: 159px; padding: 22px 0; font-size: 14px; text-align: center; color: #333; border-bottom: 1px solid #e5e5e5; }
+.order-center-list a:hover { color: #ff7200; }
+.order-center-list a.active { color: #ff7200; background-color: #fff; border-left: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5; border-bottom: none; }
+.order-center-list a:first-child.active { border-left: none; }
+.order-center-list a:last-child.active { border-right: none; }
+	/*全部订单*/
+.all-order { position: relative; width: 930px; height: 700px; margin: 20px auto; font-size: 12px; border: 1px solid #eee; overflow: hidden; }
+
+table { width: 100%; }
+thead tr { height: 34px; }
+tbody td { text-align: center; }
+th { background-color: #f9f8f8; }
+tr { border-bottom: 1px solid #e5e5e5; }
+td { line-height: 1.3; }
+.order-name a { color: #666; }
+.order-name a:hover { color: #ff7200; }
+.order-status span { color: #ff7200; }
+.order-status a , .contract-status a { display: inline-block; width: 52px; margin-top: 2px; padding: 2px 0; text-align: center; color: #fff; background-color: #22ac38; }
+.online-pay-small { display: inline-block; width: 52px; margin-bottom: 2px; padding: 2px 0; text-align: center; color: #fff; background-color: #22ac38; }
+.online-pay-big , .evaluate-now { display: inline-block; width: 70px; padding: 7px 0; text-align: center; color: #fff; background-color: #ff6c3a; }
+.online-pay-other { color: #666; }
+.other-operate a { color: #666666; }
+.other-operate p { line-height: 1.5; }
+	/*待付款订单*/
+.obligation-order { display: none; position: relative; width: 930px; height: 700px; margin: 20px auto; font-size: 12px; border: 1px solid #eee; overflow: hidden; }
+	/*已付部分款订单*/
+.part-money-order { display: none; position: relative; width: 930px; height: 700px; margin: 20px auto; font-size: 12px; border: 1px solid #eee; overflow: hidden; }
+	/*已付全款订单*/
+.all-money-order { display: none; position: relative; width: 930px; height: 700px; margin: 20px auto; font-size: 12px; border: 1px solid #eee; overflow: hidden; }
+	/*待评价订单*/
+.evaluate-order { display: none; position: relative; width: 930px; height: 700px; margin: 20px auto; font-size: 12px; border: 1px solid #eee; overflow: hidden; }
+	/*已完成订单*/
+.done-order { display: none; position: relative; width: 930px; height: 700px; margin: 20px auto; font-size: 12px; border: 1px solid #eee; overflow: hidden; }
+/*翻页*/
+.all-order-page , .obligation-order-page , .part-money-order-page , .all-money-order-page , .evaluate-order-page , .done-order-page { position: absolute; right: 20px; bottom: 20px; width: 900px; text-align: right; }
+.all-order-page a , .obligation-order-page a , .part-money-order-page a , .all-money-order-page a , .evaluate-order-page a , .done-order-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+.all-order-page span.current , .obligation-order-page span.current , .part-money-order-page span.current , .all-money-order-page span.current , .evaluate-order-page span.current , .done-order-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+.all-order-page span.disabled , .obligation-order-page span.disabled , .part-money-order-page span.disabled , .all-money-order-page span.disabled , .evaluate-order-page span.disabled , .done-order-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px;
+    vertical-align: middle; }
+

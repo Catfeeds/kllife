@@ -1,0 +1,5 @@
+[2017-04-08 20:02:42][info] ----------------------------------------
+[2017-04-08 20:02:42][info] {"discount":"0.00","payment_type":"1","subject":"\u65e9\u6625\u65b0\u7586","trade_no":"2017040821001004640242302703","buyer_email":"philips_dealer@sina.com","gmt_create":"2017-04-08 20:02:14","notify_type":"trade_status_sync","quantity":"1","out_trade_no":"LX-17032720204997406-9","seller_id":"2088421286007493","notify_time":"2017-04-08 20:02:42","body":"\u4f0a\u7281\u674f\u82b1\u6c9f-\u7ea2\u5c71\u5927\u5ce1\u8c37-\u8d5b\u91cc\u6728\u6e56-\u5e93\u6728\u5854\u683c\u6c99\u6f208\u65e5\u6df1\u5ea6\u6e38","trade_status":"TRADE_SUCCESS","is_total_fee_adjust":"N","total_fee":"7160.00","gmt_payment":"2017-04-08 20:02:42","seller_email":"2287684289@qq.com","price":"7160.00","buyer_id":"2088002014850640","notify_id":"d6c06dba1323a5ea299d2c9617e769dkxu","use_coupon":"N","sign_type":"MD5","sign":"7fd019cf1f486050bbbaff2a7b625537"}
+[2017-04-08 20:02:43][info] 数据存储反馈成功！
+[2017-04-08 20:02:43][info] success
+[2017-04-08 20:02:43][info] 写入结束!!!

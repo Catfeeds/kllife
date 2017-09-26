@@ -1,0 +1,347 @@
+<include file="Common/header" />		
+	<link rel="stylesheet" href="__PUBLIC__/assets/js/wysihtml5/src/bootstrap-wysihtml5.css">
+	<script src="__PUBLIC__/assets/js/wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+	<script src="__PUBLIC__/assets/js/wysihtml5/src/bootstrap-wysihtml5.js"></script>
+	<script src="__PUBLIC__/assets/js/formwizard/jquery.bootstrap.wizard.min.js"></script>	
+	
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	
+	<input type="hidden" id="line_id" value="{$lineId}"/>	
+	<include file='Line/new_template_youji' />
+	<include file='Line/new_template_travel' />
+	<form role="forl" id="rootwizard" class="form-wizard validate">
+		<ul class="tabs">
+			<li class="active">
+				<a href="#fwv-1" data-toggle="tab">
+					基本信息
+				</a>
+			</li>
+			<li>
+				<a href="#fwv-2" data-toggle="tab">
+					PC行程亮点
+				</a>
+			</li>
+			<li>
+				<a href="#fwv-3" data-toggle="tab">
+					手机行程亮点
+				</a>
+			</li>
+			<li>
+				<a href="#fwv-4" data-toggle="tab">
+					行程说明
+				</a>
+			</li>
+			<li>
+				<a href="#fwv-5" data-toggle="tab">
+					其他设置
+				</a>
+			</li>
+			<li>
+				<a href="#fwv-6" data-toggle="tab">
+					沿途风光
+				</a>
+			</li>
+			<li>
+				<a href="#fwv-7" data-toggle="tab">
+					产品问答
+				</a>
+			</li>
+			<li>
+				<a href="#fwv-8" data-toggle="tab">
+					产品批次
+				</a>
+			</li>
+			<li>
+				<a href="#fwv-9" data-toggle="tab">
+					产品优惠
+				</a>
+			</li>
+		</ul>
+		
+		<div class="progress-indicator">
+			<span></span>
+		</div>
+		
+		<div class="tab-content no-margin" style="background-color: 0f0;">
+			
+			<!-- Tabs Content -->
+			<div class="tab-pane with-bg active" id="fwv-1">
+				<include file='Line/new_tab1' />
+			</div> <!--Tab1 End-->
+			
+			<div class="tab-pane with-bg" id="fwv-2">
+				<script type="text/javascript">
+					$(document).ready(function(){
+						bindInsertButtonToYouji($('#fwv-2'));						
+					});
+				</script>
+			</div> <!--Tab2 End-->
+			
+			<div class="tab-pane with-bg" id="fwv-3">
+				<script type="text/javascript">
+					$(document).ready(function(){
+						bindInsertButtonToYouji($('#fwv-3'));						
+					});
+				</script>
+			</div> <!--Tab3 End-->
+			
+			<div class="tab-pane with-bg" id="fwv-4">	
+				<div class="travel-arrangements-alldays">	
+				</div>
+				<script type="text/javascript">
+					$(document).ready(function(){
+						bindInsertButtonToTravel($('#fwv-4'));
+					});
+				</script>	
+			</div> <!--Tab3 End-->
+				
+			<div class="tab-pane with-bg" id="fwv-5">
+				<include file='Line/new_tab5' />
+			</div> <!--Tab4 End-->
+			
+			<div class="tab-pane with-bg" id="fwv-6">
+				<script type="text/javascript">
+					$(document).ready(function(){
+						bindInsertButtonToYouji($('#fwv-6'));						
+					});
+				</script>
+			</div> <!--Tab5 End-->
+			
+			<div class="tab-pane with-bg" id="fwv-7">
+				<include file='Line/new_tab7' />
+			</div> <!--Tab6 End-->
+			
+			<div class="tab-pane with-bg" id="fwv-8">
+				<include file='Line/new_tab8' />
+			</div> <!--Tab7 End-->
+			
+			<div class="tab-pane with-bg" id="fwv-9">
+				<include file='Line/new_tab9' />
+			</div> <!--Tab8 End-->
+			
+			
+			<!-- Tabs Pager -->
+			
+			<ul class="pager wizard">
+				<li class="previous">
+					<a href="#"><i class="entypo-left-open"></i> 上一步</a>
+				</li>
+				
+				<li>
+					<a href="#" class="btn_preview">预览 <i class="entypo-right-open"></i></a>
+				</li>
+				
+				<li class="next">
+					<a href="#">下一步 <i class="entypo-right-open"></i></a>
+				</li>
+			</ul>
+			
+		</div>
+			
+	</form>
+	
+	<script type="text/javascript">
+		function getCurrentActiveTabPanelIndex(obj) {
+			var idx = -1;
+			$('.tabs li').each(function(i,el){
+				if (el == obj) {
+					idx = i;
+				}
+			});			
+			return idx;
+		}
+	
+		function getPreviewActiveTabPanelIndex() {
+			var idx = -1;
+			$('.tabs li').each(function(i,el){
+				if ($(el).hasClass('active')) {
+					idx = i;
+				}
+			});			
+			return idx;
+		}
+		
+		function createLine() {
+			var jsonData = getLineBaseInfo();
+			jsonData['op_type'] = parseInt($('#line_id').val()) > 0 ? 'edit' : 'create';
+//			console.log(JSON.stringify(jsonData));
+			$.post('{:U("line/create")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+//					console.log(jsonData['op_type']+'==>'+JSON.stringify(data));
+					if (jsonData['op_type'] == 'create') {
+						$('#line_id').val(data.id);
+					}
+					
+					toastr.success('保存信息成功','反馈信息');
+				} else if (data.result.errno == -4) {
+					toastr.warning(data.result.message,'提示信息');
+				} else {
+					toastr.error(data.result.message, '错误信息');
+				}
+			});
+		}
+		
+		var initializedCalendar = false;
+		function procStep(prevStep, curStep) {
+			if (prevStep == 0) {			// 线路信息
+				createLine();
+			} else if (prevStep == 1) {		// 行程亮点
+				
+			} else if (curStep == 2) {		// 手机行程亮点
+				
+			} else if (curStep == 3) {		// 行程说明
+				
+			} else if (prevStep == 4) {		// 游记攻略
+				
+			} else if (prevStep == 5) {		// 沿途风光
+				
+			} else if (prevStep == 6) {		// 产品问答
+				
+			} else if (prevStep == 7) {		// 产品批次
+			
+			} else if (prevStep == 8) {		// 产品优惠
+			
+			}
+			
+			if (curStep == 0) {			// 线路信息
+			
+			} else if (curStep == 1) {		// PC行程亮点
+				
+			} else if (curStep == 2) {		// 手机行程亮点
+				
+			} else if (curStep == 3) {		// 行程说明
+				
+			} else if (curStep == 4) {		// 游记攻略
+				
+			} else if (curStep == 5) {		// 沿途风光
+				
+			} else if (curStep == 6) {		// 产品问答
+				
+			} else if (curStep == 7) {		// 产品批次
+//				var m = moment();
+				if (!initializedCalendar) {
+					initializedCalendar = true;
+					$('#fwv-8').show();
+					$('#calendar').find('.fc-today-button').trigger('click');
+				}
+			} else if (curStep == 8) {		// 产品优惠
+			
+			}
+		}
+		
+		// 是否继续上次编辑
+		function initLine() {	
+			showLoading(true, '等待数据填充完毕......');
+			
+			var aid = $('#line_id').val();
+			var jsonData = {};
+			if (aid != '' && parseInt(aid) > 0) {		
+				jsonData['op_type'] = 'find';
+				jsonData['id'] = aid;
+			} else {
+//				if (confirm('您是否要继续上次产品编辑?') == false) {
+//					return false;
+//				}
+//				jsonData['op_type'] = 'last';
+				showLoading(false);	
+				return false;
+			}
+			
+			$.post('{:U("line/find")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					console.log('0.................');
+					// 设置基本信息
+					setLineBaseInfo(data.ds);
+					console.log('1.................');
+					// 添加PC行程亮点
+					appendLinePoint('#fwv-2', data.ds.points);
+					console.log('2.................');
+					// 添加手机行程亮点
+					appendLinePoint('#fwv-3', data.ds.phone_points);
+					console.log('3.................');
+					// 添加行程说明
+					appendTravelDay(data.ds.travels);
+					console.log('4.................');
+					// 添加绑定的文章信息
+//					appendBindArticles(data.ds.articles);
+					// 产品的其他设置
+					appendLineSet(data.ds.sets);
+					console.log('5.................');
+					// 添加沿途风光					
+					appendLinePoint('#fwv-6', data.ds.scenery);
+					console.log('6.................');
+					// 添加问题信息
+					appendQuestionData(data.ds.questions, data.ds.question_page_count);
+					console.log('7.................');
+					// 添加批次信息
+					appendLineBatch(data.ds.batchs);
+					console.log('8.................');
+					// 添加优惠信息
+					appendSpecialCut(data.ds.offers);
+					console.log('9.................');
+				} else {
+					alert('未能获取到上次的编辑信息');
+				}
+				showLoading(false);				
+			})
+		}
+		
+		// 添加类型数据
+		function appendTypeData() {
+			var typeKey = $(this).attr('data-type-key');
+			showModalTypeDataDialog(typeKey);
+		}
+		
+		// 线路预览
+		$('.btn_preview').click(function(ev){
+			var lineId = $('#line_id').val();
+			if (lineId == '' || lineId == 0) {
+				alert('请先生成线路信息');
+				return false;
+			}
+			
+			var w = window.open();
+			$.post('{:U("line/create")}',{op_type:'preview', id:lineId},function(data){
+				if (data.result.errno != 0) {
+					toastr.error(data.result.message);
+				}
+				if (data.salt != null) {
+					w.location = 'http://kllife.com/home/index.php?s=/home/line/info/id/'+lineId+'/p/'+data.salt;
+				} else {
+					w.close();
+				}
+			});
+		});
+		
+		$(document).ready(function(){
+			// 初始化编辑信息
+			initLine();
+			
+			// 添加类型
+			$('.btn_append_type_data').click(appendTypeData);
+			
+			$('.tabs li').click(function(){
+				procStep(getPreviewActiveTabPanelIndex(), getCurrentActiveTabPanelIndex(this));
+			});
+			$('.pager > .previous').click(function(){
+				if ($(this).hasClass('disabled') === false) {
+					var prevIndex = getPreviewActiveTabPanelIndex();
+					procStep(prevIndex, prevIndex-1);	
+				}
+			});
+			$('.pager > .next').click(function(){
+				if ($(this).hasClass('disabled') === false) {
+					var prevIndex = getPreviewActiveTabPanelIndex();
+					procStep(prevIndex, prevIndex+1);
+				}
+			});
+		});
+		
+	</script>
+	
+<include file="Common/footer" />

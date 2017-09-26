@@ -1,0 +1,84 @@
+/*公共部分*/
+/* 禁用iPhone中Safari的字号自动调整 */
+html { -webkit-text-size-adjust: none; }
+/* 设置HTML5元素为块 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+/* 设置图片视频等自适应调整 */
+img { max-width: 100%; height: auto; width: auto9; /* ie8 */ }
+li { list-style: none; }
+.video embed, .video object, .video iframe { width: 100%; height: auto; }
+a, img {
+    -webkit-touch-callout: none; /* 禁止长按链接与图片弹出菜单 */
+}
+html, body {
+    -webkit-user-select: none;   /* 禁止选中文本（如无文本选中需求，此为必选项） */
+    user-select: none;
+}
+body { max-width: 800px; margin: 0 auto; font-family: 'PingHei', 'PingFang SC',"Microsoft YaHei", 'Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Arial', sans-serif; font-size: 14px; }
+a { color: #000; text-decoration: none; }
+a:hover { text-decoration: none; }
+h4 { font-size: 28px; }
+
+/*头部*/
+#header { width: 100%; height: 50px; position: fixed; top: 0; left: 0; z-index: 99; background: rgba(0,0,0,0.85); overflow: hidden; }
+#nav { width: 100%; height: 40px; margin: 0 auto; padding-top: 6px; overflow: hidden; }
+#nav img { vertical-align: middle; }
+.nav-left { display: inline-block; }
+.nav-left a { display: inline-block; width: 164px; height: 38px; margin-left: 10px; background: url("../images/logo.png"); background-size: 100% 100%; }
+
+#section { width: 100%; position: relative; }
+.swiper-container { position: absolute; top: -20px; left: 0; width: 100%; height: 630px; background-image: url("../images/chufa.jpg"); background-size: cover; }
+.main { position: relative; width: 90%; margin: 0 auto; padding-top: 80px; }
+.xinxi { position: relative; padding-top: 20px; padding-bottom: 10px; background: rgba(0,0,0,.35); }
+.main input { display: block; width: 70%; margin: 10px auto; height: 40px; line-height: 20px; text-indent: 11px;     border: none; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+.main h4 { width: 300px; margin: 0 auto; text-align: center; color: #fff; }
+.main a { display: block; margin: 0 auto; width: 130px; height: 36px; line-height: 34px; border: 0; border-radius: 3px; background: #f90; color: #fff; text-align: center; }
+.main textarea { border: none; width: 70%; display: block; margin: 0 auto; height: 60px; border-radius: 5px; padding: 11px; resize: none; margin-bottom: 30px; }
+#send_verify_code { position: absolute; right: 18%; top: 291px; height: 34px; width: 78px; margin-top: 2px; background-color: #ccc; background-image: none; text-indent: 0px; font-size: 13px; border: none; color: #fff; border-radius: 5px; }
+
+
+/*底部*/
+#footer { width: 100%; margin-top: 30px; background-color: #222; text-align: center; padding-bottom: 15px; }
+#footer p { color: #fff; font-size: 12px; margin-bottom: 0; padding-top: 5px; }
+
+
+
+/*提交成功与失败*/
+.success , .lose { position: fixed; display: none; text-align: center; top: 100px; right: 50%; width: 300px; height: 200px; margin-right: -150px; z-index: 999; background-color: #fff; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+.success { height: 350px;  }
+.success h2 , .lose h2 { margin-top: 30px; margin-bottom: 20px; }
+.success p , .lose p { margin-top: 20px; margin-bottom: 30px; }
+.success-sure , .lose-sure { background: #f90; border-radius: 5px; color: #fff; padding: 10px 30px; }
+
+/*遮罩层*/
+.mark { position: fixed; display: none; z-index: 99; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.5); }
+
+
+/*ipad*/
+@media screen and (min-width: 768px){
+	h4 { font-size: 36px !important; }
+	p { font-size: 18px !important; }
+	#header { height: 70px; }
+	#nav { width: 700px; height: 50px; padding-top: 16px; }
+	#section { height: 1000px; }
+	.swiper-container { height: 1000px; }
+	.wenzixinxi { top: 5%; }
+	.neirong01 img { height: 40px; }
+	.neirong-bottom01 { height: 800px; }
+	.neirong-bottom02 > img { height: 40px; }
+	.neirong-bottom-main { top: 180px; }
+	.neirong-bottom-main img { height: 40px; margin: 20px auto; }
+	.neirong-bottom-main p { margin-bottom: 15px; }
+	.neirong-bottom-main a { margin-bottom: 20px; }
+	.mytrip { font-size: 16px !important; }
+	#footer { margin-top: -20px; }
+	.footer-top a { font-size: 16px; }
+	#send_verify_code { height: 44px; width: 98px; top: 385px; left: 70%; font-size: 16px; }
+	.main { padding-top: 200px; }
+	.main h4 { width: 400px; }
+	.main input { height: 60px; font-size: 18px; }
+	.main a { height: 46px; line-height: 44px; font-size: 18px; }
+	.main textarea { font-size: 18px; }
+	.success , .lose { top: 300px; }
+	.success { width: 400px; margin-left: -200px; }
+}

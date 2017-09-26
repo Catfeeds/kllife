@@ -1,0 +1,31 @@
+#content { width: 100%; margin-top: 148px; font-size: 14px; }
+.img-text-content { width: 1000px; margin: 0 auto; margin-bottom: 27px; background-color: #fff; }
+.img-text-content h3 { padding: 30px 30px; font-size: 24px; color: #333; font-weight: normal; }
+/*浏览&分享*/
+.browse-time-share { width: 100%; height: 42px; line-height: 42px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+.browse , .time-share { display: inline-block; padding: 0 30px; color: #999; font-size: 12px; overflow: hidden; }
+.browse { border-right: 1px solid #eee; }
+.browse i { display: inline-block; width: 14px; height: 10px; background-image: url(../images/img_text_img/img_text.png); background-position: -56px 0; }
+.time-share { width: 800px; }
+.time { float: left; }
+.time i { font-style: normal; }
+.share { float: right; }
+.share i { display: inline-block; width: 26px; height: 26px; margin-right: 5px; background-image: url(../images/img_text_img/img_text.png); cursor: pointer; vertical-align: middle; }
+.weibo { background-position: -28px -28px; }
+.qq { background-position: -28px 0; }
+.qzone { background-position: 0 0; }
+.renren { background-position: 0 -28px; }
+/*图文内容*/
+.img-text-information { margin: 0 30px; }
+.img-text-information-head { position: relative; }
+.img-text-information-head p { margin-top: 40px; padding: 21px 28px; line-height: 1.6; text-indent: 2em; border: 4px solid #eee; color: #666; }
+.img-text-information-head i { position: absolute; top: -8px; left: 20px; display: inline-block; width: 39px; height: 16px; background-image: url(../images/img_text_img/img_text.png); background-position: 0 -56px; background-color: #fff; }
+/*图片*/
+.img-information { width: 100%; margin-top: 42px; text-align: center; } 
+.img-information span { position: relative; }
+.img-information img { max-width: 100%; margin-bottom: 35px; }
+.img-information u { position: absolute; bottom: 39px; left: 0; width: 100%; display: inline-block; padding: 14px 0px; font-style: normal; font-size: 12px; text-decoration: none; color: #fff; background: rgba(0, 0, 0, 0.5); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000); }
+/*文字*/
+.text-information { width: 100%; color: #333; }
+.text-information h4 { font-size: 18px; }
+.text-information p { margin-top: 27px; line-height: 1.6; text-indent: 2em; }

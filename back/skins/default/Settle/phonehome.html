@@ -1,0 +1,269 @@
+<include file="Common/header" />
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/cssreset.css">
+	<!-- 轮播样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/slide.css">
+	<!-- 公共样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/common.css">
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/index.css">
+	
+	<style>
+		header { position: relative; }
+		.tab-modal { display: none; position: fixed; top: 40%; left: 50%; width: 300px; margin-left: -150px; padding: 10px; background-color: #fff; border: 1px solid #dcdcdc; border-radius: 15px; z-index:999; }
+		.tab-modal p { line-height: 2; color: #000; font-size: 14px; }
+		.tab-modal a { display: inline-block; padding: 4px 10px; margin-top: 10px; margin-right: 5px; background-color: #eee; color: #666; font-size: 14px; border-radius: 15px; }
+		.tab-modal .bg-red { background-color: #e4393c; color: #fff; }
+		.tab-modal-minus { padding-bottom: 10px; border-bottom: 1px solid #dcdcdc; }
+		.tab-modal-add { margin-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #dcdcdc; }
+		.tab-modal-submit { text-align: center; }
+		.tab-modal-submit a { width: 100px; padding: 10px 0; text-align: center; border-radius: 5px; color: #fff; }
+		.tab-modal-submit .tab-modal-sure { background-color: #e4393c; }
+		.tab-modal-submit .tab-modal-exit { background-color: green; }
+		.main { color: #333; }
+		.tab-list span { display: none; margin-left:5px; color:#e4393c; cursor:pointer; }
+		.main > ul li .g { color: #ff7200; }
+		.add-img-btn { position: absolute; bottom:100px; left: 30px; }
+		.add-img-btn i { display:inline-block; width:80px; height: 30px; line-height:30px; margin-right:10px; text-align:center; color:#fff; background: rgba(0,0,0,.5); cursor:pointer; }
+			
+		.video-product ul li { line-height:1; }
+		.special-exhibition ul li a .special-exhibition-describe p { color: #fff; }
+		.special-exhibition ul li .main_img { width:287px; height: 347px;}
+		.special-exhibition ul li .special-img { width:287px; height:30px; }
+		.special-exhibition-write { background-color: #fff; padding: 10px 10px; }
+		.special-exhibition-write p { color:#333; font-size: 14px; line-height: 2; }
+		.special-exhibition-write p span { display: inline-block; width:70px; text-align: left; }
+		.special-exhibition-write p button { vertical-align:initial; }
+		.special-exhibition-write .special-exhibition-save { width:100%; background-color: #f9394c; color:#fff; }
+		.special-exhibition-write p input { width: 100%; }
+		.special-exhibition-write p textarea { width:100%; height: 52px; resize: none; }
+		.move-bg { display:none; }
+		
+		.special-exhibition ul li { margin-top: 15px; }
+		.special-exhibition ul li a { height: auto; overflow: visible; }
+		.special-exhibition ul li a .special-exhibition-describe { height:347px; }
+		.events-review-product-content { position: relative; }
+		.events-review-product-content > img { width:285px; height:220px; border: 1px solid #dcdcdc; }
+		.events-review-product-content-describe { height: auto; }
+		.events-review-product-content-describe input { width:100%; margin-top: 5px; }
+		.events-review-product-content-describe h5 { text-align:center; }
+		.article_list_show img { width:285px; height: 220px; }
+		.events-review-product-content-describe h6 { margin-top: 15px; }
+		.events-review-product-content-describe h5 textarea { width:100%; height: 100%; resize: none; text-align: left; }
+		.events-review-product-content-describe h6 textarea { width:100%; height: 52px; margin-top: 5px; resize: none; }
+		.events-change-image { position: absolute; top: 65px; left: 42.5px; width: 200px; text-align: center; }
+		.events-change-image i { display: inline-block; width: 90px; height:90px; line-height:90px; border-radius: 50%; text-align: center; background: rgba(0,0,0,.5); color:#fff; font-size:16px; font-style: normal; cursor: pointer; }
+		.events-change-image i:hover { background: rgba(0,0,0,1); }
+		.events-review-product-content img:hover { transform: scale(1,1); -ms-transform: scale(1,1); -moz-transform: scale(1,1); -webkit-transform: scale(1,1); -o-transform: scale(1,1); }
+		.btn-events { width: 100%; margin-top:15px; background-color: #f9394c; color:#fff; }
+		
+		
+		.circle_img { width:287px; height:287px; border-radius: 50%; }
+	</style>
+	<!-- echo -->
+	<script src="__PUBLIC__/home/common/js/echo.min.js"></script>
+
+	<!-- 轮播 -->
+	<div class="lubo set_root">
+		<ul class="lubo_box">
+			<li data-set="lunbo1" style=" opacity: 1;filter:alpha(opacity=100);"><a href="javascript:;" style="background-image:url({$set.lunbo1}); background-size: 100% 100%;"></a></li>
+			<li data-set="lunbo2"><a href="javascript:;" style="background-image:url({$set.lunbo2}); background-size: 100% 100%;"></a></li>
+			<li data-set="lunbo3"><a href="javascript:;" style="background-image:url({$set.lunbo3}); background-size: 100% 100%;"></a></li>
+		</ul>
+	</div>
+	
+	<!-- 精彩专题 -->
+	<div class="bg-gray">
+		<div class="special main">
+			<h2>专题</h2>
+			<div class="special-exhibition">
+				<ul>
+					<for start="0" end="4" name="k">
+						<if condition="$k % 4 eq 0">
+							<li>
+						</if>						
+							<php> $zt = $set['zhuanti'.$k] </php>
+							<a class="special-exhibition-product" data-set="zhuanti{$k}" data-index="{$k}">
+								<img class="circle_img" src="{$zt.img_main}" alt="">
+								<div class="special-exhibition-describe">
+									<h4 class="title">{$zt.title}</h4>
+									<h4 class="subheading">{$zt.desc}</h4>
+									<p class="desc">{$zt.desc}</p>
+								</div>
+								<div class="special-exhibition-write">
+									<p>
+										<span>主标题：</span>
+										<input type="text" maxlength="4" value="{$zt.title}"/>
+									</p>
+									<p>
+										<span>描述：</span>
+										<input type="text" maxlength="10" value="{$zt.desc}"/>
+									</p>
+									<p data-obj="special-exhibition-product">
+										<span>链接：</span>
+										<textarea>{$zt.url}</textarea>
+									</p>
+									<button class="btn special-exhibition-save">保存</button>
+								</div>
+							</a>
+						<if condition="$k % 4 eq 1">
+							</ li>
+						</if>
+					</for>
+				</ul>
+			</div>
+		</div>
+	</div>		
+	
+	<!-- 自绑定 -->
+	<script src="__PUBLIC__/home/common/js/showAndHide.js"></script>
+	<!-- 头部js -->
+	<script src="__PUBLIC__/home/common/js/headroom.js"></script>
+	<!-- 侧边栏&头部 -->
+	<script src="__PUBLIC__/home/common/js/aside-header.js"></script>
+	
+	<!-- 视频 -->
+	<script src="__PUBLIC__/home/common/js/iframe.js"></script>
+	<!-- 顶部轮播 -->
+	<script src="__PUBLIC__/home/js/lunbo.js"></script>
+	<!-- 轮播 -->
+	<script src="__PUBLIC__/home/js/unslider.min.js"></script>
+	
+	<script>		
+		// 设置首页配置
+		function setPCHomeConfig(key, val, nSort, sql_type, keyLike) {	
+			var ds = {ds:null, result:{errno:-1, message:'设置为未功'}};		
+			if (key == '' || key == 'undefined' || key == null) {
+				alert('修改项错误');
+				return ds;
+			}
+			var jsonData = {
+				op_type: 'set',
+				type: 'phone_home_index',
+				key: key,
+				value: val,
+			}
+			if (nSort != 'undefined' && nSort != null) {
+				jsonData['sort'] = nSort;
+			}
+			if (sql_type != 'undefined' && sql_type != null) {
+				jsonData['sql_type'] = sql_type;
+			}
+			if (keyLike != 'undefined' && keyLike != null) {
+				jsonData['key_like'] = 1;
+			}
+			
+//			console.log(JSON.stringify(jsonData));
+//			showLoading(true);
+			$.ajax({
+				url: '{:U("settle/settle")}',
+				type: 'POST',
+				async: false,
+				data: jsonData,
+				dataType: 'json',
+				success: function(data) {
+					ds = data;
+				},
+				complete: function(data) {
+				}
+			});			
+			return ds;
+		}
+		
+		// 上传图片并选择
+		modalUploadMaxFileCount = 1; 
+		function funcUploadImage() {
+			funcModalUploadCallBack = choosedImage;
+			showModalUploadImageDialog($(this).closest('.set_root'));
+		}
+		
+		// 选择图片
+		function funcChooseImage() {
+			funcModalImageSelectorCallBack = choosedImage;
+			showModalSelectorImageDialog($(this).closest('.set_root'));
+		}
+		
+		// 已选择的图片
+		function choosedImage(obj, imageList){
+			var key = $(obj).attr('data-set');
+			if ($(obj).hasClass('lubo')) {
+				$(obj).find('li').each(function(i, ev){
+					if ($(this).css('opacity') == 1) {
+						key = $(this).attr('data-set');
+						obj = this;
+					}
+				});
+			}
+			var val = imageList[0];
+			if (key != '' && key != null && key != 'undefined') {
+				var data = setPCHomeConfig(key, val, 0);
+				if (data.result.errno == 0) {
+					if (key.indexOf('lunbo') != -1) {
+						$(obj).find('a').css('backgroundImage', 'url('+val+')');
+					} else {
+						$(obj).find('img').attr('src', val);
+					}
+				} else {
+					alert(data.result.message);
+				}
+			} else {
+				$(obj).attr('src', val);
+			}
+		}
+	
+		//上传图片与图库图片
+		function addImgModal(obj,funcUpload,funcChoose){
+			var AHtml = '<div class="add-img-btn"><i class="upload-img">上传图片</i><i class="choose-img">图库图片</i></div>';
+			$(obj).append(AHtml);
+			$(obj).find('.upload-img:last').click(funcUpload);
+			$(obj).find('.choose-img:last').click(funcChoose);
+		}
+		
+		// 选择图片按钮以及事件绑定
+		addImgModal('.lubo',funcUploadImage,funcChooseImage);
+		
+		// 绑定选择图片
+		function bindSelectImage(obj) {
+			$(obj).click(function(ev){	
+				ev.preventDefault();	
+				funcModalImageSelectorCallBack = choosedImage;
+				showModalSelectorImageDialog(this);	
+			});	
+		}	
+		
+		// 专题图片选择
+		bindSelectImage($('.circle_img'));
+		
+		// 专题图片上传
+		$('.zt_img_upload').click(function(ev){
+			ev.preventDefault();
+			funcModalUploadCallBack = chooseImageNotSet;
+			var objstr = $(this).closest('p').attr('data-obj');
+			var obj = $(this).closest('.special-exhibition-product').find('.'+objstr);
+			showModalUploadImageDialog(obj);
+		})
+		
+		// 专题设置
+		$('.special-exhibition-save').click(function(ev){
+			ev.preventDefault();			
+			var rootObj = $(this).closest('.special-exhibition-product');
+			var key = $(rootObj).attr('data-set');
+			var editObj = $(rootObj).find('.special-exhibition-write');
+			var zhuanti = {
+				title: $(editObj).find('p:eq(0)').find('input').val(),
+				desc: $(editObj).find('p:eq(1)').find('input').val(),
+				url: $(editObj).find('p:eq(2)').find('textarea').val(),
+				img_main: $(rootObj).find('.circle_img').attr('src'),
+			}			
+			var ztJsonData = JSON.stringify(zhuanti);
+			var ztSort = $(rootObj).attr('data-index');
+			var data = setPCHomeConfig(key, ztJsonData, ztSort);
+			alert(data.result.message);
+		});
+				
+		//轮播
+		$(".lubo").lubo({
+			clearTime: true
+		});
+		
+	</script>
+<include file="Common/footer" />

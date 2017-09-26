@@ -1,0 +1,47 @@
+<include file="Common/header" />
+	<div class="row">
+		<div class="panel panel-color panel-info panel-content-pos">
+			<div class="panel panel-heading">
+				<span class="description">{:C(CONTENT_TITLE)}&nbsp;>&nbsp;{$group.type_desc}</span>					
+			</div>
+			<div class="panel panel-color panel-content">
+				<div class="row">
+					<div class="col-md-1"></div>					
+					<div class="col-md-10">
+						<volist id="g" name="grants">
+							<label>
+								<input type="checkbox" class="iswitch iswitch-secondary" value="{$g.id}" {$g.checked}/>&nbsp;&nbsp;{$g.grant_desc}
+							</label>
+							<br>
+						</volist>
+					</div>
+				</div>                
+				<br /><br /><br />
+				<div class="row">
+					<div class="col-md-1">
+						<a href="#" class="btn btn-info" style="float: right" onclick="history.back(-1)">返回列表</a>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.iswitch').change(function(){
+			var jsonData = {
+				'op': $(this).prop('checked')?'bind':'unbind',
+				'group_id': '{$group.id}',
+				'grant_id': $(this).val(),
+			}
+			var obj = $(this);
+			$.post('{:U("grant/group")}', jsonData, function(data){
+				if (data.result.errno != 0) {
+					alert(data.result.message);
+					var checked = $(obj).prop('checked');
+					$(obj).prop('checked', !checked);					
+				}
+			});
+		});
+	});
+</script>

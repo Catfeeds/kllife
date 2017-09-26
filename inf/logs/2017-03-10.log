@@ -1,0 +1,5 @@
+[2017-03-10 16:32:56][info] ----------------------------------------
+[2017-03-10 16:32:56][info] {"discount":"0.00","payment_type":"1","subject":"\u96ea\u57df\u6843\u82b1\u6df1\u5ea6\u6e38","trade_no":"2017031021001004210295966185","buyer_email":"13905816006","gmt_create":"2017-03-10 16:32:39","notify_type":"trade_status_sync","quantity":"1","out_trade_no":"LX-17022209273471601-a","seller_id":"2088421286007493","notify_time":"2017-03-10 16:32:56","body":"2017\u5e74\u6797\u829d\u6843\u82b1\u6c9f-\u6ce2\u5bc6\u560e\u6717-\u5357\u8fe6\u5df4\u74e6\u5cf0-\u7136\u4e4c\u6e56-\u7c73\u5806\u51b0\u5ddd\u516b\u65e5\u6e38","trade_status":"TRADE_SUCCESS","is_total_fee_adjust":"N","total_fee":"1690.00","gmt_payment":"2017-03-10 16:32:56","seller_email":"2287684289@qq.com","price":"1690.00","buyer_id":"2088702509402214","notify_id":"773bd8e19915a963bb330c627ae784fhme","use_coupon":"N","sign_type":"MD5","sign":"0e33ff8b3c15978b76fa6a7be57e2301"}
+[2017-03-10 16:32:57][info] 数据存储反馈成功！
+[2017-03-10 16:32:57][info] success
+[2017-03-10 16:32:57][info] 写入结束!!!

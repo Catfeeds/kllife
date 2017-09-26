@@ -1,0 +1,112 @@
+
+	<style type="text/css">
+		.right-fixed-aside { position: fixed; top: 200px; left:280px; z-index:998; }
+		.right-fixed-aside ul li a {
+		    display: block;
+		    padding: 10px 10px;
+		    margin-top: 2px;
+		    background-color: #2c6fb7;
+		    color: #fff;
+		    font-size: 16px;
+		}
+		.right-fixed-aside ul li a.active {
+		    display: block;
+		    padding: 10px 10px;
+		    margin-top: 2px;
+		    background-color: #fabe00;
+		    color: #fff;
+		    font-size: 16px;
+		}
+	</style>
+	<!-- 右侧导航栏 -->
+	<div class="right-fixed-aside">
+		<ul></ul>
+	</div>
+	
+	<script type="text/javascript">
+		function FixedTag(pos, isRight) {
+			this.data = [];
+			if (pos != null) {
+				if (pos.x != null) {
+					$('.right-fixed-aside').css('left', pos.x);
+				}
+				if (pos.y != null) {
+					$('.right-fixed-aside').css('top', pos.y);	
+				}
+			}
+			if (isRight != null) {
+				$('.right-fixed-aside').css('right', $('.right-fixed-aside').css('left'));				
+				$('.right-fixed-aside').css('left', 'initial');
+			}
+		}
+	
+		//左侧固定导航栏
+		FixedTag.prototype.bindFixedTag = function(g, t) {
+			$(g).click(function(){
+//				$(this).parent().siblings().find('.active').removeClass('active');
+//				$(this).addClass('active');
+				
+				$("html,body").animate({scrollTop: t}, 1000);
+			});
+		};
+				
+		// 添加滚动标签
+		FixedTag.prototype.appendFixedTag = function (bindObj, tagName, tagText) {
+			if (bindObj == null || bindObj == '' || bindObj == 'undefined' || typeof(bindObj) == 'undefined') {
+				console.log('添加固定标签锚点失败');
+				return false;
+			}
+			
+			if (tagName == null || tagName == '' || tagName == 'undefined') {
+				tagName = 'FixedTag'+this.data.length;
+			}
+			if (tagText == null || tagText == '' || tagText == 'undefined') {
+				tagText = tagName;
+			}
+			
+			$('.right-fixed-aside').find('ul').append('<li><a class="right-fixed-'+tagName+'" href="#'+tagName+'">'+tagText+'</a></li>');
+			var tag = {
+				obj: bindObj,
+				top: parseInt($(bindObj).offset().top)-140,
+				tagObj: '.right-fixed-'+tagName,
+			}
+			$(bindObj).attr('id', tagName);
+			this.data.push(tag);
+			this.bindFixedTag(tag.tagObj, tag.top);
+		}
+		
+		// 触发滚动事件
+		FixedTag.prototype.scrollFixedTag = function(e){
+			if (e.data == null || e.data.obj == null) {
+				console.log('未绑定对象，不能触发事件');
+				return false;
+			}
+			// 位置最低的必须确保最先添加
+			for (var i=0; i<e.data.obj.data.length; i++) {
+				var st = $(this).scrollTop();
+				var t = e.data.obj.data[i];
+				var h = $(t.obj).height();
+				var b = t.top + h;
+				var subH = b - st;
+//				console.log('cur:'+st+',obj:'+t.tagObj+',t:'+t.top+',b:'+b+',sub_h:'+subH);
+				if(st >= t.top && st < b && subH > 140) {
+					$(t.tagObj).parent().siblings().find('.active').removeClass('active');
+					$(t.tagObj).addClass('active');
+					break;
+				}				
+			}
+		}
+				
+		// 启动标签
+		FixedTag.prototype.enabledFixedTag = function() {
+			console.log('启动标签滚动');
+			$(window).bind('scroll', {obj:this}, this.scrollFixedTag);
+		}
+		
+		// 禁用标签
+		FixedTag.prototype.disabledFixedTag = function() {
+			console.log('禁止标签滚动');
+			$(window).unbind('scroll', {obj:this}, this.scrollFixedTag);
+		}		
+		
+	</script>

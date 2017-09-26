@@ -1,0 +1,308 @@
+<style type="text/css">
+	.row { margin-top:15px; }
+	.range-input { width: 46%!important; }
+	.range-input-seperator { width: 8%!important; }
+	.fprice_limit { margin-left: 15px; }
+</style>
+<!-- 添加数据类型 -->
+<div class="modal fade custom-width" id="gallery-fcj-price-modal" data-backdrop="static">
+	<div class="modal-dialog" style="width: 60%">
+		<div class="modal-content">
+			
+			<div class="modal-header">
+				<h4 class="modal-title">编辑价格</h4>
+			</div>
+			
+			<div class="modal-body">
+				
+				<div class="row">
+					<div class="col-md-4 data_fprice_title">
+						<label class="control-label" for="data_fprice_title">名称：<span style="color:red;">(*必选)</span></label>
+						<input class="form-control" name="data_fprice_title" id="data_fprice_title" />
+					</div>
+					<div class="col-md-1 form-group fprice_limit">
+						<label class="control-label" for="data_fprice_rebate">返利：</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fprice_rebate" id="data_fprice_rebate" />
+					</div>
+					<div class="col-md-3 data_fprice_price">
+						<label class="control-label" for="data_fprice_price">报价：</label>
+						<input class="form-control" name="data_fprice_price" id="data_fprice_price" type="number" placeholder="请输入报价金额" />
+					</div>
+					<!--<div class="col-md-3 data_fprice_real_price">
+						<label class="control-label" for="data_fprice_real_price">实价：</label>
+						<input class="form-control" name="data_fprice_real_price" id="data_fprice_real_price" type="number" placeholder="请输入实价金额" />
+					</div>-->
+				</div>
+				<div class="row">
+					<div class="form-group fprice_limit" style="width: 10%; float: left;">
+						<label class="control-label" for="data_fprice_time">按时报价</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fprice_time" id="data_fprice_time" />
+					</div>
+					<div class="hidden_ctrl data_fprice_time" style="width: 38%; float: left;">
+						<label>有效时间：</label>
+						<div class="input-group" style="border-color: #40bbea;">
+							<input type="text" id="data_fprice_time_limit" readonly class="form-control daterange" data-format="YYYY-MM-DD" data-separator=" / " placeholder="点击选择日期"/>							
+							<div class="input-group-addon">							
+								<a href="javascript:;"><i class="linecons-calendar"></i></a>								
+							</div>
+						</div>
+					</div>
+					<div class="form-group fprice_limit" style="width: 10%; float: left;">
+						<label class="control-label" for="data_fprice_line">按线路报价</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fprice_line" id="data_fprice_line" />
+					</div>
+					<div class="hidden_ctrl data_fprice_line" style="width: 38%; float: left;">
+						<label>有效线路：</label>
+						<div>
+							<script type="text/javascript">
+								$(document).ready(function(){
+									var ds = {tab:'line', show_col:'title', cdsstr: 'invalid|=|0|AND', cdtype:4}
+									bindSelect2DropMenu($('#data_fprice_line_data'), ds, '请选择线路', 1, false);	
+								});
+							</script>
+							<input class="form-control" name="data_fprice_line_data" id="data_fprice_line_data" style="width: 100%" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group fprice_limit" style="width: 10%; float: left;">
+						<label class="control-label" for="data_fprice_member">按人报价</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fprice_member" id="data_fprice_member" />
+					</div>
+					<div class="hidden_ctrl data_fprice_member" style="width: 38%; float: left;">
+						<label>有效人数：</label>
+						<div class="input-group">
+							<input class="form-control range-input" name="data_fprice_member_min" id="data_fprice_member_min" type="number" value="0" />
+							<span class="form-control range-input-seperator"> - </span>
+							<input class="form-control range-input" name="data_fprice_member_max" id="data_fprice_member_max" type="number" value="0" />
+						</div>
+					</div>
+					<div class="form-group fprice_limit" style="width: 10%; float: left;">
+						<label class="control-label" for="data_fprice_day">按天报价</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fprice_day" id="data_fprice_day" />
+					</div>
+					<div class="hidden_ctrl data_fprice_day" style="width: 38%; float: left;">
+						<label>有效天数：</label>
+						<div class="input-group">
+							<input class="form-control range-input" name="data_fprice_day_min" id="data_fprice_day_min" type="number" value="0" />
+							<span class="form-control range-input-seperator"> - </span>
+							<input class="form-control range-input" name="data_fprice_day_max" id="data_fprice_day_max" type="number" value="0" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 data_fprice_beizhu">
+						<label class="control-label" for="data_fprice_beizhu">备注：</label>
+						<input class="form-control" name="data_fprice_beizhu" id="data_fprice_beizhu" />
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white btn-fprice-close" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-secondary btn-fprice-add">保存</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	function ModalFCJPrice() {
+		this.root = $('#gallery-fcj-price-modal');
+		this.price_obj = null;
+		this.obj_type = null;
+		this.obj_id = null;
+		this.item_id = null;
+		this.price_id = null;
+		this.callbackFunc = null;		
+		
+		// 限制项改变
+		$(this.root).find('.fprice_limit input').bind('change', {obj:this}, this.limitChanged)		
+		// 绑定取消事件
+		$(this.root).find('.btn-fprice-close').bind('click', {obj:this}, this.cancelPrice);		
+	}
+	
+	ModalFCJPrice.prototype.showModal = function(priceObj, objType, objId, itemId, priceId, confirmCallBack){
+		this.price_obj = priceObj;
+		this.obj_type = objType;
+		this.obj_id = objId;
+		this.item_id = itemId;
+		this.price_id = priceId;
+		this.callbackFunc = confirmCallBack;
+		
+		// 显示面板
+		$(this.root).modal('show');	
+		
+		// 填充价格数据
+		this.fillPrice();		
+			
+		// 绑定确认事件
+		$(this.root).find('.btn-fprice-add').unbind();
+		$(this.root).find('.btn-fprice-add').bind('click', {obj:this}, this.confirmPrice);
+	}
+	
+	ModalFCJPrice.prototype.clearPrice = function (){
+		this.price_obj = null;
+		this.price_id = null;
+		this.callbackFunc = null;
+					
+		var modalRootObj = this.root;
+		$(modalRootObj).attr('data-id', '');
+		// 名称
+		$(modalRootObj).find('#data_fprice_title').val('');
+		// 返利
+		$(modalRootObj).find('#data_fprice_rebate').prop('checked', false).trigger('change');
+		// 报价
+		$(modalRootObj).find('#data_fprice_price').val('');
+		// 实价
+//		$(modalRootObj).find('#data_fprice_real_price').val('');
+		// 按时报价
+		$(modalRootObj).find('#data_fprice_time').prop('checked', false).trigger('change');
+		$(modalRootObj).find('#data_fprice_time_limit').val('');		
+		// 按人报价
+		$(modalRootObj).find('#data_fprice_member').prop('checked', false).trigger('change');
+		$(modalRootObj).find('#data_fprice_member_min').val('');
+		$(modalRootObj).find('#data_fprice_member_max').val('');	
+		// 按天报价
+		$(modalRootObj).find('#data_fprice_day').prop('checked', false).trigger('change');
+		$(modalRootObj).find('#data_fprice_day_min').val('');
+		$(modalRootObj).find('#data_fprice_day_max').val('');
+		// 按线路报价
+		$(modalRootObj).find('#data_fprice_line').prop('checked', false).trigger('change');
+		setSelect2Value($(modalRootObj).find('#data_fprice_line_data'), null);
+		// 备注
+		$(modalRootObj).find('#data_fprice_beizhu').val('');
+	}
+	
+	ModalFCJPrice.prototype.fillPrice = function() {		
+		var thisObj = this;
+		if (this.price_id != null) {
+			$.post('{:U("financial/price")}', {op_type: 'find', id: this.price_id}, function(data){
+				if (data.ds != null) {					
+					var d = data.ds;
+					console.log(JSON.stringify(d));	
+					var modalRootObj = thisObj.root;
+					$(modalRootObj).attr('data-id', d.id);
+					// 名称
+					$(modalRootObj).find('#data_fprice_title').val(d.title);
+					// 返利
+					$(modalRootObj).find('#data_fprice_rebate').prop('checked', d.is_rebate == 1 ? true : false).trigger('change');
+					// 报价
+					$(modalRootObj).find('#data_fprice_price').val(d.price);
+					// 实价
+//					$(modalRootObj).find('#data_fprice_real_price').val(d.real_price);
+					// 按时报价
+					$(modalRootObj).find('#data_fprice_time').prop('checked', d.is_time == 1 ? true : false).trigger('change');
+					$(modalRootObj).find('#data_fprice_time_limit').val(d.start_time+' / '+d.end_time);
+					// 按人报价
+					$(modalRootObj).find('#data_fprice_member').prop('checked', d.is_member == 1 ? true : false).trigger('change');
+					$(modalRootObj).find('#data_fprice_member_min').val(d.min_num);
+					$(modalRootObj).find('#data_fprice_member_max').val(d.max_num);
+					// 按天报价
+					$(modalRootObj).find('#data_fprice_day').prop('checked', d.is_day == 1 ? true : false).trigger('change');
+					$(modalRootObj).find('#data_fprice_day_min').val(d.min_day);
+					$(modalRootObj).find('#data_fprice_day_max').val(d.max_day);
+					// 按线路报价
+					$(modalRootObj).find('#data_fprice_line').prop('checked', d.is_line == 1 ? true : false).trigger('change');
+					setSelect2Value($(modalRootObj).find('#data_fprice_line_data'), d.line);
+					// 备注
+					$(modalRootObj).find('#data_fprice_beizhu').val(d.beizhu);
+				}
+			});
+		}
+	}
+	
+	// 价格类型被选择
+	ModalFCJPrice.prototype.limitChanged = function(evt) {
+		var rootObj = $(this).closest('#gallery-fcj-price-modal');
+		var className = $(this).attr('name');
+		if ($(this).prop('checked') ==  false) {
+			$(rootObj).find('.'+className).addClass('hidden_ctrl');
+		} else {
+			$(rootObj).find('.'+className).removeClass('hidden_ctrl');
+		}
+	}
+	
+	// 确认添加/修改数据
+	ModalFCJPrice.prototype.confirmPrice = function(e){
+		if (e.data == null || e.data.obj == null) {
+			console.log('未绑定对象，不能触发事件');
+			return false;
+		}
+		var thisObj = e.data.obj;
+		if (thisObj.obj_type == null || thisObj.obj_id == null || thisObj.item_id == null) {
+			toastr.warning('保存价格的参数不足，可能缺少资源类型、资源对象、消费项其中的一项，所以价格不能保存');
+			return false;
+		}
+		
+		var date = $(thisObj.root).find('#data_fprice_time_limit').val();
+		var dateList = date.split(' / ');
+		var param = {
+			'op_type': 'save',
+			'obj_type': thisObj.obj_type,
+			'obj_id': thisObj.obj_id,
+			'item_id': thisObj.item_id,
+			'id': thisObj.price_id,
+			'is_rebate': $(thisObj.root).find('#data_fprice_rebate').prop('checked') ? 1 : 0,
+			'title': $(thisObj.root).find('#data_fprice_title').val(),
+			'price': $(thisObj.root).find('#data_fprice_price').val(),
+//			'real_price': $(thisObj.root).find('#data_fprice_real_price').val(),
+			'is_time': $(thisObj.root).find('#data_fprice_time').prop('checked') ? 1 : 0,
+			'is_member': $(thisObj.root).find('#data_fprice_member').prop('checked') ? 1 : 0,
+			'is_day': $(thisObj.root).find('#data_fprice_day').prop('checked') ? 1 : 0,
+			'is_line': $(thisObj.root).find('#data_fprice_line').prop('checked') ? 1 : 0,
+			'start_time': dateList[0],
+			'end_time': dateList[1],
+			'min_num': $(thisObj.root).find('#data_fprice_member_min').val(),
+			'max_num': $(thisObj.root).find('#data_fprice_member_max').val(),
+			'min_day': $(thisObj.root).find('#data_fprice_day_min').val(),
+			'max_day': $(thisObj.root).find('#data_fprice_day_max').val(),
+			'line': getSelect2Value($(thisObj.root).find('#data_fprice_line_data'),['id','title']),
+			'beizhu': $(thisObj.root).find('#data_fprice_beizhu').val(),
+		}
+		
+		var callbackFunc = thisObj.callbackFunc;
+		var priceObj = thisObj.price_obj;
+		$.post('{:U("financial/price")}', param, function(data){
+			if (data.jumpUrl != null) {
+				location.href = data.jumpUrl;
+			}
+			if (data.result != null) {
+				if (data.extra_result != null) {
+					if (data.result.errno != 0 && data.extra_result.errno != 0){
+						toastr.error(data.result.message + '<br />' + data.extra_result.message);
+						return false;	
+					}
+				} else {
+					if (data.result.errno != 0){
+						toastr.error(data.result.message);
+						return false;	
+					}	
+				}
+			}
+			toastr.success('修改价格成功!!!');
+			if (callbackFunc != 'undefined' && callbackFunc != null && typeof(callbackFunc) == 'function') {			
+				callbackFunc(priceObj, data.ds, data.op);
+			}
+		});
+		thisObj.hideModal();
+	}
+	
+	ModalFCJPrice.prototype.hideModal = function() {
+		this.clearPrice();
+		$(this.root).modal('hide');
+	}
+	
+	// 取消编辑项
+	ModalFCJPrice.prototype.cancelPrice = function(e) {
+		if (e.data == null || e.data.obj == null) {
+			console.log('未绑定对象，不能触发事件');
+			return false;
+		}
+		var thisObj = e.data.obj;
+		thisObj.hideModal();
+	}
+	
+</script>

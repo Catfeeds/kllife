@@ -1,0 +1,287 @@
+.index .line{
+    margin-top:10px;
+}
+.content .top .recommend{
+    padding:20px 15px;
+    background: #fff;
+}
+.content .top .recommend h2{
+    margin:0px;
+    font-weight: bold;
+    font-size: 18px;
+}
+.content .top .recommend p{
+    padding-top:10px;
+    font-size: 15px;
+    color:#333;
+}
+.content .top .recommend div .price{
+    padding-top:10px;
+    font-size: 15px;
+    color:#ff1c77;
+}
+.content .top .recommend div .price .number{
+    font-size: 30px;
+    font-weight: bold;
+    padding:0px 5px;
+    display: inline-block;
+}
+.content .top .recommend div .price .yuan{
+    color:#333;
+}
+.content .top .recommend div .place{
+    padding-left:30px;
+    color:#666;
+    font-size: 16px;
+}
+.content .travel{
+    background: #fff;
+    margin-top:10px;
+}
+.content .travel .data{
+    padding:15px;
+    margin-bottom:30px;
+    border-bottom:1px solid #d2d2d2;
+}
+#down{
+    display: inline-block;
+    width:39px;
+    height:39px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.content .travel .data .rotate{
+    display: inline-block;
+    transform-origin:center center; //旋转中心要是正中间 才行
+transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transition: transform 0.7s; //过度时间 可调
+-moz-transition: -moz-transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -o-transition: -o-transform 0.7s;
+    -ms-transition: -ms-transform 0.7s;
+}
+.content .travel .data .rotate1{
+    display: inline-block;
+    transform-origin:center center;
+    transform: rotate(0deg); //返回原点
+-webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transition: transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -o-transition: -o-transform 0.7s;
+    -ms-transition: -ms-transform 0.7s;
+}
+.content .travel .data .see{
+    color:#ff1c77;
+    font-size:18px;
+    font-weight: bold;
+}
+.content .travel .data span i{
+    font-size: 28px;
+    color:#b5b5b5;
+}
+.content .travel .may-apply{
+    padding:0px 10px 20px;
+    border-bottom:1px solid #d2d2d2;
+    overflow: hidden;
+    display:none;
+}
+.content .travel .may-apply div{
+    width:25%;
+    float: left;
+    padding:0px 5px;
+}
+.content .travel .may-apply div div{
+    height:50px;
+    line-height:18px;
+    width:100%;
+    border:1px solid #d2d2d2;
+    border-radius: 3px;
+    padding:7px 0 0 0;
+    margin-bottom:10px;
+    font-size: 10px;
+}
+.content .travel .may-apply div div p{
+    text-align: center;
+    text-align: -webkit-center;
+    color:#000;
+    margin:0px;
+}
+.content .travel .may-apply div div .color{
+    color:#ff1c77;
+}
+.content .travel .detail{
+    padding:0px 0 30px;
+}
+.content .explain .border-bottom{
+    margin-top:0;
+}
+.content .explain .item{
+    margin-bottom:20px;
+}
+.content .explain .item>div{
+    background:#ff1c77;
+    padding:0px 10px;
+    padding-bottom:20px;
+    color:#fff;
+}
+.content .explain .item div h4{
+    margin:0px;
+    padding:20px 0px;
+    line-height:28px;
+}
+.content .explain .item div .div{
+    font-size: 15px;
+    padding-left:0px;
+}
+.content .explain .item div p{
+    font-size: 15px;
+    line-height:22px;
+}
+.content .explain .item div p span{
+    display: inline-block;
+    font-size: 15px;
+    line-height:22px;
+}
+.content .explain .item .background-color{
+    background: #efefef;
+    color:#000;
+}
+.content .explain .item .background-color div{
+    font-size: 15px;
+    line-height:22px;
+    padding-left:0px;
+}
+.content .explain .item .background-color div span{
+    font-size: 15px;
+    line-height:22px;
+}
+.content .explain .item .background-color p{
+    font-size: 15px;
+    line-height:22px;
+}
+.content .explain .item .background-color p span{
+    font-size: 15px;
+    line-height:22px;
+}
+.content .explain .item .background-color div{
+    background: #efefef;
+    color:#000;
+}
+.content .explain .item .background-color .prompt{
+    color:#ff1c77;
+}
+.content .reserve .item{
+    margin-bottom:10px;
+    font-size: 16px;
+    line-height: 20px;
+}
+.content .reserve .item span{
+    display: inline;
+    font-size: 15px;
+    line-height: 22px;
+}
+.content .reserve .item b{
+    display: inline-block;
+    font-size: 15px;
+    line-height: 22px;
+}
+.content .reserve .item span b{
+    display: inline-block;
+    font-size: 15px;
+    line-height: 22px;
+}
+.content .reserve .item div{
+    font-size: 15px;
+    line-height: 22px;
+}
+.content .reserve .item h4 span{
+    display: inline-block;
+    padding-right:5px;
+    font-size: 18px;
+    font-weight: bold;
+    color:#ff1c77;
+    margin-bottom:15px;
+}
+.content .reserve .item p{
+    font-size: 1.5px;
+}
+.content .reserve-two{
+    padding-top:20px;
+}
+.content .scenery{
+    margin-bottom:50px;
+}
+.content .scenery div p{
+    font-size: 15px;
+    margin-top:10px;
+    line-height:22px;
+    color:#333;
+}
+.content .scenery div p span{
+    display: inline-block;
+    font-size: 15px;
+    line-height:22px;
+}
+.content .scenery div p img{
+    display: block;
+    width:100%;
+    height: auto;
+    margin-top:20px;
+}
+.index .line img{
+    margin-top:18px;
+    width:100%;
+}
+.scenery .scenery-two div{
+    font-size: 15px!important;
+    margin-top:18px;
+}
+.scenery .scenery-two div span{
+    font-size: 15px!important;
+}
+.footer-two{
+    position: fixed;
+    bottom:0px;
+    height:60px;
+    max-width: 750px;
+    width:100%;
+    background: #f0eff5;
+}
+.footer-two div{
+    float: left;
+}
+.footer-two .div{
+    width:111px;
+    height:59px;
+}
+.footer-two .div img{
+    height:59px;
+}
+.footer-two .reserve-btn{
+    display: inline-block;
+    text-align: center;
+    text-align: -webkit-center;
+    line-height: 60px;
+    font-size: 20px;
+    color:#fff;
+    width:calc(100% - 111px);
+    background: #ff1c77;
+}
+
+
+
+
+
+
+
+
+
+

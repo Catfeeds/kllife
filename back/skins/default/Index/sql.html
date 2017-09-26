@@ -1,0 +1,87 @@
+<include file="Common/header" />
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/page.css">
+	<div class="row">
+		<div class="col-sm-12 content">
+			===============================数据转化信息======================================<br />
+			总页数：{$page_count}&nbsp;&nbsp;&nbsp;&nbsp;<input id="start" type="button" data-op="start" value="点击按钮开始转化数据"/><br />
+			===============================数据转化开始======================================<br />
+		</div>
+		<div class="list-page"></div>
+	</div>
+	<!--翻页脚本-->
+	<script src="__PUBLIC__/home/js/page.js"></script>
+	<script type="text/javascript">		
+		var curPage = 0, maxPage = '{$page_count}';
+		// 触发翻页时间
+		function changePage(p) {
+			// 同步处理
+			$.ajax({
+				url: '{:U("index/sql")}',
+				type: 'POST',
+				async: true,
+				dataType: 'json',
+				data: {page: p},
+				success: function(data){
+					$('.content').append('===============================第'+p+'页======================================<br />');
+					if (data.result != null) {
+						$('.content').append(data.result.message);
+					} else {
+						$('.content').append('请求失败，未返回数据<br />');	
+					}	
+					curPage = parseInt(curPage) + 1;;		
+				},
+				complete: function(resp, errMsg) {
+					$('.content').append('===============================第'+p+'页======================================<br />');
+					$('.content').append(errMsg);
+					$('.content').append('-------------------------------------------------------------------------------<br /><br />');
+				}
+			});
+			
+			// 异步处理
+//			$.post('{:U("index/sql")}', {page:p}, function(data){
+//				$('.content').append('===============================第'+p+'页======================================<br />');
+//				if (data.result != null) {
+//					$('.content').append(data.result.message);
+////					for (var i=0; i < data.result.length; i ++) {						
+////						var d = data.result[i];
+////						$('.content').append('dv==>>'+JSON.stringify(d.dv)+'<br/>');
+////						$('.content').append('result==>>'+JSON.stringify(d.result)+'<br/>');
+////						$('.content').append('user==>>'+JSON.stringify(d.user)+'<br/>');
+//						$('.content').append('-------------------------------------------------------------------------------<br /><br />');
+////					}
+//				} else {
+//					$('.content').append('请求失败，未返回数据<br />');	
+//				}	
+//				curPage = parseInt(curPage) + 1;;		
+//			})
+		}
+		
+		var tid = null;
+		$('#start').click(function(){
+			if ($(this).attr('data-op') == 'start') {
+				$(this).attr('data-op', 'end');
+				$(this).val('点击按钮停止转化数据');
+				tid = setInterval(function(){
+					if (parseInt(curPage) < parseInt(maxPage)) {
+						changePage(curPage);
+					} else {
+						$('.content').prepend('<span style="color:red;">转换数据已经完成</span><br />');
+						$('.content').prepend('===============================数据转化结果已经出来======================================<br />');
+						clearInterval(tid);	
+						$('#start').attr('data-op', 'start');
+						$('#start').val('点击按钮开始转化数据');
+					}
+				},2000);	
+			} else {
+				$(this).attr('data-op', 'start');
+				$(this).val('点击按钮开始转化数据');
+				if (tid != null) {
+					clearInterval(tid);	
+				}
+			}
+		})
+		
+		// 初始化翻页
+//		constructionPage('.list-page', 1, '{$page_count}', changePage, true);		
+	</script>
+<include file="Common/footer" />

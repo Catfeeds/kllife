@@ -1,0 +1,880 @@
+<include file="Common/header" />
+
+	<!-- css Reset -->
+
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/cssreset.css">
+
+	<!-- 轮播样式 -->
+
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/slide.css">
+
+	<!-- 公共样式 -->
+
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/common.css">
+
+	<!-- 私有样式 -->
+
+	<link rel="stylesheet" href="__PUBLIC__/home/css/list.css">
+
+	<!-- echo -->
+
+	<script src="__PUBLIC__/home/common/js/echo.min.js"></script>
+
+	<script>
+
+		//echo
+
+		echo.init({
+
+		    offset: 0, //离可视区域多少像素的图片可以被加载
+
+		    throttle: 0 //图片延迟多少毫秒加载
+
+		});
+
+	</script>
+
+	<!--[if lt IE 9]>
+
+		<script>
+
+			(function() {
+
+				if (! 
+
+					/*@cc_on!@*/
+
+				0) return;
+
+				var e = "abbr, article, aside, audio, canvas, datalist, details, dialog, eventsource, figure, footer, header, hgroup, mark, menu, meter, nav, output, progress, section, time, video".split(', ');
+
+				var i= e.length;
+
+				while (i--){
+
+					document.createElement(e[i])
+
+				} 
+
+			})() ;
+
+		</script>
+
+    	<script src="../common/js/html5shiv.min.js"></script>
+
+    <![endif]-->
+
+    
+
+    <style type="text/css">
+
+    	.btn-line {float: right; width: 90px; height: 36px; background-size: 100% 100%; border-color: #aaaa55;}
+
+    	body { background-color:#f3f5f6; }
+		
+		.commodity-menu { width: 100%; padding: 20px; background-color: #fff; }
+
+		#content { width: 100%; margin-top: 27px; }
+				
+		.headroom--not-top { box-shadow: 0 0 0 #fff; }
+		
+		.single-row-describe-top { height: 243px; }
+		
+		.single-row-describe-bottom { height: 37px; line-height: 37px; }
+		
+		.test { padding: 0; }
+		
+		.single-row-qz { position: absolute; top: 10px; right: 223px; width:40px; }
+		.single-row-qz input { width:40px; height:27px; }			
+		.copy-line { padding: 6px 12px; font-size: 13px; font-weight: normal; line-height: 1; text-align: center; background-color: #eeeeee; border: 1px solid #e4e4e4; position: absolute; right:91px; top:10px; width:80px; }
+		.export-batch { padding: 6px 12px; font-size: 13px; font-weight: normal; line-height: 1; text-align: center; background-color: #eeeeee; border: 1px solid #e4e4e4; position: absolute; right:10px; top:10px; width:80px; }
+    </style>
+
+    
+
+	<!-- 主要内容 -->
+
+	<div id="content">
+
+		<!-- 商品菜单 -->
+
+		<div class="commodity-menu">
+
+			<div class="row">					
+
+				<div class="col-md-1">
+
+					<div class="form-group">
+
+						<label class="control-label" for="line_id">产品编号</label> <!--data-validate="required"-->
+
+						<input class="form-control" name="line_id" id="line_id" placeholder="请输入产品的编号" />
+
+					</div>
+
+				</div>				
+
+				<div class="col-md-5">
+
+					<div class="form-group">
+
+						<label class="control-label" for="full_name">产品标题</label> <!--data-validate="required"-->
+
+						<input class="form-control" name="full_name" id="full_name" placeholder="请输入产品的标题" />
+
+					</div>
+
+				</div>
+
+				
+
+				<div class="col-md-6">
+
+					<div class="form-group">
+
+						<label class="control-label" for="second_name">产品副标题</label> <!--data-validate="required"-->
+
+						<input class="form-control" name="second_name" id="second_name" placeholder="请输入产品的副标题" />
+
+					</div>
+
+				</div>					
+
+			</div>
+
+			<div class="row">	
+				
+				<if condition="$admin['station_id_data']['key'] heq 'main'">
+
+				<div class="col-md-2">						
+
+					<div class="form-group">
+
+						<label class="control-label" for="station_type">站点类型</label>
+
+						<input class="form-control" type="text" name="station_type" id="station_type" />
+
+					</div>							
+
+				</div>	
+				
+				</if>
+
+				<div class="col-md-2">
+
+					<div class="form-group">
+
+						<label class="control-label" for="start_time">开始日期</label>
+
+						<input class="form-control datepicker" name="start_time" id="start_time" data-start-view="1"  data-start-date="0d" placeholder="请选择开始日期" data-format="yyyy-mm-dd"  />
+
+					</div>
+
+				</div>
+
+				
+
+				<div class="col-md-2">
+
+					<div class="form-group">
+
+						<label class="control-label" for="end_time">截止日期</label>
+
+						<input class="form-control datepicker" name="end_time" id="end_time" data-start-view="1"  data-start-date="+1d" placeholder="请选择结束日期" data-format="yyyy-mm-dd" />
+
+					</div>
+
+				</div>	
+
+				<div class="col-md-2">						
+
+					<div class="form-group">
+
+						<label class="control-label" for="member_type">允许参团人类型<span style="color:red;">(*必选)</span></label>
+
+						<input class="form-control" type="text" name="member_type" id="member_type" />
+
+					</div>							
+
+				</div>	
+
+				<div class="col-md-2">
+
+					<div class="form-group">						
+
+						<label class="control-label" for="pay_type">付款方式<span style="color:red;">(*必选)</span></label>
+
+						<input class="form-control" type="text" name="pay_type" id="pay_type" />						
+
+					</div>
+
+				</div>	
+
+				<div class="col-md-2">						
+
+					<div class="form-group">
+
+						<label class="control-label" for="trip_include">线路包含</label>
+
+						<input class="form-control" type="text" name="trip_include" id="trip_include" />
+
+					</div>							
+
+				</div>		
+
+			</div>
+
+			
+
+			<div class="row">
+
+				<div class="col-md-2">						
+
+					<div class="form-group">
+
+						<label class="control-label" for="manager_admin">负责经理</label>
+
+						<input class="form-control" type="text" name="manager_admin" id="manager_admin" />
+
+					</div>							
+
+				</div>		
+
+						
+
+				<div class="col-md-2">						
+
+					<div class="form-group">
+
+						<label class="control-label" for="operator_admin">负责计调</label>
+
+						<input class="form-control" type="text" name="operator_admin" id="operator_admin" />
+
+					</div>							
+
+				</div>										
+
+			</div>	
+
+			
+
+			<div class="row">
+
+				<div class="col-md-6">						
+
+					<div class="form-group">
+
+						<label class="control-label" for="theme_type">旅行主题</label>
+
+						<input class="form-control" type="text" id="theme_type" />
+
+					</div>							
+
+				</div>	
+
+				
+
+				<div class="col-md-6">						
+
+					<div class="form-group">
+
+						<label class="control-label" for="play_type">体验内容</label>
+
+						<input class="form-control" type="text" id="play_type" />
+
+					</div>							
+
+				</div>		
+
+			</div>			
+
+			
+
+				<div class="row">	
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" for="assembly_point">集合地点</label>
+							<input class="form-control" type="text" name="assembly_point" id="assembly_point" />
+						</div>
+					</div>	
+								
+					<div class="col-md-6">
+						<div class="form-group">				
+							<label class="control-label" for="dismiss_place">散团地点</label>
+							<input class="form-control" type="text" id="dismiss_place" />							
+						</div>
+					</div>							
+				</div>	
+
+			
+
+			<div class="row">
+
+				
+
+				<div class="col-md-6">
+
+					<div class="form-group">						
+
+						<label class="control-label" for="destination">目的地</label>
+
+						<input class="form-control" type="text" id="destination" />			
+
+					</div>
+
+				</div>	
+
+				
+
+				<div class="col-md-6">						
+
+					<div class="form-group">
+
+						<label class="control-label" for="trip_include">景点包含</label>
+
+						<input class="form-control" type="text" id="view_point" />
+
+					</div>							
+
+				</div>	
+
+			</div>
+
+			
+
+			<div class="row">					
+
+				<div class="col-md-6">						
+
+					<div class="form-group">
+
+						<label class="control-label" for="hotel_type">酒店类别</label>
+
+						<input class="form-control" type="text" id="hotel_type" />
+
+					</div>							
+
+				</div>										
+
+						
+
+				<div class="col-md-6">						
+
+					<div class="form-group">
+
+						<label class="control-label" for="trip_month">出行月份</label>
+
+						<input class="form-control" type="text" id="trip_month" />
+
+					</div>							
+
+				</div>	
+
+			</div>
+			
+			<button class="btn btn-success test find" style="padding: 5px 5px;">查找产品</button>
+			<button class="btn btn-success test clear" style="padding: 5px 5px;">重置条件</button>
+			<button class="btn btn-warning test update_cache" style="padding: 5px 5px;" data-set="pc_home_index" data-op="=">更新缓存</button>
+			<br /><span style="color: #b90000">线路有改动的时候记得更新缓存，以防主站缓存内容不能正常更新</span>
+		</div>
+
+		<div class="hidden_ctrl template_line" data-id="">
+			<div class="single-row-content">
+				<div class="single-row-img">
+					<img src="" alt="">
+				</div>
+				<div class="single-row-describe">
+					<div class="single-row-describe-top">
+						<if condition="check_grant('line_sort') eq true">
+							<div class="single-row-qz">
+								<div class="input-group">
+									<input class="sort" type="text" maxlength="4" class="form-control no-right-border form-focus-purple">
+									<div class="input-group-addon">
+										<i>权重</i>
+									</div>
+								</div>													
+							</div>
+						</if>
+						<a type="button" class="btn input-group-addon copy-line">产品复制</a>
+						<a type="button" class="btn input-group-addon export-batch">导出批次</a>
+						<h4 class="title"></h4>
+						<h5 class="subheading"></h5>
+						<span class="send_word"></span>
+						<p>
+							<u class="assembly">集合地点：</u>
+							<u class="batch">批次：全年0期</u>
+							<u class="click_count">点击量：0次</u>
+						</p>
+						<p>
+							<u class="destination">目的地：</u>
+							<u class="station">站点：</u>
+						</p>
+						<div class="single-row-describe-price">
+							<h6><s class="price">当前元</s><strong class="cut_price"></strong>元起</h6>
+						</div>
+						<span class="travel_date">旅行时间：</span>
+					</div>
+					<div class="single-row-describe-bottom">
+						<button class="btn btn-success test btn-line preview">预览</button>
+						<if condition="check_grant('line_edit') eq true">
+							<button class="btn btn-success test btn-line info">编辑</button>
+						</if>						
+						<if condition="$admin[account] heq 'admin'">
+							<button class="btn btn-success test btn-line distribute">分销</button>
+						</if>
+						<if condition="check_grant('line_online') eq true">
+							<button class="btn btn-warning test btn-line online">上线</button>
+						</if>
+						<if condition="check_grant('line_hot_recommend_leader') eq true">
+							<button class="btn btn-warning test btn-line leader_recommend">高性价比</button>
+							<button class="btn btn-warning test btn-line recommend">极致体验</button>
+							<button class="btn btn-warning test btn-line hot">全网爆款</button>
+						</if>
+					</div>
+				</div>
+			</div>
+		</div>			
+		<!-- 列表菜单 -->
+		<style type="text/css">
+			.single-row {display: block;}
+		</style>
+		<div class="list-menu">
+			<volist id="line" name="lines">
+				<div class="single-row" data-id="{$line.id}">
+					<div class="single-row-content">
+						<div class="single-row-img">
+							<img src="{$line.img1}" alt="">
+						</div>
+						<div class="single-row-describe">
+							<div class="single-row-describe-top">
+								<if condition="check_grant('line_sort') eq true">
+									<div class="single-row-qz">
+										<div class="input-group">
+											<input class="sort" type="text" maxlength="4" value="{$line.sort}" class="form-control no-right-border form-focus-purple">
+											<div class="input-group-addon">
+												<i>权重</i>
+											</div>
+										</div>									
+									</div>
+								</if>
+								<a type="button" class="btn input-group-addon copy-line">产品复制</a>
+								<a type="button" class="btn input-group-addon export-batch">导出批次</a>
+								<h4 class="title">{$line.title}(id:{$line.id})</h4>
+								<h5 class="subheading">{$line.subheading}</h5>
+								<span class="send_word">{$line.send_word_show}</span>
+								<p>
+									<u class="assembly">集合地点：{$line.assembly_point_show_text}</u>
+									<u class="batch">批次：全年{:count($line['batchs'])}期</u>
+									<u class="click_count">点击量：{$line['click_count']}次</u>
+								</p>
+								<p>
+									<u class="destination">目的地：{$line.destination_show_text}</u>
+									<u class="station">站点：{$line['station_show']}</u>
+								</p>
+								<div class="single-row-describe-price">
+									<h6>
+										<s class="price">{$line.start_price_adult}元</s>
+										<strong class="cut_price">{$line.start_price_adult}</strong>元起
+									</h6>
+								</div>
+								<span class="travel_date">旅行时间： {$line.start_time}&nbsp;至&nbsp;{$line.end_time}</span>
+							</div>
+							<div class="single-row-describe-bottom">
+								<button class="btn btn-success test btn-line preview">预览</button>
+								<if condition="check_grant('line_edit') eq true">
+									<if condition="$line.lock eq 1">
+										<button class="btn btn-success test btn-line info">已锁定</button>
+									<else />
+										<button class="btn btn-success test btn-line info">编辑</button>
+									</if>
+								</if>
+								<if condition="$line.extra eq 0 and $admin.account eq 'admin'">
+									<if condition="$line.distribute eq 1">
+										<button class="btn btn-warning test btn-line distribute">分销</button>
+									<else />
+										<button class="btn btn-gray test btn-line distribute">分销</button>
+									</if>
+								</if>								
+								<if condition="check_grant('line_online') eq true">
+									<if condition="$line.online eq 1">
+										<button class="btn btn-warning test btn-line online">下架</button>
+									<else />
+										<button class="btn btn-gray test btn-line online">上架</button>
+									</if>
+								</if>
+								<if condition="check_grant('line_hot_recommend_leader') eq true">
+									<if condition="$line.leader_recommend eq 1">
+										<button class="btn btn-warning test btn-line leader_recommend">高性价比</button>
+									<else />
+										<button class="btn btn-gray test btn-line leader_recommend">高性价比</button>
+									</if>
+									<if condition="$line.recommend eq 1">
+										<button class="btn btn-warning test btn-line recommend">极致体验</button>
+									<else />
+										<button class="btn btn-gray test btn-line recommend">极致体验</button>
+									</if>
+									<if condition="$line.hot eq 1">
+										<button class="btn btn-warning test btn-line hot">全网爆款</button>
+									<else />
+										<button class="btn btn-gray test btn-line hot">全网爆款</button>
+									</if>
+								</if>
+							</div>
+						</div>
+					</div>
+				</div>			
+			</volist>
+		</div>
+
+		<!-- 翻页 -->
+		<div class="list-page" data-page-count="{$page_count}" data-page-index="1"></div>
+
+	</div>
+
+	
+
+	<script src="__PUBLIC__/home/js/page.js"></script>
+	
+	<script type="text/javascript">
+		// 查找线路
+		function fireFindLine() {
+			var pageIndex = $('.list-page').attr('data-page-index');
+			findLine(pageIndex);
+		}
+	
+		$(document).ready(function(){	
+			// 初始化条件下拉列表		
+			var ds = {tab:'station_info', show_col:'name'}
+			bindSelect2DropMenu($('#station_type'), ds, '选择产品所属的站点', false, true);
+			bindTypeDataDropMenu($('#member_type'), 'line_member_type', '选择产品的参团人类型');
+			bindTypeDataDropMenu($('#pay_type'), 'line_pay_type', '选择产品的付款方式');	
+			bindTypeDataDropMenu($('#trip_include'), 'line_trip_include', '选择产品的线路包含硬件设施', true, false, true);
+			bindAdminDropMenu($('#manager_admin'), '', '选择产品的负责经理');
+			bindAdminDropMenu($('#operator_admin'), 'operator', '选择产品的负责计调');
+			bindTypeDataDropMenu($('#theme_type'), 'line_theme', '选择产品的旅行主题,可输入内容筛选', false, false, true);
+			bindTypeDataDropMenu($('#play_type'), 'line_play_type', '选择产品所提供的体验内容,可输入内容筛选', true, false, true);
+			bindTypeDataDropMenu($('#assembly_point'), 'line_assembly_point', '选择产品的集合地点,可输入内容筛选', true, true, true);
+			bindTypeDataDropMenu($('#dismiss_place'), 'line_dismiss_place', '选择产品的散团地点,可输入内容筛选', true, true, true);
+			bindTypeDataDropMenu($('#destination'), 'line_destination', '选择产品到达的目的地,可输入内容筛选', true, false, true);
+			bindTypeDataDropMenu($('#view_point'), 'line_view_point', '选择产品包含的项目景点,可输入内容筛选', true, false, true);
+			bindTypeDataDropMenu($('#hotel_type'), 'line_hotel_type', '选择产品所提供的住宿特色,可输入内容筛选', true, false, true);
+			bindTypeDataDropMenu($('#trip_month'), 'month', '选择产品所在的出行月份,可输入内容筛选', false, false, true);
+			
+						
+			// 查找产品
+			$('.find').click(fireFindLine);
+			// 绑定快捷查找
+			bindKeyUp($('html,body'),fireFindLine);
+			
+			// 查找产品
+			$('.clear').click(clearCondition);
+			
+			// 设置产品信息
+			$('.btn-line').click(setLine);			
+		});		
+		
+		// 获取基本信息
+		function getConditions() {
+			var cdstr = 'id|'+$('#line_id').val()+'|';
+				cdstr += 'title|'+$('#full_name').val()+'|';
+				cdstr += 'subheading|'+$('#second_name').val()+'|';
+				cdstr += 'start_time|'+$('#start_time').val()+'|';
+				cdstr += 'end_time|'+$('#end_time').val()+'|';
+				if ($('#station_type').length > 0) {
+					cdstr += 'station|'+getSelect2Value('#station_type',['id','key','name'])+'|';	
+				}
+				cdstr += 'member_type|'+getSelect2Value('#member_type')+'|';
+				cdstr += 'allow_pay_type|'+getSelect2Value('#pay_type')+'|';
+				cdstr += 'trip_include|'+getSelect2Value('#trip_include')+'|';
+				cdstr += 'manager_admin|'+getSelect2Value('#manager_admin',['id','account'])+'|';
+				cdstr += 'operator_admin|'+getSelect2Value('#operator_admin',['id','account'])+'|';
+				cdstr += 'theme_type|'+getSelect2Value('#theme_type')+'|';
+				cdstr += 'play_type|'+getSelect2Value('#play_type')+'|';
+				cdstr += 'dismiss_place|'+getSelect2Value('#dismiss_place')+'|';
+				cdstr += 'assembly_point|'+getSelect2Value('#assembly_point')+'|';
+				cdstr += 'destination|'+getSelect2Value('#destination')+'|';
+				cdstr += 'view_point|'+getSelect2Value('#view_point')+'|';
+				cdstr += 'hotel_type|'+getSelect2Value('#hotel_type')+'|';
+				cdstr += 'trip_month|'+getSelect2Value('#trip_month');
+			return cdstr;
+		}
+		
+		// 初始化页码数据
+		constructionPage('.list-page', 1, '{$page_count}', findLine, true);
+		
+		// 查找产品
+		function findLine(pageIndex) {
+			var jsonData = {
+				page: pageIndex - 1,
+				cds: getConditions(),
+			}
+			showLoading(true);
+			$.post('{:U("line/list")}', jsonData, function(data){
+				showLoading(false);
+				if (data.result.errno == 0) {
+					$('.list-menu').empty();
+					if (data.ds != null && data.ds != 'undefined') {
+						var show_log = '';
+						for (var i=0; i < data.ds.length; i++) {
+							var d = data.ds[i];
+							show_log += '/'+d.id;
+							var lineObj = $('.template_line').clone(true);
+							$(lineObj).removeClass('hidden_ctrl');
+							$(lineObj).removeClass('template_line');
+							$(lineObj).addClass('single-row');
+							$(lineObj).attr('data-id', d.id);
+							
+							$(lineObj).find('img').attr('src',d.img1);
+							$(lineObj).find('.sort').val(d.sort);
+							$(lineObj).find('.title').html(d.title+'(id:'+d.id+')');
+							$(lineObj).find('.subheading').html(d.subheading);
+							$(lineObj).find('.send_word').html(d.send_word_show);
+							$(lineObj).find('.assembly').html('集合地点：'+d.assembly_point_show_text);
+							var batchCount = d.batchs==null ? 0 : $(d.batchs).length;
+							$(lineObj).find('.batch').html('批次：全年'+batchCount+'期');
+							var clickCount = d.click_count==null ? 0 : d.click_count;
+							$(lineObj).find('.click_count').html('点击量：'+clickCount+'次');
+							$(lineObj).find('.destination').html('目的地：'+d.destination_show_text);
+							$(lineObj).find('.station').html('站点：'+d.station_show);
+							$(lineObj).find('.price').html(d.start_price_adult+'元');
+							$(lineObj).find('.cut_price').html(d.start_price_adult+'元起');
+							$(lineObj).find('.travel_date').html('旅行时间： '+d.start_time+'&nbsp;至&nbsp;'+d.end_time);
+							$(lineObj).find('.info').html(d.lock == 1 ? '已锁定' : '编辑');
+							if (d.extra == 1) {
+								$(lineObj).find('.distribute').remove();
+							} else {
+								if (d.distribute == 1) {
+									$(lineObj).find('.distribute').removeClass('btn-gray');
+									$(lineObj).find('.distribute').addClass('btn-warning');
+								} else {
+									$(lineObj).find('.distribute').removeClass('btn-warning');
+									$(lineObj).find('.distribute').addClass('btn-gray');
+								}
+							}
+							if (d.hot == 1) {
+								$(lineObj).find('.hot').removeClass('btn-gray');
+								$(lineObj).find('.hot').addClass('btn-warning');
+							} else {
+								$(lineObj).find('.hot').removeClass('btn-warning');
+								$(lineObj).find('.hot').addClass('btn-gray');
+							}
+							if (d.recommend == 1) {
+								$(lineObj).find('.recommend').removeClass('btn-gray');
+								$(lineObj).find('.recommend').addClass('btn-warning');
+							} else {
+								$(lineObj).find('.recommend').removeClass('btn-warning');
+								$(lineObj).find('.recommend').addClass('btn-gray');
+							}
+							if (d.leader_recommend == 1) {
+								$(lineObj).find('.leader_recommend').removeClass('btn-gray');
+								$(lineObj).find('.leader_recommend').addClass('btn-warning');
+							} else {
+								$(lineObj).find('.leader_recommend').removeClass('btn-warning');
+								$(lineObj).find('.leader_recommend').addClass('btn-gray');
+							}
+							if (d.online == 1) {
+								$(lineObj).find('.online').removeClass('btn-gray');
+								$(lineObj).find('.online').addClass('btn-warning');
+								$(lineObj).find('.online').html('下架');
+							} else {
+								$(lineObj).find('.online').removeClass('btn-warning');
+								$(lineObj).find('.online').addClass('btn-gray');
+								$(lineObj).find('.online').html('上架');
+							}																	
+							$('.list-menu').append(lineObj);
+						}						
+					}
+					constructionPage('.list-page', pageIndex, data.page_count, findLine, false);
+				} else {
+					console.log(data.result.message);
+				}
+			});
+		}
+		
+		// 重置查询条件
+		function clearCondition() {
+			$('#line_id').val('');
+			$('#full_name').val('');
+			$('#second_name').val('');
+			$('#adult_price').val('');
+			$('#child_price').val('');
+			$('#start_time').val('');
+			$('#end_time').val('');
+			setSelect2Value('#member_type', null);
+			setSelect2Value('#pay_type', null);
+			setSelect2Value('#trip_include', null);
+			setSelect2Value('#manager_admin', null);
+			setSelect2Value('#operator_admin', null);
+			setSelect2Value('#theme_type', null);
+			setSelect2Value('#play_type', null);
+			setSelect2Value('#dismiss_place', null);
+			setSelect2Value('#assembly_point', null);
+			setSelect2Value('#destination', null);
+			setSelect2Value('#view_point', null);
+			setSelect2Value('#hotel_type', null);
+			setSelect2Value('#trip_month', null);
+			var pageIndex = $('.page-list').attr('data-page-index');
+			findLine(pageIndex);
+		}
+				
+		// 设置产品信息
+		function setLine() {
+			var btnObj = $(this);
+			var line_id = $(btnObj).closest('.single-row').attr('data-id');
+			
+			var jsonData = {
+				op_type:'edit', 
+				id:line_id
+			}
+			var changestate = 0;
+			if ($(btnObj).hasClass('online')) {
+				jsonData['online'] = $(btnObj).hasClass('btn-gray') == false ? 0 : 1;
+				changestate = jsonData['online'];
+			} else if ($(btnObj).hasClass('leader_recommend')) {
+				jsonData['leader_recommend'] = $(btnObj).hasClass('btn-gray') == false ? 0 : 1;
+				changestate = jsonData['leader_recommend'];
+			} else if ($(btnObj).hasClass('recommend')) {
+				jsonData['recommend'] = $(btnObj).hasClass('btn-gray') == false ? 0 : 1;
+				changestate = jsonData['recommend'];
+			}  else if ($(btnObj).hasClass('hot')) {
+				jsonData['hot'] = $(btnObj).hasClass('btn-gray') == false ? 0 : 1;
+				changestate = jsonData['hot'];
+			} else if ($(btnObj).hasClass('distribute')) {
+				jsonData['distribute'] = $(btnObj).hasClass('btn-gray') == false ? 0 : 1;
+				changestate = jsonData['distribute'];
+			} else if ($(btnObj).hasClass('info')) {
+				if ($(btnObj).html() == '编辑') {
+					jsonData = {op_type :'lock', id:line_id};
+				} else {
+					jsonData = {op_type :'lock', unlock:1, id:line_id};
+				}
+				
+				var w = window.open();
+				$.post('{:U("line/create")}', jsonData, function(data){
+					if (data.jumpUrl != null) {
+						w.location = data.jumpUrl;
+					} else {
+						w.close();
+					}
+					if (data.result.errno != 0) {
+						toastr.error(data.result.message);
+					} else {
+						if (jsonData.unlock != null && jsonData.unlock != 'undefined') {
+							toastr.success(data.result.message);
+							$(btnObj).html('编辑');
+						} else {
+							toastr.success('线路已锁定');
+							$(btnObj).html('已锁定');
+						}
+					}
+				});	
+				return false;
+			} else if ($(btnObj).hasClass('preview')) {
+				var w = window.open();
+				$.post('{:U("line/create")}',{op_type:'preview', id:line_id},function(data){
+					if (data.result.errno != 0) {
+						toastr.error(data.result.message);
+					}
+					if (data.salt != null) {
+						w.location = 'http://kllife.com/home/index.php?s=/home/line/info/id/'+line_id+'/p/'+data.salt;
+					} else {
+						w.close();
+					}
+				});
+				return false;
+			} else {
+				return false;
+			}
+			
+			$.post('{:U("line/create")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (changestate == 1) {
+						$(btnObj).removeClass('btn-gray');	
+						$(btnObj).addClass('btn-warning');
+					} else {
+						$(btnObj).removeClass('btn-warning');	
+						$(btnObj).addClass('btn-gray');
+					}
+					if (jsonData.online != null) {
+						jsonData.online == 1 ? $(btnObj).html('下架') : $(btnObj).html('上架');
+					}
+				} else {
+					alert(data.message);
+				} 
+			});
+		}
+		
+		// 设置权重
+		$('.single-row-qz').find('.input-group-addon').click(function(){
+			var rootObj = $(this).closest('.single-row');
+			
+			if ($(rootObj).find('.sort').val() == '') {
+				toastr.warning('权重值不能为空');
+				return false;
+			}
+			
+			var jsonData = {
+				op_type: 'edit',
+				id: $(rootObj).attr('data-id'),
+				sort: $(rootObj).find('.sort').val(),
+			}
+			
+			$.post('{:U("line/create")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					toastr.success('权重已更新');
+				} else {
+					toastr.error(data.result.message);
+				}
+			})
+		})
+		
+		$('.copy-line').click(function(){
+			var lineId =  $(this).closest('.single-row').attr('data-id');
+			var jsonData = {
+				'op_type': 'line',
+				'line_id': lineId,
+			}
+			
+			showLoading(true);
+			$.post('{:U("line/copy")}', jsonData, function(data){
+				showLoading(false);
+				if (data.result.errno == 0) {
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}
+			});
+		});
+		
+		$('.export-batch').click(function(){
+			var lineId =  $(this).closest('.single-row').attr('data-id');
+			location.href = '{:U("line/export")}/type/batch/id/'+lineId;
+		});
+		
+	</script>
+
+	
+
+
+
+	<!-- 自绑定 -->
+
+	<script src="__PUBLIC__/home/common/js/showAndHide.js"></script>
+
+	<!-- 头部js -->
+
+	<script src="__PUBLIC__/home/common/js/headroom.js"></script>
+
+	<!-- 侧边栏&头部 -->
+
+	<script src="__PUBLIC__/home/common/js/aside-header.js"></script>
+
+	<!-- 轮播 -->
+
+	<script src="__PUBLIC__/home/js/unslider.min.js"></script>
+
+	<!-- 私有js -->
+
+	<script src="__PUBLIC__/home/js/list.js"></script>
+
+<include file="Common/footer" />

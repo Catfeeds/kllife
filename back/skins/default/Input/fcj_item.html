@@ -1,0 +1,337 @@
+<style type="text/css">
+	.row { margin-top:15px; }
+	.fitem-room { display: none; }
+</style>
+<!-- 添加数据类型 -->
+<div class="modal fade custom-width" id="gallery-fcj-item-modal" data-backdrop="static">
+	<div class="modal-dialog" style="width: 60%">
+		<div class="modal-content">
+			
+			<div class="modal-header">
+				<h4 class="modal-title">编辑价格项</h4>
+			</div>
+			
+			<div class="modal-body">
+				
+				<div class="row">
+					<div class="col-md-4 data_fitem_name">
+						<label class="control-label" for="data_fitem_name">名称：<span style="color:red;">(*必选)</span></label>
+						<input class="form-control" name="data_fitem_name" id="data_fitem_name" />
+					</div>
+													
+					<div class="col-md-4 data_fitem_type">
+						<label class="control-label" for="data_fitem_type">项特殊类型<span style="color:red;">(*必选)</span></label>
+						<input class="form-control" name="data_fitem_type" id="data_fitem_type" />				
+						<script type="text/javascript">
+							$(document).ready(function(){
+				
+								// 绑定切换价格项类型事件		
+								bindTypeDataDropMenu($('#data_fitem_type'), 'cj_item_type', '选择价格项类型', false, null, false, itemTypeChanged);
+										
+							});
+						</script>
+					</div>
+					<div class="col-md-4 data_fitem_stock">
+						<label class="control-label" for="data_fitem_stock">库存数量：</label>
+						<input class="form-control" name="data_fitem_stock" id="data_fitem_stock" type="number" placeholder="请输入价格项所剩的库存数量" />
+					</div>
+				</div>
+				<div class="row fitem-room">
+					<div class="col-md-2 data_fitem_room_area">
+						<label class="control-label" for="data_fitem_room_area">房间面积：</label>
+						<input class="form-control" name="data_fitem_room_area" id="data_fitem_room_area" type="number" />
+					</div>
+					<div class="col-md-2 data_fitem_window">
+						<label class="control-label" for="data_fitem_window">窗户数量：</label>
+						<input class="form-control" name="data_fitem_window" id="data_fitem_window" type="number" />
+					</div>
+					<div class="col-md-2 data_fitem_air">
+						<label class="control-label" for="data_fitem_air">空调数量：</label>
+						<input class="form-control" name="data_fitem_air" id="data_fitem_air" type="number" />
+					</div>
+					<div class="col-md-6 data_fitem_bed_type">
+						<label class="control-label" for="data_fitem_bed_type">床宽</label>
+						<script type="text/javascript">
+							$(document).ready(function(){		
+								bindTypeDataDropMenu($('#data_fitem_bed_type'), 'cj_bed_type', '选择房间包含的床铺类型', true, false, true);
+							});
+						</script>
+						<input class="form-control" name="data_fitem_bed_type" id="data_fitem_bed_type" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-1 form-group fitem-room data_fitem_wash_supplies">
+						<label class="control-label" for="data_fitem_free">洗漱用品</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fitem_wash_supplies" id="data_fitem_wash_supplies" />
+					</div>
+					<div class="col-md-1 form-group fitem-room data_fitem_bathroom_curtain">
+						<label class="control-label" for="data_fitem_bathroom_curtain">卫浴窗帘</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fitem_bathroom_curtain" id="data_fitem_bathroom_curtain" />
+					</div>
+					<div class="col-md-1 form-group fitem-room data_fitem_double_breakfast">
+						<label class="control-label" for="data_fitem_double_breakfast">双早</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fitem_double_breakfast" id="data_fitem_double_breakfast" />
+					</div>
+					<div class="col-md-1 form-group fitem-room data_fitem_append_bed">
+						<label class="control-label" for="data_fitem_append_bed">加床</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fitem_append_bed" id="data_fitem_append_bed" />
+					</div>
+					<div class="col-md-1 form-group fitem-room data_fitem_wifi">
+						<label class="control-label" for="data_fitem_wifi">WIFI</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fitem_wifi" id="data_fitem_wifi" />
+					</div>
+					<div class="col-md-1 form-group data_fitem_necessary">
+						<label class="control-label" for="data_fitem_necessary">必须项</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fitem_necessary" id="data_fitem_necessary" />
+					</div>
+					<div class="col-md-1 form-group data_fitem_free">
+						<label class="control-label" for="data_fitem_free">赠品</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fitem_free" id="data_fitem_free" />
+					</div>
+					<div class="col-md-1 form-group data_fitem_recycle">
+						<label class="control-label" for="data_fitem_recycle">回收物品</label><br />
+						<input type="checkbox" class="iswitch iswitch-secondary" name="data_fitem_recycle" id="data_fitem_recycle" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 data_fitem_beizhu">
+						<label class="control-label" for="data_fitem_beizhu">备注：</label>
+						<input class="form-control" name="data_fitem_beizhu" id="data_fitem_beizhu" />
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white btn-fitem-close" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-secondary btn-fitem-add">保存</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	// 价格项类型被选择
+	function itemTypeChanged(evt) {
+		if (evt.added != null) {
+			var sel_data = evt.added;
+			if (sel_data.type_key.indexOf('room') != -1) {
+				$('.fitem-room').css('display', 'block');
+				return false;
+			}
+		}		
+		$('.fitem-room').css('display', 'none');
+	}
+
+	function ModalFCJItem() {
+		this.root = $('#gallery-fcj-item-modal');
+		this.item_obj = null;
+		this.obj_type = null;
+		this.obj_id = null;
+		this.item_id = null;
+		this.callbackFunc = null;	
+		
+		// 绑定取消事件
+		$(this.root).find('.btn-fitem-close').bind('click', {obj:this}, this.cancelItem);
+	}
+	
+	ModalFCJItem.prototype.showModal = function(itemObj, objType, objId, itemId, confirmCallBack){
+		this.item_obj = itemObj;
+		this.obj_type = objType;
+		this.obj_id = objId;
+		this.item_id = itemId;
+		this.callbackFunc = confirmCallBack;
+		
+		// 显示面板
+		$(this.root).modal('show');	
+		
+		// 填充价格项数据
+		this.fillItem();	
+				
+		// 绑定确认事件
+		$(this.root).find('.btn-fitem-add').unbind();
+		$(this.root).find('.btn-fitem-add').bind('click', {obj:this}, this.confirmItem);
+	}
+	
+	ModalFCJItem.prototype.clearItem = function (){
+		this.item_obj = null;
+		this.item_id = null;
+		this.callbackFunc = null;
+					
+		var modalRootObj = this.root;
+		$(modalRootObj).attr('data-id', '');												
+		// 名称
+		$(modalRootObj).find('.data_fitem_name input').val('');
+		// 特殊项类型			
+		setSelect2Value($(modalRootObj).find('#data_fitem_type'), null);							
+		// 库存
+		$(modalRootObj).find('.data_fitem_stock input').val('0');
+		// 房间特殊类型				
+		$(modalRootObj).find('.fitem-room').css('display', 'none');												
+		// 房间面积
+		$(modalRootObj).find('.data_fitem_room_area input').val('');					
+		// 窗户数量
+		$(modalRootObj).find('.data_fitem_window input').val('');
+		// 空调数量
+		$(modalRootObj).find('.data_fitem_air input').val('');							
+		// 床宽
+		setSelect2Value($(modalRootObj).find('#data_fitem_bed_type'), null);
+		
+		// 洗漱用品
+		$(modalRootObj).find('#data_fitem_wash_supplies').prop('checked', false).trigger('change');
+		// 卫浴窗帘
+		$(modalRootObj).find('#data_fitem_bathroom_curtain').prop('checked', false).trigger('change');					
+		// 双早
+		$(modalRootObj).find('#data_fitem_double_breakfast').prop('checked', false).trigger('change');					
+		// 加床
+		$(modalRootObj).find('#data_fitem_append_bed').prop('checked', false).trigger('change');					
+		// WIFI
+		$(modalRootObj).find('#data_fitem_wifi').prop('checked', false).trigger('change');
+		
+		// 必须项
+		$(modalRootObj).find('#data_fitem_necessary').prop('checked', false).trigger('change');				
+		// 赠品
+		$(modalRootObj).find('#data_fitem_free').prop('checked', false).trigger('change');				
+		// 回收物品
+		$(modalRootObj).find('#data_fitem_recycle').prop('checked', false).trigger('change');					
+		// 库存
+		$(modalRootObj).find('.data_fitem_beizhu input').val('');
+	}
+	
+	ModalFCJItem.prototype.fillItem = function() {		
+		var thisObj = this;
+		if (this.item_id != null) {
+			$.post('{:U("financial/item")}', {op_type: 'find', cdtype:2, cdsstr:'id|'+this.item_id}, function(data){
+				if (data.ds != null) {					
+					var d = data.ds;			
+					var modalRootObj = thisObj.root;
+					$(modalRootObj).attr('data-id', d.id);															
+					// 名称
+					$(modalRootObj).find('.data_fitem_name input').val(d.name);					
+					// 特殊项类型			
+					setSelect2Value($(modalRootObj).find('#data_fitem_type'), d.type);									
+					// 库存
+					$(modalRootObj).find('.data_fitem_stock input').val(d.stock);
+					
+					if (d.type != null && d.type != 'undefined' && d.type != '[]' && d.type != '{}') {
+						var typeData = $.parseJSON(d.type);	
+						if (typeData.type_key == 'cj_item_type_room') {						
+							$(modalRootObj).find('.fitem-room').css('display', 'block');												
+							// 房间面积
+							$(modalRootObj).find('.data_fitem_room_area input').val(d.room_area);					
+							// 窗户数量
+							$(modalRootObj).find('.data_fitem_window input').val(d.window);					
+							// 空调数量
+							$(modalRootObj).find('.data_fitem_air input').val(d.air_conditioner);							
+							// 床宽
+							setSelect2Value($(modalRootObj).find('#data_fitem_bed_type'),d.bed_width);
+							
+							// 洗漱用品
+							$(modalRootObj).find('#data_fitem_wash_supplies').prop('checked', d.wash_supplies == 1 ? true : false).trigger('change');
+							// 卫浴窗帘
+							$(modalRootObj).find('#data_fitem_bathroom_curtain').prop('checked', d.bathroom_curtain == 1 ? true : false).trigger('change');					
+							// 双早
+							$(modalRootObj).find('#data_fitem_double_breakfast').prop('checked', d.double_breakfast == 1 ? true : false).trigger('change');					
+							// 加床
+							$(modalRootObj).find('#data_fitem_append_bed').prop('checked', d.append_bed == 1 ? true : false).trigger('change');					
+							// WIFI
+							$(modalRootObj).find('#data_fitem_wifi').prop('checked', d.wifi == 1 ? true : false).trigger('change');
+										
+						} else {
+							$(modalRootObj).find('.item-room').addClass('hidden_ctrl');
+						}
+					} else {
+						$(modalRootObj).find('.item-room').addClass('hidden_ctrl');
+					}
+					
+					// 必须项
+					$(modalRootObj).find('#data_fitem_necessary').prop('checked', d.necessary == 1 ? true : false).trigger('change');				
+					// 赠品
+					$(modalRootObj).find('#data_fitem_free').prop('checked', d.is_free == 1 ? true : false).trigger('change');
+					// 回收物品
+					$(modalRootObj).find('#data_fitem_recycle').prop('checked', d.is_recycle == 1 ? true : false).trigger('change');					
+					// 库存
+					$(modalRootObj).find('.data_fitem_beizhu input').val(d.beizhu);
+				}
+			});
+		}
+	}
+	
+	// 确认添加/修改数据
+	ModalFCJItem.prototype.confirmItem = function(e){
+		if (e.data == null || e.data.obj == null) {
+			console.log('未绑定对象，不能触发事件');
+			return false;
+		}
+					
+		var param = {
+			'op_type': 'save',
+			'obj_type': e.data.obj.obj_type,
+			'obj_id': e.data.obj.obj_id,
+			'id': e.data.obj.item_id,
+			'name': $(e.data.obj.root).find('#data_fitem_name').val(),
+			'type': getSelect2Value($(e.data.obj.root).find('#data_fitem_type')),
+			'stock': $(e.data.obj.root).find('#data_fitem_stock').val(),
+			'room_area': $(e.data.obj.root).find('#data_fitem_room_area').val(),
+			'window': $(e.data.obj.root).find('#data_fitem_window').val(),
+			'air_conditioner': $(e.data.obj.root).find('#data_fitem_air').val(),
+			'bed_width': getSelect2Value($(e.data.obj.root).find('#data_fitem_bed_type')),
+			'wash_supplies': $(e.data.obj.root).find('#data_fitem_wash_supplies').prop('checked') ? 1 : 0,
+			'bathroom_curtain': $(e.data.obj.root).find('#data_fitem_bathroom_curtain').prop('checked') ? 1 : 0,
+			'double_breakfast': $(e.data.obj.root).find('#data_fitem_double_breakfast').prop('checked') ? 1 : 0,
+			'append_bed': $(e.data.obj.root).find('#data_fitem_append_bed').prop('checked') ? 1 : 0,
+			'wifi': $(e.data.obj.root).find('#data_fitem_wifi').prop('checked') ? 1 : 0,
+			'necessary': $(e.data.obj.root).find('#data_fitem_necessary').prop('checked') ? 1 : 0,
+			'is_free': $(e.data.obj.root).find('#data_fitem_free').prop('checked') ? 1 : 0,
+			'is_recycle': $(e.data.obj.root).find('#data_fitem_recycle').prop('checked') ? 1 : 0,
+			'beizhu': $(e.data.obj.root).find('#data_fitem_beizhu').val(),
+		}
+		
+//		console.log(e.data.obj.obj_type +'/'+ e.data.obj.obj_id);
+//		console.log(JSON.stringify(param));
+		if (e.data.obj.obj_type == null || e.data.obj.obj_id == null || param.name == '' || param.type == '') {
+			toastr.warning('保存消费项的参数不足，可能缺少资源类型、资源对象、消费项名称、消费项类型其中的一项，所以价格不能保存');
+			return false;
+		}
+		
+		var callbackFunc = e.data.obj.callbackFunc;
+		var itemObj = e.data.obj.item_obj;		
+		$.post('{:U("financial/item")}', param, function(data){
+			if (data.result != null) {
+				if (data.extra_result != null) {
+					if (data.result.errno != 0 && data.extra_result.errno != 0){
+						toastr.error(data.result.message + '<br />' + data.extra_result.message);
+						return false;	
+					}
+				} else {
+					if (data.result.errno != 0){
+						toastr.error(data.result.message);
+						return false;	
+					}	
+				}
+			}
+			
+			toastr.success('修改价格项成功!!!');
+			if (callbackFunc != 'undefined' && callbackFunc != null && typeof(callbackFunc) == 'function') {				
+				callbackFunc(itemObj, data.ds, data.op);
+			}
+		});
+		e.data.obj.hideModal();
+	}
+	
+	ModalFCJItem.prototype.hideModal = function() {
+		this.clearItem();
+		$(this.root).modal('hide');
+	}
+	
+	// 取消编辑项
+	ModalFCJItem.prototype.cancelItem = function(e) {
+		if (e.data == null || e.data.obj == null) {
+			console.log('未绑定对象，不能触发事件');
+			return false;
+		}
+		e.data.obj.hideModal();
+	}
+	
+</script>

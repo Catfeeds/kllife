@@ -1,0 +1,420 @@
+.index .tit{
+    position: relative;
+    width:1200px;
+    margin:0 auto;
+    padding:40px 0px 20px 25px
+}
+.index .tit p{
+    margin:0px;
+    padding-top:10px;
+}
+.index .tit p span{
+    display: inline-block;
+    padding-right:10px;
+}
+.index .tit .btn{
+    position: absolute;
+    right:0px;
+    bottom:20px;
+}
+.index .index-centent{
+    width:1200px;
+    margin:0 auto;
+    background: #fff;
+    padding:40px 0px;
+    margin-bottom:40px;
+    clear: both;
+}
+.index .index-centent .click span{
+    position: relative;
+}
+.index .index-centent .click span i{
+    position: absolute;
+    top:-10px;
+    left:65px;
+    color:#333;
+    cursor: pointer;
+}
+.index .index-centent .index-selection{
+    border-bottom:1px solid #ebebeb;
+}
+.index .index-centent .index-selection .selection{
+    position: relative;
+    width:1105px;
+    margin:auto;
+    margin-bottom:20px;
+}
+.index .index-centent .index-selection .selection .padding-top{
+    padding-top:10px;
+    padding-bottom:25px;
+}
+.index .index-centent .index-selection .selection .active{
+    background: #ff1c77;
+    color:#fff
+}
+.index .index-centent .index-selection .selection .btn-gray{
+    position: absolute;
+    top:0px;
+    right:0px;
+}
+.index .index-centent .selection-img{
+    width:1123px;
+    margin: auto;
+    min-height:950px;
+}
+.index .index-centent .selection-img .width{
+    position: relative;
+    float: left;
+    width:31.9%;
+    margin:18px 8px 0px;
+    height:215.41px;
+    border:5px solid #e0e2e7;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 100%;
+}
+.index .index-centent .selection-img .width.select_box{
+	border-color:#ff1c77;
+}
+
+.index .index-centent .selection-img .width .none{
+    height:400px;
+    background-position:center center;
+    background-size:auto 100%;
+    background-repeat:no-repeat;
+    background-color: #fff;
+    position:absolute;
+    top:-5px;
+    left:353px;
+    width:600px;
+    border:5px solid #e0e2e7;
+    z-index:10;
+    display: none;
+}
+.index .index-centent .selection-img div img{
+    margin:auto;
+}
+.index .index-centent .selection-img div i{
+    position: absolute;
+    bottom:10px;
+    right:10px;
+    color:#ff1c77;
+    font-size: 30px;
+    display: none;
+}
+.index .index-centent .selection-img div:hover{
+    border-color:#ff1c77;
+}
+.index .index-centent .page{
+    margin-top:40px;
+    width:1200px;
+    text-align: center;
+}
+.index .index-centent .page a{
+    text-decoration: none;
+    border:1px solid #ff1c77;
+    padding:4px 10px;
+    color:#ff1c77;
+    margin:0px 5px;
+}
+.index .index-centent .page span{
+    border:1px solid #ddd;
+    padding:4px 10px;
+    background: #ddd;
+    color:#fff;
+    margin:0px 5px;
+}
+.index .index-centent .page .current{
+    border:1px solid #ff1c77;
+    padding:4px 10px;
+    background: #ff1c77;
+    color:#fff;
+}
+
+.popup{
+    position: fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,.5);
+    font-size: 14px;
+    display: none;
+    z-index: 1000;
+}
+.popup .select-line{
+    position: fixed;
+    top:30%;
+    left:0px;
+    right:0px;
+    width:440px;
+    height:330px;
+    background: #fff;
+    margin: auto;
+    border-radius: 4px;
+    padding:20px 0px;
+}
+.popup .select-line .select-tit{
+    border-bottom:1px solid #e5e5e5;
+    padding:10px 20px 15px;
+    margin-bottom:40px;
+}
+.popup .select-line .content-width{
+    width:420px;
+    margin:auto;
+}
+.popup .select-line .content-width span{
+    display: inline-block;
+    border:1px solid #dcdcdc;
+    margin:0px 10px;
+    width:27.9%;
+    padding:10px 12px;
+    text-align: center;
+    text-align: -webkit-center;
+    margin-bottom:10px;
+    cursor: pointer;
+}
+.popup .select-line .content-width .active{
+    color:#fff;
+    background: #ff5151;
+    border-color: #ff5151;
+}
+.popup .select-line .select-tit i{
+    float: right;
+    cursor: pointer;
+}
+.popup .select-line .select-one{
+    overflow: hidden;
+    margin-bottom:10px;
+    padding:0px 20px;
+}
+.popup .select-line .select-one .left,.popup .select-line .select-one .right{
+    float: left;
+}
+.popup .select-line .select-one .left{
+    width:100px;
+    padding-top:10px;
+}
+.popup .select-line .select-one .right{
+    width:300px;
+}
+.popup .select-line .select-one .right select{
+    width:100%;
+    height:45px;
+}
+.popup .select-line .select-one .right .btn{
+    margin-top:30px;
+    margin-right:10px;
+}
+
+.index .index-centent .index-selection .selection .btn-orange-three{
+    position: absolute;
+    top:0px;
+    right:130px;
+}
+.index .index-centent .index-selection .selection .btn-orange-three1{
+    position: absolute;
+    top:0px;
+    right:0px;
+}
+.order-detail .tit .h1 span{
+    font-size: 12px;
+    color:#ff1c77;
+    cursor: pointer;
+}
+.index .index-centent .detail{
+    width:1115px;
+    margin: auto;
+    margin-top:30px;
+}
+.index .index-centent .detail .item{
+    margin-bottom:10px;
+}
+.index .index-centent .detail .item .item-tit{
+    position: relative;
+    background: #f5f5f5;
+    width:1105px;
+    height:50px;
+    line-height:55px;
+    padding:0px 35px;
+    cursor: pointer;
+    margin:0px 5px;
+}
+.index .index-centent .detail .item .item-tit .h2{
+    padding-right:85px;
+}
+.index .index-centent .detail .item .item-tit .h2{
+    padding-right:15px;
+}
+.index .index-centent .detail .item .item-tit .h2 .sm{
+    padding-left:20px;
+    font-size: 14px;
+}
+.index .index-centent .detail .item .item-tit .h2 .lg{
+    font-size: 30px;
+    margin-right:40px;
+}
+.index .index-centent .detail .item .item-tit .down{
+    line-height:40px;
+    float: right;
+    padding-right:0px;
+}
+.index .index-centent .detail .item .item-tit .down span{
+    color:#ff1c77;
+}
+.index .index-centent .detail .item .item-detail{
+    width:1115px;
+    overflow: hidden;
+}
+.index .index-centent .detail .item .item-detail .div{
+    position: relative;
+    float: left;
+    width:20%;
+    height:122px;
+    padding:0px 5px;
+    margin-top:10px;
+}
+.index .index-centent .detail .item .item-detail .addimg{
+    cursor: pointer;
+}
+.index .index-centent .detail .item .item-detail .div{position: relative}
+.index .index-centent .detail .item .item-detail .div .div1{
+    border:4px solid #e0e2e7;
+    height:122px;
+}
+.index .index-centent .detail .item .item-detail .div .div1:hover{
+    border-color: #ff1c77;
+}
+.index .index-centent .detail .item .item-detail .div .div1 img,.index .index-centent .detail .item .item-detail .div .div2 img{
+    display: block;
+    height:100%;
+    width:auto;
+    margin:auto;
+}
+.index .index-centent .detail .item .item-detail .div .div2{
+    position: absolute;
+    top:0px;
+    right:-445px;
+    height:270px;
+    width:450px;
+    border:4px solid #e0e2e7;
+    z-index:100;
+    display: none;
+    background: #fff;
+    overflow: hidden;
+}
+.index .index-centent .detail .item .fine div .btn{
+    padding:0px;
+}
+.index .index-centent .detail .price{
+    font-size: 16px;
+    padding:0px 40px;
+    text-align: right;
+
+    padding-bottom:10px;
+    margin:0px 5px;
+}
+.index .index-centent .detail .price-border{
+    border-bottom:1px solid #dbdbdb;
+}
+.index .index-centent .detail .cope{
+    font-size: 20px;
+    padding-top:20px;
+    text-align: right;
+}
+.index .index-centent .detail .cope .sm{
+    display: inline;
+    color:#ff1c77;
+    font-size: 18px;
+}
+.index .index-centent .detail .cope .lg{
+    display: inline;
+    color:#ff1c77;
+    font-size: 40px;
+}
+.index .index-centent .detail .pay{
+    text-align: right;
+    margin-top:20px;
+}
+.index .index-centent .detail .item .item-tit{
+    position: relative;
+}
+.index .index-centent .detail .item .item-tit .spec-show{
+    position: absolute;top:-76px;background:#fff;width:300px;border:1px solid #dddcdd;z-index:100;padding:10px;display: none;
+    line-height:initial;
+}
+.index .index-centent .detail .item .item-tit .spec-show span{
+    line-height:30px;
+    color:#666;
+}
+.index .index-centent .detail .item .item-tit .spec-show p{
+    line-height:16px;
+    color:#666;
+}
+.index .index-centent .detail .item .item-tit .spec-show .div1{
+    position: absolute;
+    top:89px;
+    left:-10px;
+    width:0;
+    height:0;
+    border-top:10px solid transparent;
+    border-bottom:10px solid transparent;
+    border-right:10px solid #dddcdd;
+}
+.index .index-centent .detail .item .item-tit .spec-show .div2{
+    position: absolute;
+    top:90px;
+    left:-8px;
+    width:0;
+    height:0;
+    border-top:9px solid transparent;
+    border-bottom:9px solid transparent;
+    border-right:9px solid #fff;
+}
+.index .index-centent .detail .item .item-tit .mouseover{
+    display: inline-block;
+}
+.index .index-centent .detail .item .item-tit .down i{
+    display: inline-block;
+    text-align: center;
+}
+#big{
+    margin:20px 5px;
+    font-size: 20px;
+    height:50px;
+    line-height:50px;
+    background: #f5f5f5;
+    text-align: center;
+    text-align: -webkit-center;
+    cursor: pointer;
+}
+.index .index-centent .detail .item .item-tit .down .rotate{
+    display: inline-block;
+    transform-origin:center center; //旋转中心要是正中间 才行
+transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transition: transform 0.7s; //过度时间 可调
+-moz-transition: -moz-transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -o-transition: -o-transform 0.7s;
+    -ms-transition: -ms-transform 0.7s;
+}
+.index .index-centent .detail .item .item-tit .down .rotate1{
+    display: inline-block;
+    transform-origin:center center;
+    transform: rotate(0deg); //返回原点
+-webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transition: transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -o-transition: -o-transform 0.7s;
+    -ms-transition: -ms-transform 0.7s;
+}
+
+

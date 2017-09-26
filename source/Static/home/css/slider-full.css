@@ -1,0 +1,111 @@
+h3{ text-align: center; color:#828282 }
+/*body{ background-color:#2D2D2D}*/
+.vui-slider {
+	position:relative;
+	overflow:hidden;
+}
+.vui-slider .vui-items {
+	width:100%;
+	height:100%;
+}
+.vui-slider .vui-item {
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+}
+.vui-slider .vui-item a,
+.vui-slider .vui-item img {
+	display:block;
+	padding:0;
+	margin:0;
+	border:none;
+	margin-top:136px;
+}
+.vui-slider .vui-buttons {
+	position:absolute;
+	z-index:5;
+	top:30px;
+	left:13px;
+	float:left;
+	display:inline;
+	/*filter:alpha(Opacity=80);*/
+	/*-moz-opacity:0.8;*/
+	/*opacity: 0.8;*/
+	/*z-index: 9999999;*/
+}
+.vui-slider .vui-button {
+	float:left;
+	display:inline;
+	overflow:hidden;
+	height:75px;
+	width:75px;
+	margin:0 30px;
+	padding:0;
+	border-radius:50%;
+	cursor:pointer;
+	border:1px solid #111;
+	color:#111;
+	z-index: 12;
+}
+.vui-slider .vui-button-cur {
+	background:rgba(253,201,78,0.8);
+	border:1px solid #fdc94e;
+	z-index:13;
+}
+.vui-slider .vui-transfer {
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	z-index:3;
+}
+.vui-slider .vui-prev {
+	position:absolute;
+	top:50%;
+	left:0;
+	z-index:5;
+	width:60px;
+	height:150px;
+	margin-top:-75px;
+	border-radius:0 10px 10px 0;
+	background:url(../images/index_img/prev.gif) no-repeat;
+	cursor:pointer;
+	filter:alpha(opacity=30);
+	-moz-opacity:0.3;
+	-khtml-opacity:0.3;
+	opacity:0.3;
+	transition:0.5s ease;
+	-o-transition:0.5s ease;
+	-webkit-transition:0.5s ease;
+}
+.vui-slider .vui-next {
+	position:absolute;
+	top:50%;
+	right:0;
+	z-index:5;
+	width:60px;
+	height:150px;
+	margin-top:-75px;
+	border-radius:10px 0 0 10px;
+	background:url(../images/index_img/next.gif) no-repeat;
+	cursor:pointer;
+	filter:alpha(opacity=30);
+	-moz-opacity:0.3;
+	-khtml-opacity:0.3;
+	opacity:0.3;
+	transition:0.5s ease;
+	-o-transition:0.5s ease;
+	-webkit-transition:0.5s ease;
+}
+.vui-slider .vui-sidebutton-hover {
+	filter:alpha(opacity=40);
+	-moz-opacity:0.4;
+	-khtml-opacity:0.4;
+	opacity:0.4;
+	background-color:#000;
+}

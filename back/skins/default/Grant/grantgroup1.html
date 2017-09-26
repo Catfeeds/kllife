@@ -1,0 +1,168 @@
+<include file="Common/header" /> 
+		<div class="row">
+			<div class="panel panel-color panel-info panel-content-pos">
+				<div class="panel panel-heading">
+					<span class="description">{:C(CONTENT_TITLE)}</span>					
+				</div>
+				<div class="panel panel-color panel-content">
+                    <table id="test" class="table aspTable lcnp" cellpadding="0" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="10%">权限</th>
+                            	<volist id="group" name="groups">
+                                	<th name='group'>{:$group['my.type_desc']}</th>
+                            	</volist>
+                            </tr>
+                        </thead>
+                    </table>   
+					<br /><br /><br />
+					<div class="row">
+						<div class="col-md-1">
+							<a href="#" class="btn btn-info" style="float: right" onclick="history.back(-1)">返回列表</a>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+	var myTable, pageRequestData;
+	var modalDataEditData = new Object();
+	$(document).ready(function(){		
+		// 初始化数据表格
+		myTable = initDataTable();
+	});
+	
+	// 初始化数据列表
+	function initDataTable() {	
+		var vTable = $(".aspTable").dataTable({
+			
+			"bSort": true,
+			"bAutoWidth": true,			
+            "scrollX": true,	// 水平滚动
+			"bFilter": true,
+			"bInfo": true,//页脚信息
+			"bPaginate": true, //翻页功能
+			"bLengthChange": true, //改变每页显示数据数量
+			"bStateSave": true,	//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+			"sPaginationType": "full_numbers", //显示数字的翻页样式"
+			"aLengthMenu": [[5, 10, 25, 50, -1],[5, 10, 25, 50, '所有']],	// 可分页的数量值与显示
+			"isDisplayLength": 5,	// 当前每页显示数量
+			"oLanguage": {
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+				"sZeroRecords": "抱歉， 没有找到",
+				"sInfo": "从 _START_ 到 _END_ / 共 _TOTAL_ 条数据",
+				"sInfoEmpty": "没有数据",
+				"sInfoFiltered": "(从_MAX_条数据中检索)",
+				"oPaginate": {
+					"sFirst": "首页",
+					"sPrevious": "前一页",
+					"sNext": "后一页",
+					"sLast": "尾页"
+				},
+				"sZeroRecords": "没有检索到数据",
+				"sProcessing": "<src='__PUBLIC__/images/loader.gif' />",
+			},
+			//Ajax获取信息
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "{:U('grant/group')}",
+			//如果加上下面这段内容，则使用post方式传递数据
+			"fnServerData": getPageData,
+			"aoColumns": dataTablesBindCols(),
+			"aoColumnDefs": [{"sDefaultContent": "", "aTargets": ["_all"]}],
+		});
+		return vTable;
+	}
+
+	// 绑定列
+	function dataTablesBindCols() {
+		var cols = new Array();
+				
+		cols[0] = {"bSortable": false, "mData": "grant_desc", "aTargets": [0]};		
+		var groupLen = $('th[name="group"]').length;
+		for (var i=0; i<groupLen; i++) {
+			cols[i+1] = {"bSortable": false, "mDataProp":"group"+i, "bSearchable": false, "aTargets": [i+1], "fnCreatedCell": replaceContent};
+		}
+		return cols;
+	}
+
+	//Ajax获取数据
+	function getPageData ( sSource, aoData, fnCallback ) {
+		showLoading(true);
+		aoData.push({'name':'op','value':'list'});
+//		alert(JSON.stringify(aoData));
+		pageRequestData = aoData;
+		$.post(sSource, aoData, function(data,status){
+				if (data['result']['errno'] == 0) {
+					fnCallback(data);
+					$('.iswitch').change(_changeFun);
+				} else {
+					alert(data['result']['message']);
+				}		
+				showLoading(false);	
+			},'JSON');
+	}
+	
+	// 内容替换
+	function replaceContent(nTd, sData, oData, iRow, iCol) {
+		var key = 'group'+(iCol-1);
+		var thObj = $('th');
+		var text = $(thObj[iCol]).html();
+//		console.log('row:'+iRow+',col:'+iCol+',grant_id:'+oData['id']+',group_id:'+oData[key]['group_id']);
+		var html = '<input type="checkbox" class="iswitch iswitch-secondary" value="'+oData['id']+','+oData[key]['group_id']+'" '+oData[key]['checked']+'/>'+text;
+		$(nTd).html(html);
+		
+		$('.iswitch').change(_changeFun);
+	}
+	
+	
+	// 出发改变
+	function _changeFun(){
+		var vals = $(this).val();			
+		var valList = vals.split(',');
+		if ($(valList).length != 2){
+			alert('参数不正确');
+			return false;
+		}			
+		
+		var jsonData = {
+			'op': $(this).prop('checked')?'bind':'unbind',
+			'grant_id': valList[0],
+			'group_id': valList[1],
+		}
+		var obj = $(this);
+		$.post('{:U("grant/group")}', jsonData, function(data){
+			if (data.result.errno != 0) {
+				alert(data.result.message);
+				var checked = $(obj).prop('checked');
+				$(obj).prop('checked', !checked);					
+			}
+		});
+	}
+	
+
+	/*
+	add this plug in
+	// you can call the below function to reload the table with current state
+	Datatables刷新方法
+	oTable.fnReloadAjax(oTable.fnSettings());
+	*/
+	$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings) {
+		//oSettings.sAjaxSource = sNewSource;
+		this.fnClearTable(this);
+		this.oApi._fnProcessingDisplay(oSettings, true);
+		var that = this;
+
+		$.getJSON(oSettings.sAjaxSource, null, function (json) {
+		    /* Got the data - add it to the table */
+		    for (var i = 0; i < json.aaData.length; i++) {
+		        that.oApi._fnAddData(oSettings, json.aaData[i]);
+		    }
+		    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+		    that.fnDraw(that);
+		    that.oApi._fnProcessingDisplay(oSettings, false);
+		});
+	}
+	
+</script>

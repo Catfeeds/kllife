@@ -1,0 +1,229 @@
+<include file="Common/top" />
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/leader.css">
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/chromagallery.css">
+<div class="leader-info">
+    <div class="banner">
+        <div class="centent">
+            <div class="left"><img src="{$leader.face_image}" alt=""></div>
+            <div class="right">
+                <notempty name="leader.name"><h2>{$leader.name}</h2></notempty>
+                <div class="name">
+                	<notempty name="leader.nickname"><span>昵称：{$leader.nickname}</span></notempty>
+                    <notempty name="leader.stagename"><span>艺名：{$leader.stagename}</span></notempty>
+                    <span>星座：{:get_constellation($leader['constellation'])}</span>
+                    <span>血型：{:get_blood_type($leader['blood_type'])}</span>
+                </div>
+                <notempty name="leader.intro"><p>{$leader.intro}</p></notempty>
+                <notempty name="leader.impression">
+	                <div class="impress">
+	                    <div class="impress-left">印象：</div>
+	                    <div class="impress-right">
+	                    	<volist id="imp" name="leader.impression_list">
+	                    	<span class="item background{:mt_rand(0,4)}">{$imp}</span>
+	                    	</volist>
+	                        <!--<p class="add">添加+</p>-->
+	                    </div>
+	                </div>
+                </notempty>
+            </div>
+            <!--{:p_a($leader)}-->
+            <div class="absolute">
+                <div class="tit">对他/她的印象 <span class="remove-impress"><i class="iconfont">&#xe66c;</i></span></div>
+                <div class="add-impress">
+                    <span id="1">暖男</span>
+                    <span id="2">苗条</span>
+                    <span id="3">学霸</span>
+                    <span id="4">漂亮</span>
+                    <span id="5">热情</span>
+                    <span id="6">帅气</span>
+                    <span id="7">亲切</span>
+                    <span id="8">老司机</span>
+                    <span id="9">有耐心</span>
+                    <span id="10">小鲜肉</span>
+                    <span id="11">老腊肉</span>
+                    <span id="12">肌肉男</span>
+                    <span id="13">责任心强</span>
+                    <span id="14">风趣幽默</span>
+                    <span id="15">文艺青年</span>
+                    <span id="16">心宽体胖</span>
+                    <span id="17">摄影技术好</span>
+                </div>
+                <a class="btn btn-submit">提交</a>
+            </div>
+        </div>
+    </div>
+    
+    <notempty name="questions">
+	    <div class="problem">
+	        <!--只用于下三角-->
+	        <div class="down"><img src="__PUBLIC__/qinglvpai/images/leader/down.png" alt=""></div>
+
+	        <volist id="quest" name="questions">
+	        <div class="item">
+	            <div class="problem-two">
+	                <div class="left">Q</div>
+	                <div class="right">{$quest.content}</div>
+	            </div>
+	            <volist id="answer" name="quest.answers">
+	            <div class="answer">
+	                <div class="left">A</div>
+	                <div class="right">{$answer.content}</div>
+	            </div>
+	            </volist>
+	        </div>
+	        </volist>
+	    </div>
+    </notempty>
+    
+    <notempty name="pictures">
+	    <div class="works">
+	        <h2>个人作品</h2>
+	        <div class="border"><!--此div只用于显示border--></div>
+	        <div class="photolist">
+	            <div class="content">
+	                <div class="chroma-gallery mygallery">
+	                    <volist id="pic" name="pictures">
+	                    <img src="{$pic.path}" alt="{$pic.title},{$pic.tags},{$pic.intro}">
+	                    </volist>
+	                    <div id="lg-img" style="position: fixed;;background:#666;display: none;z-index:1000;"></div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+    </notempty>
+</div>
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(
+        function($){
+            $("img").lazyload({
+                placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+                effect      : "fadeIn",
+                threshold : 100,
+                failure_limit : 10
+            });
+        });
+</script>
+<script src="__PUBLIC__/qinglvpai/js/chromagallery.pkgd.min.js"></script>
+<script type="text/javascript">
+    //取消点击事件
+    $(document).ready(function(){
+        $(".mygallery").chromaGallery();
+    });
+    //初始化瀑布流
+    $(document).ready(function(){
+        $(".mygallery").chromaGallery({
+            color:'#000',
+            gridMargin:20,
+            maxColumns:4,
+            dof:true,
+            screenOpacity:0.8
+        });
+    });
+
+    //鼠标移动显示放大图
+     $('body').on("mousemove",".chrg-item",function(e) {
+         //创建一个新对象获取图片的原始尺寸用来显示放大图
+         var img = new Image();
+         img.src = $(this).find("img").attr("src");
+
+         var xx = e.originalEvent.x+5 || e.originalEvent.layerX+5 || 0; //鼠标X坐标
+         var yy = e.originalEvent.y+5 || e.originalEvent.layerY+5 || 0; //鼠标Y坐标
+         var width = $(window).width(); //屏幕可视宽度
+         var height = $(window).height(); //屏幕可视高度
+         var middlew = width/2; //屏幕可视宽度中间点
+         var middleh = height/2; //屏幕可视高度中间点
+         var imgsrc = $(this).find("img").attr("src");    //放大图路径
+
+         //将放大图的路径复制给显示的div
+         $("#lg-img").css({'background-image':'url('+imgsrc+')','background-repeat':'no-repeat','background-size':'100% 100%','width':img.width/2,'height':img.height/2,})
+         //显示放大图div
+         $("#lg-img").show();
+         //通过鼠标划入的坐标来判断放大图显示在左边还是右边
+         if(yy < middleh){
+             if(xx < middlew){                          //如果鼠标划入左半边放大图显示在鼠标当前位置右边
+                 $("#lg-img").css({top:yy,left:xx})
+             }else{                                    //如果鼠标划入右半边放大图显示在鼠标当前位置左边
+                 $("#lg-img").css({top:yy,left:xx-img.width/2})
+             }
+         }else{
+             if(xx < middlew){                          //如果鼠标划入左半边放大图显示在鼠标当前位置右边
+                 $("#lg-img").css({top:(yy-img.height/2)-8,left:xx})
+             }else{                                    //如果鼠标划入右半边放大图显示在鼠标当前位置左边
+                 $("#lg-img").css({top:(yy-img.height/2)-8,left:xx-img.width/2})
+             }
+         }
+     });
+     //鼠标离开元素隐藏放大图
+     $('body').on("mouseout",".chrg-item",function(e) {
+         $("#lg-img").hide();
+     });
+	//点击添加弹出添加标签div
+    $(".add").on("click",function(){
+        $(".absolute").show();
+    });
+    //点击右上角关闭按钮关闭标签列表
+    $(".remove-impress").on("click",function(){
+        $(".absolute").hide();
+    });
+
+    //点击选择标签按钮存储到数组
+    var tagList=[];  //选中的标签名称
+    $(".add-impress span").on("click",function(){
+        var name = $(this).html();
+        var id = $(this).attr("id");
+        if($(this).hasClass("active") == true){
+            for(i=0; i<tagList.length; i++){
+                if(tagList[i][0] == $(this).attr('id')){
+                    tagList.splice(i,1);
+                }
+            }
+            $(this).removeClass('active');
+        }else{
+            var v = [];
+            v[0] = $(this).attr('id');
+            v[1] = $(this).html();
+            tagList[tagList.length] = v;
+            $(this).addClass('active');
+        }
+    });
+
+    tagNames=[];//已有选中标签
+    //点击提交按钮提交
+    $(".btn-submit").on("click",function(){
+        //已有的标签保存到一个数组用来做判断
+        $(".impress-right .item").each(function(){
+            var d = [];
+            d[0] = $(this).attr("id");
+            d[1] = $(this).html();
+            tagNames[tagNames.length] = d;
+        });
+        //没有被选中的标签时先追加标签
+        if ($(".impress-right").find('span').length < 1) {
+            for(var i=0;i<tagList.length;i++) {
+                var number = Math.floor(Math.random() * 5) //随机生成随机数用于拼接随机背景颜色
+                var span = "<span class='item background" + number + "' id=" + tagList[i][0] + ">" + tagList[i][1] + "<span>0</span></span>"
+                $(".impress-right .add").before(span);
+            }
+        }else{
+            for(var i=0;i<tagList.length;i++) {
+                for (var j = 0; j < tagNames.length; j++) {
+                    if (tagList[i][0] == tagNames[j][0]) {
+                        var numbertwo = $(".impress-right").find("[id='" + tagNames[j][0] + "']").find("span").html();
+                        numbertwo++;
+                        $(".impress-right").find("[id='" + tagNames[j][0] + "']").find("span").html(numbertwo);
+                    }else{
+                        var number = Math.floor(Math.random()*5) //随机生成0-4五个随机数用于拼接随机背景颜色
+                        var span = "<span class='item background" +number + "' id=" +tagList[i][0]+ ">"+tagList[i][1]+"<span>0</span></span>"
+                        $(".impress-right .add").before(span);
+                    }
+                }
+
+            }
+        }
+        tagList=[];
+        $(".absolute").hide();
+        $(".add-impress span").removeClass("active");
+    });
+</script>
+<include file="Common/bottom"/>

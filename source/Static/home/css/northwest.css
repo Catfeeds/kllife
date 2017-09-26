@@ -1,0 +1,538 @@
+h1{font-size:24px;display: inline-block;margin:20px 0px; }
+.northwest{
+    margin-top:127px;
+    overflow: hidden;
+    background: #f4f4f4;
+}
+.northwest .banner{
+    height:613px;
+    background: url("../images/northwest/banner.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.northwest .xiaotuan{
+    height:519px;
+    background: url("../images/northwest/xiaotuan.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-top:-35px;
+}
+.northwest .recommend{
+    position: relative;
+    background: #fec23d;
+    overflow: hidden;
+    z-index:0;
+}
+.northwest .recommend1{
+    background: #f1e27d;
+}
+.northwest .recommend .content{
+    margin:auto;
+    width:1200px;
+    overflow: hidden;
+}
+.northwest .recommend .content .tit{
+    overflow: hidden;
+    position: relative;
+}
+.northwest .recommend .content .tit img{
+    display: block;
+    margin:auto;
+    margin-top:50px;
+
+}
+.northwest .recommend .content .tit .border{
+    border:1px solid #990000;
+    width:520px;
+    position: absolute;
+    top:189px;
+    left:0px;
+    right:0px;
+    margin:auto;
+    z-index:-1;
+}
+.northwest .recommend .content .tit ul{
+    overflow: hidden;
+    margin:auto;
+    width:736px;
+}
+.northwest .recommend .content .tit ul li{
+     float: left;
+     width:160px;
+     height:50px;
+     border-radius: 50px;
+     border:2px solid #990000;
+     text-align: center;
+     line-height:50px;
+     margin:40px 10px 50px;
+     font-size: 20px;
+     cursor: pointer;
+     background: #fec23d;
+     color:#990000;
+ }
+.northwest .recommend1 .content .tit ul li{
+    background: #f1e27d;
+}
+.northwest .recommend .content .tit ul .active{
+    background: #990000;
+    color:#fec23d;
+}
+.northwest .recommend .content .item{
+    position: relative;
+    padding:10px;
+    overflow: hidden;
+    background: #fff;
+    margin-bottom:20px;
+}
+.northwest .recommend .content .item a{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    z-index:0;
+}
+.northwest .recommend .content .item .left{
+	position: relative;
+    width:400px;
+    height:300px;
+    margin-right:10px;
+    float: left;
+    overflow: hidden;
+}
+.northwest .recommend .content .item .left .today-hot{
+	position: absolute;
+	top:0px;
+	right:10px;
+}
+.northwest .recommend .content .item .left img{
+    height:100%;
+}
+.northwest .recommend .content .item .right{
+    position: relative;
+    margin-left:10px;
+    width:760px;
+    height:300px;
+    float: left;
+}
+.northwest .recommend .content .item .right .tag{
+    padding:2px 5px;
+    background: #ff1c77;
+    margin-left:5px;
+    color:#fff;
+}
+.northwest .recommend .content .item .right p{
+    font-size: 14px;
+    padding:10px 0px;
+}
+.northwest .recommend .content .item .right .brief{
+    color:#990000;
+    white-space:nowrap;/*强制文本在一行内显示*/
+	text-overflow:ellipsis; /*溢出省略号，支持ie、safari（webkit）*/
+	-o-text-overflow:ellipsis; /*溢出省略号，支持opera*/
+	overflow:hidden;/*溢出隐藏*/
+	-moz-binding:url('ellipsis.xml#ellipsis');
+}
+.northwest .recommend .content .item .right .choice-time{
+    overflow: hidden;
+}
+.northwest .recommend .content .item .right .choice-time .time{
+    float: left;
+    width:40%;
+}
+.northwest .recommend .content .item .right .choice-time .time .span{
+    display: inline-block;
+    font-size: 14px;
+    padding:10px 0px;
+}
+.northwest .recommend .content .item .right .choice-time .time select{
+    padding:2px;
+    font-size: 14px;
+    position: absolute;
+    top:136px;
+    z-index:1;
+}
+.northwest .recommend .content .item .right .price{
+    margin-top:10px;
+}
+.northwest .recommend .content .item .right .price span{
+    display: inline-block;
+    color:#990000;
+    font-size: 36px;
+    margin:0px 5px;
+}
+.northwest .recommend .content .item .right .sig-up{
+    position: absolute;
+    bottom:30px;
+    right:30px;
+}
+.northwest .recommend .content .item .right .sig-up p{
+    display: inline;
+    color:#666;
+}
+.northwest .recommend .content .item .right .sig-up p span{
+    color:#990000;
+}
+.northwest .recommend .content .item .right .sig-up .btn{
+    display: inline-block;
+    width:135px;
+    height:40px;
+    line-height:40px;
+    border-radius: 40px;
+    background: #990000;
+    color:#fff;
+    font-size: 18px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.northwest .recommend .botton{
+    position: absolute;
+    left:0px;
+    bottom:0px;
+    margin-top:-900px;
+}
+.northwest .xiaotuanman{
+    position: relative;
+    height:945px;
+    background: url("../images/northwest/xiaotuanman-background.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.northwest .xiaotuanman .xiaotuanman2{
+    padding-top:65px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.northwest .xiaotuanman .xiaotuanman2 div{
+    display: inline-block;
+    margin:0px 180px;
+}
+.box
+{
+    position: relative;
+    width: 1200px;
+    margin: 0 auto;
+    top:240px;
+}
+.box-two{
+    display: none;
+}
+.lg-left{
+    position: absolute;top:-198px;left:80px;width:330px;height:600px;border:1px solid #ddd;display: none;
+}
+.lg-right{
+    position: absolute;top:-198px;right:66px;width:330px;height:600px;border:1px solid #ddd;display: none;
+}
+.lineF, .lineS
+{
+    position: absolute;
+    visibility: hidden;
+    padding-left: 30px;
+}
+.lineS
+{
+    top: 166px;
+    left: 95px;
+}
+.boxF, .boxS, .boxT, .overlay
+{
+    width: 180px;
+    height: 205px;
+    overflow: hidden;
+}
+.boxF, .boxS
+{
+    visibility: hidden;
+}
+.boxF
+{
+    transform: rotate(120deg);
+    float: left;
+    margin-left: 10px;
+    -ms-transform: rotate(120deg);
+    -moz-transform: rotate(120deg);
+    -webkit-transform: rotate(120deg);
+}
+.boxS
+{
+    transform: rotate(-60deg);
+    -ms-transform: rotate(-60deg);
+    -moz-transform: rotate(-60deg);
+    -webkit-transform: rotate(-60deg);
+}
+.boxT
+{
+    transform: rotate(-60deg);
+    background: no-repeat 50% center;
+    -ms-transform: rotate(-60deg);
+    -moz-transform: rotate(-60deg);
+    -webkit-transform: rotate(-60deg);
+    visibility: visible;
+    background-position: center center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.box-B .boxT:hover{
+    margin-left:-2px;
+}
+.box-B .boxT{
+    moz-transition: all .2s;
+    -webkit-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+}
+.overlay
+{
+    transition: all 250ms ease-in-out 0s;
+    display: none;
+    position: relative;
+}
+.overlay a
+{
+    display: inline-block;
+    position: absolute;
+    left:50%;
+    top: 50%;
+    margin: -16px 0 0 -16px;
+    border-radius: 3px;
+    background-color: #d3b850;
+    text-align: center;
+    line-height: 32px;
+    width: 32px;
+    height: 32px;
+    text-decoration: none;
+    color: White;
+    font-size: 18px;
+    font-weight: bolder;
+}
+.northwest .review{
+    height:1125px;
+    background: url("../images/northwest/review-background.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.northwest .review .content{
+    position: relative;
+    width:1200px;
+    margin:auto;
+}
+.northwest .review .content .tit img{
+    display: block;
+    margin: auto;
+    padding-top:70px;
+}
+.northwest .goods-group{
+    width:1163px;
+    margin:auto;
+    padding-bottom:80px;
+    overflow: hidden;
+    position: relative;
+}
+.northwest .review .goods-group{
+    margin-top:330px;
+}
+.northwest .goods-group .more{
+    position: absolute;
+    top:7px;
+    right:0px;
+}
+.northwest .goods-group .item{
+    position: relative;
+    background: #fff;
+    float: left;
+    width:32.1%;
+    margin:7px 7px;
+    moz-transition: all .3s;
+    -webkit-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    border-radius: .3px;
+}
+.northwest .goods-group .item .today-hot{
+	position: absolute;
+	top:0px;
+	right:10px;
+}
+.northwest .review .goods-group .item{
+    position: relative;
+    background: #fff;
+    float: left;
+    width:30.9%;
+    margin:7px 7px;
+    moz-transition: all .3s;
+    -webkit-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    border-radius: .3px;
+}
+.theme { background: #fd4e4e; padding:1px 6px 1px 6px; color:#fff;text-align: center;text-align: -webkit-center; }
+.northwest .goods-group .item:hover{
+    -webkit-box-shadow:0 5px 10px rgba(0,0,0,0.3); box-shadow:0 5px 10px rgba(0,0,0,0.3); -webkit-transform:translate3d(0, -2px, 0); transform:translate3d(0, -2px, 0);
+}
+.northwest .goods-group .item a{
+    position: absolute;
+    top:0px;
+    lefT:0px;
+    width:100%;
+    height:100%;
+    z-index:0;
+}
+.northwest .goods-group .item .img{
+    position: relative;
+    overflow: hidden;
+    height:232px;
+}
+.northwest .goods-group .item .img img{
+    width:100%;
+}
+.northwest .goods-group .item .img p{
+    position: absolute;
+    top:0px;
+    left:0px;
+    background: #ff7200;
+    color:#fff;
+    padding:10px;
+    font-size: 14px;
+}
+.northwest .goods-group .item .tit{
+    padding:10px 10px 0px;
+}
+.northwest .review .goods-group .item .tit{
+    padding:10px;
+    height:40px;
+    line-height:20px;
+}
+.northwest .goods-group .item .tit .lg{
+    font-size: 20px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.northwest .goods-group .item .tit .money{
+    position: relative;
+    height:40px;
+}
+.northwest .goods-group .item .tit .money .sm{
+    color:#808080;
+    font-size: 12px;
+    line-height:20px;
+}
+.northwest .goods-group .item .tit .money .sm span{
+    background: #fd4e4e;
+    color:#fff;
+    padding:2px;
+    margin-right:5px;
+}
+.northwest .goods-group .item .tit .money .sm1{
+    position: absolute;
+    top:-32px;
+    right:0px;
+    color:#ff7200;
+    font-size: 14px;
+    float: right;
+}
+.northwest .goods-group .item .tit .money .sm1 .lg1{
+    font-size: 25px;
+    padding:0px 2px;
+}
+.northwest .other{
+    height:1035px;
+    background: url("../images/northwest/qita-background.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.northwest .other .tit-one{
+    text-align: center;
+    text-align: -webkit-center;
+    padding-top:80px;
+    padding-bottom:40px;
+}
+.northwest .other .goods-group{
+    padding-bottom:0px;
+}
+.northwest .other .choice-time{
+    overflow: hidden;
+    padding:10px 5px 20px;
+    color:#666;
+}
+.northwest .other .choice-time .time1{
+    position: relative;
+    float: left;
+    width:60%;
+}
+.northwest .other .choice-time .time1 select{
+    position: absolute;
+    z-index:1;
+    top:-3px;
+}
+.northwest .other .choice-time .time2{
+    float: left;
+    width:40%;
+}
+.northwest .other .choice-time .time2 span{
+    color:#990000;
+}
+.northwest .zhoubian{
+    height:1035px;
+    background: url("../images/northwest/zhoubian-background.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.northwest .customized{
+    position: relative;
+    background: #c2824a;
+    height:440px;
+}
+.northwest .customized .earth{
+    text-align: center;
+    text-align: -webkit-center;
+    padding-top:45px;
+}
+.northwest .customized .customized1{
+    position: absolute;
+    top:90px;
+    left:0px;
+    right:0px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.northwest .customized .customized2{
+    margin-top:30px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.northwest .customized .btn-customized{
+    display: block;
+    background: #fff;
+    border-color: #fff;
+    color:#bb6832;
+    width:210px;
+    height:66px;
+    line-height:66px;
+    font-size: 27px;
+    border-radius: 66px;
+    margin:40px auto;
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,226 @@
+.img-responsive{
+    width:100%;
+    height:auto;
+    display: block;
+}
+.xinjiang{
+    margin-bottom:60px;
+}
+.xinjiang .recommend .tit{
+    padding-top:30px;
+    width:40%;
+    margin:auto;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.xinjiang .recommend .recommend1,.xinjiang .recommend .recommend2,.xinjiang .recommend .recommend3,.xinjiang .recommend .recommend4{
+    display: inline-block;
+    width:23.5%;
+    padding:10px;
+}
+.xinjiang .recommend div img{
+    width:100%;
+}
+.xinjiang .recommend-result .detail{
+    padding:10px;
+    border-bottom:1px solid #e1e1e1;
+}
+.xinjiang .recommend-result .detail .lg{
+    font-size: 16px;
+    color:#333;
+}
+.xinjiang .recommend-result .detail .sm{
+    font-size: 16px;
+    color:#666;
+}
+.xinjiang .recommend-result .price{
+    border-radius: 3px;
+    padding:10px;
+    font-size: 16px;
+    color:#666;
+    border-bottom:1px solid #e1e1e1;
+    box-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .3);
+}
+.xinjiang .recommend-result .price .right{
+    float: right;
+    color:#ff7200;
+}
+.xinjiang .photo{
+    margin-top:20px;
+    padding-top:40px;
+    padding-bottom:40px;
+    background: url("../images/xinjiang/background.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.xinjiang .photo .tit span{
+    display: inline-block;
+    width:30%;
+    padding:0px 3px;
+}
+.xinjiang .photo .photo-list span{
+    display: block;
+    padding:0px 10px;
+    margin-top:-25px;
+}
+.xinjiang .photo .photo-list .add{
+    width:40%;
+    margin:auto;
+    display: block;
+    padding-top:40px;
+}
+.xinjiang .other .tit{
+    padding:0px 10px;
+}
+.xinjiang .other .tit span{
+    display: inline-block;
+}
+.xinjiang .other .tit .left{
+    padding-left:20%;
+    width:70%;
+}
+.xinjiang .other .tit .right{
+    width:25%;
+}
+.xinjiang .recommend-result .item{
+    margin-top:20px;
+    position: relative;
+}
+.xinjiang .recommend-result .item a{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+}
+.xinjiang .recommend-result .add{
+    width:40%;
+    margin:auto;
+    display: block;
+    padding-top:40px;
+}
+.xinjiang .customized{
+    position: relative;
+    margin-top:20px;
+    height:499px;
+    background: url("../images/xinjiang/customized.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.xinjiang .customized span{
+    display: block;
+    text-align: -webkit-center;
+}
+.xinjiang .customized .span1{padding-top:40px;}
+.xinjiang .customized .span2{position: absolute;left:0px;right:0px;top:80px;}
+.xinjiang .customized .span3{padding:20px 0px 0px;}
+.xinjiang .customized .btn-customized{
+    display: block;
+    background: #007ba8;
+    border-color: #007ba8;
+    color:#fff;
+    width:210px;
+    height:66px;
+    line-height:66px;
+    font-size: 22px;
+    border-radius: 66px;
+    margin:30px auto;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.xinjiang .zhoubian .zhoubian-img{
+    display:block;
+    padding:20px 10px;
+}
+.xinjiang .zhoubian .recommend-result{
+    margin-top:-60px;
+}
+.xinjiang .review .goods-group{
+    margin-top:0px;
+    padding-top:40px;
+}
+.xinjiang .review .goods-group .item{
+    margin-bottom:20px;
+    position: relative;
+}
+.xinjiang .review .goods-group .item a{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+}
+.xinjiang .review .goods-group .review-img img{
+    width:100%;
+    display: block;
+    margin: auto;
+    margin-bottom:40px;
+}
+.xinjiang .review .goods-group .item .detail{
+    background: #fff;
+    padding:10px 10px;
+    border-radius: 3px;
+    border-bottom: 1px solid #e1e1e1;
+    box-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .3);
+}
+.xinjiang .review .goods-group .item .detail p{
+    font-size: 15px;
+    line-height:20px;
+}
+
+.recommend-two .tit{
+	width:70%;
+	margin:auto;
+	padding-top:30px;
+}
+.recommend-two .tit img{
+	width:100%;
+}
+.recommend-two .tit-tag{
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    text-align: -webkit-center;
+    padding:20px 5px 10px;
+}
+.recommend-two .tit-tag .border{
+    border:1px solid #ff7200;
+    width:100%;
+    position: absolute;
+    top:107px;
+    left:0px;
+    right:0px;
+    margin:auto;
+    z-index:-1;
+}
+.recommend-two .tit-tag span{
+    height:25px;
+    border-radius: 25px;
+    border:1px solid #ff7200;
+    text-align: center;
+    line-height:25px;
+    padding:5px 10px;
+    cursor: pointer;
+    background: #fff;
+    color:#ff7200;
+    font-size: 12px;
+}
+@media screen and (max-width: 330px) {
+    .recommend-two .tit-tag span{
+        padding:5px;
+    }
+}
+.recommend-two .tit-tag .active{
+    background: #ff7200;
+    color:#fff;
+}
+.recommend-two .review .tit img{
+    width:50%;
+    margin:auto;
+    display: block;
+    margin-top:30px;
+    margin-bottom:30px;
+}

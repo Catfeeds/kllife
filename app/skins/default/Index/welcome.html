@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>测试动态加载文本</title>
+<meta name="" content="">
+<script src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+
+<script type="text/javascript" >
+	function appendText(front) {
+		$.post('{:U("index/ajaxTest")}','',function(data){
+			alert('收到ajax回应的消息');
+			var flag = parseInt($("#flag").val())+1;
+			$("#flag").val(flag);
+			var strHtml = $("#test").html();	
+			if (front==false) {
+				$("#test").html(strHtml+"<br>"+data['t2']+flag);
+			} else {
+				$("#test").html(data['t2']+flag+"<br>"+strHtml);
+			}
+		});
+	}
+</script>
+</head>
+<body>
+
+<div id="test">
+	{$t1}
+</div>
+<input type="hidden" id="flag" value="0"/>
+<input type="button" value="点此动态添加文本到前面" onclick="appendText(true);" />
+<input type="button" value="点此动态添加文本到后面" onclick="appendText(false);" />
+<volist id="ch" name="stra">
+	{$ch}<br>
+</volist>
+</body>
+</html>

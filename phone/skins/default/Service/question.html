@@ -1,0 +1,39 @@
+<include file="common/top" />
+<div class="page">
+	<!-- mycss -->
+	<style>
+		body , .content { background:#fff; }
+		.bar { z-index: 9; }
+		.bar-nav { position: static; }
+		.questions-content p { margin-bottom: .5rem; font-size: .65rem; color:#333; text-indent: 2em; line-height:1.8; }
+	</style>
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="javascript:history.back();">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">帮助中心</h1>
+		</header>
+		<include file="common/footer" />
+		
+		<div class="content">
+		
+			<div class="questions-content">
+				
+				<div class="content-padded">
+					<h5>{$show_question.content}</h5>
+					<if condition="count($show_question['answers']) gt 0">
+						<p>{$show_question['answers'][0]['content']}</p>
+					<else />
+						<p>暂时没有更好的答案</p>
+					</if>
+					
+				</div>
+				
+			</div>
+		
+		</div>
+		
+<include file="common/js" />
+<include file="common/swt" />
+</body>
+</html>

@@ -1,0 +1,1064 @@
+<include file="Common/header" />
+<link rel="stylesheet" href="__PUBLIC__/home/css/subject.css">
+<link rel="stylesheet" href="__PUBLIC__/assets/js/wysihtml5/src/bootstrap-wysihtml5.css">
+<script src="__PUBLIC__/assets/js/wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+<script src="__PUBLIC__/assets/js/wysihtml5/src/bootstrap-wysihtml5.js"></script>
+<script src="__PUBLIC__/assets/js/formwizard/jquery.bootstrap.wizard.min.js"></script>	
+<style>
+	ul { padding: 0; }
+	
+	li { list-style:none; }
+	
+	.zt-top { position: relative; margin-top: 380px; }
+	
+	.zt-top .add-img-btn {
+		position: absolute;
+		left: 20px;
+		bottom: 20px;
+	}
+	
+	.zt-top .add-img-btn i {
+		display: inline-block;
+	    width: 80px;
+	    height: 30px;
+	    line-height: 30px;
+	    margin-right: 10px;
+	    text-align: center;
+	    color: #fff;
+	    font-style: normal;
+	    background: rgba(0,0,0,.5);
+	    cursor: pointer;
+	}
+	
+	.tab-list li span { display: none; position: absolute; top:0; right: 5px; margin-left: 5px; }
+	
+	.zt-list { position: relative; overflow: visible; }
+	
+	.zt-list ul li { position: relative; }
+	
+	.zt-list-choose { position: absolute; right: 10px; top: 7px; }
+	
+	.zt-list-choose i { 
+		display: inline-block;
+	    font-style: normal;
+	    background: #000;
+	    color: #fff;
+	    width: 70px;
+	    text-align: center;
+	    padding: 6px;
+	    cursor: pointer;
+	}
+	
+	.zt-main > ul li { height: auto; text-align: left; }
+	
+	.zt-main h3 { margin: 0; }
+	
+	.zt-main h3 input , .zt-slogan input { width: 100%; }
+	
+	.zt-img { top: 185px; }
+	
+	.zt-list { margin-top:20px; }
+	
+	.zt-sublist-describe p strong em { font-style: normal; }
+	
+	.zt-text-write { background: #fff; padding: 10px; }
+	
+	.zt-text-introduce-write input { width: 100%; }
+	
+	.zt-text-introduce-write > p { line-height:1.5; }
+	
+	.zt-text-introduce-write textarea { width: 100%; height: 300px; resize: none; }
+	
+	.zt-text-btn { display: block; width:100%; margin-top:10px; background-color: #f9394c; color:#fff; }
+	
+	.zt-sublist-describe p , .zt-sublist-describe h5 { margin: 0; }
+	
+	.zt-sublist-content { position: relative; }
+	
+	#recomment_subject_subheading { width:100%; height: 340px; }
+	
+	.zt-sublist-btn { position: absolute; bottom: 10px; right: 10px; }
+	
+	.zt-sublist-btn i { display: inline-block; width:60px; padding: 5px 5px; margin-right:10px; font-style: normal; color: #fff; text-align: center; cursor: pointer; } 
+	.zt-sublist-btn-choose { background: #96c424; }
+	.zt-sublist-btn-delete { background: #e4393c; }
+	.zt-list-btn { width: 100%; }
+	.zt-list-btn-save { width: 100%; margin: 10px 0; background:#96c424; color:#fff; }
+	.wonderful-travels ul li { height: auto; margin-bottom:50px; }
+	.wonderful-describe-write { background: #fff; padding: 10px; }
+	.wonderful-describe-write input { width: 100%; margin: 5px 0; }
+	.wonderful-describe-write .wonderful-btn-save { width: 100%; background: #e4393c; margin-left: 0; }
+	.zt-slogan { width: 100%; height: 500px; }
+	.zt-list-tab , .zt-list-type { display: none; position: fixed; top: 40%; left: 50%; width: 300px; margin-left: -150px; padding: 10px; background-color: #fff; border: 1px solid #dcdcdc; border-radius: 15px; z-index:999; }
+	.zt-list-tab p , .zt-list-type p { line-height: 2; color: #000; font-size: 14px; }
+	.zt-list-tab a , .zt-list-type a{ display: inline-block; padding: 4px 10px; margin-top: 10px; margin-right: 5px; background-color: #eee; color: #666; font-size: 14px; border-radius: 15px; }
+	.zt-list-tab .bg-red , .zt-list-type .bg-red{ background-color: #e4393c; color: #fff; }
+	.zt-tab-modal-add , .zt-type-modal-add { margin-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #dcdcdc; }
+	.zt-tab-modal-submit , .zt-type-modal-submit { text-align: center; }
+	.zt-tab-modal-submit a , .zt-type-modal-submit a { width: 100px; padding: 10px 0; text-align: center; border-radius: 5px; color: #fff; }
+	.zt-tab-modal-submit .zt-tab-modal-sure , .zt-type-modal-submit .zt-type-modal-sure { background-color: #e4393c; }
+	.zt-tab-modal-submit .zt-tab-modal-exit , .zt-type-modal-submit .zt-type-modal-exit { background-color: green; }
+	.zt-list-move { position: absolute; right: -150px; top: 7px; }
+	.zt-text-move { position: absolute; right: 0px; top: 10px; }
+	.bg-red { background: #e4393c; }
+	.zt-main h3 button { width: 100%; margin-top: 10px; }
+	.zt-main > p button { width: 100%; margin-top: 10px; }
+	.use_img_url { width: 100%; margin-top: 10px; }
+	
+	
+	
+	.bg1 { background: #000 !important; }
+	.color1 { color: red !important; }
+	
+	
+</style>	
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	
+	<!--面板内容结束-->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="control-label" for="title">专题标题</label> <!--data-validate="required"-->
+						<input class="form-control" maxlength="32" name="title" id="title" value="{$subject.title}" placeholder="请输入专题的标题">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="control-label" for="desc">专题描述</label> <!--data-validate="required"-->
+						<input class="form-control" maxlength="16" name="desc" id="desc" value="{$subject.desc}" placeholder="请输入专题的标题">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="control-label" for="keywords">关键字</label> <!--data-validate="required"-->
+						<input class="form-control" name="keywords" id="keywords" value="{$subject.keywords}" placeholder="请输入专题的关键字,多个关键字请用“，”隔开">
+					</div>
+				</div>		
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="control-label" for="seo_title">SEO标题</label> <!--data-validate="required"-->
+						<input class="form-control" name="seo_title" id="seo_title" value="{$subject.seo_title}" placeholder="请输入专题的标题">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="control-label" for="seo_keywords">SEO关键字</label> <!--data-validate="required"-->
+						<input class="form-control" name="seo_keywords" id="seo_keywords" value="{$subject.seo_keywords}" placeholder="请输入专题的关键字,多个关键字请用“，”隔开">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="control-label" for="seo_desc">SEO描述</label> <!--data-validate="required"-->
+						<input class="form-control" name="seo_desc" id="seo_desc" value="{$subject.seo_desc}" placeholder="请输入专题的标题">
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">							
+				<div class="col-md-8">
+					<div class="form-group">
+						<button class="btn btn-secondary save_zhuanti">保存专题</button>
+					</div>							
+				</div>	
+			</div>			
+			
+		</div>	
+	
+		<div class="zt-top">
+			<img data-set="subject_banner" data-col="banner" class="subject_banner" src="{$subject.banner}" />
+		</div>
+		<div id="content">
+			
+			<div class="zt-main" data-id="{$subject.id}">
+				<h3>推荐专题标题：
+					<input id="recomment_subject_title" type="text" data-set="recommend_subject_title" value="{$subject.recommend_subject_title.text}" />
+					<button class="btn btn-secondary btn_save_text">保存</button>
+				</h3>
+				<p class="zt-slogan">推荐专题副标题：
+					<textarea id="recomment_subject_subheading" type="text" data-set="recommend_subject_subheading"></textarea>
+					<button class="btn btn-secondary btn_save_text">保存</button>
+					<script type="text/javascript">
+						$('#recomment_subject_subheading').wysihtml5({
+							size: 'white',
+							stylesheets: "__PUBLIC__/assets/js/wysihtml5/lib/css/wysiwyg-color.css",
+							image: false,
+						});
+					</script>
+				</p>
+				<ul class="recommend_subject">
+				
+					<for start="0" end="4" comperison="elt" >
+						
+						<php> $liClass = $i % 4 == 0 ? 'clear-margin' : ''; $rcm_sub = $subject['recomment_subject'.$i]; </php>
+						<if condition="$i == 0">
+						<li class="clear-margin">
+						<else />
+						<li>
+						</if>
+							<a href="javascript:;">	
+								<img class="big-img-choose" src="{$rcm_sub.bk_image}" alt="">
+								
+								<div class="zt-content">
+								
+									<div class="zt-img">
+										
+										<img class="small-img-choose" src="{$rcm_sub.word_image}" alt="">
+									</div>
+									
+									<div class="zt-text-write">
+
+				                        <div class="zt-text-introduce-write">
+
+				                            <p class="zt-text-title">主标题：<input type="text" value="{$rcm_sub.title}" /></p>
+
+				                            <p class="zt-text-desc">描述：<textarea>{$rcm_sub.desc}</textarea></p>
+											
+											<p class="zt-text-href">链接：<input type="text" value="{$rcm_sub.url}"/></p>
+											
+											<button class="btn zt-text-btn" data-set="recomment_subject{$i}" data-index="{$i}">保存</button>
+				                        </div>
+
+				                    </div>
+								
+								</div>
+								
+							</a>
+							
+						</li>
+						
+					</for>
+					
+				</ul>
+			</div>
+						
+			<div class="zt-list main">				
+				<ul class="tab-list">
+					<volist id="tab" name="subject.line_tab">
+						<li>
+							<if condition="$key eq 0">
+								<a href="javascript:;" class="g" data-set="{$tab.type_key}" data-id="{$tab.id}" data-key="{$tab.type_key}">{$tab.type_desc}</a>
+							<else />
+								<a href="javascript:;" data-set="{$tab.type_key}" data-id="{$tab.id}" data-key="{$tab.type_key}">{$tab.type_desc}</a>
+							</if>
+							<span>X</span>
+						</li>
+					</volist>					
+				</ul>
+				
+				<div class="zt-list-choose">
+					
+					<i class="zt-list-choose-tab">添加标签</i>
+					<i class="zt-list-choose-type">选择类型</i>
+					
+				</div>
+							
+				<div class="zt-list-move">
+					
+					<button class="btn btn-secondary btn_tab_move left">左移</button>
+					<button class="btn btn-secondary btn_tab_move right">右移</button>
+					
+				</div>			
+									
+				<div class="zt-sublist-content  line_template hidden_ctrl">
+					<div class="zt-text-move">
+						<button class="btn btn-secondary btn_line_move up">上移</button>
+						<button class="btn btn-secondary btn_line_move down">下移</button>
+					</div>							
+					
+					<div class="zt-sublist-img">
+						<img class="face_image" src=""/>
+					</div>
+					
+					<div class="zt-sublist-describe">
+						<h5><a href="javascript:;" target="_blank" class="title"></a></h5>
+						<p class="zt-sublist-line">线路简介：<span class="send_word"></span></p>
+						<p>价格：<strong>成人：￥<em class="adult_price"></em></strong></p>
+						<p>活动时间：<span class="batch_list"></span></p>
+						<p>集合地点：<span class="assembly"></span></p>
+						<!--<p>报名人数：<span></span></p>-->
+						<p>目的地：<span class="dest"></span></p>
+					</div>
+					<div class="zt-sublist-btn">
+						<i class="zt-sublist-btn-delete">删除</i>
+					</div>
+				</div>
+				
+				<div class="zt-sublist">
+					<volist id="line" name="subject.show_tab_line_data">				
+							<div class="zt-sublist-content" data-id="{$line.id}">								
+								<div class="zt-text-move">
+									<button class="btn btn-secondary btn_line_move up">上移</button>
+									<button class="btn btn-secondary btn_line_move down">下移</button>
+								</div>
+													
+								<div class="zt-sublist-img">
+									<img class="face_image" src="{$line.img1}"/>
+								</div>
+								
+								<div class="zt-sublist-describe">
+									<h5><a href="javascript:;" target="_blank" class="title">{$line.title}(No.{$line.id})</a></h5>
+									<p class="zt-sublist-line">线路简介：<span class="send_word">{$line.send_word}</span></p>
+									<p>价格：<strong>成人：￥<em class="adult_price">{$line.start_price_adult}</em></strong></p>
+									<p>活动时间：<span>{$line.start_time} 至 {$line.end_time}</span></p>
+									<p>集合地点：<span class="assembly">{$line.assembly_point_show_text}</span></p>
+									<!--<p>报名人数：<span></span></p>-->
+									<p>目的地：<span class="dest">{$line.destination_show_text}</span></p>
+								</div>
+								<div class="zt-sublist-btn">
+									<i class="zt-sublist-btn-delete">删除</i>
+								</div>
+
+							</div>
+					</volist>
+						
+				</div>
+				<div class="zt-list-btn">
+					<button class="btn zt-list-btn-save">线路选择</button>
+				</div>
+			</div>
+			
+			<!--精彩游记-->
+			
+			<div class="wonderful-travels">
+				
+				<h3>精彩游记</h3>
+				
+				<ul>
+					<for start="0" end="8" comperison="elt">
+						<php> $youji = $subject['youji'.$i];</php>
+						<li>
+							<a href="javascript:;">
+								<img class="bk_image" src="{$youji.img}"/>
+								<div class="wonderful-describe-write">
+									<p class="desc">描述：<input type="text" value="{$youji.desc}" /></p>
+									<p class="url">链接：<input type="text" value="{$youji.url}"/></p>
+									<p class="img_url">图片链接：<input type="text"/></p>
+									<button class="btn btn-secondary use_img_url">使用</button>
+									<button class="btn wonderful-btn-save" data-set="youji{$i}" data-index="{$i}">保存</button>
+								</div>
+							</a>
+						</li>
+					</for>					
+				</ul>
+				
+			</div>
+			
+			<!-- 精选热卖 -->
+			<div class="bg-white">
+				<div class="hot-sale main set_root" data-set="hot">                                     
+					<h2>热卖单品</h2>
+					<div class="hot-sale-product set_root" id="hot_line_recommend" data-set="hot_line_recommend">
+						<div class="hot-sale-product-small">
+							<!--<assign name="k" value="hot_line.$i" />-->
+							<a class="hot_line_recommend" href="javascript:;" data-index="0" data-set="hot_line_recommend0">
+								<img src="{$subject['hot_line_recommend0']['img1']}" alt="">
+								<!--<img class="hot-sale-img" src="__PUBLIC__/home/images/index_img/hot01_01.png" alt="">-->
+								<div class="aaa" data-id="{$subject['hot_line_recommend0']['id']}">
+									<h4>{$subject['hot_line_recommend0']['title']}</h4>
+									<span>{$subject['hot_line_recommend0']['send_word']}</span>
+									<p>￥<em>{$subject['hot_line_recommend0']['start_price_adult']}</em>起</p>
+									<strong>查看详情></strong>
+								</div>
+							</a>
+							<a class="hot_line_recommend" href="javascript:;" data-index="1" data-set="hot_line_recommend1">
+								<img src="{$subject['hot_line_recommend1']['img1']}" alt="">
+								<!--<img class="hot-sale-img" src="__PUBLIC__/home/images/index_img/special01_01.png" alt="">-->
+								<div data-id="{$subject['hot_line_recommend1']['id']}">
+									<h4>{$subject['hot_line_recommend1']['title']}</h4>
+									<span>{$subject['hot_line_recommend1']['send_word']}</span>
+									<p>￥<em>{$subject['hot_line_recommend1']['start_price_adult']}</em>起</p>
+									<strong>查看详情></strong>
+								</div>
+							</a>
+						</div>
+						<a href="javascript:;" class="hot-sale-big hot_line_recommend" data-index="2" data-set="hot_line_recommend2">
+							<img src="{$subject['hot_line_recommend2']['img1']}" alt="">
+							<!--<img class="hot-sale-img" src="__PUBLIC__/home/images/index_img/special01_01.png" alt="">-->
+							<div data-id="{$subject['hot_line_recommend2']['id']}">
+								<h4>{$subject['hot_line_recommend2']['title']}</h4>
+								<span>{$subject['hot_line_recommend2']['send_word']}</span>
+								<p>￥<em>{$subject['hot_line_recommend2']['start_price_adult']}</em>起</p>
+								<strong>查看详情></strong>
+							</div>
+						</a>
+						<div class="hot-sale-product-small">
+							<a class="hot_line_recommend" href="javascript:;" data-index="3" data-set="hot_line_recommend3">
+								<img src="{$subject['hot_line_recommend3']['img1']}" alt="">
+								<!--<img class="hot-sale-img" src="__PUBLIC__/home/images/index_img/hot01_01.png" alt="">-->
+								<div data-id="{$subject['hot_line_recommend3']['id']}">
+									<h4>{$subject['hot_line_recommend3']['title']}</h4>
+									<span>{$subject['hot_line_recommend3']['send_word']}</span>
+									<p>￥<em>{$subject['hot_line_recommend3']['start_price_adult']}</em>起</p>
+									<strong>查看详情></strong>
+								</div>
+							</a>
+							<a class="hot_line_recommend" href="javascript:;" data-index="4" data-set="hot_line_recommend4">
+								<img src="{$subject['hot_line_recommend4']['img1']}" alt="">
+								<!--<img class="hot-sale-img" src="__PUBLIC__/home/images/index_img/hot02_01.png" alt="">-->
+								<div data-id="{$subject['hot_line_recommend4']['id']}">
+									<h4>{$subject['hot_line_recommend4']['title']}</h4>
+									<span>{$subject['hot_line_recommend4']['send_word']}</span>
+									<p>￥<em>{$subject['hot_line_recommend4']['start_price_adult']}</em>起</p>
+									<strong>查看详情></strong>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+	<!--list-modal-->
+	<div class="mark"></div>
+	<div class="zt-list-tab">
+		<div class="zt-tab-modal-add">
+			<p>添加标签：</p>
+			<volist id="theme" name="line_theme">
+				<a href="javascript:;" data-id="{$theme.id}" data-key="{$theme.type_key}">{$theme.type_desc}</a>
+			</volist>			
+		</div>
+		<div class="zt-tab-modal-submit">
+			<a class="zt-tab-modal-sure" href="javascript:;">确定</a>
+			<a class="zt-tab-modal-exit" href="javascript:;">取消</a>
+		</div>
+	</div>
+	<div class="zt-list-type">
+		<div class="zt-type-modal-add" data->
+			<p>选择类型：</p>
+			<a href="javascript:;" data-val="1">类型1</a>
+			<a href="javascript:;" data-val="2">类型2</a>
+			<a href="javascript:;" data-val="3">类型3</a>
+			<a href="javascript:;" data-val="4">类型4</a>
+			
+		</div>
+		<div class="zt-type-modal-submit">
+			<a class="zt-type-modal-sure" href="javascript:;" data-set="line_tab_class">确定</a>
+			<a class="zt-type-modal-exit" href="javascript:;">取消</a>
+		</div>
+	</div>
+	
+	<div class="footer">							
+	</div>
+	<!--面板内容结束-->
+
+	<script>
+		// 初始化
+		$(document).ready(function(){
+			$('#recomment_subject_subheading').data('wysihtml5').editor.setValue('{$subject.recommend_subject_subheading.text}');
+		});
+	
+		// 创建专题
+		$('.save_zhuanti').click(function(){
+			var jsonData = {
+				op_type: 'edit',
+				id: $('.zt-main').attr('data-id'),
+				seo_title: $('#seo_title').val(),
+				seo_keywords: $('#seo_keywords').val(),
+				seo_desc: $('#seo_desc').val(),
+			};
+			var title = $('#title').val();
+			var desc = $('#desc').val();
+			var kw = $('#keywords').val();
+			if (kw != '') {
+				jsonData['keywords'] = kw.replace(/，/g, ',');
+			}
+			if (title == '' || desc == '' || kw == '') {
+				toastr.warning('标题、描述、关键字不能为空');
+				return false;
+			}
+			jsonData['title'] = title;
+			jsonData['desc'] = desc;
+			
+			$.post('{:U("line/subject")}', jsonData, function(data){
+				if (data.id != null) {
+					$('.zt-main').attr('data-id', data.id);
+				}
+				if (data.result.errno == 0) {
+					toastr.success(data.result.message);	
+				} else {
+					toastr.error(data.result.message);	
+				}
+			});		
+		});		
+			
+		// 保存专题信息
+		function saveSubject(obj) {
+			var jsonData = {
+				op_type: 'edit',
+				id: $('.zt-main').attr('data-id'),
+			}
+			var col = $(obj).attr('data-col');
+			var val = '';
+			if ($(obj).is('img')) {
+				val = $(obj).attr('src');
+			} else {
+				val = $(obj).val();	
+			}
+			// 关键字中间逗号用英文符号
+			if (col == 'keywords') {
+				val = val.replace(/，/g,',');
+			}
+			if (val == '') {
+				toastr.warning('设置的值不能为空');
+				return false;
+			}
+			jsonData[col] = val;
+			
+			var ds = {ds:null, result:{errno:-1, message:'设置为未成功'}};
+			$.ajax({
+				url: '{:U("line/subject")}',
+				type: 'POST',
+				async: false,
+				data: jsonData,
+				dataType: 'json',
+				success: function(data) {
+					ds = data;
+					if (data.id != null) {
+						$('.zt-main').attr('data-id', data.id);
+					}
+				}
+			});			
+			return ds;
+		}
+		
+		// 保存文字性内容
+		function saveWordContent(obj) {
+			$(obj).click(function(){
+				var inputObj = $(this).prev();
+				if ($(inputObj).is('iframe') == true) {
+					inputObj = $(inputObj).prev().prev();	
+				}	
+				
+				if ($(inputObj).is('input') == false && $(inputObj).is('textarea') == false) {
+					toastr.warning('您绑定的标签类型为错误类型');
+					return false;
+				}
+				
+				var key = $(inputObj).attr('data-set');
+				if (key == null || key == 'undefined') {
+					toastr.warning('您设置的内容类型不存在');
+					return false;
+				}
+				
+				var val = '';
+				if (key == 'recommend_subject_subheading') {
+					val = $(inputObj).data('wysihtml5').editor.getValue();
+				} else {
+					val = $(inputObj).val();
+				}
+				if (val == '') {
+					toastr.warning('设置的内容不能为空');
+					return false;
+				}
+				var valstr = '{"text":"'+val+'"}';
+				var data = setSubjectConfig(key, valstr, 0);
+				if (data.result.errno != 0 && data.result.errno != -4) {
+					toastr.error(data.result.message);	
+				} else {
+					toastr.success('恭喜您，终于保存成功了，交个朋友吧');
+				}
+			});
+		}
+		// 保存推荐专题标题
+		saveWordContent($('.btn_save_text'));
+		
+		// 绑定选择图片事件		
+		function bindSelectImageEvent(obj, func) {
+			$(obj).click(function(){
+				if ($(obj).is('img') == false) {
+					toastr.warning('您绑定的不是图片控件');
+					return false;
+				}
+				modalUploadMaxFileCount = 1; 
+				funcModalImageSelectorCallBack = func;
+				showModalSelectorImageDialog(this);		
+			})
+		}
+		
+		// 设置专题配置
+		function setSubjectConfig(key, val, nSort, sql_type, keyLike) {			
+			if (key == '' || key == 'undefined' || key == null) {
+				toastr.warning('修改项错误');
+				return false;
+			}
+			var jsonData = {
+				op_type: 'data',
+				subject_id: $('.zt-main').attr('data-id'),
+				key: key,
+				value: val,
+			}
+			if (nSort != 'undefined' && nSort != null) {
+				jsonData['sort'] = nSort;
+			}
+			if (sql_type != 'undefined' && sql_type != null) {
+				jsonData['sql_type'] = sql_type;
+			}
+			if (keyLike != 'undefined' && keyLike != null) {
+				jsonData['key_like'] = 1;
+			}
+			
+//			console.log(JSON.stringify(jsonData));
+//			showLoading(true);
+			var ds = {ds:null, result:{errno:-1, message:'设置为未功'}};
+			$.ajax({
+				url: '{:U("line/subject")}',
+				type: 'POST',
+				async: false,
+				data: jsonData,
+				dataType: 'json',
+				success: function(data) {
+					ds = data;
+				}
+			});			
+			return ds;
+		}
+		
+		// 已选择的图片
+		function choosedImage(obj, imageList){
+			if (imageList.length == 0) {
+				toastr.warning('您未选择图片');
+			}
+			
+			var srcImg = $(obj).attr('src');			
+			var key = $(obj).attr('data-set');
+			if (key != '' && key != 'undefined' && key != null) {
+				var data = null;
+				if (key == 'subject_banner') {
+					$(obj).attr('src', imageList[0]);
+					data = saveSubject(obj);
+				} else {
+					var nsort = $(obj).attr('data-index');
+					if (nsort == '') {nsort = 0;}
+					data = setSubjectConfig(key, imageList[0], nsort);
+				}
+				if (data.result.errno != 0) {
+					$(obj).attr('src', srcImg);
+					toastr.error(data.result.message);
+				}
+			} else {
+				$(obj).attr('src', imageList[0]);
+			}
+		}
+		
+		// 绑定设置banner图片
+		bindSelectImageEvent($('.zt-top').find('img'), choosedImage);		
+		// 绑定设置推荐专题背景图片
+		bindSelectImageEvent($('.recommend_subject').find('.big-img-choose'), choosedImage);		
+		// 绑定设置推荐专题文字图片
+		bindSelectImageEvent($('.recommend_subject').find('.small-img-choose'), choosedImage);
+		// 设置游记背景图片
+		bindSelectImageEvent($('.wonderful-travels').find('.bk_image'), choosedImage);	
+		
+		// 设置推荐专题
+		$('.recommend_subject').find('.zt-text-btn').click(function(){
+			var key = $(this).attr('data-set');
+			var nsort = $(this).attr('data-index');
+			
+			var liObj = $(this).closest('li');
+			var val = {
+				title: $(liObj).find('.zt-text-title input').val(),
+				desc: $(liObj).find('.zt-text-desc textarea').val(),
+				bk_image: $(liObj).find('.big-img-choose').attr('src'),
+				word_image: $(liObj).find('.small-img-choose').attr('src'),
+				url: $(liObj).find('.zt-text-href input').val(),
+			}
+			var valstr = JSON.stringify(val);
+			var data = setSubjectConfig(key,valstr,nsort);
+			if (data.result.errno != 0) {
+				toastr.error(data.result.message);
+			} else {
+				toastr.success('保存成功');
+			}
+		});
+				
+		
+		// 删除线路Tab页删除符号显示与隐藏
+		$(document).on('mouseover mouseout','.tab-list li',function(event){
+			if(event.type == "mouseover"){
+			  //鼠标悬浮
+			  $(this).find('span').show();
+			  
+			}else if(event.type == "mouseout"){
+			  //鼠标离开
+			  $(this).find('span').hide();
+			}
+			
+		});
+		
+		
+		// 删除线路Tab页标签
+		$(document).on('click','.tab-list span',function(){			
+			var liObj = $(this).closest('li');
+			var key = 'tab_'+$(liObj).find('a').attr('data-set');
+			var data = setSubjectConfig(key,'',0,'delete');
+			if (data.result.errno != 0) {
+				toastr.error(data.result.message);	
+			} else {
+				$(liObj).remove();	
+			}
+		});
+		
+		// 模态框选择要使用的标签,单选
+		$(document).on('click','.zt-tab-modal-add a',function(){
+			$(this).parent().find('.bg-red').removeClass('bg-red');
+			$(this).addClass('bg-red');
+		});
+		
+		//确定使用该标签
+		$(document).on('click','.zt-tab-modal-sure',function(){								
+			// 获取添加的tab值
+			var tabVal = null;		
+			var tabListObj = $('.zt-list').find('.tab-list');
+			$('.zt-list-tab').find('.bg-red').each(function(i,ev){				
+				// 去重复
+				var tabId = $(this).attr('data-id');
+				if ($(tabListObj).find('a[data-id="'+tabId+'"]').length == 0) {
+					tabVal = {
+						id: tabId,
+						type_key: $(this).attr('data-key'),
+						type_desc: $(this).html(),
+					};
+				}
+			});
+			
+			if (tabVal == null) {
+				toastr.warning('没有选中tab');
+				return false;
+			}
+			
+			// 设置的tab键
+			var key = 'tab_' + tabVal.type_key;
+			var vals = JSON.stringify(tabVal);	
+			var nsort = $(tabListObj).find('a').length;			
+			var data = setSubjectConfig(key, vals, nsort);
+			if (data.result.errno == 0) {
+				if (data.id != null) {
+					var vhtml = '<li>'+
+								'	<a href="javascript:;" data-id="'+data.id+'" data-set="'+tabVal.type_key+'" data-key="'+tabVal.type_key+'">'+ tabVal.type_desc +'</a>'+
+								'	<span>X</span>'+
+								'</li>';
+					$(tabListObj).append(vhtml);
+					$(tabListObj).find('li:last').find('a').click(changeTabPage);
+					if ($(tabListObj).find('.g').length == 0) {
+						$(tabListObj).find('li:last').find('a').addClass('g');
+					}
+				}
+			} else {
+				toastr.error(data.result.message);
+			}			
+			
+			$('.zt-list-tab').hide();
+		    $('.mark').hide();
+		});
+		
+		// 线路Tab页左移、右移
+		$('.btn_tab_move').click(function(){
+			var curTab = $('.zt-list .tab-list').find('.g');
+			var key = 'tab_' + $(curTab).attr('data-set');
+			var val = $(this).hasClass('left') == false ? 'right' : 'left';
+			
+			var data = setSubjectConfig(key, val, 0, 'sort_tab');
+			if (data.result != null && data.result.errno != 0) {
+				toastr.error(data.result.message);
+			}	
+			
+			if (data.self_result != null && data.aim_result != null) {
+				data.self_result.errno == 0 ? toastr.success(data.self_result.message) : toastr.error(data.self_result.message);
+				data.aim_result.errno == 0 ? toastr.success(data.aim_result.message) : toastr.error(data.aim_result.message);
+				if (data.self_result.errno == 0 && data.aim_result.errno == 0) {	
+					// tab页调换
+					var curLiObj = $(curTab).closest('li');
+					if (val == 'left') {
+						if ($(curLiObj).prev().is('li')) {
+							$(curLiObj).prev().before(curLiObj);
+						}
+					} else {
+						if ($(curLiObj).next().is('li')) {
+							$(curLiObj).next().after(curLiObj);
+						}
+					}
+				}
+			}	
+		});
+		
+		// 线路上下移动
+		$('.btn_line_move').click(function(){
+			var rootObj = $(this).closest('.zt-sublist-content');
+			var curTab = $('.zt-list .tab-list').find('.g');
+			var key = $(curTab).attr('data-set');
+			var val = $(rootObj).attr('data-id');
+			var sql_type = 'sort_line' + ($(this).hasClass('up') == false ? '_down' : '_up');
+			var data = setSubjectConfig(key, val, 0, sql_type);
+			if (data.result.errno == 0) {
+				if ($(this).hasClass('up') == false) {
+					if ($(rootObj).next().hasClass('zt-sublist-content')) {
+						$(rootObj).next().after(rootObj);	
+					}
+				} else {
+					if ($(rootObj).prev().hasClass('zt-sublist-content')) {
+						$(rootObj).prev().before(rootObj);	
+					}
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		});		
+		
+		// 线路选择面板切换
+		function changeTabPage() {					
+			var mainObj = $(this).closest('.main');		
+			var thisTabObj = $(mainObj).find('.tab-list a.g');
+			
+			if ($(this).attr('data-id') == $(thisTabObj).attr('data-id')) {
+				return false;
+			}
+			
+			// 选中切换
+			$(mainObj).find('.tab-list a').removeClass('g');
+			$(this).addClass('g');
+			
+			// 设置面板当前的tab标签
+			var tabKey = $(this).attr('data-key');
+						
+			$('.zt-sublist').empty();
+			// 重新获取内容并填充
+			var data = setSubjectConfig(tabKey, '', 0, 'find');
+			if (data.ds != null) {
+				for (var i = 0; i < data.ds.length; i ++) {
+					var d = data.ds[i];
+					var lineObj = $('.line_template').clone(true);
+					$(lineObj).removeClass('line_template');
+					$(lineObj).removeClass('hidden_ctrl');
+					$(lineObj).attr('data-id', d.id);
+					$(lineObj).find('.face_image').attr('src', d.img1);
+					$(lineObj).find('.title').html(d.title+'(No.'+d.id+')');
+					$(lineObj).find('.send_word').html(d.send_word_show);
+					$(lineObj).find('.adult_price').html(d.start_price_adult);	
+					$(lineObj).find('.batch_list').html(d.start_time + ' 至 ' + d.end_time);
+					$(lineObj).find('.assembly').html(d.assembly_point_show_text);
+					$(lineObj).find('.dest').html(d.destination_show_text);
+					$('.zt-sublist').append(lineObj);
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		}		
+		
+		// 切换产品选择
+		$('.zt-list').find('.tab-list').find('a').click(changeTabPage);
+				
+		// 设置产品
+		function setLine(obj, ids) {
+			console.log(JSON.stringify(ids));		
+			if (ids.length == 0 || ids == null || ids == 'undefined') {
+				toastr.warning('未选取线路信息');
+				return false;
+			}			
+			
+			var vals = [];
+			for (var i = 0; i < $(ids).length; i++) {
+				// 去重复
+				if ($('.zt-sublist-content[data-id="'+ids[i]+'"]').length == 0) {
+					vals.push({id:ids[i]});	
+				}
+			}
+			
+			// 获取线路信息
+			var key = $(obj).attr('data-set');
+			var nsort = $('.zt-sublist').find('.zt-sublist-content').length;
+			var data = setSubjectConfig(key, JSON.stringify(vals), nsort, 'append');
+			if (data.result.errno == 0) {
+				if (data.lines != null && data.lines != 'undefined') {
+					for (var i = 0; i < data.lines.length; i ++) {
+						var d = data.lines[i];
+						var lineObj = $('.line_template').clone(true);
+						$(lineObj).removeClass('line_template');
+						$(lineObj).removeClass('hidden_ctrl');
+						$(lineObj).attr('data-id', d.id);
+						$(lineObj).find('.face_image').attr('src', d.img1);
+						$(lineObj).find('.title').html(d.title+'(No.'+d.id+')');
+						$(lineObj).find('.send_word').html(d.send_word_show);
+						$(lineObj).find('.adult_price').html(d.start_price_adult);
+						$(lineObj).find('.batch_list').html(d.start_time + ' 至 ' + d.end_time);
+						$(lineObj).find('.assembly').html(d.assembly_point_show_text);
+						$(lineObj).find('.dest').html(d.destination_show_text);
+						$('.zt-sublist').append(lineObj);
+					}
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		}
+	
+		//弹出选择线路modal
+		$('.zt-list-btn-save').click(function(){	
+			var cds = '';	
+			var aObj = $(this).closest('.main').find('.tab-list li').find('a.g');
+//			var tab_desc = $(aObj).html();
+//			if (tab_desc != 'undefined') {
+//				if (tab_desc == '推荐') {
+//					cds += 'recommend|1';
+//				} else {
+//					cds += 'theme_type|{"type_desc":"'+tab_desc+'"}';
+//				}
+//			}							
+			showModalLineSelect(aObj, setLine, cds, true);
+		});
+		
+				
+		// 设置产品
+		function setHotLine(obj, ids) {
+			console.log(JSON.stringify(ids));		
+			if (ids.length == 0 || ids == null || ids == 'undefined') {
+				toastr.warning('未选取线路信息');
+				return false;
+			}			
+						
+			// 获取线路信息
+			var key = $(obj).attr('data-set');
+			var nsort = $(obj).attr('data-index');
+			var data = setSubjectConfig(key, ids[0], nsort);
+			if (data.result.errno == 0) {
+				if (data.line != null && data.line != 'undefined') {
+					var d = data.line;
+					console.log(JSON.stringify(d));
+					$(obj).find('img:first').attr('src', d.img1);
+					$(obj).find('div').attr('data-id', d.id);
+					$(obj).find('div h4').html(d.title);
+					$(obj).find('div span').html( d.send_word);
+					$(obj).find('div em').html(d.start_price_adult);					
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		}
+		
+		// 弹出设置精选热卖
+		$('.hot_line_recommend').click(function(){						
+			showModalLineSelect(this, setHotLine, '', true);
+		});
+		
+		// 移除线路
+		$('.zt-sublist-btn-delete').click(function(){			
+			var key =  $('.zt-list').find('.tab-list').find('.g').attr('data-key');
+			var rootObj = $(this).closest('.zt-sublist-content');
+			var vals = $(rootObj).attr('data-id');
+			var data = setSubjectConfig(key, vals, 0, 'remove');
+			if (data.result.errno == 0) {
+				$(rootObj).remove();
+			} else {
+				toastr.error(data.result.message);
+			}
+		});
+		
+		//选择添加标签
+		$(document).on('click','.zt-list-choose-tab',function(){
+			$('.mark').show();
+			$('.zt-list-tab').show();
+		});
+		
+		//取消添加标签
+		$(document).on('click','.zt-tab-modal-exit',function(){
+			$('.mark').hide();
+			$('.zt-list-tab').hide();
+			$('.zt-tab-modal-add a').removeClass('bg-red');
+		});
+		
+		//添加类型,单选
+		$(document).on('click','.zt-type-modal-add a',function(){
+			$(this).parent().find('.bg-red').removeClass('bg-red');
+			$(this).addClass('bg-red');
+		});
+		
+		// 设置线路Tab页样式
+		function setTabStyle(classType) {
+			$('.tab-list').addClass('bg'+classType);
+			$('.tab-list ul li a').addClass('color'+classType);
+			//如果选择的是第N种
+			if($('.tab-list').hasClass('bg1')){
+				$('.zt-list ul li .g').css('background','red');
+			}
+		}
+		// 初始化线路Tab页样式
+		setTabStyle('{$subject.line_tab_class.text}');
+		
+		//确定添加类型
+		$(document).on('click','.zt-type-modal-sure',function(){
+			$('.mark').hide();
+			$('.zt-list-type').hide();
+			//选择背景，字体类型
+			var bgColor = $('.zt-type-modal-add a.bg-red').attr('data-val');
+			var valstr = '{"text":"'+bgColor+'"}'
+			var data = setSubjectConfig('line_tab_style', valstr);
+			if (data.result.errno == 0) {
+				setTabStyle(bgColor);	
+			} else {
+				toastr.error(data.result.message);
+			}
+		});
+		
+		//选择添加类型
+		$(document).on('click','.zt-list-choose-type',function(){
+			$('.mark').show();
+			$('.zt-list-type').show();
+		});
+		
+		//取消添加类型
+		$(document).on('click','.zt-type-modal-exit',function(){
+			$('.mark').hide();
+			$('.zt-list-type').hide();
+		});		
+		
+		// 游记选择图片和输入图片切换
+		$('.use_img_url').click(function(){
+			var liObj = $(this).closest('li');
+			var curImg = $(liObj).find('.bk_image').attr('src');
+			var urlImg = $(liObj).find('.img_url input').val();
+			if ($(this).html() == '使用') {
+				$(this).html('恢复');
+				$(this).attr('data-src', curImg);
+				$(liObj).find('.bk_image').attr('src', urlImg);
+			} else {
+				$(this).html('使用');
+				$(liObj).find('.bk_image').attr('src', $(this).attr('data-src'));
+			}
+		});
+		
+		// 添加游记
+		$('.wonderful-btn-save').click(function(){
+			var liObj = $(this).closest('li');
+			var val = {
+				desc: $(liObj).find('.desc input').val(),
+				img: $(liObj).find('.bk_image').attr('src'),
+				url: $(liObj).find('.url input').val(),
+			}
+			var key = $(this).attr('data-set');
+			var valstr = JSON.stringify(val);
+			var nsort = $(this).attr('data-index');
+			var data = setSubjectConfig(key, valstr, nsort);
+			if (data.result.errno != 0) {
+				toastr.error(data.result.message);
+			} else {
+				toastr.success('保存游记成功');
+			}
+		});
+	</script>
+	
+<include file="Common/footer" />

@@ -1,0 +1,317 @@
+<include file="Common/header" /> 
+		<div class="row">
+			<div class="panel panel-color panel-info panel-content-pos">
+				<div class="panel panel-heading">
+					<span class="description">{:C(CONTENT_TITLE)}</span>					
+				</div>
+				<div class="panel panel-color panel-content">
+                    <table id="test" class="table aspTable lcnp" cellpadding="0" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="10%"><input type="checkbox" id="checkAll" /></th>
+                                <th width="20%">权限名称</th>
+                                <th width="15%">权限类型</th>
+                                <th width="15%">权限键名</th>
+                                <th width="10%">权限值</th>
+                                <th width="20%">
+                                	<volist id='adType' name="adminType">
+                                		{$adType.type_desc}/
+                                	</volist>
+                                </th>
+								<if condition="($grant_update eq true) OR ($grant_delete eq true)">
+                                	<th width="15%" class="TAC">编辑/删除</th>
+                                </if>
+                            </tr>
+                        </thead>
+                    </table>   
+                    
+					<div class="row">
+						<if condition="$grant_create eq true">
+							<div class="col-md-1">
+								<a href="#" class="btn btn-primary" style="float: right" id="btn_create_type">创建类型</a>
+							</div>
+						</if>
+						<if condition="$grant_delete eq true">
+							<div class="col-md-11">
+								<a href="#" class="btn btn-danger" id="btn_delete_type">删除类型</a>
+							</div>
+						</if>
+					</div>
+				</div>
+			</div>		
+		</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+	var myTable, pageRequestData;
+	var modalDataEditData = new Object();
+	$(document).ready(function(){		
+		// 初始化数据表格
+		myTable = initDataTable();
+		
+		// 创建类型
+		$("#btn_create_type").click(_addFun);
+		// 删除选中的
+		$("#btn_delete_type").click(_deleteList);
+		
+		//checkbox全选
+		$("#checkAll").click(function () {
+		    $("input[name='checkList']").prop("checked", $(this).prop('checked'));
+		});
+	});
+	
+	// 初始化数据列表
+	function initDataTable() {	
+		var vTable = $(".aspTable").dataTable({
+			"bSort": true,
+			"bAutoWidth": true,
+			"bFilter": true,
+			"bInfo": true,//页脚信息
+			"bPaginate": true, //翻页功能
+			"bLengthChange": true, //改变每页显示数据数量
+			"bStateSave": true,	//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+			"sPaginationType": "full_numbers", //显示数字的翻页样式"
+			"aLengthMenu": [[5, 10, 25, 50, -1],[5, 10, 25, 50, '所有']],	// 可分页的数量值与显示
+			"isDisplayLength": 5,	// 当前每页显示数量
+			"oLanguage": {
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+				"sZeroRecords": "抱歉， 没有找到",
+				"sInfo": "从 _START_ 到 _END_ / 共 _TOTAL_ 条数据",
+				"sInfoEmpty": "没有数据",
+				"sInfoFiltered": "(从_MAX_条数据中检索)",
+				"oPaginate": {
+					"sFirst": "首页",
+					"sPrevious": "前一页",
+					"sNext": "后一页",
+					"sLast": "尾页"
+				},
+				"sZeroRecords": "没有检索到数据",
+				"sProcessing": "<src='__PUBLIC__/images/loader.gif' />",
+			},
+			//Ajax获取信息
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "{$ajaxReqUrl}",
+			//如果加上下面这段内容，则使用post方式传递数据
+			"fnServerData": getPageData,
+			"aoColumns": dataTablesBindCols(),
+			"aoColumnDefs": [{"sDefaultContent": "", "aTargets": ["_all"]}],
+		});
+		return vTable;
+	}
+
+	// 绑定列
+	function dataTablesBindCols() {
+		var cols = new Array();
+		cols = [
+				{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [0], "fnCreatedCell": appendFirstCol},
+				{"mData": "grant_desc", "aTargets": [1]},
+				{"mData": "type_id.type_desc", "aTargets": [2], "fnCreatedCell": replaceContent},
+				{"mData": "grant_key", "aTargets": [3]},
+				{"mData": "grant_value", "aTargets": [4]},
+				{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [5], "fnCreatedCell": appendFiveCol},
+			];	//$_GET[‘sColumns’]将接收到aoColumns传递数据
+			
+		if ('{$grant_update}' == true || '{$grant_delete}' == true) {			
+			cols[cols.length] =	{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [6], "fnCreatedCell": appendLastCol};
+		}
+		return cols;
+	}
+
+	//Ajax获取数据
+	function getPageData ( sSource, aoData, fnCallback ) {
+		var typeObj = '{$typeObj}';
+		aoData.push({'name':'type_obj','value':typeObj});
+		aoData.push({'name':'op_type','value':'list'});
+//		alert(JSON.stringify(aoData));
+		pageRequestData = aoData;
+		$.post(sSource, aoData, function(data,status){
+				if (data['result']['errno'] == 0) {
+					fnCallback(data);
+					$('.cbr').change(_changeFun);
+				} else {
+					alert(data['result']['message']);
+				}			
+			},'JSON');
+	}
+
+	// 添加第一列复选框
+	function appendFirstCol(nTd, sData, oData, iRow, iCol) {
+	//	alert(nTd+'|'+JSON.stringify(sData)+'|'+JSON.stringify(oData)+'|'+iRow+'|'+iCol);
+		$(nTd).html('<input type="checkbox" name="checkList" value=' + sData + '/>'); 
+	}
+	
+	// 内容替换
+	function replaceContent(nTd, sData, oData, iRow, iCol) {
+		if (iCol == 2) {
+			$(nTd).html(oData['type_id.type_desc']);	
+		}
+	}
+	
+	// 添加第五列控件
+	function appendFiveCol(nTd, sData, oData, iRow, iCol) {
+		var html = ''
+		for (var i = 0; i < oData.use_obj.length; i++) {
+			var use = oData.use_obj[i];
+			html += '<input type="checkbox" class="cbr cbr-secondary" data-gid="'+oData.id+'" data-tid="'+use.id+'" '+use.checked+'/>&nbsp;&nbsp;';
+		}
+		$(nTd).html(html);
+	}
+
+	// 添加最后一列控件
+	function appendLastCol(nTd, sData, oData, iRow, iCol) {
+//		alert(nTd+'|'+JSON.stringify(sData)+'|'+JSON.stringify(oData)+'|'+iRow+'|'+iCol);
+		var id = parseInt(oData['id']);
+//	    $(nTd).html('<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_grantFun('+id+')">编辑</a>');
+//    	$(nTd).html('<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_editFun('+id+')">编辑</a>');
+//    	$(nTd).append('<a href="#" class="btn btn-danger btn-sm btn-icon icon-left" onclick="_deleteFun('+id+')">删除</a>');
+//    	
+    	var html = '';
+    	if ('{$grant_update}' == true) {
+    		html += '<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_editFun('+id+')">编辑</a>';
+    	} 
+    	
+    	if ('{$grant_delete}' == true) {
+    		html += '<a href="#" class="btn btn-danger btn-sm btn-icon icon-left" onclick="_deleteFun('+id+')">删除</a>';
+    	}
+    	$(nTd).html(html);
+	}
+
+	/**
+	* 创建类型
+	* @private
+	*/
+	function _addFun() {
+		location.href = '{:U("grant/list", "op=show_create")}';
+	}
+	 	
+	/**
+	* 测试字符串类型
+	* @private
+	*/
+	function checkType(checkType, checkValue) {
+		var type = {
+			'ffint': /^\d+$/,　　//非负整数（正整数 + 0）
+			'zint': /^[0-9]*[1-9][0-9]*$/,　　//正整数
+			'fzint': /^((-\d+)|(0+))$/,　　//非正整数（负整数 + 0）
+			'fint': /^-[0-9]*[1-9][0-9]*$/,　　//负整数
+			'int': /^-?\d+$/,　　　　//整数
+			'fffloat': /^\d+(\.\d+)?$/,　　//非负浮点数（正浮点数 + 0）
+			'zfloat': /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,　　//正浮点数
+			'fzfloat': /^((-\d+(\.\d+)?)|(0+(\.0+)?))$/,　　//非正浮点数（负浮点数 + 0）
+			'ffloat': /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/,　　//负浮点数
+			'float': /^(-?\d+)(\.\d+)?$/,　　//浮点数
+		}
+		
+		return type[checkType].test(checkValue);
+	}
+
+	// 弹出编辑数据界面
+	function _editFun(aid) {
+		$.getJSON('{:U("grant/list")}', {op:'show_edit', id:aid}, function(data){
+			location.href = data.url;
+		});
+	}
+	
+	// 改变权限使用对象绑定状态
+	function _changeFun() {
+		var gid = $(this).attr('data-gid');
+		var tid = $(this).attr('data-tid');
+		if (gid == '' || tid == '') {
+			return false;
+		}
+		var jsonData = {
+			'op_type': $(this).prop('checked')?'bind':'unbind',
+			'grant_id': gid,
+			'admin_type_id': tid,
+		}
+		var obj = $(this);
+		$.post('{:U("grant/list")}', jsonData, function(data){
+			console.log(JSON.stringify(data));
+			if (data.result.errno != 0) {
+				alert(data.result.message);			
+				var checked = $(obj).prop('checked');
+				$(obj).prop('checked', !checked);	
+			}	
+		});
+	}
+	
+
+	/**
+	* 删除
+	* @param id
+	* @private
+	*/
+	function _deleteFun(aid) {
+		if (!confirm("您确定要删除id=["+aid+"]该条类型记录吗？")) {
+			return false;
+		}
+		var typeObj = '{$typeObj}';
+		$.post('{$ajaxReqUrl}',
+			{type_obj:typeObj, op_type:'delete', id:aid},
+			function(data,status){
+	        	if(data['result']['errno'] == 0){
+					myTable.fnReloadAjax(myTable.fnSettings());
+				} else {
+					alert(data['result']['message']);	
+				}
+			});	
+	}
+	 
+	/**
+	* 批量删除
+	* 未做
+	* @private
+	*/
+	function _deleteList() {
+		var ids = new Array();
+		$("input[name='checkList']:checked").each(function (i, o) {
+   			var selected = myTable.fnGetData($(o).parent('tr').get(2));
+//			alert(i+"\n"+JSON.stringify(selected));
+			var idstr = $(this).val();
+			ids[ids.length]=parseInt(idstr.substr(0, idstr.length-1));
+		});
+		if (ids.length > 0) {
+			if (!confirm("您确定要删除选定ID为["+JSON.stringify(ids)+"]的记录吗？")) {
+				return false;
+			}
+			var typeObj = '{$typeObj}';
+			$.post('{$ajaxReqUrl}',
+				{type_obj:typeObj, 'op_type':'delete_multi', 'ids':ids},
+				function(data,status){
+//					console.log(JSON.stringify(data));
+		        	if(data['result']['errno'] == 0){
+						myTable.fnReloadAjax(myTable.fnSettings());
+					} else {
+						alert(data['result']['message']);	
+					}
+				});
+		} else {
+		    alert("至少选择一条记录操作");
+		}
+	}
+
+
+	/*
+	add this plug in
+	// you can call the below function to reload the table with current state
+	Datatables刷新方法
+	oTable.fnReloadAjax(oTable.fnSettings());
+	*/
+	$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings) {
+		//oSettings.sAjaxSource = sNewSource;
+		this.fnClearTable(this);
+		this.oApi._fnProcessingDisplay(oSettings, true);
+		var that = this;
+
+		$.getJSON(oSettings.sAjaxSource, null, function (json) {
+		    /* Got the data - add it to the table */
+		    for (var i = 0; i < json.aaData.length; i++) {
+		        that.oApi._fnAddData(oSettings, json.aaData[i]);
+		    }
+		    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+		    that.fnDraw(that);
+		    that.oApi._fnProcessingDisplay(oSettings, false);
+		});
+	}
+	
+</script>

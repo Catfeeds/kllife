@@ -1,0 +1,105 @@
+
+        <!--footer-->
+        <div class="footer">
+            <a href="{:U('index/welcome')}">
+                <div class="selected active">
+                    <i class="iconfont">&#xe629;</i>
+                    <p>首页</p>
+                </div>
+            </a>
+            <a href="{:U('line/list')}">
+                <div class="selected">
+                    <i class="iconfont">&#xe633;</i>
+                    <p>跟拍游</p>
+                </div>
+            </a>
+            <a href="{$pcset.askfor_link}">
+                <div class="selected">
+                    <i class="iconfont">&#xe66e;</i>
+                    <p>咨询</p>
+                </div>
+            </a>
+            <a href="{:U('Leader/list')}">
+                <div class="selected">
+                    <i class="iconfont">&#xe60f;</i>
+                    <p>摄影师</p>
+                </div>
+            </a>
+            <a href="{:U('user/info')}">
+                <div class="selected">
+                    <i class="iconfont">&#xe6a3;</i>
+                    <p>我的</p>
+                </div>
+            </a>
+        </div>
+	</div>
+    <!--点击返回顶部-->
+    <div class="return-top"><i class="iconfont" style="font-size: 50px;">&#xe68f;</i></div>
+        <script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(
+                function($){
+                    $("img").lazyload({
+                        placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+                        effect      : "fadeIn",
+                        threshold : 100,
+                        failure_limit : 10
+                    });
+                });
+        </script>
+    <script type="text/javascript">
+	    //点击显示与隐藏菜单
+//	    $(".menu").on("click",function(){
+//	        if($(".menu-block").is(":hidden")==false){
+//	            $(".menu-block").slideUp(500);
+//	            $(".search-block").slideUp(500);
+//	        }else{
+//	            $(".menu-block").slideDown(500);
+//	            $(".search-block").slideUp(500);
+//	        }
+//	    })
+	    
+	    //点击显示与隐藏搜索
+//	    $(".search").on("click",function(){
+//	        if($(".search-block").is(":hidden")==false){
+//	            $(".search-block").slideUp(500);
+//	            $(".menu-block").slideUp(500);
+//	        }else{
+//	            $(".search-block").slideDown(500);
+//	            $(".menu-block").slideUp(500);
+//	        }
+//	    })
+	    
+	    //底部点击切换选中状态
+//	    $(".footer div").on("click",function(){
+//	        $(this).addClass("active").find("p").addClass("active");
+//	        $(this).addClass("active").find("i").addClass("active");
+//	        $(this).parent("a").siblings().find("div").removeClass("active").find("p").removeClass("active");
+//	        $(this).parent("a").siblings().find("div").removeClass("active").find("i").removeClass("active");
+//	    })
+        $('.footer a').each(function(){
+            if($($(this))[0].href==String(window.location)){
+                $(this).find(".selected").addClass('active').parent("a").siblings("a").find(".selected").removeClass("active");
+//                alert($($(this))[0].href==String(window.location))
+//                alert(String(window.location))
+            }
+        });
+	    
+	    //屏幕滚动显示一键返回顶部按钮
+	    $(window).scroll( function (){
+	        if ($(this).scrollTop() > 100) {
+	            $('.return-top').fadeIn();
+	        }else{
+	            $('.return-top').fadeOut();
+	        };
+	    });
+	    
+	    //点击返回顶部
+	    $(".return-top").click(
+	        function(){
+	            $("html,body").animate({scrollTop: 0}, 1000);
+	        }
+	    );
+    </script>
+</body>
+</html>

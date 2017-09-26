@@ -1,0 +1,439 @@
+<include file="Common/top" />
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/css/personal_center.css">
+	<div id="content">
+		<!-- 面包屑导航 -->
+		<div class="bread-nav">
+			<a href="javascript:;">领袖首页</a>
+			>
+			<a class="bread-final" href="javascript:;">个人中心</a>
+		</div>
+		<div class="personal-center-content">
+			<!-- 左半部分 -->
+			<div class="personal-center-left">
+				<div class="common-problem">
+					<h3>订单常见问题</h3>
+					<p><a class="all_orders" href="{:U('line/order')}/type/center">全部订单</a></p>
+					<p><a class="review_orders" href="{:U('line/order')}/type/center/state/review">待付款订单</a></p>
+					<p><a class="pay_part_orders" href="{:U('line/order')}/type/center/state/pay_part">已付部分款订单</a></p>
+					<p><a class="pay_complate_orders" href="{:U('line/order')}/type/center/state/pay_complate">已付款订单</a></p>
+					<p><a class="wait_comment_orders" href="{:U('line/order')}/type/center/state/complated">待评价订单</a></p>
+					<p><a class="complated_orders" href="{:U('line/order')}/type/center/state/complated">已完成订单</a></p>
+				</div>
+				<div class="personal-center-list">
+					<h3>个人中心</h3>
+					<p><a class="my_center" href="javascript:;" alt='my-personal-center'>我的个人中心</a></p>
+					<p><a class="my_msg" href="javascript:;" alt='msg-notification'>消息通知</a></p>
+					<p><a class="my_score" href="javascript:;" alt='benefit-score'>优惠/积分</a></p>
+					<p><a class="my_address" href="javascript:;" alt='receipt-address'>收货地址</a></p>
+				</div>
+				<div class="account-management">
+					<h3>账户管理</h3>
+					<p><a href="{:U('user/manager')}">个人信息</a></p>
+					<p><a href="{:U('user/manager')}">绑定手机</a></p>
+					<p><a href="{:U('user/manager')}">绑定邮箱</a></p>
+					<p><a href="{:U('user/manager')}">修改头像</a></p>
+					<p><a href="{:U('user/manager')}">修改密码</a></p>
+					<p><a href="{:U('user/manager')}">绑定授权</a></p>
+				</div>
+			</div>
+			<!-- 右半部分 -->
+			<div class="personal-center-right">
+				<!-- 我的个人中心 -->
+				<div class="my-personal-center">
+					<div class="my-information-content">
+						<img src="{$user.face}" alt="">
+						<div class="my-name">
+							<if condition="empty($user['show_name']) eq false">
+								<h4>{$user.show_name}</h4>
+								<p>您好！</p>
+							<else />
+								<h4>您好！</h4>
+								<p>您还未登录，请尽快登录！！！</p>
+							</if>
+						</div>
+						<div class="my-information">
+							<p>账户安全：<span>普通</span></p>
+							<if condition="empty($user['email']) eq false">
+								<p>绑定邮箱：{$user.email}</p>
+							<else />
+								<p>绑定邮箱：请尽快完善您的邮箱信息!</p>
+							</if>
+							<if condition="empty($user['phone']) eq false">
+								<p>绑定手机：{$user.phone}</p>
+							<else />
+								<p>绑定手机：请尽快完善您的电话信息!</p>
+							</if>
+						</div>
+						<a href="javascript:;">绑定</a>
+					</div>
+					<div class="my-order">
+						<ul>
+							<li>
+								<a href="{:U('line/order')}/type/center/state/review">
+									<i style="background-position: 0 0;"></i>
+									<span>待支付订单：<strong>{$OrderReviewCount}</strong></span>
+								</a>
+							</li>
+							<li>
+								<a href="{:U('line/order')}/type/center/state/pay_part">
+									<i style="background-position: -92px 0;"></i>
+									<span>已付部分款订单：<strong>{$OrderPayPartCount}</strong></span>
+								</a>
+							</li>
+							<li>
+								<a href="{:U('line/order')}/type/center/state/pay_complate">
+									<i style="background-position: -184px 0;"></i>
+									<span>已付全款订单：<strong>{$OrderPayComplateCount}</strong></span>
+								</a>
+							</li>
+							<li>
+								<a href="{:U('line/order')}/type/center/state/complated">
+									<i style="background-position: -276px 0;"></i>
+									<span>待评价订单：<strong>{$OrderComplatedCount}</strong></span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					
+					<div class="line-list">
+						<volist id="art" name="articles">
+							<if condition="empty($art['face_image']) eq true">
+								<div class="line line-word">							
+									<div class="line-information">
+										<h3>{$art.title}</h3>
+										<if condition="$art['send_word_simple'] eq 1" >
+											<p>{$art.send_word_show}<a href="{:U('line/article')}/id/{$art.id}">[详情]</a></p>
+										<else />
+											<p>{$art.send_word_show}</p>
+										</if>
+										<i>{$art.create_time}</i>
+									</div>
+									<a href="{:U('line/article')}/id/{$art.id}"></a>
+								</div>
+							<else />
+								<div class="line">
+									<img src="{$art.face_image}" alt="">
+									<div class="line-information">
+										<h3>{$art.title}</h3>
+										<if condition="$art['send_word_simple'] eq 1" >
+											<p>{$art.send_word_show}<a href="{:U('line/article')}/id/{$art.id}">[详情]</a></p>
+										<else />
+											<p>{$art.send_word_show}</p>
+										</if>
+										<i>{$art.create_time}</i>
+									</div>
+									<a href="{:U('line/article')}/id/{$art.id}"></a>
+								</div>
+							</if>							
+						</volist>
+					</div>
+					<div class="load-more">
+						<a href="javascript:;">加载更多...</a>
+					</div>
+				</div>
+				<!-- 消息通知 -->
+				<div class="msg-notification">
+					<h2>消息通知({$msg_check})</h2>
+					<volist id="msg" name="messages">
+						<p> {$msg.content}</p>
+					</volist>
+				</div>
+				<!-- 优惠/积分 -->
+				<div class="benefit-score">
+					<h2>优惠券</h2>
+					<div class="coupon-list">
+						<a class="has-checked" href="javascript:;" alt='not-used'>未使用({:count($coupon_normal)})</a>
+						|
+						<a href="javascript:;" alt='already-used'>已使用({:count($coupon_use)})</a>
+						|
+						<a href="javascript:;" alt='invalid'>已失效({:count($coupon_invalid)})</a>
+					</div>
+					<div class="coupon">
+						<div class="not-used">
+							<volist id="c" name="coupon_normal">
+								<php> $bkColor = $key % 3 + 1;</php>
+								<div class="coupon-box">
+									<div class="coupon-common coupon-bg-color-{$bkColor}">
+										<p class="coupon-money">￥<span>{$c.money}</span>元</p>
+										<p>{$c.title}</p>
+										<p>每人每次限用一张</p>
+										<if condition="$c.forever eq 0">
+											<p>有效期{$c.valid_date}到{$c.invalid_date}</p>
+										<else />
+											<p>永久有效</p>
+										</if>
+									</div>
+								</div>
+							</volist>
+						</div>
+						<div class="already-used">
+							<volist id="c" name="coupon_use">
+								<div class="coupon-box">
+									<div class="coupon-common coupon-bg-color-0">
+										<p class="coupon-money">￥<span>{$c.money}</span>元</p>
+										<p>{$c.title}</p>
+										<p>每人每次限用一张</p>
+										<p>有效期{$c.valid_date}到{$c.invalid_date}</p>
+										<img src="__PUBLIC__/home/images/personal_center_img/ysy.png"/>
+									</div>
+								</div>
+							</volist>
+						</div>
+						<div class="invalid">
+							<volist id="c" name="coupon_invalid">
+								<div class="coupon-box">
+									<div class="coupon-common coupon-bg-color-0">
+										<p class="coupon-money">￥<span>{$c.money}</span>元</p>
+										<p>{$c.title}</p>
+										<p>每人每次限用一张</p>
+										<p>有效期{$c.valid_date}到{$c.invalid_date}</p>
+										<img src="__PUBLIC__/home/images/personal_center_img/ysx.png"/>
+									</div>
+								</div>
+							</volist>
+						</div>
+					</div>
+					<h2>积分</h2>
+					<div class="score-list">
+						<a class="has-checked" href="javascript:;" alt='forum-score'>论坛积分</a>
+						|
+						<a href="javascript:;" alt='website-score'>网站积分</a>
+					</div>
+					<p>积分：<span class="forum-score">{$user.score_forum}</span><span class="website-score">{$user.score_net}</span></p>
+				</div>
+				<!-- 收货地址 -->
+				<ul class="template_address hidden_ctrl">
+					<li data-id="">
+						<h4 class="name"></h4>
+						<p class="phone"></p>
+						<p><span class="province"></span><span class="city"></span><span class="area"></span></p>
+						<p class="addr"></p>
+						<a class="remove-address" href="javascript:;">删除</a>
+					</li>
+				</ul>
+				<div class="receipt-address">
+					<h2>收货地址</h2>
+					<ul>
+						<li class="add-address">
+							<i></i>
+							<p>添加新地址</p>
+						</li>
+						<volist id="addr" name="addrs">
+							<li data-id="{$addr.id}">
+								<h4 class="name">{$addr.name}</h4>
+								<p class="phone">{$addr.phone}</p>
+								<p><span class="province">{$addr.province}</span><span class="city">{$addr.city}</span><span class="area">{$addr.area}</span></p>
+								<p class="addr">{$addr.addr}</p>
+								<!--<a class="modify-address" href="javascript:;">修改</a>-->
+								<a class="remove-address" href="javascript:;">删除</a>
+							</li>
+						</volist>
+					</ul>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- 添加地址弹框 -->
+	<div class="mark"></div>
+	<div class="write-address">
+		<div class="address-information">
+			<input id="addr_name" type="text" placeholder="姓名">
+			<input id="addr_phone" type="text" placeholder="手机号">
+			<div class="choose-address">
+				<span id="Province">
+					<img src="__PUBLIC__/home/images/personal_center_img/arrow.png" alt="">
+					<i>省份/自治区</i>
+					<ul>
+						<li><a href="javascript:;" alt="省份/自治区">省份/自治区</a></li>
+					</ul>
+					<input type="hidden" name="cho_Province" value="省份/自治区">
+				</span>
+				<span id="City">
+					<img src="__PUBLIC__/home/images/personal_center_img/arrow.png" alt="">
+					<i>城市/地区</i>
+					<ul>
+						<li><a href="javascript:;" alt="城市/地区">城市/地区</a></li>
+					</ul>
+					<input type="hidden" name="cho_City" value="城市/地区">
+				</span>
+				<span id="Area">
+					<img src="__PUBLIC__/home/images/personal_center_img/arrow.png" alt="">
+					<i>区/县</i>
+					<ul>
+						<li><a href="javascript:;" alt="区/县">区/县</a></li>
+					</ul>
+					<input type="hidden" name="cho_Area" value="区/县">
+				</span>
+				<span id="Insurer">
+					<img src="__PUBLIC__/home/images/personal_center_img/arrow.png" alt="">
+					<i>配送区域</i>
+					<ul>
+						<li><a href="javascript:;" alt="配送区域">配送区域</a></li>
+					</ul>
+					<input type="hidden" name="cho_Insurer" value="配送区域">
+				</span>
+			</div>
+			<textarea id="addr_info" ></textarea>
+		</div>
+		<a class="save-address" href="javascript:;">保存</a>
+		<a class="cancel-address" href="javascript:;">取消</a>
+	</div>
+	<!--图片延迟加载-->
+	<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(
+			function($){
+				$("img").lazyload({
+					placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+					effect      : "fadeIn",
+					threshold : 100,
+					failure_limit : 10
+				});
+			});
+	</script>
+	<script type="text/javascript">		
+		// 加载更多文章
+		var pageIndex = 0;
+		$('.load-more a').click( function () {
+			if ($(this).html() == '没有更多的数据了') {
+				return false;
+			}
+			
+			$(this).html('正在加载...');
+			var jsonData = {
+				op_type: 'list',
+				page: pageIndex+1,
+			}
+			
+			$.post('{:U("line/article")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (typeof(data.ds) != 'undefined' && data.ds != null) {
+						$('.load-more').find('a').html('加载更多...');
+						for (var i=0; i<data.ds.length; i++) {
+							var d = data.ds[i];			
+							var include_image = typeof(d.face_image)=='undefined' ? false : true;
+							var vhtml = '<div class="line">';
+							if (include_image == false) {
+								vhtml = '<div class="line line-word">';
+							}
+							if (include_image == true) {
+								vhtml +='	<img src="'+d.face_image+'" alt="">';
+							}
+							vhtml +='	<div class="line-information">' +
+									'		<h3>'+d.title+'</h3>'+
+									'		<p>'+d.send_word+'</p>'+
+									'		<h6>'+d.create_time+'</h6>'+
+									'	</div>'+
+									'	<a href="'+'{:U("line/article")}/id/'+d.id+'"></a>';
+									'</div>';
+							$('.line-list').append(vhtml);
+						}
+						// 下拉次数累加
+						pageIndex += 1;
+					} else {
+						$('.load-more').find('a').html('没有更多的数据了');
+					}
+				} else {
+					$('.load-more').find(a).html('加载更多...');
+					alert(data.result.message);
+				}
+			});
+		} );				
+		//添加与修改地址
+		// 添加新地址
+		$('.add-address').click( function () {
+			$('.mark').show();
+			$('.write-address').show();
+		} );
+		// 删除地址
+		$('.remove-address').click ( function () {
+			var liObj = $(this).closest('li');
+			var jsonData = {
+				type: 'remove',
+				id: $(liObj).attr('data-id'),
+			}
+			$.post('{:U("user/address")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					$(liObj).remove();					
+				} else {
+					alert(data.result.message);
+				}	
+			});
+		} );
+		
+		// 保存地址
+		$('.save-address').click( function () {
+			var userId = '{$user["id"]}';
+			var jsonData = {
+				type: 'create',
+				user_id: userId,
+				name: $('#addr_name').val(),
+				phone: $('#addr_phone').val(),
+//				province: $('#Insurer').find('[name="cho_Province"]').val(),
+//				city: $('#Insurer').find('[name="cho_City"]').val(),
+//				area: $('#Insurer').find('[name="cho_Area"]').val(),
+				province: $('#Insurer').val(),
+				city: $('#Insurer').val(),
+				area: $('#Insurer').val(),
+				addr: $('#addr_info').val(),
+			}
+//			console.log(JSON.stringify(jsonData));
+			$.post('{:U("user/address")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					console.log(typeof(data.ds));
+					if (typeof(data.ds) != 'undefined') {
+						var liObj = $('.template_address').find('li').clone(true);
+						$(liObj).attr('data-id', data.ds.id);
+						$(liObj).find('.name').html(data.ds.name);
+						$(liObj).find('.phone').html(data.ds.phone);
+						$(liObj).find('.province').html(data.ds.province);
+						$(liObj).find('.city').html(data.ds.city);
+						$(liObj).find('.area').html(data.ds.area);
+						$(liObj).find('.addr').html(data.ds.addr);
+						$('.receipt-address').find('ul').append(liObj);
+					}
+					$('.mark').hide();
+					$('.write-address').hide();
+				} else {
+					alert(data.result.message);
+				}	
+			});
+		} )
+		// 取消填写地址
+		$('.cancel-address').click( function () {
+			$('.mark').hide();
+			$('.write-address').hide();
+			//TODO 取消后需要清空填写的数据
+		} );
+	</script>
+
+	<!-- 省市区街道四级联动 -->
+	<script src="__PUBLIC__/home/js/city4.city.js"></script>
+	<script src="__PUBLIC__/home/js/city4.js"></script>
+
+	<script>
+		function tabChange(a,b){
+			$(a).click( function () {
+				$(this).parents(b).find('a').removeClass('has-checked');
+				$(this).addClass('has-checked');
+				var Alt = $(this).attr('alt');
+				$('.' + Alt).siblings().hide();
+				$('.' + Alt).show();
+			} );
+		}
+		tabChange('.coupon-list a','.coupon-list');
+		tabChange('.score-list a','.score-list');
+		tabChange('.personal-center-list p a', '.personal-center-list');	
+		
+		$(document).ready(function(){
+			// 初始化激活的tab页面
+			if ('{$jump}' != '') {
+				$('.{$jump}').trigger('click');		
+			}
+		});	
+	</script>
+<include file="Common/right" />
+<include file="Common/bottom" />

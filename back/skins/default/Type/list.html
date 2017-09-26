@@ -1,0 +1,594 @@
+<include file="Common/header" /> 
+		<div class="row">
+			<div class="panel panel-color panel-info panel-content-pos">
+				<div class="panel panel-heading">
+					<span class="description">{:C(CONTENT_TITLE)}</span>					
+				</div>
+				<div class="panel panel-color panel-content">
+                    <table id="test" class="table aspTable lcnp" cellpadding="0" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <if condition="$group_assign eq true">
+	                                <th width="10%"><input type="checkbox" id="checkAll" /></th>
+	                                <th width="10%">类型编号</th>
+	                                <th width="20%">类型描述</th>
+	                                <th width="20%">类型键值</th>
+	                                <th width="20%">
+	                                	<volist id="at" name="adminType">
+	                                		{$at.type_desc}/
+	                                	</volist>
+	                                </th>
+	                                <if condition="($grant_update eq true) OR ($grant_delete eq true)">
+	                               		<th width="20%" class="TAC">编辑/删除</th>
+	                                </if>
+	                           	<elseif condition="$typeObj eq 'request_data'" />
+	                                <th width="5%"><input type="checkbox" id="checkAll" /></th>
+	                                <th width="10%">数据编号</th>
+	                                <th width="20%">数据描述</th>
+	                                <th width="20%">数据键值</th>
+	                                <th width="15%">数据类型</th>
+	                                <th width="15%">排序</th>
+	                               	<th width="15%" class="TAC">编辑/删除</th>
+	                           	<elseif condition="$typeObj eq 'order_state'" />
+	                                <th width="10%"><input type="checkbox" id="checkAll" /></th>
+	                                <th width="10%">状态编号</th>
+	                                <th width="20%">状态描述</th>
+	                                <th width="20%">状态键值</th>
+	                                <th width="20%">状态类型</th>
+	                               	<th width="20%" class="TAC">编辑/删除</th>
+                                <else/>
+	                                <th width="10%"><input type="checkbox" id="checkAll" /></th>
+	                                <th width="10%">类型编号</th>
+	                                <th width="30%">类型描述</th>
+	                                <th width="30%">类型键值</th>
+	                                <if condition="($grant_update eq true) OR ($grant_delete eq true)">
+	                               		<th width="20%" class="TAC">编辑/删除</th>
+	                                </if>
+                                </if>
+                            </tr>
+                        </thead>
+                    </table>   
+                    
+					<div class="row">
+						<if condition="$group_bind_grant eq true">
+							<a href="#" class="btn btn-primary" id="btn_assign_grant">分配权限</a>
+						</if>						
+						<if condition="$grant_create eq true">
+							<a href="#" class="btn btn-primary" id="btn_create_type">创建类型</a>
+						</if>
+						<if condition="$grant_delete eq true">
+							<a href="#" class="btn btn-danger" id="btn_delete_type">删除类型</a>
+						</if>
+					</div>
+				</div>
+			</div>		
+		</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+	var myTable, pageRequestData;
+	var modalDataEditData = new Object();
+	$(document).ready(function(){
+		
+		// 初始化数据表格
+		myTable = initDataTable();
+		
+		// 初始化弹出窗口
+		initModalDataEdit();
+		
+		// 分配权限
+		$("#btn_assign_grant").click(_assignFun);
+		// 创建类型
+		$("#btn_create_type").click(_addFun);
+		// 删除选中的
+		$("#btn_delete_type").click(_deleteList);
+		
+		//checkbox全选
+		$("#checkAll").click(function () {
+		    $("input[name='checkList']").prop("checked", $(this).prop('checked'));
+		});
+	});
+	
+	// 获取管理员类型
+	function getTypeList(objType) {
+		var jsonData = {
+			type_obj: objType,
+			op_type: 'list',
+			iSortCol_0: 1,
+			sSortDir_0: 'asc',
+			iDisplayStart: 0,
+			iDisplayLength: 0,
+			sColumns: 1,
+		}
+		
+		var rs = '';
+		$.ajax({
+			url: '{:U("type/list")}',
+			type: "POST",
+			async: false,
+			data: jsonData,
+			success: function(data, status) {
+				if (data.result.errno == 0) {
+					if (data.aaData != 'undefined' && data.aaData.length > 0) {
+						rs = data['aaData'];
+					}
+				}
+			}
+		});
+		return rs;
+	}
+	
+	// 设置类型列表
+	function setTypeList(objType, objId) {
+		var typeList = getTypeList(objType);
+		if (typeList != '') {
+			var html = '';
+			for (var i = 0; i < typeList.length; i++) {
+				html += '<option value="' + typeList[i]['id'] + '">' + typeList[i]['type_desc'] + '</option>';
+			}	
+			var data = {elmt: [{id:objId, value:html}]}
+			appendModalDataEditInputValues(data, true);
+		}		
+	}
+	
+	// 初始化弹出编辑框数据
+	function initModalDataEdit() {
+		modalDataEditData['lab_title_text'] = '类型信息';
+		modalDataEditData['btn_confirm_text'] = '确认保存';
+		
+		var needs = [
+			{
+				type_obj: 'request_data',
+				key_tab: 'data_type',
+				lab_type: '数据类型',
+				lab_key: '类型键值',
+				lab_desc: '类型描述',
+				lab_sort: '类型排序',
+			},
+			{
+				type_obj: 'order_state',
+				key_tab: 'state_type',
+				lab_type: '状态类型',
+				lab_key: '状态键值',
+				lab_desc: '状态描述',
+			},
+		];
+		
+		var modelData = null;
+		for (var k=0; k<$(needs).length; k++) {
+			if ('{$typeObj}' == needs[k].type_obj) {
+				modelData = needs[k];
+				break;
+			}
+		}
+		
+		
+		if (modelData !== null) {
+			modalDataEditData['elmt']=[
+				{tag:'input', id:'Id', lab:'', attr:[
+					{op:'bind', name:'type',value:'hidden'},
+				]},
+				{tag:'select', id:'Type', lab:modelData.lab_type, attr:[]},
+				{tag:'input', id:'Key', lab:modelData.lab_key, attr:[
+					{op:'bind', name:'type',value:'text'},
+					{op:'bind', name:'placeholder',value:'请输入唯一的键值且不能超过50字符'},
+				]},
+				{tag:'input', id:'Desc', lab:modelData.lab_desc, attr:[
+					{op:'bind', name:'type',value:'text'},
+					{op:'bind', name:'placeholder',value:'请输入描述且不能超过100字符'},
+				]},
+			];
+			
+			if (modelData.lab_sort != null) {
+				modalDataEditData['elmt'][4] = {
+					tag:'input', id:'Sort', lab:modelData.lab_sort, attr:[
+					{op:'bind', name:'type',value:'number'},
+					{op:'bind', name:'placeholder',value:'请输入类型的排序'},
+				]};
+			}
+		
+			modalDataEditData['callback_confirm'] = _addFunAjax;
+			initModalDataEditPage(modalDataEditData);
+			
+			// 设置数据类型
+			setTypeList(modelData.key_tab, 'Type');
+		} else {
+			modalDataEditData['elmt']=[
+				{tag:'input', id:'Id', lab:'', attr:[
+					{op:'bind', name:'type',value:'hidden'},
+				]},
+				{tag:'input', id:'Key', lab:'类型键值', attr:[
+					{op:'bind', name:'type',value:'text'},
+					{op:'bind', name:'placeholder',value:'请输入唯一的类型键值且不能超过50字符'},
+				]},
+				{tag:'input', id:'Desc', lab:'类型描述', attr:[
+					{op:'bind', name:'type',value:'text'},
+					{op:'bind', name:'placeholder',value:'请输入类型描述且不能超过100字符'},
+				]},
+			];
+		
+			modalDataEditData['callback_confirm'] = _addFunAjax;
+			initModalDataEditPage(modalDataEditData);
+		}
+	}
+
+	// 初始化数据列表
+	function initDataTable() {	
+		var vTable = $(".aspTable").dataTable({
+			"bSort": true,
+			"bAutoWidth": true,
+			"bFilter": true,
+			"bInfo": true,//页脚信息
+			"bPaginate": true, //翻页功能
+			"bLengthChange": true, //改变每页显示数据数量
+			"bStateSave": true,	//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+			"sPaginationType": "full_numbers", //显示数字的翻页样式"
+			"aLengthMenu": [[20, 50, 100, 150],[20, 50, 100, 150]],	// 可分页的数量值与显示
+			"isDisplayLength": 20,	// 当前每页显示数量
+			"oLanguage": {
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+				"sZeroRecords": "抱歉， 没有找到",
+				"sInfo": "从 _START_ 到 _END_ / 共 _TOTAL_ 条数据",
+				"sInfoEmpty": "没有数据",
+				"sInfoFiltered": "(从_MAX_条数据中检索)",
+				"oPaginate": {
+					"sFirst": "首页",
+					"sPrevious": "前一页",
+					"sNext": "后一页",
+					"sLast": "尾页"
+				},
+				"sZeroRecords": "没有检索到数据",
+				"sProcessing": "<src='__PUBLIC__/images/loader.gif' />",
+			},
+			//Ajax获取信息
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "{$ajaxReqUrl}",
+			//如果加上下面这段内容，则使用post方式传递数据
+			"fnServerData": getPageData,
+			"aoColumns": dataTablesBindCols(),//$_GET[‘sColumns’]将接收到aoColumns传递数据
+			"aoColumnDefs": [{"sDefaultContent": "", "aTargets": ["_all"]}],
+		});
+		return vTable;
+	}
+
+	// 绑定列
+	function dataTablesBindCols() {
+		var cols = new Array();
+		cols = [
+				{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [0], "fnCreatedCell": appendFirstCol},
+				{"mData": "id", "aTargets": [1]},
+				{"mData": "type_desc", "aTargets": [2]},
+				{"mData": "type_key", "aTargets": [3]},
+			];	//$_GET[‘sColumns’]将接收到aoColumns传递数据
+			
+		if ('{$typeObj}' == 'request_data') {
+			cols[4] =	{"mData": "data_type_id_type_desc", "aTargets": [4], "fnCreatedCell": appendMiddleCol};
+			cols[5] =	{"mData": "sort", "aTargets": [5]};
+		}
+			
+		if ('{$typeObj}' == 'order_state') {
+			cols[4] =	{"mData": "state_type_id_type_desc", "aTargets": [4], "fnCreatedCell": appendMiddleCol};
+		}
+		
+		if ('{$group_assign}' == true) {
+			var nLen = cols.length;
+			cols[nLen] =	{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [nLen], "fnCreatedCell": appendMiddleCol};
+		}
+			
+		if ('{$grant_update}' == true || '{$grant_delete}' == true) {
+			var nLen = cols.length;
+			cols[nLen] =	{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [nLen], "fnCreatedCell": appendLastCol};
+		}
+		return cols;
+	}
+
+	//Ajax获取数据
+	function getPageData ( sSource, aoData, fnCallback ) {
+		var typeObj = '{$typeObj}';
+		aoData.push({'name':'type_obj','value':typeObj});
+		aoData.push({'name':'op_type','value':'list'});
+//		alert(JSON.stringify(aoData));
+		pageRequestData = aoData;
+		$.post(sSource, aoData, function(data,status){
+//				console.log(JSON.stringify(data.aaData));
+				if (data['result']['errno'] == 0) {
+					fnCallback(data);
+					$('.cbr').change(_changeFun);
+				} else {
+					alert(data['result']['message']);
+				}			
+			},'JSON');
+	}
+
+	// 添加第一列复选框
+	function appendFirstCol(nTd, sData, oData, iRow, iCol) {
+	//	alert(nTd+'|'+JSON.stringify(sData)+'|'+JSON.stringify(oData)+'|'+iRow+'|'+iCol);
+		$(nTd).html('<input type="checkbox" name="checkList" value=' + sData + '/>'); 
+	}
+	
+	// 添加中间列
+	function appendMiddleCol(nTd, sData, oData, iRow, iCol) {		
+		var html = '';
+		var typeObj = '{$typeObj}';
+		if (typeObj == 'admin_grant_group') {
+			if ('{$group_bind_admin_type}' == true) {
+				var binds = oData.binds;
+				for (var i = 0; i < binds.length; i++) {
+					var group_id = binds[i]['group_id'];
+					var type_id = binds[i]['type_id'];
+					var checked = binds[i]['checked'];
+					html += '<input type="checkbox" class="cbr cbr-secondary" data-gid="'+group_id+'" data-tid="'+type_id+'" '+checked+'/>&nbsp;&nbsp;';	
+				}
+			}
+		} else if (typeObj == 'request_data') {
+			html += oData.data_type_id_type_desc;
+		} else if (typeObj == 'order_state') {
+			html += oData.state_type_id_type_desc;
+		}
+		$(nTd).html(html);
+	}
+
+	// 添加最后一列控件
+	function appendLastCol(nTd, sData, oData, iRow, iCol) {
+//		alert(nTd+'|'+JSON.stringify(sData)+'|'+JSON.stringify(oData)+'|'+iRow+'|'+iCol);
+		var id = parseInt(oData['id']);
+//	    $(nTd).html('<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_editFun('+id+')">编辑</a>');
+				
+		var html = '';
+		var typeObj = '{$typeObj}';
+		if (typeObj == 'admin_grant_group') {
+			if ('{$group_bind_grant}' == true) {
+				html += '<a href="#" class="btn btn-warning btn-sm btn-icon icon-left" onclick="_grantFun('+id+')">分配权限</a>';	
+			}
+		}
+		
+		if ('{$grant_update}' == true) {
+			html += '<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_editFun('+id+')">编辑</a>';
+		}
+		
+		if ('{$grant_delete}' == true) {
+			html += '<a href="#" class="btn btn-danger btn-sm btn-icon icon-left" onclick="_deleteFun('+id+')">删除</a>';	
+		}
+		$(nTd).html(html);
+	}
+
+	/**
+	* 分配权限
+	* @private
+	*/
+	function _assignFun() {
+		location.href = '{:U("grant/group")}'+'/op/all';
+	}
+
+	/**
+	* 创建类型
+	* @private
+	*/
+	function _addFun() {
+		// 绑定创建回调函数
+		bindModalDataEditConfirmEvent(_addFunAjax);
+		// 显示窗口
+		showModalDataEdit();
+	}
+	 
+	/**
+	* 添加数据
+	* @private
+	*/
+	function _addFunAjax(ds) {
+		var typeObj = '{$typeObj}';
+		var jsonData = {
+				'type_obj':typeObj, 
+				'op_type': 'create',
+			    'data': {
+			    	'type_key': ds['Key'],	
+			    	'type_desc': ds['Desc'],
+			    }
+			};
+				
+		if (typeObj == 'request_data') {
+			jsonData['data']['data_type_id'] = ds['Type'];	
+			jsonData['data']['sort'] = ds['Sort'];		
+		} else if (typeObj == 'order_state') {
+			jsonData['data']['state_type_id'] = ds['Type'];
+		}
+		
+		console.log(JSON.stringify(jsonData));
+		$.post('{$ajaxReqUrl}',jsonData,
+		function(backdata,status) {
+	    	console.log(JSON.stringify(backdata));
+	        if (backdata['result']['errno'] == 0) {
+	            hideModalDataEdit();
+	            myTable.fnReloadAjax(myTable.fnSettings());
+	        } else {
+//	            alert(backdata['result']['message']);
+				setModalDataEditTips(backdata['result']['message']);
+	        }
+		});
+	}
+	
+	// 权限管理界面
+	function _grantFun(aid) {
+		$.getJSON('{:U("grant/group")}', {op:'jumpGroup', id:aid}, function(data){
+			console.log(JSON.stringify(data));
+			if (data.url) {
+				location.href = data.url;
+			} else {
+				alert(data.result.message);
+			}
+		});	
+	}
+
+	// 弹出编辑数据界面
+	function _editFun(aid) {	
+		var typeObj = '{$typeObj}';
+		$.post('{$ajaxReqUrl}',
+			{type_obj:typeObj, op_type:'find', id:aid},
+			function(data,status){
+				if (data['result']['errno'] == 0) {				
+					// 填充数据		
+					var ds = {
+						'elmt': [
+							{id:'Id', value:data['data']['id']},
+							{id:'Key', value:data['data']['type_key']},
+							{id:'Desc', value:data['data']['type_desc']}
+						]
+					};	
+					if (typeObj == 'request_data') {
+						var len = ds['elmt'].length;
+						ds['elmt'][len] = {id:'Type', value:data['data']['data_type_id']};
+						len = ds['elmt'].length;
+						ds['elmt'][len] = {id:'Sort', value:data['data']['sort']};		
+					}
+					if (typeObj == 'order_state') {
+						var len = ds['elmt'].length;
+						ds['elmt'][len] = {id:'Type', value:data['data']['state_type_id']};		
+					}
+					setModalDataEditInputValues(ds);	
+					// 绑定编辑回调函数
+					bindModalDataEditConfirmEvent(_editFunAjax);
+					// 显示窗口
+					showModalDataEdit();
+				} else {
+					alert(data['result']['message']);
+				}
+			});	
+	}
+
+	function _editFunAjax(ds) {
+		var typeObj = '{$typeObj}';
+		var jsonData = {
+				'type_obj':'{$typeObj}', 
+				'op_type': 'edit',
+				'cd' : {
+					'id': ds['Id'],
+				},
+				'data' : {
+//				    'type_key': ds['Key'],
+					'data_type_id': ds['Type'],
+				    'type_desc': ds['Desc'],
+				},
+			};
+		if (typeObj == 'request_data') {
+			jsonData['data']['data_type_id'] = ds['Type'];
+			jsonData['data']['sort'] = ds['Sort'];
+		} else if (typeObj == 'order_state') {
+			jsonData['data']['state_type_id'] = ds['Type'];
+		}
+		
+	    $.post('{$ajaxReqUrl}',jsonData,
+		    function(backData,status){
+//		    	alert(JSON.stringify(backData));
+		    	if (backData['result']['errno']==0){
+		    		hideModalDataEdit();
+		            myTable.fnReloadAjax(myTable.fnSettings());
+		    	} else {
+//					alert(backData['result']['message']);	
+		    		setModalDataEditTips(backData['result']['message']);
+		    	}
+		    });
+	} 	 
+	
+	// 改变权限组可供使用对象的绑定状态
+	function _changeFun() {
+		var gid = $(this).attr('data-gid');
+		var tid = $(this).attr('data-tid');
+		if (gid == '' || tid == '') {
+			return false;
+		}
+		
+		var jsonData = {
+			'op_type': $(this).prop('checked')?'group_bind':'group_unbind',
+			'group_id': gid,
+			'admin_type_id': tid,
+		}
+		var obj = $(this);
+		$.post('{:U("grant/list")}', jsonData, function(data){
+			console.log(JSON.stringify(data));
+			if (data.result.errno != 0) {
+				alert(data.result.message);			
+				var checked = $(obj).prop('checked');
+				$(obj).prop('checked', !checked);	
+			}	
+		});
+	}
+
+	/**
+	* 删除
+	* @param id
+	* @private
+	*/
+	function _deleteFun(aid) {
+		if (!confirm("您确定要删除id=["+aid+"]该条类型记录吗？")) {
+			return false;
+		}
+		var typeObj = '{$typeObj}';
+		$.post('{$ajaxReqUrl}',
+			{type_obj:typeObj, op_type:'delete', id:aid},
+			function(data,status){
+	        	if(data['result']['errno'] == 0){
+					myTable.fnReloadAjax(myTable.fnSettings());
+				} else {
+					alert(data['result']['message']);	
+				}
+			});	
+	}
+	 
+	/**
+	* 批量删除
+	* 未做
+	* @private
+	*/
+	function _deleteList() {
+		var ids = new Array();
+		$("input[name='checkList']:checked").each(function (i, o) {
+   			var selected = myTable.fnGetData($(o).parent('tr').get(2));
+//			alert(i+"\n"+JSON.stringify(selected));
+			var idstr = $(this).val();
+			ids[ids.length]=parseInt(idstr.substr(0, idstr.length-1));
+		});
+		if (ids.length > 0) {
+			if (!confirm("您确定要删除选定ID为["+JSON.stringify(ids)+"]的记录吗？")) {
+				return false;
+			}
+			var typeObj = '{$typeObj}';
+			$.post('{$ajaxReqUrl}',
+				{type_obj:typeObj, 'op_type':'delete_multi', 'id':ids},
+				function(data,status){
+//					console.log(JSON.stringify(data));
+		        	if(data['result']['errno'] == 0){
+						myTable.fnReloadAjax(myTable.fnSettings());
+					} else {
+						alert(data['result']['message']);	
+					}
+				});
+		} else {
+		    alert("至少选择一条记录操作");
+		}
+	}
+
+
+	/*
+	add this plug in
+	// you can call the below function to reload the table with current state
+	Datatables刷新方法
+	oTable.fnReloadAjax(oTable.fnSettings());
+	*/
+	$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings) {
+		//oSettings.sAjaxSource = sNewSource;
+		this.fnClearTable(this);
+		this.oApi._fnProcessingDisplay(oSettings, true);
+		var that = this;
+
+		$.getJSON(oSettings.sAjaxSource, null, function (json) {
+		    /* Got the data - add it to the table */
+		    for (var i = 0; i < json.aaData.length; i++) {
+		        that.oApi._fnAddData(oSettings, json.aaData[i]);
+		    }
+		    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+		    that.fnDraw(that);
+		    that.oApi._fnProcessingDisplay(oSettings, false);
+		});
+	}
+	
+</script>

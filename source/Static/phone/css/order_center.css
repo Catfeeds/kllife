@@ -1,0 +1,21 @@
+/*切换栏*/
+.buttons-tab { position: fixed; top: 2.2rem; width: 100%; max-width: 800px; overflow: hidden; }
+.buttons-tab .button { font-size: 0.65rem; }
+.buttons-tab .button.active { color: #ff7200; border-color: #ff7200; } 
+/*订单*/
+.order-list { position: relative; top: 2rem; }
+.order-sublist h5 { font-size: .65rem; font-weight: normal; margin: .5rem 0; } 
+.order-sublist .content-padded > p { font-size: .6rem; color: #999; }
+.order-sublist .content-padded > p > span { font-size: .6rem; color: #999; }
+.order-sublist p > span > strong { font-size: .6rem; color: #ff7200; }
+.card-footer { padding: .5rem; background-color: #fff; }
+.card-footer a { font-size: 0.65rem; color: #ff7200; }
+.card-footer a > img { width: 0.15rem; height: 0.85rem; max-width: 100%; margin-right: .1rem; vertical-align: middle; }
+.card-footer a:first-child { color: #333; }
+.order-sublist-handle-content { background-color: #fff; }
+.order-sublist-money { padding: 0.3rem 0; }
+.order-sublist-money p { font-size: .6rem; color: #999; text-align: right; }
+.order-sublist-money p span { color: #ff7200; font-size: .7rem; } 
+.order-sublist-handle { width: 100%; padding-bottom: .5rem; overflow: hidden; }
+.order-sublist-handle a { float: right; display: inline-block; width: 3.75rem; height: 1.6rem; line-height: 1.6rem; text-align: center; font-size: 0.75rem; background-color: #ff7200; color: #fff; border-radius: 3px; border: 1px solid #ff7200; }
+.order-sublist-handle a:last-child { margin-right: .3rem; background-color: #fff; color: #333; border-color: #dcdcdc; }

@@ -1,0 +1,679 @@
+<include file="Common/header" /> 
+<style>
+	
+	.selector-control { width: 30%; }
+	.selector-control:focus { border-color: #40bbea; }
+	.chaxun { margin-right: 100px; margin-bottom: 30px; }
+	#cash_useSelectBoxIt, #cash_funcSelectBoxIt, #review_typeSelectBoxIt { 
+		border-radius: 0 15px 15px 0 ; 
+		background-color: #fff; 
+		border-color: #40bbea; 
+		overflow: hidden; 
+	}
+	
+	.selectboxit-options { 
+		border-radius: 0 15px 15px 15px; 
+		background-color: #fff; 
+		border-color: #40bbea; 
+	}
+	
+	.selectboxit-options li a { color: #000; }
+
+	.selectboxit-option-icon-container { overflow: hidden; }
+	.cx_border01 { border-radius: 15px 0 0 15px; border-color: #40bbea; }
+	.cx_border02 , html .select2-container .select2-choice { border-radius: 0 15px 15px 0 !important; border-color: #40bbea !important; }
+	.tab-pane > div { margin-top: 10px; height: 35px; }
+	.ctr_card_btn_num:focus { border-color: #40bbea; }
+	.dropdown-menu.dropdown-info > li > a { color: #000; }
+	.dropdown-menu.dropdown-info > li > a:hover { background-color: #999 !important; }
+	.nav.nav-tabs > li.active > a { border: 1px solid #40bbea; border-bottom: 2px solid #fff; }
+	.nav.nav-tabs > li > a { padding-left: 30px; padding-right: 30px; }
+	.nav.nav-tabs > li > a:hover { background-color: #40bbea; color: #fff; }
+	.hvr-curl-top-left {
+	  display: inline-block;
+	  vertical-align: middle;
+	  -webkit-transform: translateZ(0);
+	  transform: translateZ(0);
+	  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+	  -webkit-backface-visibility: hidden;
+	  backface-visibility: hidden;
+	  -moz-osx-font-smoothing: grayscale;
+	  position: relative;
+	}
+	.hvr-curl-top-left:before {
+	  pointer-events: none;
+	  position: absolute;
+	  content: '';
+	  height: 0;
+	  width: 0;
+	  top: 0;
+	  left: 0;
+	  background: white;
+	  /* IE9 */
+	  background: linear-gradient(135deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
+	  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff', endColorstr='#000000');
+	  /*For IE7-8-9*/
+	  z-index: 1000;
+	  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+	  -webkit-transition-duration: 0.3s;
+	  transition-duration: 0.3s;
+	  -webkit-transition-property: width, height;
+	  transition-property: width, height;
+	}
+	.hvr-curl-top-left:hover:before, .hvr-curl-top-left:focus:before {
+	  width: 15px;
+	  height: 15px;
+	}
+	.info-color { background-color: #40bbea !important; border-color: #40bbea !important; }
+	.info-border-color { border-color: #40bbea !important; }
+	.select2-arrow { color: #fff !important; }
+	#select2-drop { border-color: #40bbea;  } 
+	
+	.selectboxit-container .selectboxit { border-radius: 0 15px 15px 0 !important; }             
+	.selectboxit-arrow-container { background-color: #40bbea; }
+	.selectboxit-arrow-container i { color: #fff; }
+	#item_typeSelectBoxIt , #item_parentSelectBoxIt { border-radius: 0 15px 15px 0 ; background-color: #fff; border-color: #40bbea; overflow: hidden; }
+	#item_typeSelectBoxItOptions , #item_parentSelectBoxItOptions { border-radius: 0 15px 15px 15px; background-color: #fff; border-color: #40bbea; }
+	#item_typeSelectBoxItOptions li a , #item_parentSelectBoxItOptions li a , .selectboxit-list li a{ color: #000; }	
+	.selectboxit-list .selectboxit-option-anchor{color:#000;}
+	
+	.background-color-first-log { background-color:#eae415 !important; }
+</style>
+		<div class="row">
+			<div class="panel panel-color panel-info panel-content-pos">
+				<div class="panel panel-heading">
+					<span class="description">{:C(CONTENT_TITLE)}</span>					
+				</div>
+				<div class="panel panel-color panel-content">					
+					<!-- 查询 -->
+					<div class="row chaxun">
+						<!-- tab标签 -->
+						<div class="col-sm-12">
+							<div class="tab-content"  style="border-top: 1px solid #40bbea; margin-top: 0px;">
+								<div class="tab-pane active" id="find_conds">								
+									<div class="col-sm-3">
+										<div class="input-group">
+											<span class="input-group-addon info-color text-white cx_border01">菜单类型:</span>
+											<script type="text/javascript">
+												jQuery(document).ready(function($)
+												{
+													var selItemType = $("#item_type").selectBoxIt({
+														showEffect: 'fadeIn',
+														hideEffect: 'fadeOut'
+													});
+													
+													$(selItemType).bind('change',function(){
+														var itemTypeId = $('#item_type').val();
+														if (itemTypeId == -1) {
+															return false;
+														}
+														
+														var jsonData = {
+															op_type: 'find',
+															data_type: 'all',
+															menu_type_id: itemTypeId,
+														};
+																					
+														$.post('{:U("menu/list")}', jsonData, function(backData){
+															if (backData.result.errno == 0) {
+																$('#item_parent').data('selectBox-selectBoxIt').remove();
+																$('#item_parent').data('selectBox-selectBoxIt').add({value:-1, text:'不限'});
+																$('#item_parent').data('selectBox-selectBoxIt').add({value:0, text:'根节点'});
+																if (backData.data != null) {
+																	for (var k=0; k < backData.data.length; k++) {		
+																		var d = backData.data[k];													
+																		$('#item_parent').data('selectBox-selectBoxIt').add({value:d['id'], text:d['item_desc']});
+																	}	
+																}
+															}
+														});
+													});
+												});
+											</script>
+											<select class="selector-control" id="item_type">
+												<option value="-1">不限</option>
+												<notempty name="MenuItemTypes">
+													<volist id="mit" name="MenuItemTypes">											
+														<option value="{$mit.id}">{$mit.type_desc}</option>
+													</volist>
+												</notempty>
+											</select>
+										</div>
+									</div>	
+																
+									<div class="col-sm-3">
+										<div class="input-group">
+											<span class="input-group-addon info-color text-white cx_border01">父亲节点:</span>
+											<script type="text/javascript">
+												jQuery(document).ready(function($)
+												{
+													$("#item_parent").selectBoxIt({
+														showEffect: 'fadeIn',
+														hideEffect: 'fadeOut'
+													});
+												});
+											</script>
+											<select class="selector-control" id="item_parent">
+												<option value="-1">不限</option>
+											</select>
+										</div>
+									</div>
+															
+								</div>					
+							</div>
+					
+							<button class="btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_search" style="float: right; margin-top: 30px;">
+								<i class="fa-search"></i>
+								<span>查 询</span>
+							</button>
+							<button class="btn btn-warning btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_reset" style="float: right; margin-top: 30px; margin-right: 10px;">
+								<i class="fa-refresh"></i>
+								<span>重 置</span>
+							</button>
+						</div>
+					</div>					
+				
+                    <table id="test" class="table aspTable lcnp" cellpadding="0" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="5%">编号</th>
+                                <th width="15%">菜单项描述</th>
+                                <th width="15%">菜单项键值</th>
+                                <th width="15%">菜单项类型</th>
+                                <th width="15%">菜单项父亲节点</th>
+                                <th width="10%">启用/禁用</th>
+                                <th width="5%">排序</th>
+                                <if condition="$grant_create_menu eq true or $grant_update_menu eq true or $grant_delete_menu eq true">
+                               		<th width="25%" class="TAC">添加/编辑/禁用/删除</th>
+                               	</if>
+                            </tr>
+                        </thead>
+                    </table>   
+                    
+                    <if condition="$grant_create_menu eq true">
+						<div class="row">
+							<div class="col-md-1">
+								<a href="#" class="btn btn-primary" style="float: right" id="btn_create_type">创建菜单项</a>
+							</div>
+						</div>
+                    </if>
+				</div>
+			</div>		
+		</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+	var myTable, pageRequestData;
+	var modalDataEditData = new Object();
+	$(document).ready(function(){
+		
+		// 初始化数据表格
+		myTable = initDataTable();
+		
+		// 开始查询
+		$('#button_search').click(function(){
+			
+			myTable.fnReloadAjax(myTable.fnSettings());
+			
+		});
+		
+		// 重置查询条件
+		$('#button_reset').click(function(){
+			
+			$('#item_type').val(-1).trigger('change');
+			
+			$('#item_parent').val(-1).trigger('change');
+			
+			myTable.fnReloadAjax(myTable.fnSettings());
+			
+		});
+		
+		// 创建类型
+		$("#btn_create_type").click(_addFun);
+	});
+	
+	// 获取管理员类型
+	function getTypeList(objType) {		
+		var jsonData = {			
+			type_obj: objType,						
+			op_type: 'list',			
+			iSortCol_0: 1,			
+			sSortDir_0: 'asc',			
+			iDisplayStart: 0,			
+			iDisplayLength: 0,			
+			sColumns: 1,			
+		}
+		
+		var rs = '';		
+		$.ajax({			
+			url: '{:U("type/list")}',			
+			type: "POST",			
+			async: false,			
+			data: jsonData,			
+			success: function(data, status) {				
+				if (data.result.errno == 0) {					
+					if (data.aaData != 'undefined' && data.aaData.length > 0) {						
+						rs = data['aaData'];						
+					}					
+				}				
+			}			
+		});		
+		return rs;
+	}
+	
+	// 设置类型列表
+	// objType: 后台获取数据的对象类型
+	// objId: 模态对话框中元素控件对象的ID值
+	function setTypeList(objType, objId) {		
+		var typeList = getTypeList(objType);		
+		if (typeList != '') {			
+			var html = '';			
+			for (var i = 0; i < typeList.length; i++) {				
+				if (objType == 'review_cash_use' && typeList[i]['type_key'] == 'team') {					
+					continue;					
+				}				
+				html += '<option value="' + typeList[i]['id'] + '">' + typeList[i]['type_desc'] + '</option>';				
+			}	
+			
+			var data = {elmt: [{id:objId, value:html}]}			
+			appendModalDataEditInputValues(data, true);			
+		}		
+	}
+	
+	function initSelectData(objId, ds) {
+		if (ds != null) {
+			var html = '';			
+			for (var i = 0; i < ds.length; i++) {
+				var d = ds[i];
+				if (d.id == null || d.text == null) {
+					continue;
+				}				
+				html += '<option value="' + d.id + '">' + d.text + '</option>';				
+			}	
+			
+			if (html == '') {
+				console.log('初始化弹出框下拉菜单失败,下拉框没有数据');
+				return false;
+			}
+			
+			var data = {elmt: [{id:objId, value:html}]}			
+			appendModalDataEditInputValues(data, true);	
+			return true;
+		} else {
+			console.log('初始化弹出框下拉菜单失败,初始化参数错误');
+			return false;
+		}
+	}
+	
+	var thisModalType = '';
+	// 初始化弹出编辑框数据
+	function initModalDataEdit(modalType) {
+		if (thisModalType == modalType) {
+			return false;
+		}
+		
+		// 重置模态对话框
+		_resetModalDataEdit();
+		
+		if (modalType == 'menu_root') {
+			modalDataEditData['lab_title_text'] = '菜单信息';
+			modalDataEditData['btn_confirm_text'] = '确认保存';
+			modalDataEditData['elmt']=[
+				{tag:'input', id:'Id', lab:'', attr:[
+					{op:'bind', name:'type',value:'hidden'},
+				]},
+				{tag:'input', id:'ParentId', lab:'', attr:[
+					{op:'bind', name:'type',value:'hidden'},
+				]},
+				{tag:'select', id:'MenuType', lab:'菜单类型', attr:[]},
+				{tag:'input', id:'Key', lab:'菜单键值', attr:[
+					{op:'bind', name:'type',value:'text'},
+					{op:'bind', name:'placeholder',value:'请输入唯一的类型键值且不能超过50字符'},
+				]},
+				{tag:'input', id:'Desc', lab:'菜单描述', attr:[
+					{op:'bind', name:'type',value:'text'},
+					{op:'bind', name:'placeholder',value:'请输入类型描述且不能超过50字符'},
+				]},
+				{tag:'select', id:'Forbidden', lab:'禁用菜单', attr:[]},
+				{tag:'input', id:'Sort', lab:'菜单排序', attr:[
+					{op:'bind', name:'type',value:'number'},
+					{op:'bind', name:'placeholder',value:'请输入类型描述且不能超过50字符'},
+					{op:'bind', name:'maxlength',value:'4'},
+					{op:'bind', name:'value',value:'0'},
+				]},
+			];
+			
+			modalDataEditData['callback_confirm'] = _addFunAjax;
+			initModalDataEditPage(modalDataEditData);	
+					
+			// 设置费用用途
+			setTypeList('menu_type', 'MenuType');
+			
+			// 初始化禁用DOM
+			initSelectData('Forbidden', [{id:0, text:'启用'},{id:1, text:'禁用'}]);
+		} else if (modalType == 'menu_item') {
+			modalDataEditData['lab_title_text'] = '菜单信息';
+			modalDataEditData['btn_confirm_text'] = '确认保存';
+			modalDataEditData['elmt']=[
+				{tag:'input', id:'Id', lab:'', attr:[
+					{op:'bind', name:'type',value:'hidden'},
+				]},
+				{tag:'input', id:'MenuType', lab:'', attr:[
+					{op:'bind', name:'type',value:'hidden'},
+				]},
+				{tag:'input', id:'ParentId', lab:'', attr:[
+					{op:'bind', name:'type',value:'hidden'},
+				]},
+				{tag:'input', id:'Key', lab:'类型键值', attr:[
+					{op:'bind', name:'type',value:'text'},
+					{op:'bind', name:'placeholder',value:'请输入唯一的类型键值且不能超过50字符'},
+				]},
+				{tag:'input', id:'Desc', lab:'类型描述', attr:[
+					{op:'bind', name:'type',value:'text'},
+					{op:'bind', name:'placeholder',value:'请输入类型描述且不能超过50字符'},
+				]},
+				{tag:'select', id:'Forbidden', lab:'禁用菜单', attr:[]},
+				{tag:'input', id:'Sort', lab:'菜单排序', attr:[
+					{op:'bind', name:'type',value:'number'},
+					{op:'bind', name:'placeholder',value:'请输入类型描述且不能超过50字符'},
+					{op:'bind', name:'maxlength',value:'4'},
+					{op:'bind', name:'value',value:'0'},
+				]},
+			];
+			
+			modalDataEditData['callback_confirm'] = _addFunAjax;
+			initModalDataEditPage(modalDataEditData);	
+			
+			// 初始化禁用DOM
+			initSelectData('Forbidden', [{id:0, text:'启用'},{id:1, text:'禁用'}]);
+		}
+	}
+
+	// 初始化数据列表
+	function initDataTable() {	
+		var vTable = $(".aspTable").dataTable({
+			"bSort": true,
+			"bAutoWidth": true,
+			"bFilter": true,
+			"bInfo": true,//页脚信息
+			"bPaginate": true, //翻页功能
+			"bLengthChange": true, //改变每页显示数据数量
+			"bStateSave": true,	//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+			"sPaginationType": "full_numbers", //显示数字的翻页样式"
+			"aLengthMenu": [[5, 10, 25, 50],[5, 10, 25, 50]],	// 可分页的数量值与显示
+			"isDisplayLength": 5,	// 当前每页显示数量
+			"oLanguage": {
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+				"sZeroRecords": "抱歉， 没有找到",
+				"sInfo": "从 _START_ 到 _END_ / 共 _TOTAL_ 条数据",
+				"sInfoEmpty": "没有数据",
+				"sInfoFiltered": "(从_MAX_条数据中检索)",
+				"oPaginate": {
+					"sFirst": "首页",
+					"sPrevious": "前一页",
+					"sNext": "后一页",
+					"sLast": "尾页"
+				},
+				"sZeroRecords": "没有检索到数据",
+				"sProcessing": "<src='__PUBLIC__/images/loader.gif' />",
+			},
+			//Ajax获取信息
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "{$ajaxReqUrl}",
+			//如果加上下面这段内容，则使用post方式传递数据
+			"fnServerData": getPageData,
+			"aoColumns": dataTablesBindCols(),//$_GET[‘sColumns’]将接收到aoColumns传递数据
+			"aoColumnDefs": [{"sDefaultContent": "", "aTargets": ["_all"]}],
+		});
+		return vTable;
+	}
+
+	// 绑定列
+	function dataTablesBindCols() {
+		var cols = new Array();
+		cols = [
+				{"mData": "id", "aTargets": [0]},
+				{"mData": "item_desc", "aTargets": [1]},
+				{"mData": "item_key", "aTargets": [2]},
+				{"mData": "menu_type_id_type_desc", "aTargets": [3]},
+				{"mData": "parent_id_item_desc", "aTargets": [4]},
+				{"mData": "forbidden", "aTargets": [5], fnCreatedCell: replaceContent},
+				{"mData": "sort", "aTargets": [6]},
+			];	//$_GET[‘sColumns’]将接收到aoColumns传递数据
+			
+		var idx = cols.length;
+		if ('{$grant_create_menu}' == true || '{$grant_update_menu}' == true || '{$grant_delete_menu}' == true) {
+			cols[idx] = {"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [idx], "fnCreatedCell": appendLastCol};
+		}
+			
+		return cols;
+	}
+
+	//Ajax获取数据
+	function getPageData ( sSource, aoData, fnCallback ) {
+		var cds = 'item_type,'+$('#item_type').val();
+			cds += ',item_parent,'+$('#item_parent').val();
+		var typeObj = '{$typeObj}';
+		aoData.push({'name':'type_obj','value':typeObj});
+		aoData.push({'name':'op_type','value':'list'});
+		aoData.push({'name':'cds','value':cds});			
+//		alert(JSON.stringify(aoData));
+		pageRequestData = aoData;
+		$.post(sSource, aoData, function(data,status){
+//				console.log(JSON.stringify(data.aaData));
+				if (data['result']['errno'] == 0) {
+					fnCallback(data);
+				} else {
+					alert(data['result']['message']);
+				}			
+			},'JSON');
+	}
+
+	// 内容替换
+	function replaceContent(nTd, sData, oData, iRow, iCol) {
+		if (iCol == 5) {
+			if (oData.forbidden == 0) {
+				$(nTd).html('<span style="color: #00f;">启用</span>');
+			} else {
+				$(nTd).html('<span style="color: #f00;">禁用</span>');
+			}
+		}
+	}
+
+	// 添加最后一列控件
+	function appendLastCol(nTd, sData, oData, iRow, iCol) {
+//		alert(nTd+'|'+JSON.stringify(sData)+'|'+JSON.stringify(oData)+'|'+iRow+'|'+iCol);
+		var id = parseInt(oData['id']);
+		var menuType = parseInt(oData['menu_type_id']);
+//	    $(nTd).html('<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_editFun('+id+')">编辑</a>');
+				
+		var html = '';
+
+		if ('{$grant_create_menu}' == true) {
+			html += '<a href="#" class="btn btn-primary btn-sm btn-icon icon-left" onclick="_addItemFun('+menuType+','+id+')">添加子菜单</a>';
+		}
+
+		if ('{$grant_update_menu}' == true) {
+			html += '<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_editFun('+id+')">编辑</a>';
+		}
+
+		if ('{$grant_delete_menu}' == true) {
+			html += '<a href="#" class="btn btn-danger btn-sm btn-icon icon-left" onclick="_deleteFun('+id+')">删除</a>';
+		}
+		$(nTd).html(html);
+	}
+
+	/**
+	* 创建类型
+	* @private
+	*/
+	function _addFun() {
+				
+		// 初始化弹出窗口
+		initModalDataEdit('menu_root');
+		
+		// 填充数据		
+		var ds = {
+			'elmt': [
+				{id:'ParentId', value:0},
+			]
+		};			
+		
+		// 设置模态对话框值
+		setModalDataEditInputValues(ds);
+		
+		// 显示窗口		
+		showModalDataEdit();
+	}
+
+	/**
+	* 添加子菜单项
+	* @private
+	*/
+	function _addItemFun(menuType, parentId) {						
+		// 初始化弹出窗口
+		initModalDataEdit('menu_item');
+		
+		// 填充数据		
+		var ds = {
+			'elmt': [
+				{id:'MenuType', value:menuType},
+				{id:'ParentId', value:parentId},
+			]
+		};			
+		
+		// 设置模态对话框值
+		setModalDataEditInputValues(ds);
+			
+		// 显示窗口
+		showModalDataEdit();
+	}
+	 
+	/**
+	* 添加数据
+	* @private
+	*/
+	function _addFunAjax(ds) {
+		var jsonData = {
+			'op_type': 'create',
+			'data': {
+				'menu_type_id': ds['MenuType'],
+		    	'parent_id': ds['ParentId'],
+		    	'item_key': ds['Key'],
+		    	'item_desc': ds['Desc'],
+		    	'forbidden': ds['Forbidden'],
+		    	'sort': ds['Sort'],
+			}
+		};
+		
+		$.post('{$ajaxReqUrl}',jsonData,
+			function(backdata,status) {
+	//	    	alert(JSON.stringify(backdata));
+		        if (backdata['result']['errno'] == 0) {
+		            hideModalDataEdit();
+		            myTable.fnReloadAjax(myTable.fnSettings());
+		        } else {
+					setModalDataEditTips(backdata['result']['message']);
+		        }
+			});
+	}
+
+	// 弹出编辑数据界面
+	function _editFun(aid) {	
+		$.post('{$ajaxReqUrl}',
+			{op_type:'find', data_type:'one', id:aid},
+			function(data,status){
+				if (data['result']['errno'] == 0) {
+					// 初始化模态对话框
+					initModalDataEdit('menu_item');		
+					// 填充数据		
+					var ds = {
+						'elmt': [
+							{id:'Id', value:data['data']['id']},
+							{id:'MenuType', value:data['data']['menu_type_id']},
+							{id:'ParentId', value:data['data']['parent_id']},
+							{id:'Key', value:data['data']['item_key']},
+							{id:'Desc', value:data['data']['item_desc']},
+							{id:'Forbidden', value:data['data']['forbidden']},
+							{id:'Sort', value:data['data']['sort']},
+						]
+					};			
+					setModalDataEditInputValues(ds);	
+					// 绑定编辑回调函数
+					bindModalDataEditConfirmEvent(_editFunAjax);
+					// 显示窗口
+					showModalDataEdit();
+				} else {
+					alert(data['result']['message']);
+				}
+			});	
+	}
+
+	function _editFunAjax(ds) {
+		var jsonData = {
+			'op_type': 'edit',
+			'id': ds['Id'],
+			'data' : {
+			    'item_desc': ds['Desc'],
+			    'forbidden': ds['Forbidden'],
+			    'sort': ds['Sort'],
+			},
+		};
+	    $.post('{$ajaxReqUrl}',jsonData,
+		    function(backData,status){
+//		    	alert(JSON.stringify(backData));
+		    	if (backData['result']['errno']==0){
+		    		hideModalDataEdit();
+		            myTable.fnReloadAjax(myTable.fnSettings());
+		    	} else {
+//					alert(backData['result']['message']);	
+		    		setModalDataEditTips(backData['result']['message']);
+		    	}
+		    });
+	} 	
+
+	/**
+	* 删除
+	* @param id
+	* @private
+	*/
+	function _deleteFun(aid) {
+		if (!confirm("您确定要删除id=["+aid+"]该条类型记录吗？")) {
+			return false;
+		}
+		
+		$.post('{$ajaxReqUrl}',
+			{op_type:'delete', id:aid},
+			function(data,status){
+	        	if(data['result']['errno'] == 0){
+					myTable.fnReloadAjax(myTable.fnSettings());
+				} else {
+					alert(data['result']['message']);	
+				}
+			});	
+	}
+
+	/*
+	add this plug in
+	// you can call the below function to reload the table with current state
+	Datatables刷新方法
+	oTable.fnReloadAjax(oTable.fnSettings());
+	*/
+	$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings) {
+		//oSettings.sAjaxSource = sNewSource;
+		this.fnClearTable(this);
+		this.oApi._fnProcessingDisplay(oSettings, true);
+		var that = this;
+
+		$.getJSON(oSettings.sAjaxSource, null, function (json) {
+		    /* Got the data - add it to the table */
+		    for (var i = 0; i < json.aaData.length; i++) {
+		        that.oApi._fnAddData(oSettings, json.aaData[i]);
+		    }
+		    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+		    that.fnDraw(that);
+		    that.oApi._fnProcessingDisplay(oSettings, false);
+		});
+	}
+	
+</script>

@@ -1,0 +1,59 @@
+
+	<!-- 添加数据类型 -->
+	<div class="modal fade" id="gallery-tab-data-modal" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<h4 class="modal-title">标签添加</h4>
+				</div>
+				
+				<div class="modal-body">
+					
+					<div class="row">
+						<div class="col-md-12">
+							<label class="control-label" for="modal_data_key">标签键<span style="color: red;">（*只能由字母、数字、短线、下划线其中任意类型组合而且不能为空）</span></label>
+							<input class="form-control" name="modal_data_key" id="modal_data_key" data-validate="required"/>
+						</div>						
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<label class="control-label" for="modal_data_desc">标签文本<span style="color: red;">（*只能由字母、数字、短线、下划线或者汉字其中任意类型组合而且不能为空）</span></label>
+							<input class="form-control" name="modal_data_desc" id="modal_data_desc" data-validate="required"/>
+						</div>						
+					</div>
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-secondary">添加</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">	
+		var modalTabDataObj = $("#gallery-tab-data-modal");
+		var modalTabDataCallBack = null;		
+		// 添加类型
+		$(modalTabDataObj).find('.btn-secondary').click(function(){
+			var jsonData = {
+				'key': $(modalTabDataObj).find('#modal_data_key').val(),
+				'desc': $(modalTabDataObj).find('#modal_data_desc').val(),
+			}
+			if (modalTabDataCallBack != null) {
+				modalTabDataCallBack(jsonData);
+			}
+			$(modalTabDataObj).modal('hide');
+		});
+		
+		// 显示类型数据添加界面
+		function showModalTabDataDialog(backcallFunc) {
+			modalTabDataCallBack = backcallFunc;
+			$(modalTabDataObj).find('#modal_data_key').val('');
+ 			$(modalTabDataObj).find('#modal_data_desc').val('');
+			$(modalTabDataObj).modal('show');
+		}
+	</script>

@@ -1,0 +1,116 @@
+<include file="Common/top" />
+<link rel="stylesheet" href="__PUBLIC__/qlpphone/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/qlpphone/css/list.css">
+<style>
+	.travel a{text-decoration: none;}
+	.list .travel .item:nth-child(5){border-top:none;}
+	.line-list {margin-top: 3rem;}
+</style>
+<!-旅拍线路->
+<div class="phone index list">
+	<div class="travel">
+		<h2>每刻美 初体验</h2>
+		<div class="line-list">
+			<volist id="line" name="lines">
+				<a href="{:U('line/info')}/id/{$line.id}">
+					<div class="item">
+						<h3>{$line.title}</h3>
+						<h4>- 每刻美 初体验 -</h4>
+						<img class="img img-responsive" src="{$line.img1}" alt="">
+						<p class="detail">{$line.subheading}</p>
+						<if condition="empty($line['check_price'])">
+						<p class="price"><span>核算中</span></p>
+						<else />
+						<p class="price">¥<span>{$line.start_price_adult}</span>元起</p>
+						</if>
+						<a type="button" class="btn btn-orange-two" href="{:U('line/info')}/id/{$line.id}">查看线路</a>
+					</div>
+				</a>
+			</volist>
+		</div>
+		<!-更多内容->
+		<div class="more" data-more="1" data-page-index="0">更多线路</div>
+	</div>
+</div>
+<script>    
+    //更换目的地
+    $(".place-name").on("click",function(){
+        if($(".place-name-more").is(":hidden")==true){
+            $(".place-name-more").slideDown(700);
+            $(this).find(".span").addClass("rotate").removeClass("rotate1");
+        }else{
+            $(".place-name-more").slideUp(700)
+            $(this).find(".span").removeClass("rotate").addClass("rotate1")
+        }
+    })
+    
+    $(".place-name-more li").on("click",function(){
+        var html=$(this).html();
+        $(".place-name .name").html(html);
+        $(".place-name").find(".span").removeClass("rotate").addClass("rotate1");
+		$('.more').attr('data-page-index', -1);
+		$('.more').attr('data-more','1');
+		$('.more').html('更多线路');
+		$('.line-list').children().remove();
+        findMore();
+    })
+    
+    // 刷新列表
+    function findMore() {
+    	if ($('.more').attr('data-more') != '1') {
+			$('.more').attr('data-more','0');
+			$('.more').html('没有更多的数据了');
+    		return false;
+    	}
+		var pageIndex = parseInt($('.more').attr('data-page-index'))+1;
+		var jsonData = {
+			op_type: 'list',
+			page: pageIndex,
+			slowly: 0,
+		};
+		
+		var dest = $('.place-name').find('span.name').html();
+		if (dest != '全部') {
+			jsonData['cds'] = 'destination|LIKE|%'+dest+'%';
+		}
+		
+		$.post('{:U("line/list")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				if (data.ds != null && data.ds != 'undefined') {
+					for (var i=0; i < data.ds.length; i++) {
+						var d = data.ds[i];
+						var linePrice = '¥ <span>核算中</span>元起';
+						if (d.check_price == 1) {
+							linePrice = '¥<span>'+d.start_price_adult+'</span>元起';
+						}
+						var vhtml = '<a href="'+'{:U("line/info")}/id/'+d.id+'">'+
+									'<div class="item">'+
+								    '    <h3>'+d.title+'</h3>'+
+								    '    <h4>— 新旅拍 —</h4>'+
+								    '    <img class="img img-responsive" src="'+d.img1+'" alt="">'+
+								    '    <p class="detail">'+d.subheading+'</p>'+
+								    '    <p class="price">'+linePrice+'</p>'+
+								    '    <a type="button" class="btn btn-orange-two" href="'+'{:U("line/info")}/id/'+d.id+'">查看线路</a>'+
+								    '</div>'+
+								    '</a>';
+						$('.line-list').append(vhtml);
+						$('.more').attr('data-page-index', pageIndex);
+					}
+					if (data.ds.length < data.page_size || pageIndex >= data.page_count) {
+						$('.more').attr('data-more','0');
+						$('.more').html('没有更多的数据了');
+					}
+				} else {
+					$('.more').attr('data-more','0');
+					$('.more').html('没有更多的数据了');
+				}
+			} else {
+				$('.more').html(data.result.message);
+			}
+		});
+    }
+    	
+	$('.more').click(findMore);
+</script>
+
+<include file="Common/bottom" />

@@ -1,0 +1,479 @@
+
+	<!-- 游记模板开始 -->	
+	<div class="row template_youji hidden_ctrl">
+		<div class="col-md-9">
+			<div class="form-group">
+				<div class="youji_show_text hidden_ctrl"></div>
+				<div class="youji_ct_text">
+					<textarea class="form-control youji_text"></textarea>
+				</div>
+				<img class="youji_image" src="" alt=""/>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<div class="col-md-5">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button class="btn btn-secondary btn_sort_offset btn_sort_up" type="button">上移</button>
+						</span>
+						<span class="input-group-btn">
+							<button class="btn btn-secondary btn_sort_offset btn_sort_down" type="button">下移</button>	</span>					
+						<input type="text" style="width: 50px;" maxlength="3" class="form-control form-focus-secondary offset_val" value="1">						
+						
+						
+					</div>
+				</div>
+				<div class="col-md-5">
+					<button class="btn btn-secondary btn_youji_edit">保存</button>
+					<button class="btn btn-danger btn_youji_delete">删除</button>
+				</div>
+				<div class="add-three-btn col-md-12">
+					<button class="btn btn-secondary btn_insert_text">插入文本</button>
+					<button class="btn btn-secondary btn_select_image">选择图片</button>
+					<button class="btn btn-secondary btn_upload_image">上传图片</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		function moveYoujiIndex(youjiObj, sortOffset) {			
+			var jsonData = {
+				op_type: 'sort_offset',
+				id: $(youjiObj).attr('data-id'),
+				offset: sortOffset,	// 目标索引，在他之前插入
+				up: sortOffset < 0 ? 1 : 0,
+			}
+			
+			var thisIndex = parseInt($(youjiObj).attr('data-index'));
+			$.post('{:U("line/linepoint")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (data.sort_index != null && typeof(data.sort_index) != 'undefined') {
+						var newIndex = data.sort_index;				
+						// 将对象移至指定位置
+						$(youjiObj).parent().find('.youji').each(function(i,ev){
+							var nowIndex = parseInt($(this).attr('data-index'));
+							if ($(this).attr('id') != $(youjiObj).attr('id')) {
+								if (sortOffset < 0) { // 上移
+									if (nowIndex >= newIndex && nowIndex < thisIndex) {
+										$(this).attr('data-index', nowIndex+1);
+										$(this).find('.offset_val').val(nowIndex+1);
+										if (nowIndex == newIndex) {
+											$(this).before(youjiObj);
+											console.log($(this).attr('id')+'/'+$(youjiObj).attr('id'));
+										}
+									}	
+								} else {
+									if (nowIndex > thisIndex && nowIndex <= newIndex) {
+										$(this).attr('data-index', nowIndex-1);
+										$(this).find('.offset_val').val(nowIndex-1);
+										if (nowIndex == newIndex) {
+											$(this).after(youjiObj);	
+										}
+									}									
+								}
+							}
+						});
+						// 设置新索引
+						$(youjiObj).attr('data-index', data.sort_index);
+						$(youjiObj).find('.offset_val').val(data.sort_index);
+					}
+				} else {
+					toastr.error(data.result.message);
+				}	
+			});
+		}
+	
+		// 排序偏移
+		$('.btn_sort_offset').click(function(){
+			var youjiObj = $(this).closest('.youji');
+			var sortOffset = $(this).hasClass('btn_sort_down') == false ? 1 : 0;
+			moveYoujiIndex(youjiObj, sortOffset);
+		});
+		
+		// 设置排序插入的位置
+		$('.offset_val').blur(function(){
+			var youjiObj = $(this).closest('.youji');
+			var thisIndex = parseInt($(youjiObj).attr('data-index'));
+			var aimIndex = $(this).val();
+			if (thisIndex == aimIndex) {
+				return false;
+			}
+			
+			var sortOffset = aimIndex - thisIndex;
+			moveYoujiIndex(youjiObj, sortOffset);
+		});
+	
+		// 绑定插入按钮
+		function bindInsertButtonToYouji(obj) {
+			if (typeof(obj) != 'object') {
+				toastr.error('对象错误，绑定插入按钮失败');
+				return false;
+			}
+			$(obj).append($('.template_youji').find('.add-three-btn').clone(true));
+			return true;
+		}
+		
+		function getTabPanelIndex(tabObj) {
+			var idx = 0;
+			$('.tab-pane').each(function(i, el) {
+				if ($(tabObj).attr('id') == $(this).attr('id')) {
+					idx = i;		
+				}
+			});
+			return idx;
+		}
+		
+		// 插入数据发送
+		function _ajaxInsertYouji(tabObj, newIndex, cntType, content) {
+			var tabId = $(tabObj).attr('id');
+			var typeId = 1;
+			if (tabId == 'fwv-2') {
+				typeId = 1;
+			} else if (tabId == 'fwv-3') {
+				typeId = 4;
+			} else if (tabId == 'fwv-6') {
+				typeId = 2;
+			} else {
+				toastr.error('错误的内容类型')
+				return 0;
+			}
+			
+			var jsonData = {
+				op_type: 'create',
+				line_id: $('#line_id').val(),
+				type_id: typeId,		// 行程亮点面板（类型：1）还是沿途风光面板（类型：2）
+				'index': newIndex,	// 目标索引，在他之前插入
+			}
+			if (cntType == 0) {
+				jsonData['content'] = content;
+			} else {
+				jsonData['image_url'] = content;
+			}
+			
+			var result = 0;
+			$.ajax({
+				url: '{:U("line/linepoint")}',
+				async: false,		// 同步执行，主要针对同时插入多个图片对象，是插入的图片按照顺序进行插入
+				type: 'POST',
+				data: jsonData,
+				dataType: 'json',
+				success: function(resp, data) {
+//					console.log(JSON.stringify(resp));
+					if (resp.result.errno == 0) {
+						// 返回后处理所有游记插入内容的偏移情况，before:true,大于等于指定对象的索引偏移	,before:false,大于指定对象的索引偏移
+						$(tabObj).find('.youji').each(function(i,el){
+							var tempIndex = parseInt($(this).attr('data-index'));
+							if (tempIndex >= newIndex) {
+								$(this).attr('data-index', tempIndex + 1);
+								$(this).find('.offset_val').val(tempIndex + 1);
+							}
+						});
+						result = resp.id
+					} else {
+						console.log('插入游记信息结果错误：'+resp.result.message);
+					}
+				},
+				error: function(resp, err, excp) {
+					console.log('插入游记信息错误：'+JSON.stringify(err));
+				}			
+			});
+			return result;
+		}		
+		
+		var youji_ctrl_index = 1;
+		// 插入文本
+		function insertYoujiText(btnObj) {
+			var newIndex = 1;
+			var tabObj = $(btnObj).closest('.tab-pane');
+			var containerObj = $(btnObj).closest('.add-three-btn');
+			var youjiObj = $(btnObj).closest('.youji');
+			if ($(youjiObj).length > 0) {
+				newIndex = parseInt($(youjiObj).attr('data-index')) + 1;
+				containerObj = youjiObj;
+			}
+			
+			var idbasestr = '';
+			var tabIndex = getTabPanelIndex(tabObj);
+			if (tabIndex == 1) {
+				idbasestr = 'line_point';
+			} else if (tabIndex == 2) {
+				idbasestr = 'line_phone_point';
+			} else if (tabIndex == 5) {
+				idbasestr = 'line_scenery';
+			} else {
+				return false;
+			}
+						
+			// 添加新的文本输
+			var insertId = _ajaxInsertYouji(tabObj, newIndex, 0, '');
+			console.log('new_index:'+newIndex+',insert_id:'+insertId);
+			if (insertId != 0) {	
+				// 克隆并设置新增模块属性
+				var youjiObj = $('.template_youji').clone(true);
+				$(youjiObj).removeClass('hidden_ctrl');
+				$(youjiObj).removeClass('template_youji');
+				$(youjiObj).addClass('youji');				
+				$(youjiObj).attr('data-id', insertId)
+				$(youjiObj).attr('data-index', newIndex);
+				$(youjiObj).attr('id', idbasestr + '_' + youji_ctrl_index);
+				$(youjiObj).find('.offset_val').val(newIndex);
+				youji_ctrl_index ++;
+				
+				// 设置新增加模块的其他内容
+				$(youjiObj).find('.youji_image').remove();
+				$(youjiObj).find('.youji_text').wysihtml5({
+					size: 'white',
+					stylesheets: "__PUBLIC__/assets/js/wysihtml5/lib/css/wysiwyg-color.css",
+					image: false,
+				});		
+				
+				// 添加新模块到游记列表中					
+				$(containerObj).after(youjiObj);
+			} else {
+				$(youjiObj).remove();
+			}
+		}
+		
+		// 添加下一张图片
+		var gImageList = [];
+		function appendNextImage(idbasestr, containerObj, tabObj, insertIndex, curImageIndex) {	
+			if (curImageIndex >= gImageList.length) {		
+				// 去除遮罩层
+				showLoading(false);
+				return false;
+			}	
+			
+			if (curImageIndex > 30) {
+				showLoading(false);
+				return false;
+			}
+			
+			if (gImageList[curImageIndex] == '') {
+				appendNextImage(idbasestr, containerObj, tabObj, insertIndex, curImageIndex+1);
+				return false;
+			}
+			
+			// 添加遮罩层
+			showLoading(true, '正在上传第'+(parseInt(curImageIndex)+1)+'张图片，请耐心等待...');
+			
+			// 插入游记内容
+			var insertId = _ajaxInsertYouji(tabObj, insertIndex, 1, gImageList[curImageIndex]);
+			console.log('new_index:'+insertIndex+',insert_id:'+insertId);
+			if (insertId != 0) {	
+				// 克隆并设置新增模块属性				
+				var youjiObj = $('.template_youji').clone(true);
+				$(youjiObj).removeClass('hidden_ctrl');
+				$(youjiObj).removeClass('template_youji');
+				$(youjiObj).addClass('youji');
+				$(youjiObj).attr('data-id', insertId);
+				$(youjiObj).attr('data-index', insertIndex);
+				$(youjiObj).attr('id', idbasestr + '_' + youji_ctrl_index);
+				$(youjiObj).find('.offset_val').val(insertIndex);
+				youji_ctrl_index ++;
+				
+				// 设置新增模块其他元素属性
+				$(youjiObj).find('.youji_show_text').remove()
+				$(youjiObj).find('.youji_ct_text').remove();	
+				$(youjiObj).find('.btn_youji_edit').remove();	
+				$(youjiObj).find('.youji_image').attr('src', gImageList[curImageIndex]);
+									
+				// 添加新模块到游记列表中
+				$(containerObj).after(youjiObj);
+				insertIndex ++;
+				
+				// 继续下一张图片添加
+				appendNextImage(idbasestr, youjiObj, tabObj, insertIndex, curImageIndex+1);
+			} else {
+				$(youjiObj).remove();
+			}
+		}
+						
+		// 插入图片
+		function insertYoujiImage(btnObj, imageList) {				
+			var newIndex = 1;
+			var tabObj = $(btnObj).closest('.tab-pane');
+			// 默认在按钮控件后添加内容
+			var containerObj = $(btnObj).closest('.add-three-btn');
+			// 查看按钮的父节点是否是游记			
+			var youjiObj = $(btnObj).closest('.youji');
+			if ($(youjiObj).length > 0) {
+				newIndex = parseInt($(youjiObj).attr('data-index')) + 1;
+				containerObj = youjiObj;
+			}
+			
+			var idbasestr = '';
+			var tabIndex = getTabPanelIndex(tabObj);
+			if (tabIndex == 1) {
+				idbasestr = 'line_point';
+			} else if (tabIndex == 2) {
+				idbasestr = 'line_phone_point';
+			} else if (tabIndex == 5) {
+				idbasestr = 'line_scenery';
+			} else {
+				return false;
+			}
+			
+			// 选择图片和上传图片回调返回的图片数据不同	
+			if (typeof(imageList) == 'string') {
+				var imageurl = imageList;
+				imageList = new Array(imageurl);
+			}
+			gImageList = imageList;	
+			
+			// 添加图片
+			appendNextImage(idbasestr, containerObj, tabObj, newIndex, 0);						
+		}
+		
+		// 保存文本数据
+		function saveYoujiText(rootObj, bEdit) {				
+			if ($(rootObj).find('.btn_youji_edit').html() == '编辑') {
+				$(rootObj).find('.btn_youji_edit').html('保存');
+				$(rootObj).find('.youji_show_text').addClass('hidden_ctrl');
+				$(rootObj).find('.youji_ct_text').removeClass('hidden_ctrl');
+				var vhtml = $(rootObj).find('.youji_show_text').html();
+				$(rootObj).find('.youji_text').data('wysihtml5').editor.setValue(vhtml);
+				return false;
+			}
+			
+			var vhtml = $(rootObj).find('.youji_text').data('wysihtml5').editor.getValue();
+			var jsonData = {
+				op_type: 'save',
+				id: $(rootObj).attr('data-id'),
+				content: vhtml,
+			}
+			
+			$.post('{:U("line/linepoint")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					$(rootObj).find('.youji_ct_text').addClass('hidden_ctrl');
+					$(rootObj).find('.youji_show_text').html(vhtml);
+					$(rootObj).find('.youji_show_text').removeClass('hidden_ctrl');
+					$(rootObj).find('.btn_youji_edit').html('编辑');
+				} else {
+					toastr.error(data.result.message);
+				}
+			});
+		}
+		
+		// 删除数据
+		function deleteYouji(rootObj) {
+			var aid = $(rootObj).attr('data-id');
+			if (aid == '0') {
+				toastr.error('数据未存入数据库,不能删除');
+				return false;
+			}
+			
+			var delIndex = parseInt($(rootObj).attr('data-index'));
+			$.post('{:U("line/linepoint")}', {op_type:'delete', id:aid}, function(data){
+				if (data.result.errno == 0) {
+					var tabObj = $(rootObj).closest('.tab-pane');
+					$(rootObj).remove();
+					$(tabObj).find('.youji').each(function(i, el){
+						var elIndex = parseInt($(this).attr('data-index'));
+						if (elIndex >= delIndex) {
+							$(this).attr('data-index', elIndex-1);
+							$(this).find('.offset_val').val(elIndex-1);
+						}
+					});
+				} else {
+					toastr.error(data.result.message);
+				}	
+			});
+		}
+		
+		// 添加行程亮点
+		function appendLinePoint(containerObj, ds) {
+			if (ds == null || typeof(ds) == 'undefined') {
+				return false;
+			}
+			
+			var idbasestr = '';
+			var tabIndex = getTabPanelIndex(containerObj);
+			if (tabIndex == 1) {
+				idbasestr = 'line_point';
+			} else if (tabIndex == 2) {
+				idbasestr = 'line_phone_point';
+			} else if (tabIndex == 5) {
+				idbasestr = 'line_scenery';
+			} else {
+				return false;
+			}
+			
+			for (var i = 0; i < ds.length; i ++) {
+				var p = ds[i];				
+				// 克隆并设置新增模块属性
+				var youjiObj = $('.template_youji').clone(true);
+				$(youjiObj).removeClass('hidden_ctrl');
+				$(youjiObj).removeClass('template_youji');
+				$(youjiObj).addClass('youji');				
+				$(youjiObj).attr('data-id', p.id)
+				$(youjiObj).attr('data-index', p.index);
+				$(youjiObj).attr('id', idbasestr + '_' + youji_ctrl_index);
+				$(youjiObj).find('.offset_val').val(p.index);
+				youji_ctrl_index ++;
+				
+				// 设置新增加模块的其他内容
+//				console.log(p.content + ',type:' + typeof(p.content));
+				if (p.content == '' || typeof(p.content) == 'undefined' || p.content == null) {
+					$(youjiObj).find('.btn_youji_edit').remove();
+					$(youjiObj).find('.youji_show_text').remove();
+					$(youjiObj).find('.youji_ct_text').remove();
+					$(youjiObj).find('.youji_image').attr('src', p.image_url);
+				} else {
+					$(youjiObj).find('.youji_image').remove();
+					$(youjiObj).find('.youji_show_text').html(p.content);
+					$(youjiObj).find('.youji_show_text').removeClass('hidden_ctrl');
+					$(youjiObj).find('.btn_youji_edit').html('编辑');
+					$(youjiObj).find('.youji_ct_text').addClass('hidden_ctrl');	
+					$(youjiObj).find('.youji_text').wysihtml5({
+						size: 'white',
+						stylesheets: "__PUBLIC__/assets/js/wysihtml5/lib/css/wysiwyg-color.css",
+						image: false,
+					});
+				}					
+				
+				// 绑定插入按钮事件
+				//bindInsertButtonToYouji(youjiObj);
+				$(containerObj).append(youjiObj);	
+			}
+		}
+				
+		// 初始化游记
+		$(document).ready(function(){
+			// 插入文本
+			$('.btn_insert_text').click(function(ev){
+				ev.preventDefault();
+				insertYoujiText(this);
+			});
+			
+			// 选择并插入图片
+			$('.btn_select_image').click(function(ev){
+				ev.preventDefault();
+				funcModalImageSelectorCallBack = insertYoujiImage;
+				showModalSelectorImageDialog(this);
+			});
+			
+			// 上传并插入图片
+			$('.btn_upload_image').click(function(ev){
+				ev.preventDefault();
+				
+				funcModalUploadCallBack = insertYoujiImage;
+				showModalUploadImageDialog(this);
+			});
+			
+			// 编辑文本
+			$('.btn_youji_edit').click(function(ev){
+				ev.preventDefault();
+				var rootObj = $(this).closest('.youji');
+				saveYoujiText(rootObj);
+			});
+			
+			// 删除游记
+			$('.btn_youji_delete').click(function(ev){
+				ev.preventDefault();
+				var rootObj = $(this).closest('.youji');
+				deleteYouji(rootObj);				
+			});
+		});
+	</script>

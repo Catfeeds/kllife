@@ -1,0 +1,236 @@
+header { position: relative; }
+#content { width: 1200px; margin: 0 auto; font-size: 14px;  }
+.bread-nav { padding-top: 30px; padding-bottom: 15px; color: #999; }
+.bread-nav a { color: #999; }
+.bread-nav .bread-final { color: #000; }
+/*为什么选择我们*/
+.why-choose-us { width: 100%; margin-top: 20px; margin-bottom: 20px; padding-top: 20px; padding-bottom: 20px; background-color: #fff; text-align: center; }
+/*行程概览*/
+.travel-overview { width: 1200px; margin: 0 auto; margin-bottom: 40px; overflow: hidden; }
+.travel-overview-left { float: left; }
+.travel-overview-right { width: 562px; height: 900px; float: right; background-color: #fff; }
+.travel-overview-left-top { width: 620px; height: 464px; margin-bottom: 22px; }
+.travel-overview-left-top img { width: 100%; height: 100%; }
+.travel-overview-left-bottom { position: relative; width: 616px; height: 412px; border: 1px solid #d2d2d2; overflow: hidden; z-index: 9; }
+
+/*日历*/
+.gogogo { background-color: #fff0e3; cursor: pointer; }
+.final-day .information-details { left: -90px; }
+.information { position: absolute; top: 18px; left: 26px; z-index: 1; }
+.information > p { text-align: center; }
+.information img { display: none; position: absolute; top: 0; left: 30px; margin-top: -8px; z-index: 10; }
+.information-people { margin-bottom: 5px; }
+.information-money { color: #ff7200; }
+.information-details { display: none; position: absolute; bottom: 40px; left: -25px; width: 144px; border: 1px solid #fde7ab; background-color: #fffce5; z-index: 9; }
+.information-details-content { margin: 10px 10px; }
+.information-details-content p { margin-bottom: 8px; font-size: 12px; } 
+.information-details-content p span { color: #ff7200; }
+/*右半部分*/
+.travel-overview-right-content { padding-left: 28px; border-bottom: 1px solid #dcdcdc; }
+.right-content-top { position: relative; }
+.right-content-top h2 { margin-top: 50px; font-weight: normal; font-size: 24px; }
+.right-content-top h3 { margin-top: 18px; margin-bottom: 30px; font-weight: normal; font-size: 20px; color: #747474; }
+.right-content-top u { font-size: 14px; color: #666; text-decoration: none; }
+.right-content-top u a { display: inline-block; margin-left: 10px; padding: 3px 8px; font-size: 12px; color: #fff; cursor: default; }
+.right-content-top u .shendu { background-color: #fd4e4e; }
+.right-content-top u .sheying { background-color: #42b312; }
+.right-content-top u .zhuti { background-color: #fe9440; }
+.right-content-top > .right-content-money { position: relative; margin-top: 35px; margin-bottom: 25px; font-size: 14px; color: #666; }
+.right-content-top > .right-content-money > span > strong { font-size: 36px; font-weight: bold; color: #ff7200; vertical-align: sub; }
+.right-content-top > .right-content-money > span > i { font-style: normal; }
+.right-content-top > .right-content-money > a { position: absolute; bottom: 6px; right: 200px; color: #ff7200; }
+.qj-explain { display: none; position: absolute; top: 40px; right: 86px; width: 287px; background-color: #fffce5; border: 1px solid #fbd780; }
+.childern-explain { display: none; position: absolute; bottom: 30px; right: 0px; width: 200px; background-color: #fffce5; border: 1px solid #fbd780; z-index: 9; }
+.qj-explain img { position: absolute; left: 50%; margin-left: -9px; top: -8px; }
+.childern-explain img { position: absolute; left: 50%; margin-left: -9px; bottom: -8px; }
+.qj-explain-content , .childern-explain-content { margin: 13px 9px; }
+.qj-explain-content h6 , .childern-explain-content { padding-bottom: 7px; font-size: 12px; color: #ff7200; border-bottom: 1px solid #ffd7a7; }
+.qj-explain-content p , .childern-explain-content p { margin-top: 10px; font-size: 12px; line-height: 1.5; }
+.qj-explain-content a , .childern-explain-content a{ font-size: 12px; color: #42b312; }
+
+.right-content-bottom { margin-top: 29px; }
+.right-content-bottom > p {  padding-left: 28px; padding-right: 27px; margin-top: 18px; font-size: 14px; color: #666; }
+.right-content-bottom i { display: inline-block; width: 23px; height: 23px; margin-right: 10px; vertical-align: middle; background-image: url(../images/content_img/content.png); }
+.right-content-bottom b { font-weight: normal; color: #000; }
+.right-content-bottom .ctrs { background-position: -354px -26px; }
+.right-content-bottom .jhdd { background-position: -380px 0; }
+.right-content-bottom .rcsj { background-position: -380px -26px; }
+.right-content-bottom .xlcjl { background-position: -354px 0; }
+#xlcjl { margin-top: 18px; padding-left: 28px; padding-right: 27px; color: #666; }
+#xlcjl > a { color: #000; }
+.swiper_wrap {  display: inline-block; }
+.font_inner { display: inline-block; }
+/*滚动文字*/
+.swiper_wrap{ position: relative; top: 2px; height: 16px; margin: 0 auto; margin-left: 10px; overflow: hidden; }
+.swiper_wrap ul{ position: relative; top: 0; left: 0; float: right; color: #444; font-size: 14px; margin-top: 1px; text-align: center; }
+.swiper_wrap ul li{ height: 16px; }
+.swiper_wrap a { color: #ff7200; }
+#cpjy span { display: inline-block; margin-top: -5px; line-height: 2; width: 474px; }
+.right-content-bottom .cpjy { width: 21px; height: 16px; margin-left: 2px; background-position: -328px -26px; vertical-align: top; }
+#xcgy u { text-decoration: none; padding: 0 3px; font-size: 14px; border: 1px solid #dcdcdc; }
+#xcgy span { display: inline-block; margin-top: -5px; line-height: 2; width: 472px; }
+#xcgy span a { color: #42b312; }
+.right-content-bottom .xcgy { margin-left: 2px; background-position: -224px -26px; vertical-align: top; }
+#cfrq { margin: 0 5px; margin-top: 18px; padding-top: 24px; padding-left: 23px; padding-right: 22px; color: #666; background-color: #f4f5f6; }
+#cfrq .cfrq-choose { position: relative; display: inline-block; width: 200px; cursor: pointer; }
+#cfrq .cfrq-choose span { display: inline-block; width: 130px; padding: 3px 3px; border: 1px solid #dcdcdc; background-color: #fff; }
+#cfrq .cfrq-choose ul { display: none; position: absolute; width: 136px; height: 80px; border: 1px solid #dcdcdc; border-top: none; background-color: #fff; overflow:scroll; overflow-x:hidden; overflow-y:auto; z-index: 9; }
+#cfrq .cfrq-choose ul li { padding: 6px 6px; cursor: pointer; }
+#cfrq .cfrq-choose ul li:hover { background-color: #ffead9; }
+.cfrq-choose img { position: absolute; right: 70px; top: 9px; }
+.cfrq-choose .cfrq-show { position: absolute; top: 6px; right: -196px; font-size: 12px; }
+.cfrq-choose .cfrq-show u { text-decoration: none; }
+.right-content-bottom .cfrq { background-position: -250px 0; }
+.right-content-bottom .cyrs { background-position: -250px -26px; }
+#cyrs { position: relative; margin: 0 5px; padding-top: 18px; padding-left: 23px; padding-right: 22px; color: #666; background-color: #f4f5f6; }
+#cyrs i { display: inline-block; background-image: url(../images/content_img/content.png); vertical-align: middle; }
+.adult-num , .children-num { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.children-num { margin-left: 10px; }
+.adult-num i , .children-num i { margin-right: 0; }
+#cyrs .adult-num a , #cyrs .children-num a { float: left; display: inline-block; padding: 7px 7px; text-align: center; border: 1px solid #d5d5d5; background-color: #fff; }
+#cyrs span { float: left; display: inline-block; padding: 7px 20px; border-top: 1px solid #d5d5d5; border-bottom: 1px solid #d5d5d5; background-color: #fff; }
+#cyrs u { display: inline-block; margin-top: 9px; margin-left: 5px; text-decoration: none; }
+#cyrs .adult-minus , #cyrs .children-minus { width: 8px; height: 2px; background-position: -510px -26px; }
+#cyrs .adult-add , #cyrs .children-add { width: 8px; height: 8px; background-position: -510px 0; }
+.child-standard { margin-left: 10px; color: #ff7200; font-size: 14px; }
+
+.immediate-reservation { position: relative; margin: 0 5px; padding-bottom: 24px; padding-top: 30px; padding-left: 23px; padding-right: 23px; background-color: #f4f5f6; }
+.immediate-reservation p { margin-bottom: 14px; }
+.immediate-reservation .zxkf { width: 21px; height: 14px; margin-left: 2px; vertical-align: middle; background-position: -276px 0; } 
+.immediate-reservation .kfdh { width: 19px; height: 16px; margin-left: 4px; vertical-align: top; background-position: -276px -26px; }
+.immediate-reservation a { position: absolute; bottom: 38px; right: 30px; display: inline-block; padding: 14px 60px; font-size: 24px; background-color: #ff7200; color: #fff; }
+.srdz { margin-top: 18px; padding-right: 27px; padding-left: 28px; }
+.srdz img { width: 106px; height: 48px; margin-right: 20px; vertical-align: middle; }
+
+/*导航栏*/
+.content-list { width: 100%; height: 56px; background-color: #fff; }
+.content-list-to { width: 1200px; margin: 0 auto; font-size: 18px; }
+.content-list-to a { padding: 0 32px; font-size: 18px; line-height: 56px; color: #000; }
+.content-list-to a:hover { color: #ff9200; }
+.content-list-to a.list-checked { color: #ff9200; }
+.content-list-to .content-list-to-reserve { display: none; padding: 0 20px; line-height: 36px; background-color: #ff7200; color: #fff; }
+.content-list-to .content-list-to-reserve:hover { color: #fff; }
+.fixed-top { position: fixed; width: 100%; background-color: #fff; top: 0; left: 0; border-bottom: 1px solid #e1e1e1; z-index: 99; }
+.content-list-to .font-color { color: #ff7200; }
+/*行程亮点*/
+.travel-highlights { position: relative; width: 1200px; margin: 0 auto; margin-top: 40px; padding-bottom: 40px; border-bottom: 1px solid #666; overflow: hidden; }
+.travel-highlights img { display: block; }
+.travel-highlights h3 { margin-bottom: 16px; font-size: 24px; font-weight: normal; }
+
+
+/*行程说明*/
+.travel-arrangements { width: 100%; overflow: hidden; }
+.travel-arrangements-content { width: 1200px; margin: 0 auto; overflow: hidden; }
+.travel-arrangements-content > h3 { margin: 26px 0; font-size: 24px; font-weight: normal; }
+.travel-arrangements-list { width: 100%; height: 67px; text-align: center; margin-bottom: 40px; }
+.travel-arrangements-list a { display: inline-block; width: 74px; height: 67px; background: url(../images/content_img/travel_arrangements_day_bg.png); font-size: 12px; vertical-align: middle; color: #999; overflow: hidden; }
+.travel-arrangements-list img { vertical-align: middle; }
+.travel-arrangements-list a:hover { background: url(../images/content_img/travel_arrangements_day_bg_checked.png); color: #fff; }
+.travel-arrangements-list a:hover p { color: #fff; } 
+.travel-arrangements-list a.arrangements-checked { background: url(../images/content_img/travel_arrangements_day_bg_checked.png); color: #fff; }
+.travel-arrangements-list .arrangements-checked p { color: #fff; }
+.travel-arrangements-list a p { font-size: 24px; margin-top: 10px; margin-bottom: 3px; color: #000; }
+.travel-arrangements-alldays { border-bottom: 1px solid #666; }
+.travel-arrangements-days { margin-bottom: 60px; }
+.travel-arrangements-days h4 { margin-bottom: 22px; font-size: 24px; font-weight: normal; }
+.travel-arrangements-days > p { margin-bottom: 30px; line-height: 1.6; font-size: 14px; }
+.days-information span { margin-right: 60px; font-size: 14px; color: #666; }
+.days-information i { display: inline-block; width: 37px; height: 37px; margin-right: 5px; background-image: url(../images/content_img/content.png); vertical-align: middle; }
+.days-information .days-zs { background-position: -78px 0; }
+.days-information .days-cy { background-position: -39px 0; }
+.days-information .days-zd { background-position: 0 0; }
+.days-prompt { width: 1200px; margin-top: 12px; font-size: 14px; color: #666; overflow: hidden; }
+.days-prompt i { display: inline-block; width: 37px; height: 37px; margin-right: 5px; background-image: url(../images/content_img/content.png); vertical-align: middle; }
+.days-prompt .prompt { float: right; width: 1080px; font-size: 14px; }
+.prompt p { margin-top: 6px; line-height: 1.5; }
+
+.days-img { width: 1200px; margin-top: 10px; overflow: hidden; }
+.days-img img { width: 584px; height: 439px; }
+.days-img-left { position: relative; float: left; width: 584px; height: 439px; }
+.days-img-right { position: relative; float: right; width: 584px; height: 439px; }
+.days-img p { position: absolute; bottom: -42px; left: 0; width: 100%; line-height: 3; background-color: rgba(0, 0, 0, 0.5); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000); color: #fff; font-size: 14px; text-align: center; }
+/*往年游记*/
+.travel-notes { width: 1200px; margin: 0 auto; border-bottom: 1px solid #666; overflow: hidden; }
+.travel-notes h3 { margin: 26px 0; font-size: 24px; font-weight: normal; }
+.travel-notes-lunbo { width: 1200px; float: left; padding-bottom: 50px; }
+.travel-notes-lunbo ul { overflow: hidden; }
+.travel-notes-lunbo ul li { float: left; width: 1200px !important; overflow: hidden; }
+.travel-notes-lunbo ul li > img { float: left; width: 520px; height: 392px; }
+.travel-notes-lunbo .dots { width: 1200px; margin-top: 20px; margin-left: 561px; text-align: center; overflow: hidden; }
+.travel-notes-lunbo .dots li { float: left; width: 14px; height: 14px; background: #b5b5b5; margin-left: 12px; text-indent: -999em; }
+.travel-notes-lunbo .dots li.active { background: #ff7200; }
+.notes-describe { float: left; width: 658px; margin-left: 20px; }
+.notes-describe h3 { font-size: 24px; font-weight: normal; margin-top: 24px; margin-bottom: 30px; }
+.notes-describe p { font-size: 14px; margin-top: 10px; }
+.notes-describe i { display: inline-block; margin-right: 12px; background-image: url(../images/content_img/content.png); vertical-align: middle; }
+.notes-describe .notes-ll { width: 20px; height: 14px; background-position: -458px 0; }
+.notes-describe .notes-pl { width: 20px; height: 16px; background-position: -458px -26px; }
+.notes-describe .notes-sj { width: 20px; height: 17px; background-position: -484px 0; }
+.notes-xx { margin-top: 32px; }
+.notes-xx p { line-height: 2; color: #666; }
+.fixed-bottom { position: fixed; width: 100%; background-color: #fff; top: 57px; left: 0; padding: 20px 0; border-bottom: 1px solid #e1e1e1; z-index: 99; }
+/*费用说明*/
+.content-money { width: 1200px; margin: 0 auto; border-bottom: 1px solid #666; overflow: hidden; }
+.content-money h3 { margin: 26px 0; font-size: 24px; font-weight: normal; }
+.content-money-list , .content-money-describe { width: 1200px; margin: 0 auto; }
+.content-money-list { padding-top: 24px; padding-bottom: 20px; }
+.content-money-list a { display: inline-block; margin-right: 46px; color: #000; font-size: 24px; }
+.content-money-list a:hover { color: #ff7200; }
+.content-money-list .change-color { color: #ff7200; }
+.content-money-describe { margin-bottom: 37px;  font-size: 14px; }
+.content-money-describe p { line-height: 2; }
+.describe-content { margin-bottom: 30px; }
+.attention-describe , .visa-describe { display: none; }
+/*预定须知*/
+.content-reserve { width: 1200px; margin: 0 auto; border-bottom: 1px solid #666; overflow: hidden; }
+.content-reserve h3 { margin: 26px 0; font-size: 24px; font-weight: normal; }
+/*沿途风光*/
+.content-scenery { width: 1200px; margin: 0 auto; }
+.content-scenery h3 { margin: 26px 0; font-size: 24px; font-weight: normal; }
+.scenery { width: 1200px; text-align: center; }
+.scenery p { margin: 18px 0; font-size: 14px; line-height: 2; text-align: left; }
+/*产品提问*/
+.ask-question { width: 1200px; margin: 0 auto; margin-bottom: 27px; overflow: hidden; }
+.ask-question h3 { margin: 26px 0; font-size: 24px; font-weight: normal; }
+.question-content { width: 1200px; background-color: #fff; }
+.seacrch-question { width: 100%; padding-top: 29px; margin-bottom: 34px; text-align: center; }
+.seacrch-question input { width: 438px; height: 16px; font-size: 14px; padding: 12px 10px; outline: none; }
+.seacrch-question a { font-size: 14px; padding: 12px 62px; background: #ff7200; color: #fff; }
+.question-choose { margin: 0 50px; padding-bottom: 17px; border-bottom: 1px solid #e1e1e1; }
+.question-choose a { font-size: 14px; color: #000; }
+.question-choose a:hover { color: #ff7200; }
+.question-choose .question-checked { color: #ff7200; }
+.question-answer-list { margin: 0 50px; padding-bottom: 30px; border-bottom: 1px solid #e1e1e1; overflow: hidden; }
+.question-answer { display: inline-block; width: 526px; height: 95px; margin-top: 24px; overflow: hidden; }
+.question-answer-left { float: left; }
+.question-answer-right { float: right; }
+.question { width: 100%; height: 32px; overflow: hidden; }
+.question i { display: inline-block; width: 32px; height: 32px; margin-right: 17px; background-image: url(../images/content_img/content.png); background-position: -156px 0; vertical-align: middle; cursor: pointer; }
+.question i:hover { background-position: -190px 0; }
+.question span { display: inline-block; width: 380px; font-size: 16px; color: #333; }
+.question u { margin-left: 30px; text-decoration: none; }
+.answer i { display: inline-block; width: 32px; margin-top: 4px; margin-right: 17px; font-style: normal; text-align: center; font-size: 14px; vertical-align: top; }
+.answer span { display: inline-block; width: 380px; line-height: 1.5; font-size: 14px; vertical-align: top; color: #666; }
+.answer u { display: inline-block; margin-left: 30px; margin-top: 4px; text-decoration: none; vertical-align: top; }
+.question .question-zan { background-position: -190px 0; }
+.question-new-content { display: none; }
+.question-all-look { margin-top: 20px; padding-bottom: 20px; text-align: center; }
+.question-all-look a { color: #ff7200; }
+
+/*报名列表*/
+.enrol-mark { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2000000,endColorstr=#B2000000); z-index: 99; }
+.enrol-list { display: none; position: absolute; top: 50px; left: 50%; margin-left: -500px; padding-bottom: 30px; width: 1000px; z-index: 100; background-color: #fff; }
+.enrol-list a { position: absolute; right: -47px; width: 47px; height: 47px; display: inline-block; background-color: #333; text-align: center; }
+.enrol-list .close-enrol-list { top: 20px; }
+.enrol-list .backTop-enrol-list { bottom: 20px; }
+.close-enrol-list img , .backTop-enrol-list img { margin-top: 15px; }
+.enrol-list-content { margin: 0 19px; }
+.enrol-list h2 { padding: 30px 0 24px 30px; font-size: 22px; border-bottom: 1px solid #d5d5d5; }
+.enrol-list-content-head { width: 100%; margin-top: 36px; }
+.enrol-list-content-head span { display: inline-block; width: 20%; text-align: center; font-size: 14px; }
+table { width: 100%; margin-top: 20px; border: 1px solid #d5d5d5; }
+th { padding: 20px 20px; text-align: left; font-size: 14px; font-weight: normal; background-color: #f4f4f4; color: #ff7200; }
+tr { border-bottom: 1px solid #d5d5d5; }
+tr:nth-child(even){ background: #f4f4f4; }
+td { width: 20%; padding: 10px 0; text-align: center; }
+tbody td { color: #333; }

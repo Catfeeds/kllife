@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <if condition="empty($PageKeyword) eq false">
+        <meta content="{$PageKeyword.title}" name="title"/>
+        <meta content="{$PageKeyword.keywords}" name="keywords"/>
+        <meta content="{$PageKeyword.description}" name="description"/>
+        <title>{$PageKeyword.title}</title>
+        <else />
+        <title>{:C('PAGE_TITLE')}</title>
+    </if>
+    <link rel="stylesheet" href="http://kllife.com/source/Static/qinglvpai/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://kllife.com/source/Static/qinglvpai/css/animate.css">
+    <link rel="stylesheet" href="http://kllife.com/source/Static/qinglvpai/css/style/style.css">
+    <link rel="stylesheet" href="http://kllife.com/source/Static/qinglvpai/css/style.css">
+    <!-- css Reset -->
+    <link rel="stylesheet" href="http://kllife.com/source/Static/home/common/css/cssreset.css">
+    <!-- 公共样式 -->
+    <link rel="stylesheet" href="http://kllife.com/source/Static/home/common/css/common.css">
+
+
+    <!--选片样式-->
+    <link rel="stylesheet" href="http://kllife.com/source/Static/photo/style/public.css">
+    <link rel="stylesheet" href="http://kllife.com/source/Static/photo/style/product-selection.css">
+    <style>
+        .top-ask{position: fixed;right:50px;bottom:100px;display: none;z-index:1000;}
+        .top-ask div{margin:2px 0px;cursor: pointer;}
+        .top-ask div img{width:50px;height:50px;}
+    </style>
+
+    <!-- 引用jq -->
+    <script src="http://kllife.com/source/Static/home/common/js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<!--header-->
+<div class="header">
+    <if condition="C('MENU_CURRENT') heq 'index_welcome'">
+        <a href="{:U('index/story')}"><div class="banner" style="background-image: url({$set.banner});"></div></a>
+        <elseif condition="C('MENU_CURRENT') heq 'line_list'" />
+        <div class="banner" style="background-image: url({$set.content_banner});"></div>
+        <elseif condition="C('MENU_CURRENT') heq 'line_content'" />
+        <div class="banner-content" style="background-image: url({$set.qinglvpai_content_banner});"></div>
+        <elseif condition="C('MENU_CURRENT') heq 'line_main_list'" />
+        <div class="banner" style="background-image: url({$set.xiaomantuan_banner});"></div>
+        <elseif condition="C('MENU_CURRENT') heq 'line_main_content'" />
+        <div class="banner-content" style="background-image: url({$set.xiaomantuan_content_banner});"></div>
+        <elseif condition="C('MENU_CURRENT') heq 'book_line' or C('MENU_CURRENT') heq 'line_pay_result' or C('MENU_CURRENT') heq 'index_story'" />
+        <else />
+        <div class="banner-content" style="background-image: url({$set.qinglvpai_content_banner});"></div>
+    </if>
+    <div class="div-two">
+        <div class="list">
+            <a href="{:U('Index/welcome')}"><img class="logo-white" src="http://kllife.com/source/Static/qinglvpai/images/index/logo-qinglvpai.png" alt=""></a>
+            <ul>
+                <a class="active" href="{:U('index/welcome')}">首页</a>
+                <a href="{:U('index/story')}">品牌故事</a>
+                <a href="{:U('line/list')}">新旅拍</a>
+                <a href="{:U('line/slowly')}">小团慢旅行</a>
+                <a href="{:U('article/list')}">新旅拍作品</a>
+                <!--<a href="javascript:;">客户回顾</a>-->
+            </ul>
+            <div class="tel">
+                <img src="http://kllife.com/source/Static/qinglvpai/images/index/tel-img.png" alt="">
+                <img src="http://kllife.com/source/Static/qinglvpai/images/index/tel-number.png" alt="">
+                <!--<em>{$pcset.askfor_tel}</em>-->
+            </div>
+            <div class="tel login" style="line-height:80px;color:#fff;font-size: 14px;width:170px;text-align: center;text-align: -webkit-center">
+                <if condition="empty($user) eq true">
+                    <a href="{:U('user/login')}">登录</a> |
+                    <a href="{:U('user/register')}">注册</a>
+                    <else />
+                    <a href="{:U('line/order')}/type/center">我的订单</a> |
+                    <a href="{:U('user/exit')}">退出</a>
+                </if>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--私有样式-->
+<link rel="stylesheet" href="http://kllife.com/source/Static/photo/style/order-detail.css">
+<div class="index order-detail" style="background: #f3f4f6;">
+    <!--content-->
+    <div class="tit">
+        <h1 class="h1">骑马行天山 <span id="select">[选择其他线路]</span></h1>
+        <p><span class="h2">团期：2017.05.03</span><span class="h2">/</span><span class="h2">摄影师:小a</span></p>
+    </div>
+    <div class="index-centent">
+        <div class="index-selection">
+            <div class="selection">
+                <h2 class="h2 padding-top">订单详情</h2>
+                <a href="javascript:;" class="btn btn-orange-three">个人中心</a>
+                <a href="javascript:;" class="btn btn-orange-three btn-orange-three1">上一步</a>
+            </div>
+        </div>
+        <div class="detail">
+            <div class="item">
+                <div class="item-tit">
+                    <span class="h2">底片</span>
+                    <span class="h2 down"><i class="iconfont rotate">&#xe776;</i></span>
+                </div>
+                <div class="item-detail">
+                    <p>免费底片：<span>20</span> 张 * <span>0</span> 元/张  =  <span>0</span> 元</p>
+                    <p>多选底片：<span>60</span> 张 * <span>2</span> 元/张  =  <span>120</span>  元</p>
+                    <div class="money">
+                        <span class="h2">金额：</span>
+                        <span class="sm">¥ <span class="lg">120</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-tit">
+                    <span class="h2">精修</span>
+                    <span class="h2">20/张</span>
+                    <span class="h2 down"><i class="iconfont">&#xe776;</i></span>
+                </div>
+                <div class="item-detail" style="display: none">
+                    <p>精修：<span>20</span> 张 * <span>10</span> 元/张  =  <span>200</span> 元</p>
+                    <div class="money">
+                        <span class="h2">金额：</span>
+                        <span class="sm">¥ <span class="lg">200</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-tit">
+                    <span class="h2">产品</span>
+                    <span class="h2">相框 <span>1/个</span></span>
+                    <span class="h2">相册 <span>2/个</span></span>
+                    <span class="h2 down"><i class="iconfont">&#xe776;</i></span>
+                </div>
+                <div class="item-detail" style="display: none">
+                    <p>相框：<span>5</span> 张 * <span>300</span> 元/张  =  <span>1500</span>  元</p>
+                    <div class="money">
+                        <span class="h2">金额：</span>
+                        <span class="sm">¥ <span class="lg">1500</span></span>
+                    </div>
+                </div>
+            </div>
+            <p class="price">底片：60 * 2 + 精修：20 * 10 + 相框：5 * 300 = 订单金额：1820元</p>
+            <div class="cope">应付金额：<span class="sm">¥</span><span class="lg">1820</span></div>
+            <div class="pay"><a href="javascript:;" class="btn btn-orange-four">确认支付</a></div>
+        </div>
+    </div>
+
+    <!--footer-->
+    <div class="footer">
+        <div class="center">
+            <ul>
+                <li class="white">注册登录</li>
+                <li><a href="#">如何注册会员？</a></li>
+                <li><a href="#">如何找回密码？</a></li>
+                <li><a href="#">非会员预订线路如何查看订单？</a></li>
+            </ul>
+            <ul>
+                <li class="white">参与活动</li>
+                <li><a href="javascript:;">不是会员可以直接预订线路吗？</a></li>
+                <li><a href="javascript:;">看了线路想预订怎么办？</a></li>
+                <li><a href="javascript:;">电话预定好了，如何付款和签约？</a></li>
+                <li><a href="javascript:;">付款成功后还有什么要做的?</a></li>
+                <li><a href="javascript:;">不想去了，可以退团吗?</a></li>
+            </ul>
+            <ul>
+                <li class="white">付款与发票</li>
+                <li><a href="javascript:;">签约可以刷卡吗？</a></li>
+                <li><a href="javascript:;">付款方式有哪些？</a></li>
+                <li><a href="javascript:;">怎么网上支付？</a></li>
+                <li><a href="javascript:;">是否可提供发票?</a></li>
+                <li><a href="javascript:;">发票内容可以自助选择吗?</a></li>
+            </ul>
+            <div>
+                <img class="img-responsive" src="http://kllife.com/source/Static/photo/img/Public/footer_erweima.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="footer-two">
+        <div>Copyright © 2006-2014 kllife.com | 陕西浪客国际旅行社有限责任公司版权所有公司地址：陕西省西安市雁塔区太白南路上上国际</div>
+        <div>领袖户外经营许可证号：L-SNX00306 陕ICP备14011728号-1</div>
+    </div>
+</div>
+<!--弹出层-->
+<div class="popup">
+    <div class="select-line">
+        <div class="select-tit">选择其他线路 <i class="iconfont">&#xe66c;</i></div>
+        <div class="select-one">
+            <div class="left">团期选择：</div>
+            <div class="right">
+                <select name="" id="">
+                    <option value="1">1</option>
+                </select>
+            </div>
+        </div>
+        <div class="select-one select-twp">
+            <div class="left">团期选择：</div>
+            <div class="right">
+                <select name="" id="">
+                    <option value="1">1</option>
+                </select>
+            </div>
+        </div>
+        <div class="select-one select-twp">
+            <div class="left"></div>
+            <div class="right">
+                <a href="javascript:;" class="btn btn-orange-five">确定</a>
+                <a href="javascript:;" class="btn btn-gray-two cancel">取消</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    //头部点击选中状态
+    $(".header ul a").on("click",function(){
+        $(this).addClass("active").siblings("a").removeClass("active");
+    })
+    //显示与隐藏订单价格详情
+    $(".item .item-tit").on("click",function(){
+        if($(this).next().is(':hidden')){
+            $(this).next().slideDown();
+            $(this).find(".down i").addClass("rotate").removeClass("rotate1");
+        }else{
+            $(this).next().slideUp();
+            $(this).find(".down i").removeClass("rotate").addClass("rotate1")
+        }
+    })
+    //现实与隐藏选择线路遮罩层
+    $("#select").on("click",function(){
+        $(".popup").show();
+    })
+    $(".select-tit i , .cancel").on("click",function(){
+        $(".popup").hide();
+    })
+
+</script>
+</html>

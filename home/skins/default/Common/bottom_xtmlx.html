@@ -1,0 +1,52 @@
+
+<style type="text/css">	
+	#xiaotuanman-none{
+		background-image: url(__PUBLIC__/home/images/index_img/xiaotuanman2.png);
+		background-repeat: no-repeat;
+		background-position: center center;
+		height:180px;
+	}
+</style>
+
+<!--好玩不贵小团慢旅行-->
+<div id="xiaotuanmanblock" style="position: fixed;bottom:15px;width:174px;cursor: pointer;z-index:100;z-index:1001"><img src="__PUBLIC__/home/images/index_img/xiaotuanman1.png" alt=""></div>
+<a href="http://kllife.com/home/index.php?s=/home/subject/brand" target="_blank"><div id="xiaotuanman-none" style="position: fixed;bottom:0px;left:-0px;width:100%;z-index:1000;" ></div></a>
+<img id="xiaotuanmannone" style="position: fixed;bottom:95px;cursor:pointer;z-index:1001;" src="__PUBLIC__/home/images/index_img/xiaotuanmannone.png" alt="" />
+
+<script type="text/javascript">    
+    //小团慢显示于隐藏
+    var width;
+    $("#xiaotuanmanblock").on("click",function(){
+        width = $(window).width();
+        if(width<1600){
+            $(this).animate({left: -174}, 300);
+            setTimeout(function () {
+                $("#xiaotuanman-none").animate({left: 0}, 700);
+                $("#xiaotuanmannone").animate({left: "90%"}, 700);
+            }, 300);
+        }else{
+            $(this).animate({left: -174}, 300);
+            setTimeout(function () {
+                $("#xiaotuanman-none").animate({left: 0}, 700);
+                $("#xiaotuanmannone").animate({left: "80%"}, 700);
+            }, 300);
+        }
+    })
+    
+    $("#xiaotuanmannone").on("click",function(){
+        width = $(window).width();
+        if(width<1600){
+            $("#xiaotuanman-none").animate({left: "-100%"}, 700);
+            $("#xiaotuanmannone").animate({left: -30}, 600);
+            setTimeout(function () {
+                $("#xiaotuanmanblock").animate({left: -132}, 300);
+            }, 700);
+        }else{
+            $("#xiaotuanman-none").animate({left: "-100%"}, 700);
+            $("#xiaotuanmannone").animate({left: -30}, 600);
+            setTimeout(function () {
+                $("#xiaotuanmanblock").animate({left: 0}, 300);
+            }, 700);
+        }
+    })
+</script>

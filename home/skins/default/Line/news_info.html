@@ -1,0 +1,125 @@
+<include file="Common/top" />
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/css/img_text.css">
+<style type="text/css">
+	body { background-color:#f3f5f6; }
+</style>
+	<div id="content">
+		<div class="img-text-content">
+			<h3 id="title">{$article.title}</h3>
+			<!-- 浏览&分享 -->
+			<div class="browse-time-share">
+				<div class="browse">
+					<i class="browse-img"></i>
+					浏览：<span>{$article.read}</span>
+				</div>
+				<div class="time-share">
+					<div class="time">
+						作者：<span>{$article.account.show_name}</span>
+						|
+						<i>{$article.create_time}</i>
+					</div>
+					<div class="share">
+						分享到：
+						<i class="weibo" onclick="window.open('http://service.weibo.com/share/share.php?url='+encodeURIComponent(document.location.href)+'&title='+ document.getElementById('title').innerText);return false;"></i>
+						<i class="weixin"></i>
+						<div class="share-code">
+							<h4>分享到朋友圈<a href="javascript:;">x</a></h4>
+							<div id="code"></div>
+							<p>打开微信，点击底部的"发现"，</p>
+							<p>使用"扫一扫"即可将网页分享至朋友圈。</p>
+						</div>
+						<i class="qzone" onclick="window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(document.location.href));return false;">
+						</i>
+					</div>
+				</div>
+			</div>
+			<!-- 图文内容 -->
+			<div class="img-text-information">
+				<!-- 头部有引号 -->
+				<div class="img-text-information-head">
+					<p>{$article.send_word}</p>
+					<i class="quotes"></i>
+					<if condition="empty($article['face_image']) eq false">
+						<div class="img-information">
+							<span>
+								<img src="{$article.face_image}" alt="">
+							</span>
+						</div>
+					</if>
+				</div>
+				<!-- 主要内容 -->
+				<div class="img-text-information-content">
+					<div class="text-information">
+						{$article.body}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="__PUBLIC__/home/js/jquery.qrcode.min.js"></script>
+	<!--图片延迟加载-->
+	<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(
+			function($){
+				$("img").lazyload({
+					placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+					effect      : "fadeIn",
+					threshold : 100,
+					failure_limit : 10
+				});
+			});
+	</script>
+	
+	<script>
+		//识别中文二维码
+		var oUrl = window.location.href;
+		function toUtf8(oUrl) {    
+		    var out, i, len, c;    
+		    out = "";    
+		    len = str.length;    
+		    for(i = 0; i < len; i++) {    
+		        c = str.charCodeAt(i);    
+		        if ((c >= 0x0001) && (c <= 0x007F)) {    
+		            out += str.charAt(i);    
+		        } else if (c > 0x07FF) {    
+		            out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));    
+		            out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));    
+		            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));    
+		        } else {    
+		            out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));    
+		            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));    
+		        }    
+		    }    
+		    return out;    
+		} 
+		
+		$('.weixin').click(function(){
+			if($(".share-code").css('display') != 'none'){
+				return false;
+			}else{
+				$(".share-code").show();
+			}
+			
+			$("#code").qrcode({
+				render: "canvas", //canvas方式 
+			    width: 185, //宽度 
+			    height:185, //高度 
+			    text: oUrl //任意内容 
+			});
+		});
+		
+		$('.share-code > h4 a').click(function(){
+			$('.share-code').hide();
+			$('#code').html('');
+		});
+	
+		 
+	</script>
+	
+
+<include file="Common/right" />
+
+<include file="Common/bottom" />

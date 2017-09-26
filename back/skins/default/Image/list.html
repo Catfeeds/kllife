@@ -1,0 +1,636 @@
+<include file="Common/header" />
+	<style type="text/css">		
+		.selectboxit-btn { background: #fff; border-color: #4EC83B; }
+		.selectboxit-list { background-color: #fff; border: 1px solid #4EC83B; }
+		.selectboxit-list .selectboxit-option-anchor { color: #979898; }
+		.form-control:focus { border-color: #4EC83B; }
+		a { color: #979898; }
+		.dingdan_bianji { border: 1px solid #4EC83B; }
+		.dingdan_bottom > p , .dingdan_bottom > span{ margin-top: 7px; }
+		.dingdan_bottom { margin-bottom: 10px; }
+		
+		.hidden_ctrl {
+			display: none;
+		}
+		.my_pic_border{
+			height:280px;
+			border:1px solid #4EC83B; 
+    		overflow: hidden;
+		}
+		.my_pic { 
+   			position: relative;
+		}
+	</style>
+	<div class="page-title">
+				
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DES')}</p>
+		</div>
+			
+	</div>
+	<script type="text/javascript">
+	// Sample Javascript code for this page
+	jQuery(document).ready(function($)
+	{
+		// Sample Select all brand
+		$("#select-all").on('change', function(ev)
+		{
+			var is_checked = $(this).is(':checked');
+			
+			$(".album-image input[type='checkbox']").prop('checked', is_checked).trigger('change');
+		});
+		
+		// Edit Modal
+		$('.gallery-env a[data-action="edit"]').on('click', function(ev)
+		{
+			ev.preventDefault();
+			$("#gallery-image-modal").modal('show');
+		});
+		
+	});
+	</script>
+	
+	<section class="gallery-env">
+	
+		<div class="row">
+		
+			<!-- Gallery Album Optipns and Images -->
+			<div class="col-sm-9 gallery-right">
+				
+				<!-- Album Header -->
+				<div class="album-header">
+					<h2>图片列表</h2>
+					
+					<ul class="album-options list-unstyled list-inline">
+						<li>
+							<input type="checkbox" class="cbr" id="select-all" />
+							<label for="select-all">全选</label>
+						</li>
+						<li>
+							<a href="{:U('image/upload')}">
+								<i class="fa-upload"></i>
+								上传
+							</a>
+						</li>
+						<li>
+							<a href="#" data-action="edit-multi">
+								<i class="fa-edit"></i>
+								编辑
+							</a>
+						</li>
+						<li>
+							<a href="#" data-action="trash-multi">
+								<i class="fa-trash"></i>
+								删除
+							</a>
+						</li>
+					</ul>
+				</div>			
+					
+				<!-- Template Album Image -->
+				<div class="col-md-3 col-sm-4 col-xs-6 template_ablum hidden_ctrl">
+					<div class="album-image" data-id="">
+						<a href="#" class="thumb my_pic_border">
+							<img src="" class="img-responsive my_pic" />
+						</a>
+						
+						<a href="#" class="name">
+							<span></span>
+							<em></em>
+						</a>
+						
+						<div class="image-options">
+							<a href="#" data-action="edit"><i class="fa-pencil"></i></a>
+							<a href="#" data-action="trash"><i class="fa-trash"></i></a>
+						</div>
+						
+						<div class="image-checkbox">
+							<input type="checkbox" class="cbr" />
+						</div>
+					</div>
+				</div>
+							
+				<ul class="pagination">
+				</ul>
+				
+				<!-- Album Images -->
+				<div class="album-images row">
+					<volist id="image" name="ImageList" >
+					
+						<!-- Album Image -->
+						<div class="col-md-3 col-sm-4 col-xs-6">
+							<div class="album-image" data-id="{$image.id}">
+								<a href="#" class="thumb my_pic_border">
+									<img src="{$image.path}" class="img-responsive my_pic" />
+								</a>
+								
+								<a href="#" class="name">
+									<span>{$image.title}</span>
+									<em>{$image.create_time}</em>
+								</a>
+								
+								<div class="image-options">
+									<a href="#" data-action="edit"><i class="fa-pencil"></i></a>
+									<a href="#" data-action="trash"><i class="fa-trash"></i></a>
+								</div>
+								
+								<div class="image-checkbox">
+									<input type="checkbox" class="cbr" />
+								</div>
+							</div>
+						</div>
+						
+					</volist>
+					
+				</div>
+							
+				<ul class="pagination">
+				</ul>
+				
+			</div>
+			
+			<!-- Gallery Sidebar -->
+			<div class="col-sm-3 gallery-left">
+				
+				<!-- Album Header -->
+				<div class="album-header">
+					<h2>筛选</h2>
+				</div>		
+				
+				<!--<div class="gallery-sidebar">-->		
+									
+					<ul class="list-unstyled">
+						<li>
+							<p>图片标题：</p>
+							<input id='img_title' type="text" style="height: 32px;" class="dingdan_bianji col-sm-12">
+						</li>
+						<li>
+							<p>图片作者：</p>
+							<input id='img_author' type="text" style="height: 32px;" class="dingdan_bianji col-sm-12">
+						</li>
+						<li>
+							<p>图片类型：</p>
+							<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+								<script type="text/javascript">
+									jQuery(document).ready(function($)
+									{
+										var image_type_obj = $("#img_type").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+										// 默认选择第一个
+										var initVal = $(image_type_obj).find('option:first').attr('value');									
+										$(image_type_obj).val(initVal).trigger('change');
+									});
+								</script>
+								<select id="img_type" class="form-control">
+									<option value="-1">不限</option>
+									<volist id="imgType" name="ImageTypes">
+										<option value="{$imgType.id}">{$imgType.type_desc}</option>
+									</volist>
+								</select>
+							</div>
+						</li>
+						<li>
+							<p>图片来源：</p>
+							<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+								<script type="text/javascript">
+									jQuery(document).ready(function($)
+									{
+										var image_from_obj = $("#img_from").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+										var initVal = $(image_from_obj).find('option:first').attr('value');									
+										$(image_from_obj).val(initVal).trigger('change');
+									});
+								</script>
+								<select id="img_from" class="form-control">
+									<option value="-1">不限</option>
+									<volist id="imgFrom" name="ImageFroms">
+										<option value="{$imgFrom.id}">{$imgFrom.type_desc}</option>
+									</volist>
+								</select>
+							</div>
+						</li>
+						<li>
+							<p>内容类型：</p>
+							<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+								<script type="text/javascript">
+									jQuery(document).ready(function($)
+									{
+										var image_content_obj = $("#img_content").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+										var initVal = $(image_content_obj).find('option:first').attr('value');									
+										$(image_content_obj).val(initVal).trigger('change');
+									});
+								</script>
+								<select id="img_content" class="form-control">
+									<option value="-1">不限</option>
+									<volist id="imgContent" name="ImageContents">
+										<option value="{$imgContent.id}">{$imgContent.type_desc}</option>
+									</volist>
+								</select>
+							</div>
+						</li>
+						<li>
+							<p>地域类型：</p>
+							<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+								<script type="text/javascript">
+									function getMenuItem(parentObj, childObj) {
+										if ($(parentObj).val() == null) {
+											return false;
+										}
+										
+										var jsonData = {
+											op_type: 'find',
+											data_type: 'all',
+											parent_id: $(parentObj).val(),
+										};
+																	
+										$.post('{:U("menu/list")}', jsonData, function(backData){
+											if (backData.result.errno == 0) {
+												$(childObj).data('selectBox-selectBoxIt').remove();
+												if (backData.data != null) {
+													for (var k=0; k < backData.data.length; k++) {		
+														var d = backData.data[k];													
+														$(childObj).data('selectBox-selectBoxIt').add({value:d['id'], text:d['item_desc']});
+													}	
+												}
+											}
+										});
+									}
+									
+									var image_domain_obj=null, image_district_obj=null, image_distination_obj=null;	
+									jQuery(document).ready(function($)
+									{
+										image_domain_obj = $("#img_domain").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+										
+										// 初始化
+										var initVal = $(image_domain_obj).find('option:first').attr('value');									
+										$(image_domain_obj).val(initVal).trigger('change');
+										
+										// 选项改变
+										$(image_domain_obj).change(function(){	
+											if (image_domain_obj != null && image_district_obj != null) {
+												getMenuItem(image_domain_obj, image_district_obj);
+											}									
+										});
+										
+									});
+								</script>
+								<select id="img_domain" class="form-control">
+									<option value="-1">不限</option>
+									<volist id="imgDomain" name="ImageDomains">
+										<option value="{$imgDomain.id}">{$imgDomain.item_desc}</option>
+									</volist>
+								</select>
+							</div>
+						</li>
+						<li>
+							<p>辖区类型：</p>
+							<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+								<script type="text/javascript">
+									jQuery(document).ready(function($)
+									{
+										image_district_obj = $("#img_district").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+										var initVal = $(image_district_obj).find('option:first').attr('value');									
+										$(image_district_obj).val(initVal).trigger('change');
+									});
+										
+									// 选项改变
+									$(image_district_obj).change(function(){	
+										if (image_district_obj != null && image_distination_obj != null) {
+											getMenuItem(image_district_obj, image_distination_obj);
+										}									
+									});
+								</script>
+								<select id="img_district" class="form-control">
+									<option value="-1">不限</option>
+								</select>
+							</div>
+						</li>
+						<li>
+							<p>目的地：</p>
+							<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+								<script type="text/javascript">
+									jQuery(document).ready(function($)
+									{
+										var image_distination_obj = $("#img_distination").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+										var initVal = $(image_distination_obj).find('option:first').attr('value');									
+										$(image_distination_obj).val(initVal).trigger('change');
+									});
+								</script>
+								<select id="img_distination" class="form-control">
+									<option value="-1">不限</option>
+								</select>
+							</div>
+						</li>
+						<li>
+							<p>日期时间段：</p>
+							<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+								<div id="img_datatime" class="daterange daterange-inline add-ranges" data-time-picker="true" data-time-picker-increment="5" data-format="YYYY-MM-DD HH:mm:ss">
+									<i class="fa-calendar"></i>
+									<span></span>
+								</div>
+							</div>
+						</li>
+					</ul>	
+					
+				<!--</div>-->
+				<div class="col-sm-12">
+					<br />
+					<a id="filter_button" href="#" class="btn btn-block btn-secondary btn-icon btn-icon-standalone btn-icon-standalone-right">
+						<i class="linecons-photo"></i>
+						<span>筛选</span>
+					</a>
+				</div>
+				
+			</div>
+		
+		</div>
+		
+	</section>
+
+	<script type="text/javascript">
+		// 页面切换回调函数
+		var funcPageChanged = null;
+		$(document).ready(function(){
+			// 绑定页面切换回调函数
+			funcPageChanged = _ajaxImageList;
+			// 绑定删除图片确认回调函数
+			funcModalDeleteImageCallBack = _ajaxDeleteImages;
+			// 编辑图片信息回调函数
+			funcModalImageEditCallBack = _ajaxEditImages;
+			
+			// 初始化页码
+			initPageNum(parseInt('{$PageCount}'), 0);
+			
+			// 查看当前点击的图片
+			$('.my_pic_border').click(function(){								
+				showLookImageModal();
+				setModalLookImage($(this).find('img'));
+			});
+			
+			// 筛选图片
+			$('#filter_button').click(filterImages);
+		});
+		
+		// 筛选图片
+		function filterImages() {
+			var pageIndex = parseInt($('.pagination').find('.active').attr('data-id'));
+			_ajaxImageList(pageIndex, true);
+		}
+	
+		// 获取当前点击图片的
+		funcGetImageUrl = function(obj, imgIndex) {	
+//			alert(obj + ',index:'+imgIndex);			
+			var imageObj = obj;
+			if (typeof(obj) != 'object') {
+				if (parseInt(imgIndex) > 0) {
+					imageObj = $('.album-image').eq(-1);
+				} else {
+					imageObj = $('.album-image').eq(0);
+				}
+			} else {
+				if (parseInt(imgIndex) < 0) {
+					var imgRoot = $(obj).closest('.album-image').parent().prev();
+//					alert($(imgRoot).length);
+					return $(imgRoot).length == 0 ? -1 : $(imgRoot).find('.my_pic_border').find('img');
+				} else if (parseInt(imgIndex) > 0) {			
+					var imgRoot = $(obj).closest('.album-image').parent().next();
+//					alert($(imgRoot).length);
+					return $(imgRoot).length == 0 ? 1 : $(imgRoot).find('.my_pic_border').find('img');
+				} else {
+					imgRoot = obj;
+				}
+			}
+			return imageObj;
+		}
+		
+		// 重新添加页码
+		function initPageNum(pageCount, pageIndex) {
+			var rootObj = $('.pagination');
+			// 清空页码
+			$(rootObj).empty();			
+			// 重新添加页码
+			if (pageCount > 1) {
+				var vhtml = '<li class="disabled" data-id="0"><a href="#"><i class="fa-angle-double-left"></i></a></li>';
+					vhtml += '<li class="disabled" data-id="-1"><a href="#"><i class="fa-angle-left"></i></a></li>';
+				var activeIndex = pageIndex >= 0 && pageIndex < pageCount ? pageIndex : 0;
+				for (var i=0; i<pageCount; i++) {
+					var showPageIndex = i+1;
+					if (i == activeIndex) {
+						vhtml += '<li class="active" data-id="'+i+'"><a href="#">'+showPageIndex+'</a></li>';
+					} else {
+						vhtml += '<li data-id="'+i+'"><a href="#">'+showPageIndex+'</a></li>';
+					}
+				}
+				vhtml += '<li data-id="+1"><a href="#"><i class="fa-angle-right"></i></a></li>';
+				vhtml += '<li data-id="'+parseInt(pageCount-1)+'"><a href="#"><i class="fa-angle-double-right"></i></a></li>';				
+				$(rootObj).append(vhtml);
+				
+				// 绑定翻页事件
+				$(rootObj).find('li').click(function(){
+					if ($(this).hasClass('disabled') == false && $(this).hasClass('active') == false) {
+						var tempPageIndex = 0;
+						var dataId = $(this).attr('data-id');
+						if (dataId == '-1') {
+							var page = $(this).parent().find('.active').attr('data-id');
+							tempPageIndex = parseInt(page)-1;
+						} else if (dataId == '+1') {
+							var page = $(this).parent().find('.active').attr('data-id');
+							tempPageIndex = parseInt(page)+1;
+						} else {
+							tempPageIndex = parseInt(dataId);
+						}
+						
+						if (typeof(funcPageChanged) == 'function'){
+							funcPageChanged(tempPageIndex);	
+						}
+					}
+				});
+			}			
+		}
+		
+		// 刷新页码样式
+		function refreshPageStyle(pageIndex, pageCount) {
+			if (pageIndex == 0) {
+				$('.pagination').find('li').eq(0).addClass('disabled');
+				$('.pagination').find('li').eq(1).addClass('disabled');
+				$('.pagination').find('li').eq(-1).removeClass('disabled');
+				$('.pagination').find('li').eq(-2).removeClass('disabled');
+			} else if (pageIndex == (pageCount - 1)){		
+				$('.pagination').find('li').eq(0).removeClass('disabled');
+				$('.pagination').find('li').eq(1).removeClass('disabled');
+				$('.pagination').find('li').eq(-1).addClass('disabled');
+				$('.pagination').find('li').eq(-2).addClass('disabled');
+			} else {
+				$('.pagination').find('li').eq(0).removeClass('disabled');
+				$('.pagination').find('li').eq(1).removeClass('disabled');
+				$('.pagination').find('li').eq(-1).removeClass('disabled');
+				$('.pagination').find('li').eq(-2).removeClass('disabled');
+			}
+			
+			$('.pagination').find('li').removeClass('active');
+			$('.pagination').find('li').eq(pageIndex+2).addClass('active');	
+		}
+				
+		// 请求图片列表
+		function _ajaxImageList(pageIndex, bInitPage){			
+			var jsonData = {
+				page_index: pageIndex,
+				title: $('#img_title').val(),
+				author: $('#img_author').val(),
+				type_id: $('#img_type').val(),
+				from_type_id: $('#img_from').val(),
+				content_type_id: $('#img_content').val(),
+				domain_type_id: $('#img_domain').val(),
+				district_type_id: $('#img_district').val(),
+				distination_type_id: $('#img_distination').val(),
+				data_time_range: $('#img_datatime').find('span').html(),
+			}
+						
+			showLoading(true);
+			$.post('{:U("image/list")}', jsonData, function(data){
+				showLoading(false);
+				if (data.result.errno == 0) {
+					// 清空图片容器				
+					var containerObj = $('.album-images');
+					$(containerObj).empty();
+					
+					// 填充新图片
+					for (var i = 0; i < data.ds.length; i++) {
+						var iData = data.ds[i];
+						var rootObj = $('.template_ablum').clone(true);
+						$(rootObj).removeClass('template_ablum');
+						$(rootObj).removeClass('hidden_ctrl');
+						$(rootObj).find('.album-image').attr('data-id', iData.id);
+						$(rootObj).find('.my_pic').attr('src', iData.path);
+						var infoObj = $(rootObj).find('.name');
+						$(infoObj).find('span').html(iData.title);
+						$(infoObj).find('em').html(iData.create_time);
+						$(containerObj).append(rootObj);
+					}
+					
+					// 刷新页码
+					if (typeof(bInitPage) != 'undefined') {
+						initPageNum(data.page_count, pageIndex);
+					} else {
+						refreshPageStyle(pageIndex, data.page_count);
+					}								
+				} else {
+					alert(data.result.message);
+				}
+			});
+		}
+		
+		var deleteIds = '';		
+		// 删除确认
+		$('.gallery-env a[data-action="trash"]').on('click', function(ev)
+		{	
+			deleteIds = $(this).closest('.album-image').attr('data-id');
+			ev.preventDefault();
+			showModalDeleteImageDialog();
+		});
+		
+		// 删除多个确认
+		$('.gallery-env a[data-action="trash-multi"]').on('click', function(ev)
+		{
+			$(".album-image input[type='checkbox']").each(function(){
+				if ($(this).prop('checked') == true) {
+					if (deleteIds != '') {
+						deleteIds += ',';
+					}
+					deleteIds += $(this).closest('.album-image').attr('data-id');
+				}
+			});
+			ev.preventDefault();
+			showModalDeleteImageDialog();
+		});
+		
+		// 删除图片
+		function _ajaxDeleteImages(){
+			if (deleteIds == '') {
+				alert('请选择要删除的图片');
+				return false;
+			}
+			$.post('{:U("image/delete")}', {ids: deleteIds}, function(data){
+				if (data.result.errno == 0) {
+					filterImages();
+				} else {
+					alert(data.result.message);
+				}
+				deleteIds = '';
+			})
+		}
+		
+		var editIds = '';	
+		// 编辑图片
+		$('.gallery-env a[data-action="edit"]').on('click', function(ev)
+		{	
+			editIds = $(this).closest('.album-image').attr('data-id');
+			ev.preventDefault();
+			showModalImageEdit(editIds);
+		});
+		
+		// 编辑多个图片
+		$('.gallery-env a[data-action="edit-multi"]').on('click', function(ev)
+		{
+			$(".album-image input[type='checkbox']").each(function(){
+				if ($(this).prop('checked') == true) {
+					if (editIds != '') {
+						editIds += ',';
+					}
+					editIds += $(this).closest('.album-image').attr('data-id');
+				}
+			});
+			ev.preventDefault();
+			showModalImageEdit(editIds);
+		});
+		
+		// 删除图片
+		function _ajaxEditImages(pIds, data){
+			if (editIds == '') {
+				alert('请选择要编辑除的图片');
+				return false;
+			}
+			data['ids'] = editIds;
+			$.post('{:U("image/edit")}', data, function(backData){
+				if (backData.result.errno == 0) {
+					// 改动页面图片信息
+					if (typeof(data.title) != 'undefined') {
+						var ids = editIds.split(',');
+						for (var i = 0; i < ids.length; i ++) {
+							var albumObj = $('.album-image[data-id="'+ids[i]+'"]');
+							$(albumObj).find('.name span').html(data.title);
+						}
+					}
+				} else {
+					alert(backData.result.message);
+				}
+				editIds = ''
+			})
+		}
+				
+		
+	</script>
+<include file="Common/footer" />

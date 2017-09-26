@@ -1,0 +1,120 @@
+<include file="Common/header" />
+	<div class="row">
+				<div class="col-sm-12">
+					
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">个人信息</h3>
+							<div class="panel-options">
+								<a href="#" data-toggle="panel">
+									<span class="collapse-icon">&ndash;</span>
+									<span class="expand-icon">+</span>
+								</a>
+								<a href="#" data-toggle="remove">
+									&times;
+								</a>
+							</div>
+						</div>
+						<div class="panel-body">
+							
+							<form role="form" class="form-horizontal">
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-1">用户名:</label>
+									<div class="col-sm-5" style="padding-right:0px;">
+										<div class="input-group">
+											<input style="width:509px;" type="text" class="form-control" id="username" value="{$user.username}" disabled />
+											<span class="input-group-addon" style="width:90px;">
+												<i class="modify_password" data-col="password">更改密码</i>
+											</span>
+										</div>
+										
+									</div>
+								</div>
+								
+								<div class="form-group-separator"></div>
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-2">手机号码</label>
+									<div class="col-sm-5" style="padding-right:0px;">
+										<div class="input-group">										
+											<input type="number" class="form-control" maxlength="11" value="{$user.phone}" />
+											<span class="input-group-addon">
+												<i class="modify_phone" data-col="phone">更改手机</i>
+											</span>
+										</div>										
+									</div>
+									<div class="col-sm-3" style="padding-left:0px;">
+										<div class="input-group">
+											<input type="number" style="width:130px;" class="form-control" maxlength="6" placeholder="请输入手机验证码" />
+											<span class="input-group-addon" style="width:90px;">
+												<i class="send_phone_code">发送验证码</i>
+											</span>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group-separator"></div>
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-2">电子邮箱</label>
+									<div class="col-sm-5" style="padding-right:0px;">
+										<div class="input-group">
+											<input type="email" style="width:509px;" class="form-control" value="{$user.email}"/>
+											<span class="input-group-addon" style="width:90px;">
+												<i class="modify_email" data-col="email">更换邮箱</i>
+											</span>
+										</div>
+									</div>
+									<div class="col-sm-3" style="padding-left:0px;">
+										<div class="input-group">
+											<input type="text" style="width:130px;" class="form-control" maxlength="6" placeholder="请输入邮箱验证码" />
+											<span class="input-group-addon" style="width:90px;">
+												<i class="send_email_code">发送验证码</i>
+											</span>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group-separator"></div>
+							
+							</form>
+						
+						</div>
+					</div>
+				
+				</div>
+				
+				
+	</div>
+	
+	<!-- Imported styles on this page -->
+	<link rel="stylesheet" href="__PUBLIC__/assets/js/icheck/skins/all.css">
+	<!-- Imported styles on this page -->
+	<script src="__PUBLIC__/assets/js/icheck/icheck.min.js"></script>
+	
+	<script type="text/javascript">
+		
+		// 修改密码
+		$('.modify_password').click(function(){			
+			modifyPassword.showModal(_ajaxModifyPassword);			
+		});
+		
+		// 确认修改密码
+		function _ajaxModifyPassword(pwd, newPwd) {
+			$.post('{:U("user/info")}',
+			{op_type:'modify_password', password:pwd, new_password:newPwd},
+			function(data){				
+				if (data.result.errno != 0) {				
+					toastr.error(data.result.message);
+				} else {
+					toastr.success('修改密码成功');
+				}
+				if (data.jumpUrl != null) {
+					location.href = data.jumpUrl;
+				}				
+			});
+		}
+
+	</script>
+<include file="Common/footer" />

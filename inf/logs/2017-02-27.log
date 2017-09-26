@@ -1,0 +1,5 @@
+[2017-02-27 16:17:46][info] ----------------------------------------
+[2017-02-27 16:17:46][info] {"payment_type":"1","subject":"\u96ea\u4e61\u7ecf\u5178\u6e38","trade_no":"2017022721001004910227794577","buyer_email":"feifly_1985@163.com","gmt_create":"2017-02-27 16:17:45","notify_type":"trade_status_sync","quantity":"1","out_trade_no":"LX-17012715593492301-8","seller_id":"2088421286007493","notify_time":"2017-02-27 16:17:46","body":"2017\u5e74\u54c8\u5c14\u6ee8-\u4e9a\u5e03\u529b\u6fc0\u60c5\u6ed1\u96ea-\u96ea\u4e61\u7a7f\u8d8a\u6797\u6d77-\u957f\u767d\u5c71-\u517b\u751f\u6e29\u6cc9-\u9b54\u754c-\u671d\u9c9c\u6c11\u4fd7\u6751-\u96fe\u51c7\u5c9b7\u65e5\u6e38","trade_status":"TRADE_SUCCESS","is_total_fee_adjust":"N","total_fee":"0.01","gmt_payment":"2017-02-27 16:17:45","seller_email":"2287684289@qq.com","price":"0.01","buyer_id":"2088902293682915","notify_id":"b076da72e2ad6de56989db68297b46cn0u","use_coupon":"N","sign_type":"MD5","sign":"f7969a805f23144ad9426c058335cd76"}
+[2017-02-27 16:17:47][info] 数据存储反馈成功！
+[2017-02-27 16:17:47][info] success
+[2017-02-27 16:17:47][info] 写入结束!!!

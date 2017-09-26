@@ -1,0 +1,929 @@
+<include file="Common/header" />
+	<style>
+		.cantuanrenshu span { margin-right: 1%; }
+		.ctr_xinxi label { margin-left: 2%; color: #fff; }
+		.ctr_top { margin-left: .1%; margin-top: 1%; background: #999; }
+		.ctr_top p { color: #fff; }
+		.ctr_input , .ctr_select { height: 32px; padding: 6px 12px; color: #000; }
+		.ctr_select { vertical-align: bottom; margin-left: -4px; }
+		#table td { vertical-align: middle; }
+		.ctr_xingming , .ctr_shouji { width: 80%; height: 32px; padding: 6px 12px; border: 1px solid #40bbea; display: none; }
+		.ctr_baocun , .ctr_sex , .ctr_card { display: none; }
+		#table .ctr_card_num { float: right; width: 60%; height: 32px; margin-right: 39px; padding: 6px 12px; border: 1px solid #40bbea; display: none; }
+		.selectboxit-btn { background: #fff; border-color: #40bbea; }
+		.selectboxit-list { background-color: #fff; border: 1px solid #40bbea; }
+		.selectboxit-list .selectboxit-option-anchor { color: #979898; }
+		.form-control:focus { border-color: #40bbea; }
+		a { color: #979898; }
+		.add_xinxi { display: none; }
+		.dingdan_bianji , .dingdan_bianji01 , .dingdan_bianji02 { border: 1px solid #40bbea; }
+		.dingdan_bottom > p , .dingdan_bottom span{ margin-top: 7px; }
+		.add_xingming , .add_shouji , .add_card_btn_num { border: 1px solid #40bbea; }
+		.add_xingming , .add_shouji { outline: none; }
+		.add_xingming:focus , .add_shouji:focus { border: 1px solid #40bbea; }
+		.dingdan_bottom { margin-bottom: 10px; }
+		.cx_border02 , html .select2-container .select2-choice , #s2id_activity{ border-color: #40bbea !important; }
+		.info-color { border-color: #40bbea !important; }
+		#select2-drop { border-color: #40bbea;  } 
+		#order_fromSelectBoxItContainer {
+			vertical-align: middle;
+		}
+		
+	</style>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> 
+						{:C('CONTENT_TITLE')}
+						<input id="team_id" type="hidden" value="{$team.id}"/>
+					</h3>
+				</div>
+				<div class="panel-body row">
+					<div id="dingdan_main" class="col-sm-12" style="margin-left: 5%;">
+						<div class="row">							
+							<div class="form-group row">
+								<p id='err_msg' class="col-sm-3" style="color:#e4393c;"></p>
+							</div>
+							
+							<div class="row form-group">
+								<p class="col-sm-1">小包团线路：</p>
+								<span class="col-sm-8" style="padding-left: 0; display: {:empty($team)?'none;':'display;'}">{$team.title}{$team.meet_time}</span>
+							</div>
+							
+							<div class="row form-group">
+								<p class="col-sm-1">订单来源：</p>
+								<div class="input-group col-sm-3" style="border-color: #40bbea;">
+									<script type="text/javascript">
+										jQuery(document).ready(function($)
+										{
+											$("#order_from").selectBoxIt().on('open', function()
+											{
+												// Adding Custom Scrollbar
+												$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+											});
+										});
+									</script>
+									<select id="order_from" class="form-control">
+										<volist id="of" name="orderFrom">
+											<option value="{$of.id}">{$of.type_desc}</option>
+										</volist>
+									</select>
+								</div>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">联系人姓名：</p>
+								<input id='contact_name' type="text" value="{$team.linkman}" style="height: 32px;" class="dingdan_bianji col-sm-3">
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">联系人电话：</p>
+								<input id="contact_tel" type="text" value="{$team.tel}" maxlength="11" style="height: 32px;" class="dingdan_bianji col-sm-3">
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="cantuanrenshu col-sm-1">参团人数：</p>
+								<volist id="mt" name="memberType">
+									<span class="col-sm-1 text-left" style="padding-left: 0;">									
+										<input id="{$mt.type_key}" class="dingdan_bianji" style="width: 30%" maxlength="3" type="text" value="0"/>位{$mt.type_desc}
+									</span>
+								</volist>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">总团费：</p>
+								<span id="sum_team_cash" class="col-sm-8" style="padding-left: 0;">0</span>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">已付费：</p>
+								<span id="pay_cash" class="col-sm-8" style="padding-left: 0;">0</span>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">订单留言：</p>
+								<input id="order_message" type="text" style="height: 32px;" class="dingdan_bianji col-sm-9">
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">费用功能：</p>
+								<div class="input-group col-sm-3" style="border-color: #40bbea;">
+									<script type="text/javascript">
+										jQuery(document).ready(function($)
+										{
+											$("#cash_func").selectBoxIt().on('open', function()
+											{
+												// Adding Custom Scrollbar
+												$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+											}).on('close', function(){
+												changePayCash();
+											});
+										});
+									</script>
+									<select id="cash_func" class="form-control">
+										<volist id="cf" name="CashFunc">
+											<option value="{$cf.id}">{$cf.type_desc}</option>
+										</volist>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row pay_info">
+								<div class="row" style="margin-left: 0px;">
+									<p class="col-sm-1">费用用途：</p>
+									<div class="col-sm-3" style="border-color: #40bbea; padding-left: 0; padding-right: 0;">
+										<script type="text/javascript">
+											jQuery(document).ready(function($)
+											{
+												$("[name='cash_use']").selectBoxIt().on('open', function()
+												{
+													// Adding Custom Scrollbar
+													$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+												});
+											});
+										</script>
+										<select name="cash_use" class="form-control">
+											<volist id="cu" name="CashUse">
+												<option value="{$cu.id}">{$cu.type_desc}</option>
+											</volist>
+										</select>
+									</div>
+									<div class="col-sm-3" style="margin-left: 40px;">
+										<button class="btn btn-icon btn-blue"><i class="fa-plus" ></i></button>
+										<button class="btn btn-icon btn-red"><i class="fa-minus" ></i></button>
+									</div>									
+								</div>
+								<div>
+									<p class="col-sm-1">审核费用：</p>
+									<input name='cash' type="text" style="height: 32px;" class="dingdan_bianji col-sm-3" value="0">	
+									<span style="padding-left: 10px; color: red;">*费用为0时不加入审核记录</span>							
+								</div>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">支付类型：</p>
+								<div class="input-group col-sm-3" style="border-color: #40bbea;">
+									<script type="text/javascript">
+										function getMenuItem(parentObj, childObj) {
+											if ($(parentObj).val() == null) {
+												return false;
+											}
+											
+											var jsonData = {
+												op_type: 'find',
+												data_type: 'all',
+												parent_id: $(parentObj).val(),
+											};
+																		
+											$.post('{:U("menu/list")}', jsonData, function(backData){
+												if (backData.result.errno == 0) {
+													$(childObj).data('selectBox-selectBoxIt').remove();
+													if (backData.data != null) {
+														for (var k=0; k < backData.data.length; k++) {		
+															var d = backData.data[k];													
+															$(childObj).data('selectBox-selectBoxIt').add({value:d['id'], text:d['item_desc']});
+														}	
+													}
+												}
+											});
+										}
+									
+										jQuery(document).ready(function($)
+										{											
+											$("#pay_type").selectBoxIt({
+												showEffect: 'fadeIn',
+												hideEffect: 'fadeOut',
+												showEffectSpeed: '400',
+												hideEffectSpeed: '400',
+											}).on('close', function()
+											{
+												getMenuItem($("#pay_type"), $("#pay_channel"));
+											});								
+										});
+									</script>
+									<select id="pay_type" class="form-control">
+										<volist id="mi" name="MenuItem">
+											<option value="{$mi.id}">{$mi.item_desc}</option>
+										</volist>
+										<!--<volist id="pt" name="PayType">
+											<option value="{$pt.id}">{$pt.type_desc}</option>
+										</volist>-->
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">付款渠道：</p>
+								<div class="input-group col-sm-3" style="border-color: #40bbea;">
+									<script type="text/javascript">
+										jQuery(document).ready(function($)
+										{											
+											$("#pay_channel").selectBoxIt({
+												showEffect: 'fadeIn',
+												hideEffect: 'fadeOut',
+												showEffectSpeed: '400',
+												hideEffectSpeed: '400',
+											}).on('close', function()
+											{
+												getMenuItem($("#pay_channel"), $("#pay_bank"));		
+											});
+										});
+									</script>
+									<select id="pay_channel" class="form-control">
+										<!--<volist id="pc" name="PayChannel">
+											<option value="{$pc.id}">{$pc.type_desc}</option>
+										</volist>-->
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">支付银行：</p>
+								<div class="input-group col-sm-3" style="border-color: #40bbea;">
+									<script type="text/javascript">
+										jQuery(document).ready(function($)
+										{											
+											$("#pay_bank").selectBoxIt({
+												showEffect: 'fadeIn',
+												hideEffect: 'fadeOut',
+												showEffectSpeed: '400',
+												hideEffectSpeed: '400',
+											});
+										});
+									</script>
+									<select id="pay_bank" class="form-control">
+										<!--<volist id="pb" name="PayBank">
+											<option value="{$pb.id}">{$pb.type_desc}</option>
+										</volist>-->
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">回执编号：</p>
+								<input id='bank_code' type="text" style="height: 32px;" class="dingdan_bianji col-sm-3">
+							</div>		
+							<div class="form-group row">
+								<p class="col-sm-1">请求附言：</p>
+								<input id='review_msg' type="text" style="height: 32px;" class="dingdan_bianji col-sm-8">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12" style="margin-left: 5%; margin-top: 2%;">
+						<p class="text-danger lead">游客信息：</p>
+						<div class="row">
+							<table id="table" class="table text-left" style="width: 80%;">
+								<script type="text/javascript">
+									jQuery(document).ready(function($)
+									{
+										$(".ctr_sex").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});
+									});
+								</script>
+								<thead>
+									<tr>
+										<th class="col-sm-2">姓名</th>
+										<th class="col-sm-2">手机号</th>
+										<th class="col-sm-2">人员类型</th>
+										<th class="col-sm-3">证件</th>
+										<th class="col-sm-3">操作</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						<div id="member_template" style="display: none">
+							<table><tr>
+								<td>
+									<span name="label_name"></span>
+									<input name="name" type="text" class="ctr_xingming">
+								</td>
+								<td>
+									<span name="label_tel"></span>
+									<input name="tel" type="text" maxlength="11" class="ctr_shouji">
+								</td>
+								<td>
+									<span name="label_type"></span>
+									<select name="type" class="form-control ctr_sex">
+										<volist id="rmt" name="roomMemberType">
+											<option value="{$rmt.id}">{$rmt.type_desc}</option>
+										</volist>
+									</select>
+								</td>
+								<td>
+									<span name="label_cert"></span>
+									<div class="input-group ctr_card">
+										<span class="input-group-btn" style="display: inline-block;">
+											<button type="button" class="btn btn-info dropdown-toggle ctr_card_btn" data-toggle="dropdown" data-id="{$$certType[0]['id']}">
+												<span class="ctr_card_btn_num">{$certType[0]['type_desc']}</span> 
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu dropdown-info ctr_card_change">
+												<volist id="ct" name="certType">
+													<li>
+														<a href="javascript:;" >{$ct.type_desc}</a>													
+														<input type="hidden" value="{$ct.id}"/>
+													</li>
+												</volist>
+											</ul>
+										</span>
+										<input name='cert' type="text" maxlength="18" class="form-control no-left-border form-focus-info ctr_card_num">
+									</div>
+								</td>
+								<td>
+									<input type="hidden" id="member_id" value=""/>
+									<button type="button" class="btn btn-success ctr_bianji">编辑</button>
+									<button type="button" class="btn btn-info ctr_baocun">保存</button>
+									<button type="button" class="btn btn-danger ctr_shanchu">删除</button>
+								</td>
+							</tr></table>
+						</div>
+						<button id="add_member" type="button" class="btn btn-blue" style="margin-left: 1%;">增加游客</button>
+						<if condition="grant_create">
+							<button id="create_order" type="button" class="btn btn-primary" style="margin-left: 1%;">新增订单</button>
+						</if>
+						<div class="row add_xinxi">
+							<div class="panel panel-color panel-info col-sm-5 ctr_top">
+								<div  class="panel-heading">
+									<h4 class="panel-title">
+										增加参团人信息
+									</h4>
+									<div class="panel-options">	
+										<a href="#" data-toggle="panel">
+											<span class="collapse-icon">&ndash;</span>
+											<span class="expand-icon">+</span>
+										</a>
+										<a href="#" class="shanchu_xinxi">
+											&times;
+										</a>
+									</div>
+								</div>
+								<div class="panel-body ctr_xinxi">
+									<script type="text/javascript">
+										jQuery(document).ready(function($)
+										{
+											$("#add_member_type").selectBoxIt().on('open', function()
+											{
+												// Adding Custom Scrollbar
+												$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+											});
+										});
+									</script>
+									<p>参团人姓名：<input type="text" class="ctr_input add_xingming"></p>
+									<p>参团人类型：<select id="add_member_type" class="form-control ctr_sex">
+														<volist id="rmt" name="roomMemberType">
+															<option value="{$rmt.id}">{$rmt.type_desc}</option>
+														</volist>
+													</select>
+									</p>
+									<p>参团人手机：<input type="tel" class="ctr_input add_shouji" maxlength="11"></p>
+									<p style="display: inline-block; padding: 6px 0;">
+										参团人证件：
+										<div class="input-group" style="display: inline-block; border-left: 1px solid #40bbea;">
+											<span class="input-group-btn" style="display: inline-block;">
+												<button type="button" class="btn btn-info dropdown-toggle ctr_card_btn" data-toggle="dropdown" data-id="{$$certType[0]['id']}">
+													<span class="ctr_card_btn_num">{$certType[0]['type_desc']}</span> 
+													<span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu dropdown-info ctr_card_change">
+													<volist id="ct" name="certType">
+														<li>
+															<a href="javascript:;" >{$ct.type_desc}</a>													
+															<input type="hidden" value="{$ct.id}"/>
+														</li>
+													</volist>
+												</ul>
+											</span>
+											<input type="text" style="width: 75%;" maxlength="18" class="form-control no-left-border form-focus-info ctr_input add_card_btn_num">
+										</div>
+										<button type="button" class="btn btn-info ctr_change" style="float: right; margin-top: 50px;">完成添加</button>
+									</p>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<style type="text/css">
+		#add_member_typeSelectBoxItContainer { width:196px !important; display:inline-block !important; vertical-align: middle;}
+		.cx_border02 , .select2-container , .select2-choice , .info-border-color{ border-color: #40bbea !important; }
+	</style>
+<include file="Common/footer" />
+<script type="text/javascript">
+	$(document).ready(function(){
+//		$('.selectboxit-container').css('display','none');				
+		// 修改证件类型		
+		$('.ctr_card_change li').click(certificateTypeChanged);
+		// 增加费用来源HTML
+		$('.fa-plus').parent().click(appendCashHtml);
+		// 减少费用来源HTML
+		$('.fa-minus').parent().click(removeCashHtml);
+		// 显示编辑参团人信息
+		$('.ctr_bianji').click(startMemberEdit);
+		// 保存参团人信息
+		$('.ctr_baocun').click(saveMemberEdit);
+		// 删除参团人信息
+		$('.ctr_shanchu').click(deleteMemberByOld);
+		// 显示参团人信息
+		$('#add_member').click(showMemberCreate);
+		// 隐藏添加参团人信息
+		$('.shanchu_xinxi').click(showMemberCreate);
+		// 创建参团人信息
+		$('.add_xinxi .ctr_change').click(createMemberByOld);
+		// 创建订单
+		$('#create_order').click(createOrder);
+		// 费用格式检测
+		$('[name="cash"]').keyup(inputIntFloatCheck);
+		// 总团费
+		$('.cantuanrenshu').parent().find('input[type="text"]').change(changeSumCash);
+		// 刷新总团费
+		changeSumCash();
+		// 总团费
+		$('input[name="cash"]').change(changePayCash);
+		// 刷新支付费用
+		changePayCash();
+	});
+
+	// 检测申请费用
+	function inputIntFloatCheck() {
+		var val = $(this).val();
+	    if('' != val.replace(/\d{1,}\.{0,1}\d{0,}/,''))
+	    {
+	        var str = val.match(/\d{1,}\.{0,1}\d{0,}/) == null ? '' : val.match(/\d{1,}\.{0,1}\d{0,}/);
+	        $(this).val(str);
+	    }
+	}
+	
+	// 增加费用来源HTML
+	function appendCashHtml() {
+		var divRoot = $(this).parent().parent().parent();
+		var divRootCopy = $(divRoot).clone();
+		// 费用用途选择
+		$(divRootCopy).find('.selectboxit-container').remove();
+		$(divRootCopy).find('[name="cash_use"]').selectBoxIt().on('open', function()
+		{
+			$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+		});
+		// 添加按钮
+		$(divRootCopy).find('.fa-plus').parent().click(appendCashHtml);
+		// 删除按钮
+		$(divRootCopy).find('.fa-minus').parent().click(removeCashHtml);
+		// 费用格式检测
+		$(divRootCopy).find('[name="cash"]').keyup(inputIntFloatCheck);
+		// 费用变化触发支付费用
+		$(divRootCopy).find('[name="cash"]').change(changePayCash);
+		// 添加复制DIV到末尾
+		$(divRoot).after(divRootCopy);
+		// 刷新支付费用
+		changePayCash();
+	}
+	
+	// 减少费用来源HTML
+	function removeCashHtml() {		
+		if (confirm('您确定删除该费用项?')=== false) {
+			return false;
+		}
+		if ($('.fa-minus').length < 2) {
+			alert('至少应该保留一个费用项');
+			return false;
+		}
+		$(this).parent().parent().parent().remove();
+		// 刷新支付费用
+		changePayCash();
+	}
+		
+	// 编辑参团人事件
+	function startMemberEdit() {
+		var obj = $(this).parent().parent();
+		showMemberEdit(obj, true, 0);
+	}
+	
+	// 显示编辑参团人信息
+	// obj为tr对象
+	function showMemberEdit(obj, bShow, bFail){
+		if (bShow) {
+			$(obj).find('.ctr_bianji').hide();
+			$(obj).find('.ctr_baocun').show();
+			
+			// 姓名
+			var name = $(obj).find('.ctr_xingming');
+			$(name).show();
+			$(name).prev().hide();
+			$(name).val($(name).prev().html());
+			
+			// 电话
+			var tel = $(obj).find('.ctr_shouji');
+			$(tel).show();
+			$(tel).prev().hide();
+			$(tel).val($(tel).prev().html());
+			
+			// 性别
+			$(obj).find('.ctr_sex').prev().hide();
+			$(obj).find('.selectboxit-container').css('display','block');
+			var lis = $(obj).find('.selectboxit-container').find('li');
+			for (var i = 0; i <$(lis).length; i++) {
+				var txt = $(lis[i]).find('a').text();
+				if (txt == $(obj).find('.ctr_sex').prev().html()) {
+					$(obj).find('.selectboxit-container').prev().val($(lis[i]).attr('data-val')).trigger('change');
+					break;
+				}
+			}
+			
+			//证件
+			$(obj).find('.ctr_card').show();
+			$(obj).find('.ctr_card_num').show();
+			$(obj).find('.ctr_card').prev().hide();
+			var certval = $(obj).find('.ctr_card').prev().html();
+			var certVals = certval.split('&nbsp;');
+			if (certVals.length >= 2) {
+				// 证件类型
+				var liObj = $(obj).find('.ctr_card').find('li');			
+				for (var i = 0; i < $(liObj).length; i++) {
+					var certTypeDesc = $(liObj[i]).find('a').text();
+					if(certTypeDesc == certVals[0]) {
+						var certTypeId = $(liObj[i]).find('input[type="hidden"]').val();
+						$(obj).find('.ctr_card_btn').attr('data-id', certTypeId);
+						$(obj).find('.ctr_card_btn_num').html(certTypeDesc);
+						break;
+					}
+				}
+				// 证件号码
+				$(obj).find('.ctr_card_num').val(certVals[1]);	
+			}
+		} else {
+			$(obj).find('.ctr_bianji').show();
+			$(obj).find('.ctr_baocun').hide();
+			
+			// 姓名
+			var name = $(obj).find('.ctr_xingming');
+			$(name).hide();
+			$(name).prev().show();
+			
+			// 电话
+			var tel = $(obj).find('.ctr_shouji');
+			$(tel).hide();
+			$(tel).prev().show();
+			
+			// 性别
+			$(obj).find('.ctr_sex').prev().show();
+			$(obj).find('.selectboxit-container').css('display','none');
+			
+			//证件
+			$(obj).find('.ctr_card').hide();
+			$(obj).find('.ctr_card_num').hide();
+			$(obj).find('.ctr_card').prev().show();
+			
+			if (bFail == 0) {
+				$(name).prev().html($(name).val());
+				$(tel).prev().html($(tel).val());
+				var typeId = $(obj).find('.ctr_sex').val();
+				var typeDesc = $(obj).find('.selectboxit-text').html();
+				$(obj).find('.ctr_sex').prev().html(typeDesc);
+				$(obj).find('.ctr_sex').prev().attr('data-id',typeId);
+				var certTypeId = $(obj).find('ctr_card_btn').attr('data-id');
+				var certType = $(obj).find('.ctr_card_btn').find('.ctr_card_btn_num').html();
+				var certNum = $(obj).find('.ctr_card_num').val()
+				$(obj).find('.ctr_card').prev().html(certType+'&nbsp;'+certNum);
+				$(obj).find('.ctr_card').prev().attr('data-id', certTypeId);
+			}
+		}
+	}
+	
+	// 显示参团人信息
+	function showMemberCreate(){
+		if ($('.add_xinxi').css('display') == 'none') {
+			$('.add_xinxi').slideDown();			
+			$('#add_member_typeSelectBoxItContainer').css('display','block');
+		} else {
+			$('#add_member_typeSelectBoxItContainer').css('display','none');
+			$('.add_xinxi').slideUp();
+			$('.add_xinxi').find('.ctr_input').val('');
+		}
+	}
+	
+	// 选择证件类型
+	function certificateTypeChanged() {
+		var certTypeId = $(this).find('input[type="hidden"]').val();
+		var certTypeDesc =  $(this).find('a').html();
+		$(this).parent().prev().attr('data-id', certTypeId);
+		$(this).parent().prev().find('.ctr_card_btn_num').html(certTypeDesc);
+	}	
+		
+	// 修改成员
+	function saveMemberEdit() {
+		var obj = $(this).parent().parent();
+		showMemberEdit(obj, false, 0);
+	}
+	
+	// 删除成功
+	function deleteMemberByOld() {		
+		if (confirm('您确定要删除该参团成员吗?')== false){
+			return false;
+		}
+		$(this).parent().parent().remove();
+	}
+		
+	// 添加成员信息到页面
+	function appendMemberToPage() {
+		var addPanel = $('.add_xinxi .panel-body');
+		var name = $(addPanel).find('.add_xingming').val();
+		var tel = $(addPanel).find('.add_shouji').val();
+		var typeId = $(addPanel).find('.ctr_sex').val();
+		var typeDesc = $(addPanel).find('.selectboxit-text').html();
+		var certTypeId = $(addPanel).find('input[type="hidden"]').val();
+		var certTypeDesc = $(addPanel).find('.ctr_card_btn_num').html();
+		var certNum =  $(addPanel).find('.add_card_btn_num').val();
+		
+		if (name == '') {
+			alert('成员姓名不能为空');
+			return false;
+		}
+		
+		if (checkMobile(tel) == false) {
+			alert('手机号码错误,请检查后再次提交');
+			return false;
+		}
+		
+		if (certTypeDesc == '身份证') {			
+			if (checkCard(certNum) == false) {
+				return false;							
+			}			
+		}
+		
+		var cloneDiv = $('#member_template').clone();		
+		// 姓名
+		$(cloneDiv).find('span[name="label_name"]').html(name);
+		// 手机
+		$(cloneDiv).find('span[name="label_tel"]').html(tel);
+		// 类型		
+		$(cloneDiv).find('span[name="label_type"]').attr('data-id', typeId);
+		$(cloneDiv).find('span[name="label_type"]').html(typeDesc);
+		$(cloneDiv).find('.selectboxit-container').remove();
+		// 证件
+		$(cloneDiv).find('span[name="label_cert"]').attr('data-id', certTypeId);
+		$(cloneDiv).find('span[name="label_cert"]').html(certTypeDesc+'&nbsp;'+certNum);				
+		// 添加克隆对象到列表
+//		console.log(certTypeDesc + '&nbsp;' + certNum);
+		$('#table tbody').append($(cloneDiv).find('tbody').html());
+		
+		var trObj = $('#table').find('tr:eq(-1)');
+		$(trObj).find(".ctr_sex").selectBoxIt().on('open', function()
+		{
+			// Adding Custom Scrollbar
+			$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+		});
+		$(trObj).find('.selectboxit-container').css('display','none');
+		
+		// 修改证件类型		
+		$('.ctr_card_change li').click(certificateTypeChanged);
+		// 显示编辑参团人信息
+		$('.ctr_bianji').click(startMemberEdit);
+		// 保存参团人信息
+		$('.ctr_baocun').click(saveMemberEdit);
+		// 删除参团人信息
+		$('.ctr_shanchu').click(deleteMemberByOld);
+		return true;
+	}
+	
+	// 添加成员
+	function createMemberByOld() {		
+		// 添加数据到界面
+		if (appendMemberToPage()) {
+			// 隐藏添加界面
+			showMemberCreate();	
+		}
+	}
+	
+	// 获取所有参团成员信息
+	function getMembersInfo(bCreate, delTrIndex) {
+		var members = new Array();
+		// 获取参团人列表
+		var trList = $('#table tbody').find('tr');
+		for(var i = 0; i < $(trList).length; i++){
+			if (i == delTrIndex) {
+				continue;
+			}
+			var tdList = $(trList[i]).find('td');
+			if ($(tdList).length >= 5) {
+				if ($(trList[i]).find('.ctr_bianji').is(":visible")) {
+					var cert = $(tdList[3]).find('span').html().split('&nbsp;');
+					members[i] = {
+						'name': $(tdList[0]).find('span').html(),
+						'tel':  $(tdList[1]).find('span').html(),
+						'type':  $(tdList[2]).find('span').attr('data-id'),
+					};	
+					if ($(cert).length >= 2) {
+						members[i]['cert_desc'] = cert[0];
+						members[i]['cert_num'] = cert[1];
+					} else {
+						members[i]['cert_desc'] = '';
+						members[i]['cert_num'] = '';
+					}
+				} else {
+					members[i] = {
+						'name': $(tdList[0]).find('input').val(),
+						'tel':  $(tdList[1]).find('input').val(),
+						'type':  $(tdList[2]).find('.ctr_sex').val(),
+						'cert_desc': $(tdList[3]).find('.ctr_card_btn_num').html(),
+						'cert_num': $(tdList[3]).find('.ctr_card_num').val(),
+					};	
+				}
+			}
+		}
+		
+		// 获取创建的信息
+		if (bCreate) {
+			var len = $(members).length;
+			var panel = $('.add_xinxi .ctr_xinxi');
+			members[len] = {
+				'name': $(panel).find('.add_xingming').val(),
+				'tel':  $(panel).find('.add_shouji').val(),
+				'type':  $(panel).find('.ctr_sex').val(),
+				'cert_desc': $(panel).find('.ctr_card_btn_num').html(),
+				'cert_num': $(panel).find('.add_card_btn_num').val(),
+			};
+		}
+		return members;
+	}
+	
+	// 获取参团人员的JSON数据
+	function getJsonMemberInfo(bCreate, delTrIndex) {
+		var members = getMembersInfo(bCreate, delTrIndex);
+				
+		var ids = '', names = '', tels = '', types = '', certTypes = '',certNums = '';
+		for (var i = 0; i <$(members).length; i ++) {
+			var m = members[i];
+			if (i == 0) {
+				ids = '0';
+				names = m.name;
+				tels = m.tel;
+				types = m.type;
+				certTypes = m.cert_desc;
+				certNums = m.cert_num;
+			} else {
+				ids += ('&nbsp;0');
+				names += ('&nbsp;' + m.name);
+				tels += ('&nbsp;' + m.tel);
+				types += ('&nbsp;' + m.type);
+				certTypes += ('&nbsp;' + m.cert_desc);
+				certNums += ('&nbsp;' + m.cert_num);
+			}
+		}
+		
+		var jsonData = [
+			{name:'ct_ids', value:ids},
+			{name:'ct_names', value:names},
+			{name:'ct_sjnum', value:tels},
+			{name:'ct_types', value:types},
+			{name:'ct_zhengjian', value:certTypes},
+			{name:'ct_zjcode', value:certNums},
+		];
+		return jsonData;
+	}
+	
+	function checkCreateData(jsonData) {
+//		console.log(JSON.stringify(jsonData));
+		if (jsonData.lineid == '') {
+			alert('线路不能为空');
+			return false;
+		}
+		
+		var memberCount = parseInt(jsonData.male) + parseInt(jsonData.woman) + parseInt(jsonData.child);
+		if (memberCount < 1) {
+			alert('成人男、成人女、小孩总数不能为0');
+			return false;
+		}
+		
+		if (jsonData.names == '') {
+			alert('联系人不能为空');
+			return false;
+		}
+		if (checkMobile(jsonData.mob) == false) {
+			alert('手机号码有误');
+			return false;
+		}
+		if (jsonData.male == '' || jsonData.woman == '' || jsonData.child == '') {
+			alert('参团成员类型数量不能为空');
+			return false;
+		}		
+		
+		if (jsonData.cash_datas.length < 1) {
+			alert('交易金额不能为空并且必须为数字');
+			return false;
+		}
+		return true;
+	}
+	
+	// 创建订单
+	function createOrder() {		
+		var cashHtmls = $('[name="cash"]');		
+		var cash_datas = new Array();
+		for (var i = 0; i < $(cashHtmls).length; i++) {
+			var divRoot = $(cashHtmls[i]).parent().parent();
+			cash_datas[i] = {
+				'cash_use_id': $(divRoot).find('[name="cash_use"]').val(),
+				'cash': $(divRoot).find('[name="cash"]').val(),
+			}
+		}
+	
+		var jsonData = {
+			'op': 'create',
+			'lineid': $('#team_id').val(),
+			'names': $('#contact_name').val(),
+			'mob': $('#contact_tel').val(),
+			'from_id': $('#order_from').val(),
+			'certificate_type_id': $('.lianxiren_card').find('.ctr_card_btn').attr('data-id'),
+			'shenfenid': $('.lianxiren_card').find('.add_card_btn_num').val(),
+			// 订单留言
+			'order_message': $('#order_message').val(),
+			// 订单提审
+			'cash_func_id': $('#cash_func').val(),
+			'cash_datas': cash_datas,
+			'pay_channel_id': $('#pay_channel').val(),
+			'pay_type_id': $('#pay_type').val(),
+			'pay_bank_id': $('#pay_bank').val(),
+			'bank_code': $('#bank_code').val(),
+			'request_reason': $('#review_msg').val()
+		}
+				
+		var types =  $('.cantuanrenshu').parent().find('input[type="text"]');
+		for (var i = 0; i < $(types).length; i++) {
+			var key = $(types[i]).attr('id');
+			if (key == 'adult_man') {
+				key = 'male';
+			} else if (key == 'adult_woman') {
+				key = 'woman';
+			} else if (key == 'child') {
+				key = 'child';
+			}
+			jsonData[key] = $(types[i]).val();			
+			if (jsonData[key] == '') {
+				jsonData[key] = 0;
+			}
+		}
+		
+		// 旧表参团人
+//		var members = getJsonMemberInfo(false, -1);
+//		for (var k = 0; k < $(members).length; k++) {
+//			var key = members[k].name;
+//			jsonData[key] = members[k].value;
+//		}
+
+		// 新表参团人数
+		var members = getMembersInfo(false, -1);
+		if (members.length > 0) {
+			jsonData['members'] = JSON.stringify(members);	
+		}
+		
+		console.log(JSON.stringify(jsonData));
+		if (checkCreateData(jsonData) == false) {
+			return false;
+		}
+		$.post('{:U("team/order")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				alert(data.result.message);
+				location.href = '{:U("order/list")}';
+			} else {
+//				$('#err_msg').html(data.result.message);
+				alert(data.result.message);
+			}
+		});
+	}
+	
+	function changeSumCash() {
+		var sumCash = 0;
+		var types = $('.cantuanrenshu').parent().find('input[type="text"]');
+		for (var i=0; i<$(types).length; i++) {
+			var idstr = $(types[i]).attr('id');
+			var valstr = $(types[i]).val();
+			var memberCount = valstr == '' ? 0 : parseInt(valstr);
+			if (idstr.indexOf('child') != -1) {
+				sumCash += (parseFloat('{$team.price_child}') * memberCount);	
+			} else {
+				sumCash += (parseFloat('{$team.price_adult}') * memberCount);
+			}
+		}
+		$('#sum_team_cash').html(sumCash+'元');	
+	}
+	
+	function changePayCash() {
+		var payCash = 0;
+		
+		var bPay = true;
+		var cashFunc = $('#cash_funcSelectBoxItText').html();
+		if (cashFunc.indexOf('退款') != -1) {
+			bPay = false;
+		}
+		
+		var cashs = $('input[name="cash"]');
+		for (var i=0; i<$(cashs).length; i++) {
+			if (bPay == false) {
+				payCash -= (parseFloat($(cashs[i]).val()));	
+			} else {
+				payCash += (parseFloat($(cashs[i]).val()));	
+			}
+		}
+		$('#pay_cash').html(payCash+'元');	
+	}
+</script>

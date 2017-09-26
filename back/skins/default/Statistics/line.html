@@ -1,0 +1,554 @@
+<include file="Common/header" />
+	<style type="text/css">
+		.create { position: relative; border: 1px solid #dcdcdc; margin-bottom:20px; padding: 15px; }		
+		.row{margin-left:0px;}
+		.create .row { margin-bottom:20px; }
+		.create-write .input-group { height: 36px; }
+		.create-write input { width: 100%; height: 36px; }
+		.input-group-addon { padding: 4px 40px; }
+		
+		.stats-obj { margin: 0px 15px 30px 15px; border-top: 1px solid #dcdcdc; min-height:40px; }
+		.stats-obj-title { margin-left: 15px; font-size: 16px; font-family: '微软雅黑'; color:red; }
+		.stats-obj-item { margin: 10px 15px; }
+		
+		.font-title {font-size: 18px; font-family: '微软雅黑'; display: block; margin: 20px 0px 10px 0px; color:red; border-bottom: 1px; double #CCC; width: 30%; }
+		.font-table-th {font-size: 14px; font-family: '微软雅黑';}
+		
+		.btn-start-stats { float: right; margin-left:20px; width:100px; color: #fff; }
+	</style>
+
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	
+	<!--信息录入创建-->
+	<div class="row">
+		<div class="col-sm-12">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">统计设置</h3><h5 class="team_code" style="margin-left:75px; margin-top: 4px; color: red;"></h5>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">			
+				<!--在此地编辑内容-->
+					<!--创建优惠券-->
+					<div class="create">
+						<div class="create-write">
+							<div class="row">			
+								<div class="col-md-5" style="border-right: 1px solid #dcdcdc;">
+												
+									<div class="row">						
+										<div class="col-md-12">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i style="font-style: normal;">统计日期</i>
+												</div>
+												<input type="text" class="form-control daterange data_stats_date_range" readonly  data-format="YYYY-MM-DD"  data-separator=" / " value="{$today} / {$today}" />
+											</div>
+										</div>
+									</div>
+									
+									<div class="row">							
+										<div class="col-md-12">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i style="font-style: normal;">产品类型</i>
+												</div>
+												<select class="form-control data_stats_line_type"></select>	
+											</div>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-md-12">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i style="font-style: normal;">产品</i>
+												</div>
+												<input type="text" class="form-control data_stats_line" >
+											</div>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-md-12">
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i style="font-style: normal;">批次</i>
+												</div>
+												<input type="text" class="form-control data_stats_batch" >
+											</div>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-md-1">
+											<div class="input-group">
+												<button class="btn btn-append-stats">添加</button>
+											</div>
+										</div>		
+										<div class="col-md-1">
+											<div class="input-group">
+												<button class="btn btn-reset-stats">重置</button>
+											</div>
+										</div>						
+									</div>
+								</div>
+									
+								<div class="col-md-7" style="height: 280px; overflow: auto;">
+									<div class="row">
+										<volist id="dest" name="destination">
+											<button class="btn btn-info btn_dest" data-key="{$dest.type_key}">{$dest.type_desc}</button>
+										</volist>
+									</div>
+								</div>							
+							</div>
+							
+							<div class="row" style="margin-top: 15px">
+								<span class="stats-obj-title">统计产品对象</span>
+								<button class="btn btn-xs btn-secondary btn-stats-obj-clear">清除对象</button>
+								<div class="stats-obj">
+									
+								</div>								
+							</div>
+							
+							<div class="row">							
+								<button class="btn btn-primary btn-start-stats">开始统计</button>	
+							</div>
+							
+						</div>
+					</div>					
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<!--统计结果模块-->
+	<div class="row stats_result">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">统计结果</h3>					
+					<div class="panel-options">
+						<a href="{:U('statistics/export')}/type/order" class="btn btn-secondary btn-xs" style="color: #fff;" target="_blank">导出</a>
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body" style="padding: 20px 20px; width: 100%; overflow: auto;overflow-x: scroll;">	
+					<span class="font-title">线路产品综合统计</span>
+					<table id="table_total" class="table">
+						<thead>
+							<tr>
+								<th class="font-table-th" style="width: 130px;">线路批次</th>
+								<th class="font-table-th" style="width: 130px;">状态</th>
+								<th class="font-table-th" style="width: 130px;">累计订单数</th>
+								<th class="font-table-th" style="width: 130px;">累计报名人数</th>
+								<th class="font-table-th" style="width: 130px;">指定日期订单数</th>
+								<th class="font-table-th" style="width: 130px;">指定日期人数</th>
+								<th class="font-table-th" style="width: 130px;">主站订单</th>
+								<th class="font-table-th" style="width: 130px;">缴费人数</th>
+								<th class="font-table-th" style="width: 130px;">渠道订单</th>
+								<th class="font-table-th" style="width: 130px;">渠道缴费人数</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					
+					<hr style="border: 1px solid #F5F5F5; margin: 40px 0px;" />
+						
+					<span class="font-title">线路产品订单统计</span>
+					<table id="table_order" class="table" style="width:200%;max-width:200%;">
+						<thead>
+							<tr>
+								<th class="font-table-th" style="width: 200px;">线路批次</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					
+					<!--<hr style="border: 1px solid #F5F5F5; margin: 40px 0px;" />
+					
+					<span class="font-title">线路产品参团人统计</span>
+					<table id="table_member" class="table">
+						<thead>
+							<tr>
+								<th class="font-table-th" style="width: 130px;">线路批次</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>-->
+					<!--结束面板-->
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="__PUBLIC__/assets/js/devexpress-web-14.1/js/globalize.min.js"></script>
+	<script src="__PUBLIC__/assets/js/devexpress-web-14.1/js/dx.chartjs.js"></script>
+	<script type="text/javascript">	
+		// 统计线路发生改变时
+		function changeStatsLine(){
+			setSelect2Value('.data_stats_batch', null);
+		}
+	
+		// 初始化统计产品线路对象
+		var select2StatsLine = null;
+		function initStatsLine() {
+			var voption = {obj:$('.data_stats_line'), search:1, placeholder: '请选择线路', show_col:'title', select_col:'title', func_select_changed: changeStatsLine};
+			var vds = {tab:'line', search_col: 'title', cdsstr: 'invalid|=|0|AND', cdtype:4}
+			select2StatsLine = new MySelect2(voption, vds);
+		}	
+		
+		function batchDynamicConds() {
+			var selstr = getSelect2Value('.data_stats_line', ['id','title']);
+			var lineid = 0;
+			if (selstr != null && selstr != '') {
+				var selLine = $.parseJSON(selstr);
+				lineid = selLine['id'];
+			}
+			var lineType = $('.data_stats_line_type').val();
+			if (lineType == 0) {
+				return 'line_id|=|'+lineid+'|AND';
+			} else if (lineType == 1) {
+				return 'aid|=|'+lineid+'|AND';
+			} else if (lineType == 2) {
+				return 'id|=|'+lineid+'|AND';
+			} else {
+				return 'id|=|0|AND';
+			}			
+		}
+		
+		function batchShowText(data) {
+			var lineType = $('.data_stats_line_type').val();
+			if (lineType == 0) {
+				if (data.start_time != null && data.end_time != null) {
+					var st = data['start_time'].split(' ')[0];
+					var et = data['end_time'].split(' ')[0];
+					return st + ' 至 ' + et;	
+				}
+			} else if (lineType == 1) {
+				if (data.startdate != null && data.enddate != null) {
+					var st = UnixtimeToDatetime(data['startdate'], true);
+					var et = UnixtimeToDatetime(data['enddate'], true);
+					return st + ' 至 ' + et;
+				}
+			} else if (lineType == 2) {
+				if (data.meet_time != null) {
+					return data.meet_time;
+				}
+			} else {
+				return '错误的线路类型';
+			}
+			return '';
+		}		
+		
+		// 初始化统计产品线路对象
+		var select2StatsBatch = null;
+		function initStatsBatch() {
+			var voption = {obj:$('.data_stats_batch'), search:1, placeholder: '请选择批次', show_col:batchShowText, select_col:batchShowText};
+			var vds = {tab:'batch', cdtype:4, func_dynamic_conds: batchDynamicConds, sort:'id|asc'}
+			select2StatsBatch = new MySelect2(voption, vds);
+		}	
+		
+		// 初始化统计产品类型
+		function initStatsLineType() {
+			var selectBoxItLineType = $(".data_stats_line_type").selectBoxIt({
+				showEffect: 'fadeIn',
+				hideEffect: 'fadeOut',
+			});
+			$(selectBoxItLineType).data('selectBox-selectBoxIt').add({value:0, text:'新线路'});;
+			$(selectBoxItLineType).data('selectBox-selectBoxIt').add({value:1, text:'旧线路'});
+			$(selectBoxItLineType).data('selectBox-selectBoxIt').add({value:2, text:'包团线路'});
+			$(selectBoxItLineType).val(0);
+			$(selectBoxItLineType).change(function(){
+				if (select2StatsLine == null) {
+					return false;
+				}			
+				var type = $(this).val();
+				setSelect2Value($('.data_stats_line'), null);
+				setSelect2Value($('.data_stats_batch'), null);
+				if (type == 0) {				
+					select2StatsLine.ds.tab = 'line';
+					select2StatsLine.ds.prefix = '';
+					select2StatsLine.ds.cdsstr = 'invalid|=|0|AND';
+					select2StatsBatch.ds.tab = 'batch';
+					select2StatsBatch.ds.prefix = '';
+				} else if (type == 1) {
+					select2StatsLine.ds.tab = 'archives';
+					select2StatsLine.ds.prefix = 'xz_';
+					select2StatsLine.ds.cdsstr = 'channel|=|17|AND';
+					select2StatsBatch.ds.tab = 'lineactivity';
+					select2StatsBatch.ds.prefix = 'xz_';
+				} else if (type == 2) {
+					select2StatsLine.ds.tab = 'team_group';
+					select2StatsLine.ds.prefix = '';
+					select2StatsLine.ds.cdsstr = 'dispose_state_id|=|19|AND';
+					select2StatsBatch.ds.tab = 'team_group';
+					select2StatsBatch.ds.prefix = '';
+				} else {
+					toastr.warning('错误的统计产品类型');
+				}
+			});
+		}	
+		
+		$(document).ready(function(){
+			// 初始化统计产品线路对象
+			initStatsLine();
+			// 初始化统计产品批次对象
+			initStatsBatch();
+			// 初始化统计产品类型
+			initStatsLineType();
+		});		
+		
+		// 重置统计
+		function resetStatsObj() {
+			$('.stats-obj').children().remove();
+			$('.stats-obj').removeAttr('data-key');
+		}
+		$('.btn-stats-obj-clear').click(resetStatsObj);
+		
+		// 移除统计对象
+		function removeStatsObj() {
+			$(this).parent().remove();
+			if ($('.stats-obj').find('.stats-obj-item').length == 0) {
+				resetStatsObj();
+			}
+		}
+		
+		// 添加线路对象
+		function appendLineHtml(data) {
+			var ds = JSON.stringify(data);
+			var showText = data.title;
+			var idkey = 'line_'+data.type+'_'+data.line.id;
+			if (data.batch != null) {
+				idkey += 'batch_'+data.batch.id;
+			}
+			
+			if ($('.stats-obj').find('button').find('.ds[data-key="'+idkey+'"]').length > 0) {
+				toastr.warning('您已经添加过此统计对象')
+				return false;
+			}
+			
+			var vhtml = '<button class="btn btn-secondary btn-icon btn-icon-standalone btn-icon-standalone-right stats-obj-item">' +
+						'	<i class="fa-remove"></i>' +
+						'	<span>'+showText+'</span>' +
+						'	<input class="ds" type="hidden" />' +
+						'</button>';						
+			$('.stats-obj').append(vhtml);
+			var itemObj = $('.stats-obj').find('button:last');
+			$(itemObj).find('i').click(removeStatsObj);
+			$(itemObj).find('.ds').val(ds);
+			$(itemObj).find('.ds').attr('data-key', idkey);
+		}
+		
+		// 按目的地获取线路
+		$('.btn_dest').click(function(){
+			$('.btn_dest.btn-secondary').removeClass('btn-secondary');
+			$(this).addClass('btn-secondary');
+			var jsonData = {
+				op_type: 'dest_line',
+				dest: $(this).attr('data-key'),
+			} 
+			
+			showLoading(true, '请耐心等待加载目的地线路......');
+			$.post('{:U("statistics/line")}', jsonData, function(data){
+				showLoading(false);
+				if (data.result.errno == 0) {
+					resetStatsObj();
+					if (data.ds != null) {
+						for (var i = 0; i < data.ds.length; i ++) {
+							var line = data.ds[i];
+							var d = {
+								type: 0,
+								title: '[新]'+line.title,
+								line: {
+									id: line.id,
+									title: line.title,
+									online: line.online,
+								}
+							}
+							appendLineHtml(d);
+						}
+					}
+				} else {
+					toastr.error(data.result.message);
+				}
+			});
+		});
+		
+		// 获取批次信息
+		function getStatsBatchData() {
+			var vtype = $('.data_stats_line_type').val();
+			if (vtype == 0) {
+				var batchstr = getSelect2Value('.data_stats_batch', ['id', 'start_time', 'end_time']);
+				if (batchstr == '' || batchstr == null) {
+					return null;
+				}
+				var batch = $.parseJSON(batchstr);
+				batch['show_text'] = batch['start_time'].split(' ')[0];
+				return batch;
+			} else if (vtype == 1) {
+				var batchstr = getSelect2Value('.data_stats_batch', ['id', 'startdate', 'enddate']);
+				if (batchstr == '' || batchstr == null) {
+					return null;
+				}
+				var batch = $.parseJSON(batchstr);
+				batch['show_text'] = UnixtimeToDatetime(batch['startdate'], true);
+				return batch;
+			} else if (vtype == 2) {
+				var batchstr = getSelect2Value('.data_stats_batch', ['id', 'meet_time']);
+				if (batchstr == '' || batchstr == null) {
+					return null;
+				}
+				var batch = $.parseJSON(batchstr);
+				batch['show_text'] = batch['meet_time'];
+				return batch;
+			} else {
+				return null;
+			}
+		}
+		
+		// 获取线路数据
+		function getStatsLineData() {
+			var vtype = $('.data_stats_line_type').val();
+			var linestr = getSelect2Value('.data_stats_line', ['id', 'title', 'max_team_count', 'meet_time', 'online']);
+			if (linestr == '' || linestr == null) {
+				return null;
+			}
+			
+			var vline = $.parseJSON(linestr);
+			var vtitle = '';
+			if (vtype == 0) {
+				vtitle = '[新]'+vline.title;
+			} else if (vtype == 1) {
+				vtitle = '[旧]'+vline.title;
+				vline['online'] = 0;
+			} else if (vtype == 2) {
+				vtitle = '[包]'+vline.title;
+			} else {
+				return null;
+			}
+			var vbatch = getStatsBatchData();
+			if (vbatch != null) {
+				vtitle += '['+vbatch['show_text']+']';
+			}
+			var ds = {
+				title: vtitle,
+				type: vtype,
+				line: vline,
+				batch: vbatch,
+			};
+			return ds; 
+		}
+		
+		// 添加统计对象
+		$('.btn-append-stats').click(function(){
+			var selData = getStatsLineData();
+			if (selData == null) {
+				toastr.warning('您可以不选择批次但至少选择一个产品');
+				return false;
+			}				
+			appendLineHtml(selData);
+		});
+		
+		// 重置统计条件
+		$('.btn-reset-stats').click(function(){
+			$('.data_stats_date_range').val('');
+			$('.data_stats_line_type').val(0).trigger('change');
+			setSelect2Value('.data_stats_line', null);
+			setSelect2Value('.data_stats_batch', null);
+		});
+		
+				
+		// 统计数据
+		$('.btn-start-stats').click(function(){			
+			var statsDate = $('.data_stats_date_range').val();
+			if (statsDate == '') {
+				toastr.warning('请选择统计日期');
+				return false;
+			}
+			
+			var objs = [];
+			$('.stats-obj').find('.stats-obj-item').each(function(i, ev){
+				objs[i] = $.parseJSON($(this).find('.ds').val());
+			});
+			
+			var jsonData = {
+				op_type: 'stats',
+				date: statsDate,			
+				stats_objs: objs,
+			}
+						
+			showLoading(true, '请耐心等待统计数据......');
+			$.post('{:U("statistics/line")}', jsonData, function(data){
+				showLoading(false);
+				if (data.result.errno == 0) {
+					if (data.ds != null) {
+						// 滚动到结果
+       					$('body').animate({scrollTop:$('#table_total').offset().top}, 500);
+						$('#table_total').find('tbody').children().remove();
+						$('#table_order').find('thead tr').children().remove();
+						$('#table_order').find('thead tr').append('<th class="font-table-th" style="width: 200px;">线路批次</th>');
+						$('#table_order').find('tbody').children().remove();
+						
+						var addedHead = false;
+						for (var i=0; i<data.ds.length; i++) {
+							var d = data.ds[i];
+							var vhtml = '<tr>'+
+										'	<td>'+d.title+'</td>'+
+										'	<td>'+(d.line.online == 0 ? '下架' : '上架')+'</td>'+
+										'	<td>'+d.sum_order+'</td>'+
+										'	<td>'+d.sum_member+'</td>'+
+										'	<td>'+d.day_order+'</td>'+
+										'	<td>'+d.day_member+'</td>'+
+										'	<td>'+d.main_station_order+'</td>'+
+										'	<td>'+d.main_station_pay+'</td>'+
+										'	<td>'+d.channel_order+'</td>'+
+										'	<td>'+d.channel_member+'</td>'+
+										'</tr>';
+							$('#table_total').find('tbody').append(vhtml);
+							
+							if (d.stats_channels != null) {								
+								// 表标题
+								if (addedHead == false) {
+									for (k in d.stats_channels) {
+										var channel = d.stats_channels[k];
+										$('#table_order').find('thead tr').append('<th class="font-table-th" style="width: 130px;">'+channel.type_desc+'</th>');
+									}
+									addedHead = true;
+								}
+								
+								// 表数据
+								var trColor = i % 2 == 0 ? '#D6C4AD' : 'burlywood';
+								var orderHtml = '<tr style="background-color: '+trColor+';"><td>'+d.title+'</td>';
+								for (k in d.stats_channels) {
+									var channel = d.stats_channels[k];							
+									orderHtml += '<td>订单:'+channel.order_count+'<br />人数:'+channel.member_count+'</td>';
+								}
+								orderHtml += '</tr>';
+								$('#table_order').find('tbody').append(orderHtml);
+							}							
+						}
+					}
+				} else {
+					toastr.error(data.result.message);
+				}
+			});			
+		});
+	</script>
+	
+<include file="Common/footer" />

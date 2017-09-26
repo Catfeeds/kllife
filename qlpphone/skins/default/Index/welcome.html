@@ -1,0 +1,259 @@
+<include file="Common/top"/>
+    <!--公司简介-->
+    <!--<div class="brief">-->
+        <!--<h2>公司简介</h2>-->
+        <!--<a href="javascript:;"><img class="img-responsive" src="{$set.company_background}" alt=""></a>-->
+        <!--<p>{$set.company_intro}</p>-->
+    <!--</div>-->
+    <!--新旅拍-->
+	<!--品牌故事-->
+	<div class="background-two" onclick="location.href='{:U('index/story')}'">
+		<img class="img-responsive" src="__PUBLIC__/qlpphone/images/index/phone+.jpg" alt="">
+	</div>
+    <!--每刻美 初体验-->
+    <div class="line travel" style="margin-top:10px;">
+        <h2 style="color:#ff1c77;padding-bottom:20px;">每刻美 初体验</h2>
+		<p style="text-align: center;font-size: 20px;">拼个摄影师去旅行</p>
+		<!--<p style="text-align: center;font-size: 20px;">精选热卖</p>-->
+        <div class="border-bottom"><!-此div只用于显示birder-></div>
+        <volist id="travel_tab" name="set">
+        	<if condition="stripos($key, 'travel_tab') heq 0 and stripos($key, '_line_') heq false">        		
+		    	<for start="0" end="4">
+					<php>
+						$line = $set[$key.'_line_'.$i];
+						if (!empty($line)) {
+							$lineBackground = $line['img2'];
+						}
+					</php>
+					<a href="{:U('line/info')}/id/{$line.id}">
+						<div class="item">
+							<img class="img-responsive" src="{$lineBackground}" alt="">
+							<div class="background">
+								<h3>{$line.title}</h3>
+								<p>{$line.subheading}</p>
+								<span>Time：{$line.start_time}</span>
+								<a type="button" class="btn btn-orange-two" href="{:U('line/info')}/id/{$line.id}">查看线路</a>
+							</div>
+						</div>
+					</a>
+		    	</for>
+        	</if>
+        </volist>
+        <a href="{:U('line/list')}"><h4 class="whole">查看全部每刻美初体验线路 <span><i class="iconfont">&#xe624;</i></span></h4></a>
+    </div>
+    <!--每刻美 定制款-->
+    <div class="line travel index-customized" style="margin-top:10px;">
+        <h2 style="color:#ff1c77;padding-bottom:20px;">每刻美 定制款</h2>
+		<p style="text-align: center;font-size: 20px;">你的每一刻美好都值得珍藏</p>
+        <div class="border-bottom" style="width:245px;"><!-此div只用于显示birder-></div>
+		<a href="javascript:;">
+			<div class="item">
+				<img class="img-responsive" src="__PUBLIC__/qlpphone/images/index/index-customized.jpg" alt="">
+				<div class="background">
+					<p class="color">满足你的需求</p>
+					<h3>随时随地给你拍最美旅行照</h3>
+					<p>无需做攻略，旅行琐事统统帮你搞定</p>
+					<p>玩你想玩的，专属于你的旅行计划</p>
+					<p>不拼团，私家小团独享完美旅程</p>
+					<p>随心预约，选你喜欢的摄影师</p>
+					<p>每刻美</p>
+					<p>让你的每张旅行照，都因惊艳时光而得以珍藏</p>
+					<a type="button" class="btn btn-orange-two" href="javascript:;">定制我的旅行</a>
+				</div>
+				<a href="{:U('line/book')}" class="href-customized"></a>
+			</div>
+		</a>
+    </div>
+	<!--摄影师-->
+	<div class="line index-photographer" style="margin-top: 10px;">
+		<h2 style="padding-bottom:12px;">摄影师</h2>
+		<div class="border-bottom" style="width:72px;"><!-此div只用于显示birder-></div>
+		<div class="group">
+			<volist id="leader" name="leaders">
+				<div class="item">
+					<div class="img"><img src="{$leader.face_image}" alt=""></div>
+					<div class="name">{$leader.show_name}</div>
+					<a href="{:U('Leader/info')}/id/{$leader.id}"></a>
+				</div>
+			</volist>
+		</div>
+		<a href="{:U('Leader/list')}"><h4 class="whole" style="line-height:2">查看全部摄影师 <span><i class="iconfont">&#xe624;</i></span></h4></a>
+	</div>
+	<!--小团慢旅行-->
+    <div class="line" style="margin-top: 10px;">
+        <h2 style="padding-bottom:12px;">小团慢旅行</h2>
+		<div class="border-bottom" style="width:120px;"><!-此div只用于显示birder-></div>
+        <!-- Swiper -->
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<for start="0" end="5" name="k">
+    				<php>$line = $set['slowly_line_'.$k];</php>
+					<a href="{:U('line/content')}/id/{$line.id}">
+						<div class="swiper-slide travel_tab_line"  style="width:100%">
+							<img class="img-responsive" src="{$line.img1}" alt="">
+							<div class="background">
+								<h3>{$line.title}</h3>
+								<p>{$line.subheading}</p>
+								<span>Time：{$line.start_time}</span>
+								<a type="button" class="btn btn-orange-two" href="{:U('line/content')}/id/{$line.id}">查看线路</a>
+								<div style="background: #fff;height:50px;"></div>
+							</div>
+						</div>
+					</a>
+				</for>
+			</div>
+			<!-- Add Pagination -->
+			<div class="swiper-pagination"></div>
+		</div>
+        <a href="{:U('line/slowly')}"><h4 class="whole">查看全部小团慢旅行 <span><i class="iconfont">&#xe624;</i></span></h4></a>
+    </div>
+    <!--写真作品-->
+    <!--<div class="works">-->
+        <!--<div style="background:#efeff4;width:100%;height:.8rem;"><!-此div只用于显示灰色背景条-></div>-->
+        <!--<a href="{:U('article/list')}"><img class="img-responsive" src="__PUBLIC__/qlpphone/images/index/works-one.jpg" alt=""></a>-->
+        <!--<for start="0" end="6">-->
+        	<!--<php>$art = $set['travel_article_'.$i];</php>-->
+	        <!--<a href="{:U('article/info')}/id/{$art.id}">-->
+	            <!--<div class="works-one">-->
+	                <!--<img class="img-responsive" src="{$art.face_image}" alt="">-->
+	                <!--<div class="mask">-->
+	                    <!--<h3>{$art.title}</h3>-->
+	                    <!--<h4>发布时间：{$art.create_time}</h4>-->
+	                <!--</div>-->
+	            <!--</div>-->
+	        <!--</a>-->
+        <!--</for>-->
+        <!--<div style="background:#efeff4;width:100%;height:.8rem;"><!-此div只用于显示灰色背景条-></div>-->
+    <!--</div>-->
+    
+    <!-线路回顾->
+    <!--<div class="line review">-->
+        <!--<h2>线路回顾</h2>-->
+        <!--&lt;!&ndash;<p class="tit">用拍照见证瞬间的永恒用拍照见证瞬间的永恒</p>&ndash;&gt;-->
+        <!--<div class="border-bottom"><!-此div只用于显示birder-></div>-->
+	    <!--<for start="0" end="3">-->
+	        <!--<php>$art = $set['travel_review_article_'.$i];</php>-->
+	        <!--<a href="{:U('line/article')}/id/{$art.id}">-->
+	        <!--<div class="item">-->
+	            <!--<img class="img-responsive" src="{$art.face_image}" alt="">-->
+	            <!--<h4>{$art.short_title}</h4>-->
+	        <!--</div>-->
+	        <!--</a>-->
+		<!--</for>-->
+        <!--<a href="{:U('line/article')}"><h4 class="whole">查看全部新旅拍线路 <span><i class="iconfont">&#xe624;</i></span></h4></a>-->
+    <!--</div>-->
+
+<script type="text/javascript" src="__PUBLIC__/qlpphone/js/swiper-3.4.1.jquery.min.js"></script>
+<script type="text/javascript">
+	$('body').css('background', '#f2f4f5');	
+	
+	// 切换标签页
+	function changeTab() {
+		clearTravelLines();
+		var activeObj = $('.place-name').find('a.active');
+		if ($(activeObj).length == 0) {
+			toastr.warning('没有选定旅拍产品的标签');
+			return false;
+		}
+		
+		var tabset = $(activeObj).attr('data-set');
+		$('.travel_tab_line').each(function(i,obj){
+			$(this).find('.tab_set_image').attr('data-set', tabset+'_line_image_'+i);
+		});
+		
+		var findKeyValue = $(activeObj).attr('data-set')+'%';
+		$.post('{:U("line/find")}', {op_type: 'find_config', key: findKeyValue, op:'LIKE'}, function(data){
+			if (data.ds != null && data.ds != 'undefined') {
+				var idx = 0;
+				for (x in data.ds) {
+					if (x.indexOf('travel_tab_') == 0 && x.indexOf('_line_') != -1 && x.indexOf('_line_image_') == -1) {						
+						var d = data.ds[x];
+						var rootObj = $('.swiper-wrapper').find('.swiper-slide[data-swiper-slide-index="'+idx+'"]');	
+						$(rootObj).find('h3').html(d.title);
+						$(rootObj).find('p').html(d.subheading);
+						var infoUrl = '{:U("line/infon")}/id/'+d.id;
+						$(rootObj).find('.tab_set_line').attr('href', infoUrl);	
+						var imgKey = $(rootObj).find('img').attr('data-set');
+						$.ajax({
+							url: '{:U("line/find")}',
+							async: false,
+							type: 'POST',
+							dataType: 'json',
+							data: {op_type: 'find_config', key:imgKey},
+							success : function(imgData){
+								if (imgData.ds == null || imgData.ds == 'undefined') {
+									$(rootObj).find('img').attr('src', d.img1);
+								} else {
+									$(rootObj).find('img').attr('src', imgData.ds[imgKey]);
+								}
+							}
+						});
+						idx ++;
+					}
+				}
+			}		
+			if (data.result != null && data.result != 'undefined') {
+				toastr.error(data.result.errno);
+			}	
+		});
+	}
+
+	function selectTag(ev) {
+		ev.preventDefault();
+		$(this).closest('.place-name').find('a').removeClass('active');
+		$(this).addClass('active');
+		changeTab();
+	}
+	
+	function clearTravelLines() {
+		$('.swiper-wrapper').find('.travel_tab_line').each(function(){
+			$(this).find('.tab_set_image').attr('data-set', '');
+			$(this).find('.tab_set_image').attr('src', '');
+			$(this).find('h3').html('');
+			$(this).find('p').html('');
+			$(this).find('span').html('');
+		});
+	}
+
+	// 标签的选择
+	$('.place-name').find('a.set_tab').click(selectTag);
+	    
+    //swiper
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        slidesPerView: 1,
+        paginationClickable: true,
+        autoplay: 3000,
+        loop: true
+    });
+    
+    //慢旅行
+    $(".place-name .btn").on("click",function(){
+        $(this).addClass("active").siblings(".btn").removeClass("active");
+    })
+
+    //内容到可视区域显示遮罩层
+    $(document).ready(function(){
+        $(window).bind("scroll", function(event){
+            $(".works-one").each(function(){
+                var fold = $(window).height() + $(window).scrollTop();
+                if( fold <= $(this).offset().top){
+                    $(this).trigger("appear");
+                }
+            });
+        });
+
+        $(".works-one").each(function(){
+            if( $(window).height() > $(this).offset().top){
+                $(this).find(".mask").fadeOut();
+            }
+            $(this).one("appear",function(){
+                $(this).find(".mask").fadeIn()
+            });
+        });
+    });
+    
+</script>
+<include file="Common/bottom" />

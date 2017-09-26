@@ -1,0 +1,56 @@
+*{
+    padding:0px;
+    margin:0px;
+    font-family: "微软雅黑";
+}
+.slow-travel{
+    position: relative;
+    width:100%;
+    height:650px;
+    background: #fff;
+}
+.slow-travel .background{
+    width:861px;
+    padding-top:100px;
+    margin:0 auto;
+}
+.slow-travel .slow-travel-tit {
+    width:550px;
+    height:124px;
+    position: absolute;
+    top:30px;
+    left:0px;
+    right:0px;
+    margin:auto;
+}
+.slow-travel .slow-travel-detail{
+    width:570px;
+    height:350px;
+    position: absolute;
+    top:154px;
+    left:0px;
+    right:0px;
+    margin:0 auto;
+}
+.vui-slider .vui-item a, .vui-slider .vui-item img {
+    display: block;
+    padding: 0;
+    margin: 0 auto;
+    border: none;
+    margin-top: 136px;
+}
+.slow-travel .slow-travel-history{
+    width:545px;
+    height:104px;
+    position: absolute;
+    top:530px;
+    left:0px;
+    right:0px;
+    margin:auto;
+}
+.vui-slider .vui-prev {
+    display:none;
+}
+.vui-slider .vui-next {
+    display: none;
+}

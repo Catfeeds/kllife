@@ -1,0 +1,3 @@
+<?php
+//000000000000a:24:{s:6:"lunbo1";s:10:"1487140094";s:9:"id_lunbo1";s:3:"112";s:11:"sort_lunbo1";s:1:"0";s:6:"lunbo2";s:10:"1487140094";s:9:"id_lunbo2";s:3:"113";s:11:"sort_lunbo2";s:1:"0";s:6:"lunbo3";s:10:"1487140094";s:9:"id_lunbo3";s:3:"114";s:11:"sort_lunbo3";s:1:"0";s:18:"config_update_time";s:10:"1487140094";s:21:"id_config_update_time";s:3:"159";s:23:"sort_config_update_time";s:1:"0";s:8:"zhuanti0";i:1487140094;s:11:"id_zhuanti0";s:3:"115";s:13:"sort_zhuanti0";s:1:"0";s:8:"zhuanti1";i:1487140094;s:11:"id_zhuanti1";s:3:"118";s:13:"sort_zhuanti1";s:1:"1";s:8:"zhuanti2";i:1487140094;s:11:"id_zhuanti2";s:3:"117";s:13:"sort_zhuanti2";s:1:"2";s:8:"zhuanti3";i:1487140094;s:11:"id_zhuanti3";s:3:"116";s:13:"sort_zhuanti3";s:1:"3";}
+?>

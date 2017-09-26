@@ -1,0 +1,74 @@
+		<!-- Add "fixed" class to make the sidebar fixed always to the browser viewport. -->
+		<!-- Adding class "toggle-others" will keep only one menu item open at a time. -->
+		<!-- Adding class "collapsed" collapse sidebar root elements and show only icons. -->
+		<div class="sidebar-menu toggle-others fixed">
+			
+			<div class="sidebar-menu-inner">	
+				
+				<header class="logo-env">
+					
+					<!-- logo -->+
+					<div class="logo">
+						<a href="{__GLOBAL_APPLICATION_URL__}" class="logo-expanded">
+							<img src="__PUBLIC__/assets/images/logo.png" width="80" alt="" />
+						</a>
+						
+						<a href="{__GLOBAL_APPLICATION_URL__}" class="logo-collapsed">
+							<img src="__PUBLIC__/assets/images/logo.png" width="40" alt="" />
+						</a>
+					</div>
+					
+					<!-- This will toggle the mobile menu and will be visible only on mobile devices -->
+					<div class="mobile-menu-toggle visible-xs">
+						<a href="{__GLOBAL_APPLICATION_URL__}" data-toggle="user-info-menu">
+							<i class="fa-bell-o"></i>
+							<span class="badge badge-success">7</span>
+						</a>
+						
+						<a href="{__GLOBAL_APPLICATION_URL__}" data-toggle="mobile-menu">
+							<i class="fa-bars"></i>
+						</a>
+					</div>
+					
+					<!-- This will open the popup with user profile settings, you can use for any purpose, just be creative -->
+					<!--<div class="settings-icon">
+						<a href="#" data-toggle="settings-pane" data-animate="true">
+							<i class="linecons-cog"></i>
+						</a>
+					</div>-->		
+								
+				</header>
+						
+				
+						
+				<ul id="main-menu" class="main-menu">
+					<!-- add class "multiple-expanded" to allow multiple submenus to open -->
+					<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+					<li {:C('MENU_ACTIVE')=='mine' ? 'class="active opened"' : ''}><!-- class="active opened"-->
+						<a href="{:U('user/info')}">
+							<i class="el-torso"><!--<i class="linecons-cog">--></i>
+							<span class="title">我的主页</span>
+						</a>
+					</li>
+					<li {:C('MENU_ACTIVE')=='line_article' ? 'class="active opened"' : ''}>
+						<a href="{:U('line/article')}/type/list">
+							<i class="el-th"></i>
+							<span class="title">我的文章</span>
+						</a>
+					</li>
+					<li {:C('MENU_ACTIVE')=='lock_screen' ? 'class="active opened"' : ''}>
+						<a href="{:U('user/lockscreen')}">
+							<i class="el-off"></i>
+							<span class="title">锁屏</span>
+						</a>
+					</li>
+					<li {:C('MENU_ACTIVE')=='question' ? 'class="active opened"' : ''}>
+						<a href="{:U('index/question')}">
+							<i class="el-help"></i>
+							<span class="title">关于</span>
+						</a>
+					</li>
+				</ul>
+						
+			</div> <!--div:sidebar-menu-inner-->						
+		</div> <!--div:sidebar-menu-->

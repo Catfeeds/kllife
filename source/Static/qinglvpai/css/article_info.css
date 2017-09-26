@@ -1,0 +1,11 @@
+body{background: #1e1f22;}
+.popup{width:100%;height:100%;background: rgba(0,0,0,0.7);z-index:99999999;display:none;}
+.popup .header{height:80px;position:fixed;top:0px;left:0px;width:100%;background: #fff;color:#fff;font-size: 18px;line-height:80px;padding-left:100px;}
+.popup .header img{width:200px;}
+.popup .header span{display: inline-block;font-size: 18px;padding-left:50px;color:#333;}
+.popup .content{position: fixed;top:80px;left:0px;right:0px;width:1500px;height:100%;margin:auto;text-align: center;text-align: -webkit-center}
+.popup .content .img{overflow:hidden;width:100%;height:100%;}
+.popup .content .div_perview_button{position:fixed;left:0px;top:40%;height:100px;width:40px;background:#111010;cursor: pointer}
+.popup .content .div_next_button{position:fixed;right:0px;top:40%;height:100px;width:40px;background:#111010;cursor: pointer}
+.popup .content .div_perview_button span i{display:inline;color:#fff;font-size: 30px;line-height:100px;margin-left:5px;}
+.popup .content .div_next_button span i{display:inline;color:#fff;font-size: 30px;line-height:100px;margin-left:5px;}

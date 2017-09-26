@@ -1,0 +1,83 @@
+<include file="Common/top" />
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/css/common_problem.css">
+	<div id="content">
+		<!-- 面包屑导航 -->
+		<div class="bread-nav">
+			<a href="javascript:;">领袖首页</a>
+			>
+			<a class="bread-final" href="javascript:;">常见问题</a>
+		</div>
+		<div class="common-problem-content">
+			<!-- 左半部分 -->
+			<div class="common-problem-left">
+				<volist id="qt" name="service_question">
+					<div class="{$qt.class}">
+						<h3>{$qt.type_desc}</h3>
+						<volist id="quest" name="qt.questions">
+							<if condition="$quest['id'] eq $show_question['id']">
+								<p><a class="checked-problem" href="javascript:;" data-id="{$quest.id}">{$quest.content}</a></p>
+							<else />
+								<p><a href="javascript:;" data-id="{$quest.id}">{$quest.content}</a></p>
+							</if>
+						</volist>
+					</div>
+				</volist>
+			</div>
+			<!-- 右半部分 -->
+			<div class="common-problem-right">
+				<div class="answer-problem">
+					<h4>{$show_question.content}</h4>
+					<volist id="answer" name="show_question.answers">
+						{$answer.content}
+					</volist>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--图片延迟加载-->
+	<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(
+			function($){
+				$("img").lazyload({
+					placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+					effect      : "fadeIn",
+					threshold : 100,
+					failure_limit : 10
+				});
+			});
+	</script>
+	<script>
+	
+		//左部-to-右部
+		$('.common-problem-left a').click( function () {
+			var jsonData = {
+				id: $(this).attr('data-id'),
+			}
+			
+			$('.common-problem-left a').removeClass('checked-problem');
+			$(this).addClass('checked-problem');		
+			
+			$.post('{:U("service/question")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (data.ds != null) {
+						var vhtml = '<div class="answer-problem">'+						
+									'	<h4>'+data.ds.content+'</h4>';
+						for (var i = 0; i < data.ds.answers.length; i++) {
+							var d = data.ds.answers[i];							
+							vhtml += d.content;
+						}
+						vhtml += '</div>';
+						$('.common-problem-right').html(vhtml);
+					}
+				} else {					
+					alert(data.result.message);
+				}
+			});
+			
+			$('html,body').animate({scrollTop: 0},500);
+		} );
+	</script>
+<include file="Common/right" />
+<include file="Common/bottom" />

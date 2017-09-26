@@ -1,0 +1,68 @@
+
+	<footer>
+		<div class="footer-content">
+			<div class="footer-content-left">
+				<volist id="qt" name="question_type">
+					<php>					
+						if ($key === 'config_update_time') {
+							continue;
+						}
+					</php>
+					<ul class="{$qt.class}">
+						<li>{$qt.type_desc}</li>
+						<volist id="quest" name="qt.questions">
+							<li><a href="{:U('service/question')}/id/{$quest.id}">{$quest.content}</a></li>
+						</volist>
+					</ul>
+				</volist>
+			</div>
+			<div class="footer-content-right">
+				<img src="__PUBLIC__/home/common/images/footer_erweima.png" alt="">
+			</div>
+		</div>
+	</footer>
+	<div class="footer-bottom">
+		<div class="footer-bottom-content">
+			<p>
+				友情链接：
+				<volist id='set_val' name="pcset">
+					<if condition="stripos($key, 'pc_friend_link') heq 0">
+						<notempty name="fk">&nbsp;|&nbsp;</notempty>
+						<php> $fk = json_decode($set_val, true); </php>
+						<a href="{$fk.url}" target="_blank" this.onclick();>{$fk.text}</a>
+					</if>
+				</volist>
+			</p>
+			<p class="zhutilvyou">
+				主题旅游：
+					<volist id="set_val" name="pcset_top_link">
+						<notempty name="bot_fk">&nbsp;|&nbsp;</notempty>
+						<php> $bot_fk = json_decode($set_val['value'], true); </php>
+						<a href="{$bot_fk.url}" target="_blank">{$bot_fk.text}</a>
+					</volist>
+			</p>
+			<span style="margin-top: 20px;">Copyright © 2006-2014 kllife.com | 陕西浪客国际旅行社有限责任公司版权所有</span><em>公司地址：陕西省西安市雁塔区太白南路上上国际</em>
+			<br>
+			<span>领袖户外经营许可证号：L-SNX00306 陕ICP备14011728号-1</span>
+            {$pcset.statistic_script}
+		</div>
+	</div>
+	
+	<!-- Imported toastr -->
+	<script src="__PUBLIC__/assets/js/toastr/toastr.min.js"></script>
+	<script src="__PUBLIC__/common/js/functions.js"></script>
+	<!-- 日期 -->
+	<script src="__PUBLIC__/home/common/js/jQuery-jcDate.js"></script>
+	<!-- 轮播 -->
+	<script src="__PUBLIC__/home/js/unslider.min.js"></script>
+	<!-- 自绑定 -->
+	<script src="__PUBLIC__/home/common/js/showAndHide.js"></script>
+	<!-- 头部js -->
+	<script src="__PUBLIC__/home/common/js/headroom.js"></script>
+	<!-- 侧边栏&头部 -->
+	<script src="__PUBLIC__/home/common/js/aside-header.js"></script>
+	<script type="text/javascript">
+
+	</script>
+</body>
+</html>

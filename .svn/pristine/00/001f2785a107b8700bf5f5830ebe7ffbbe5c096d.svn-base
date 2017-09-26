@@ -1,0 +1,115 @@
+.list .travel{
+    background: #fff;
+    padding-bottom:8rem;
+}
+.list .travel h2,.list .travel h3,.list .travel h4{
+    text-align: center;
+    text-align: -webkit-center;
+    margin:0px;
+    color:#333;
+}.list .travel h2{
+     padding:40px 0px 30px;
+ }
+.list .travel h3{
+    padding:0px 0px 20px;
+    color:#333;
+}
+.list .travel .place-name{
+    width:45%;
+    margin:auto;
+    border:1px solid #bfbfbf;
+    font-size:1.6rem;
+    padding:8px 0px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.list .travel .place-name .rotate{
+    display: inline-block;
+    transform-origin:center center; //旋转中心要是正中间 才行
+transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transition: transform 0.7s; //过度时间 可调
+-moz-transition: -moz-transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -o-transition: -o-transform 0.7s;
+    -ms-transition: -ms-transform 0.7s;
+}
+.list .travel .place-name .rotate1{
+    display: inline-block;
+    transform-origin:center center;
+    transform: rotate(0deg); //返回原点
+-webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transition: transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -o-transition: -o-transform 0.7s;
+    -ms-transition: -ms-transform 0.7s;
+}
+.list .travel .place-name span{
+    display: inline-block;
+    font-size:1.6rem;
+}
+.list .travel .place-name-more{
+    padding:0px;
+    display:none;
+    border-top:none;
+}
+.list .travel .place-name-more li{
+    list-style: none;
+    font-size: 1.6rem;
+    padding:10px 0px;
+    border-bottom:1px solid #eee;:
+}
+.list .travel .img{
+    margin-top:20px;
+}
+.list .travel .detail{
+    padding:20px;
+    text-align: center;
+    text-align: -webkit-center;
+    font-size: 1.6rem;
+    margin:0px;
+    color:#333;
+}
+.list .travel .price{
+    text-align: center;
+    text-align: -webkit-center;
+    font-size: 1.4rem;
+    color:#333;
+}
+.list .travel .price span{
+    display: inline-block;
+    font-size: 30px;
+    padding:0px 5px;
+    font-weight: bold;
+}
+.list .travel .btn-orange-two{
+    display: block;
+    width:150px;
+    margin:auto;
+    margin-bottom:30px;
+}
+.list .travel .item{
+    border-top:1px solid #000;
+    padding-top:40px;
+}
+.list .travel .more{
+    width:100%;
+    text-align: center;
+    text-align: -webkit-center;
+    font-size: 1.6rem;
+    height:100px;
+    padding-top:40px;
+    border:1px solid #000;
+    cursor: pointer;
+    margin-top:10px;
+}
+.index .travel .item{
+    margin-top:0px;
+}

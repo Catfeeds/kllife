@@ -1,0 +1,34 @@
+/*搜索*/
+.bar .searchbar { background-color: #fff; }
+.bar .button-link { color: #ff7200; }
+.bar .searchbar .search-input input { width: 71.5%; margin: 0 auto !important; border: 1px solid #c9c9c9; border-radius: 20px; }
+.searchbar { background-color: #fff; }
+.search-input i { position: absolute; top: -.1rem; left: 20%; font-size: 1rem; color: #999; }
+/*筛选*/
+.row { padding: 0.6rem 0; background-color: #f7f7f7; border-top: 1px solid #c9c9c9; border-bottom: 1px solid #c9c9c9; }
+.row .col-33 { position: relative; line-height: normal; text-align: center; font-size: 0.75rem; }
+.row .col-33 + .col-33 { border-left: 1px solid #c9c9c9; }
+.row .col-33 i { vertical-align: bottom; font-size: 1rem; }
+.title { font-size: .75rem; }
+.picker-items { font-size: 1rem; }
+/*列表内容*/
+.content { top: 2.4rem; }
+.list-block { margin: 0; }
+.travel-content > img { max-width: 100%; margin-top: 1rem; }
+.travel-content > a { display: block; width: 8rem; height: 2rem; line-height: 2rem; margin: 0 auto; margin-top: 1rem; color: #ff7200; text-align: center; border: 1px solid #ff7200; border-radius: 5px; }
+.travel-content-sublist { position: relative; max-width: 100%; margin-top: .6rem; overflow: hidden; }
+.travel-content-sublist > a { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.travel-content-img , .travel-content-word { float: left; }
+.travel-content-img img { width: 5rem; height: 3.75rem; } 
+.travel-content-img { width: 28.169%; }
+.travel-content-word { position: relative; width: 71.83%; }
+.travel-content-word h4 { margin: 0; padding-left: 0.5rem; font-size: .8rem; font-weight: normal; line-height: 1.2; color: #333; }
+.travel-content-word p { padding-left: 0.5rem; margin-top: 1.0rem; color: #999; font-size: 0.6rem; }
+.travel-content-word s { position: absolute; bottom: .7rem; right: 0; color: #999; font-size: 0.6rem; }
+.travel-content-word span { position: absolute; bottom: 0; right: 0; color: #ff7200; font-size: 0.6rem; }
+.list-block .item-content { padding: 0 .5rem; }
+
+
+@media screen and ( max-width:340px ) {
+	.list-block .item-content { padding: 0 .1rem; }
+} 

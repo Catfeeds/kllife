@@ -1,0 +1,992 @@
+<include file="Common/top" />
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/common/css/common.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/slider-full.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/slow-travel.css">
+
+
+<style>
+	.debug_div { position: fixed; top: 0; left: 0; width: 100px; height: 100px; z-index: 9999; display: none;}
+	.vui-slider{display: inline-block;text-align: center;text-align: -webkit-center;}
+	#xiaotuanmanblock{left:-174px;}
+	#xiaotuanmannone{left:80%;}
+	#xiaotuanman-none{background-image: url(__PUBLIC__/home/images/index_img/xiaotuanman2.png);background-repeat: no-repeat;background-position: center center;height:180px;}
+	@media screen and (max-width: 1600px){#xiaotuanmannone{left:90%;}}
+	.qinglvpai-product{margin-top:30px;}
+	.background-img-loading{background-image: url(__PUBLIC__/home/common/images/background-img-loading.gif);background-repeat: no-repeat;background-position: center center;z-index:90;}
+</style>
+<div class="debug_div">
+	{:p_a($ip)}
+</div>
+<!-- 轮播 -->
+<div style="position: relative">
+	<div class="lunbo">
+		<!-- 轮播 -->
+		<div class="lubo">
+			<ul class="lubo_box">
+				<for start="1" end="7" comparison="elt">
+					<php> $lunboKey = 'lunbo'.$i; $lunboUrl = 'lunbo'.$i.'_url';</php>
+					<if condition="$i eq 1">
+						<li data-set="lunbo{$i}" style="display: block;"><a href="{$set[$lunboUrl]}" target="_blank" style="background-image:url({$set[$lunboKey]}); background-size: 100% 100%;"></a></li>
+						<else />
+						<li data-set="lunbo{$i}"><a href="{$set[$lunboUrl]}" target="_blank" style="background-image:url({$set[$lunboKey]}); background-size: 100% 100%;"></a></li>
+					</if>
+				</for>
+			</ul>
+		</div>
+	</div>
+	<div id="newnav">
+		<div class="newnav-left">
+			<volist id="lm" name="left_menus">
+				<if condition="$lm['item_key'] eq 'pc_home_left_menu_hot'">
+					<div class="newnav-tit">
+						<div class="newnav-position">
+							<div>
+								<h2><a href="{:U('line/list')}" class="lg">{$lm.item_desc}</a></h2>
+								<volist id="lmc" name="lm.child">
+									<if condition="empty($lmc['left_menu_not_show'])">
+										<a href="{:U('line/list')}/lm1/{$lmc['id']}" target="_blank" class="sm"> {$lmc.item_desc}</a>
+									</if>
+								</volist>
+							</div>
+							<!--<i class="iconfontyyy iconfont-left">&#xe61d;</i>-->
+							<i class="iconfontyyy iconfont-right">&#xe600;</i>
+						</div>
+					</div>
+				</if>
+			</volist>
+			<volist id="tm" name="menus">
+				<if condition="$tm['item_key'] eq 'pc_home_menu_xtmlx' or $tm['item_key'] eq 'pc_home_menu_xinlvpai' or $tm['item_key'] eq 'pc_home_menu_sheying' or $tm['item_key'] eq 'pc_home_menu_zhuti'">					
+					<div class="newnav-tit">
+						<div class="newnav-position">
+							<div>
+								<if condition="$tm['item_key'] eq 'pc_home_menu_zhuti'">
+									<h2><a href="{:U('line/list')}/m0/{$tm.id}" target="_blank" class="lg">深度游</a></h2>
+								<else />
+									<h2><a href="{:U('line/list')}/m0/{$tm.id}" target="_blank" class="lg">{$tm.item_desc}</a></h2>
+								</if>
+								<volist id="tmc" name="tm.child">
+									<if condition="empty($tmc['left_menu_not_show'])">
+										<a href="{:U('line/list')}/m0/{$tm.id}/m1/{$tmc.id}" target="_blank" class="sm"> {$tmc.item_desc}</a>
+									</if>
+								</volist>
+							</div>
+							<!--<i class="iconfontyyy iconfont-left">&#xe698;</i>-->
+							<i class="iconfontyyy iconfont-right">&#xe600;</i>
+						</div>
+					</div>
+				</if>
+			</volist>
+		</div>
+		<div class="newnav-right">
+			<volist id="lm" name="left_menus">
+				<if condition="$lm['item_key'] eq 'pc_home_left_menu_hot'">				
+					<div class="newnav-centent">
+						<volist id="lmc" name="lm.child">
+							<div class="newnav-item">
+								<div>
+									<a href="{:U('line/list')}/lm1/{$lmc['id']}" target="_blank" class="region">{$lmc.item_desc}</a>
+									<volist id="lmcc" name="lmc.child">										
+										<a href="{:U('line/list')}/lm1/{$lmc['id']}/lm2/{$lmcc['id']}" target="_blank" class="region-name">{$lmcc.item_desc}</a>
+									</volist>
+								</div>
+							</div>
+						</volist>
+					</div>
+				</if>
+			</volist>
+			<volist id="tm" name="menus">
+				<if condition="$tm['item_key'] eq 'pc_home_menu_xtmlx' or $tm['item_key'] eq 'pc_home_menu_xinlvpai' or $tm['item_key'] eq 'pc_home_menu_sheying' or $tm['item_key'] eq 'pc_home_menu_zhuti'">					
+					<div class="newnav-centent">
+						<volist id="tmc" name="tm.child">
+							<div class="newnav-item">
+								<div>
+									<a href="{:U('line/list')}/m0/{$tm.id}/m1/{$tmc.id}" target="_blank" class="region">{$tmc.item_desc}</a>
+									<volist id="tmcc" name="tmc.child">										
+										<a href="{:U('line/list')}/m0/{$tm.id}/m1/{$tmc['id']}/m2/{$tmcc['id']}" target="_blank" class="region-name">{$tmcc.item_desc}</a>
+									</volist>
+								</div>
+							</div>
+						</volist>
+					</div>
+				</if>
+			</volist>
+		</div>
+	</div>
+</div>
+<!--报名状态显示-->
+<div class="user-tel">
+	<div class="user-tel-img"><img src="__PUBLIC__/home/images/index_img/sign_up.png" alt=""></div>
+	<div id="demo">
+		<div id="indemo">
+			<div id="demo1">
+				<volist id="order" name="top_signup_orders">
+					<a href="{:U('line/info')}/id/{$order.lineid}" target="_blank">用户 <span class="span">{$order.mob_show}</span> 预订 <span>{$order.lineid_title} |</span></a>
+				</volist>
+			</div>
+			<div id="demo2"></div>
+		</div>
+	</div>
+</div>
+<!-- 为什么选择我们 -->
+<include file="Common/choose_us" />
+<!-- 精选热卖 -->
+<div class="bg-white">
+	<div class="hot-sale main">
+		<h2>精选热卖</h2>
+		<p><a href="{:U('line/list')}/cds/hot|1" target="_blank">更多</a></p>
+		<ul class="tab-list">
+			<volist id="tab" name="set.hot_line_tab">
+				<if condition="$key eq 0">
+					<li><a href="javascript:;" class="g cur" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+				<else />
+					<li><a href="javascript:;" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+				</if>
+			</volist>
+			<div class="move-bg"></div>
+		</ul>
+		
+		<volist id="tab" name="set.hot_line_tab">
+		<div class="hot-sale-product" id="{$tab.id}">
+			<div class="group">
+				<for start="0" end="10">
+					<php> $hotLine = $set[$tab['type_key'].$i];</php>
+					<if condition="empty($hotLine) === false">
+						<a href="{:U('line/info')}/id/{$hotLine['id']}" title="【{$hotLine['title']}】{$hotLine['subheading']}">
+							<div class="item">
+								<div class="p-lg">
+									<div class="p-lg-border">
+										<span class="background-img-loading"><img class="img-responsive" data-echo="{$hotLine['img1']}" alt=""></span>
+										<div class="tit height">
+											<p class="p"><span>【{$hotLine['title']}】</span>{$hotLine['subheading']}</p>
+											<p>满团人数：<span>{$hotLine['max_team_count']}</span>人</p>
+											<p>集合地点：<span>{$hotLine['assembly_point_show_text']}</span></p>
+											<p>发团时间：<span>{$hotLine['start_time']}-{$hotLine['end_time']}</span></p>
+										</div>
+										<div class="buy">
+											<span class="{$hotLine['theme_type_list'][0]['type_key']}">{$hotLine['theme_type_list'][0]['type_desc']}</span>
+											<php>
+												if (empty($hotLine['check_price'])) {
+													echo('<span class="money"  style="margin-top:8px;">未审核</span>');
+												}else {
+													$price = explode('.', $hotLine['start_price_adult']);
+													echo('<span class="money">￥<span>'.$price[0].'</span>元起</span>');
+												}
+											</php>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</if>
+				</for>
+			</div>
+		</div>
+		</volist>
+	</div>
+</div>
+<!-- 精彩专题 -->
+<include file="Common/zhuanti" />
+<!-- 小团慢旅行 -->
+<div class="bg-white" style="background: #f4f4f4;">
+	<div class="depth main">
+		<h2>小团慢旅行</h2>
+		<p><a href="{:U('line/list')}/cds/c0|37/cache/1" target="_blank">更多</a></p>
+		<ul class="tab-list">
+			<volist id="tab" name="set.depth_line_tab">
+				<if condition="$key eq 0">
+					<li><a href="javascript:;" class="g cur" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+					<else />
+					<li><a href="javascript:;" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+				</if>
+			</volist>
+			<div class="move-bg"></div>
+		</ul>
+
+		<volist id="tab" name="set.depth_line_tab">
+			<assign name="deepIndex" value="0" />
+			<div class="depth-product" id="{$tab.id}">
+				<ul>
+					<for start="0" end="8">
+						<php>
+							$deep_key = $tab['type_key'].$i;
+							if (empty($set[$deep_key]['id'])) {
+							continue;
+							}
+							$liClass = '';
+							if ($deepIndex % 4 == 0) {
+							$liClass = 'clear-margin';
+							}
+							$deepIndex ++;
+						</php>
+						<li class="{$liClass}" title="{$set[$deep_key]['title']}：{$set[$deep_key]['subheading']}">
+							<div class="depth-product-content" data-id="{$set[$deep_key]['id']}" style="border:none;">
+								<!--几日游-->
+								<div class="jiriyou">
+									<p><span>{$set[$deep_key]['travel_day']}</span>日游</p>
+								</div>
+								<if condition="empty($set[$deep_key]['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img data-echo="__PUBLIC__/home/images/index_img/{$set[$deep_key]['line_especial_icon']}" alt="">
+									</div>
+								</if>
+								<a class="background-img-loading" href="{:U('line/info')}/id/{$set[$deep_key]['id']}" target="_blank">
+									<img data-echo="{$set[$deep_key]['img1']}" data-echo="" alt="">
+								</a>
+								<div class="depth-product-content-describe">
+									<h5><a href="{:U('line/info')}/id/{$set[$deep_key]['id']}" target="_blank">{$set[$deep_key]['title']}</a></h5>
+									<p>{$set[$deep_key]['subheading']}</p>
+									<if condition="empty($set[$deep_key]['check_price'])">
+										<strong><em>核算中</em></strong>
+									<else />
+										<php>$price = explode('.', $set[$deep_key]['start_price_adult']);</php>
+										<strong>￥<em>{$price[0]}</em>起</strong>
+									</if>
+								</div>
+							</div>
+						</li>
+					</for>
+				</ul>
+			</div>
+		</volist>
+	</div>
+</div>
+
+<!-- 跟拍游 -->
+<div class="bg-gray" style="background: #fff;">
+	<div class="qinglvpai main">
+		<h2 style="float: left;padding-left:10px;">跟拍游</h2>
+		<h4 style="float: left; font-weight: normal; margin-left:10px; margin-top: 12px;">游世界拍美照，不是所有的旅行都专注女性！</h4>
+		<p><a href="{:U('line/xiezhenlvxing')}" target="_blank">更多</a></p>
+		<ul class="tab-list">
+			<volist id="tab" name="set.qinglvpai_line_tab">
+				<if condition="$key eq 0">
+					<li><a href="javascript:;" class="g cur" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+					<else />
+					<li><a href="javascript:;" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+				</if>
+			</volist>
+			<div class="move-bg"></div>
+		</ul>
+
+		<volist id="tab" name="set.qinglvpai_line_tab">
+			<assign name="qinglvpaiIndex" value="0" />
+			<div class="qinglvpai-product" id="{$tab.id}">
+				<ul>
+					<for start="0" end="8">
+						<php>
+							$qinglvpai_key = $tab['type_key'].$i;
+							if (empty($set[$qinglvpai_key]['id'])) {
+							continue;
+							}
+							$liClass = '';
+							if ($qinglvpaiIndex % 4 == 0) {
+							$liClass = 'clear-margin';
+							}
+							$qinglvpaiIndex ++;
+						</php>
+						<li class="{$liClass}" title="{$set[$qinglvpai_key]['title']}：{$set[$qinglvpai_key]['subheading']}">
+							<div class="qinglvpai-product-content" data-id="{$set[$qinglvpai_key]['id']}" style="border:none;">
+								<!--几日游-->
+								<div class="jiriyou">
+									<p><span>{$set[$qinglvpai_key]['travel_day']}</span>日游</p>
+								</div>
+								<if condition="empty($set[$qinglvpai_key]['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img data-echo="__PUBLIC__/home/images/index_img/{$set[$qinglvpai_key]['line_especial_icon']}" alt="">
+									</div>
+								</if>
+								<a class="background-img-loading" href="{:U('line/info')}/id/{$set[$qinglvpai_key]['id']}" target="_blank">
+									<img data-echo="{$set[$qinglvpai_key]['img1']}" data-echo="" alt="">
+								</a>
+								<div class="qinglvpai-product-content-describe" style="background: #f4f4f4">
+									<h5><a href="{:U('line/info')}/id/{$set[$qinglvpai_key]['id']}" target="_blank">{$set[$qinglvpai_key]['title']}</a></h5>
+									<p>{$set[$qinglvpai_key]['subheading']}</p>
+									<if condition="empty($set[$qinglvpai_key]['check_price'])">
+										<strong><em>核算中</em></strong>
+									<else />
+										<php>$price = explode('.', $set[$qinglvpai_key]['start_price_adult']);</php>
+										<strong>￥<em>{$price[0]}</em>起</strong>
+									</if>
+								</div>
+							</div>
+						</li>
+					</for>
+				</ul>
+			</div>
+		</volist>
+	</div>
+</div>
+
+<!-- 摄影游 -->
+<div class="bg-white" style="background: #f4f4f4;">
+	<div class="photograph main">
+		<h2 style="padding-left:10px;">摄影游</h2>
+		<p><a href="{:U('line/list')}/cds/c0|38/cache/1" target="_blank">更多</a></p>
+		<ul class="tab-list">
+			<volist id="tab" name="set.photograph_line_tab">
+				<if condition="$key eq 0">
+					<li><a href="javascript:;" class="g cur" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+					<else />
+					<li><a href="javascript:;" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+				</if>
+			</volist>
+			<div class="move-bg"></div>
+		</ul>
+
+		<volist id="tab" name="set.photograph_line_tab">
+			<assign name="photoIndex" value="0" />
+			<div class="photograph-product" id="{$tab.id}">
+				<ul>
+					<for start="0" end="8">
+						<php>
+							$photo_key = $tab['type_key'].$i;
+							if (empty($set[$photo_key]['id'])) {
+							continue;
+							}
+							$liClass = '';
+							if ($photoIndex % 4 == 0) {
+							$liClass = 'clear-margin';
+							}
+							$photoIndex ++;
+						</php>
+						<li class="{$liClass}" title="{$set[$photo_key]['title']}：{$set[$photo_key]['subheading']}">
+							<div class="photograph-product-content" data-id="{$set[$photo_key]['id']}" style="margin:0px 10px;">
+								<!--几日游-->
+								<div class="jiriyou">
+									<p><span>{$set[$photo_key]['travel_day']}</span>日游</p>
+								</div>
+								<if condition="empty($set[$photo_key]['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img data-echo="__PUBLIC__/home/images/index_img/{$set[$photo_key]['line_especial_icon']}" alt="">
+									</div>
+								</if>
+								<a class="background-img-loading" href="{:U('line/info')}/id/{$set[$photo_key]['id']}" target="_blank">
+									<img data-echo="{$set[$photo_key]['img1']}" data-echo="" alt="">
+								</a>
+								<div class="photograph-product-content-describe">
+									<h5><a href="{:U('line/info')}/id/{$set[$photo_key]['id']}" target="_blank">{$set[$photo_key]['title']}</a></h5>
+									<p>{$set[$photo_key]['subheading']}</p>
+									<if condition="empty($set[$photo_key]['check_price'])">
+										<strong><em>核算中</em></strong>
+									<else />
+										<php>$price = explode('.', $set[$photo_key]['start_price_adult']);</php>
+										<strong>￥<em>{$price[0]}</em>起</strong>
+									</if>
+								</div>
+							</div>
+						</li>
+					</for>
+				</ul>
+			</div>
+		</volist>
+	</div>
+</div>
+<!-- 民族行 -->
+<div class="bg-gray"  style="background: #fff;">
+	<div class="theme main">
+		<h2 style="padding-left:10px;">民族行</h2>
+		<p><a href="{:U('line/list')}/cds/c0|118/cache/1" target="_blank">更多</a></p>
+		<ul class="tab-list">
+			<volist id="tab" name="set.theme_line_tab">
+				<if condition="$key eq 0">
+					<li><a href="javascript:;" class="g cur" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+					<else />
+					<li><a href="javascript:;" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+				</if>
+			</volist>
+			<div class="move-bg"></div>
+		</ul>
+
+		<volist id="tab" name="set.theme_line_tab">
+			<assign name="themeIndex" value="0" />
+			<div class="theme-product" id="{$tab.id}">
+				<ul>
+					<for start="0" end="8">
+						<php>
+							$theme_key = $tab['type_key'].$i;
+							if (empty($set[$theme_key]['id'])) {
+							continue;
+							}
+							$liClass = '';
+							if ($themeIndex % 4 == 0) {
+							$liClass = 'clear-margin';
+							}
+							$themeIndex ++;
+						</php>
+						<li class="{$liClass}" title="{$set[$theme_key]['title']}：{$set[$theme_key]['subheading']}">
+							<div class="theme-product-content" data-id="{$set[$theme_key]['id']}" style="border:none">
+								<!--几日游-->
+								<div class="jiriyou">
+									<p><span>{$set[$theme_key]['travel_day']}</span>日游</p>
+								</div>
+								<if condition="empty($set[$theme_key]['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img style="height:213.5px;" data-echo="__PUBLIC__/home/images/index_img/{$set[$theme_key]['line_especial_icon']}" alt="">
+									</div>
+								</if>
+								<a class="background-img-loading" href="{:U('line/info')}/id/{$set[$theme_key]['id']}" target="_blank">
+									<img style="height:213.5px;" data-echo="{$set[$theme_key]['img1']}" data-echo="" alt="">
+								</a>
+								<div class="theme-product-content-describe" style="background: #f4f4f4">
+									<h5><a href="{:U('line/info')}/id/{$set[$theme_key]['id']}" target="_blank">{$set[$theme_key]['title']}</a></h5>
+									<p>{$set[$theme_key]['subheading']}</p>
+									<if condition="empty($set[$theme_key]['check_price'])">
+										<strong><em>核算中</em></strong>
+									<else />
+										<php>$price = explode('.', $set[$theme_key]['start_price_adult']);</php>
+										<strong>￥<em>{$price[0]}</em>起</strong>
+									</if>
+								</div>
+							</div>
+						</li>
+					</for>
+				</ul>
+			</div>
+		</volist>
+	</div>
+</div>
+<!-- 周边游 -->
+<div class="bg-gray"  style="background: #f4f4f4;">
+	<div class="surrounding main">
+		<if condition="$station['key'] neq 'main'">
+			<h2 style="padding-left:10px;">{$station.name}周边游</h2>
+			<p><a href="{:U('line/list')}/cds/station|{$station['key']}|c0|876" target="_blank">更多</a></p>
+			<else />
+			<h2 style="padding-left:10px;">周边游</h2>
+			<p><a href="{:U('line/list')}/cds/c0|876/cache/1" target="_blank">更多</a></p>
+		</if>
+		<ul class="tab-list">
+			<volist id="tab" name="set.surrounding_line_tab">
+				<if condition="$key eq 0">
+					<li><a href="javascript:;" class="g cur" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+					<else />
+					<li><a href="javascript:;" data-id="{$tab.id}">{$tab.type_desc}</a></li>
+				</if>
+			</volist>
+			<div class="move-bg"></div>
+		</ul>
+
+		<volist id="tab" name="set.surrounding_line_tab">
+			<assign name="surroundIndex" value="0" />
+			<div class="surrounding-product" id="{$tab.id}">
+				<ul>
+					<for start="0" end="8">
+						<php>
+							$around_key = $tab['type_key'].$i;
+							if (empty($set[$around_key]['id'])) {
+							continue;
+							}
+							$liClass = '';
+							if ($surroundIndex % 4 == 0) {
+							$liClass = 'clear-margin';
+							}
+							$surroundIndex ++;
+						</php>
+						<li class="{$liClass}" title="{$set[$around_key]['title']}：{$set[$around_key]['subheading']}">
+							<div class="surrounding-product-content" data-id="{$set[$around_key]['id']}" style="margin:0px 10px;">
+								<!--几日游-->
+								<div class="jiriyou">
+									<p><span>{$set[$around_key]['travel_day']}</span>日游</p>
+								</div>
+								<if condition="empty($set[$around_key]['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img data-echo="__PUBLIC__/home/images/index_img/{$set[$around_key]['line_especial_icon']}" alt="">
+									</div>
+								</if>
+								<a class="background-img-loading" href="{:U('line/info')}/id/{$set[$around_key]['id']}" target="_blank">
+									<img data-echo="{$set[$around_key]['img1']}" data-echo="" alt="">
+								</a>
+								<div class="surrounding-product-content-describe">
+									<h5><a href="{:U('line/info')}/id/{$set[$around_key]['id']}" target="_blank">{$set[$around_key]['title']}</a></h5>
+									<p>{$set[$around_key]['subheading']}</p>
+									<if condition="empty($set[$around_key]['check_price'])">
+										<strong><em>核算中</em></strong>
+									<else />
+										<php>$price = explode('.', $set[$around_key]['start_price_adult']);</php>
+										<strong>￥<em>{$price[0]}</em>起</strong>
+									</if>
+								</div>
+							</div>
+						</li>
+					</for>
+				</ul>
+			</div>
+		</volist>
+	</div>
+</div>
+
+
+<!-- 活动回顾 -->
+<div class="bg-white" style="background: #fff">
+	<div class="events-review main">
+		<h2 style="padding-left:10px;">活动回顾 <span style="font-size: 14px;color:#f00;padding-left:10px;">最新活动直播与团友游记推荐</span></h2>
+		<p><a href="http://shequ.kllife.com" target="_blank">更多</a></p>
+		<div class="events-review-product">
+			<ul>
+				<for start="0" end="12">
+					<php>$act = $set['activity'.$i]</php>
+					<if condition="empty($act['url']) eq false">
+						<if condition="$i % 3 eq 0">
+							<li class="clear-margin">
+								<else />
+							<li>
+						</if>
+						<div class="events-review-product-content" title="{$act.subheading}">
+							<a href="{$act.url}" target="_blank">
+								<img class="background-img-loading" data-echo="{$act.img}" alt="">
+							</a>
+							<div class="events-review-product-content-describe" style="background:#f4f4f4;">
+								<h5><a href="{$act.url}" target="_blank">{$act.subheading}</a></h5>
+								<p>作者：{$act.author}</p>
+								<span>{$act.title}</span>
+								<em>{$act.price}</em>
+							</div>
+						</div>
+						</li>
+					</if>
+				</for>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- 精彩分享 -->
+<!--<div class="bg-gray">-->
+	<!--<div class="main commodity">-->
+		<!--<h2>精彩分享</h2>-->
+		<!--<p><a href="{:U('line/article')}/type/list" target="_blank">更多</a></p>-->
+		<!--<div class="commodity-product">-->
+			<!--<ul>-->
+				<!--<for start="0" end="4">-->
+					<!--<if condition="$i % 4 eq 0">-->
+						<!--<li class="clear-margin">-->
+							<!--<else />-->
+						<!--<li>-->
+					<!--</if>-->
+					<!--<php>$article = $set['article'.$i]</php>-->
+					<!--<div class="commodity-product-content">-->
+						<!--<a href="{:U('line/article')}/id/{$article.id}" target="_blank">-->
+							<!--<img class="background-img-loading" data-echo="{$article.face_image}" alt="">-->
+						<!--</a>-->
+						<!--<div class="commodity-product-content-describe">-->
+							<!--<h5><a href="{:U('line/article')}/id/{$article.id}" target="_blank">{$article.short_title}</a></h5>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--</li>-->
+				<!--</for>-->
+			<!--</ul>-->
+		<!--</div>-->
+	<!--</div>-->
+<!--</div>-->
+
+<!-- 领队风采 -->
+<if condition="show_leader eq 1">
+	<div class="bg-white">
+		<div class="leader main">
+			<h2>领队风采</h2>
+			<p><a href="javascript:;" target="_blank">更多</a></p>
+			<div class="leader-product">
+				<ul>
+					<li class="clear-margin">
+						<div class="leader-product-content">
+							<a href="javascript:;">
+								<img class="background-img-loading" data-echo="__PUBLIC__/home/images/index_img/leader01.png" alt="">
+								<div>
+									<img class="background-img-loading" data-echo="__PUBLIC__/home/images/index_img/leader_head.png" alt="">
+									<h4>小B	</h4>
+									<span>人文街拍教程、美拍专家</span>
+									<p><em>TA的故事：</em>他的故事的人文街...</p>
+								</div>
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="leader-product-content">
+							<a href="javascript:;">
+								<img class="background-img-loading" data-echo="__PUBLIC__/home/images/index_img/leader02.png" alt="">
+								<div>
+									<img class="background-img-loading" data-echo="__PUBLIC__/home/images/index_img/leader_head.png" alt="">
+									<h4>小C</h4>
+									<span>人文街拍教程、美拍专家</span>
+									<p><em>TA的故事：</em>他的故事的人文街...</p>
+								</div>
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="leader-product-content">
+							<a href="javascript:;">
+								<img class="background-img-loading" data-echo="__PUBLIC__/home/images/index_img/leader03.png" alt="">
+								<div>
+									<img class="background-img-loading" data-echo="__PUBLIC__/home/images/index_img/leader_head.png" alt="">
+									<h4>小D</h4>
+									<span>人文街拍教程、美拍专家</span>
+									<p><em>TA的故事：</em>他的故事的人文街...</p>
+								</div>
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="leader-product-content">
+							<a href="javascript:;">
+								<img class="background-img-loading" data-echo="__PUBLIC__/home/images/index_img/leader04.png" alt="">
+								<div>
+									<img class="background-img-loading" data-echo="__PUBLIC__/home/images/index_img/leader_head.png" alt="">
+									<h4>小D</h4>
+									<span>人文街拍教程、美拍专家</span>
+									<p><em>TA的故事：</em>他的故事的人文街...</p>
+								</div>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</if>
+<!-- 视频 -->
+<div class="bg-white">
+	<div class="main video">
+		<h2>视频中心</h2>
+		<p><a href="{:U('line/video')}" target="_blank">更多</a></p>
+		<div class="video-product">
+			<ul>
+				<for start="0" end="4">
+					<if condition="$i eq 0">
+						<li class="clear-margin">
+							<else />
+						<li>
+					</if>
+					<php>$vk = 'video'.$i; $v = $set[$vk];</php>
+					<div class="video-product-content" data-id="{$vk}">
+						<a class="video-show" href="javascript:;" onclick="addIframe('{$v.title}','http://player.youku.com/embed/{$v.href}')">
+							<img class="background-img-loading" data-echo="{$v.img}" alt="">
+							<i></i>
+						</a>
+						<div class="video-product-content-describe">
+							<h5><a class="video-show" href="javascript:;" onclick="addIframe('{$v.title}','http://player.youku.com/embed/{$v.href}')">{$v.title}</a></h5>
+							<p>{$v.subheading}</p>
+						</div>
+					</div>
+					</li>
+				</for>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- 视频弹出 -->
+<div class="mark"></div>
+<div class="myiframe">
+	<div class="iframeTop">
+		<h4 id="titleIframe">小米Max</h4>
+		<a class="video_close" href="javascript:;">
+			<img class="video_close" src="__PUBLIC__/home/common/images/video_close.png" alt="关闭">
+		</a>
+	</div>
+	<div class="iframe">
+		<iframe id="videoIframe" height=536 width=880 src="" frameborder=0 allowfullscreen></iframe>
+	</div>
+</div>
+<!--<div class="you_love">
+	<img class="tit" src="__PUBLIC__/home/images/index_img/like.png" alt="">
+	<div class="love_group">
+		<div class="love_item">
+			<a href="javascript:;" title="【丝绸之路精华七日游】2017年青海盐湖-敦煌-嘉峪关-张掖丹霞七日游">
+				<div class="p-lr">
+					<div class="background-img-loading">
+						<img class="img-responsive" data-echo="http://img.kllife.com/2017-05-10_5912cd8a70256.jpg" alt="">
+						<p><span>【丝绸之路精华七日游】</span>2017年青海盐湖-敦煌-嘉峪关-张掖丹霞七日游</p>
+					</div>
+					<div class="gray">
+						<p class="money">￥<span>5688</span>元起</p>
+						<p class="number">560人已报名</p>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>-->
+
+<!-- 左侧导航栏 -->
+<div class="left-aside">
+	<ul>
+		<li><a class="left-aside-hot" data-obj="hot-sale" href="javascript:;">热卖</a></li>
+		<li><a class="left-aside-depth" data-obj="depth" href="javascript:;">小团</a></li>
+		<li><a class="left-aside-qinglvpai" data-obj="qinglvpai" href="javascript:;">写真<br/>旅行</a></li>
+		<li><a class="left-aside-photograph" data-obj="photograph" href="javascript:;">摄影</a></li>
+		<li><a class="left-aside-theme" data-obj="theme" href="javascript:;">民族</a></li>
+		<li><a class="left-aside-surrounding" data-obj="surrounding" href="javascript:;">周边</a></li>
+	</ul>
+</div>
+<include file="Common/right" />
+<!--好玩不贵小团慢旅行-->
+<div id="xiaotuanmanblock" style="position: fixed;bottom:15px;width:174px;cursor: pointer;z-index:100;"><img src="__PUBLIC__/home/images/index_img/xiaotuanman1.png" alt=""></div>
+<a href="http://www.kllife.com/home/index.php?s=/home/subject/brand" target="_blank"><div id="xiaotuanman-none" style="position: fixed;bottom:0px;left:-0px;width:100%;z-index:100;" ></div></a>
+<img id="xiaotuanmannone" style="position: fixed;bottom:95px;cursor:pointer;z-index:100;" src="__PUBLIC__/home/images/index_img/xiaotuanmannone.png" alt="">
+
+<!-- 更改tab-bg -->
+<script src="__PUBLIC__/home/common/js/movebg.js"></script>
+<!-- tab -->
+<script src="__PUBLIC__/home/common/js/tab.js"></script>
+<!-- 视频 -->
+<script src="__PUBLIC__/home/common/js/iframe.js"></script>
+<!-- 顶部轮播 -->
+<script src="__PUBLIC__/home/js/lunbo.js"></script>
+<!--图片延时加载-->
+<script src="__PUBLIC__/home/common/js/echo.min.js"></script>
+<script>
+    //初始化图片延迟加载
+    echo.init();
+</script>
+
+<script>
+    //小团慢显示于隐藏
+    var width;
+    $("#xiaotuanmanblock").on("click",function(){
+        width = $(window).width();
+        if(width<1600){
+            $(this).animate({left: -174}, 500);
+            setTimeout(function () {
+                $("#xiaotuanman-none").animate({left: 0}, 700);
+                $("#xiaotuanmannone").animate({left: "90%"}, 700);
+            }, 500);
+        }else{
+            $(this).animate({left: -174},500);
+            setTimeout(function () {
+                $("#xiaotuanman-none").animate({left: 0}, 700);
+                $("#xiaotuanmannone").animate({left: "80%"}, 700);
+            }, 500);
+        }
+    })
+    $("#xiaotuanmannone").on("click",function(){
+        if(width<1600){
+            $("#xiaotuanman-none").animate({left: "-100%"}, 700);
+            $("#xiaotuanmannone").animate({left: -30}, 450);
+            setTimeout(function () {
+                $("#xiaotuanmanblock").animate({left: -132}, 700);
+            }, 700);
+        }else{
+            $("#xiaotuanman-none").animate({left: "-100%"}, 500);
+            $("#xiaotuanmannone").animate({left: -30}, 450);
+            setTimeout(function () {
+                $("#xiaotuanmanblock").animate({left: 0}, 500);
+            }, 700);
+        }
+    })
+</script>
+
+<script>
+    //预订用户滚动显示
+    var speed=20;
+    var tab=document.getElementById("demo");
+    var tab1=document.getElementById("demo1");
+    var tab2=document.getElementById("demo2");
+    tab2.innerHTML=tab1.innerHTML;
+    function Marquee(){
+        if(tab2.offsetWidth-tab.scrollLeft<=0)
+            tab.scrollLeft-=tab1.offsetWidth
+        else{
+            tab.scrollLeft++;
+        }
+    }
+    var MyMar=setInterval(Marquee,speed);
+    tab.onmouseover=function() {clearInterval(MyMar)};
+    tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
+
+
+
+
+
+	//精选热卖
+	$(".hot-sale-product .item").on("mouseover",function(){
+	    $(this).find(".background-img-loading").addClass("minus-top")
+	    $(this).find(".tit").removeClass("height").addClass("height-lg")
+	})
+	$(".hot-sale-product .item").on("mouseout",function(){
+	    $(this).find(".background-img-loading").removeClass("minus-top")
+	    $(this).find(".tit").addClass("height").removeClass("height-lg")
+	})
+
+	//newnav
+	$(".newnav-left .newnav-tit").on("mouseover",function(){
+	    $("#newnav .newnav-right").css("height","500px")
+	    $(this).addClass("background").siblings().removeClass("background");
+	    $(this).prev().addClass("none").siblings().removeClass("none");
+	    $(this).find(".lg").addClass("black");
+	    $(this).siblings().find(".lg").removeClass("black");
+	    $(this).find("i").addClass("gray");
+	    $(this).siblings().find("i").removeClass("gray");
+	    var index = $(this).index();
+	    $(".newnav-right").find(".newnav-centent").eq(index).show().siblings().hide();
+	})
+
+	$("#newnav").on("mouseleave",function(){
+        $(".newnav-right").find(".newnav-centent").hide();
+        $(".newnav-tit").removeClass("background");
+        $(".newnav-tit").removeClass("none")
+        $(".newnav-tit").find(".lg").removeClass("black");
+        $(".newnav-tit").find("i").removeClass("gray");
+        $("#newnav .newnav-right").css("height","0px")
+    })
+    //big轮播
+    $(".lubo").lubo({});
+    //small轮播
+    $('.special-exhibition').unslider({
+        dots: true
+    });
+    //专业保证
+    var unslider01 = $('.professional-guarantee-slide').unslider({
+            dots: true
+        }),
+        data04 = unslider01.data('unslider');
+    $('.unslider-arrow01').click(function() {
+        var fn = this.className.split(' ')[1];
+        data04[fn]();
+    });
+
+    //move-bg
+    $(".tab-list").movebg({
+        width:60/*滑块的大小*/,
+        extra:0/*额外反弹的距离*/,
+        speed:500/*滑块移动的速度*/,
+        rebound_speed:400/*滑块反弹的速度*/
+    });
+
+    var Width = $(window).width();
+    $('.left-aside').css('left', (Width - 1200)/2 - 80 );
+    $(window).resize(function(){
+        var WidthR = $(window).width();
+        if( WidthR > 1300 ) {
+            $('.left-aside').show();
+            $(".left-aside").stop().animate({
+                left: 60
+            },150);
+        }else {
+            $('.left-aside').hide();
+        }
+    });
+
+
+    function aside() {
+        var vs = {
+            hot: {obj:'.left-aside-hot', top:$('.hot-sale').offset().top},
+            dep: {obj:'.left-aside-depth', top:$('.depth').offset().top},
+            qlp: {obj:'.left-aside-qinglvpai', top:$('.qinglvpai').offset().top},
+            photo: {obj:'.left-aside-photograph', top:$('.photograph').offset().top},
+            theme: {obj:'.left-aside-theme', top:$('.theme').offset().top},
+            sur: {obj:'.left-aside-surrounding', top:$('.surrounding').offset().top},
+        }
+        var win = { top:$(window).scrollTop(), h: $(window).height() }
+
+        // 侧边栏显示隐藏
+        if ((vs.hot.top - win.top) < (win.h * 0.5)) {
+            $('.left-aside').fadeIn();
+        } else {
+            $('.left-aside').fadeOut();
+        }
+
+        // 侧边栏定位
+        var prev_height = 0;
+        var prev_obj = null;
+        var final_obj = null;
+        for (x in vs) {
+            var bindObj = '.'+$(vs[x]['obj']).attr('data-obj');
+            var cur = vs[x]['top'] - win.top;
+            var cur_bottom = cur + $(bindObj).height();
+            var cur_height = win.top+win.h-vs[x]['top'];
+//			console.log(x+',cur:'+cur+',cur_bottom:'+cur_bottom+',win_top:'+win.top+',win_h:'+win.h+',cur_height:'+cur_height+',prev_height:'+prev_height);
+            if (cur < win.h && cur_bottom > 0) {
+                final_obj = null;
+                if (prev_height > cur_height) {
+                    final_obj = prev_obj;
+                } else {
+                    final_obj = vs[x]['obj'];
+                }
+                prev_height = cur_bottom;
+                prev_obj = vs[x]['obj'];
+            }
+            prev_height = cur + $(bindObj).height();
+            prev_obj = vs[x]['obj'];
+        }
+
+        if (final_obj != null) {
+            $('.left-aside').find('ul > li > a').removeClass('active');
+            $(final_obj).addClass('active');
+        } else {
+            $('.left-aside').find('ul > li > a').removeClass('active');
+        }
+    }
+
+    // 初始化侧边栏显示
+    aside();
+
+    // 窗口滚动侧边栏处理
+    $(window).scroll(aside);
+
+    //左侧固定导航栏
+    function toTag(g, h) {
+        $(g).click(
+            function(){
+                $(this).closest('ul').find('a').removeClass('active');
+                $(this).addClass('active');
+
+                var obj = '.'+$(this).attr('data-obj');
+                var h = parseInt($(obj).offset().top) - 100;
+                $("html,body").animate({scrollTop: h}, 1000);
+            }
+        );
+    };
+    toTag('.left-aside-hot');
+    toTag('.left-aside-depth');
+    toTag('.left-aside-qinglvpai');
+    toTag('.left-aside-photograph');
+    toTag('.left-aside-theme');
+    toTag('.left-aside-surrounding');
+
+    //精彩专题
+    $('.special-exhibition-product').fadeInAndOut('special-img', 'div');
+    //热门单品
+    $('.hot-sale-product a').hover(
+        function () {
+            $(this).find('.hot-sale-img').stop().hide(500);
+        },
+        function () {
+            $(this).find('.hot-sale-img').stop().show(1000);
+        }
+    );
+    //视频弹出
+    $('.video-product .video-show').click(function(){
+        $('.mark').show();
+        $('.myiframe').fadeIn();
+    });
+    //视频关闭
+    $('.video_close').click(function(){
+        $('.mark').hide();
+        $('.myiframe').hide();
+        $('#videoIframe').attr('src', '');
+    });
+    //iframe
+    function addIframe(title, src) {
+        var oIframe = document.getElementById('videoIframe');
+        var oIframeTitle = document.getElementById('titleIframe');
+        oIframe.setAttribute('src', src);
+        oIframeTitle.innerHTML = title;
+    };
+</script>
+<!-- 功能脚本 -->
+<script type="text/javascript">
+    //	$(document).ready(function(){
+    //		$('.special-exhibition-product').click(jumpToZhuanTi);
+    //	});
+    //
+    //	// 专题跳转
+    //	function jumpToZhuanTi() {
+    //		location.href = '{:U("line/list")}';
+    //	}
+
+
+
+</script>
+<include file="Common/bottom" />

@@ -1,0 +1,359 @@
+<include file="common/top" />
+<div class="page">
+	<!-- swiper -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/common/css/swiper-3.3.1.min.css">
+	<!-- mycss -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/welcome.css">
+	<!--小团慢css-->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/slow-travel.css">
+	<include file="common/footer" />
+		<div class="content" data-id="{$subject.id}">
+			<!-- 这里是页面内容区 -->
+			<!-- slider -->
+			<div class="swiper-container" >
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><a href="javascript:;" external><img src="{$subject.banner}" alt=""></a></div>
+				</div>
+			</div>
+
+			<!--小团慢-->
+			<div class="slow-travel" style="margin-top:0px;">
+				<a href="{:U('subject/brand')}" external>
+					<img src="__PUBLIC__/phone/images/index/xiaotuanman.jpg" alt="">
+				</a>
+			</div>
+			<!-- 电话 -->
+			<div class="telephone">
+				<a href="tel:400-080-5860" external><img src="__PUBLIC__/phone/images/index/telephone.png" alt=""></a>
+			</div>
+			
+			
+			<!--线路模板-->											
+			<div class="card demo-card-header-pic line_template hidden_ctrl" data-id="">
+				<div class="card-content">
+					<img class="face_image" src="" alt="">
+					<div class="card-content-inner">
+						<p class="title-text"></p>
+						<p class="subheading"></p>
+					</div>
+					<!-- 跳转a -->
+					<a class="jump_url" href="" external></a>
+				</div>
+				<div class="card-footer">
+					<span class="assembly">出发地：</span>
+					<a class="jump_url" href="" class="link active-recommend"> 
+					<span class="adult_price">￥0元起</span></a>
+				</div>
+			</div>
+
+			<!-- 热卖专区 -->
+			<div class="hot-sale">
+			
+				<div class="hot-sale-content">
+					<!-- 切换 -->
+					<div class="buttons-tab">
+						<volist id="tab" name="subject.line_tab">
+							<if condition="$key eq 0">
+							<a href="" data-id="{$tab.id}" data-key="{$tab.type_key}" class="tab-link active button" external>{$tab.type_desc}</a>
+							<else />
+							<a href="" data-id="{$tab.id}" data-key="{$tab.type_key}" class="tab-link button" external>{$tab.type_desc}</a>
+							</if>
+						</volist>
+					</div>
+				    <div class="tabs">
+						<div>					
+							<!-- 深度游 -->
+							<div class="depth-travel">
+								<div class="depth-travel-content">
+									<div class="travel-content">	
+									
+										<volist id="line" name="subject.show_tab_line_data">											
+											<div class="card demo-card-header-pic" data-id="{$line.id}">
+												<div class="card-content">
+													<img class="face_image" src="{$line.img1}" alt="">
+													<div class="card-content-inner">
+														<p class="title-text">{$line.title}</p>
+														<p class="subheading">{$line.subheading}</p>
+													</div>
+													<!-- 跳转a -->
+													<a class="jump_url" href="{:U('line/info')}/id/{$line.id}" external></a>
+												</div>
+												<div class="card-footer">
+													<span class="assembly">出发地：{$line.assembly_point_show_text}</span>
+													<a class="jump_url" href="{:U('line/info')}/id/{$line.id}" class="link active-recommend">
+														<span class="adult_price">￥{$line.start_price_adult}元起</span>
+													</a>
+												</div>
+											</div>
+										</volist>
+										
+										<!-- 查看更多超值热卖 -->
+										<!--<a href="{:U('line/list')}" external>查看更多超值热卖</a>-->
+									</div>
+								</div>
+							</div>
+						</div> <!--结束tab-->
+				    </div>
+				    
+				</div>
+			</div>
+			
+			<!-- 精彩游记 -->
+			<div class="active-review">
+				<div class="active-review-content">
+					<div class="active-review-header">
+						<img src="__PUBLIC__/phone/images/index/sublist_logo.png" alt="">
+						<span>精彩游记</span>
+					</div>
+					<div class="active-review-list">
+						
+						<for start="0" end="20" comperison="elt">
+							<if condition="empty($subject['youji'.$i]) eq false">
+								<php>
+									$youji = $subject['youji'.$i];
+									if (empty($youji['url'])) {
+										continue;
+									}
+								</php>
+								<div class="active-review-sublist">
+									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="{$youji.img}" alt="">
+											<div class="card-content-inner">
+												<p>{$youji.desc}</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="{$youji.url}" external></a>
+										</div>
+										
+									</div>
+								</div>
+							</if>
+						</for>						
+
+					</div>
+					<!-- 更多往期回顾 -->
+					<a href="http://shequ.kllife.com/" external>更多精彩游记</a>
+				</div>				
+			</div>
+			<!-- end 活动回顾 -->			
+			
+			<!-- 周边游 -->
+			<if condition="$show_surrounding eq 1">
+			<div class="hot-sale">
+				<if condition="$station111['key'] neq 'main'">
+				<h3>{$station111.name}周边游</h3>
+				<else />
+				<h3>周边游</h3>
+				</if>
+				<div class="hot-sale-content">
+					<!-- 切换 -->
+					<div class="buttons-tab">
+						<volist id="tab" name="set.surrounding_line_tab">
+							<if condition="$key eq 0">
+							<a href="#{$tab.type_key}" class="tab-link active button">{$tab.type_desc}</a>
+							<else />
+							<a href="#{$tab.type_key}" class="tab-link button">{$tab.type_desc}</a>
+							</if>
+						</volist>
+					</div>
+				    <div class="tabs">
+						<volist id="tab" name="set.surrounding_line_tab">
+						<if condition="$key eq 0">
+						<div id="{$tab.type_key}" class="tab active">
+						<else />
+						<div id="{$tab.type_key}" class="tab">
+						</if>								
+							<!-- 深度游 -->
+							<div class="depth-travel">
+								<div class="depth-travel-content">
+									<div class="travel-content">
+										<for start="0" end="6">
+											<php>
+												$v = $set[$tab['type_key'].$i];
+												if (empty($v)) {
+													continue;
+												}
+											</php>											
+											<div class="card demo-card-header-pic">
+												<div class="card-content">
+													<img src="{$v.img1}" alt="">
+													<div class="card-content-inner">
+														<p>{$v.title}</p>
+														<p>{$v.subheading}</p>
+													</div>
+													<!-- 跳转a -->
+													<a href="{:U('line/info')}/id/{$v.id}" external></a>
+												</div>
+												<div class="card-footer">
+													<span>出发地：{$v['assembly_point_show_text']}</span>
+													<a href="{:U('line/info')}/id/{$v.id}" class="link active-recommend">
+														<span>￥{$v.start_price_adult}元起</span>
+													</a>
+												</div>
+											</div>
+										</for>
+
+										<!-- 查看更多周边游 -->
+										<a href="{:U('line/list')}" external>查看更多线路产品</a>
+										
+									</div>
+								</div>
+							</div>
+						</div> <!--结束tab-->
+						</volist>
+				    </div>				    
+				</div>
+			</div>
+			</if>
+			<!--结束周边游-->
+
+			
+		</div>
+<!--额济纳-->
+<div class="Popup" style="background: rgba(0,0,0,0.5);width:100%;height:100%;position: fixed;top:0px;left:0px;z-index:1000;display: none;">
+	<div style="text-align: center;text-align: -webkit-center;margin-top:40%;">
+			<span style="position: relative;display: inline-block;cursor: pointer;">
+				<img style="width:100%;" src="__PUBLIC__/phone/images/subject/ejina-phone.jpg" alt="">
+				<img style="position: absolute;top:10px;right:10px;" src="__PUBLIC__/home/images/index_img/guizhounone.png" alt="">
+			</span>
+	</div>
+</div>
+<!--贵州弹框-->
+<div class="GPopup" style="background: rgba(0,0,0,0.5);width:100%;height:100%;position: fixed;top:0px;left:0px;z-index:1000;display: none;">
+	<div style="text-align: center;text-align: -webkit-center;margin-top:40%;">
+			<span style="position: relative;display: inline-block;cursor: pointer;">
+				<img style="width:100%;" src="__PUBLIC__/phone/images/subject/guizhou-phone.jpg" alt="">
+				<img style="position: absolute;top:10px;right:10px;" src="__PUBLIC__/home/images/index_img/guizhounone.png" alt="">
+			</span>
+	</div>
+</div>
+	</div>
+	<include file="common/js" />
+	<!-- swiper -->
+	<script src="__PUBLIC__/phone/common/js/swiper-3.3.1.min.js"></script>
+	
+	<script>
+        //关闭弹框
+        $(".Popup ,.GPopup").on("click",function(){
+            $(this).fadeOut("slow");
+        })
+        //页面加载获取锚点id值   对有这个id的元素执行一次点击事件
+        $(document).ready(function(){
+            var url = location.search;
+            var str = url.substring( url.length-2)
+            if(str == 19) {
+                $(".GPopup").show();
+            }
+        })
+        $(document).ready(function(){
+            var url = location.search;
+            var str = url.substring( url.length-2)
+            if(str == 43) {
+                $(".Popup").show();
+            }
+        })
+
+		$(function(){
+			
+			$.init();
+
+		});
+		
+//		$('.buttons-tab').find('.tab-link').click(function(){
+//			$(this).parent().find('.tab-link').removeClass('active');
+//			$(this).addClass('active');
+//			
+//			$('.tabs').find('.tab').removeClass('active');
+//			var tabId = $(this).attr('href');
+//			$(tabId).addClass('active');
+//			
+//			// 切换产品
+//			changeTabPage();
+//		});
+		
+		
+		// 设置专题配置
+		function setSubjectConfig(key, val, nSort, sql_type, keyLike) {			
+			if (key == '' || key == 'undefined' || key == null) {
+				alert('查找的数据类型错误');
+				return false;
+			}
+			var jsonData = {
+				op_type: 'data',
+				subject_id: $('.content').attr('data-id'),
+				key: key,
+				value: val,
+			}
+			if (nSort != 'undefined' && nSort != null) {
+				jsonData['sort'] = nSort;
+			}
+			if (sql_type != 'undefined' && sql_type != null) {
+				jsonData['sql_type'] = sql_type;
+			}
+			if (keyLike != 'undefined' && keyLike != null) {
+				jsonData['key_like'] = 1;
+			}
+			
+			var ds = {ds:null, result:{errno:-1, message:'专题信息有误'}};
+			$.ajax({
+				url: '{:U("line/subject")}',
+				type: 'POST',
+				async: false,
+				data: jsonData,
+				dataType: 'json',
+				success: function(data) {
+					ds = data;
+				}
+			});			
+			return ds;
+		}
+			
+		// 线路选择面板切换
+		function changeTabPage() {					
+			var mainObj = $(this).closest('.buttons-tab');		
+			var thisTabObj = $(mainObj).find('a.active');
+						
+			if ($(this).attr('data-id') == $(thisTabObj).attr('data-id')) {
+				return false;
+			}
+			
+			// 选中切换
+			$(mainObj).find('a').removeClass('active');
+			$(this).addClass('active');
+			
+			// 设置面板当前的tab标签
+			var tabKey = $(this).attr('data-key');
+			
+			// 覆盖层遮蔽
+			ShowMark();
+			
+			$('.travel-content').empty();
+			// 重新获取内容并填充
+			var data = setSubjectConfig(tabKey, '', 0, 'find');
+			if (data.ds != null) {
+				for (var i = 0; i < data.ds.length; i ++) {
+					var d = data.ds[i];
+					var lineObj = $('.line_template').clone(true);
+					$(lineObj).removeClass('line_template');
+					$(lineObj).removeClass('hidden_ctrl');
+					$(lineObj).attr('data-id', d.id);
+					$(lineObj).find('.face_image').attr('src', d.img1);
+					$(lineObj).find('.title-text').html(d.title);
+					$(lineObj).find('.subheading').html(d.subheading);
+					$(lineObj).find('.jump_url').attr('href', '{:U("line/info")}/id/'+d.id);
+					$(lineObj).find('.assembly').html(d.assembly_point_show_text);
+					$(lineObj).find('.adult_price').html('￥'+d.start_price_adult+'元起');
+					$('.travel-content').append(lineObj);
+				}
+			} else {
+				alert(data.result.message);
+			}
+			HideMark();
+		}
+		
+		$('.buttons-tab').find('.tab-link').click(changeTabPage);			
+	</script>
+<include file="common/swt" />
+</body>
+</html>

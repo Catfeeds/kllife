@@ -1,0 +1,456 @@
+<include file="common/top" />
+	<!-- swiper -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/common/css/swiper-3.3.1.min.css">
+	<!-- mycss -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/welcome.css">
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/ejina.css">		
+	<!--小团慢css-->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/slow-travel.css">
+	<style>
+		.today-hot{position:absolute;top:0px;right:10px;}
+		.hot-sale{padding-top: 1px;background: #fff;}
+		/*切换*/
+		#tabs { background-color: #fff; border-bottom: 1px solid #e4e4e4;overflow: hidden }
+		#tabs a { display: block; width: 33.3333%; padding: 0.5rem 0; font-size: .8rem; color: #333; text-align: center;float: left}
+		#tabs a.active { color: #ff7200; border-bottom: 2px solid #ff7200; }
+	</style>
+	<include file="common/footer" />
+	<div class="page">
+		<div class="content">
+			<!-- 这里是页面内容区 -->
+			<!-- slider -->
+			<div class="swiper-container" >
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><a href="javascript:;" external><img src="__PUBLIC__/home/images/ejina/chuanxi.jpg?imageMogr2/gravity/Center/crop/1000x" alt=""></a></div>
+				</div>
+			</div>
+	
+			<!--小团慢-->
+			<div class="slow-travel" style="margin-top:0px;">
+				<a href="{:U('subject/brand')}" external>
+					<img src="__PUBLIC__/phone/images/index/xiaotuanman.jpg" alt="">
+				</a>
+			</div>
+			<!-- 电话 -->
+			<div class="telephone">
+				<a href="tel:400-080-5860" external><img src="__PUBLIC__/phone/images/index/telephone.png" alt=""></a>
+			</div>
+			<!--线路模板-->											
+			<div class="card demo-card-header-pic line_template hidden_ctrl">
+				<div class="card-content">
+					<img class="face_image" src="" alt="">
+					<div class="card-content-inner">
+						<p class="title-text"></p>
+						<p class="subheading"></p>
+					</div>
+					<!-- 跳转a -->
+					<a class="jump_url" href="" external></a>
+				</div>
+				<div class="card-footer">
+					<span class="assembly">出发地：</span>
+					<a class="jump_url" href="" class="link active-recommend"> 
+					<span class="adult_price">￥0元起</span></a>
+				</div>
+			</div>
+			<!-- 切换 -->
+				<div id="tabs">
+					<a href="#line-special" class="a1 active" title="line-special" external>甘南旅游</a>
+					<a class="a2" href="#travel-introduction" external title="travel-introduction">色达旅游</a>
+					<a class="a3" href="#reserve-notes" external title="reserve-notes">川西旅游</a>
+				</div>
+			<div id="line-special">
+				<p style="padding-bottom:7px;padding-left:10px;font-size:20px;color:#666;">甘南旅游</p>
+				<div style="background: #fff;padding-top:5px;padding-bottom:2px;border-bottom: 1px solid #eee;">
+					<div class="bournTopList" id="bournFixed">
+						<div class="bournChildList fn-clear" id="j-bournTitleChild">
+							<ul class="line_theme">
+				                <volist id="tab" name="subject_line_tab_gannan">
+				                	<if condition="$key eq 0">
+				                    <li class="subject_tab hover" data-subject="gannan" data-tab="{$tab.type_key}">甘南{$tab.type_desc}</li>
+				                	<else />
+				                    <li class="subject_tab" data-subject="gannan" data-tab="{$tab.type_key}">{$tab.type_desc}</li>
+				                	</if>
+				                </volist>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 甘南 -->
+				<div class="hot-sale">
+					<div class="hot-sale-content">
+					    <div class="tabs">
+							<div>					
+								<div class="depth-travel">
+									<div class="depth-travel-content">					
+										<div class="travel-content subject_gannan">	
+											<volist id="line" name="subject_line_gannan">
+												<div class="card demo-card-header-pic">
+													<div class="card-content">
+														<img class="face_image" src="{$line.img1}" alt="">
+														<if condition="empty($line['line_especial_icon']) eq false">
+															<div class="today-hot">
+																<img src="__PUBLIC__/home/images/index_img/{$line['line_especial_icon']}" alt="">
+															</div>
+														</if>
+														<div class="card-content-inner">
+															<p class="title-text">{$line.title}</p>
+															<p class="subheading">{$line.subheading}</p>
+														</div>
+														<!-- 跳转a -->
+														<a class="jump_url" href="{:U('line/info')}/id/{$line.id}" external></a>
+													</div>
+													<div class="card-footer">
+														<span class="assembly">出发地：{$line.assembly_point_show_text}</span>
+														<a class="jump_url" href="{:U('line/info')}/id/{$line.id}" class="link active-recommend">
+															<if condition="empty($line['check_price'])">
+																<span class="adult_price">核算中</span>
+															<else />
+																<span class="adult_price">￥{$line.start_price_adult}元起</span>
+															</if>
+														</a>
+													</div>
+												</div>
+											</volist>
+										</div>
+									</div>
+								</div>
+							</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+			<div id="travel-introduction">
+				<p style="padding-bottom:7px;padding-left:10px;font-size:20px;color:#666;">色达旅游</p>
+				<div style="background: #fff;padding-top:5px;padding-bottom:2px;border-bottom: 1px solid #eee;">
+					<div class="bournTopList" id="bournFixed">
+						<div class="bournChildList fn-clear" id="j-bournTitleChild">
+							<ul class="line_theme">
+				                <volist id="tab" name="subject_line_tab_seda">
+				                	<if condition="$key eq 0">
+				                    <li class="subject_tab hover" data-subject="seda" data-tab="{$tab.type_key}">色达{$tab.type_desc}</li>
+				                	<else />
+				                    <li class="subject_tab" data-subject="seda" data-tab="{$tab.type_key}">{$tab.type_desc}</li>
+				                	</if>
+				                </volist>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 色达 -->
+				<div class="hot-sale">
+					<div class="hot-sale-content">
+					    <div class="tabs">
+							<div>					
+								<div class="depth-travel">
+									<div class="depth-travel-content">					
+										<div class="travel-content subject_seda">	
+											<volist id="line" name="subject_line_seda">
+												<div class="card demo-card-header-pic">
+													<div class="card-content">
+														<img class="face_image" src="{$line.img1}" alt="">
+														<if condition="empty($line['line_especial_icon']) eq false">
+															<div class="today-hot">
+																<img src="__PUBLIC__/home/images/index_img/{$line['line_especial_icon']}" alt="">
+															</div>
+														</if>
+														<div class="card-content-inner">
+															<p class="title-text">{$line.title}</p>
+															<p class="subheading">{$line.subheading}</p>
+														</div>
+														<!-- 跳转a -->
+														<a class="jump_url" href="{:U('line/info')}/id/{$line.id}" external></a>
+													</div>
+													<div class="card-footer">
+														<span class="assembly">出发地：{$line.assembly_point_show_text}</span>
+														<a class="jump_url" href="{:U('line/info')}/id/{$line.id}" class="link active-recommend">
+															<if condition="empty($line['check_price'])">
+																<span class="adult_price">核算中</span>
+															<else />
+																<span class="adult_price">￥{$line.start_price_adult}元起</span>
+															</if>
+														</a>
+													</div>
+												</div>
+											</volist>
+										</div>
+									</div>
+								</div>
+							</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+			<div id="reserve-notes">
+				<p style="padding-bottom:7px;padding-left:10px;font-size:20px;color:#666;">川西旅游</p> 
+				<div style="background: #fff;padding-top:5px;padding-bottom:2px;border-bottom: 1px solid #eee;">
+					<div class="bournTopList" id="bournFixed">
+						<div class="bournChildList fn-clear" id="j-bournTitleChild">
+							<ul class="line_theme">
+				                <volist id="tab" name="subject_line_tab_chuanxi">
+				                	<if condition="$key eq 0">
+				                    <li class="subject_tab hover" data-subject="chuanxi" data-tab="{$tab.type_key}">川西{$tab.type_desc}</li>
+				                	<else />
+				                    <li class="subject_tab" data-subject="chuanxi" data-tab="{$tab.type_key}">{$tab.type_desc}</li>
+				                	</if>
+				                </volist>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 川西 -->
+				<div class="hot-sale">
+					<div class="hot-sale-content">
+					    <div class="tabs">
+							<div>					
+								<div class="depth-travel">
+									<div class="depth-travel-content">					
+										<div class="travel-content subject_chuanxi">	
+											<volist id="line" name="subject_line_chuanxi">
+												<div class="card demo-card-header-pic">
+													<div class="card-content">
+														<img class="face_image" src="{$line.img1}" alt="">
+														<if condition="empty($line['line_especial_icon']) eq false">
+															<div class="today-hot">
+																<img src="__PUBLIC__/home/images/index_img/{$line['line_especial_icon']}" alt="">
+															</div>
+														</if>
+														<div class="card-content-inner">
+															<p class="title-text">{$line.title}</p>
+															<p class="subheading">{$line.subheading}</p>
+														</div>
+														<!-- 跳转a -->
+														<a class="jump_url" href="{:U('line/info')}/id/{$line.id}" external></a>
+													</div>
+													<div class="card-footer">
+														<span class="assembly">出发地：{$line.assembly_point_show_text}</span>
+														<a class="jump_url" href="{:U('line/info')}/id/{$line.id}" class="link active-recommend">
+															<if condition="empty($line['check_price'])">
+																<span class="adult_price">核算中</span>
+															<else />
+																<span class="adult_price">￥{$line.start_price_adult}元起</span>
+															</if>
+														</a>
+													</div>
+												</div>
+											</volist>
+										</div>
+									</div>
+								</div>
+							</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+			<!-- 精彩游记 -->
+			<div class="active-review">
+				<div class="active-review-content">
+					<div class="active-review-header">
+						<img src="__PUBLIC__/phone/images/index/sublist_logo.png" alt="">
+						<span>精彩游记</span>
+					</div>
+					<div class="active-review-list">
+						<volist id="youji" name="subject_youji_gannan">
+							<div class="active-review-sublist">
+								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="{$youji.img}" alt="">
+										<div class="card-content-inner">
+											<p>{$youji.desc}</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="{$youji.url}" external></a>
+									</div>
+											
+								</div>
+							</div>
+						</volist>
+						<volist id="youji" name="subject_youji_seda">
+							<div class="active-review-sublist">
+								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="{$youji.img}" alt="">
+										<div class="card-content-inner">
+											<p>{$youji.desc}</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="{$youji.url}" external></a>
+									</div>
+											
+								</div>
+							</div>
+						</volist>
+						<volist id="youji" name="subject_youji_chuanxi">
+							<div class="active-review-sublist">
+								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="{$youji.img}" alt="">
+										<div class="card-content-inner">
+											<p>{$youji.desc}</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="{$youji.url}" external></a>
+									</div>
+											
+								</div>
+							</div>
+						</volist>
+					</div>
+					<!-- 更多往期回顾 -->
+					<a href="http://shequ.kllife.com/" external>更多精彩游记</a>
+				</div>				
+			</div>
+		</div>
+	</div>
+	<include file="common/js" />
+	<!-- swiper -->
+	<script src="__PUBLIC__/phone/common/js/swiper-3.3.1.min.js"></script>
+	
+	<script>
+	    //地方选择
+	    $(".bournChildList ul li").on("click",function(){
+	        $(this).addClass("hover").siblings().removeClass("hover");
+	        $(this).parent().siblings().find("li").removeClass("hover");
+	        // 查询线路
+			var subject = $(this).attr('data-subject');
+			var tab = $(this).attr('data-tab');
+	    	findLine(subject, tab);
+	    })
+	    
+	    
+	    // 查找线路
+	    function findLine(subject, vtab) {
+	        var jsonData = {
+	        	op: subject,
+	            tab: vtab,
+	        }
+	        
+	        if ('{$refresh}' != '') {
+	            jsonData['refresh'] = '{$refresh}';
+	        }
+	        
+	        $.post('{:U("subject/chuanxi")}', jsonData, function(data){
+				$('.travel-content.subject_'+subject).children().empty();
+				if (data.ds != null) {
+					for (var i = 0; i < data.ds.length; i ++) {
+						var d = data.ds[i];
+						var lineObj = $('.line_template').clone(true);
+						$(lineObj).removeClass('line_template');
+						$(lineObj).removeClass('hidden_ctrl');
+						$(lineObj).attr('data-id', d.id);
+						$(lineObj).find('.face_image').attr('src', d.img1);
+						$(lineObj).find('.jump_url').attr('href', '{:U("line/info")}/id/'+d.id);
+						$(lineObj).find('.title-text').html(d.title);
+						$(lineObj).find('.subheading').html(d.subheading);			
+						$(lineObj).find('.assembly').html('出发地：'+d.assembly_point_show_text);
+						if (d.line_especial_icon != null && d.line_especial_icon != '' && d.line_especial_icon != 'undefined') {
+							$(lineObj).find('.today-hot img').attr('src', '__PUBLIC__/home/images/index_img/'+d.line_especial_icon)
+						} else {
+							$(lineObj).find('.today-hot').remove();
+						}
+						if (d.check_price == 0) {
+							$(lineObj).find('.adult_price').parent().html('核算中');		
+						} else {	
+							$(lineObj).find('.adult_price').html('￥'+d.start_price_adult+'元起');
+						}
+						$('.travel-content.subject_'+subject).append(lineObj);
+					}
+				} 
+	        });
+	    }
+	    
+	    
+	    //等元素加载完在启用，防止高度获取不准确
+    window.onload = function() {
+        //元素滚动到指定位置
+        //tabs高度
+        var tabsHeight = $('#tabs').height();
+        //header高度
+        var headerHeight = $('header').height();
+        //获取content滚动的距离
+        var g = 0;
+        //线路特色距离顶部距离
+        var q = $('#line-special').offset().top -50;
+        //行程介绍距离顶部距离
+        var w = $('#travel-introduction').offset().top -50;
+        //预定须知距离顶部距离
+        var z = $('#reserve-notes').offset().top -50;
+        //content距顶部距离
+        var contentHeight = parseInt($('.content').css('top'));
+        //相差距离
+        var calculateHeight = tabsHeight + headerHeight + contentHeight;
+        $('.content').on( "scroll", function() {
+            g = $('.content').scrollTop();
+            //-1:有1px边框误差
+            //判断距离，给相应元素添加删除class
+            if( g > ( q - calculateHeight - 1 ) && g < ( w - calculateHeight - 1 ) ) {
+                $('.a1').siblings().removeClass('active');
+                $('.a1').addClass('active');
+            }else if ( g >= ( w - calculateHeight - 1 ) && g < ( z - calculateHeight - 1 ) ){
+                $('.a2').siblings().removeClass('active');
+                $('.a2').addClass('active');
+            }else if ( g >= ( z - calculateHeight -3 )){
+                $('.a3').siblings().removeClass('active');
+                $('.a3').addClass('active');
+            }
+
+        });
+
+        //tabs点击时处理事件
+//      $('#tabs a').click(
+//          //
+//          function( event ){
+//              var $anchor = $(this);
+//              //定位元素距离顶部距离
+//              var eleHeight = $('#' + $anchor.attr('title')).offset().top - 50;
+//              //当tabs是固定定位时
+//              if($('#tabs').css('position') == 'fixed'){
+//
+//                  $('.content').stop().animate({scrollTop: g + eleHeight - headerHeight }, 600);
+//
+//              }else{
+//
+//                  $('.content').stop().animate({scrollTop: g + eleHeight - calculateHeight }, 600);
+//
+//              }
+//              //取消默认操作
+//              event.preventDefault();
+//          }
+//      );
+        //切换
+        $('#tabs a').click( function (){
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+        } );
+        // tab固定
+        function changeTab(){
+
+            var elm = $('#tabs');
+            //获取tabs距离顶部距离-header
+            var startPos = $(elm).offset().top ;
+            //绑定滚动事件
+            $('.content').on( "scroll", function() {
+                //content滚动距离
+                var p = $('.content').scrollTop();
+                //当tabs距离顶部距离-header <= content滚动距离时
+                if( startPos <= p ){
+                    //固定tabs
+                    $('#tabs').css({'position':'fixed',
+                        'top':'0',
+                        'left':'0',
+                        'width':'100%',
+                        'z-index':'999'});
+                }else{
+                    //清除固定
+                    $('#tabs').css('position','static');
+                }
+
+            });
+
+        }
+
+        changeTab();
+    }
+	</script>
+<include file="common/swt" />
+</body>
+</html>

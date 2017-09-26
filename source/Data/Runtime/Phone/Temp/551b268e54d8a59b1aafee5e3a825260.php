@@ -1,0 +1,3 @@
+<?php
+//000000003600a:6:{i:1;a:4:{s:2:"id";s:1:"1";s:8:"type_key";s:13:"account_admin";s:9:"type_desc";s:9:"管理员";s:10:"can_delete";s:1:"0";}i:2;a:4:{s:2:"id";s:1:"2";s:8:"type_key";s:12:"account_user";s:9:"type_desc";s:12:"前台用户";s:10:"can_delete";s:1:"0";}i:3;a:4:{s:2:"id";s:1:"3";s:8:"type_key";s:18:"account_distribute";s:9:"type_desc";s:12:"分销用户";s:10:"can_delete";s:1:"0";}i:4;a:4:{s:2:"id";s:1:"4";s:8:"type_key";s:14:"account_member";s:9:"type_desc";s:9:"旧用户";s:10:"can_delete";s:1:"0";}i:5;a:4:{s:2:"id";s:1:"5";s:8:"type_key";s:13:"account_photo";s:9:"type_desc";s:12:"选片用户";s:10:"can_delete";s:1:"0";}i:6;a:4:{s:2:"id";s:1:"6";s:8:"type_key";s:11:"account_seo";s:9:"type_desc";s:12:"优化用户";s:10:"can_delete";s:1:"0";}}
+?>

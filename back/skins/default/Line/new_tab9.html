@@ -1,0 +1,336 @@
+
+				<div class="row">				
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" for="special_cut_start_date_time">开始日期<span style="color:red;">(*必选)</span></label>
+							<div class="date-and-time">
+								<input type="text" class="form-control datepicker" name="special_cut_start_date" id="special_cut_start_date" data-format="yyyy-mm-dd">
+								<input type="text" class="form-control timepicker" name="special_cut_start_time" id="special_cut_start_time" data-template="dropdown" data-show-seconds="true" data-show-meridian="false" data-minute-step="5" data-second-step="5" />
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" for="special_cut_end_time">截止日期<span style="color:red;">(*必选)</span></label>
+							<div class="date-and-time">
+								<input type="text" class="form-control datepicker" name="special_cut_end_date" id="special_cut_end_date" data-format="yyyy-mm-dd">
+								<input type="text" class="form-control timepicker" name="special_cut_end_time" id="special_cut_end_time" data-template="dropdown" data-show-seconds="true" data-show-meridian="false" data-minute-step="5" data-second-step="5" />
+							</div>
+						</div>
+					</div>		
+				</div>
+				
+				<br>
+				
+				<div class="row">	
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" for="special_cut_percent">优惠百分比<span style="color:red;">(*与优惠金额至少选其一)</span></label>
+							<input class="form-control" name="special_cut_percent" id="special_cut_percent" data-validate="number" placeholder="请输入优惠的百分比" />
+						</div>
+					</div>	
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" for="special_cut_money">优惠金额<span style="color:red;">(*与优惠百分比至少选其一)</span></label>
+							<input class="form-control" name="special_cut_money" id="special_cut_money" data-validate="number" placeholder="请输入优惠的金额"/>
+						</div>
+					</div>	
+				</div>
+				
+				<div class="row">					
+					<div class="col-md-6">						
+						<div class="form-group">
+							<label class="control-label" for="special_cut_type">优惠条件类型<span style="color:red;">(*必选)</span></label>
+							<script type="text/javascript">
+								$(document).ready(function(){
+									$("#special_cut_type").select2({
+//										minimumInputLength: 1,
+										minimumResultsForSearch: Infinity,
+										placeholder: '选择产品的优惠条件类型',
+										ajax: {
+											url: '{:U("help/listtypedata")}',
+											type: 'post',
+											dataType: 'json',
+											quietMillis: 100,
+											data: function(term, page) {
+												return {op:term, type_key:'line_special_offer'};
+											},
+											results: function(data, page){
+												if (data.result.errno == 0) {
+													if (data.ds == null) {
+														data.ds = new Array();	
+													}
+													return { results: data.ds }
+												} else {
+													return { results: '' };	
+												}
+											},
+											cache: true,
+										},
+										formatResult: function(data) { 					
+											return '<div class="select2-user-result cx_border02">' + data.type_desc + '</div>';
+										},	
+										formatSelection: function(data) {
+											selectSpecialCutType(data);						
+											return data.type_desc;
+										},						
+									});
+								});
+							</script>
+							<input class="form-control" type="text" name="special_cut_type" id="special_cut_type" />							
+							<input type="hidden" id="special_cut_id" value=""/>	
+						</div>							
+					</div>	
+				</div>
+				
+				<div class="row hidden_ctrl special_cut_condition line_special_offer_full_cut">					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" for="special_cut_cond_full">订单金额<span style="color:red;">(*必须输入)</span></label>
+							<input class="form-control" name="special_cut_cond_full" id="special_cut_cond_full" data-validate="number" placeholder="请输入达到满减的订单金额" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="row hidden_ctrl special_cut_condition line_special_offer_count">					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" for="special_cut_cond_count">订单人数<span style="color:red;">(*必须输入)</span></label>
+							<input class="form-control" name="special_cut_cond_count" id="special_cut_cond_count" data-validate="number" placeholder="请输入订单优惠需要达到的人数" />
+						</div>
+					</div>
+					
+					<div class="col-md-1">						
+						<div class="form-group">
+							<label class="control-label" for="special_cut_cond_count_child">包含小孩</label><br />							
+						    <input id="special_cut_cond_count_child" name="special_cut_cond_count_child" type="checkbox" checked class="iswitch iswitch-secondary">
+						</div>						
+					</div>
+				</div>
+				
+				<div class="row">					
+					<div class="col-md-6">						
+						<div class="form-group">
+							<button class="btn btn-secondary btn_special_cut_save">添加优惠</button>
+							<button class="btn btn-secondary btn_special_cut_reset">重置内容</button>
+						</div>						
+					</div>			
+				</div>		
+								
+				<div class="row">
+					<div class="col-md-12">				
+						<div class="form-group">
+							<table id="table_special_cut" class="table text-left" style="width: 80%;">
+								<thead>
+									<tr>
+										<th class="col-md-2">起始时间</th>
+										<th class="col-md-2">结束时间</th>
+										<th class="col-md-1">优惠百分比</th>
+										<th class="col-md-1">优惠金额</th>
+										<th class="col-md-4">优惠条件</th>
+										<th class="col-md-2">编辑/删除</th>
+									</tr>
+									<tbody>
+									</tbody>
+								</thead>
+							</table>
+						</div>	
+					</div>
+				</div>
+			
+				
+				<script type="text/javascript">
+					
+					// 当选择优惠条件时
+					function selectSpecialCutType(data) {
+						$('.special_cut_condition').each(function(i, elmt) {
+							if ($(elmt).hasClass(data.type_key)) {
+								$(elmt).removeClass('hidden_ctrl');	
+							} else {
+								$(elmt).addClass('hidden_ctrl');
+							}
+						});
+					}
+					
+					// 重置优惠信息
+					function resetSpecialCut() {
+						$('#special_cut_id').val();
+						var m = moment(new Date());
+						$('#special_cut_start_date').val(m.format('YYYY-MM-DD'));
+						$('#special_cut_start_time').val(m.format('HH:mm:ss'));
+						m.add(1, 'days');
+						$('#special_cut_end_date').val(m.format('YYYY-MM-DD'));
+						$('#special_cut_end_time').val(m.format('HH:mm:ss'));
+						$('#special_cut_percent').val('');
+						$('#special_cut_money').val('');
+//						setSelect2Value('#special_cut_type', null);
+						$('#special_cut_cond_full').val('');
+						$('#special_cut_cond_count').val('');
+						$('#special_cut_cond_count_child').prop('checked', true).trigger('change');
+						$('.btn_special_cut_save').html('添加优惠');
+					}
+					
+					// 添加一条显示的优惠信息
+					function appendSpecialCut(ds) {
+						if (ds == null || typeof(ds) == 'undefined') {
+							return false;
+						}
+						for (var i = 0; i < ds.length; i ++) {
+							var s = ds[i];
+							var vhtml = '<tr data-id="'+s.id+'">';
+								vhtml += '	<td class="col-md-2"><span class="special_cut_start_time">'+s.start_time+'</span></td>';
+								vhtml += '	<td class="col-md-2"><span class="special_cut_end_time">'+s.end_time+'</span></td>';
+								vhtml += '	<td class="col-md-1"><span class="special_cut_percent">'+s.cut_percent+'</span></td>';
+								vhtml += '	<td class="col-md-1"><span class="special_cut_money">'+s.cut_money+'</span></td>';
+								vhtml += '	<td class="col-md-4"><span class="special_cut_condition_text">'+s.condition+'</span></td>';
+								vhtml += '	<td class="col-md-2">';
+								vhtml += '		<button type="button" class="btn btn-secondary">编辑</button>';								
+								vhtml += '		<button type="button" class="btn btn-danger">删除</button>';							
+								vhtml += '	</td>';
+								vhtml += '</tr>';
+							$('#table_special_cut').find('tbody').append(vhtml);
+							$('#table_special_cut').find('tbody tr:last').find('.btn-secondary').click(editSpecialCut);
+							$('#table_special_cut').find('tbody tr:last').find('.btn-danger').click(deleteSpecialCut);
+						}
+					}
+					
+					// 更新一条显示的优惠信息
+					function updateSpecialCut(ds) {
+						if (ds == null || typeof(ds) == 'undefined') {
+							return false;
+						}
+						console.log(ds);
+						var trObj = $('#table_special_cut').find('tr[data-id="'+ds.id+'"]');
+						$(trObj).find('.special_cut_start_time').html(ds.start_time);
+						$(trObj).find('.special_cut_end_time').html(ds.end_time);
+						$(trObj).find('.special_cut_percent').html(ds.cut_percent);
+						$(trObj).find('.special_cut_money').html(ds.cut_money);
+						$(trObj).find('.special_cut_condition_text').html(ds.condition);
+					}
+					
+					// 设置优惠信息
+					function setSpecialCutData(ds) {
+						if (ds == null || typeof(ds) == 'undefined') {
+							return false;
+						}
+						$('#special_cut_id').val(ds.id);
+						var start = ds.start_time.split(' ');
+						console.log(start);
+						$('#special_cut_start_date').val(start[0]);
+						$('#special_cut_start_time').val(start[1]);
+						var end = ds.end_time.split(' ');
+						console.log(end);
+						$('#special_cut_end_date').val(end[0]);
+						$('#special_cut_end_time').val(end[1]);
+						$('#special_cut_percent').val(ds.cut_percent);
+						$('#special_cut_money').val(ds.cut_money);
+						setSelect2Value('#special_cut_type', ds.type_id);						
+						var vals = JSON.parse(ds.type_id);
+						selectSpecialCutType(vals);
+						$('#special_cut_cond_full').val(ds.cond_full);
+						$('#special_cut_cond_count').val(ds.cond_count);
+						$('#special_cut_cond_count_child').prop('checked', ds.cond_count_child == 1 ? true : false).trigger('change');						
+						$('.btn_special_cut_save').html('保存优惠');
+					}
+					
+					// 获取优惠信息
+					function getSpecialCutData() {
+						var jsonData = {
+							id: $('#special_cut_id').val(),
+							line_id: $('#line_id').val(),
+							start_time: $('#special_cut_start_date').val()+' '+$('#special_cut_start_time').val(),
+							end_time: $('#special_cut_end_date').val()+' '+$('#special_cut_end_time').val(),
+							cut_percent: $('#special_cut_percent').val(),
+							cut_money: $('#special_cut_money').val(),
+							type_id: getSelect2Value('#special_cut_type', ['id', 'type_key', 'type_desc']),
+							cond_full: $('#special_cut_cond_full').val(),
+							cond_count: $('#special_cut_cond_count').val(),
+							cond_count_child: $('#special_cut_cond_count_child').prop('checked') ? 1 : 0,
+						}
+						return jsonData;
+					}
+					
+					// 添加保存优惠信息
+					function saveSpecialCut(ev) {
+						ev.preventDefault();
+						var btnText = $('.btn_special_cut_save').html();
+						var opType = btnText == '添加优惠' ? 'create' : 'save';
+						var jsonData = getSpecialCutData();
+						jsonData['op_type'] = opType;
+						
+						$.post('{:U("line/specialOffer")}', jsonData, function(data){
+							if (data.result.errno == 0) {
+								if (opType == 'create') {
+									var temp = [data.ds];
+									appendSpecialCut(temp);	
+								} else {
+									updateSpecialCut(data.ds);
+								}
+								resetSpecialCut();
+							} else {
+								alert(data.result.message);
+							}	
+						});
+					}
+					
+					// 编辑优惠信息
+					function editSpecialCut(ev) {
+						ev.preventDefault();
+						var trObj = $(this).closest('tr');
+						var jsonData = {
+							op_type: 'find',
+							id: $(trObj).attr('data-id'),
+						}; 
+						
+						$.post('{:U("line/specialOffer")}', jsonData, function(data){
+							if (data.result.errno == 0) {
+								setSpecialCutData(data.ds);
+							} else {
+								alert(data.result.message);
+							}	
+						});
+					}
+					
+					// 删除优惠信息
+					function deleteSpecialCut(ev) {
+						ev.preventDefault();
+						var trObj = $(this).closest('tr');
+						var jsonData = {
+							op_type: 'delete',
+							id: $(trObj).attr('data-id'),
+						}; 
+						
+						$.post('{:U("line/specialOffer")}', jsonData, function(data){
+							if (data.result.errno == 0) {
+								$(trObj).remove();
+							} else {
+								alert(data.result.message);
+							}	
+						});
+					}
+					
+					// 初始化
+					$(document).ready(function(){
+						// 初始化数据
+						var m = moment(new Date());
+						$("#special_cut_start_date").val(m.format('YYYY-MM-DD'));
+						$('#special_cut_start_time').val(m.format('HH:mm:ss'));
+						m.add(1, 'days');
+						$("#special_cut_end_date").val(m.format('YYYY-MM-DD'));
+						$('#special_cut_end_time').val(m.format('HH:mm:ss'));
+						
+						// 保存优惠信息
+						$('.btn_special_cut_save').click(saveSpecialCut);
+						// 重置优惠信息
+						$('.btn_special_cut_reset').click(function(ev){							
+							ev.preventDefault();
+							resetSpecialCut();
+						});
+//						// 编辑优惠信息
+//						$('.btn_special_cut_edit').click(editSpecialCut);
+//						// 删除优惠信息
+//						$('.btn_special_cut_remove').click(deleteSpecialCut);
+					});
+					
+				</script>

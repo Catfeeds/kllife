@@ -1,0 +1,109 @@
+<include file="Common/top1" />
+	<!-- mycss -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/order_detail.css">
+	<link rel="stylesheet" href="__PUBLIC__/qlpphone/common/css/animate.css">
+	<link rel="stylesheet" href="__PUBLIC__/qlpphone/common/css/top2.css">
+	<style>
+		.content{top:60px;width:100%;margin-bottom:60px;}
+		.content-padded{margin-top:0px;}
+		.order-details-money .row .col-30:last-child,.order-details-header p span{color:#ff1c77;}
+	</style>
+	<div class="page">
+		<include file="Common/header" />
+		<include file="Common/bottom1" />
+		<div class="content">
+			<div class="order-details-header">
+				<div class="content-padded">
+					<p>亲爱的用户 <span>{$user.show_name}</span> ，您好！您于{$order.addtime_show} 的订单（订单号：{$order.order_sn}）详情如下，请您再次认真核实该订单信息，如您发现当前订单错误或有任何疑问请与客服联系，客服电话：400-080-5860或咨询在线客服；当前订单状态为<span>已审核</span>请进入个人中心进行付款，以免耽误行程。</p>
+				</div>
+			</div>
+			<!-- 订单详情 -->
+			<div class="order-details-content">
+				<div class="content-padded">
+					<h4>订单详情</h4>
+					<div class="row no-gutter">
+						<div class="col-25">订单号</div><div class="col-75">{$order.order_sn}</div>
+						<div class="col-25">订单状态</div><div class="col-75">{$order.zhuangtai_data.type_desc}</div>
+						<div class="col-25">活动名称</div><div class="col-75">{$order.lineid_title}</div>
+						<div class="col-25">活动时间</div><div class="col-75">{$order.hdid_show_text}</div>
+						<div class="col-25">联系人</div><div class="col-75">{$order.names}</div>
+						<div class="col-25">联系电话</div><div class="col-75">{$order.mob}</div>
+						<div class="col-25">参团人数</div><div class="col-75"><span>{$order.male}</span> 男[成人]   <span>{$order.woman}</span> 女[成人]    <span>{$order.child}</span> 儿童</div>
+						<div class="col-25">其他费用</div><div class="col-75">
+							<p>额外费用:
+								<empty name="order.extra_cash">无</empty>
+								<volist id="ec" name="order.extra_cash">
+									{$ec.cash_use_id_data.type_desc}  <strong>{$ec.cash}元</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+								</volist>
+							</p>
+							<p>
+								系统优惠:
+								<empty name="order.extra_cash">无</empty>
+								<volist id="oc" name="order.order_coupon">
+									{$oc.coupon_type_id_data.type_desc}  <i>{$oc.cash}元</i>
+								</volist>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 发票信息 -->
+			<if condition="$order.receipt_type eq 1">
+				<div class="invoice-information">
+					<h3>发票信息 <span>(企业发票)</span></h3>
+					<p>单位名称：{$oreder.receipt_company}</p>
+					<p>纳税人识别号：{$order.receipt_company_no}</p>
+					<p>单位地址：{$order.receipt_company_address}</p>
+					<p>电话号码：{$order.receipt_company_phone}</p>
+					<p>收件人：{$order.receipt_receiver}</p>
+					<p>收件电话：{$order.receipt_receiver_phone}</p>
+					<p>收件地址：{$order.receipt_receiver_address}</p>
+				</div>
+			<elseif condition="$order.receipt_type eq 2" />
+				<div class="invoice-information">
+					<h3>发票信息 <span>(个人发票)</span></h3>
+					<p>收件人：{$order.receipt_receiver}</p>
+					<p>收件电话：{$order.receipt_receiver_phone}</p>
+					<p>收件地址：{$order.receipt_receiver_address}</p>
+				</div>
+			</if>
+			<!-- 订单联系人信息 -->
+			<div class="order-details-contact">
+				<div class="content-padded">
+					<h4>订单联系人信息</h4>
+					<volist id="m" name="order.members">
+						<div class="row no-gutter">
+							<div class="col-25">姓名</div><div class="col-75">{$m.name}</div>
+							<div class="col-25">手机号码</div><div class="col-75">{$m.tel}</div>
+							<div class="col-25">证件</div><div class="col-75"><p>{$m.certificate_type_id_data.type_desc} {$m.certificate_num}</p><p>出生日期 {$m.birthday}</p></div>
+							<div class="col-25">性别</div><div class="col-75">{$m.type_id_data.type_desc}</div>
+							<div class="col-25">状态</div><div class="col-75"><if condition="$m['exit'] eq 0">在团<else />已退团</if></div>
+						</div>
+					</volist>
+				</div>
+			</div>
+			<!-- 订单消费 -->
+			<div class="order-details-money">
+				<div class="content-padded">
+					<div class="row no-gutter">
+						<div class="col-70">订单需支付</div><div class="col-30">￥{$order.need_pay_money}</div>
+						<div class="col-70">团费(含活动减免)</div><div class="col-30">￥{$order.team_cut_price}</div>
+						<div class="col-70">其他(额外费用与系统优惠)</div><div class="col-30">￥{$order.other_money}</div>
+						<div class="col-70">优惠券</div><div class="col-30">-￥{$order.coupon_money}</div>
+						<div class="col-70">实付金额</div><div class="col-30"><p>￥{$order.pay_money}</p></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<include file="Common/js" />
+	<script>
+		$( function(){
+			$.init();
+		})
+	</script>
+
+</body>
+</html>

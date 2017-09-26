@@ -1,0 +1,442 @@
+<style type="text/css">
+	.item-title { font-family: '微软雅黑'; font-size:18px; color:#333; }
+	.item-border { margin-top:10px; border-top: 3px solid #eee; }
+	.item-footer { margin-top: 15px; }
+	.item { border-left: 5px solid #5ca323; margin-top: 10px; padding-left: 30px; }
+	.item-opreate > a { margin-left: 30px; cursor: pointer; text-decoration: underline; }
+	.item-price { margin-top: 10px; padding-left: 30px; }
+	.btn-item-append { margin-left: 20px; font-family: '微软雅黑'; font-size: 14px; text-decoration: underline; color: #8e262a; cursor: pointer; }
+	.expand-fold { margin-right: 20px; font-family: '微软雅黑'; font-size: 14px; color: #666666; cursor: pointer;}
+	.separator-line { border-top:1px dashed #00b19d; margin-top: 15px; margin-bottom: 15px; }
+		
+	.twinkle {border-color:red;-webkit-box-shadow:0 15px 30px rgba(255,33,33,0.3); box-shadow:0 15px 30px rgba(255,33,33,0.3); -webkit-transform:translate3d(0, -2px, 0); transform:translate3d(0, -2px, 0);}
+</style>
+
+<include file="Input/ftype_data" />
+<include file="Input/fcj_item" />
+<include file="Input/cj_price" />
+
+<div class="item template_item hidden_ctrl" data-id="">
+	<div class="row">
+		<div class="col-md-3 data_item_name">
+			<label>名称：</label>
+			<span></span>
+		</div>
+										
+		<div class="col-md-2 data_item_type">
+			<label>项特殊类型：</label>
+			<span></span>		
+		</div>
+		<div class="col-md-1 data_item_stock">
+			<label>库存：</label>
+			<span></span>
+		</div>
+		<div class="col-md-2 item-room data_item_room_area">
+			<label>房间面积：</label>
+			<span></span>平米
+		</div>
+		<div class="col-md-1 item-room data_item_window">
+			<label>窗户数量：</label>
+			<span></span>
+		</div>
+		<div class="col-md-1 item-room data_item_air">
+			<label>空调数量：</label>
+			<span></span>
+		</div>
+		<div class="col-md-2 item-room data_item_bed_type">
+			<label>床宽：</label>
+			<span></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-1 item-room data_item_wash_supplies">
+			<label><input type="checkbox">洗漱用品</label>
+		</div>
+		<div class="col-md-1 item-room data_item_bathroom_curtain">
+			<label><input type="checkbox">卫浴窗帘</label>
+		</div>
+		<div class="col-md-1 item-room data_item_double_breakfast">
+			<label><input type="checkbox">双早</label>
+		</div>
+		<div class="col-md-1 item-room data_item_append_bed">
+			<label><input type="checkbox">加床</label>
+		</div>
+		<div class="col-md-1 item-room data_item_wifi">
+			<label><input type="checkbox">WIFI</label>
+		</div>
+		<div class="col-md-1 data_item_necessary">
+			<label><input type="checkbox">必须项</label>
+		</div>
+		<div class="col-md-1 data_item_free">
+			<label><input type="checkbox">赠品</label>
+		</div>
+		<div class="col-md-1 data_item_recycle">
+			<label><input type="checkbox">回收物品</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 data_item_beizhu">
+			<label>备注：</label>
+			<span></span>
+		</div>
+	</div>
+	<div class="row item-opreate">
+		<a class="btn-item-price"><i>价格详细</i></a>
+		<a class="btn-item-edit"><i>编辑信息</i></a>
+		<a class="btn-item-delete"><i style="color: red">删除信息</i></a>
+	</div>
+	<div class="row item-price"></div>
+</div>
+
+<!--详细内容，价格项，价格详细-->
+<div class="source-container item-container template-item_container hidden_ctrl">
+	<div class="title" style="background-color: rgba(96,163,35,0.5);">
+		<span class="item-title">价格项</span>
+		<a class="btn-item-append"><i>添加价格项</i></a>
+		<a class="expand-fold" style="float: right; "><b>折叠</b><i class="fa-chevron-down"></i></a>
+	</div>
+	<div class="item-border">
+	</div>
+	<div class="item-footer" style="text-align: center;">
+		<a href="javascript:;" style="width: 10%;" class="item-more" data-more="1">点击加载更多价格项<i class="fa-arrow-down"></i></a>		
+	</div>
+</div>
+
+<script type="text/javascript">
+	//点击闪烁操作区域
+    var timerObj = null, timeCount = 0;
+	function lightEdit(){
+        timeCount++;
+	    $('.create').toggleClass("twinkle");
+	    if (timeCount >5) {
+	        clearInterval(timerObj);
+		}
+	}
+
+	function flicker(focusObj) {
+        timeCount = 0;
+        $('body').animate({scrollTop:100}, 500);
+        $(focusObj).focus();
+        timerObj = setInterval(lightEdit, 500);
+	}
+	
+	$('.source-container .title').click(function(){
+		var thisObj = $(this).find('.expand-fold');
+		var expand = $(thisObj).find('i').attr('class').indexOf('up') < 0 ? false : true;
+		var btext = expand ? '展开' : '折叠';
+		var iclass = expand ? 'fa-chevron-down' : 'fa-chevron-up';
+		$(thisObj).find('b').html(btext);
+		$(thisObj).find('i').attr('class', iclass);
+		$(thisObj).parent().next().css('display', expand ? 'block' : 'none');
+	})
+	
+	function ModalCJItem(vobj, objType, objId) {
+		if (vobj == null || objType == null || objId == null) {
+			toastr.error('Error:显示价格项的参数有误');
+			return false;
+		}
+		
+		this.root = $('.template-item_container').clone(true);
+		$(this.root).removeClass('template-item_container');
+		this.obj = vobj;
+		this.obj_type = objType;
+		this.obj_id = objId;
+		this.page = 0;
+		this.max_page = 1;
+		this.modal_item = new ModalFCJItem();
+		this.price_panel = null;
+			
+		// 添加价格项到表格
+		var trObj = $(vobj).closest('tr');
+		var colLen = $(trObj).find('td').length;
+		$(trObj).after('<tr><td colspan="'+colLen+'"></td></tr>');
+		$(trObj).next().find('td').append(this.root);
+			
+		// 加载价格项
+		this.loadMoreItems();
+		
+		// 显示添加价格项弹出框
+		$(this.root).find('.btn-item-append').bind('click', {obj:this}, this.showAppendItem);
+		$(this.root).find('.item-more').bind('click', {obj:this}, this.findMoreItem);
+	}
+
+	ModalCJItem.prototype.showItems = function(){	
+		$(this.root).removeClass('hidden_ctrl');
+	}
+
+	// 显示添加价格项弹出框
+	ModalCJItem.prototype.showAppendItem = function(ev) {
+		ev.stopPropagation();
+		if (ev.data != null && ev.data.obj != null) {
+			var thisObj = ev.data.obj;
+			var item_id = null;
+			if ($(this).closest('.item').length > 0) {
+				item_id = $(this).closest('.item').attr('data-id');	
+			}		
+			ev.data.obj.modal_item.showModal(thisObj, thisObj.obj_type, thisObj.obj_id, item_id, thisObj._ajaxSaveItem);	
+		} else {
+			console.log('没有绑定对象');
+		}
+	}
+	
+	// 加载更多价格项
+	ModalCJItem.prototype.findMoreItem = function(ev) {
+		if (ev.data != null && ev.data.obj != null) {
+			ev.data.obj.loadMoreItems();
+		} else {
+			console.log('没有绑定对象');
+		}
+	}
+	
+	// 显示价格详细
+	ModalCJItem.prototype.showPriceList = function(ev) {
+		if (ev.data != null && ev.data.obj != null) {
+			var thisObj = ev.data.obj;
+			var item_id = null;
+			if ($(this).closest('.item').length > 0) {
+				var itemObj = $(this).closest('.item');
+				var item_id = $(itemObj).attr('data-id');
+				// 显示或者创建价格
+				var priceKey = 'price_'+item_id;
+				if (thisObj.price_panel == null) {
+					thisObj.price_panel = [];
+				}
+				var priceObj = thisObj.price_panel[priceKey];
+				if (priceObj == null) {
+					var priceRootObj = $(this).closest('.item').find('.item-price');
+					priceObj = new ModalCJPrice(priceRootObj, thisObj.obj_type, thisObj.obj_id, item_id);
+					thisObj.price_panel[priceKey] = priceObj;
+				}
+				priceObj.showPrices();
+			} else {
+				toastr.warning('价格项对象错误');
+			}	
+		} else {
+			toastr.warning('没有绑定对象');
+		}
+	}
+
+	// 添加编辑价格项
+	ModalCJItem.prototype._ajaxSaveItem = function(itemObj, d, op) {
+		if (d != null) {
+			var rootObj = null;
+			if (op == 'create') {
+				rootObj = $('.template_item').clone();
+				$(rootObj).removeClass('template_item');
+				$(rootObj).removeClass('hidden_ctrl');
+				$(rootObj).attr('data-id', d.id);
+			} else {
+				rootObj = $('.item[data-id="'+d.id+'"]');
+			}
+							
+			// 名称
+			$(rootObj).find('.data_item_name span').html(d.name);				
+			// 特殊项类型
+			$(rootObj).find('.data_item_type span').html(d.type_data.type_desc);				
+			// 库存
+			$(rootObj).find('.data_item_stock span').html(d.stock);
+			
+			if (d.type != null && d.type != 'undefined' && d.type != '[]' && d.type != '{}') {
+				var typeData = $.parseJSON(d.type);	
+				console.log(JSON.stringify(typeData));
+				if (typeData.type_key == 'cj_item_type_room') {	
+					$(rootObj).find('.item-room').removeClass('hidden_ctrl');
+					// 房间面积
+					$(rootObj).find('.data_item_room_area span').html(d.room_area);				
+					// 窗户数量
+					$(rootObj).find('.data_item_window span').html(d.window);				
+					// 空调数量
+					$(rootObj).find('.data_item_air span').html(d.air_conditioner);						
+					// 床宽
+					$(rootObj).find('.data_item_bed_type span').html(d.bed_width_show);
+					// 洗漱用品
+					$(rootObj).find('.data_item_wash_supplies input').prop('checked', d.wash_supplies == 1 ? true : false).trigger('change');
+					// 卫浴窗帘
+					$(rootObj).find('.data_item_bathroom_curtain input').prop('checked', d.bathroom_curtain == 1 ? true : false).trigger('change');
+					// 双早	
+					$(rootObj).find('.data_item_double_breakfast input').prop('checked', d.double_breakfast == 1 ? true : false).trigger('change');
+					// 加床	
+					$(rootObj).find('.data_item_append_bed input').prop('checked', d.append_bed == 1 ? true : false).trigger('change');
+					// WIFI	
+					$(rootObj).find('.data_item_wifi input').prop('checked', d.wifi == 1 ? true : false).trigger('change');
+							
+				} else {
+					$(rootObj).find('.item-room').addClass('hidden_ctrl');
+				}
+			} else {
+				$(rootObj).find('.item-room').addClass('hidden_ctrl');
+			}
+			
+			// 必须项
+			$(rootObj).find('.data_item_necessary input').prop('checked', d.necessary == 1 ? true : false).trigger('change');
+			// 回收物品	
+			$(rootObj).find('.data_item_recycle input').prop('checked', d.is_recycle == 1 ? true : false).trigger('change');
+			// 赠品	
+			$(rootObj).find('.data_item_free input').prop('checked', d.is_free == 1 ? true : false).trigger('change');
+			// 库存
+			$(rootObj).find('.data_item_beizhu span').html(d.beizhu);
+						
+			// 添加价格项
+			if (op == 'create') {
+				$(itemObj.root).find('.item-border').prepend('<hr class="separator-line"/>');
+				$(itemObj.root).find('.item-border').prepend(rootObj);
+				
+				// 绑定显示价格时间
+				$(rootObj).find('.btn-item-price').bind('click', {obj:itemObj}, itemObj.showPriceList);
+				// 绑定编辑事件
+				$(rootObj).find('.btn-item-edit').bind('click', {obj:itemObj}, itemObj.showAppendItem);
+				// 绑定删除事件
+				$(rootObj).find('.btn-item-delete').bind('click', {obj:itemObj}, itemObj._ajaxDeleteItem);
+			}
+		}
+	}
+
+	// 删除价格项
+	ModalCJItem.prototype._ajaxDeleteItem = function(e) {
+		if (e.data == null || e.data.obj == null) {
+			toastr.warning('未绑定对象，不能触发事件');
+			return false;
+		}
+		var thisObj = e.data.obj;
+		
+		if (!confirm('您确定要删除该价格项')) {
+			console.log('取消删除价格项');
+			return false;
+		}
+		
+		var rootObj = $(this).closest('.item');
+		var item_id = $(rootObj).attr('data-id');
+		if (item_id == 'null' || item_id == 'undefined' || item_id == '') {
+			toastr.warning('价格项编号无效');
+			return false;
+		}	
+		$.post('{:U("financial/item")}',{op_type:'delete', id:item_id}, function(data){
+			if (data.result.errno == 0) {
+				$(rootObj).remove();
+				// 移除分割线
+				$(rootObj).next().remove();
+			} else {
+				toastr.error(data.result.message);
+			}
+		})
+	}
+
+	// 加载更多价格项
+	ModalCJItem.prototype.loadMoreItems = function() {
+		var thisRootObj = this.root;
+		if ($(thisRootObj).find('.item-more').attr('data-more') == '0') {
+			return false;
+		}
+		
+		var str = 'obj_id|=|'+this.obj_id+'|AND';
+		var jsonData = {
+			op_type: 'list',
+			obj_type: this.obj_type,
+			cdtype: 4,
+			cdsstr: str,
+			page: this.page,
+		}
+		
+		var thisObj = this;
+		$.post('{:U("financial/item")}', jsonData, function(data){
+			thisObj.page ++;
+			if (data.page_count != null) {
+				thisObj.max_page = data.page_count;	
+			}
+			if (data.ds != null) {
+				for (var i=0; i < data.ds.length; i++) {
+					var d = data.ds[i];
+					var rootObj = $('.template_item').clone();
+					$(rootObj).removeClass('template_item');
+					$(rootObj).removeClass('hidden_ctrl');
+					$(rootObj).attr('data-id', d.id);
+					
+					// 名称
+					$(rootObj).find('.data_item_name span').html(d.name);			
+					// 特殊项类型
+					if (d.type_data != null) {
+						$(rootObj).find('.data_item_type span').html(d.type_data.type_desc);	
+					}
+					// 库存
+					$(rootObj).find('.data_item_stock span').html(d.stock);
+					
+					if (d.type != null && d.type != 'undefined' && d.type != '[]' && d.type != '{}') {
+						var typeData = $.parseJSON(d.type);	
+						if (typeData.type_key == 'cj_item_type_room') {
+							$(rootObj).find('.item-room').removeClass('hidden_ctrl');				
+							// 房间面积
+							$(rootObj).find('.data_item_room_area span').html(d.room_area);				
+							// 窗户数量
+							$(rootObj).find('.data_item_window span').html(d.window);				
+							// 空调数量
+							$(rootObj).find('.data_item_air span').html(d.air_conditioner);						
+							// 床宽
+							$(rootObj).find('.data_item_bed_type span').html(d.bed_width_show);
+							// 洗漱用品
+							$(rootObj).find('.data_item_wash_supplies input').prop('checked', d.wash_supplies == 1 ? true : false).trigger('change');
+							// 卫浴窗帘
+							$(rootObj).find('.data_item_bathroom_curtain input').prop('checked', d.bathroom_curtain == 1 ? true : false).trigger('change');
+							// 双早	
+							$(rootObj).find('.data_item_double_breakfast input').prop('checked', d.double_breakfast == 1 ? true : false).trigger('change');
+							// 加床	
+							$(rootObj).find('.data_item_append_bed input').prop('checked', d.append_bed == 1 ? true : false).trigger('change');
+							// WIFI	
+							$(rootObj).find('.data_item_wifi input').prop('checked', d.wifi == 1 ? true : false).trigger('change');
+						} else {
+							$(rootObj).find('.item-room').addClass('hidden_ctrl');
+						}
+					} else {
+						$(rootObj).find('.item-room').addClass('hidden_ctrl');						
+					}
+					
+					// 必须项
+					$(rootObj).find('.data_item_necessary input').prop('checked', d.necessary == 1 ? true : false).trigger('change');
+					// 赠品	
+					$(rootObj).find('.data_item_free input').prop('checked', d.is_free == 1 ? true : false).trigger('change');	
+					// 回收物品	
+					$(rootObj).find('.data_item_recycle input').prop('checked', d.is_recycle == 1 ? true : false).trigger('change');	
+					// 库存
+					$(rootObj).find('.data_item_beizhu span').html(d.beizhu);
+					
+					// 添加价格项
+					$(thisRootObj).find('.item-border').append(rootObj);
+					$(thisRootObj).find('.item-border').append('<hr class="separator-line"/>');
+										
+					// 绑定显示价格时间
+					$(rootObj).find('.btn-item-price').bind('click', {obj:thisObj}, thisObj.showPriceList);
+					// 绑定编辑事件
+					$(rootObj).find('.btn-item-edit').bind('click', {obj:thisObj}, thisObj.showAppendItem);
+					// 绑定删除事件
+					$(rootObj).find('.btn-item-delete').bind('click', {obj:thisObj}, thisObj._ajaxDeleteItem);
+				}
+				
+				if (data.ds.length < data.page_size) {
+					var aObj = $(thisRootObj).find('.item-more');
+					$(aObj).attr('data-more', '0');
+					$(aObj).html('没有更多价格内容');
+					$(aObj).css('color', 'red');
+				}
+			} else {
+				var aObj = $(thisRootObj).find('.more');
+				$(aObj).attr('data-more', '0');
+				$(aObj).html('没有更多价格内容');
+				$(aObj).css('color', 'red');
+			}
+		});
+	}
+
+	// 隐藏价格项
+	ModalCJItem.prototype.hideItems = function() {
+		$(this.root).addClass('hidden_ctrl');
+	}
+
+	// 销毁价格项
+	ModalCJItem.prototype.destoryItems = function() {
+		this.obj_type = null;
+		this.obj_id = null;
+		this.page = 0;
+		this.max_page = 1;
+		$(this.root).remove();
+	}
+
+</script>

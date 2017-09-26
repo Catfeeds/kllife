@@ -1,0 +1,754 @@
+*{margin:0px;padding:0px;}
+.img-responsive{
+    width:100%;
+}
+@font-face {
+    font-family: 'iconfont';  /* project id 332729 */
+    src: url('//at.alicdn.com/t/font_k3b09pbqf3v26gvi.eot');
+    src: url('//at.alicdn.com/t/font_k3b09pbqf3v26gvi.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_k3b09pbqf3v26gvi.woff') format('woff'),
+    url('//at.alicdn.com/t/font_k3b09pbqf3v26gvi.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_k3b09pbqf3v26gvi.svg#iconfont') format('svg');
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+.xiaotuan .banner{
+    line-height: .5;
+    display: block;
+}
+.xiaotuan{margin-bottom:2.5rem;}
+/*定位标题*/
+.xiaotuan .tit{
+    height:39px;
+}
+.xiaotuan .tit .tit1{
+    overflow: hidden;
+}
+.xiaotuan .tit .tit1 .left-tit,.xiaotuan .tit .tit1 .right-more{
+    float: left;
+}
+.xiaotuan .tit .right-more{
+    width:39px;
+    height:39px;
+    background: #f9a400;
+    line-height: 39px;
+    text-align: center;
+    color: #fff;
+}
+.xiaotuan .tit .left-tit{
+    width:calc(100% - 39px);
+    background: #f9be00;
+}
+.xiaotuan .tit .left-tit a{
+    display: inline-block;
+    float: left;
+    height:39px;
+    line-height:39px;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+    color:#333;
+}
+.xiaotuan .tit .left-tit .active{
+    background: #f95c57;
+    color:#fff;
+}
+.xiaotuan .tit .left-tit a:nth-child(1){width:20%}
+.xiaotuan .tit .left-tit a:nth-child(2){width:22%}
+.xiaotuan .tit .left-tit a:nth-child(3){width:20%}
+.xiaotuan .tit .left-tit a:nth-child(4){width:19%}
+.xiaotuan .tit .left-tit a:nth-child(5){width:19%}
+.xiaotuan .tit .tit2{
+    height:40px;
+    background: #f9a400;
+    display: none;
+}
+.xiaotuan .tit .tit2 a{
+    display: inline-block;
+    float: left;
+    width:20%;
+    line-height:40px;
+    font-size: 12px;
+    text-align: center;
+    color:#333;
+}
+.xiaotuan .tit .tit2 .active{
+    background: #f95c57;
+    color:#fff;
+}
+.xiaotuan .tit .right-more .rotate{
+    display: inline-block;
+    transform-origin:center center; //旋转中心要是正中间 才行
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transition: transform 0.7s; //过度时间 可调
+    -moz-transition: -moz-transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -o-transition: -o-transform 0.7s;
+    -ms-transition: -ms-transform 0.7s;
+}
+.xiaotuan .tit .right-more .rotate1{
+    display: inline-block;
+    transform-origin:center center;
+    transform: rotate(0deg); //返回原点
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transition: transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -moz-transition: -moz-transform 0.7s;
+    -o-transition: -o-transform 0.7s;
+    -ms-transition: -ms-transform 0.7s;
+}
+/*照片墙*/
+.xiaotuan .photo{
+    padding-top:10px;
+    padding-bottom:20px;
+    background: url("../images/xiaotuan/photo-background.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    text-align: center;
+    text-align: -webkit-center;
+    margin-top:-10px;
+}
+.xiaotuan .photo .tit span{
+    display: inline-block;
+    width:30%;
+    padding:40px 3px;
+}
+.xiaotuan .photo .photo-list span{
+    display: block;
+    padding:0px 10px;
+    margin-top:100px;
+}
+@media screen and (max-width: 320px) {
+    .xiaotuan .photo .photo-list span{
+        margin-top:90px;
+    }
+    .xiaotuan .tit .tit2 span{
+        font-size: 12px;
+    }
+    .xiaotuan .tit .left-tit span{
+        font-size: 12px;
+    }
+}
+@media screen and (min-width: 410px) {
+    .xiaotuan .photo .photo-list span{
+        margin-top:112px;
+    }
+}
+.xiaotuan .photo .photo-list .add{
+    width:40%;
+    margin:auto;
+    display: block;
+    padding-top:40px;
+}
+/*热门推荐*/
+.xiaotuan .remen{
+    background: #054ce4;
+}
+.xiaotuan .remen .name{
+    width:50%;
+    margin:auto;
+    display:block;
+    padding-top:20px;
+    padding-bottom:10px;
+}
+.xiaotuan .remen .choice ul{
+    overflow: hidden;
+}
+.xiaotuan .remen .choice ul li{
+    display: block;
+    width:25%;
+    float: left;
+    border-radius: 3px;
+    padding: 10px 5px 0px 5px;
+}
+.xiaotuan .remen .choice ul li span{
+    background: #043eb9;
+    color: #fff;
+    font-size: 14px;
+    width: 100%;
+    display: block;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+}
+.xiaotuan .remen .choice ul .active span{
+    background: #f9be00;
+}
+.xiaotuan .remen .group{
+    margin-top:20px;
+}
+/*小团慢旅行*/
+.xiaotuan .xiaotuanman{
+    background: #054ce4;
+}
+.xiaotuan .xiaotuanman .name{
+    width:70%;
+    margin:auto;
+    display:block;
+    padding-top:20px;
+    padding-bottom:10px;
+}
+.xiaotuan .group .item{
+    position: relative;
+    margin-bottom:15px;
+}
+.xiaotuan .group .item a{
+    position: absolute;
+    top:0px;
+    left:0px;
+    height:100%;
+    width:100%;
+}
+.xiaotuan .group .item .img{
+    position: relative;
+    line-height: .5;
+}
+.xiaotuan .group .item .img .resort{
+    position: absolute;
+    top:15px;
+    left:15px;
+    display:block;
+    width:80px;
+    height:25px;
+    line-height:25px;
+    font-size: 12px;
+    background: rgba(0,0,0,.5);
+    border-radius: 25px;
+    color:#fff;
+    text-align: center;
+}
+.xiaotuan .group .item .img p{
+    position: absolute;
+    left:15px;
+    bottom:15px;
+    font-size: 12px;
+    color:#fff;
+}
+.xiaotuan .group .item .img p span{
+    display:inline-block;
+    color:#f10637;
+}
+.xiaotuan .group .item .explain{
+    background: #fff;
+}
+.xiaotuan .group .item .explain h1{
+    font-size: 16px;
+    color:#333;
+    margin:0px;
+    padding:10px 10px 5px;
+}
+.xiaotuan .group .item .explain .p{
+    font-size: 14px;
+    color:#666;
+    padding:0px 10px;
+}
+.xiaotuan .group .item .explain .price{
+    overflow: hidden;
+    margin-top:10px;
+    border-top:1px solid #eee;
+}
+.xiaotuan .group .item .explain .price div{
+    float: left;
+    width:50%;
+    height:50px;
+    line-height:50px;
+}
+.xiaotuan .group .item .explain .price .money p{
+    font-size: 14px;
+    color:#f10637;
+    padding-left:10px;
+    font-weight: bold;
+}
+.xiaotuan .group .item .explain .price .money p span{
+    display: inline-block;
+    font-size: 12px;
+    font-weight: inherit;
+}
+.xiaotuan .group .item .explain .price .sign_up span{
+    float:right;
+    display: block;
+    text-align: center;
+    background: #f10637;
+    font-size: 14px;
+    height:30px;
+    line-height:30px;
+    width:100px;
+    color:#fff;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    margin-top:10px;
+}
+.xiaotuan .more{
+    display: inline-block;
+    width:30%;
+    margin: auto;
+    padding-top:10px;
+    margin-left: 35%;
+}
+/*跟拍游*/
+.xiaotuan .xiezhenlvxing{
+    background: #054ce4;
+}
+.xiaotuan .xiezhenlvxing .name{
+    width:50%;
+    margin:auto;
+    display:block;
+    padding-top:30px;
+    padding-bottom:20px;
+}
+.xiaotuan .xiezhenlvxing .background{
+    background: #ebf1fd;
+}
+.xiaotuan .xiezhenlvxing .img{
+    position: relative;
+    line-height: .5rem;
+}
+.xiaotuan .xiezhenlvxing .img span{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: block;
+    width: 80px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 12px;
+    background: rgba(0,0,0,.5);
+    border-radius: 25px;
+    color: #fff;
+    text-align: center;
+}
+.xiaotuan .xiezhenlvxing .background h3{
+    margin:0px;
+    text-align: center;
+    text-align: -webkit-center;
+    padding:20px 0px 10px;
+    color:#333;
+    font-size: 16px;
+}
+.xiaotuan .xiezhenlvxing .background .p{
+     font-size: 14px;
+     margin:0px;
+     text-align: center;
+     text-align: -webkit-center;
+     padding:0px 30px;
+     overflow: hidden;
+     display: -webkit-box;
+     text-overflow:ellipsis;
+     -webkit-line-clamp: 2;
+     -webkit-box-orient: vertical;
+     word-break: break-all;
+     color:#333;
+ }
+.xiaotuan .xiezhenlvxing .swiper-pagination-bullet {
+    width: 40px;
+    height: 8px;
+    border-radius: 0px;
+    background: #fff;
+}
+.xiaotuan .xiezhenlvxing .swiper-pagination-bullet-active{
+    background: #f9a400;
+}
+.xiaotuan .xiezhenlvxing .background .btn{
+    width:120px;
+    height:30px;
+    line-height:30px;
+    border-radius: 30px;
+    display:block;
+    background: #de0b45;
+    text-align: center;
+    color:#fff;
+    margin:15px auto;
+}
+.xiaotuan .xiezhenlvxing .background .btn p{
+    font-size: 16px;
+}
+.xiaotuan .xiezhenlvxing .background .btn p span{
+    font-size: 12px;
+}
+.xiaotuan .xiezhenlvxing .swiper-slide a{
+    display: inline-block;
+}
+/*定制游*/
+.xiaotuan .dingzhi{
+    background: #054ce4;
+    width:100%;
+    padding:20px 5px 0px;
+}
+/*摄影游*/
+.xiaotuan .sheyingyou{
+    padding-top:10px;
+    background: url("../images/xiaotuan/sheyingyou-background.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    background-color: #054ce4;
+}
+.xiaotuan .sheyingyou .name{
+    position: relative;
+    width:43%;
+    margin:auto;
+    display:block;
+    padding-top:30px;
+    padding-bottom:20px;
+}
+.xiaotuan .sheyingyou .name .sheyingyou-photo{
+    position: absolute;
+    top:0px;
+    right:-70px;
+    width:60px;
+}
+.xiaotuan .good-group{
+    overflow: hidden;
+}
+.xiaotuan .good-group .good-item{
+    position: relative;
+    width:50%;
+    float:left;
+    padding: 0px 5px;
+    margin-bottom:10px;
+}
+.xiaotuan .good-group .good-item a{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+}
+.xiaotuan .good-group .good-item .good-img{
+    position: relative;
+    line-height:.5rem;
+}
+.xiaotuan .good-group .good-item .good-img span{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: block;
+    width: 80px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 12px;
+    background: rgba(0,0,0,.5);
+    border-radius: 25px;
+    color: #fff;
+    text-align: center;
+}
+.xiaotuan .good-group .good-item .good-img .lg{
+    position: absolute;
+    bottom: 25px;
+    left: 10px;
+    font-size: 14px;
+    color: #fff;
+}
+.xiaotuan .good-group .good-item .good-img .sm{
+    position: absolute;
+    bottom: 3px;
+    left: 10px;
+    font-size: 12px;
+    color: #fff;
+    white-space:nowrap;/*强制文本在一行内显示*/
+    text-overflow:ellipsis; /*溢出省略号，支持ie、safari（webkit）*/
+    -o-text-overflow:ellipsis; /*溢出省略号，支持opera*/
+    overflow:hidden;/*溢出隐藏*/
+    -moz-binding:url('ellipsis.xml#ellipsis');
+    width:87%;
+    line-height: 1.1rem;
+}
+.xiaotuan .good-group .good-item .good-explain{
+    background: #fff;
+    padding-bottom:10px;
+}
+.xiaotuan .good-group .good-item .good-explain p{
+    color:#f10637;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    padding:15px 0px 10px;
+}
+.xiaotuan .good-group .good-item .good-explain p span{
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 100;
+}
+.xiaotuan .good-group .good-item .good-explain .span{
+    display: block;
+    width:90%;
+    background: #f10637;
+    color:#fff;
+    height:30px;
+    line-height:30px;
+    border-radius: 3px;
+    text-align: center;
+    margin-left:5%;
+    font-size: 14px;
+}
+/*深度游*/
+.xiaotuan .shenduyou{
+    padding-top:10px;
+    padding-bottom:35px;
+    background: url("../images/xiaotuan/shenduyou-background.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    background-color: #ffde00;
+}
+.xiaotuan .shenduyou .name{
+    position: relative;
+    width:50%;
+    margin:auto;
+    display:block;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+/*7月推荐*/
+.xiaotuan .july{
+    background: #ffde00;
+}
+.xiaotuan .july .name{
+    position: relative;
+    width:70%;
+    margin:auto;
+    display:block;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.xiaotuan .july .july-group,.xiaotuan .hot .july-group{
+    overflow: hidden;
+}
+.xiaotuan .july .july-group .july-item,.xiaotuan .hot .july-group .july-item{
+    position: relative;
+    float: left;
+    width:33.3333%;
+    padding:0px 5px;
+    margin-bottom:10px;
+}
+.xiaotuan .july .july-group .july-item a,.xiaotuan .hot .july-group .july-item a{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+}
+.xiaotuan .july .img,.xiaotuan .hot .img{
+    line-height: .5rem;
+}
+.xiaotuan .july .background{
+    background: #fff;
+    text-align: center;
+    padding:5px 0px;
+}
+.xiaotuan .july .background .lg{
+    font-size: 14px;
+    color:#666;
+}
+.xiaotuan .july .background .sm{
+    font-size: 12px;
+    color:#999;
+}
+.xiaotuan .july .swiper-pagination-bullet,.xiaotuan .hot .swiper-pagination-bullet {
+    width: 40px;
+    height: 8px;
+    border-radius: 0px;
+    background: #000;
+}
+.xiaotuan .july .swiper-pagination-bullet-active,.xiaotuan .hot .swiper-pagination-bullet-active{
+    background: #674004;
+}
+/*热门目的地*/
+.xiaotuan .hot{
+    background: url("../images/xiaotuan/hot-background.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    background-color: #00b5a2;
+}
+.xiaotuan .hot .name{
+    position: relative;
+    width:70%;
+    margin:auto;
+    display:block;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.xiaotuan .hot .background{
+    background: #fff;
+    text-align: center;
+    padding:5px 0px;
+}
+.xiaotuan .hot .background p{
+    font-size: 14px;
+    color:#666;
+}
+.xiaotuan .hot .swiper-container-horizontal>.swiper-pagination-bullets{
+    bottom:44px;
+}
+/*热门线路推荐*/
+.xiaotuan .hot-two{
+    background: #00b5a2;
+}
+.xiaotuan .hot-two .name{
+    width:75%;
+    margin:auto;
+    display:block;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.xiaotuan .hot-two .hot-group{
+    overflow: hidden;
+}
+.xiaotuan .hot-two .hot-group .hot-item{
+    width:33.333%;
+    float: left;
+    padding:0px 5px;
+    margin-bottom:10px;
+}
+.xiaotuan .hot-two .hot-group .hot-item .img{
+    position: relative;
+    line-height: .5rem;
+}
+.xiaotuan .hot-two .hot-group .hot-item .img span{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    display: block;
+    width: 70px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    background: rgba(0,0,0,.5);
+    border-radius: 20px;
+    color: #fff;
+    text-align: center;
+}
+.xiaotuan .hot-two .hot-group .hot-item .hot-explain{
+    background: #fff;
+    padding:5px 0px 5px 5px;
+}
+.xiaotuan .hot-two .hot-group .hot-item .hot-explain .p{
+    font-size: 14px;
+}
+.xiaotuan .hot-two .hot-group .hot-item .hot-explain .money{
+    font-size: 14px;
+    color:#f10637;
+    font-weight: bold;
+}
+@media screen and (max-width: 320px) {
+    .xiaotuan .hot-two .hot-group .hot-item .hot-explain .money{
+        font-size: 12px;
+    }
+}
+.xiaotuan .hot-two .hot-group .hot-item .hot-explain .money span{
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 100;
+}
+/*精彩游记*/
+.xiaotuan .marvellous{
+    background: #00b5a2;
+    padding-left:5px;
+    padding-bottom:20px;
+}
+.xiaotuan .marvellous .name{
+    width:75%;
+    margin:auto;
+    display:block;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.xiaotuan .marvellous a{
+    display: block;
+}
+.xiaotuan .marvellous .img{
+    line-height: .5rem;
+}
+.xiaotuan .marvellous .background{
+    background: #fff;
+    padding:10px;
+}
+.xiaotuan .marvellous .background p{
+    color:#333;
+    height:40px;
+    line-height:20px;
+    font-size: 12px;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow:ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+
+
+@media screen and (min-width: 340px) {
+    .xiaotuan .group{
+        padding:0px 10px;
+    }
+    .xiaotuan .remen .group{
+        padding:0px 5px;
+    }
+    .xiaotuan .xiezhenlvxing{
+        padding:0px 10px;
+    }
+    .xiaotuan .good-group{
+        padding:0px 5px;
+    }
+    .xiaotuan .july,.xiaotuan .hot{
+        padding:0px 5px;
+    }
+    .xiaotuan .hot-two .hot-group{
+        padding:0px 5px;
+    }
+    .xiaotuan .marvellous{
+        padding-left:10px;
+    }
+    .xiaotuan .dingzhi{
+        padding:20px 10px 0px;
+    }
+    .xiaotuan .remen{
+        padding:0px 5px;
+    }
+}
+@media screen and (min-width: 320px) {
+    .xiaotuan .marvellous .img img{
+        height:83.3px;
+    }
+    .xiaotuan .marvellous .youji-more{
+        height:143px;
+    }
+}
+@media screen and (min-width: 360px) {
+    .xiaotuan .marvellous .img img{
+        height:93.09px;
+    }
+    .xiaotuan .marvellous .youji-more{
+        height:153px;
+    }
+}
+@media screen and (min-width: 375px) {
+    .xiaotuan .marvellous .img img{
+        height:97.25px;
+    }
+    .xiaotuan .marvellous .youji-more{
+        height:157px;
+    }
+}
+@media screen and (min-width: 414px) {
+    .xiaotuan .marvellous .img img{
+        height:108.06px;
+    }
+    .xiaotuan .marvellous .youji-more{
+        height:168px;
+    }
+}

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+	<!-- uc强制竖屏 -->
+
+	<meta name="screen-orientation" content="portrait">
+
+	<!-- QQ强制竖屏 -->
+
+	<meta name="x5-orientation" content="portrait">
+
+	<!-- 载入loading进度条显示样式，与loading.js文件同时使用 -->
+
+	<!-- <link href="css/loading.css" rel="stylesheet" /> -->
+
+	<!-- 载入Swiper移动端触摸滑动插件，与swiper.jquery.min.js文件同时使用 -->
+
+	<link rel="stylesheet" href="css/swiper.min.css">
+
+	<!-- 载入Swiper动画控制器初始化文件，与swiper.animate.js文件同时使用 -->
+
+	<link rel="stylesheet" href="css/animate.min.css">
+
+	<title>醉美新疆，不妨终老在西域。带你装13带你飞、-领袖户外新疆线路合集</title>
+
+	<!-- 载入jQuery核心框架 -->
+
+	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+
+	<!-- 载入loading进度条控制脚本，与loading.css文件同时使用 -->
+
+	<!-- <script src="js/loading.js"></script> -->
+
+	<!-- 载入Swiper移动端触摸滑动插件，与swiper.min.css文件同时使用 -->
+
+	<script src="js/swiper.min.js"></script>
+
+	<!-- 载入Swiper动画控制器初始化文件，与swiper.animate.css文件同时使用 -->
+
+	<script src="js/swiper.animate.min.js"></script>
+
+
+
+	
+
+	<style>
+
+		*{
+
+			margin:0;
+
+			padding:0;
+
+		}
+
+		html,body{
+
+			height:100%;
+
+		}
+
+		body{
+
+			font-family:"microsoft yahei";
+
+		}
+
+		.swiper-container {
+
+		  /*  width: 320px;
+
+		    height: 480px;*/
+
+			width: 100%;
+
+		    height: 100%;
+
+			background:#000;
+
+		}  
+
+		.swiper-slide{
+
+			width:100%;
+
+			height:100%;
+
+			background:url(images/bg.jpg) no-repeat left top;
+
+			background-size:100% 100%;
+
+		}
+
+		img{
+
+			display:block;
+
+		}
+
+		.swiper-pagination-bullet {
+
+			width: 6px;
+
+			height: 6px;
+
+			background: #fff;
+
+			opacity: .4;
+
+		}
+
+		.swiper-pagination-bullet-active {
+
+			opacity: 1;
+
+		}
+
+		/*底部动画*/
+
+		@-webkit-keyframes start {
+
+			0%,30% {opacity: 0;-webkit-transform: translate(0,10px);}
+
+			60% {opacity: 1;-webkit-transform: translate(0,0);}
+
+			100% {opacity: 0;-webkit-transform: translate(0,-8px);}
+
+		}
+
+		@-moz-keyframes start {
+
+			0%,30% {opacity: 0;-moz-transform: translate(0,10px);}
+
+			60% {opacity: 1;-moz-transform: translate(0,0);}
+
+			100% {opacity: 0;-moz-transform: translate(0,-8px);}
+
+		}
+
+		@keyframes start {
+
+			0%,30% {opacity: 0;transform: translate(0,10px);}
+
+			60% {opacity: 1;transform: translate(0,0);}
+
+			100% {opacity: 0;transform: translate(0,-8px);}
+
+		}
+
+		.ani{
+
+			position:absolute;
+
+			}
+
+		.txt{
+
+			position:absolute;
+
+		}
+
+		#array{
+
+			position:absolute;z-index:999;-webkit-animation: start 1.5s infinite ease-in-out;
+
+		}
+
+		/*深入了解*/
+
+		@-webkit-keyframes bigAndSmall {
+
+			0%,20% {-webkit-transform: scale(0.9,0.9);}
+
+			40% {-webkit-transform: scale(1.0,1.0);}
+
+			60% {-webkit-transform: scale(1.1,1.1);}
+
+			80% {-webkit-transform: scale(1.0,1.0);}
+
+			100% {-webkit-transform: scale(0.9,0.9);}
+
+		}
+
+		@-moz-keyframes bigAndSmall {
+
+			0%,20% {-moz-transform: scale(0.9,0.9);}
+
+			40% {-moz-transform: scale(1.0,1.0);}
+
+			60% {-moz-transform: scale(1.1,1.1);}
+
+			80% {-moz-transform: scale(1.0,1.0);}
+
+			100% {-moz-transform: scale(0.9,0.9);}
+
+		}
+
+		@keyframes bigAndSmall {
+
+			20% {transform:rotate(2deg) ;}
+
+			40% {transform:rotate(0deg) ;}
+
+			60% {transform:rotate(-2deg) ;}
+
+			80% {transform:rotate(0deg) ;}
+
+			100% {transform:rotate(0deg) ;}
+
+		}
+
+		.liaojie{
+
+			position:absolute;z-index:999; animation: bigAndSmall 4s infinite linear; -webkit-animation: bigAndSmall 4s infinite linear;
+
+		}
+
+		/*slide02*/
+
+		@keyframes spining {
+
+			0% {transform: rotate(0deg);}
+
+			100% {transform:rotate(360deg);}
+
+		}
+
+		.spin { z-index:999; -webkit-animation: spining 5s infinite linear; }
+
+
+
+		/*slide04*/
+
+		@keyframes scaling {
+
+			0% {transform:scale(1.0,1.0);}
+
+			100% {transform:scale(1.5,1.5);}
+
+		}
+
+		.scaling { z-index:999; -webkit-animation: scaling 2s infinite ease; }
+
+
+
+		/*slide05*/
+
+		.spin05 { z-index:999; -webkit-animation: spining 8s infinite linear; }
+
+</style>
+
+	
+
+</head>
+
+<body>
+
+	<div class="swiper-container">
+
+		<div class="swiper-wrapper">
+			<!-- slide-0 -->
+
+			<section class="swiper-slide swiper-slide1" style="background: url(images/bg0.jpg) no-repeat left top; background-size: 100% 100%;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide00_01.png" class="ani resize" style="width:320px;height:143px;left:0px;top:15px;z-index:3;" swiper-animate-effect="slideInDown" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide00_02.png" class="ani resize" style="width:320px;height:89px;left:0px;top: 62px;z-index:3;" swiper-animate-effect="tada" swiper-animate-duration="2.5s" swiper-animate-delay="1.5s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide00_03.png" class="ani resize" style="width:320px;height:59px;left:0px;top: 184px;z-index:3;" swiper-animate-effect="rotateInUpLeft" swiper-animate-duration="1.5s" swiper-animate-delay="1s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide00_04.png" class="ani resize" style="width:320px;height:59px;left:0px;top: 246px;z-index:3;" swiper-animate-effect="rotateInUpRight" swiper-animate-duration="1.5s" swiper-animate-delay="2.0s" alt=""></a>
+
+				<!-- 底部图标 -->
+
+				<img src="images/arrow.png" style="width:20px;height:15px; top:540px; left:150px;" id="array" class="resize"> 
+
+			</section>
+			<!-- slide-1 -->
+
+			<section class="swiper-slide swiper-slide1" style="background: url(images/bg1.jpg) no-repeat left top; background-size: 100% 100%;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide01_01.png" class="ani resize" style="width:320px;height:118px;left:0px;top:36px;z-index:3;" swiper-animate-effect="zoomIn" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide01_02.png" class="ani resize" style="width:320px;height:64px;left:0px;top: 172px;z-index:3;" swiper-animate-effect="fadeIn" swiper-animate-duration="0.5s" swiper-animate-delay="1.5s" alt=""></a>
+
+				<img src="images/slide01_03.png" class="ani resize" style="width:320px;height:35px;left:0px;top: 249px;z-index:3;" swiper-animate-effect="lightSpeedIn" swiper-animate-duration="0.5s" swiper-animate-delay="1.5s" alt="">
+
+				<img src="images/slide01_04.png" class="ani resize" style="width:320px;height:35px;left:0px;top: 293px;z-index:3;" swiper-animate-effect="lightSpeedIn" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s" alt="">
+
+				<img src="images/slide01_05.png" class="ani resize" style="width:320px;height:35px;left:0px;top: 338px;z-index:3;" swiper-animate-effect="lightSpeedIn" swiper-animate-duration="0.5s" swiper-animate-delay="2.5s" alt="">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/liaojie.png" class="ani resize liaojie" style="width: 320px; height: 46px; right: 3px; bottom: 5px; z-index:3" alt=""></a>
+
+			</section>
+
+			<!-- slide-2 -->
+
+			<section class="swiper-slide swiper-slide2" style="background: url(images/bg2.jpg) no-repeat left top; background-size: 100% 100%;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide02_01.png" class="ani resize" style="width:320px;height:68px;left:0px;top:45px;z-index:3;" swiper-animate-effect="rollIn" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide02_02.png" class="ani resize" style="width:320px;height:63px;left:0px;top:140px;z-index:4;" swiper-animate-effect="fadeIn" swiper-animate-duration="1s" swiper-animate-delay="1s"  ></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide02_03.png" class="ani resize spin" style="width:320px;height:74px;left:0px;top:400px;z-index:4;"></a>
+
+				<img src="images/slide02_09.png" class="" style="position: relative;width:78.125%; max-width:100%;margin: 0 auto;top:45%;z-index:2;" swiper-animate-effect="rollIn" swiper-animate-duration="1s" swiper-animate-delay="2s">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/liaojie.png" class="ani resize liaojie" style="width: 320px; height: 46px; right: 3px; bottom: 5px; z-index:3" alt=""></a>
+
+			</section>
+
+			<!-- slide-3 -->
+
+			<section class="swiper-slide swiper-slide3" style="background: url(images/bg3.jpg) no-repeat left top; background-size: 100% 100%;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide03_01.png" class="ani resize" style="width:320px;height:50px;left:0px;top:92px;z-index:4;" swiper-animate-effect="slideInDown" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide03_02.png" class="ani resize" style="width:320px;height:159px;left:0px;top:160px;z-index:4;" swiper-animate-effect="fadeInDown" swiper-animate-duration="1.5s" swiper-animate-delay=".5s" alt=""></a>
+
+				<img src="images/slide03_03.png" class="ani resize" style="width:320px;height:285px;left:0px;top:48px;z-index:3;" swiper-animate-effect="fadeIn" swiper-animate-duration="1.5s" swiper-animate-delay="1s" alt="">
+
+                <a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/liaojie.png" class="ani resize liaojie" style="width: 320px; height: 46px; right: 3px; bottom: 5px; z-index:3" alt=""></a>
+
+			</section>
+
+			<!-- slide-4 -->
+
+			<section class="swiper-slide swiper-slide4" style="background: url(images/bg4.jpg) no-repeat left top; background-size: 100% 100%;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide04_01.png" class="ani resize" style="width:320px;height:100px;left:0px;top:61px;z-index:3;" swiper-animate-effect="slideInLeft" swiper-animate-duration="1s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide04_02.png" class="ani resize" style="width:320px;height:166px;left:0px;top:61px;z-index:3;" swiper-animate-effect="slideInTop" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide04_03.png" class="ani resize" style="width:320px;height:209px;left:0px;top:61px;z-index:3;" swiper-animate-effect="fadeInUp" swiper-animate-duration="1.5s" swiper-animate-delay=".5s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide04_04.png" class="ani resize" style="width:320px;height:233px;left:0px;top:100px;z-index:3;" swiper-animate-effect="slideInRight" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<img src="images/slide04_06.png" class="ani resize scaling" style="width:25.5px;height:26px;left:169px;top:163px;z-index:3;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/liaojie.png" class="ani resize liaojie" style="width: 320px; height: 46px; right: 3px; bottom: 5px; z-index:3" alt=""></a>
+
+			</section>
+
+			<!-- slide-5 -->
+
+			<section class="swiper-slide swiper-slide5" style="background: url(images/bg5.jpg) no-repeat left top; background-size: 100% 100%;">
+
+				<img src="images/slide05_01.png" class="spin05" style="position: relative;width:78.75%; max-width: 100%; margin:0 auto;top:50%;z-index:1;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide05_02.png" class="ani resize" style="width:320px;height:111px;left:0px;top:37px;z-index:3;" swiper-animate-effect="slideInLeft" swiper-animate-duration=".5s" swiper-animate-delay="0.5s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide05_03.png" class="ani resize" style="width:320px;height:86px;left:0px;top:170px;z-index:3;" swiper-animate-effect="slideInRight" swiper-animate-duration="1s" swiper-animate-delay="0.5s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/liaojie.png" class="ani resize liaojie" style="width: 320px; height: 46px; right: 3px; bottom: 5px; z-index:3" alt=""></a>
+
+			</section>
+
+			<!-- slide-6 -->
+
+			<section class="swiper-slide swiper-slide6" style="background: url(images/bg6.jpg) no-repeat left top; background-size: 100% 100%;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide06_01.png" class="ani resize" style="width:320px;height:109px;left:0px;top:43px;z-index:3;" swiper-animate-effect="tada" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide06_02.png" class="ani resize" style="width:320px;height:111px;left:0px;top:190px;z-index:3;" swiper-animate-effect="lightSpeedIn" swiper-animate-duration="1s" swiper-animate-delay="0.5s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/liaojie.png" class="ani resize liaojie" style="width: 320px; height: 46px; right: 3px; bottom: 5px; z-index:3" alt=""></a>
+
+			</section>
+
+			<!-- slide-7 -->
+
+			<section class="swiper-slide swiper-slide7" style="background: url(images/bg7.jpg) no-repeat left top; background-size: 100% 100%;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide07_01.png" class="ani resize" style="width:320px;height:70px;left:0px;top:51px;z-index:3;" swiper-animate-effect="rollIn" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide07_02.png" class="ani resize" style="width:318px;height:111px;left:2px;top:139px;z-index:3;" swiper-animate-effect="flash" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide07_09.png" class="ani resize" style="width:320px;height:260px;left:0px;top:265px;z-index:3;" swiper-animate-effect="rotateInUpLeft" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<img src="images/slide07_04.png" class="ani resize" style="width:47px;height:47px;right:80px;top:484px;z-index:3;" swiper-animate-effect="rotateInDownRight" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt="">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/liaojie.png" class="ani resize liaojie" style="width: 320px; height: 46px; right: 3px; bottom: 5px; z-index:3" alt=""></a>
+
+			</section>
+
+			<!-- slide-8 -->
+
+			<section class="swiper-slide swiper-slide8" style="background: url(images/bg8.jpg) no-repeat left top; background-size: 100% 100%;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide08_01.png" class="ani resize" style="width:40px;height:207px;left:208px;top:61px;z-index:3;" swiper-animate-effect="fadeInUp" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide08_02.png" class="ani resize" style="width:19px;height:155px;left:176px;top:61px;z-index:3;" swiper-animate-effect="fadeInDown" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide08_03.png" class="ani resize" style="width:94px;height:233px;left:68px;top:100px;z-index:3;" swiper-animate-effect="fadeIn" swiper-animate-duration="1.5s" swiper-animate-delay="1s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/liaojie.png" class="ani resize liaojie" style="width: 320px; height: 46px; right: 3px; bottom: 5px; z-index:3" alt=""></a>
+
+			</section>
+
+			<!-- slide-9 -->
+
+			<section class="swiper-slide swiper-slide9" style="background: #ffda06;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide09_01.png" class="ani resize" style="width:320px;height:161px;left:0px;top:40px;z-index:3;" swiper-animate-effect="bounceIn" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide09_02.png" class="ani resize" style="width:320px;height:111px;left:0px;top:217px;z-index:3;" swiper-animate-effect="fadeInLeft" swiper-animate-duration="1.5s" swiper-animate-delay="0.5s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide09_03.png" class="ani resize" style="width:320px;height:36px;left:0px;top:337px;z-index:3;" swiper-animate-effect="fadeInRight" swiper-animate-duration="1.5s" swiper-animate-delay="0.5s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide09_04.png" class="ani resize" style="width:320px;height:87px;left:0px;top:390px;z-index:3;" swiper-animate-effect="fadeInRight" swiper-animate-duration="1.5s" swiper-animate-delay="0.5s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang/"><img src="images/slide09_05.png" class="ani resize" style="width:320px;height:35px;left:0px;top:494px;z-index:3;" swiper-animate-effect="swing" swiper-animate-duration="2s" swiper-animate-delay="1s" alt=""></a>
+
+				<a style="position: absolute; width: 44%; height: 7%; top: 81.2%; left: 28%; z-index: 999;" href="http://3g.kllife.com/zt/xinjiang/"></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang"><img src="images/liaojie.png" class="ani resize liaojie" style="width: 320px; height: 46px; right: 3px; bottom: 5px; z-index:3" alt=""></a>
+
+			</section>
+
+			<section class="swiper-slide swiper-slide10" style="background: #ffda06;">
+
+				<a href="http://3g.kllife.com/zt/xinjiang"><img src="images/slide10_01.png" class="ani resize" style="width:320px;height:161px;left:0px;top:15px;z-index:3;" swiper-animate-effect="bounceIn" swiper-animate-duration="1.5s" swiper-animate-delay="0s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang"><img src="images/slide10_02.png" class="ani resize" style="width:320px;height:87px;left:0px;top:195px;z-index:3;" swiper-animate-effect="fadeInLeft" swiper-animate-duration="1.5s" swiper-animate-delay="0.5s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang"><img src="images/slide10_03.png" class="ani resize" style="width:320px;height:187px;left:0px;top:308px;z-index:3;" swiper-animate-effect="fadeInUp" swiper-animate-duration="1.5s" swiper-animate-delay="0.5s" alt=""></a>
+
+				<a href="http://3g.kllife.com/zt/xinjiang"><img src="images/liaojie.png" class="ani resize liaojie" style="width: 320px; height: 46px; right: 3px; bottom: 5px; z-index:3" alt=""></a>
+
+			</section>
+
+		</div>
+
+		
+
+	</div>
+
+	
+
+	<div style="display: none;">
+
+		<script>
+
+		var _hmt = _hmt || [];
+
+		(function() {
+
+		  var hm = document.createElement("script");
+
+		  hm.src = "//hm.baidu.com/hm.js?a6f69a2a062b07c67a4ae301e0963ca8";
+
+		  var s = document.getElementsByTagName("script")[0]; 
+
+		  s.parentNode.insertBefore(hm, s);
+
+		})();
+
+		</script>
+
+	</div>
+
+	
+
+	<script>  
+
+	//屏幕适应
+
+	scaleW=window.innerWidth/320;
+
+	scaleH=window.innerHeight/568;
+
+	var resizes = document.querySelectorAll('.resize');
+
+	for (var j=0; j<resizes.length; j++) {
+
+		resizes[j].style.width=parseInt(resizes[j].style.width)*scaleW+'px';
+
+		resizes[j].style.height=parseInt(resizes[j].style.height)*scaleH+'px';
+
+		resizes[j].style.top=parseInt(resizes[j].style.top)*scaleH+'px';
+
+		resizes[j].style.left=parseInt(resizes[j].style.left)*scaleW+'px'; 
+
+	}
+
+	//swiper
+
+	var mySwiper = new Swiper ('.swiper-container', {
+
+		//滑动的方向（垂直）
+
+		direction : 'vertical',
+
+		//右方index标记
+
+		// pagination: '.swiper-pagination',
+
+		//滑动方式（coverflow）
+
+		effect : 'filp',
+
+		// virtualTranslate : true,
+
+		//鼠标滚轮控制
+
+		// mousewheelControl : true,
+
+		//初始化
+
+		onInit: function(swiper){
+
+			swiperAnimateCache(swiper);
+
+			swiperAnimate(swiper);
+
+		},
+
+		//当手指触碰时
+
+		onTouchStart: function(){
+
+			//记录活动元素下标
+
+			var num = mySwiper.activeIndex;
+
+			//禁止首页上拉，尾页下拉
+
+			if ( num == 0 ){ 
+
+				mySwiper.lockSwipeToPrev();
+
+			}else if ( num == 10 ){
+
+				mySwiper.lockSwipeToNext();
+
+			}else {
+
+				mySwiper.unlockSwipeToNext();
+
+				mySwiper.unlockSwipeToPrev();
+
+			}
+
+
+
+		},
+
+		//滑动改变后
+
+		onSlideChangeEnd: function(swiper){
+
+			swiperAnimate(swiper);
+
+		},
+
+		onTransitionEnd: function(swiper){
+
+			swiperAnimate(swiper);
+
+			
+
+		},
+
+		watchSlidesProgress: true,
+
+		onProgress: function(swiper){
+
+			for (var i = 0; i < swiper.slides.length; i++){
+
+				var slide = swiper.slides[i];
+
+				var progress = slide.progress;
+
+				var translate = progress*swiper.height/4;  
+
+				scale = 1 - Math.min(Math.abs(progress * 0.5), 1);
+
+				var opacity = 1 - Math.min(Math.abs(progress/2),0.5);
+
+				slide.style.opacity = opacity;
+
+				es = slide.style;
+
+				es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform = 'translate3d(0,'+translate+'px,-'+translate+'px) scaleY(' + scale + ')';
+
+			}
+
+		},
+
+		//动画过渡
+
+		onSetTransition: function(swiper, speed) {
+
+			for (var i = 0; i < swiper.slides.length; i++){
+
+			es = swiper.slides[i].style;
+
+			es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = speed + 'ms';
+
+			}
+
+		},
+
+	});
+
+  	
+
+  </script>
+
+  <script>
+
+  	
+
+  window.onload = function () {
+
+  	
+
+  }
+
+  	
+
+  </script>
+
+</body>
+
+</html>

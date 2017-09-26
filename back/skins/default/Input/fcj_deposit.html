@@ -1,0 +1,561 @@
+<style type="text/css">
+	table, thead, th, tbody, tr, td {text-align: center;}
+</style>
+
+<div class="modal fade custom-width" id="gallery-fcj-deposit-modal" data-backdrop="static">
+	<div class="modal-dialog" style="width: 80%;">
+		<div class="modal-content">
+			
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">预算资金提交</h4>
+			</div>
+			
+			<div class="modal-body">
+				
+				<div class="row edit_area">
+					<div class="col-md-3">
+						<div class="form-group">
+							<label for="field-1" class="control-label">资源类型</label>	
+							<input type="text" class="form-control" id="data_fdeposit_source_type">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="field-1" class="control-label">资源</label>	
+							<input type="text" class="form-control" id="data_fdeposit_source_obj" placeholder="请选择资源">
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<label for="field-1" class="control-label">指定审批人</label>
+							<input type="text" class="form-control" id="data_fdeposit_review_admin" placeholder="请指定审核人员">
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label for="field-1" class="control-label">结算方式</label>
+							<input type="text" class="form-control" id="data_fdeposit_pay_type" placeholder="请选择结算方式">
+						</div>
+					</div>
+				</div>
+			
+				<div class="row edit_area">
+					<div class="col-md-3">						
+						<div class="form-group">
+							<label for="field-1" class="control-label">收款人</label>							
+							<input type="text" class="form-control" id="data_fdeposit_payee" placeholder="请输入收款人姓名">
+						</div>						
+					</div>
+					
+					<div class="col-md-3">						
+						<div class="form-group">
+							<label for="field-2" class="control-label">收款账号</label>							
+							<input type="text" class="form-control" id="data_fdeposit_bank_card" placeholder="请输入收款人账号">
+						</div>					
+					</div>
+					
+					<div class="col-md-3">						
+						<div class="form-group">
+							<label for="field-2" class="control-label">减免金额</label>							
+							<input type="number" class="form-control" id="data_fdeposit_derate" placeholder="请输入结算要减免的金额" value="0.00">
+						</div>					
+					</div>
+					
+					<div class="col-md-3">						
+						<div class="form-group">
+							<label for="field-2" class="control-label">审批金额</label>							
+							<input type="number" class="form-control" id="data_fdeposit_approval_amount" placeholder="请输入此次要审批的金额" value="0.00">
+						</div>					
+					</div>
+				</div>
+			
+				<div class="row edit_area">
+					<div class="col-md-12">						
+						<div class="form-group">
+							<label for="field-3" class="control-label">开户银行与其他支付</label>							
+							<input type="text" class="form-control" id="data_fdeposit_bank_address" placeholder="请输入开户行地址或者其他支付相关信息">
+						</div>							
+					</div>
+				</div>
+			
+				<div class="row edit_area">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="field-3" class="control-label">提审备注</label>
+							<input type="text" class="form-control" id="data_fdeposit_beizhu" placeholder="请输入此次提审预算资金审批的备注信息">
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">					
+					<div class="col-md-12">						
+						<table class="table table_budget_submit">
+							<thead>
+								<tr>
+									<th style="width: 100px;">资源类型</th>
+									<th style="width: 200px;">资源名称</th>
+									<th style="width: 100px;">消费项</th>
+									<th style="width: 60px;">数量</th>
+									<th style="width: 500px;">价格</th>
+									<th style="width: 80px;">预算类型</th>
+									<th style="width: 110px;">总价</th>
+									<th style="width: 500px;">备注</th>
+									<th style="width: 110px;">提审状态</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>						
+					</div>		
+					<div class="col-md-12">
+						<p style="float: right; text-align: right; /*border-top: 1px solid #eee; width: 300px;*/ padding-top: 10px;">
+							<span style="font-size: 18px; margin-left: 20px;">预算金额：<b class="submit_budget_money" style="color: red;">0.00</b>元</span>
+							<span style="font-size: 18px; margin-left: 20px;">减免金额：<b class="submit_derate_money" style="color: red;">0.00</b>元</span>
+							<span style="font-size: 18px; margin-left: 20px;">提审金额：<b class="submit_approval_money" style="color: red;">0.00</b>元</span>
+							<span style="font-size: 18px; margin-left: 20px;">已交易金额：<b class="submit_complated_money" style="color: red;">0.00</b>元</span>
+							<span style="font-size: 18px; margin-left: 20px;">最终预算：<b class="submit_confirm_money" style="color: red;">0.00</b>元</span>
+						</p>
+					</div>				
+				</div>
+				
+				<!--<div class="row">		
+				</div-->
+				
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-info edit_area btn_fdeposit_submit">提审预算</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	// select2 对象	
+	var select2FDepositSourceType = null;
+	var select2FDepositSourceObj = null;
+	
+	// 切换资源类型
+	function changeFDepositSourceType(ev) {
+		setSelect2Value($('#data_fdeposit_source_obj'), null);
+		if (select2FDepositSourceObj != null) {
+			var typestr = getSelect2Value($('#data_fdeposit_source_type'));				
+			if (typestr != {} && typestr != '') {
+				var type = $.parseJSON(typestr);
+				if (type.type_key.indexOf('insurance') != -1) {
+					select2FDepositSourceObj.ds.tab = 'cj_insurance';
+				} else if (type.type_key.indexOf('leader') != -1) {
+					select2FDepositSourceObj.ds.tab = 'cj_leader';
+				} else if (type.type_key.indexOf('hotel') != -1) {
+					select2FDepositSourceObj.ds.tab = 'cj_hotel';
+				} else if (type.type_key.indexOf('driver') != -1) {
+					select2FDepositSourceObj.ds.tab = 'cj_driver';
+				} else if (type.type_key.indexOf('bus') != -1) {
+					select2FDepositSourceObj.ds.tab = 'cj_bus';
+				} else if (type.type_key.indexOf('view') != -1) {
+					select2FDepositSourceObj.ds.tab = 'cj_view';
+				} else if (type.type_key.indexOf('agency') != -1) {
+					select2FDepositSourceObj.ds.tab = 'cj_agency';
+				} else {
+					select2FDepositSourceObj.ds.tab = 'cj_source';
+				}
+			}
+		}
+	}
+	
+	// 初始化资源类型
+	function initFDepositSourceType() {											
+		var voption = {obj:$('#data_fdeposit_source_type'), search:1, placeholder: '请选择资源类型', show_col:'type_desc', select_col:'type_desc', func_select_changed:changeFDepositSourceType};
+		var vds = {tab:'type_data', search_col: 'type_desc', cdsstr: 'type_key|LIKE|cj_source_obj_%', cdtype:3, sort:'sort|asc'}
+		select2FDepositSourceType = new MySelect2(voption, vds);
+	}
+	
+	// 显示选择资源文本
+	function fdepositSourceObjShowText(ds) {
+		if (select2FDepositSourceObj == null) {
+			return '未初始化资源下拉框';
+		}
+		
+		if (ds.show_name != null) {
+			return ds.show_name;
+		}
+		
+		var vtab = select2FDepositSourceObj.ds.tab;
+		if (vtab.indexOf('insurance') != -1) {
+			return ds.name;
+		} else if (vtab.indexOf('leader') != -1) {
+			if (ds.name != null && ds.name != '') {
+				return ds.name;
+			} else if (ds.nickname != null && ds.nickname != '') {
+				return ds.nickname;
+			}else if (ds.stagename != null && ds.stagename != '') {
+				return ds.stagename;
+			}
+		} else if (vtab.indexOf('hotel') != -1) {
+			return ds.name+'['+ds.city+']';
+		} else if (vtab.indexOf('driver') != -1) {
+			return ds.name;
+		} else if (vtab.indexOf('bus') != -1) {
+			return ds.seat+'座'+ds.bus_log+'['+ds.name+']';
+		} else if (vtab.indexOf('view') != -1) {
+			return ds.name+'['+ds.city+']['+ds.province+']';
+		} else if (vtab.indexOf('agency') != -1) {
+			var type = '';
+			if (ds.agency_type != '' && ds.agency_type != null && ds.agency_type != '{}'){
+				var typeObj = $.parseJSON(ds.agency_type);
+				type = typeObj.type_desc;
+			} 
+			return ds.name+'['+type+']';
+		} else {
+			return ds.name;
+		}
+	}
+	
+	// 改变资源对象
+	function changeFDepositSourceObj() {
+		var objstr = getSelect2Value($('#data_fdeposit_source_obj'),['id', 'payee', 'bank_card', 'bank_address']);
+//		console.log(objstr);
+		if (objstr != null && objstr != '') {
+			var obj = $.parseJSON(objstr);
+			$('#data_fdeposit_payee').val(obj.payee);
+			$('#data_fdeposit_bank_card').val(obj.bank_card);
+			$('#data_fdeposit_bank_address').val(obj.bank_address);			
+		}		
+	}
+	
+	// 初始化资源
+	function initFDepositSourceObj() {				
+		var voption = {obj:$('#data_fdeposit_source_obj'), search:1, placeholder: '请选择资源', show_col:fdepositSourceObjShowText, select_col:fdepositSourceObjShowText, func_select_changed:changeFDepositSourceObj};
+		var vds = {tab:'cj_leader', search_col: 'name', cdsstr: 'invalid|=|0|AND', cdtype:4}
+		select2FDepositSourceObj = new MySelect2(voption, vds);
+	}
+	
+	// 初始化审批管理员
+	function initFDepositReviewAdmin() {
+		bindAdminDropMenu($('#data_fdeposit_review_admin'), '', '点击选择审批管理员或者输入关键字查询');
+	}
+	
+	// 初始化结算类型
+	function initFDepositPayType() {
+		bindTypeDataDropMenu($('#data_fdeposit_pay_type'), 'cj_pay_type', '选择结算类型');	
+	}
+	
+	$(document).ready(function(){
+		initFDepositSourceType();
+		initFDepositSourceObj();	
+		initFDepositReviewAdmin();
+		initFDepositPayType();
+	});
+	
+	function ModalFCJDeposit() {
+		this.root = $('#gallery-fcj-deposit-modal');
+		
+		this.obj = null;
+		this.team_id = null;
+		this.ids = null;
+		this.review_id = null;
+		this.callbackFunc = null;
+		this.money = null;
+		this.review_data = null;
+		
+		// 绑定取消事件
+		$(this.root).find('.btn-fitem-close').bind('click', {obj:this}, this.cancelItem);
+		// 绑定费用减免事件
+		$(this.root).find('#data_fdeposit_derate').bind('blur', {obj:this}, this.derateMoney);
+		// 绑定审批金额事件
+		$(this.root).find('#data_fdeposit_approval_amount').bind('blur', {obj:this}, this.approvalAmountMoney);		
+	}
+	
+	// showMode: 展示模式(0:编辑模式，1:查看模式，默认：0)
+	ModalFCJDeposit.prototype.showModal = function(vobj, teamId, ids, reviewId, confirmCallBack, showMode){
+		// 隐藏编辑区域
+		if (showMode != null && showMode == 1) {
+			$(this.root).find('.edit_area').addClass('hidden_ctrl');
+		} else {
+			$(this.root).find('.edit_area').removeClass('hidden_ctrl');
+		}
+		
+		if (this.obj = vobj || this.team_id != teamId || this.ids != ids || this.review_id != reviewId || this.callbackFunc != confirmCallBack) {
+			// 清除之前的信息
+			this.clearItem();
+			
+			this.obj = vobj;
+			this.team_id = teamId;
+			this.ids = ids;
+			this.review_id = reviewId;
+			this.callbackFunc = confirmCallBack;
+			// 填充价格项数据
+			this.fillItem();	
+					
+			// 绑定确认事件
+			$(this.root).find('.btn_fdeposit_submit').unbind();
+			$(this.root).find('.btn_fdeposit_submit').bind('click', {obj:this}, this.confirmItem);
+		}
+		
+		// 显示面板
+		$(this.root).modal('show');	
+	}
+	
+	ModalFCJDeposit.prototype.clearItem = function (){
+		setSelect2Value('#data_fdeposit_source_type', null);
+		setSelect2Value('#data_fdeposit_source_obj', null);
+		setSelect2Value('#data_fdeposit_pay_type', null);
+		$('#data_fdeposit_payee').val('');		
+		$('#data_fdeposit_bank_card').val('');	
+		$('#data_fdeposit_derate').val('0.00');	
+		$('#data_fdeposit_approval_amount').val('0.00');	
+		$('#data_fdeposit_bank_address').val('');
+		$('#data_fdeposit_beizhu').val('');
+		$('.table_budget_submit').find('tbody').children().remove();		
+		$('.submit_budget_money').html('0.00');		// 预算金额
+		$('.submit_derate_money').html('0.00');		// 减免金额
+		$('.submit_approval_amount').html('0.00');	// 提审金额
+		$('.submit_complated_money').html('0.00');	// 已完成金额
+		$('.submit_confirm_money').html('0.00');	// 最终预算金额
+			
+		this.obj = null;
+		this.team_id = null;
+		this.ids = null;
+		this.review_id = null;
+		this.callbackFunc = null;
+		this.money = null;
+		this.review_data = null;
+					
+		var modalRootObj = this.root;
+	}
+	
+	ModalFCJDeposit.prototype.fillItem = function() {
+		var jsonData = {
+			op_type: 'source', 
+			op:'find',
+			find_all: 1,			
+		}
+		
+		var firstSubmit = null;
+		if (this.ids != null && this.ids != '') {
+			jsonData['cdsstr'] = 'id|IN|('+this.ids+')|AND';
+			jsonData['cdtype'] = 4;
+			firstSubmit = true;
+		}
+		
+		if (this.review_id != null && this.review_id != '') {
+			jsonData['review_id'] = this.review_id;
+			firstSubmit = true;
+		}		
+						
+		setSelect2Value('#data_fdeposit_review_admin', '{"id":"85","account":"郭煜","show_name":"郭煜"}');	
+		setSelect2Value('#data_fdeposit_pay_type', '{"id":"914","type_key":"cj_pay_type_cash","type_desc":"现结"}');	
+		if (firstSubmit == null || this.team_id == null) {
+			this.hideModal();
+			return false;
+		}
+				
+		var thisObj = this;
+		$.post('{:U("financial/team")}', jsonData, function(data){
+			if (data.ds != null) {			
+				var modalRootObj = thisObj.root;
+				var fill = false;
+				var budgetCash = 0.00, approvalAmount = 0.00;
+				if (data.sum_money != null) {
+					$('.submit_budget_money').html(data.sum_money);	
+					budgetCash = parseFloat(data.sum_money);
+					approvalAmount = budgetCash;
+					thisObj.money = data.sum_money;		
+				}
+				for (var i=0; i < data.ds.length; i ++) {							
+					var d = data.ds[i];										
+					if (d.review_data != null && fill == false) {
+						fill = true;
+						var r = d.review_data;
+						thisObj.review_data = d.review_data;
+						setSelect2Value('#data_fdeposit_source_type', r.obj_type);
+						if (r.obj_data != null) {
+//							console.log(JSON.stringify(r.obj_data))
+							setSelect2Value('#data_fdeposit_source_obj', JSON.stringify(r.obj_data));	
+						}
+						setSelect2Value('#data_fdeposit_review_admin', r.review_admin);	
+						setSelect2Value('#data_fdeposit_pay_type', r.pay_type);	
+						console.log(r.review_admin);
+						$('#data_fdeposit_payee').val(r.payee);
+						$('#data_fdeposit_bank_card').val(r.bank_card);
+						$('#data_fdeposit_bank_address').val(r.bank_address);
+						$('#data_fdeposit_derate').val(r.derate);
+						$('#data_fdeposit_beizhu').val(r.beizhu);					
+						$('.submit_derate_money').html(r.derate);
+						// 最终预算金额
+						budgetCash = budgetCash - parseFloat(r.derate);
+						if (r.approval_amount != null && parseFloat(r.approval_amount) > 0) {
+							approvalAmount = r.approval_amount	
+						} else {
+							approvalAmount = budgetCash - approvalAmount(r.complated_money);
+						}
+						// 已经完成审批的金额
+						$('.submit_complated_money').html(r.complated_money);
+					}
+					
+					
+					var sourceType = 'other', sourceTypeId = 0, sourceTypeDesc = '未知资源';
+					if (d.obj_type_data != null) {
+						sourceTypeId = d.obj_type_data.id;
+						typeKey = d.obj_type_data.type_key;	
+						var basetypestr = 'cj_source_obj_';
+						sourceType = typeKey.substr(basetypestr.length);
+						sourceTypeDesc = d.obj_type_data.type_desc;
+					}				
+					
+					var obj_show_text = d.obj_data != null ? d.obj_data.show_name : '';
+					var item_name = d.item_data != null ? d.item_data.name : '';
+					var price_show_text = d.price_data != null ? d.price_data.show_name : '';
+					var recycle_text = d.item_data.is_recycle > 0 ? d.recycle : '不可回收资源';
+					var review_text = d.review_data != null ? d.review_data.review_type_data.type_desc : '未提审';
+					var vhtml = '<tr class="source" data-id="'+d.id+'" data-type="'+sourceType+'" data-review-id="'+d.review_id+'">';
+						vhtml +='	<td class="source_type" data-obj-type-id="'+sourceTypeId+'">'+sourceTypeDesc+'</td>';
+						vhtml +='	<td class="source data-obj-id="'+d.obj_id+'">'+obj_show_text+'</td>';
+						vhtml +='	<td class="source_item">'+item_name+'</td>';
+						vhtml +='	<td class="source_num">'+d.num+'</td>';
+						vhtml +='	<td class="source_price">'+price_show_text+'</td>';
+						vhtml +='	<td class="source_money_type">'+d.money_type+'</td>';
+						vhtml +='	<td class="source_money">'+d.money+'</td>';
+						vhtml +='	<td class="source_beizhu">'+d.beizhu+'</td>';
+						vhtml +='	<td class="source_review">'+review_text+'</td>';
+						vhtml +='</tr>';
+					$(thisObj.root).find('.table_budget_submit').find('tbody').append(vhtml);
+				}	
+				// 最终预算金额
+				$('.submit_confirm_money').html(budgetCash);
+				// 本次提审金额
+				$('#data_fdeposit_approval_amount').val(approvalAmount);
+				$('.submit_approval_money').html(approvalAmount);
+			} else {
+				toastr.error('未能找到提审资源预算信息');
+			}
+		});
+	}
+	
+	// 减免费用
+	ModalFCJDeposit.prototype.derateMoney = function(e){
+		if (e.data == null || e.data.obj == null) {
+			console.log('未绑定对象，不能触发事件');
+			return false;
+		}
+		$('.submit_derate_money').html($(this).val());
+		if (e.data.obj.money != null) {				
+			$('.submit_confirm_money').html(e.data.obj.money-$(this).val());
+		} else {
+			$('.submit_confirm_money').html(0-$(this).val());
+		}		
+	}
+	
+	// 审批金额
+	ModalFCJDeposit.prototype.approvalAmountMoney = function(e) {
+		if (e.data == null || e.data.obj == null) {
+			console.log('未绑定对象，不能触发事件');
+			return false;
+		}
+		
+		var approvalAmount = parseInt($(this).val());
+		$('.submit_approval_money').html(approvalAmount);
+	}
+	
+	
+	// 确认添加/修改数据
+	ModalFCJDeposit.prototype.confirmItem = function(e){
+		if (e.data == null || e.data.obj == null) {
+			console.log('未绑定对象，不能触发事件');
+			return false;
+		}
+		
+		if (e.data.obj.ids == null && e.data.obj.review_id == null) {
+			toastr.warning('您未选择任何资源预算');
+			return false;
+		}
+		
+		var srctypstr = getSelect2Value('#data_fdeposit_source_type');
+		var srcobjstr = getSelect2Value('#data_fdeposit_source_obj', ['id','pay_type']);		
+		var adminstr = getSelect2Value($('#data_fdeposit_review_admin'), ['id', 'account', 'nickname']);
+		if (srctypstr == '' || srcobjstr == '' || adminstr == '') {
+			toastr.warning('入账的资源对象或是审批审批人员未设置');
+			return false;
+		}
+		srcobjstr = srcobjstr.replace(/"\{/g,'{').replace(/\}"/g, '}');
+		console.log(srcobjstr);
+		var srcObj = JSON.parse(srcobjstr);
+					
+		if (e.data.obj.review_data != null) {
+			if (srctypstr != e.data.obj.review_data.obj_type || srcObj.id != e.data.obj.review_data.obj_id) {
+				toastr.warning('您所提交的审批信息【资源类型】【资源对象】与上一次提交的并非同一资源，请确认后再次提交');
+				return false;
+			}
+		}
+		
+		// 支付类型
+		var paytypestr = getSelect2Value('#data_fdeposit_pay_type');		
+					
+		var jsonData = {
+			op_type: 'request_money',
+			obj_type: srctypstr,
+			obj_id: srcObj.id,
+			team_id: e.data.obj.team_id,
+			ids: e.data.obj.ids,
+			review_id: e.data.obj.review_id,
+			money: e.data.obj.money,
+			derate: $('#data_fdeposit_derate').val(),
+			approval_amount: $('#data_fdeposit_approval_amount').val(),
+			pay_type: paytypestr, //JSON.stringify(srcObj.pay_type),
+			payee: $('#data_fdeposit_payee').val(),
+			bank_card: $('#data_fdeposit_bank_card').val(),
+			bank_address: $('#data_fdeposit_bank_address').val(),
+			beizhu: $('#data_fdeposit_beizhu').val(),
+		}
+		var admin = $.parseJSON(adminstr);
+		admin['show_name'] = admin.nickname != '' && admin.nickname != 'undefined' ? admin.nickname : admin.account;
+		jsonData['review_admin'] = JSON.stringify(admin);
+		
+		// 检测提审金额是否合法
+		var approvalAmount = parseInt($('#data_fdeposit_approval_amount').val());
+		var derate = parseInt($('#data_fdeposit_derate').val());
+		var complated = parseInt($('.submit_complated_money').html());
+		var finalApproval = e.data.obj.money - derate - complated;
+		if (finalApproval < approvalAmount) {
+			toastr.warning('提审金额，不能大于最终预算金额')
+			return false;
+		}
+		
+		$.post('{:U("financial/team")}', jsonData, function(data){
+			if (data.result != null) {
+				if (data.result.errno != 0){
+					toastr.error(data.result.message);
+					return false;	
+				}
+			}
+			
+			if (data.jumpUrl != null){
+				location.href = data.jumpUrl;
+				return false;
+			}
+			
+			toastr.success('提交资源预算资金审批成功!!!');
+			if (e.data.obj.callbackFunc != 'undefined' && e.data.obj.callbackFunc != null && typeof(e.data.obj.callbackFunc) == 'function') {				
+				console.log('通知提交审核成功，'+JSON.stringify(data.ds));
+				e.data.obj.callbackFunc(e.data.obj.obj, data);
+			}			
+			e.data.obj.hideModal();
+		});
+	}
+	
+	ModalFCJDeposit.prototype.hideModal = function() {
+		this.clearItem();
+		$(this.root).modal('hide');
+	}
+	
+	// 取消编辑项
+	ModalFCJDeposit.prototype.cancelItem = function(e) {
+		if (e.data == null || e.data.obj == null) {
+			console.log('未绑定对象，不能触发事件');
+			return false;
+		}
+		e.data.obj.hideModal();
+	}
+</script>

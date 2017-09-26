@@ -1,0 +1,129 @@
+<include file="Common/header" />
+
+<!-- 分页样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/common/css/page.css">
+
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">我的订单</h1>
+			<p class="description">这里你可以自己分销线路所生成的订单</p>
+		</div>
+	</div>
+	
+	<div class="panel panel-default">
+		<div class="panel-body">
+			
+			<section class="invoice-env">				
+				
+				<!--{$sql}-->
+				
+				<!-- 翻页 -->
+				<div class="list-page" data-page-count="{$page_count}" data-page-index="1"></div>						
+				
+				<!-- Invoice Entries -->
+				<table class="table table-bordered">
+					<thead>
+						<tr class="no-borders" style="height: 40px; vertical-align: middle;">
+							<th class="text-center">编号</th>
+							<th width="20%" class="text-center">订单编号</th>
+							<th width="20%" class="text-center">产品</th>
+							<th class="text-center">联系人</th>
+							<th class="text-center">订单人数</th>
+							<th class="text-center">状态</th>
+							<th class="text-center">结算状态</th>
+							<th class="text-center">佣金(人/总共)</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<volist id="order" name="orders">
+							<tr>
+								<td>{$order.bind_id}</td>
+								<td>{$order.order_sn}</td>
+								<td>{$order.lineid_hdid_show}</td>
+								<td>{$order.names}<br/>{$order.mob}</td>
+								<td>成人男:{$order.male}/成人女:{$order.woman}/儿童:{$order.child}</td>
+								<td>{$order.zhuangtai_data.type_desc}</td>
+								<td><if condition="$order['bind_settle_account'] eq 0">未结算<else />已结算</if></td>
+								<td>{$order.commision}</td>
+							</tr>
+						</volist>
+					</tbody>
+				</table>
+				
+				<!-- Invoice Subtotals and Totals -->
+				<div class="invoice-totals">
+					
+					<div class="invoice-subtotals-totals">						
+						<span>
+							可提现佣金: 
+							<strong>￥{$user.money}</strong>
+							<!--<i class="fa-refresh refersh_money"></i>-->
+						</span>
+					</div>
+							
+					<div class="invoice-bill-info">
+						<address>
+							订单一共涉及成人{$member_count['adult']}名(男:{$member_count['male']},女:{$member_count['woman']}),儿童{$member_count['child']}名
+						</address>
+					</div>
+					
+				</div>
+				
+			</section>
+			
+		</div>
+	</div>					
+
+	<script src="__PUBLIC__/home/js/page.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			// 初始化分页
+			constructionPage('.list-page', 1, '{$page_count}', changePage, true);
+			
+		});
+		
+		// 切换分销线路
+		function changePage(p) {
+			var jsonData = {
+				op_type: 'list',
+				page: p - 1,
+			}
+			
+			showLoading(true);
+			$.post('{:U("order/list")}', jsonData, function(data){
+				showLoading(false);
+				if (data.result.errno == 0) {
+					if (typeof(data.ds) != 'undefined') {
+						$('table tbody').empty();
+						var show_log = '';
+						for (var i=0; i < data.ds.length; i++) {
+							var d = data.ds[i];							
+							var vhtml = '<tr>';
+								vhtml += '<td>'+d.bind_id+'</td>';
+								vhtml += '<td>'+d.order_sn+'</td>';
+								vhtml += '<td>'+d.lineid_hdid_show+'</td>';
+								vhtml += '<td>'+d.names+'<br />'+d.mob+'</td>';
+								vhtml += '<td>成人男:'+d.male+'/成人女:'+d.woman+'/儿童:'+d.child+'</td>';
+								vhtml += '<td>'+d.zhuangtai_data.type_desc+'</td>';
+								if (d.bind_settle_account == 0) {
+									vhtml += '<td>未结算</td>';
+								} else {
+									vhtml += '<td>已结算</td>';
+								}
+								vhtml += '<td>'+d.commision+'</td>';
+								vhtml += '</tr>'
+																						
+							$('table tbody').append(vhtml);
+						}
+						
+						constructionPage($('.list-page'), p, data.page_count, changePage, false);					
+					}
+				} else {
+					console.log(data.result.message);
+				}
+			});
+		}
+		
+	</script>
+<include file="Common/footer" />

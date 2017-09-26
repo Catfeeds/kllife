@@ -1,0 +1,120 @@
+<include file="Common/top-two" />
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/order_details.css">
+	<style>
+		#content{margin-top:50px;}
+		.order-details-top p span,.contact-information > p strong{color:#ff1c77;}
+	</style>
+	<!-- 主要内容 -->
+	<div id="content">
+		<div class="order-details-top">
+			<p>亲爱的用户 <span>{$order.show_name}</span> ，您好！您于{$order.addtime_show}的订单（订单号：{$order.order_sn}）详情如下，请您再次认真核实该订单信息，如您发现当前订单错误或有任何疑问请与客服联系，客服电话：<span>400-080-5860</span>或咨询在线客服；当前订单状态为<span>{$order.zhuangtai_data.type_desc}</span>，请进入<a href="{:U('line/order')}/type/center" target="_blank"><span>订单中心</span></a>进行付款，以免耽误行程。</p>
+		</div>
+		<div class="order-details-content">
+			<!-- 订单详情 -->
+			<div class="order-details">
+				<h3>订单详情</h3>
+				<p>订 单 号：{$order.order_sn}</p>
+				<p>订单状态：{$order.zhuangtai_data.type_desc}</p>
+				<p>活动名称：{$order.lineid_title}</p>
+				<p>活动时间：{$order.hdid_show_text}</p>
+				<p>联系人：{$order.names}</p>
+				<p>联系人电话：{$order.mob}</p>
+				<p>参团人数：   <span>{$order.male}</span> 男[成人]     <span>{$order.woman}</span>  女[成人]      <span>{$order.child}</span> 儿童 </p>
+				<p>订单总费用：{$order.need_pay_money}</p>
+				<p>订单总团费：{$order.team_cut_price}</p>
+				<p>已付费用：{$order.pay_cash}</p>
+				<p>其他费用:
+					<empty name="order.extra_cash">无</empty>
+					<volist id="ec" name="order.extra_cash">
+						{$ec.cash_use_id_data.type_desc}  <i>{$ec.cash}元</i> 
+					</volist>
+				</p>
+				<p>
+					用户优惠券:
+					<empty name="order.extra_cash">无</empty>
+					<volist id="uc" name="order.use_coupon">
+						{$uc.title}  <i>{$uc.money}元</i>
+					</volist>
+				</p>
+				<p>
+					系统优惠券:
+					<empty name="order.extra_cash">无</empty>
+					<volist id="oc" name="order.order_coupon">
+						{$oc.coupon_type_id_data.type_desc}  <i>{$oc.cash}元</i>
+					</volist>
+				</p>
+			</div>
+			<!-- 发票信息 -->
+			<if condition="$order.receipt_type eq 1">
+				<div class="invoice-information">
+					<h3>发票信息 <span>(企业发票)</span></h3>
+					<p>单位名称：{$oreder.receipt_company}</p>
+					<p>纳税人识别号：{$order.receipt_company_no}</p>
+					<p>单位地址：{$order.receipt_company_address}</p>
+					<p>电话号码：{$order.receipt_company_phone}</p>
+					<p>收件人：{$order.receipt_receiver}</p>
+					<p>收件电话：{$order.receipt_receiver_phone}</p>
+					<p>收件地址：{$order.receipt_receiver_address}</p>
+				</div>
+			<elseif condition="$order.receipt_type eq 2" />
+				<div class="invoice-information">
+					<h3>发票信息 <span>(个人发票)</span></h3>
+					<p>收件人：{$order.receipt_receiver}</p>
+					<p>收件电话：{$order.receipt_receiver_phone}</p>
+					<p>收件地址：{$order.receipt_receiver_address}</p>
+				</div>
+			</if>
+			<!-- 订单联系人信息 -->
+			<div class="contact-information">
+				<h3>订单参团人信息</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>姓名</th>
+							<th>手机号码</th>
+							<th>证件</th>
+							<th>性别</th>
+							<th>退团</th>
+						</tr>
+					</thead>
+					<tbody>
+						<volist id="m" name="order.members">
+							<tr>
+								<td>{$m.name}</td>
+								<td>{$m.tel}</td>
+								<td>
+									<p>{$m.certificate_type_id_data.type_desc} {$m.certificate_num}</p>
+									<if condition="m.birthday neq ''">
+										<p>出生日期 {$m.birthday}</p>
+									</if>
+								</td>
+								<td>{$m.type_id_data.type_desc}</td>
+								<td>
+									<if condition="$m['exit'] eq 0">
+										在团
+									<else />
+										已退团
+									</if>
+								</td>
+							</tr>
+						</volist>
+					</tbody>
+				</table>
+				<p>订单总金额：<strong>￥{$order.need_pay_money}</strong> 元</p>
+			</div>
+		</div>
+	</div>
+<include file="Common/bottom" />
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(
+        function($){
+            $("img").lazyload({
+                placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+                effect      : "fadeIn",
+                threshold : 100,
+                failure_limit : 10
+            });
+        });
+</script>

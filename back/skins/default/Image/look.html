@@ -1,0 +1,197 @@
+  	<!--Modal-->
+	<div id="modal_look_image"  class="modal fade custom-width">
+		<div class="modal-dialog" style="width: 80%">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h3 id="modal_select_image_title" class="modal-title">图片浏览</h3>
+				</div>
+				
+				<div class="modal-body">
+					<div class="row div_container">
+						<div class="div_image_show">
+							<img class="image_show_block" src="" />
+						</div>
+						<div class="div_perview_button"></div>
+						<div class="div_next_button"></div>
+					</div>					
+				</div>			
+				<div class="modal-footer">
+					<p class="modal_look_image_msg" style="color: red;"></p>
+					<button type="button" class="btn btn-info" data-dismiss="modal">关闭窗口</button>
+				</div>	
+			</div>
+		</div>
+	</div>
+	<style type="text/css">
+		.div_container {
+			width: 900px;
+			height: 600px;
+		}
+		.div_perview_button{
+			position: absolute;
+			left: 0px;
+			width: 50%;
+			height: 95%;
+		}
+		.div_next_button{
+			position: absolute;
+			right: 0px;
+			width: 50%;
+			height: 95%;
+		}
+		.div_image_show {
+			position: absolute;
+			left: 0px;
+			right: 0px;
+			width: 100%;
+			height: 95%;
+		}
+		.image_show_block {
+			clear: both;
+			display: block;
+			margin: auto;			
+			max-width: 100%;
+			max-height: 100%;
+			vertical-align: middle;
+		}
+		.select_border {
+			border-style: dotted;
+			border-width: 1px;		
+			border-color: #f00;	 
+		}
+		.select_border1 {
+			border-style: dotted;
+			border-width: 1px;		
+			border-color: #00f;	 
+		}
+	</style>
+	<script type="text/javascript">
+		var modalLookImageUrlList;
+		var modalLookCurIndex=0;
+		
+		var funcGetImageUrl = null;
+		var modalLookCurImageObj = null;
+		
+		$(document).ready(function(){
+			// 初始化窗口
+			_initLookImageModal();
+		});
+		
+		// 重置选择图片Modal
+		function resetLookImageModal() {	
+		}
+		
+		// 鼠标进入
+		function _modalLookImageChange(obj, addCount, selected) {
+			if (selected === true) {	
+				if (!$(obj).hasClass("select_border")) {
+					$(obj).addClass("select_border");
+				}	
+			} else {	
+				if ($(obj).hasClass("select_border")) {
+					$(obj).removeClass("select_border");	
+				}
+			}
+			
+			modalLookCurImageObj = funcGetImageUrl(modalLookCurImageObj, addCount);			
+			if (typeof(modalLookCurImageObj) != 'object') {
+				if (parseInt(modalLookCurImageObj) < 0) {
+					$('.modal_look_image_msg').show();
+					$('.modal_look_image_msg').html('前面没有更多图片可供浏览了');
+					$('.modal_look_image_msg').fadeOut(5000);					
+				} else if (parseInt(modalLookCurImageObj) > 0) {
+					$('.modal_look_image_msg').show();
+					$('.modal_look_image_msg').html('已经是最后一张图片了');
+					$('.modal_look_image_msg').fadeOut(5000);
+				} else {
+					alert('错误浏览对象!!!!');
+				}
+				return false;
+			}
+			
+			var imageUrl = $(modalLookCurImageObj).prop('src');
+			$('.image_show_block').prop('src', imageUrl);
+			
+//			if (modalLookImageUrlList == 'undefined') {
+//				return;
+//			}
+//			if (addCount == 0) {
+//				return;
+//			}
+//			modalLookCurIndex += addCount;
+//			var len = modalLookImageUrlList.length;	
+//			if (modalLookCurIndex < 0) {
+//				modalLookCurIndex = len-1;
+//			}
+//			if (modalLookCurIndex >= len) {
+//				modalLookCurIndex = 0;
+//			}
+//			_refreshModalLookImage();
+		}
+		
+		// 初始化
+		function _initLookImageModal() {
+			// 窗口显示
+			$('#modal_look_image').on('show.bs.modal', function () {
+			});
+			
+			// 窗口关闭
+			$('#modal_look_image').on('hide.bs.modal', function () {
+				resetLookImageModal();
+			});
+			
+			// 鼠标进入
+			$('.div_perview_button').mouseenter(function(){_modalLookImageChange(this, 0, true)});
+			$('.div_next_button').mouseenter(function(){_modalLookImageChange(this, 0, true)});
+			// 鼠标离开
+			$('.div_perview_button').mouseleave(function(){_modalLookImageChange(this, 0, false)});
+			$('.div_next_button').mouseleave(function(){_modalLookImageChange(this, 0, false)});
+			// 鼠标点击			
+			$('.div_perview_button').click(function(){_modalLookImageChange(this, -1, true)});
+			$('.div_next_button').click(function(){_modalLookImageChange(this, 1, true)});
+		}
+		
+		// 刷新当前图片
+		function _refreshModalLookImage() {
+			if (modalLookImageUrlList.length == 0) {
+				alert('图片列表中没有可供浏览的图片');
+				return;
+			}
+			
+			if (modalLookCurIndex < 0 || modalLookCurIndex >= modalLookImageUrlList.length) {
+				alert('浏览图片的索引错误');
+				return;
+			}
+			
+			$('.image_show_block').prop('src', modalLookImageUrlList[modalLookCurIndex]);
+		}
+		
+		// 设置浏览的图片列表
+		function setModalLookImageList(imageList, curIndex) {
+			modalLookImageUrlList = imageList;
+			modalLookCurIndex = curIndex;
+			_refreshModalLookImage();
+		}
+		
+		// 设置当前图片对象
+		function setModalLookImage(imageObj) {
+			modalLookCurImageObj = imageObj;
+			if ($(imageObj).get(0).tagName == 'img') {
+				$('.image_show_block').prop('src', $(imageObj).prop('src'));
+			}
+		}
+		
+		// 显示窗口
+		function showLookImageModal() {
+			$("#modal_look_image").modal('show', {backdrop: 'static'});
+		}
+		
+		// 隐藏窗口
+		function hideLookImageModal() {
+			resetLookImageModal();
+			$("#modal_look_image").modal('hide');
+		}
+		
+	</script>

@@ -1,0 +1,1523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c80d478d-f6f4-43e6-806a-510f0c2a3d41" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="kllife" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="xibei.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/phone/skins/default/Subject/xibei.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="550">
+              <caret line="85" column="23" lean-forward="false" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="HTML File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>logo</find>
+      <find>loadMoreData()</find>
+      <find>vhtml</find>
+      <find>no-more-data</find>
+      <find>zt-main</find>
+      <find>subheading</find>
+      <find>{$line.title}</find>
+      <find>title</find>
+      <find>单排</find>
+      <find>single-row-describe-top</find>
+      <find>g&quot;</find>
+      <find>boxh</find>
+      <find>&quot;javascript&quot;</find>
+      <find>写真旅行</find>
+      <find>活动回顾</find>
+      <find>width=&quot;219&quot;</find>
+      <find>更多</find>
+      <find>.box</find>
+      <find>.boxh</find>
+      <find>box</find>
+      <find>tab1</find>
+      <find>写真</find>
+      <find>num</find>
+      <find>出境游</find>
+      <find>shenduyou</find>
+      <find>theme-product-content-describe</find>
+      <find>theme</find>
+      <find>深度游</find>
+      <find>民族</find>
+      <find>zt-slogan</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>lazy_src</replace>
+      <replace>alt=&quot;领袖户外&quot;</replace>
+      <replace>top()</replace>
+      <replace>data-echo</replace>
+      <replace>src</replace>
+      <replace>scrollTop()</replace>
+      <replace>scrollTop</replace>
+      <replace>width=&quot;194&quot;</replace>
+    </replaceStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/source/Static/phone/css/xiaotuan.css" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Subject/xiaotuan.html" />
+        <option value="$PROJECT_DIR$/phone/skins/default/User/face.html" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Line/content_test.html" />
+        <option value="$PROJECT_DIR$/source/Static/home/js/gundong.js" />
+        <option value="$PROJECT_DIR$/home/skins/default/Common/top.html" />
+        <option value="$PROJECT_DIR$/source/Static/home/common/css/common_test.css" />
+        <option value="$PROJECT_DIR$/home/skins/default/Line/content_test.html" />
+        <option value="$PROJECT_DIR$/source/Static/home/css/content.css" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Index/index_test.html" />
+        <option value="$PROJECT_DIR$/home/skins/default/Line/content.html" />
+        <option value="$PROJECT_DIR$/home/skins/default/Subject/xibei_test.html" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Subject/xibei_test.html" />
+        <option value="$PROJECT_DIR$/source/Static/phone/css/northwest.css" />
+        <option value="$PROJECT_DIR$/phone/skins/default/common/top1.html" />
+        <option value="$PROJECT_DIR$/phone/skins/default/common/top.html" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Index/1.html" />
+        <option value="$PROJECT_DIR$/phone/skins/default/common/footer.html" />
+        <option value="$PROJECT_DIR$/qinglvpai/skins/default/Index/welcome.html" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Line/private_book.html" />
+        <option value="$PROJECT_DIR$/source/Static/phone/css/private_book_footer.css" />
+        <option value="$PROJECT_DIR$/back/skins/default/Input/fcj_deposit.html" />
+        <option value="$PROJECT_DIR$/source/Static/common/js/verify.js" />
+        <option value="$PROJECT_DIR$/source/Static/phone/css/user_login.css" />
+        <option value="$PROJECT_DIR$/phone/skins/default/User/login.html" />
+        <option value="$PROJECT_DIR$/source/Static/home/css/subject.css" />
+        <option value="$PROJECT_DIR$/back/skins/default/Settle/pchome.html" />
+        <option value="$PROJECT_DIR$/source/Static/home/css/index_test.css" />
+        <option value="$PROJECT_DIR$/source/Static/phone/common/css/light7.css" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Index/welcome1.html" />
+        <option value="$PROJECT_DIR$/source/Static/phone/common/css/light7_test.css" />
+        <option value="$PROJECT_DIR$/source/Static/phone/css/welcome1.css" />
+        <option value="$PROJECT_DIR$/home/skins/default/Subject/xibei.html" />
+        <option value="$PROJECT_DIR$/source/Static/home/css/northwest.css" />
+        <option value="$PROJECT_DIR$/source/Static/home/common/js/movebg.js" />
+        <option value="$PROJECT_DIR$/source/Static/home/js/list.js" />
+        <option value="$PROJECT_DIR$/home/skins/default/Line/list.html" />
+        <option value="$PROJECT_DIR$/source/Static/home/css/list.css" />
+        <option value="$PROJECT_DIR$/home/skins/default/Subject/xinjiang.html" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Subject/xinjiang.html" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Line/subject.html" />
+        <option value="$PROJECT_DIR$/home/skins/default/Common/zhuanti.html" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Index/welcome.html" />
+        <option value="$PROJECT_DIR$/source/Static/phone/css/line_content.css" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Line/content.html" />
+        <option value="$PROJECT_DIR$/source/Static/home/css/box.css" />
+        <option value="$PROJECT_DIR$/source/Static/home/css/index.css" />
+        <option value="$PROJECT_DIR$/home/skins/default/Index/test.html" />
+        <option value="$PROJECT_DIR$/home/skins/default/Index/welcome.html" />
+        <option value="$PROJECT_DIR$/home/skins/default/Line/subject.html" />
+        <option value="$PROJECT_DIR$/phone/skins/default/Subject/xibei.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>AngularJS</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Static" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Static" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phone" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Static" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phone" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Static" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phone" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="subject" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Static" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phone" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Static" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phone" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qlpphone" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qlpphone" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skins" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qinglvpai" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qinglvpai" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skins" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phone" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phone" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skins" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phone" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skins" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Subject" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="home" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="kllife" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="home" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skins" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\kllife\source\Static\phone\images\subject" />
+      <recent name="D:\kllife\source\Static\qlpphone\images\book" />
+      <recent name="D:\kllife\source\Static\home\images\silk" />
+      <recent name="D:\kllife\source\Static\qinglvpai\css" />
+      <recent name="D:\kllife\source\Static\photo\img\product-selection" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\kllife\source\Static\home\images\index_img" />
+      <recent name="D:\kllife\source\Static\phone\images\subject" />
+      <recent name="D:\kllife\source\Static\home\images\subject" />
+      <recent name="D:\kllife\source\Static\phone\images\xinjiang" />
+      <recent name="D:\kllife\source\Static\home\images\xinjiang" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CodeceptionConfigurationType" factoryName="Codeception">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration useDefault="false" />
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c80d478d-f6f4-43e6-806a-510f0c2a3d41" name="Default" comment="" />
+      <created>1488169759212</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1488169759212</updated>
+      <workItem from="1488169765904" duration="337000" />
+      <workItem from="1488170414453" duration="379000" />
+      <workItem from="1489801979638" duration="2000" />
+      <workItem from="1489802888978" duration="39158000" />
+      <workItem from="1489972745370" duration="135349000" />
+      <workItem from="1490577538183" duration="90024000" />
+      <workItem from="1490836027335" duration="21477000" />
+      <workItem from="1490923856433" duration="10925000" />
+      <workItem from="1491008942935" duration="23152000" />
+      <workItem from="1491355233744" duration="2984000" />
+      <workItem from="1491360369972" duration="4012000" />
+      <workItem from="1491370175117" duration="7850000" />
+      <workItem from="1491440220590" duration="27864000" />
+      <workItem from="1491526463031" duration="28508000" />
+      <workItem from="1491787009969" duration="12929000" />
+      <workItem from="1491959046791" duration="23953000" />
+      <workItem from="1491991594241" duration="4645000" />
+      <workItem from="1492045033266" duration="30769000" />
+      <workItem from="1492131866342" duration="24531000" />
+      <workItem from="1492391729880" duration="25045000" />
+      <workItem from="1492477679988" duration="31932000" />
+      <workItem from="1492563484455" duration="24878000" />
+      <workItem from="1492650557711" duration="26066000" />
+      <workItem from="1492737002529" duration="25134000" />
+      <workItem from="1493081264091" duration="23446000" />
+      <workItem from="1493168497191" duration="37742000" />
+      <workItem from="1493254418686" duration="28224000" />
+      <workItem from="1493341229261" duration="17454000" />
+      <workItem from="1493687198791" duration="24860000" />
+      <workItem from="1493774008593" duration="26010000" />
+      <workItem from="1493860118979" duration="23366000" />
+      <workItem from="1493946219780" duration="25381000" />
+      <workItem from="1494205945485" duration="20241000" />
+      <workItem from="1494292224280" duration="12567000" />
+      <workItem from="1494310684669" duration="15811000" />
+      <workItem from="1494379378616" duration="1177000" />
+      <workItem from="1494382035841" duration="19295000" />
+      <workItem from="1494463638053" duration="15465000" />
+      <workItem from="1494550638220" duration="22620000" />
+      <workItem from="1494808773009" duration="16397000" />
+      <workItem from="1494895917127" duration="25125000" />
+      <workItem from="1494981822181" duration="25149000" />
+      <workItem from="1495069030513" duration="26602000" />
+      <workItem from="1495155796604" duration="4732000" />
+      <workItem from="1495416032687" duration="4681000" />
+      <workItem from="1495501657664" duration="10395000" />
+      <workItem from="1495586539199" duration="26264000" />
+      <workItem from="1495673418713" duration="8743000" />
+      <workItem from="1495760377635" duration="11487000" />
+      <workItem from="1495845839013" duration="12935000" />
+      <workItem from="1496193266667" duration="13677000" />
+      <workItem from="1496278876947" duration="3251000" />
+      <workItem from="1496365399834" duration="4252000" />
+      <workItem from="1496388268947" duration="11955000" />
+      <workItem from="1496624717768" duration="13256000" />
+      <workItem from="1496713144784" duration="3238000" />
+      <workItem from="1496797168320" duration="13396000" />
+      <workItem from="1496883612158" duration="9848000" />
+      <workItem from="1496971018823" duration="19142000" />
+      <workItem from="1497062526863" duration="19865000" />
+      <workItem from="1497230036291" duration="13546000" />
+      <workItem from="1497316375398" duration="187000" />
+      <workItem from="1497320822081" duration="1706000" />
+      <workItem from="1497402674134" duration="5133000" />
+      <workItem from="1497421297425" duration="12358000" />
+      <workItem from="1497575567161" duration="6168000" />
+      <workItem from="1497598851477" duration="2608000" />
+      <workItem from="1497606607211" duration="794000" />
+      <workItem from="1497613301702" duration="11000" />
+      <workItem from="1497836221390" duration="2908000" />
+      <workItem from="1497842171245" duration="625000" />
+      <workItem from="1497851377419" duration="218000" />
+      <workItem from="1497854566880" duration="606000" />
+      <workItem from="1497921821106" duration="8215000" />
+      <workItem from="1498007608936" duration="18020000" />
+      <workItem from="1498094132896" duration="28672000" />
+      <workItem from="1498181513275" duration="30211000" />
+      <workItem from="1498527248452" duration="25204000" />
+      <workItem from="1498612996698" duration="26950000" />
+      <workItem from="1498699118412" duration="23833000" />
+      <workItem from="1498791769312" duration="12717000" />
+      <workItem from="1499046121488" duration="13581000" />
+      <workItem from="1499132869275" duration="29168000" />
+      <workItem from="1499219110477" duration="13549000" />
+      <workItem from="1499306774313" duration="4010000" />
+      <workItem from="1499311529137" duration="20180000" />
+      <workItem from="1499390568190" duration="7476000" />
+      <workItem from="1499650507889" duration="22190000" />
+      <workItem from="1499739458790" duration="24969000" />
+      <workItem from="1499821798587" duration="8229000" />
+      <workItem from="1499915507582" duration="594000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1584588000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20364584" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22703274" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22703274" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20416667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/qlpphone/skins/default/User/login.html</url>
+          <line>813</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/qinglvpai/skins/default/Photo/list.html</url>
+          <line>617</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/qinglvpai/skins/default/Photo/list.html</url>
+          <line>618</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/qinglvpai/skins/default/Photo/ProductSelection.html</url>
+          <line>296</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/qinglvpai/skins/default/Photo/list.html</url>
+          <line>744</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/qinglvpai/skins/default/Photo/list.html</url>
+          <line>546</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/qinglvpai/skins/default/Photo/list.html</url>
+          <line>580</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="42" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/common/js.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="37" lean-forward="true" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/common/top.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-505">
+          <caret line="27" column="23" lean-forward="false" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/common/top_echo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="56" column="72" lean-forward="false" selection-start-line="56" selection-start-column="67" selection-end-line="56" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/Index/welcome1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="340" column="31" lean-forward="false" selection-start-line="340" selection-start-column="31" selection-end-line="340" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/phone/common/js/light7.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/phone/common/css/light7.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="707">
+          <caret line="2937" column="17" lean-forward="true" selection-start-line="2937" selection-start-column="11" selection-end-line="2937" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/phone/common/css/light7_test.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="562">
+          <caret line="2958" column="1" lean-forward="true" selection-start-line="2958" selection-start-column="1" selection-end-line="2958" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/User/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-205">
+          <caret line="177" column="57" lean-forward="true" selection-start-line="177" selection-start-column="57" selection-end-line="177" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/Subject/xibei_test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="21" column="36" lean-forward="true" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/home/css/northwest.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="45" column="13" lean-forward="false" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qinglvpai/skins/default/Leader/info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3454">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qlpphone/skins/default/leader/info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qinglvpai/skins/default/Leader/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1402">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qinglvpai/skins/default/Common/top.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1716">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qinglvpai/skins/default/Common/bottom.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-734">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qinglvpai/skins/default/Article/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="75" column="41" lean-forward="false" selection-start-line="75" selection-start-column="8" selection-end-line="75" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qinglvpai/skins/default/Article/info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1040">
+          <caret line="129" column="0" lean-forward="false" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qinglvpai/skins/default/Service/question.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1568">
+          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qinglvpai/skins/default/Line/content.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6746">
+          <caret line="537" column="0" lean-forward="false" selection-start-line="537" selection-start-column="0" selection-end-line="537" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qinglvpai/skins/default/Line/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2060">
+          <caret line="123" column="0" lean-forward="false" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qinglvpai/skins/default/Line/main_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2126">
+          <caret line="843" column="0" lean-forward="false" selection-start-line="843" selection-start-column="0" selection-end-line="843" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qlpphone/skins/default/leader/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1012">
+          <caret line="46" column="31" lean-forward="false" selection-start-line="46" selection-start-column="31" selection-end-line="46" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/phone/css/welcome1.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="215" column="14" lean-forward="false" selection-start-line="215" selection-start-column="14" selection-end-line="215" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/home/common/js/movebg.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="785">
+          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/home/js/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="682">
+          <caret line="118" column="10" lean-forward="true" selection-start-line="110" selection-start-column="8" selection-end-line="118" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/home/js/vcode.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/home/common/js/slide.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3190">
+          <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Line/content.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Line/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="153" column="51" lean-forward="false" selection-start-line="153" selection-start-column="28" selection-end-line="153" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/home/css/list.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="180" column="127" lean-forward="false" selection-start-line="180" selection-start-column="127" selection-end-line="180" selection-end-column="127" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qlpphone/skins/default/Article/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="688">
+          <caret line="105" column="7" lean-forward="false" selection-start-line="98" selection-start-column="4" selection-end-line="105" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Index/welcome - 副本.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="605" column="24" lean-forward="true" selection-start-line="605" selection-start-column="24" selection-end-line="605" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/home/images/index_img/stylebg.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Line/video_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Subject/xinjiang.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="445" column="124" lean-forward="false" selection-start-line="445" selection-start-column="124" selection-end-line="445" selection-end-column="124" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/Subject/xinjiang.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="33" column="83" lean-forward="false" selection-start-line="33" selection-start-column="83" selection-end-line="33" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Common/right.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="3" column="36" lean-forward="true" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/Line/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1782">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/phone/css/line_content.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="18" column="40" lean-forward="false" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Index/welcome.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9174">
+          <caret line="417" column="70" lean-forward="false" selection-start-line="417" selection-start-column="70" selection-end-line="417" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Line/subject.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="17" column="71" lean-forward="false" selection-start-line="17" selection-start-column="71" selection-end-line="17" selection-end-column="71" />
+          <folding>
+            <element signature="n#style#0;n#div#4;n#!!top" expanded="true" />
+            <marker date="1499851509000" expanded="true" signature="21675:22532" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/Index/welcome.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="282" column="135" lean-forward="false" selection-start-line="282" selection-start-column="135" selection-end-line="282" selection-end-column="135" />
+          <folding>
+            <marker date="1499857390000" expanded="true" signature="3164:3316" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="3213:3304" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="3347:3486" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="3383:3474" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="3507:4242" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="4321:4672" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="4418:4662" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="4457:4652" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="4468:4637" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="4515:4632" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="4740:4871" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="4785:4862" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="4894:5697" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="5793:6507" ph="..." />
+            <marker date="1499857390000" expanded="false" signature="5835:5868" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="5869:6498" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="5902:6411" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="5935:6400" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="5987:6385" ph="..." />
+            <marker date="1499857390000" expanded="false" signature="6029:6048" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="6049:6373" ph="..." />
+            <marker date="1499857390000" expanded="false" signature="6149:6211" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="6641:7601" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="6675:7592" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="6704:7582" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="6810:7571" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="6835:7560" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="6991:7102" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="7129:7478" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="7143:7464" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="7694:9349" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="7740:9340" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="7783:8470" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="7840:8459" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="8096:8448" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="8163:8432" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="8233:8419" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="8535:9330" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="8575:8906" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="8641:8891" ph="..." />
+            <marker date="1499857390000" expanded="false" signature="8661:8675" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="8705:8879" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="8793:8866" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="8947:9317" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="9013:9302" ph="..." />
+            <marker date="1499857390000" expanded="false" signature="9034:9048" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="9078:9290" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="9181:9277" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="9411:9791" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="9510:9615" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="9638:9742" ph="..." />
+            <marker date="1499857390000" expanded="false" signature="9827:9846" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="9847:10197" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="9908:9976" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="10006:10016" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="10077:10148" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="10178:10188" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="10416:18128" ph="..." />
+            <marker date="1499857390000" expanded="true" signature="10448:10496" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="10681:10907" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="11062:11609" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="11192:11460" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="11248:11388" ph="{&quot;position&quot;: 'fixed'...}" />
+            <marker date="1499857390000" expanded="true" signature="11464:11603" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="11684:12025" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="11795:11824" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="11989:12019" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="12081:12250" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="12145:12242" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="12319:12430" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="12461:13029" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="12526:12816" ph="{&quot;pagination&quot;: '.swiper-pagination'...}" />
+            <marker date="1499857390000" expanded="true" signature="12882:13021" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="13064:14774" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="13235:13297" ph="//..." />
+            <marker date="1499857390000" expanded="true" signature="13592:13943" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="13638:13692" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="13707:13932" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="13817:13918" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="13973:14163" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="14051:14134" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="14193:14534" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="14242:14505" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="14642:14691" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="14703:14766" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="14817:15137" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="15168:15430" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="15474:15942" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="15646:15694" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="15825:15942" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="15827:15922" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="15850:15875" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="16028:18084" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="16248:16270" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="16344:16361" ph="{&quot;page&quot;: p...}" />
+            <marker date="1499857390000" expanded="true" signature="16417:16451" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="16585:18079" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="16653:18025" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="16706:17602" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="16752:17585" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="17222:17284" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="17290:17405" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="17608:17943" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="17678:17749" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="17755:17872" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="17985:18020" ph="{...}" />
+            <marker date="1499857390000" expanded="true" signature="18031:18075" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/Line/content.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="328" column="52" lean-forward="false" selection-start-line="328" selection-start-column="52" selection-end-line="328" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Subject/brand.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="25" column="41" lean-forward="false" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Index/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="416" column="87" lean-forward="false" selection-start-line="416" selection-start-column="87" selection-end-line="416" selection-end-column="87" />
+          <folding>
+            <element signature="n#style#0;n#div#3;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#!!top" expanded="true" />
+            <marker date="1499850175770" expanded="true" signature="15685:18019" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="15685:18026" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="15793:16118" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="15841:16079" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="15872:16066" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="16166:18011" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="16255:17999" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="16264:17989" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="16293:17979" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="16305:16556" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="16657:17967" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="16744:16755" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="16756:17955" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="16805:16885" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="16966:17139" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="17190:17217" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="17288:17398" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="17311:17324" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="17459:17478" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="17479:17941" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="17719:17926" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="18071:18091" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="18092:20706" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="18124:20699" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="18170:18469" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="18186:18204" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="18354:18372" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="18493:18823" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="18546:18784" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="18577:18771" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="18876:20691" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="18973:20679" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="18982:20669" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="19011:20659" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="19023:19279" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="19380:20647" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="19473:19489" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="19490:20635" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="19539:19619" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="19700:19873" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="19986:20074" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="20141:20157" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="20158:20621" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="20398:20606" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="20799:20818" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="20819:21879" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="20853:21872" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="20868:20886" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="20906:20951" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="21081:21864" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="21089:21855" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="21118:21846" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="21211:21835" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="21246:21320" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="21279:21304" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="21308:21315" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="21396:21812" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="21441:21528" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="21596:21612" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="21613:21799" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="22836:24951" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="22860:24945" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="22888:24937" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="22993:24928" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="23002:24918" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="23033:23495" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="23076:23484" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="23107:23471" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="23231:23459" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="23505:23966" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="23548:23955" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="23579:23942" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="23703:23930" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="23976:24437" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="24019:24426" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="24050:24413" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="24174:24401" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="24447:24908" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="24490:24897" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="24521:24884" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="24645:24872" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="24994:25011" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25012:25921" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25038:25914" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25145:25906" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25153:25897" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25181:25888" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25211:25281" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25243:25266" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25270:25276" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25388:25866" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25513:25611" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25662:25854" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="25983:26325" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="26008:26193" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="26088:26185" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="26215:26318" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="26331:26957" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="27986:28046" ph="..." />
+            <marker date="1499850175770" expanded="false" signature="28100:28155" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="28597:28640" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="28650:30906" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="28704:28913" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="28954:29579" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="29032:29268" ph="{&quot;color&quot;: &quot;##2f71b8&quot;...}" />
+            <marker date="1499850175770" expanded="true" signature="29306:29346" ph="{&quot;height&quot;: &quot;19px&quot;...}" />
+            <marker date="1499850175770" expanded="true" signature="29396:29571" ph="{&quot;height&quot;: &quot;19px&quot;...}" />
+            <marker date="1499850175770" expanded="true" signature="29588:30897" ph="//..." />
+            <marker date="1499850175770" expanded="true" signature="30916:37462" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="31147:31300" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="31253:31294" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="31538:31688" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="31747:31900" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="31975:32522" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="32568:32901" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="32992:33018" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="33097:33131" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="33224:33300" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="33344:33473" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="33362:33371" ph="/*...*/" />
+            <marker date="1499850175770" expanded="true" signature="33388:33399" ph="/*...*/" />
+            <marker date="1499850175770" expanded="true" signature="33418:33429" ph="/*...*/" />
+            <marker date="1499850175770" expanded="true" signature="33456:33467" ph="/*...*/" />
+            <marker date="1499850175770" expanded="true" signature="33601:33869" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="33671:33810" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="33754:33794" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="33815:33863" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="33895:35872" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="33914:34404" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="34548:34598" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="34604:34655" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="34784:35616" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="35205:35516" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="35287:35348" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="35354:35419" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="35649:35777" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="35783:35866" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="35990:36361" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="36034:36344" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="36720:36791" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="36813:36885" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="36956:37023" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="37075:37183" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="37234:37452" ph="{...}" />
+            <marker date="1499850175770" expanded="true" signature="37508:37742" ph="..." />
+            <marker date="1499850175770" expanded="true" signature="37514:37730" ph="//..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Common/zhuanti.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/home/css/box.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="105" column="1" lean-forward="false" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Static/home/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="92" column="168" lean-forward="false" selection-start-line="92" selection-start-column="168" selection-end-line="92" selection-end-column="168" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/Line/subject.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="237" column="19" lean-forward="false" selection-start-line="237" selection-start-column="19" selection-end-line="237" selection-end-column="19" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home/skins/default/Subject/xibei.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1613">
+          <caret line="45" column="61" lean-forward="true" selection-start-line="45" selection-start-column="61" selection-end-line="45" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phone/skins/default/Subject/xibei.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="85" column="23" lean-forward="false" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="Copyright.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

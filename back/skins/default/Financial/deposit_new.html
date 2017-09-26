@@ -1,0 +1,468 @@
+<include file="Common/header" />
+	
+<!--资金审批-->
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default edit">
+			<div class="panel-heading">
+				<h3 class="panel-title">资金审批</h3>
+				<div class="panel-options">
+					<a href="#" data-toggle="panel">
+						<span class="collapse-icon">–</span>
+						<span class="expand-icon">+</span>
+					</a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<!--在此地编辑内容-->
+				<div class="row name cash_review_edit">
+					<div class="col-xs-12 row data_cash_source">
+						<div class="col-xs-4">
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon1">资源类型</span>
+								<input type="text" class="form-control data_cash_source_type">
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon2">资源</span>
+								<input type="text" class="form-control data_cash_source_obj" placeholder="请选择资源">
+								<span class="input-group-btn">
+    								<button class="btn btn-default btn_cash_source_append" type="button" style="border:1px solid #ccc; height: 37px;"><span class="glyphicon glyphicon-pencil"></span></button>
+  								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 row">
+						<div class="col-xs-4">
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon1">请款用途</span>				
+								<script type="text/javascript">
+									$(document).ready(function(){
+										bindTypeDataDropMenu($('.data_cash_type'), 'cj_deposit_type', '选择资金用途', false, null, false, null);		
+									});
+								</script>
+								<input type="text" class="form-control data_cash_type">
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i style="font-style: normal;">指定审批人</i>
+								</div>
+								<script type="text/javascript">
+									$(document).ready(function(){
+										bindAdminDropMenu($('.data_cash_review_admin'), '', '点击选择审批管理员或者输入关键字查询');
+										setSelect2Value('.data_cash_review_admin', '{"id":"85","account":"郭煜","show_name":"郭煜"}');	
+									});
+								</script>
+								<input type="text" class="form-control data_cash_review_admin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 row">
+						<div class="col-xs-4">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i style="font-style: normal;">结算方式</i>
+								</div>
+								<script type="text/javascript">
+									$(document).ready(function(){
+										bindTypeDataDropMenu($('.data_cash_pay_type'), 'cj_pay_type', '选择结算类型');
+									});
+								</script>
+								<input type="text" class="form-control data_cash_pay_type">
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i style="font-style: normal;">收款人</i>
+								</div>
+								<input type="text" class="form-control data_cash_payee" value="{$deposit.payee}">
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i style="font-style: normal;">收款账号</i>
+								</div>
+								<input type="number" class="form-control data_cash_bank_card" maxlength="16" value="{$deposit.bank_card}">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 row">
+						<div class="col-xs-12">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i style="font-style: normal;">开户行与地址</i>
+								</div>
+								<input type="text" class="form-control data_cash_bank_address" value="{$deposit.bank_address}">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 row">
+						<div class="col-xs-3">
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon5">请款金额</span>
+								<input type="number" class="form-control data_cash_money" placeholder="请输入申请金额" maxlength="8" value="{$deposit.approval_amount}">
+							</div>
+						</div>
+						<div class="col-xs-9">
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon6">备注</span>
+								<input type="text" class="form-control data_cash_beizhu" placeholder="请输入要备注的内容" value="{$deposit.beizhu}" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 row">
+						<button style="float: right;width:70px; margin-left: 20px;" type="button" class="btn btn-info btn-sm btn_cash_clear">清空资料</button>
+						<button style="float: right;width:70px;" type="button" class="btn btn-primary btn-sm btn_cash_review">资金送审</button>
+					</div>
+				</div>
+				<br /><br /><br />
+				<table class="table table1 table_cash_review">
+					<thead>
+					<tr>
+						<th>送审对象</th>
+						<th>操作方式</th>
+						<th>提审内容</th>
+						<th>收款人信息</th>
+						<th>审核状态</th>
+						<th>审核内容</th>
+						<th>确认内容</th>
+						<th>信息操作</th>
+					</tr>
+					</thead>
+					<tbody>		
+						<if condition="empty($deposit) eq false">
+							<tr class="insurance" data-id="{$deposit.id}">
+								<td>{$deposit.deposit_obj_data.type_desc}<br/>{$deposit.deposit_obj_show}</td>
+								<td>{$deposit.deposit_type_data.type_desc}</td>
+								<td>送审人员:{$deposit.request_admin_data.account}<br />预算金额:{$deposit.money}<br />减免金额:{$deposit.derate}<br />请款金额:{$deposit.approval_amount}<br />送审时间:{$deposit.request_time}<br />送审附言:{$deposit.beizhu}</td>	
+								<td>收款方式:{$deposit.pay_type_data.type_desc}<br />收款人:{$deposit.payee}<br />收款账号:{$deposit.bank_card}<br />开户行地址:{$depositd.bank_address}</td>
+								<td>{$deposit.review_type_data.type_desc}</td>
+								<td>审核人员:{$deposit.review_admin_data.account}<br />审批资金:{$deposit.finnal_money}<br />审核时间:{$deposit.review_time}<br />审核附言:{$deposit.review_beizhu}</td>
+								<td>确认人员:{$deposit.confirm_admin_data.account}<br />已支付金额:{$deposit.complated_money}<br />本次确认金额:{$deposit.confirm_money}<br />确认时间:{$deposit.confirm_time}<br />审核附言:{$deposit.confirm_beizhu}</td>
+								<td>
+									<button style="float: right;" type="button" class="btn btn-secondary btn-sm btn_cash_source_review">审批详细</button>
+								</td>
+							</tr>
+						</if>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">	
+	// select2 对象	
+	var select2CashSourceType = null;
+	var select2CashSourceObj = null;
+	
+	// 切换资源类型
+	function changeCashSourceType(ev) {
+		setSelect2Value($('.data_cash_source_obj'), null);
+		if (select2CashSourceObj != null) {
+			var typestr = getSelect2Value($('.data_cash_source_type'));				
+			if (typestr != {} && typestr != '') {
+				var type = $.parseJSON(typestr);
+				if (type.type_key.indexOf('insurance') != -1) {
+					select2CashSourceObj.ds.tab = 'cj_insurance';
+				} else if (type.type_key.indexOf('leader') != -1) {
+					select2CashSourceObj.ds.tab = 'cj_leader';
+				} else if (type.type_key.indexOf('hotel') != -1) {
+					select2CashSourceObj.ds.tab = 'cj_hotel';
+				} else if (type.type_key.indexOf('driver') != -1) {
+					select2CashSourceObj.ds.tab = 'cj_driver';
+				} else if (type.type_key.indexOf('bus') != -1) {
+					select2CashSourceObj.ds.tab = 'cj_bus';
+				} else if (type.type_key.indexOf('view') != -1) {
+					select2CashSourceObj.ds.tab = 'cj_view';
+				} else if (type.type_key.indexOf('agency') != -1) {
+					select2CashSourceObj.ds.tab = 'cj_agency';
+				} else {
+					select2CashSourceObj.ds.tab = 'cj_source';
+				}
+			}
+		}
+	}
+	
+	// 初始化资源类型
+	function initCashSourceType() {											
+		var voption = {obj:$('.data_cash_source_type'), search:1, placeholder: '请选择资源类型', show_col:'type_desc', select_col:'type_desc', func_select_changed:changeCashSourceType};
+		var vds = {tab:'type_data', search_col: 'type_desc', cdsstr: 'type_key|LIKE|cj_source_obj_%', cdtype:3, sort:'sort|asc'}
+		select2CashSourceType = new MySelect2(voption, vds);
+	}
+	
+	// 显示选择资源文本
+	function cashSourceObjShowText(ds) {
+		if (select2CashSourceObj == null) {
+			return '未初始化资源下拉框';
+		}
+		
+		setSelect2Value($('.data_cash_pay_type'), ds.pay_type);
+		$('.data_cash_payee').val(ds.payee);					
+		$('.data_cash_bank_address').val(ds.bank_address);
+		$('.data_cash_bank_card').val(ds.bank_card);
+		
+		var vtab = select2CashSourceObj.ds.tab;
+		if (vtab.indexOf('insurance') != -1) {
+			return ds.name;
+		} else if (vtab.indexOf('leader') != -1) {
+			if (ds.name != null && ds.name != '') {
+				return ds.name;
+			} else if (ds.nickname != null && ds.nickname != '') {
+				return ds.nickname;
+			}else if (ds.stagename != null && ds.stagename != '') {
+				return ds.stagename;
+			}
+		} else if (vtab.indexOf('hotel') != -1) {
+			return ds.name+'['+ds.city+']';
+		} else if (vtab.indexOf('driver') != -1) {
+			return ds.name;
+		} else if (vtab.indexOf('bus') != -1) {
+			return ds.seat+'座'+ds.bus_log+'['+ds.name+']';
+		} else if (vtab.indexOf('view') != -1) {
+			return ds.name+'['+ds.city+']['+ds.province+']';
+		} else if (vtab.indexOf('agency') != -1) {
+			var type = '';
+			if (ds.agency_type != '' && ds.agency_type != null && ds.agency_type != '{}'){
+				var typeObj = $.parseJSON(ds.agency_type);
+				type = typeObj.type_desc;
+			} 
+			return ds.name+'['+type+']';
+		} else {
+			return ds.name;
+		}
+	}
+	
+	
+	// 初始化资源
+	function initCashSourceObj() {				
+		var voption = {obj:$('.data_cash_source_obj'), search:1, placeholder: '请选择资源', show_col:cashSourceObjShowText, select_col:cashSourceObjShowText};
+		var vds = {tab:'cj_leader', search_col: 'name', cdsstr: 'invalid|=|0|AND', cdtype:4}
+		select2CashSourceObj = new MySelect2(voption, vds);
+	}
+	
+	// 初始化审批信息
+	function initCashSourceData() {		
+		$('.cash_review_edit').attr('data-id', '{$deposit.id}');
+		setSelect2Value($('.data_cash_source_type'), '{$deposit.obj_type}');
+		if ('{$deposit.json_obj_data}' != '') {
+			setSelect2Value($('.data_cash_source_obj'), '{$deposit.json_obj_data}');	
+		}
+		setSelect2Value($('.data_cash_type'), '{$deposit.deposit_type}');
+		setSelect2Value($('.data_cash_pay_type'), '{$deposit.pay_type}');		
+		$('.data_cash_payee').val('{$deposit.payee}');
+		$('.data_cash_bank_card').val('{$deposit.bank_card}');
+		$('.data_cash_money').val('{$deposit.approval_amount}');
+		$('.data_cash_bank_address').val('{$deposit.bank_address}');
+		$('.data_cash_beizhu').val('{$deposit.beizhu}');
+		
+	}
+	
+	// JS初始化
+	$(document).ready(function(){
+		// 初始化资金审批的资源类型
+		initCashSourceType();	
+		// 初始化资金审批的资源
+		initCashSourceObj();
+		// 初始化审批信息
+		initCashSourceData();		
+	});
+	
+	// 添加新审批信息
+	$('.btn_cash_source_append').click(function(){
+		var sourcetypestr = getSelect2Value($('.data_cash_source_type'));
+		if (sourcetypestr == '' || sourcetypestr == '{}') {
+			toastr.warning('请选择要添加资源的类型');
+			return false;
+		}
+		
+		var vhref = '';
+		var sourceType = $.parseJSON(sourcetypestr);
+		if (sourceType.type_key != null) {
+			var typeKey = sourceType.type_key;			
+			var basestr = 'cj_source_obj_';
+			vhref = '{:U("financial/source")}/src/'+typeKey.substr(basestr.length);
+			window.open(vhref);
+		} else {
+			toastr.warning('错误的资源类型');
+		}			
+	});	
+	
+	// 审批详细跳转
+	function _ajaxCashReviewInfo() {
+		var reviewId = $(this).closest('tr').attr('data-id');
+		window.open('{:U("financial/deposit")}/id/'+reviewId);
+	}
+	// 绑定跳转审批详细事件
+	$('.btn_cash_source_review').click(_ajaxCashReviewInfo);
+	
+	// 保存审批信息
+	function _ajaxCashReviewSave() {		
+		var cashtypestr = getSelect2Value($('.data_cash_type'));
+		if (cashtypestr == '' || cashtypestr == '{}') {
+			toastr.warning('请选择资金操作方式');
+			return false;
+		}			
+		
+		var vpayee = $('.data_cash_payee').val();
+		var bankCard = $('.data_cash_bank_card').val();
+		var vmoney = parseFloat($('.data_cash_money').val());
+		if (vpayee == '' || bankCard == '' || vmoney <= 0) {
+			toastr.warning('收款人、收款账号、提审金额不能为空，且提审金额必须大于0');
+			return false;
+		}
+		var jsonData = {
+			op_type: 'review',
+			id: $('.cash_review_edit').attr('data-id'),
+			team_id: 0,
+			deposit_type: cashtypestr,
+			bank_address: $('.data_cash_bank_address').val(),
+			bank_card: bankCard,
+			payee: vpayee,
+			pay_type: getSelect2Value($('.data_cash_pay_type')),
+			money: vmoney,
+			approval_amount: vmoney,
+			beizhu: $('.data_cash_beizhu').val(),
+		}
+		
+		var sourcetypestr = getSelect2Value($('.data_cash_source_type'));
+		if (sourcetypestr == '' || sourcetypestr == '{}') {
+			toastr.warning('请选择资源类型');
+			return false;
+		}
+		
+		var sourceobjstr = getSelect2Value($('.data_cash_source_obj'),['id']);
+		if (sourceobjstr == '' || sourceobjstr == '{}') {
+			toastr.warning('请选择资源对象');
+			return false;
+		}
+		var adminstr = getSelect2Value($('.data_cash_review_admin'), ['id', 'account', 'nickname']);
+		if (adminstr == '' || adminstr == '{}') {
+			toastr.warning('请指定审批管理员');
+			return false;
+		}
+		var sourceObj = $.parseJSON(sourceobjstr);
+		jsonData['obj_type'] = sourcetypestr
+		jsonData['obj_id'] = sourceObj.id
+		
+		var admin = $.parseJSON(adminstr);
+		admin['show_name'] = admin.nickname != '' && admin.nickname != 'undefined' ? admin.nickname : admin.account;
+		jsonData['review_admin'] = JSON.stringify(admin);
+		
+		$.post('{:U("financial/deposit")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				if (data.op != 'remove' && data.ds != null) {
+					var d = data.ds;
+					var depositObjContent = d.deposit_obj_data != null ? d.deposit_obj_data.type_desc : '';
+					var depositTypeContent = d.deposit_type_data != null ? d.deposit_type_data.type_desc : '';
+					var reviewTypeContent = d.review_type_data != null ? d.review_type_data.type_desc : '';
+					var requestAdmin = d.request_admin_data != null ? d.request_admin_data.account : '';
+					var payType = d.pay_type_data != null ? d.pay_type_data.type_desc : '';
+					var reviewAdmin = d.review_admin_data != null ? d.review_admin_data.account : '';
+					var confirmAdmin = d.confirm_admin_data != null ? d.confirm_admin_data.account : '';
+					var requestContent = '送审人员:'+d.requestAdmin+'<br />预算金额:'+d.money+'<br />减免金额:'+d.derate+'<br />请款金额:'+d.approval_amount+'<br />送审时间:'+d.request_time+'<br />送审附言:'+d.beizhu;
+					var payeeContent = '收款方式:'+payType+'<br />收款人:'+d.payee+'<br />收款账号:'+d.bank_card+'<br />开户行地址:'+d.bank_address;
+					var reviewContent = '审核人员:'+reviewAdmin+'<br />审核金额:'+d.finnal_money+'<br />审核时间:'+d.review_time+'<br />审核附言:'+d.review_beizhu;
+					var confirmContent = '审核人员:'+confirmAdmin+'<br />已支付金额:'+d.complated_money+'<br />审核金额:'+d.confirm_money+'<br />审核时间:'+d.confirm_time+'<br />审核附言:'+d.confirm_beizhu;
+					if (data.op == 'create') {
+						var vhtml = '<tr class="insurance" data-id="'+d.id+'">';
+							vhtml +='	<td>'+depositObjContent+'<br />'+d.deposit_obj_show+'</td>';
+							vhtml +='	<td>'+depositTypeContent+'</td>';
+							vhtml +='	<td>'+requestContent+'</td>';
+							vhtml +='	<td>'+payeeContent+'</td>';
+							vhtml +='	<td>'+reviewTypeContent+'</td>';
+							vhtml +='	<td>'+reviewContent+'</td>';
+							vhtml +='	<td>'+confirmContent+'</td>';
+							vhtml +='	<td>';
+							vhtml +='		<button style="float: right;" type="button" class="btn btn-secondary btn-sm btn_cash_source_review">审批详细</button>';
+							vhtml +='	</td>';
+							vhtml +='</tr>';
+						$('.table_cash_review').find('tbody').append(vhtml);
+						var trObj = $('.table_cash_review').find('tbody').find('tr:last');
+						$(trObj).find('.btn_cash_source_review').click(_ajaxCashReviewInfo);
+					} else {
+						var trObj = $('.table_cash_review').find('tbody').find('tr[data-id="'+d.id+'"]');
+						$(trObj).find('td:eq(0)').html(d.deposit_obj_show);
+						$(trObj).find('td:eq(1)').html(depositTypeContent);
+						$(trObj).find('td:eq(2)').html(requestContent);
+						$(trObj).find('td:eq(3)').html(payeeContent);
+						$(trObj).find('td:eq(4)').html(reviewTypeContent);
+						$(trObj).find('td:eq(5)').html(reviewContent);
+						$(trObj).find('td:eq(6)').html(confirmContent);
+					}
+				}	
+				clearCashReview();
+				toastr.success(data.result.message);
+			} else {
+				toastr.error(data.result.message);
+			}	
+		});
+	
+	}		
+	// 绑定保存资源
+	$('.btn_cash_review').click(_ajaxCashReviewSave);
+	
+	// 清空编辑的审批信息
+	function clearCashReview(){
+		$('.cash_review_edit').attr('data-id', '');
+		setSelect2Value($('.data_cash_type'), null);
+		setSelect2Value($('.data_source_type'), null);
+		setSelect2Value($('.data_source_obj'), null);
+		setSelect2Value($('.data_cash_pay_type'), null);
+		$('.data_cash_payee').val('');
+		$('.data_cash_bank_card').val('');
+		$('.data_cash_bank_address').val('');
+		$('.data_cash_money').val('');
+		$('.data_cash_beizhu').val('');
+	}
+	$('.btn_cash_clear').click(clearCashReview);
+	
+</script>
+
+
+<!--跟踪记录-->
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default edit">
+			<div class="panel-heading">
+				<h3 class="panel-title">跟踪记录</h3>
+				<div class="panel-options">
+					<a href="#" data-toggle="panel">
+						<span class="collapse-icon">–</span>
+						<span class="expand-icon">+</span>
+					</a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table1 table_supervise">
+					<thead>
+					<tr>
+						<th>跟踪编号</th>
+						<th>操作人员</th>
+						<th>操作内容</th>
+						<th>操作时间</th>
+					</tr>
+					</thead>
+					<tbody>
+						<volist id="s" name="team.supervise">
+							<tr class="insurance" data-id="{$s.id}">
+								<td>{$s.id}</td>
+								<td>{$s.admin_data.show_name}</td>
+								<td style="text-align: left;">{$s.content}</td>	
+								<td>{$s.create_time}</td>
+							</tr>
+						</volist>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+</script>

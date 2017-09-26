@@ -1,0 +1,431 @@
+<include file="Common/header" />
+	<style>
+		
+		.selectboxit-btn { background: #fff; border-color: #40bbea; }
+		.selectboxit-list { background-color: #fff; border: 1px solid #40bbea; }
+		.selectboxit-list .selectboxit-option-anchor { color: #979898; }
+		.form-control:focus { border-color: #40bbea; }
+		a { color: #979898; }
+		.dingdan_bianji , .dingdan_bianji01 , .dingdan_bianji02 { border: 1px solid #40bbea; }
+		.dingdan_bottom > p , .dingdan_bottom > span{ margin-top: 7px; }
+		.dingdan_bottom { margin-bottom: 10px; }
+	</style>
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DES')}</p>
+		</div>			
+	</div>	
+	<div class="panel panel-default">
+		
+		<!-- 查询条件 -->
+		<div class="panel-heading">
+			<div class="panel-title">
+				请编辑图片信息
+			</div>		
+			<div id="dingdan_main" class="col-sm-12" style="margin-left: 5%;">
+				<div class="row">
+					<div class="form-group row">
+						<p id='err_msg' class="col-sm-3" style="color:#e4393c;"></p>
+					</div>
+					
+					<div class="row dingdan_bottom">
+						<p class="col-sm-1">图片标题：</p>
+						<input id='img_title' type="text" style="height: 32px;" class="dingdan_bianji col-sm-6">
+						<p style="color: red;">&nbsp;&nbsp;*图片标题不能为空</p>
+					</div>
+					
+					<div class="row dingdan_bottom">
+						<p class="col-sm-1">图片作者：</p>
+						<input id='img_author' type="text" style="height: 32px;" class="dingdan_bianji col-sm-6">
+					</div>
+					
+					<div class="row dingdan_bottom">
+						<p class="col-sm-1">图片标签：</p>
+						<input id='img_tags' type="text" style="height: 32px;" class="dingdan_bianji col-sm-6">
+						<p style="color: red;">&nbsp;&nbsp;*多个标签之间用逗号分隔开</p>
+					</div>
+					
+					<div class="row dingdan_bottom">
+						<p class="col-sm-1">图片描述：</p>
+						<input id='img_intro' type="text" style="height: 32px;" class="dingdan_bianji col-sm-10">
+					</div>
+					
+					<!--<div class="row dingdan_bottom">
+						<p class="col-sm-1">图片类型：</p>
+						<div class="input-group col-sm-3" style="border-color: #40bbea; float:left; margin-right:3px;">
+							<script type="text/javascript">
+								jQuery(document).ready(function($)
+								{
+									var image_type_obj = $("#img_type").selectBoxIt().on('open', function()
+									{
+										// Adding Custom Scrollbar
+										$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+									});	
+									// 默认选择第一个
+									var initVal = $(image_type_obj).find('option:first').attr('value');									
+									$(image_type_obj).val(initVal).trigger('change');
+								});
+							</script>
+							<select id="img_type" class="form-control">
+								<option value="-1">不限</option>
+								<volist id="imgType" name="ImageTypes">
+									<option value="{$imgType.id}">{$imgType.type_desc}</option>
+								</volist>
+							</select>
+						</div>
+					</div>-->
+					
+					<div class="row dingdan_bottom">
+						<p class="col-sm-1">图片来源：</p>
+						<div class="input-group col-sm-3" style="border-color: #40bbea; float:left; margin-right:3px;">
+							<script type="text/javascript">
+								jQuery(document).ready(function($)
+								{
+									var image_from_obj = $("#img_from").selectBoxIt().on('open', function()
+									{
+										// Adding Custom Scrollbar
+										$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+									});	
+									var initVal = $(image_from_obj).find('option:first').attr('value');									
+									$(image_from_obj).val(initVal).trigger('change');
+								});
+							</script>
+							<select id="img_from" class="form-control">
+								<option value="-1">不限</option>
+								<volist id="imgFrom" name="ImageFroms">
+									<option value="{$imgFrom.id}">{$imgFrom.type_desc}</option>
+								</volist>
+							</select>
+						</div>
+					</div>
+					
+					<div class="row dingdan_bottom">
+						<p class="col-sm-1">内容类型：</p>
+						<div class="input-group col-sm-3" style="border-color: #40bbea; float:left; margin-right:3px;">
+							<script type="text/javascript">
+								jQuery(document).ready(function($)
+								{
+									var image_content_obj = $("#img_content").selectBoxIt().on('open', function()
+									{
+										// Adding Custom Scrollbar
+										$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+									});	
+									var initVal = $(image_content_obj).find('option:first').attr('value');									
+									$(image_content_obj).val(initVal).trigger('change');
+								});
+							</script>
+							<select id="img_content" class="form-control">
+								<option value="-1">不限</option>
+								<volist id="imgContent" name="ImageContents">
+									<option value="{$imgContent.id}">{$imgContent.type_desc}</option>
+								</volist>
+							</select>
+						</div>
+					</div>
+					
+					<div class="row dingdan_bottom">
+						<p class="col-sm-1">地域类型：</p>
+						<div class="input-group col-sm-3" style="border-color: #40bbea; float:left; margin-right:3px;">
+							<script type="text/javascript">
+								function getMenuItem(parentObj, childObj) {
+									if ($(parentObj).val() == null) {
+										return false;
+									}
+									
+									var jsonData = {
+										op_type: 'find',
+										data_type: 'all',
+										parent_id: $(parentObj).val(),
+									};
+																
+									$.post('{:U("menu/list")}', jsonData, function(backData){
+										if (backData.result.errno == 0) {
+											$(childObj).data('selectBox-selectBoxIt').remove();
+											if (backData.data != null) {
+												for (var k=0; k < backData.data.length; k++) {		
+													var d = backData.data[k];													
+													$(childObj).data('selectBox-selectBoxIt').add({value:d['id'], text:d['item_desc']});
+												}	
+											}
+										}
+									});
+								}
+								
+								var image_domain_obj=null, image_district_obj=null, image_distination_obj=null;	
+								jQuery(document).ready(function($)
+								{
+									image_domain_obj = $("#img_domain").selectBoxIt().on('open', function()
+									{
+										// Adding Custom Scrollbar
+										$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+									});	
+									
+									// 初始化
+									var initVal = $(image_domain_obj).find('option:first').attr('value');									
+									$(image_domain_obj).val(initVal).trigger('change');
+									
+									// 选项改变
+									$(image_domain_obj).change(function(){	
+										if (image_domain_obj != null && image_district_obj != null) {
+											getMenuItem(image_domain_obj, image_district_obj);
+										}									
+									});
+									
+								});
+							</script>
+							<select id="img_domain" class="form-control">
+								<option value="-1">不限</option>
+								<volist id="imgDomain" name="ImageDomains">
+									<option value="{$imgDomain.id}">{$imgDomain.item_desc}</option>
+								</volist>
+							</select>
+						</div>
+					</div>
+					
+					<div class="row dingdan_bottom">
+						<p class="col-sm-1">辖区类型：</p>
+						<div class="input-group col-sm-3" style="border-color: #40bbea; float:left; margin-right:3px;">
+							<script type="text/javascript">
+								jQuery(document).ready(function($)
+								{
+									image_district_obj = $("#img_district").selectBoxIt().on('open', function()
+									{
+										// Adding Custom Scrollbar
+										$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+									});	
+									var initVal = $(image_district_obj).find('option:first').attr('value');									
+									$(image_district_obj).val(initVal).trigger('change');
+								});
+									
+								// 选项改变
+								$(image_district_obj).change(function(){	
+									if (image_district_obj != null && image_distination_obj != null) {
+										getMenuItem(image_district_obj, image_distination_obj);
+									}									
+								});
+							</script>
+							<select id="img_district" class="form-control">
+								<option value="-1">不限</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="row dingdan_bottom">
+						<p class="col-sm-1">目的地：</p>
+						<div class="input-group col-sm-3" style="border-color: #40bbea; float:left; margin-right:3px;">
+							<script type="text/javascript">
+								jQuery(document).ready(function($)
+								{
+									var image_distination_obj = $("#img_distination").selectBoxIt().on('open', function()
+									{
+										// Adding Custom Scrollbar
+										$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+									});	
+									var initVal = $(image_distination_obj).find('option:first').attr('value');									
+									$(image_distination_obj).val(initVal).trigger('change');
+								});
+							</script>
+							<select id="img_distination" class="form-control">
+								<option value="-1">不限</option>
+							</select>
+						</div>
+					</div>
+				</div>				
+			</div>			
+		</div>
+		
+		<div class="panel-body">	
+			<!-- Auto initialization -->
+			<form id="myUploadForm" class="dropzone"></form>	
+		</div>
+		<br />
+		<br />
+		<button id="image_upload" class="btn btn-primary">上传图片</button>
+		<button id="image_clear" class="btn btn-secondary">清除图片</button>		
+	</div>
+	<script type="text/javascript">			
+		var myDropZone = null;
+		$(document).ready(function(){
+			
+//			Dropzone.autoDiscover = false;
+//			Dropzone.options.myAwesomeDropzone = false;
+			_initDropZone();	
+			
+			// 上传所有图片
+			$('#image_upload').click(_uploadAllImage);
+			// 清除所有选中图片
+			$('#image_clear').click(_clearAllImage);
+		});	
+		
+		// 初始化dropzone
+		function _initDropZone() {
+			$('#myUploadForm').dropzone({
+				url: '{:U("image/upload")}',
+				maxFiles: 20,
+				maxFilesize:3,
+				acceptFiles:'.jpg,.jpeg,.png,.gif',
+				addRemoveLinks: true,
+				uploadMultiple: false,
+				autoProcessQueue: false,
+				dictDefaultMessage: '点击此处添加图片',
+				dictRemoveFile: '删除',
+				init:function(){
+					myDropzone = this;
+					this.on('addedfile', _addUploadImage);
+					this.on('removedfile', _removeUploadImage);
+					this.on('error', _imageError);
+					this.on('processing', _imageProcessing);
+					this.on('uploadprogress', _imageUploadProgress);
+					this.on('sending', _imageSending);
+					this.on('success', _imageSucess);
+					this.on('complete', _imageComplete);
+					this.on('canceled', _imagecanceled);
+					this.on('maxfilesreached', _imageMaxFilesReached);
+					this.on('maxfilesexceeded', _imageMaxFilesExceeded);					
+				},
+			});
+		}
+		
+		
+		// 检测是否可以添加图片
+		var fileCount = 0;
+		function _checkAllowUpload() {
+			fileCount = myDropzone.getAcceptedFiles().length;	
+			if (fileCount < 1) {
+				alert('请上传照片...');
+				return false;
+			}
+			if (fileCount > 20) {
+				alert('您一次上传的照片不应该超过20张');
+				return false;
+			}
+			return true;
+		}
+		
+		// 检查编辑图片的信息
+		function _checkImageInfo() {
+			if ($('#img_title').val() == '') {
+				alert('图片的标题不能为空');
+				return false;
+			}
+			return true;
+		}
+		
+		// 添加所有图片
+		function _uploadAllImage(){
+			// 检查是否允许上传
+		    if (_checkAllowUpload() == false) {
+		    	return false;
+		    }
+		    // 检查图片描述
+		    if (_checkImageInfo() == false) {
+		    	return false;
+		    }
+			
+			// 加载上传等待层
+			showLoading(true);
+			// 开始上传
+			myDropzone.processQueue();
+			
+//			var fs = myDropzone.getAcceptedFiles();
+//			for (var i = 0; i < fs.length; ++ i) {
+//			}
+		}
+		
+		// 清除所有添加的图片
+		function _clearAllImage(){	
+			console.log('_clearAllImage->清除所有图片');
+			myDropzone.removeAllFiles(true);
+		}
+		
+		// 添加图片
+		function _addUploadImage(f) {	
+			console.log('_addUploadImage->'+JSON.stringify(f));		
+			//alert('add:' + f.name);
+//			f.previewElement.addEventListener("click", function(f) {
+//				alert(111);
+//				myDropzone.removeFile(f);
+//			});
+			
+		}
+		
+		// 删除图片
+		function _removeUploadImage(f) {
+			console.log('_removeUploadImage->'+JSON.stringify(f));	
+		}
+		
+		// 出错时. 接受 errorMessage 作为第二个参数，并且如果错误是 XMLHttpRequest对象， 那就作为第三个参数.
+		function _imageError(f, errMsg, xhr) {
+			console.log('_imageError->'+ JSON.stringify(f) + ",error:" + errMsg);	
+		}
+		
+		// 当一个文件获取处理 （因为不是所有的文件会立即得到处理的队列）。以前，此事件被称为 processingfile
+		function _imageProcessing(f) {
+			console.log('_imageProcessing->'+JSON.stringify(f));	
+		}
+		
+		//	无论文件在什么时候被改变都会调用此函数.
+		//	处理进度作为第二个参数，范围为(0-100); 发送到服务的字节数作为第三个参数
+		//	当上传文件完成确保至少一次处理进度被设置为100%
+		//	警告: 函数可能同时被多次调用
+		function _imageUploadProgress(f, p, b) {
+			console.log('_imageUploadProgress->'+JSON.stringify(f) + ",process" + p + ",byte:" + b + "KB");
+		}
+		
+		// 在每个文件被发送前调用. 得到 xhr 对象 和 formData 对象作为第二个和第三个参数, 所以你可以修改他们(add a CSRF token) 或者追加额外的数据.
+		function _imageSending(f, xhr, formData) {	
+			formData.append('title', $('#img_title').val());
+			formData.append('author', $('#img_author').val());
+			formData.append('intro', $('#img_intro').val());
+//			formData.append('type_id', $('#img_type').val());
+			formData.append('from_type_id', $('#img_from').val());
+			formData.append('content_type_id', $('#img_content').val());
+			formData.append('tags', $('#img_tags').val());
+			formData.append('domain_type_id', $('#img_domain').val());
+			formData.append('district_type_id', $('#img_district').val());
+			formData.append('distination_type_id', $('#img_distination').val());
+			console.log('_imageSending->'+JSON.stringify(f)+JSON.stringify(formData));	
+		}
+		
+		// 文件已经成功上传，获得服务器返回信息作为第二个参数(这个时间又被称作finished)
+		function _imageSucess(f, backData) {
+			console.log('_imageSucess->'+JSON.stringify(f)+JSON.stringify(backData));
+			if (backData['result']['errno'] == 0) {
+				// 上传成功后移除该文件
+				myDropzone.removeFile(f);
+			} else {
+				alert('上传失败,原因如下:\n' + backData['result']['message']);
+			}
+		}
+		
+		// 当上传完成，成功或者出现错误时调用
+		function _imageComplete(f) {
+			console.log('_imageComplete->'+JSON.stringify(f));
+			fileCount--;
+			if (fileCount == 0) {
+				showLoading(false);
+				alert('照片上传成功');
+			}
+			if (f.accepted != false) {
+				myDropzone.processQueue();	
+			}
+		}
+		
+		// 当取消文件上传式调用
+		function _imagecanceled(f) {
+			console.log('_imagecanceled->'+JSON.stringify(f));
+		}
+		
+		// 当文件的数量达到maxFiles限制时调用
+		function _imageMaxFilesReached(f) {
+			console.log('_imageMaxFilesReached->'+JSON.stringify(f));
+		}
+		
+		// 由于文件数量达到 maxFiles 限制数量被拒绝时调用
+		function _imageMaxFilesExceeded(f) {
+			console.log('_imageMaxFilesExceeded->'+JSON.stringify(f));
+			myDropzone.removeFile(f);
+		}		
+	</script>
+<include file="Common/footer" />

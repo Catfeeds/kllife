@@ -1,0 +1,158 @@
+<include file="Common/header" />
+	<!-- css Reset -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/cssreset.css">
+	<!-- 公共样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/common.css">
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/article.css">
+	<!-- echo -->
+	
+	<style type="text/css">		
+    	body { background-color:#f3f5f6; }
+    	.article-operate { position: absolute; bottom: 10px; right: 10px; }
+    	.article-operate i { display: inline-block; width: 80px; height: 30px; line-height:30px; margin-left:10px; color:#fff; font-size: 14px; font-style: normal; text-align: center; cursor: pointer; }
+    	.article-preview { background-color: #ffba00; }
+    	.article-delete { background-color: #e4393c; }
+    	.footer { position: absolute; top: 170px; left: 60px; }
+	</style>
+
+	<script src="__PUBLIC__/home/common/js/echo.min.js"></script>
+	
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	<!--面板内容结束-->
+	<div class="article-list">
+		<volist id="art" name="articles">
+			<if condition="empty($art['face_image']) eq true">
+				<div class="article-information-word" data-id="{$art.id}">
+					<a href="{:U('line/article')}/type/create/id/{$art.id}" target="_blank"></a>
+					<div class="article-information-word-div">
+						<h3>{$art.title}</h3>
+						<p>{$art.send_word}</p>
+						<h6>{$art.create_time}</h6>
+					</div>
+					<div class="article-operate">
+						<i class="article-preview">预览</i><i class="article-delete">删除</i>
+					</div>
+				</div>
+			<else />
+				<div class="article-information-img" data-id="{$art.id}">
+					<a href="{:U('line/article')}/type/create/id/{$art.id}" target="_blank"></a>
+					<div class="article-information-img-left">
+						<img src="{$art.face_image}" alt="">
+					</div>
+					<div class="article-information-img-right">
+						<h3>{$art.title}</h3>
+						<p>{$art.send_word}</p>
+						<h6>{$art.create_time}</h6>
+					</div>
+					<div class="article-operate" data-id="{$art.id}">
+						<i class="article-preview">预览</i><i class="article-delete">删除</i>
+					</div>
+				</div>
+			</if>							
+		</volist>
+	</div>
+	<div class="load-more">
+		<a href="javascript:;">加载更多...</a>
+	</div>
+	<div class="footer">						
+		<a href="{:U('line/article')}/type/create" class="btn btn-secondary">创建文章</a>		
+	</div>
+	<!--面板内容结束-->
+
+	<!-- 自绑定 -->
+	<script src="__PUBLIC__/home/common/js/showAndHide.js"></script>
+	<script>
+	//加载更多
+		var pageIndex = 0;
+		$('.load-more a').click( function () {
+			if ($(this).html() == '没有更多的数据了') {
+				return false;
+			}
+			
+			$(this).html('正在加载...');
+			var jsonData = {
+				op_type: 'list',
+				page: pageIndex+1,
+			}
+			
+			$.post('{:U("line/article")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (typeof(data.ds) != 'undefined' && data.ds != null) {
+						$('.load-more').find('a').html('加载更多...');
+						for (var i=0; i<data.ds.length; i++) {
+							var d = data.ds[i];
+							var include_image = typeof(d.face_image)=='undefined' ? false : true;
+							var vhtml = '<div class="article-information-img" data-id="'+d.id+'">';
+							if (include_image == false) {
+								vhtml = '<div class="article-information-word" data-id="'+d.id+'">'
+							}
+							vhtml +='	<a href="'+'{:U("line/article")}/type/create/id/'+d.id+'" target="_blank"></a>';
+							if (include_image == true) {
+								vhtml +='	<div class="article-information-img-left">'+
+										'		<img src="'+d.face_image+'" alt="">'+
+										'	</div>';
+							}
+							if (include_image == false) {
+								vhtml +='	<div class="article-information-word-div">';
+							} else {
+								vhtml +='	<div class="article-information-img-right">';
+							}
+							vhtml +='		<h3>'+d.title+'</h3>'+
+									'		<p>'+d.send_word+'</p>'+
+									'		<h6>'+d.create_time+'</h6>'+
+									'	</div>'+
+									'	<div class="article-operate">'+
+									'		<i class="article-preview">预览</i><i class="article-delete">删除</i>'+
+									'	</div>'+
+									'</div>';
+							$('.article-list').append(vhtml);
+							$('.article-preview:last').click(articleShow);
+							$('.article-delete:last').click(articleRemove);
+						}
+						// 下拉次数累加
+						pageIndex += 1;
+					} else {
+						$('.load-more').find('a').html('没有更多的数据了');
+					}
+				} else {
+					$('.load-more').find(a).html('加载更多...');
+					alert(data.result.message);
+				}
+			});
+		} );
+		
+		// 文章操作
+		function articleShow() {
+			var rootObj = $(this).parent().parent();
+			var jumpUrl = '{:U("line/article")}/type/show/id/'+$(rootObj).attr('data-id');
+			window.open(jumpUrl);
+		}
+		
+		// 文章设为无效
+		function articleRemove() {
+			var rootObj = $(this).parent().parent();
+			var jsonData = {
+				op_type: 'remove',
+				id: $(rootObj).attr('data-id'),
+			}
+			
+			$.post('{:U("line/article")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					$(rootObj).remove();
+				} else {
+					alert(data.result.message); 
+				}
+			});			
+		}
+		
+		$('.article-preview').click(articleShow);
+		$('.article-delete').click(articleRemove);
+	</script>
+	
+<include file="Common/footer" />

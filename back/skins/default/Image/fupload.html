@@ -1,0 +1,501 @@
+
+	<!-- 上传图片确认 -->
+	<div class="modal fade custom-width" id="gallery-image-upload-modal" data-backdrop="static">
+		<div class="modal-dialog" style="width: 90%">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<h4 class="modal-title">上传图片</h4>
+				</div>
+				
+				<div class="modal-body">
+	
+					<section class="gallery-env">
+											
+						<!-- Gallery Album Optipns and Images -->
+						<div class="col-sm-9 gallery-right">
+				
+							<!-- Auto initialization -->
+							<form id="ModalImageUpload" class="dropzone"></form>	
+							
+						</div>
+						
+						<!-- Gallery Sidebar -->
+						<div class="col-sm-3 gallery-left">
+							
+							<!-- Album Header -->
+							<div class="album-header">
+								<h2>筛选</h2>
+							</div>		
+									
+												
+							<div class="row">					
+								<div class="col-md-12">
+									<div class="form-group">
+										<p>图片标题：</p><br />
+										<input type="text" style="height: 32px;" class="dingdan_bianji col-sm-12 modal_img_title">
+									</div>
+								</div>
+							</div>
+							<br />
+							
+							<div class="row">					
+								<div class="col-md-12">
+									<div class="form-group">
+										<p>图片作者：</p><br />
+										<input type="text" style="height: 32px;" class="dingdan_bianji col-sm-12 modal_img_author">
+									</div>
+								</div>
+							</div>
+							<br />
+							
+							<div class="row">					
+								<div class="col-md-12">
+									<div class="form-group">
+										<p>图片类型：</p><br />
+										<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+											<script type="text/javascript">
+												jQuery(document).ready(function($)
+												{
+													var modal_image_type_obj = $('.gallery-image-selector-modal').find(".modal_img_type").selectBoxIt().on('open', function()
+													{
+														// Adding Custom Scrollbar
+														$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+													});	
+													
+													// 默认选择第一个
+													var initVal = $(modal_image_type_obj).find('option:first').attr('value');									
+													$(modal_image_type_obj).val(initVal).trigger('change');
+												});
+											</script>
+											<select class="form-control modal_img_type">
+												<option value="-1">不限</option>
+												<volist id="imgType" name="ImageTypes">
+													<option value="{$imgType.id}">{$imgType.type_desc}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br />
+							
+							<div class="row">					
+								<div class="col-md-12">
+									<div class="form-group">
+										<p>图片来源：</p><br />
+										<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+											<script type="text/javascript">
+												jQuery(document).ready(function($)
+												{
+													var modal_image_from_obj = $('.gallery-image-selector-modal').find(".modal_img_from").selectBoxIt().on('open', function()
+													{
+														// Adding Custom Scrollbar
+														$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+													});	
+													var initVal = $(modal_image_from_obj).find('option:first').attr('value');									
+													$(modal_image_from_obj).val(initVal).trigger('change');
+												});
+											</script>
+											<select class="form-control modal_img_from">
+												<option value="-1">不限</option>
+												<volist id="imgFrom" name="ImageFroms">
+													<option value="{$imgFrom.id}">{$imgFrom.type_desc}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br />
+							
+							<div class="row">					
+								<div class="col-md-12">
+									<div class="form-group">
+										<p>内容类型：</p><br />
+										<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+											<script type="text/javascript">
+												jQuery(document).ready(function($)
+												{
+													var modal_image_content_obj = $('.gallery-image-selector-modal').find(".modal_img_content").selectBoxIt().on('open', function()
+													{
+														// Adding Custom Scrollbar
+														$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+													});	
+													var initVal = $(modal_image_content_obj).find('option:first').attr('value');									
+													$(modal_image_content_obj).val(initVal).trigger('change');
+												});
+											</script>
+											<select class="form-control modal_img_content">
+												<option value="-1">不限</option>
+												<volist id="imgContent" name="ImageContents">
+													<option value="{$imgContent.id}">{$imgContent.type_desc}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br />
+							
+							<div class="row">					
+								<div class="col-md-12">
+									<div class="form-group">
+										<p>地域类型：</p><br />
+										<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+											<script type="text/javascript">
+												function getMenuItem(parentObj, childObj) {
+													if ($(parentObj).val() == null) {
+														return false;
+													}
+													
+													var jsonData = {
+														op_type: 'find',
+														data_type: 'all',
+														parent_id: $(parentObj).val(),
+													};
+																				
+													$.post('{:U("menu/list")}', jsonData, function(backData){
+														if (backData.result.errno == 0) {
+															$(childObj).data('selectBox-selectBoxIt').remove();
+															if (backData.data != null) {
+																for (var k=0; k < backData.data.length; k++) {		
+																	var d = backData.data[k];													
+																	$(childObj).data('selectBox-selectBoxIt').add({value:d['id'], text:d['item_desc']});
+																}	
+															}
+														}
+													});
+												}
+												
+												var modal_image_domain_obj=null, modal_image_district_obj=null, modal_image_distination_obj=null;	
+												jQuery(document).ready(function($)
+												{
+													modal_image_domain_obj = $('.gallery-image-selector-modal').find(".modal_img_domain").selectBoxIt().on('open', function()
+													{
+														// Adding Custom Scrollbar
+														$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+													});	
+													
+													// 初始化
+													var initVal = $(modal_image_domain_obj).find('option:first').attr('value');									
+													$(modal_image_domain_obj).val(initVal).trigger('change');
+													
+													// 选项改变
+													$(modal_image_domain_obj).change(function(){	
+														if (modal_image_domain_obj != null && modal_image_district_obj != null) {
+															getMenuItem(modal_image_domain_obj, modal_image_district_obj);
+														}									
+													});
+													
+												});
+											</script>
+											<select class="form-control modal_img_domain">
+												<option value="-1">不限</option>
+												<volist id="imgDomain" name="ImageDomains">
+													<option value="{$imgDomain.id}">{$imgDomain.item_desc}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br />
+							
+							<div class="row">					
+								<div class="col-md-12">
+									<div class="form-group">
+										<p>辖区类型：</p><br />
+										<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+											<script type="text/javascript">
+												jQuery(document).ready(function($)
+												{
+													modal_image_district_obj = $('.gallery-image-selector-modal').find(".modal_img_district").selectBoxIt().on('open', function()
+													{
+														// Adding Custom Scrollbar
+														$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+													});	
+													var initVal = $(modal_image_district_obj).find('option:first').attr('value');									
+													$(modal_image_district_obj).val(initVal).trigger('change');
+												});
+													
+												// 选项改变
+												$(modal_image_district_obj).change(function(){	
+													if (modal_image_district_obj != null && modal_image_distination_obj != null) {
+														getMenuItem(modal_image_district_obj, modal_image_distination_obj);
+													}									
+												});
+											</script>
+											<select class="form-control modal_img_district">
+												<option value="-1">不限</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br />
+							
+							<div class="row">					
+								<div class="col-md-12">
+									<div class="form-group">
+										<p>目的地：</p><br />
+										<div class="input-group col-sm-12" style="border-color: #40bbea; float:left; margin-right:3px;">
+											<script type="text/javascript">
+												jQuery(document).ready(function($)
+												{
+													var modal_image_distination_obj = $('.gallery-image-selector-modal').find(".modal_img_distination").selectBoxIt().on('open', function()
+													{
+														// Adding Custom Scrollbar
+														$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+													});	
+													var initVal = $(modal_image_distination_obj).find('option:first').attr('value');									
+													$(modal_image_distination_obj).val(initVal).trigger('change');
+												});
+											</script>
+											<select class="form-control modal_img_distination">
+												<option value="-1">不限</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br />
+																					
+						</div> <!--End Left-->
+									
+					</section>
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-secondary btn-use">上传并使用</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		// 上传成功的回调函数
+		var funcModalUploadCallBack = null;
+		var modalUploadCallBack = null;
+		var modalDropZone = null;
+		var modalImageList = null;
+		var modalUploadMaxFileCount = 20;
+		var modalUploadMaxFileSize = 3;
+		var modalUploadInitialized = false; // 已初始化
+				
+		// 显示上传插件
+		function showModalUploadImageDialog(obj) {
+			if (modalUploadInitialized == false) {
+				_modalInitDropZone();
+				// 一键上传所有图片
+				$('#gallery-image-upload-modal').find('.btn-use').click(_modalUploadAllImage);
+			}
+			modalUploadCallBack = obj;
+			_modalClearAllImage();
+			$("#gallery-image-upload-modal").modal('show');
+		}
+		
+		// 初始化上传插件
+//		$(document).ready(function()
+//			{
+//			Dropzone.autoDiscover = false;
+//			Dropzone.options.myAwesomeDropzone = false;
+//			_modalInitDropZone();	
+//			
+//			// 上传所有图片
+//			$('#gallery-image-upload-modal').find('.btn-use').click(_modalUploadAllImage);
+//		});	
+		
+		// 初始化dropzone
+		function _modalInitDropZone() {
+			$('#ModalImageUpload').dropzone({
+				url: '{:U("image/fupload")}',
+				maxFiles: modalUploadMaxFileCount,	// 允许上传的文件个数
+				maxFilesize: modalUploadMaxFileSize,	// 单个文件最大上传大小，3MB
+				acceptFiles:'.jpg,.jpeg,.png,.gif',
+				addRemoveLinks: true,
+				uploadMultiple: false,
+				autoProcessQueue: false,
+				dictDefaultMessage: '点击此处添加图片',
+				dictRemoveFile: '删除',
+				init:function(){
+					modalDropZone = this;
+					this.on('addedfile', _modalAddUploadImage);
+					this.on('removedfile', _modalRemoveUploadImage);
+					this.on('error', _modalImageError);
+					this.on('processing', _modalImageProcessing);
+					this.on('uploadprogress', _modalImageUploadProgress);
+					this.on('sending', _modalImageSending);
+					this.on('success', _modalImageSucess);
+					this.on('complete', _modalImageComplete);
+					this.on('canceled', _modalImagecanceled);
+					this.on('maxfilesreached', _modalImageMaxFilesReached);
+					this.on('maxfilesexceeded', _modalImageMaxFilesExceeded);
+									
+				},
+			});
+			modalUploadInitialized = true;
+		}
+		
+		
+		// 检测是否可以添加图片
+		var modalFileCount = 0;
+		function _modalCheckAllowUpload() {
+			modalFileCount = modalDropZone.getAcceptedFiles().length;	
+			if (modalFileCount < 1) {
+				alert('请上传照片...');
+				return false;
+			}
+			if (modalFileCount > 20) {
+				alert('您一次上传的照片不应该超过20张');
+				return false;
+			}
+			return true;
+		}
+		
+		// 检查编辑图片的信息
+		function _modalcheckImageInfo() {
+			var rootObj = $('#gallery-image-upload-modal');
+			var title = $(rootObj).find('.modal_img_title').val();
+			if (title == '') {
+				alert('图片的标题不能为空，可能的话请尽量补全其它图片信息，谢谢合作!');
+				return false;
+			}
+			return true;
+		}
+		
+		// 添加所有图片
+		function _modalUploadAllImage(){
+			// 检查是否允许上传
+		    if (_modalCheckAllowUpload() == false) {
+		    	return false;
+		    }
+		    // 检查图片描述
+		    if (_modalcheckImageInfo() == false) {
+		    	return false;
+		    }
+			
+			// 加载上传等待层
+			showLoading(true);
+			// 开始上传
+			modalDropZone.processQueue();
+			
+			modalImageList = new Array();
+//			var fs = modalDropZone.getAcceptedFiles();
+//			for (var i = 0; i < fs.length; ++ i) {
+//			}
+			
+		}
+		
+		// 清除所有添加的图片
+		function _modalClearAllImage(){	
+			// console.log('_modalClearAllImage->清除所有图片');
+			modalDropZone.removeAllFiles(true);
+		}
+		
+		// 添加图片
+		function _modalAddUploadImage(f) {	
+			// console.log('_modalAddUploadImage->'+JSON.stringify(f));		
+			//alert('add:' + f.name);
+//			f.previewElement.addEventListener("click", function(f) {
+//				alert(111);
+//				modalDropZone.removeFile(f);
+//			});
+			
+		}
+		
+		// 删除图片
+		function _modalRemoveUploadImage(f) {
+			// console.log('_modalRemoveUploadImage->'+JSON.stringify(f));	
+		}
+		
+		// 出错时. 接受 errorMessage 作为第二个参数，并且如果错误是 XMLHttpRequest对象， 那就作为第三个参数.
+		function _modalImageError(f, errMsg, xhr) {
+			// console.log('_modalImageError->'+ JSON.stringify(f) + ",error:" + errMsg);	
+		}
+		
+		// 当一个文件获取处理 （因为不是所有的文件会立即得到处理的队列）。以前，此事件被称为 processingfile
+		function _modalImageProcessing(f) {
+			// console.log('_modalImageProcessing->'+JSON.stringify(f));	
+		}
+		
+		//	无论文件在什么时候被改变都会调用此函数.
+		//	处理进度作为第二个参数，范围为(0-100); 发送到服务的字节数作为第三个参数
+		//	当上传文件完成确保至少一次处理进度被设置为100%
+		//	警告: 函数可能同时被多次调用
+		function _modalImageUploadProgress(f, p, b) {
+			// console.log('_modalImageUploadProgress->'+JSON.stringify(f) + ",process" + p + ",byte:" + b + "KB");
+		}
+		
+		// 在每个文件被发送前调用. 得到 xhr 对象 和 formData 对象作为第二个和第三个参数, 所以你可以修改他们(add a CSRF token) 或者追加额外的数据.
+		function _modalImageSending(f, xhr, formData) {	
+			var rootObj = $('#gallery-image-upload-modal');
+			formData.append('title', $(rootObj).find('.modal_img_title').val());
+			formData.append('author', $(rootObj).find('.modal_img_author').val());
+			formData.append('intro', $(rootObj).find('.img_intro').val());
+//			formData.append('type_id', $(rootObj).find('.modal_img_type').val());
+			formData.append('from_type_id', $(rootObj).find('.modal_img_from').val());
+			formData.append('content_type_id', $(rootObj).find('.modal_img_content').val());
+			formData.append('tags', $(rootObj).find('.modal_img_domain').val());
+			formData.append('domain_type_id', $(rootObj).find('.img_domain').val());
+			formData.append('district_type_id', $(rootObj).find('.modal_img_district').val());
+			formData.append('distination_type_id', $(rootObj).find('.modal_img_distination').val());
+			// console.log('_modalImageSending->'+JSON.stringify(f)+JSON.stringify(formData));	
+		}
+		
+		// 文件已经成功上传，获得服务器返回信息作为第二个参数(这个时间又被称作finished)
+		function _modalImageSucess(f, backData) {
+			// console.log('_modalImageSucess->'+JSON.stringify(f)+JSON.stringify(backData));
+			if (backData['result']['errno'] == 0) {
+				// 调用上传成功图片函数
+				var imageUrl = backData.ds.url;
+				modalImageList.push(imageUrl);
+				// 上传成功后移除该文件
+				modalDropZone.removeFile(f);
+				
+				
+			} else {
+				alert('上传失败,原因如下:\n' + backData['result']['message']);
+			}
+		}
+		
+		// 当上传完成，成功或者出现错误时调用
+		function _modalImageComplete(f) {
+			// console.log('_modalImageComplete->'+JSON.stringify(f));
+//			goBtnTop($('#gallery-image-upload-modal').find('.btn-use'));
+//			console.log(123);
+			modalFileCount--;
+			if (modalFileCount == 0) {
+				if (typeof(funcModalUploadCallBack) == 'function') {
+					funcModalUploadCallBack(modalUploadCallBack, modalImageList);
+					
+				}
+				showLoading(false);
+				// 关闭窗口
+				$('#gallery-image-upload-modal').modal('hide');
+				
+			}
+			if (f.accepted != false) {
+				modalDropZone.processQueue();	
+			}
+		}
+		
+		// 当取消文件上传式调用
+		function _modalImagecanceled(f) {
+			// console.log('_modalImagecanceled->'+JSON.stringify(f));
+		}
+		
+		// 当文件的数量达到maxFiles限制时调用
+		function _modalImageMaxFilesReached(f) {
+			// console.log('_modalImageMaxFilesReached->'+JSON.stringify(f));
+		}
+		
+		// 由于文件数量达到 maxFiles 限制数量被拒绝时调用
+		function _modalImageMaxFilesExceeded(f) {
+			// console.log('_modalImageMaxFilesExceeded->'+JSON.stringify(f));
+			modalDropZone.removeFile(f);
+		}		
+		
+	</script>

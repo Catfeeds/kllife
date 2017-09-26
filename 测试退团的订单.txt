@@ -1,0 +1,13 @@
+UPDATE  `managekllife`.`xz_lineenertname` SET  `ct_diaocha` =  '&nbsp;',
+`ct_zjcode` =  '440502197302200013&nbsp;440503197204280025',
+`ct_zhengjian` =  '身份证&nbsp;身份证',
+`ct_ids` =  '1&nbsp;2',
+`ct_names` =  '陈树彬&nbsp;王希谨',
+`ct_sjnum` =  '13510808221&nbsp;13724393449',
+`ct_types` =  '1&nbsp;2',
+`ct_exits` =  '1&nbsp;1' WHERE  `xz_lineenertname`.`id` =22291;
+
+SELECT * 
+FROM  `xz_lineenertname` 
+WHERE id =22291
+LIMIT 0 , 30

@@ -1,0 +1,647 @@
+<include file="Common/top" />
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/account_management.css">
+	<!-- 验证码 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/drag.css">
+	<style>
+		#drag { display: block; margin-top: 7px; }
+		.warning-length { position: relative; display: inline-block; width: 440px; height: 4px; background-color:#e6e6e6; vertical-align: middle; }
+		.warning-length span { position:absolute; top:0; left:0; height: 4px; }
+	</style>
+	<div id="content">
+		<div class="mine">
+			{$user.show_name}
+			<p>下午好！</p>
+			<if condition="empty($user['face']) === false">
+				<img class="face_image" src="{$user.face}" alt="">
+			<else />
+				<img class="face_image" src="__PUBLIC__/home/images/account_management_img/head.jpg" alt="">
+			</if>
+		</div>
+		<div class="account-list">
+			<a class="has-checked" href="javascript:;" alt='account-safe'>账号安全</a>
+			<a href="javascript:;" alt='my-information'>个人信息</a>
+			<a href="javascript:;" alt='bind-authorization'>绑定授权</a>
+		</div>
+		<div class="account">
+			<!-- 账号安全 -->
+			<div class="account-safe">
+				<img src="__PUBLIC__/home/images/account_management_img/4.png" alt="">
+				<h3>
+					安全等级 <strong>{$safe.score}</strong>分
+					<!--<span class="warnin-color"><img src="__PUBLIC__/home/images/account_management_img/1.png" alt=""></span><span></span>-->
+					<p class="warning-length">
+						<span></span>
+					</p>
+					{$safe.tip}
+				</h3>
+				<div class="account-psd">
+					<h4>帐号密码</h4>
+					<p>用于保护帐号信息和登录安全</p>
+					<a href="javascript:;">修改</a>
+					<i></i>
+				</div>
+				<div class="mail-safe">
+					<if condition="empty($user['email'])">
+						<h4>安全邮箱<i></i><span>未绑定</span></h4>
+						<p class="warning">安全邮箱将可用于登录领袖帐号和重置密码，建议立即设置</p>
+						<a href="javascript:;">添加</a>
+						<i></i>
+					<else />
+						<h4>安全邮箱{$user.email}</h4>
+						<p>安全邮箱将可用于登录领袖帐号和重置密码，建议立即设置</p>
+						<a href="javascript:;">修改</a>
+						<i></i>
+					</if>
+				</div>
+				<div class="phone-safe">
+					<if condition="empty($user['phone_show'])">
+						<h4>安全手机<i></i><span>未绑定</span></h4>
+						<p class="warning">安全邮箱将可用于登录领袖帐号和重置密码，建议立即设置</p>
+						<a href="javascript:;">添加</a>
+						<i></i>
+					<else />
+						<h4>安全手机{$user.phone_show}</h4>
+						<p>安全手机可以用于登录领袖帐号，重置密码或其他安全验证</p>
+						<a href="javascript:;">修改</a>
+						<i></i>
+					</if>
+				</div>
+			</div>
+			<div class="my-information">
+				<img src="__PUBLIC__/home/images/account_management_img/4.png" alt="">
+				<div class="my-head-img">
+					<if condition="empty($user['face']) === false">
+						<img class="face_image" src="{$user.face}" alt="">
+					<else />
+						<img class="face_image" src="__PUBLIC__/home/images/account_management_img/head.jpg" alt="">
+					</if>
+					<p>修改头像</p> <input type="file" class="hidden_ctrl" name="face_file" id="face_file"/>
+				</div>
+				<div class="basis-information">
+					<h4>基础资料<span><img src="__PUBLIC__/home/images/account_management_img/2.png" alt="">编辑</span></h4>					
+					<if condition="empty($user['name'])">
+						<p>姓名：<span>未知</span></p>
+					<else />
+						<p>姓名：<span>{$user.name}</span></p>
+					</if>					
+					<if condition="empty($user['nickname'])">
+						<p>昵称：<span>未知</span></p>
+					<else />
+						<p>昵称：<span>{$user.nickname}</span></p>
+					</if>
+					<p>性别：<span>{:get_sex($user['sex'])}</span></p>
+					<p>星座：<span>{:get_constellation($user['constellation'])}</span></p>
+					<if condition="empty($user['sex'])">
+						<p>生日：<span>未知</span></p>
+					<else />
+						<p>生日：<span>{$user.birthday}</span></p>
+					</if>		
+					<p>个性签名：<span>{$user.signature}</span></p>	
+				</div>
+			</div>
+			<!-- 绑定授权 -->
+			<div class="bind-authorization">
+				<img src="__PUBLIC__/home/images/account_management_img/4.png" alt=""> 
+				<h3>绑定授权<span>领袖帐号绑定的第三方帐号，可用于直接登录领袖户外网站</span></h3>
+				<div class="bind-qq">
+					<u></u>
+					<h6>QQ</h6>
+					<if condition="empty($user['openid'])">
+						<p><i></i>未绑定</p>
+						<a href="{:U('thirdLogin/login')}/type/qq/" target="_blank">添加绑定</a>
+					<else />
+						<p>已绑定</p>
+					</if>
+				</div>
+				<div class="bind-wx">
+					<u></u>
+					<h6>微信</h6>
+					<if condition="empty($user['unionid'])">
+						<p><i></i>未绑定</p>
+						<a href="{:U('thirdLogin/login')}/type/weixin/" target="_blank">添加绑定</a>
+					<else />
+						<p>已绑定</p>
+					</if>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 修改密码弹框 -->
+	<div class="mark"></div>
+	<div class="revise-psd-content">
+		<h5>修改密码<img src="__PUBLIC__/home/images/account_management_img/close.png" alt="关闭"></h5>
+		<div class="revise-psd">
+			<h5>原密码</h5>
+			<input id="old_password" type="password" placeholder="输入原密码">
+			<h5>新密码</h5>
+			<input id="new_password" type="password" placeholder="输入新密码">
+			<input id="password_confirm" type="password" placeholder="重复新密码">
+			<h5>验证码</h5>
+			<p><span id="drag"></span></p>
+			<p><a class="sure-psd" href="javascript:;">确定</a><a class="cancle-psd" href="javascript:;">取消</a></p>
+		</div>
+	</div>
+	<!-- 绑定邮箱 -->
+	<div class="bind-mail-content">
+		<h5>领袖户外安全验证<img src="__PUBLIC__/home/images/account_management_img/close.png" alt="关闭"></h5>
+		<div class="bind-mail">
+			<h5>为了保护帐号安全，需要验证邮箱有效性</h5>
+			<input class="email_text" type="text" placeholder="输入邮箱">
+			<input class="write-mail-code" type="text" placeholder="输入验证码">
+			<a class="send-mail-code" href="javascript:;">发送验证码</a>
+			<p><a class="sure-mail" href="javascript:;">确定</a><a class="cancle-mail" href="javascript:;">取消</a></p>
+		</div>
+	</div>
+	<!-- 绑定手机 -->
+	<div class="bind-phone-content">
+		<h5>领袖户外安全验证<img src="__PUBLIC__/home/images/account_management_img/close.png" alt="关闭"></h5>
+		<div class="bind-phone">
+			<h5>为了保护帐号安全，需要验证手机有效性</h5>
+			<input class="phone_text" type="text" placeholder="输入手机号">
+			<input class="write-phone-code" type="text" placeholder="输入验证码">
+			<a class="send-phone-code" href="javascript:;">发送验证码</a>
+			<p><a class="sure-phone" href="javascript:;">确定</a><a class="cancle-phone" href="javascript:;">取消</a></p>
+		</div>
+	</div>
+	<!-- 编辑个人信息 -->
+	<div class="write-personal-information">
+		<h5>基础资料<img src="__PUBLIC__/home/images/account_management_img/close.png" alt="关闭"></h5>
+		<div class="personal-information">
+			<p><strong>姓名：</strong><input id="name" type="text" placeholder="输入您的姓名" value="{$user.name}"></p>
+			<p><strong>昵称：</strong><input id="nickname" type="text" placeholder="输入您的昵称" value="{$user.nickname}"></p>
+			<div class="birth">
+				<php>$birth = explode('-',$user['birthday']);</php>
+				<strong>生日：</strong><div class="birth-year">
+					<span>{$birth[0]}</span>
+					<i></i>
+					<ul></ul>
+				</div>
+				<div class="birth-month">
+					<span>{$birth[1]}</span>
+					<i></i>
+					<ul></ul>
+				</div>
+				<div class="birth-day">
+					<span>{$birth[2]}</span>
+					<i></i>
+					<ul></ul>
+				</div>
+			</div>
+			<php> 
+				$boyClass =  $user['sex'] == '1' ? 'sex-checked' : ''; 
+				$girlClass =  $user['sex'] == '2' ? 'sex-checked' : ''; 
+			</php>
+			<p class="sex"><strong>性别：</strong><span class="{$boyClass} boy"><i></i><b>男</b></span><span class="{$girlClass} girl"><i></i><b>女</b></span></p>
+			
+			<div class="constellation">
+				
+				<strong>星座：</strong></strong><div class="choose-constellation">
+					<span class="constellation_value">{:get_constellation($user['constellation'])}</span>
+					<img src="__PUBLIC__/home/images/account_management_img/3.png" alt="">
+					<ul>
+						<li>白羊座</li>
+						<li>金牛座</li>
+						<li>双子座</li>
+						<li>巨蟹座</li>
+						<li>狮子座</li>
+						<li>处女座</li>
+						<li>天秤座</li>
+						<li>天蝎座</li>
+						<li>射手座</li>
+						<li>摩羯座</li>
+						<li>水瓶座</li>
+						<li>双鱼座</li>
+					</ul>
+				</div>
+			</div>
+			<div class="id-card">
+				<strong>证件类型：</strong><div class="id-type">
+					<php> $myCertType = json_decode($user['cert_type'], ture); </php>
+					<span>{$myCertType.type_desc}</span>
+					<img src="__PUBLIC__/home/images/account_management_img/3.png" alt="">
+					<ul>
+						<volist id='cert' name="certs">
+							<li data-id="{$cert.id}">{$cert.type_desc}</li>
+						</volist>
+					</ul>
+				</div>
+				<input id="card_id" type="text" placeholder="请输入您的证件号码" value="{$user.cert}">
+			</div>
+			
+			<p><strong>个性签名：</strong><input id="signature" maxlength="20" type="text" id="signature" placeholder="输入您的个性签名" value="{$user.signature}"></p>
+			<a class="sure-my-information" href="javascript:;">确定</a><a class="cancle-my-information" href="javascript:;">取消</a>
+		</div>
+	</div>
+	
+	<!-- 个人信息 -->
+	<div id="div_upload_face" class="modal-face-image"></div>
+	<div class="face-mark"></div>
+		
+	<div class="mark"></div>
+	<div id="alert-modal">
+		
+		<div class="alert-modal-top">
+			<a href="javascript:;"><img src="__PUBLIC__/home/common/images/video_close.png"/></a>
+		</div>
+		<div class="alert-modal-content">
+			<p></p>
+		</div>
+		
+	</div>
+	
+	<!-- 生日 -->
+	<script src="__PUBLIC__/home/js/birthday.js"></script>
+	<!-- 验证码 -->
+	<script src="__PUBLIC__/home/js/drag.js"></script>
+	<!--美图秀秀-->
+	<script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+	<!--图片延迟加载-->
+	<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(
+			function($){
+				$("img").lazyload({
+					placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+					effect      : "fadeIn",
+					threshold : 100,
+					failure_limit : 10
+				});
+			});
+	</script>
+	
+	<script type="text/javascript">	
+		
+		//根据分值判断进度条
+		//获取分值
+		var warnNum = parseInt($('.account-safe h3 strong').text());
+		
+		$('.warning-length span').width(warnNum + '%');
+		if(warnNum >= 0 && warnNum <= 25){
+			$('.warning-length span').removeClass();
+			$('.warning-length span').addClass('warn01');
+		}else if (warnNum >= 26 && warnNum <= 50){
+			$('.warning-length span').removeClass();
+			$('.warning-length span').addClass('warn02');
+		}else if (warnNum >= 51 && warnNum <= 75){
+			$('.warning-length span').removeClass();
+			$('.warning-length span').addClass('warn03');
+		}else if (warnNum >= 76 && warnNum <= 100){
+			$('.warning-length span').removeClass();
+			$('.warning-length span').addClass('warn04');
+		}
+				
+		$('.my-head-img').find('p').click(function(){
+			$('#xiuxiuEditor').show();
+			$('.face-mark').show();
+//			location.href = '{:U("user/face")}';
+			/*第1个参数是加载编辑器div容器，第2个参数是编辑器类型，第3个参数是div容器宽，第4个参数是div容器高*/
+			xiuxiu.embedSWF("div_upload_face",5,"100%","100%");
+			//修改为您自己的图片上传接口
+			xiuxiu.setUploadURL("{$upload_url}");
+			xiuxiu.setUploadType(2);
+			xiuxiu.setUploadDataFieldName("face_file");
+			xiuxiu.onInit = function ()
+			{
+				xiuxiu.loadPhoto("http://open.web.meitu.com/sources/images/1.jpg");//修改为要处理的图片url
+			}
+			xiuxiu.onUploadResponse = function (ds)
+			{
+				var data = $.parseJSON(ds);
+				if (data.result.errno == 0) {
+					if (data.face_image != null && data.face_image != 'undefined') {
+						$('.face_image').attr('src', data.face_image);						
+					}
+					$('.face-mark').hide();
+					$('#xiuxiuEditor').hide();
+				} else {
+					alert(data.result.message);
+				}				
+			}
+		});
+		
+		$('.face-mark').click(function(){
+			$(this).hide();
+			$('#xiuxiuEditor').hide();
+		});
+	
+		//鼠标离开，关闭下拉框
+		$('.choose-constellation').mouseleave(function(){
+			$(this).children('ul').hide();
+		});
+		$('.choose-constellation').mouseleave(function(){
+			$(this).children('ul').hide();
+		});
+		$('.id-type').mouseleave(function(){
+			$(this).children('ul').hide();
+		});
+		$('.id-type').mouseleave(function(){
+			$(this).children('ul').hide();
+		});
+	
+		//验证码
+		$('#drag').drag();
+		//生日
+		$('.personal-information').birthday('.birth-year', '.birth-month' , '.birth-day' , '.birth' , 100);
+		//选择下拉框
+		function chooseDown( f ) {
+			$( '.' + f ).click( function () {
+				$(this).children('ul').show();
+			} );
+			$( '.' + f + ' ul li').click( function (event) {
+				event.stopPropagation();
+				$(this).parents( '.' + f ).children('span').html($(this).html());
+				$(this).parent('ul').hide();
+			} );
+		};
+		chooseDown('birth-year');
+		chooseDown('birth-month');
+		chooseDown('birth-day');
+		chooseDown('id-type');
+		chooseDown('choose-constellation');
+		//切换
+		function tabChange(a,b){
+			$(a).click( function () {
+				$(this).parents(b).find('a').removeClass('has-checked');
+				$(this).addClass('has-checked');
+				var Alt = $(this).attr('alt');
+				$('.' + Alt).siblings().hide();
+				$('.' + Alt).show();
+			} );
+		}
+		tabChange('.account-list a','.account-list');
+
+
+		function showModel(c,d) {
+			$(c).click( function () {
+				$('.mark').show();
+				$(d).show();
+			} );
+		};
+		showModel('.account-psd a','.revise-psd-content');
+		showModel('.mail-safe','.bind-mail-content');
+		showModel('.phone-safe','.bind-phone-content');
+		
+		showModel('.basis-information > h4 span','.write-personal-information');
+
+		function hideAndClear( h,i ) {
+			$(h).click( function () {
+				$('.mark').hide();
+				$(i).hide();
+			});
+		};
+		hideAndClear('.cancle-psd','.revise-psd-content');
+		hideAndClear('.revise-psd-content > h5 img','.revise-psd-content');
+		hideAndClear('.cancle-mail','.bind-mail-content');
+		hideAndClear('.bind-mail-content h5 img','.bind-mail-content');
+		hideAndClear('.cancle-phone','.bind-phone-content');
+		hideAndClear('.bind-phone-content h5 img','.bind-phone-content');
+		hideAndClear('.cancle-my-information','.write-personal-information');
+		hideAndClear('.write-personal-information h5 img','.write-personal-information');
+		
+		//性别选择
+		$('.sex span').click( function () {
+			$(this).siblings().removeClass('sex-checked');
+			$(this).addClass('sex-checked');
+		} );
+	</script>
+	
+	<script type="text/javascript">
+		//modal关闭
+		$('.alert-modal-top a').click(function(){
+			$('.mark').hide();
+			$('#alert-modal').hide();
+		});
+		// 修改密码
+		$('.sure-psd').click(function(data){
+			var newPassword = $('#new_password').val();
+			var confirmPassword = $('#password_confirm').val();
+			if (newPassword != confirmPassword) {
+				alert('两次输入的密码不一致');
+				return false;
+			}
+			//滑动验证码失败
+			if(!($('.handler').hasClass('handler_ok_bg'))){
+				$('.mark').show()
+				$('#alert-modal').show();
+				$('#alert-modal').find('p').html('请滑动验证码完成验证');
+				setTimeout(function(){
+					$('.mark').hide()
+					$('#alert-modal').hide();
+				},3000);
+				return false;
+			};
+			
+			var userId = '{$user.id}';
+			var jsonData = {
+				type: 'modify_password',
+				id: userId,
+				password: $('#old_password').val(),
+				new_password: newPassword,
+			};
+			$.post('{:U("user/manager")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					location.href = '{:U("user/manager")}';
+				} else {
+					alert(data.result.message);
+					if (data.jumpUrl != null) {
+						location.href = data.jumpUrl;
+					}
+				}				
+			});
+		});
+		
+		// 发送邮箱验证码
+		$('.send-mail-code').click(function(data){
+			var email = $('.email_text').val();
+			_ajaxEmail(email, '', 0);
+		});
+		
+		// 修改邮箱
+		$('.sure-mail').click(function(data){
+			var email = $('.email_text').val();
+			var code = $('.write-mail-code').val();
+			_ajaxEmail(email, code, 1);
+		});
+		
+		// 邮箱数据发送
+		function _ajaxEmail(sEmail, sCode, nCheck) {
+			if (sEmail == '') {
+				$('.mark').show()
+				$('#alert-modal').show();
+				$('#alert-modal').find('p').html('邮件不能为空');
+				setTimeout(function(){
+					$('.mark').hide()
+					$('#alert-modal').hide();
+				},3000);
+				//alert('邮件不能为空');
+				return false;
+			}
+			if (nCheck == 1 && sCode == '') {
+				$('.mark').show()
+				$('#alert-modal').show();
+				$('#alert-modal').find('p').html('验证码不能为空');
+				setTimeout(function(){
+					$('.mark').hide()
+					$('#alert-modal').hide();
+				},3000);
+				//alert('验证码不能为空');
+				return false;
+			}
+			var userId = '{$user.id}';
+			var jsonData = {
+				type: 'modify_email',
+				user_id: userId,
+				email: sEmail,
+				code: sCode,
+				check: nCheck,
+			};
+			$.post('{:U("user/manager")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (nCheck == 0) {
+						if (typeof(data.ds) != 'undefined') {
+							$('.mark').show()
+							$('#alert-modal').show();
+							$('#alert-modal').find('p').html(data.ds.code);
+							setTimeout(function(){
+								$('.mark').hide()
+								$('#alert-modal').hide();
+							},3000);
+							//alert(data.ds.code);
+						}
+					} else {
+						location.href = '{:U("user/manager")}';	
+					}
+				} else {
+					alert(data.result.message);
+				}				
+			});
+		}
+		
+		// 发送电话验证码
+		$('.send-phone-code').click(function(data){
+			var phone = $('.phone_text').val();
+			_ajaxPhone(phone, '', 0);
+		});
+		
+		// 修改电话
+		$('.sure-phone').click(function(data){
+			var phone = $('.phone_text').val();
+			var code = $('.write-phone-code').val();
+			_ajaxPhone(phone, code, 1);
+		});
+		
+		// 电话数据发送
+		function _ajaxPhone(sPhone, sCode, nCheck) {
+			if (sPhone == '') {
+				$('.mark').show()
+				$('#alert-modal').show();
+				$('#alert-modal').find('p').html('电话不能为空');
+				setTimeout(function(){
+					$('.mark').hide()
+					$('#alert-modal').hide();
+				},3000);
+				//alert('电话不能为空');
+				return false;
+			}
+			if (nCheck == 1 && sCode == '') {
+				$('.mark').show()
+				$('#alert-modal').show();
+				$('#alert-modal').find('p').html('验证码不能为空');
+				setTimeout(function(){
+					$('.mark').hide()
+					$('#alert-modal').hide();
+				},3000);
+				//alert('验证码不能为空');
+				return false;
+			}
+			var userId = '{$user.id}';
+			var jsonData = {
+				type: 'modify_phone',
+				user_id: userId,
+				phone: sPhone,
+				code: sCode,
+				check: nCheck,
+			};
+			$.post('{:U("user/manager")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (nCheck == 0) {
+						if (typeof(data.ds) != 'undefined') {
+							$('.mark').show()
+							$('#alert-modal').show();
+							$('#alert-modal').find('p').html(data.ds.code);
+							setTimeout(function(){
+								$('.mark').hide()
+								$('#alert-modal').hide();
+							},3000);
+							//alert(data.ds.code);
+						}
+					} else {
+						location.href = '{:U("user/manager")}';
+					}
+				} else {
+					$('.mark').show()
+					$('#alert-modal').show();
+					$('#alert-modal').find('p').html(data.result.message);
+					setTimeout(function(){
+						$('.mark').hide()
+						$('#alert-modal').hide();
+					},3000);
+					//alert(data.result.message);
+				}				
+			});
+		}
+		
+		// 获取证件信息
+		function getCertType() {
+			var sel_desc = $('.id-card').find('span').html();
+			var lisObj = $('.id-card').find('li');
+			for (var i = 0; i < $(lisObj).length; i++) {
+				var id = $(lisObj[i]).attr('data-id');
+				var desc = $(lisObj[i]).html();
+				if (desc == sel_desc) {
+					return '{"id":"'+id+'","type_desc":"'+desc+'"}'
+				}
+			}
+			return '';
+		}
+						
+		// 修改基本信息
+		$('.sure-my-information').click(function(data){
+			var y = $('.birth-year').find('span').html();
+			var m = $('.birth-month').find('span').html();
+			var d = $('.birth-day').find('span').html();
+			var birth = y + '-' + m + '-' + d;
+			
+			var userId = '{$user.id}';
+			var jsonData = {
+				type: 'modify_base',
+				name: $('#name').val(),
+				nickname: $('#nickname').val(),
+				birthday: birth,
+				sex: getSex($('.write-personal-information').find('.sex-checked b').html()),	
+				constellation: getConstellation($('.constellation_value').html()),			
+				cert_type: getCertType(),
+				cert: $('#card_id').val(),
+				signature: $('#signture').val(),
+			};
+			
+			$.post('{:U("user/manager")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					location.href = '{:U("user/manager")}';
+				} else {
+					$('.mark').show()
+					$('#alert-modal').show();
+					$('#alert-modal').find('p').html(data.result.message);
+					setTimeout(function(){
+						$('.mark').hide()
+						$('#alert-modal').hide();
+					},3000);
+					//alert(data.result.message);
+				}				
+			});
+		});
+	</script>
+<include file="Common/right" />
+<include file="Common/bottom" />

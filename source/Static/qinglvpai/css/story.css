@@ -1,0 +1,140 @@
+.h1{font-size: 26px;margin:0px;color:#ff1c77;text-align: center;text-align: -webkit-center;padding:70px 0px 25px;}
+.h2{font-size: 16px;margin:0px;text-align: center;text-align: -webkit-center;}
+.h3{font-size: 22px;margin:0px;text-align: center;text-align: -webkit-center;}
+.border{border-bottom:2px solid #ff1c77;width:60px;margin: auto;margin-bottom:40px;}
+.story .brand-story{
+    width:1200px;
+    margin:auto;
+    overflow: hidden;
+}
+.story .brand-story .left,.story .brand-story .right{
+    float: left;
+    width:50%;
+}
+.story .top-two{
+    height:800px;
+    background-image: url(../images/story/banner.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    /*background-size: cover;*/
+}
+.story .brand-story .left{
+    padding-right:50px;
+}
+.story .brand-story .left .div{
+    width:100%;
+    padding-right:50px;
+    border-right:1px solid #e5e5e5;
+    margin-top:10px;
+    height:980px;
+    padding-top:50px;
+}
+.story .brand-story .left .div .h1{
+    text-align: left;
+    text-align: -webkit-left;
+}
+.story .brand-story .left .div div{
+    margin-top:35px;
+}
+.story .brand-story .left .div div p{
+    line-height:30px;
+    font-size: 16px;
+}
+.story .brand-story .right img{
+    margin-top:10px;
+    height:320px;
+}
+.story .share{
+    width:1200px;
+    margin:auto;
+    overflow: hidden;
+}
+.story  .share-width .left1,.story .share-width .right2{
+    width:600px!important;
+}
+.story  .share-width .left div .h2{
+    font-size: 16px!important;
+}
+.story  .share-width .left div .h3{
+    line-height:35px;
+    color:#ff1c77
+}
+.story .share .left,.story .share .right{
+    float: left;
+    margin-bottom:30px;
+    height:526px;
+    overflow: hidden;
+}
+.story .share .left2,.story .share .right2{
+    float: right;
+}
+.story .share .left{
+    width:480px;
+    background: #f6f6f6;
+    height:526px;
+}
+.story .share .left p{
+    line-height:30px;
+}
+.story .share .right{
+    width:720px;
+}
+.story .my{
+    width:1200px;
+    margin:auto;
+    overflow: hidden;
+    position: relative;
+}
+.story .my .h1{
+    padding-top:40px;
+}
+.story .my .centent{
+    position: absolute;
+    top:135px;left:0px;right:0px;
+    width:300px;
+    height:668px;
+    margin:auto;
+    border:1px solid #dcdcdc;
+}
+.story .my .centent div{
+    margin-top:40px;
+}
+.story .my .centent div p{
+    line-height:25px;
+}
+.story .diff{
+    width:1138px;
+    margin:auto;
+    overflow: hidden;
+}
+.story .diff img{
+    text-align: center;
+    text-align: -webkit-center;
+    width:100%;
+}
+.story .contact{
+    width:100%;
+    margin:auto;
+    background: #f7f7f7;
+    padding-bottom:70px;
+    margin-top:35px;
+}
+.story .contact .h1{
+    padding-top:60px;
+}
+.story .contact .h3{
+    padding-bottom:40px;
+    width: 1200px;
+    text-align: center;
+    text-align: -webkit-center;
+    margin: auto;
+    line-height: 35px;
+}
+.story .contact .h2{
+    line-height:30px;
+}
+.story .contact img{
+    display:block;
+    margin:auto;
+    margin-top:20px;
+}

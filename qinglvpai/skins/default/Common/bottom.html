@@ -1,0 +1,68 @@
+<style>
+	.footer-bottom-content span{margin-right:0px;}
+</style>
+	<footer>
+		<!--{:p_a($question_type)}-->
+		<div class="footer-content">
+			<div class="footer-content-left">
+				<volist id="qt" name="question_type">
+					<php>					
+						if ($key === 'config_update_time') {
+							continue;
+						}
+					</php>
+					<ul class="{$qt.class}">
+						<li>{$qt.type_desc}</li>
+						<volist id="quest" name="qt.questions">
+							<li><a target="_blank" href="{:U('service/question')}/id/{$quest.id}">{$quest.content}</a></li>
+						</volist>
+					</ul>
+				</volist>
+			</div>
+			<div class="footer-content-right">
+				<img src="__PUBLIC__/qinglvpai/common/images/footer_erweima.png" alt="">
+			</div>
+		</div>
+	</footer>
+	<div class="footer-bottom">
+		<div class="footer-bottom-content">
+			<!--<p>
+				友情链接：
+				<volist id='set_val' name="pcset">
+					<if condition="stripos($key, 'pc_friend_link') heq 0">
+						<notempty name="fk">&nbsp;|&nbsp;</notempty>
+						<php> $fk = json_decode($set_val, true); </php>
+						<a href="{$fk.url}" target="_blank">{$fk.text}</a>
+					</if>
+				</volist>
+			</p>-->
+			<span style="margin-top: 20px;">Copyright  2017 <a href="http://xiezhenlvxing.com" target="_blank" style="color:#fff;">xiezhenlvxing.com</a> | 杭州浪客旅行社有限公司版权所有</span>
+			<br>
+			<span>旅行社经营许可证号：ZJ30301 浙ICP备17010959号
+			<span>
+				<!--商务通代码--> 
+				<script language="javascript" src="http://pqt.zoosnet.net/JS/LsJS.aspx?siteid=PQT43116159&float=1&lng=cn"></script>
+				<script language="javascript" type="text/javascript" src="http://kllife.com/swt_xlp/js/swt.js"></script>
+				<!--CNZZ统计--> 
+				<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261595265'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1261595265%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+				<!--百度统计-->
+				<script>
+					var _hmt = _hmt || [];
+					(function() {
+						var hm = document.createElement("script");
+						hm.src = "https://hm.baidu.com/hm.js?5b19bad2c5e7328683965e7447d46f4c";
+						var s = document.getElementsByTagName("script")[0]; 
+						s.parentNode.insertBefore(hm, s);
+					})();
+				</script>
+			</span>
+		</div>
+	</div>
+	
+	<!-- Imported toastr -->
+	<script src="__PUBLIC__/assets/js/toastr/toastr.min.js"></script>
+	<script src="__PUBLIC__/common/js/functions.js"></script>
+
+	
+</body>
+</html>

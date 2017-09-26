@@ -1,0 +1,330 @@
+<include file="Common/header" /> 
+	<link rel="stylesheet" href="__PUBLIC__/assets/js/wysihtml5/src/bootstrap-wysihtml5.css">
+	<script src="__PUBLIC__/assets/js/wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+	<script src="__PUBLIC__/assets/js/wysihtml5/src/bootstrap-wysihtml5.js"></script>
+	<script src="__PUBLIC__/assets/js/formwizard/jquery.bootstrap.wizard.min.js"></script>	
+	<style>
+		
+		.input-group i { font-style: normal; }
+		.panel .panel-body .lead { margin-bottom: 20px; border-bottom: 1px solid #dcdcdc; }
+		.btn-textarea { margin-top: 10px; }
+	</style>
+	
+		<div class="row">
+			<div class="panel panel-color panel-info panel-content-pos">
+				<div class="panel panel-heading">
+					<span class="description">{:C(CONTENT_TITLE)}</span>					
+				</div>
+				<div class="panel-body row">
+				
+				<!--编辑内容至此开始-->
+					<div class="col-sm-11" style="margin-left: 5%; margin-top: 3%;">
+					
+						<p class="text-danger lead">功能操作：</p>
+						
+						<div class="input-group col-sm-10">
+							<a href="javascript:;" class="btn btn-secondary update_cache" data-set="pc_set">更新缓存</a>
+							<a href="javascript:;" class="btn btn-danger update_cache_all">更新全站缓存</a>
+						</div>
+						
+					</div>
+				
+					<div class="col-sm-11" style="margin-left: 5%; margin-top: 3%;">
+						
+						<p class="text-danger lead">链接：</p>
+						
+						<div class="input-group col-sm-10"> 
+							<span class="input-group-btn"> 
+								<button class="btn btn-gray" type="button">咨询链接：</button> 
+							</span> 
+							<input type="text" id="askfor_link" class="form-control no-left-border no-right-border form-focus-warning" value="{$pcset.askfor_link}"> 
+							<span class="input-group-btn"> 
+								<button class="btn btn-secondary btn_set_text" data-set="askfor_link" type="button">设置</button> 
+							</span>
+						</div>
+						<br />
+						
+						<div class="input-group col-sm-10"> 
+							<span class="input-group-btn"> 
+								<button class="btn btn-gray" type="button">小包团链接：</button> 
+							</span> 
+							<input type="text" id="team_link" class="form-control no-left-border no-right-border form-focus-warning" value="{$pcset.team_link}"> 
+							<span class="input-group-btn"> 
+								<button class="btn btn-secondary btn_set_text" data-set="team_link" type="button">设置</button> 
+							</span> 
+						</div>
+						<br />
+						
+					</div>
+					
+					<div class="input-group col-sm-10 template_friend_link hidden_ctrl"> 
+						<span class="input-group-btn"> 
+							<button class="btn btn-gray" type="button">链接：</button> 
+						</span> 
+						<input type="text" class="form-control no-left-border form-focus-warning friend_link_url" placeholder="请输入链接地址">
+						<span class="input-group-btn">  							
+							<input type="text" class="form-control no-right-border form-focus-warning friend_link_text" placeholder="请输入链接显示文字" style="width: 300px;"> 
+							<button class="btn btn-secondary btn_set_friend_link" data-set="" type="button">设置</button> 
+							<button class="btn btn-danger btn_del_friend_link" data-set="" type="button" style="border-left: 2px solid #fff;">删除</button> 
+						</span>
+					</div>
+				
+					<div class="col-sm-11" style="margin-left: 5%; margin-top: 3%;">
+						
+						<p class="text-danger lead">主站友情链接：<a href="javascript:;" style="margin-left: 30px;" data-base="pc" class="btn btn-secondary btn_add_friend_link">添加</a> </p>
+						
+						<volist id="set_val" name="pcset">
+							<if condition="stripos($key, 'pc_friend_link') heq 0">
+								<php> $fk = json_decode($set_val,true); $fkid = $pcset['id_'.$key]; </php>
+								<div class="input-group col-sm-10 friend_link" data-id="{$fkid}" data-base="pc" data-index="{$fk.index}"> 
+									<span class="input-group-btn"> 
+										<button class="btn btn-gray" type="button">链接：</button> 
+									</span> 
+									<input type="text" class="form-control no-left-border form-focus-warning friend_link_url" value="{$fk.url}">
+									<span class="input-group-btn">  							
+										<input type="text" class="form-control no-right-border form-focus-warning friend_link_text" value="{$fk.text}" style="width: 300px;"> 
+										<button class="btn btn-secondary btn_set_friend_link" data-set="{$key}" type="button">设置</button> 
+										<button class="btn btn-danger btn_del_friend_link" data-set="{$key}" type="button" style="border-left: 2px solid #fff;">删除</button> 
+									</span>
+								</div>
+								<br />
+							</if>
+						</volist>
+						
+					</div>
+				
+					<div class="col-sm-11" style="margin-left: 5%; margin-top: 3%;">
+						
+						<p class="text-danger lead">新旅拍友情链接：<a href="javascript:;" style="margin-left: 30px;" data-base="qlp" class="btn btn-secondary btn_add_friend_link">添加</a> </p>
+						
+						<volist id="set_val" name="pcset">
+							<if condition="stripos($key, 'qlp_friend_link') heq 0">
+								<php> $fk = json_decode($set_val,true); $fkid = $pcset['id_'.$key]; </php>
+								<div class="input-group col-sm-10 friend_link" data-id="{$fkid}" data-base="qlp" data-index="{$fk.index}"> 
+									<span class="input-group-btn"> 
+										<button class="btn btn-gray" type="button">链接：</button> 
+									</span> 
+									<input type="text" class="form-control no-left-border form-focus-warning friend_link_url" value="{$fk.url}">
+									<span class="input-group-btn">  							
+										<input type="text" class="form-control no-right-border form-focus-warning friend_link_text" value="{$fk.text}" style="width: 300px;"> 
+										<button class="btn btn-secondary btn_set_friend_link" data-set="{$key}" type="button">设置</button> 
+										<button class="btn btn-danger btn_del_friend_link" data-set="{$key}" type="button" style="border-left: 2px solid #fff;">删除</button> 
+									</span>
+								</div>
+								<br />
+							</if>
+						</volist>
+						
+					</div>
+					
+					
+					<div class="col-sm-11" style="margin-left: 5%; margin-top: 3%;">
+						
+						<p class="text-danger lead">网站顶部左侧链接：<a href="javascript:;" style="margin-left: 30px;" data-base="top_link" class="btn btn-secondary btn_add_friend_link">添加</a> </p>
+						
+						<volist id="set_val" name="pcset">
+							<if condition="stripos($key, 'top_link_friend_link') heq 0">
+								<php> $tk = json_decode($set_val,true); $tkid = $pcset['id_'.$key]; </php>
+								<div class="input-group col-sm-10 friend_link" data-id="{$tkid}" data-base="top_link" data-index="{$tk.index}"> 
+									<span class="input-group-btn"> 
+										<button class="btn btn-gray" type="button">链接：</button> 
+									</span> 
+									<input type="text" class="form-control no-left-border form-focus-warning friend_link_url" value="{$tk.url}">
+									<span class="input-group-btn">  							
+										<input type="text" class="form-control no-right-border form-focus-warning friend_link_text" value="{$tk.text}" style="width: 300px;"> 
+										<button class="btn btn-secondary btn_set_friend_link" data-set="{$key}" type="button">设置</button> 
+										<button class="btn btn-danger btn_del_friend_link" data-set="{$key}" type="button" style="border-left: 2px solid #fff;">删除</button> 
+									</span>
+								</div>
+								<br />
+							</if>
+						</volist>
+						
+					</div>
+				
+					<div class="col-sm-11" style="margin-left: 5%; margin-top: 3%;">
+						
+						<p class="text-danger lead">项目其他设置：</p>
+						
+						<div class="input-group col-sm-10"> 
+							<span class="input-group-btn"> 
+								<button class="btn btn-gray" type="button">咨询电话：</button> 
+							</span> 
+							<input type="text" id="askfor_tel" class="form-control no-left-border no-right-border form-focus-warning" value="{$pcset.askfor_tel}"> 
+							<span class="input-group-btn"> 
+								<button class="btn btn-secondary btn_set_text" data-set="askfor_tel" type="button">设置</button> 
+							</span>
+						</div>
+						<br />
+						
+					</div>
+					
+					
+					<div class="col-sm-11" style="margin-left: 5%; margin-top: 3%;">
+						
+						<p class="text-danger lead">统计代码设置：</p>
+						
+						<div class="input-group col-sm-10">
+							<textarea id="statistic_script" class="form-control" style="height: 200px;">{$pcset.statistic_script}</textarea>
+							<button class="btn btn-secondary btn-textarea statistic_script" type="button">设置</button>
+						</div>					
+					</div>
+				
+				
+				<!--编辑内容至此结束-->
+				
+				</div>
+			</div>		
+		</div>		
+		
+		<script type="text/javascript">
+			// 设置首页配置
+			function setPCHomeConfig(key, val, nSort, sql_type, keyLike) {			
+				if (key == '' || key == 'undefined' || key == null) {
+					alert('修改项错误');
+					return false;
+				}
+				var jsonData = {
+					op_type: 'set',
+					type: 'pc_set',
+					key: key,
+					value: val,
+				}
+				if (nSort != 'undefined' && nSort != null) {
+					jsonData['sort'] = nSort;
+				}
+				if (sql_type != 'undefined' && sql_type != null) {
+					jsonData['sql_type'] = sql_type;
+				}
+				if (keyLike != 'undefined' && keyLike != null) {
+					jsonData['key_like'] = 1;
+				}
+				
+				var ds = {ds:null, result:{errno:-1, message:'设置为未功'}};
+				$.ajax({
+					url: '{:U("settle/settle")}',
+					type: 'POST',
+					async: false,
+					data: jsonData,
+					dataType: 'json',
+					success: function(data) {
+						ds = data;
+					}
+				});			
+				return ds;
+			}
+			
+			// 更新全站缓存
+			$('.update_cache_all').click(function(){
+				if (confirm('您确定更新全站的缓存吗？此操作会导致页面某些数据初次加载时间过长！') == false) {
+					return false;
+				}
+				$('{:U("settle/settle")}', {op_type: ''}, function(data){
+					if (data.result.errno == 0) {
+						toastr.success('更新全站的所有缓存成功');
+					} else {
+						toastr.error(data.result.message);
+					}
+				});
+			});
+			
+			// 设置文本内容
+			$('.btn_set_text').click(function(){
+				var key = $(this).attr('data-set');
+				var val = $(this).closest('.input-group').find('input').val();
+				var data = setPCHomeConfig(key,val,0);
+				if (data.result.errno == 0) {
+					if (key == 'askfor_link') {
+						toastr.success('设置咨询链接成功');
+					} else if (key == 'team_link') {
+						toastr.success('设置小包团链接成功');
+					} else if (key == 'askfor_tel') {
+						toastr.success('设置咨询电话成功');						
+					} else {
+						toastr.success('设置成功');
+					}
+				} else {
+					toastr.error(data.result.message);
+				}
+			});
+			
+			// 添加友情链接
+			$('.btn_add_friend_link').click(function(){
+				var rootObj = $('.template_friend_link').clone(true);
+				$(rootObj).removeClass('template_friend_link');
+				$(rootObj).removeClass('hidden_ctrl');
+				var base = $(this).attr('data-base');
+				$(rootObj).attr('data-base', base);
+				
+				var idx = 0;
+				$('.friend_link[data-base="'+base+'"]').each(function(i, el){
+					var thisIndex = parseInt($(this).attr('data-index'));
+					if (thisIndex >= idx) {
+						idx = thisIndex + 1;
+					}
+				});
+				$(rootObj).attr('data-index', idx);
+				$(rootObj).addClass('friend_link');
+				$(rootObj).find('.btn_set_friend_link').attr('data-set', base+'_friend_link_'+idx);
+				$(rootObj).find('.btn_del_friend_link').attr('data-set', base+'_friend_link_'+idx);
+				$(this).parent().parent().append(rootObj);
+				$(this).parent().parent().append('<br />');
+			})
+			
+			// 设置友情链接
+			$('.btn_set_friend_link').click(function(){
+				var key = $(this).attr('data-set');
+				var rootObj = $(this).closest('.friend_link');
+				var nIndex = $(rootObj).attr('data-index');
+				var val = {
+					'index': nIndex,
+					'url': $(rootObj).find('.friend_link_url').val(),
+					'text': $(rootObj).find('.friend_link_text').val(),
+				};
+				var valstr = JSON.stringify(val);
+				var data = setPCHomeConfig(key,valstr,nIndex);
+				if (data.result.errno == 0) {
+					if (data.ds != null) {
+						$(rootObj).attr('data-id',data.ds.id);
+					}
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}
+			})
+			
+			// 删除友情链接
+			$('.btn_del_friend_link').click(function(){
+				var key = $(this).attr('data-set');
+				var rootObj = $(this).closest('.friend_link');
+				var setId = $(rootObj).attr('data-id');
+				if (setId == null || setId == '') {
+					$(rootObj).next().remove();
+					$(rootObj).remove();
+				} else {
+					var nIndex = $(rootObj).attr('data-index');
+					var data = setPCHomeConfig(key,'',nIndex, 'delete');
+					if (data.result.errno == 0) {
+						toastr.success(data.result.message);
+						$(rootObj).next().remove();
+						$(rootObj).remove();
+					} else {
+						toastr.error(data.result.message);
+					}	
+				}
+			})			
+			
+			
+			// 设置PC全局代码统计脚本
+			$('.statistic_script').click(function(){
+//				var val = $('#statistic_script').data('wysihtml5').editor.getValue();
+				var val = $('#statistic_script').val();
+				var data = setPCHomeConfig('statistic_script',val,0);
+				if (data.result.errno == 0) {
+					toastr.success('设置统计脚本内容成功');
+				} else {
+					toastr.error(data.result.message);
+				}
+			});	
+		</script>
+<include file="Common/footer" />

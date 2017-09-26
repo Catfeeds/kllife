@@ -1,0 +1,116 @@
+<include file="Common/top" />
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/video_list.css">
+	<div id="content">
+		<div class="video-list">
+			<img src="__PUBLIC__/home/images/video_list_img/top.jpg" alt="">
+			<div class="video-product">
+				<ul>
+				</ul>
+			</div>
+			<!--<div class="video-product-content list-page" data-page-count="1" data-page-index="1"></div>-->
+		</div>
+	</div>
+	<!-- 视频弹出 -->
+	<div class="mark"></div>
+	<div class="myiframe">
+		<div class="iframeTop">
+			<h4 id="titleIframe"></h4>
+			<a class="video_close" href="javascript:;">
+				<img class="video_close" src="__PUBLIC__/home/common/images/video_close.png" alt="关闭">
+			</a>
+		</div>
+		<div class="iframe">
+			<iframe id="videoIframe" height=536 width=880 src="" frameborder=0 allowfullscreen></iframe>
+		</div>
+	</div>
+<include file="Common/right" />
+<include file="Common/bottom" />
+<!-- 视频 -->
+<script src="__PUBLIC__/home/common/js/iframe.js"></script>
+<!--图片延迟加载-->
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script src="__PUBLIC__/common/js/video.js"></script>
+<script type="text/javascript">
+		// 初始化翻页
+//		constructionPage('.list-page', 1, 1, changeVideoPage, true);
+
+	function lazyload() {
+        $("img").lazyload({
+            placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+            effect      : "fadeIn",
+            threshold : 100,
+            failure_limit : 10
+        });
+	}
+	
+	var lastVideoId = null;
+	function getMPList() {
+		var jsonData = {
+			op: 'list',
+			topic_name: '领袖户外',
+			count:100,
+			feature: 'new',
+		}
+		if (lastVideoId != null) {
+			jsonData['max_id'] = lastVideoId;
+		}
+		$.post('http://kllife.com/back/index.php?s=/back/help/meipai',jsonData,function(data){
+			if (data.ds != null) {
+				$('.video-product ul li').empty();
+				for (var i=0; i<data.ds.length; i++) {
+					var d = data.ds[i];
+					lastVideoId = d.id;
+					var liCount = $('.video-product ul').find('li').length;
+					var className = parseInt(liCount) % 4 == 0 ? 'clear-margin' : '';
+					var vhtml = '<li class="'+className+'">'+
+								'	<div class="video-product-content" data-id="'+d.id+'" data-title="'+d.caption+'" data-url="'+d.url+'">'+
+								'		<a href="'+d.url+'" target="_blank">'+
+								'			<img src="'+d.cover_pic+'" alt="">'+
+								'			<i></i>'+
+								'		</a>'+
+								'		<div class="video-product-content-describe">'+
+								'			<h5><a href="'+d.url+'" target="_blank">'+d.caption+'</a></h5>'+
+								'			<p>'+d.caption+'</p>'+
+								'		</div>'+
+								'	</div>'+
+								'</li>';
+					$('.video-product ul').append(vhtml);
+					$('.video-product ul').find('li:last').find('a').click(showVideo);
+				}
+			}
+		});
+	}
+	
+	$(document).ready(function(){
+		// 延迟加载
+		lazyload();
+		
+		// 加载美拍视频列表
+		getMPList();
+	});
+	
+	//视频弹出
+	function showVideo() {
+		var rootObj = $(this).closest('.video-product-content');
+		var url = $(rootObj).attr('data-url');
+		var title = $(rootObj).attr('data-title');
+		$('.myiframe').find('#titleIframe').html(title);
+	}	
+	
+	//视频关闭
+	function closeVideo() {
+		$('.mark').hide();
+		$('.myiframe').hide();
+		$('#videoIframe').attr('src', '');
+//		$('.myiframe').find('.iframe').children().remove();
+	}
+	$('.video_close').click(closeVideo);
+	
+	// 查找数据
+	function showVideoData(ds, vhtml) {
+		$('.myiframe').find('.iframe').html(vhtml);
+		$('.myiframe').find('#titleIframe').html(ds.title);
+	}	
+	var myvideo = new MyVideo(showVideoData);
+</script>

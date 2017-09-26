@@ -1,0 +1,115 @@
+<include file="Common/top" />
+	<!--私有样式-->
+	<link rel="stylesheet" href="__PUBLIC__/qlpphone/css/article_info.css">
+	<div class="page" style="position: absolute;top:60px;max-width:750px;">
+		<div class="content">
+			<div class="top-1">
+				<img class="img-responsive" src="{$leader.face_image}" />
+			</div>
+			<div class="photographer">
+				<notempty name="leader.name"><p class="tit">{$leader.name}</p></notempty>
+				<p>
+					<notempty name="leader.nickname"><span class="span name1">昵称: <span>{$leader.nickname}</span></span></notempty>
+					<notempty name="leader.stagename"><span class="span name2">艺名: <span>{$leader.stagename}</span></span></notempty>
+				</p>
+				<p>
+					<span class="span constellation">星座: <span>{:get_constellation($leader['constellation'])}</span></span>
+					<span class="span type">血型: <span>{:get_blood_type($leader['blood_type'])}</span></span>
+				</p>
+				<notempty name="leader.intro">
+					<p class="brief-info">拍摄经历及简介：</p>
+					<p>{$leader.intro}</p>
+				</notempty>
+                <notempty name="leader.impression">
+				<div class="impression">
+					<div class="left">印象 :</div>
+					<div class="right">
+						<volist id="imp" name="leader.impression_list">
+                    	<span>{$imp}</span>
+                    	</volist>						
+					</div>
+				</div>
+				</notempty>
+				<div class="absolute">
+					<div class="tit-two">
+						对他的印象 <span class="remove-impress"><i class="iconfont">&#xe66c;</i></span>
+					</div>
+					<div class="impress">
+						<span id="1" class="active">暖男</span>
+						<span id="2">苗条</span>
+						<span id="3">学霸</span>
+						<span id="4">漂亮</span>
+						<span id="5">热情</span>
+						<span id="6">帅气</span>
+						<span id="7">亲切</span>
+						<span id="8">老司机</span>
+						<span id="9">有耐心</span>
+						<span id="10">小鲜肉</span>
+						<span id="11">老腊肉</span>
+						<span id="12">肌肉男</span>
+						<span id="13">责任心强</span>
+						<span id="14">风趣幽默</span>
+						<span id="15">文艺青年</span>
+						<span id="16">心宽体胖</span>
+						<span id="17">摄影技术好</span>
+					</div>
+					<a class="btn btn-submit">提交</a>
+				</div>
+			</div>
+			
+    		<notempty name="pictures">
+				<div class="problem">				
+					<volist id="quest" name="questions">
+					<div class="item">
+						<div class="wen">
+							<div class="left">Q :</div>
+							<div class="right">{$quest.content}</div>
+						</div>
+						
+						<volist id="answer" name="quest.answers">
+						<div class="da">
+							<div class="left">A :</div>
+							<div class="right">{$answer.content}</div>
+						</div>
+						</volist>
+						
+					</div>
+					</volist>
+				</div>
+			</notempty>
+			
+    		<notempty name="pictures">
+				<div class="works">
+					<h2>个人作品</h2>
+					<div class="border"><!--此div只用于显示border--></div>
+					<div class="works-group">
+						
+						<volist id="pic" name="pictures">
+	                	<img class="img-responsive" src="{$pic.path}" alt="{$pic.title},{$pic.tags},{$pic.intro}">
+	                    </volist> 
+	                    
+					</div>
+				</div>
+			</notempty>
+		</div>
+	</div>
+
+
+		
+<!-- light7 -->
+<!--<script src="__PUBLIC__/phone/common/js/light7.js"></script>-->
+<!-- i18n 中文 -->
+<script src="__PUBLIC__/phone/common/js/cn.js"></script>
+<!--公用JS文件-->
+<script src="__PUBLIC__/common/js/functions.js"></script>
+<script>
+    //点击添加弹出添加标签div
+    $(".add").on("click",function(){
+        $(".absolute").show();
+    });
+    //点击右上角关闭按钮关闭标签列表
+    $(".remove-impress").on("click",function(){
+        $(".absolute").hide();
+    });
+</script>
+<include file="Common/bottom" />

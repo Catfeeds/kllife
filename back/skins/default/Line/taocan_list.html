@@ -1,0 +1,292 @@
+<include file="Common/header" />
+	<!-- css Reset -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/cssreset.css">
+	<!-- 公共样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/common.css">
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/article.css">
+	<!-- echo -->
+	
+	<style type="text/css">		
+    	body { background-color:#f3f5f6; }
+    	.taocan-operate { position: absolute; bottom: 10px; right: 10px; }
+    	.taocan-operate i { display: inline-block; width: 80px; height: 30px; line-height:30px; margin-left:10px; color:#fff; font-size: 14px; font-style: normal; text-align: center; cursor: pointer; }
+    	.edit-taocan { background-color: #ffba00; }
+    	.remove-taocan { background-color: #e4393c; }
+    	.footer { position: absolute; top: 170px; left: 60px; }
+    	.panel-body .table1 thead tr th{height: 50px; padding-bottom: 15px; text-align: center;}
+		.panel-body .table1 tr td{padding-left: 0; padding-right: 0; text-align: center;}
+	</style>
+
+	<script src="__PUBLIC__/home/common/js/echo.min.js"></script>
+	
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	<!--套餐编辑区开始-->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-body row">
+					<div class="col-sm-12 edit-taocan-box">
+						<input type="hidden" name="taocan_id" id="taocan_id" value="" />
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label" for="taocan_name">套餐名称</label>
+									<input class="form-control" name="taocan_name" id="taocan_name" value="" placeholder="请输入套餐名称" />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label" for="taocan_type">套餐类型</label>
+									<input class="form-control" type="text" name="taocan_type" id="taocan_type" />
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="row">											
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="taocan_desc">套餐描述</label>
+									<textarea class="form-control autogrow" name="taocan_desc" id="taocan_desc" placeholder="请输入套餐描述"></textarea>
+								</div>
+							</div>					
+						</div>
+
+						<div class="row">							
+							<div class="col-md-8">
+								<div class="form-group">
+									<button class="btn btn-secondary save_taocan">保存套餐信息</button>
+								</div>							
+							</div>	
+						</div>					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--套餐编辑区结束-->
+	<!--套餐列表开始-->
+	<div class="row source_budget taocan-box">
+		<div class="col-sm-12">
+			<div class="panel panel-default edit">
+				<div class="panel-heading">
+					<h3 class="panel-title">套餐列表</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				
+				<div class="panel-body">
+									
+					<table class="table table1 table_order">
+						<thead>
+							<tr>
+								<th style="width: 5%;" align="center">编号</th>
+								<th style="width: 20%;" align="center">名称</th>
+								<th style="width: 10%;" align="center">类型</th>
+								<th style="width: 50%;" align="center">描述</th>
+								<th style="width: 15%;" align="center">操作</th>
+							</tr>
+						</thead>
+						<tbody id="taocan-list">
+							<volist id="tp" name="taocans">
+								<tr data-id="{$tp.id}">
+									<td>{$tp.id}</td>
+									<td>{$tp.name}</td>
+									<td>{$tp.type_data.type_desc}</td>
+									<td>{$tp.desc}</td>
+									<td>
+										<button class="btn btn-secondary edit-taocan" data-id="{$tp.id}" type="button">编辑</button>
+										<button class="btn btn-danger remove-taocan" data-id="{$tp.id}" type="button">删除</button>
+									</td>
+								</tr>	
+							</volist>
+							<tr>
+								<td colspan="4"><a class="load-more" href="javascript:;">加载更多...</a></td>
+							</tr>
+						</tbody>
+					</table>
+					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!--套餐列表结束-->
+	<script>
+		// 添加类型数据
+		function appendTypeData() {
+			var typeKey = $(this).attr('data-type-key');
+			showModalTypeDataDialog(typeKey);
+		}
+		
+		$(document).ready(function(){
+			// 初始化编辑信息
+			initLine();		
+			// 添加类型
+			$('.btn_append_type_data').click(appendTypeData);
+		});
+		
+		// 初始化需要编辑的信息
+		function initLine() {	
+			showLoading(true, '等待数据填充完毕......');
+			bindTypeDataDropMenu($('#taocan_type'), 'taocan_type', '选择套餐类型', true, true, false);
+			showLoading(false);
+		}
+	
+		var pageIndex = 0;
+		$('.load-more').click(function(){
+			if($(this).html() == '没有更多的数据了'){
+				return false;
+			}
+			
+			$(this).html('正在加载...');
+			var jsonData = {
+				op_type: 'list_taocan',
+				page: pageIndex+1,
+			}
+			
+			$.post('{:U("line/taocan")}', jsonData, function(data){
+				if(data.result.errno == 0){
+					if(typeof(data.ds) != 'undefined' && data.ds != null){
+						$('.load-more').html('加载更多...');						
+						for(var i=0; i<data.ds.length; i++){
+							var d = data.ds[i];
+							var vhtml = '<tr data-id="'+d.id+'">';
+								vhtml +='	<td>'+d.id+'</td>';
+								vhtml +='	<td>'+d.name+'</td>';
+								if (d.type_data != null) {
+									vhtml +='	<td>'+d.type_data.type_desc+'</td>';
+								} else {
+									vhtml +='	<td></td>';
+								}
+								vhtml +='	<td>'+d.desc+'</td>';
+								vhtml +='	<td>';
+								vhtml +='		<button class="btn btn-secondary edit-taocan" type="button">编辑</button>';
+								vhtml +='		<button class="btn btn-danger remove-taocan" type="button">删除</button>';
+								vhtml +='	</td>';
+								vhtml +='</tr>';
+								
+							$('#taocan-list').find('tr:last').before(vhtml);
+							$('.edit-taocan:last').click(editTaocan);
+							$('.remove-taocan:last').click(removeTaocan);
+						}
+						
+						// 下拉次数累加
+						pageIndex += 1;
+					}else{
+						$('.load-more').html('没有更多的数据了');
+					}
+				}else{
+					$('.load-more').html('加载更多...');
+					toastr.error(data.result.message);
+				}
+			});
+			
+		});
+		
+		$('.edit-taocan').click(editTaocan);
+		$('.remove-taocan').click(removeTaocan);
+		
+		function editTaocan(){
+			var taocan_id = $(this).attr('data-id');
+			var jsonData = {
+				op_type: 'find_taocan',
+				id: taocan_id,
+			};
+			$.post('{:U("line/taocan")}', jsonData, function(data){
+				if (data.ds != null) {
+					var d = data.ds;
+					var editObj = $('.edit-taocan-box');
+					$(editObj).find('#taocan_id').val(d.id);
+					$(editObj).find('#taocan_name').val(d.name);
+					setSelect2Value('#taocan_type', d.type);
+					$(editObj).find('#taocan_desc').val(d.desc);
+				}
+			});
+			
+			//滚动到套餐编辑处
+			$('html,body').animate({scrollTop:0}, 500);			
+		}
+		
+		function removeTaocan(){
+			var rootObj = $(this).parent().parent();
+			var jsonData = {
+				op_type: 'remove_taocan',
+				id: $(rootObj).attr('data-id'),
+			};
+			
+			$.post('{:U("line/taocan")}', jsonData, function(data){
+				if(data.result.errno == 0){
+					toastr.success('删除成功');
+					$(rootObj).remove();
+				}else{
+					toastr.error(data.result.message);
+				}
+			});	
+		}
+		
+		$('.save_taocan').click(function(){
+		
+			var taocan_name = $('#taocan_name').val();
+			var taocan_type =  getSelect2Value('#taocan_type');
+			var taocan_desc = $('#taocan_desc').val();
+			var taocan_id = $('#taocan_id').val();
+			if(taocan_name == ''){
+				toastr.error('请填写套餐名称！');
+				$('#taocan_name').focus();
+				return false;
+			}
+			
+			if(taocan_type == ''){
+				toastr.error('请选择套餐类型！');
+				$('#taocan_type').focus();
+				return false;
+			}
+			
+			if(taocan_desc == ''){
+				toastr.error('请选择套餐描述！');
+				$('#taocan_desc').focus();
+				return false;
+			}
+			
+			var jsonData = {
+				id:taocan_id,	    
+		    	name: taocan_name,
+		    	type: taocan_type,
+		    	desc: taocan_desc,
+			};
+			
+			if(taocan_id == ''){
+				jsonData['op_type'] = 'create_taocan';
+			}else{
+				jsonData['op_type'] = 'edit_taocan';
+			}
+			
+			console.log(JSON.stringify(jsonData));
+			
+			$.post('{:U("line/taocan")}',jsonData,
+			function(backdata,status) {
+				console.log(JSON.stringify(backdata));
+		        if (backdata['result']['errno'] == 0) {
+		            toastr.success(backdata.result.message);
+		            window.location.href = "{:U('line/taocan')}";
+		        }else{
+		            toastr.error(backdata.result.message);
+		        }
+			});
+			
+		});
+	</script>
+	
+<include file="Common/footer" />

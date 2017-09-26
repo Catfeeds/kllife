@@ -1,0 +1,472 @@
+<include file="Common/header" />
+	<style>
+		.xingcheng-main { margin-top: 30px; margin-bottom: 20px; border-bottom: 1px solid #333; overflow: hidden; }
+		.xingcheng-nav { border-bottom: 1px solid #eee; overflow: hidden; }
+		.xingcheng-border { display: block; border-bottom: 1px solid #eee; }
+		.xingcheng-numday { font-size: font-size: 14px; line-height: 15px; margin: 0; }
+		.xingcheng-place { font-size: 24px; color: #333; line-height: 26px; margin-top: 4px; float: left; padding-left: 0; }
+		.xingcheng-day { color: #40bbea; font: 50px/40px arial; float: left; margin: 0; display: inline; }
+		.xingcheng-content { margin-left: 65px; }
+		.xingcheng01 { font-size: 16px; font-weight: bold; color: #333; margin: 0; margin-top: 10px; }
+		.xingcheng02 { color: #666; line-height: 24px; padding-left: 0; margin-right: 16px; }
+		.xingcheng03 { color: #666; line-height: 24px; margin-top: 10px; margin-bottom: 10px; }
+		.xingcheng03 span { line-height: 32px; padding: 0; }
+		.xingcheng03 input { width: 145px; }
+		.xingcheng04 { width: 60%; }
+		.dingdan_bianji { display: none; height: 32px; border: 1px solid #40bbea; }
+		.bj-place, .bj-traffic , .bj-hotel { width: 320px; }
+		.bj-place { display: none; margin-top: -1px; margin-bottom: 8px; }
+		.bj-traffic { display: none; margin-bottom: 8px; }
+		.bj-hotel { display: none; margin-bottom: 8px; }
+		.tab-place , .tab-traffic , .tab-hotel { width: 96px; }
+		.tab-place { margin: 0; margin-top: -1px; vertical-align: inherit; }
+		.tab-traffic { margin: 0; margin-bottom: 8px; vertical-align: inherit; }
+		.tab-hotel { margin: 0; margin-bottom: 8px; vertical-align: inherit; }
+		.tab-introduce { vertical-align: inherit; margin: 0; margin-bottom: 10px; }
+		.tab-food { vertical-align: inherit; margin: 0; }
+		
+		.dingdan_btn_cancel{ display:none; }
+	</style>
+	<div class="row">
+		<div class="col-sm-12">
+			
+			<div class="panel panel-default" id="xingcheng">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						{:C('CONTENT_TITLE')}
+						<input id="team_id" type="hidden" value="{$team_id}"/>
+					</h3>
+				</div>
+				
+				<div class="row all-main" style="margin-left: 5%;">
+					<empty name="scheduling">
+						<span>没有行程可供查看</span><br /><br />
+					</empty>
+					<volist id="sc" name="scheduling" >
+						<div class="col-12 xingcheng-main">
+							<input type="hidden" name="scheduling_id" value="{$sc.id}" />
+							<div class="xingcheng-nav">
+								<h5 class="xingcheng-day">{$sc.day_num}</h5>
+								<div>
+									<p class="xingcheng-numday">{$sc.day_char}</p>
+									<div>
+										<p class="col-sm-3 xingcheng-place">{$sc.destination}</p>
+										<input type="text" name="destination" class="dingdan_bianji bj-place">
+										<if condition="$grant_update_scheduling eq true">
+											<input type="button" class="btn btn-info tab-place dingdan_btn_bianji" value="编辑">
+											<input type="button" class="btn btn-info tab-place dingdan_btn_cancel" value="取消">
+										</if>
+									</div>
+								</div>
+							</div>
+							<div class="xingcheng-content">
+								<div class="xingcheng-border">
+									<p class="xingcheng01">交通工具</p>
+									<div>
+										<p class="col-sm-3 xingcheng02">{$sc.traffic_tool}</p>
+										<input type="text" name="traffic_tool" class="dingdan_bianji bj-traffic">
+										<if condition="$grant_update_scheduling eq true">
+											<input type="button" class="btn btn-info tab-traffic dingdan_btn_bianji" value="编辑">
+											<input type="button" class="btn btn-info tab-traffic dingdan_btn_cancel" value="取消">
+										</if>
+									</div>
+								</div>
+								<div class="xingcheng-border">
+									<p class="xingcheng01">入住酒店</p>
+									<div>
+										<p class="col-sm-3 xingcheng02">{$sc.hotel}</p>
+										<input type="text" name="hotel" class="dingdan_bianji bj-hotel">
+										<if condition="$grant_update_scheduling eq true">
+											<input type="button" class="btn btn-info tab-hotel dingdan_btn_bianji" value="编辑">
+											<input type="button" class="btn btn-info tab-hotel dingdan_btn_cancel" value="取消">
+										</if>
+									</div>
+								</div>
+								<div class="xingcheng-border">
+									<p class="xingcheng03">
+										<span class="col-sm-2 text-left" style="padding-left: 0;">早餐：<em>{$sc.breakfast}</em><input maxlength="10" name="breakfast" class="dingdan_bianji" type="text"></span>
+										<span class="col-sm-2 text-left">午餐：<em>{$sc.lunch}</em><input class="dingdan_bianji" name="lunch" type="text"></span>
+										<span class="col-sm-2 text-left">晚餐：<em>{$sc.supper}</em><input class="dingdan_bianji" name="supper" type="text"></span>
+										<if condition="$grant_update_scheduling eq true">
+											<input class="btn btn-info dingdan_btn_bianji tab-food" type="button" style="vertical-align: inherit; margin: 0;" value="编辑">
+											<input class="btn btn-info dingdan_btn_cancel tab-food" type="button" style="vertical-align: inherit; margin: 0;" value="取消">
+										</if>
+									</p>
+								</div>
+								<div class="xingcheng-border">
+									<p class="xingcheng01">行程介绍</p>
+									<div>
+										<pre class="col-sm-8">{$sc.intro}</pre>
+										<textarea class="col-sm-8 dingdan_bianji" name="intro" style="resize: none; height: 500px; display: none;"></textarea>
+										<if condition="$grant_update_scheduling eq true">
+											<input class="tab-introduce btn btn-info dingdan_btn_bianji col-sm-1" type="button" value="编辑">
+											<input class="tab-introduce btn btn-info dingdan_btn_cancel col-sm-1" type="button" value="取消">
+										</if>
+									</div>
+								</div>
+							</div>
+							<if condition="$grant_delete_scheduling eq true">
+								<div class="col-sm-12" style="overflow: hidden;">
+									<button style="float: right; margin-top: 10px;" class="btn btn-red btn-icon btn-icon-standalone delete-xingcheng">
+										<i class="fa-remove"></i>
+										<span>删除</span>
+									</button>
+								</div>
+							</if>
+						</div>
+					</volist>
+				
+				
+					<!-- 例子 -->
+					<div class="col-12 xingcheng-main example" style="display: none;">
+						<input type="hidden" name="scheduling_id" value="{$sc.id}" />
+						<div class="xingcheng-nav">
+							<h5 class="xingcheng-day"></h5>
+							<div>
+								<p class="xingcheng-numday"></p>
+								<div>
+									<p class="col-sm-3 xingcheng-place"></p>
+									<input type="text" name="destination" class="dingdan_bianji bj-place">
+									<if condition="$grant_update_scheduling eq true">
+										<input type="button" class="btn btn-info tab-place dingdan_btn_bianji" value="编辑">
+										<input type="button" class="btn btn-info tab-place dingdan_btn_cancel" value="取消">
+									</if>
+								</div>
+							</div>
+						</div>
+						<div class="xingcheng-content">
+							<div class="xingcheng-border">
+								<p class="xingcheng01">交通工具</p>
+								<div>
+									<p class="col-sm-3 xingcheng02"></p>
+									<input type="text" name="traffic_tool" class="dingdan_bianji bj-traffic">
+									<if condition="$grant_update_scheduling eq true">
+										<input type="button" class="btn btn-info tab-traffic dingdan_btn_bianji" value="编辑">
+										<input type="button" class="btn btn-info tab-traffic dingdan_btn_cancel" value="取消">
+									</if>
+								</div>
+							</div>
+							<div class="xingcheng-border">
+								<p class="xingcheng01">入住酒店</p>
+								<div>
+									<p class="col-sm-3 xingcheng02"></p>
+									<input type="text" name="hotel" class="dingdan_bianji bj-hotel">
+									<if condition="$grant_update_scheduling eq true">
+										<input type="button" class="btn btn-info tab-hotel dingdan_btn_bianji" value="编辑">
+										<input type="button" class="btn btn-info tab-hotel dingdan_btn_cancel" value="取消">
+									</if>
+								</div>
+							</div>
+							<div class="xingcheng-border">
+								<p class="xingcheng03">
+									<span class="col-sm-2 text-left" style="padding-left: 0;">早餐：<em>无</em><input maxlength="10" name="breakfast" class="dingdan_bianji" type="text"></span>
+									<span class="col-sm-2 text-left">午餐：<em>无</em><input class="dingdan_bianji" name="lunch" type="text"></span>
+									<span class="col-sm-2 text-left">晚餐：<em>无</em><input class="dingdan_bianji" name="supper" type="text"></span>
+									<if condition="$grant_update_scheduling eq true">
+										<input class="btn btn-info dingdan_btn_bianji tab-food" type="button" style="vertical-align: inherit; margin: 0;" value="编辑">
+										<input class="btn btn-info dingdan_btn_cancel tab-food" type="button" style="vertical-align: inherit; margin: 0;" value="取消">
+									</if>
+								</p>
+							</div>
+							<div class="xingcheng-border">
+								<p class="xingcheng01">行程介绍</p>
+								<div>
+									<pre class="col-sm-8"></pre>
+									<textarea class="col-sm-8 dingdan_bianji" name="intro" style="resize: none; height: 500px; display: none;"></textarea>
+									<if condition="$grant_update_scheduling eq true">
+										<input class="tab-introduce btn btn-info dingdan_btn_bianji col-sm-1" type="button" value="编辑">
+										<input class="tab-introduce btn btn-info dingdan_btn_cancel col-sm-1" type="button" value="取消">
+									</if>
+								</div>
+							</div>
+						</div>
+						<if condition="$grant_delete_scheduling eq true">
+							<div class="col-sm-12" style="overflow: hidden;">
+								<button style="float: right; margin-top: 10px;" class="btn btn-red btn-icon btn-icon-standalone delete-xingcheng">
+									<i class="fa-remove"></i>
+									<span>删除</span>
+								</button>
+							</div>
+						</if>
+					</div>
+					
+					<if condition="$grant_create_scheduling eq true">
+						<button id="add-xingcheng" class="btn btn-info">添加行程</button>
+					</if>
+					<button id="back_info" type="button" class="btn btn-secondary" style="margin-left: 1%;">返回详情</button>
+					<button id="back_list" type="button" class="btn btn-secondary" style="margin-left: 1%;">返回列表</button>
+					
+				</div>
+			</div>
+					
+		</div>
+	</div>
+<include file="Common/footer" />	
+
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		
+		// 创建信息
+		$('#add-xingcheng').click(createData);
+		
+		// 返回详情
+		$('#back_info').click(function(){window.history.go(-1);});
+		
+		// 返回列表
+		$('#back_list').click(function(){window.history.go(-2);});
+		
+		// 返回详情
+					
+		// 绑定删除编辑
+		$('.delete-xingcheng').click(deleteData);
+		
+		// 保存信息
+		$('.dingdan_btn_bianji').click(saveData);
+		
+		// 隐藏编辑信息
+		$('.dingdan_btn_cancel').click(cancelEdit);
+		
+	});
+	
+	// 创建信息
+	function createData() {
+		
+		var teamId = $('#team_id').val();
+		
+		if (teamId == '') {
+			
+			alert('包团编号错误');
+			
+			return false;
+			
+		}
+		
+		$.post('{:U("team/scheduling")}', {op:'create', tid:teamId}, function(data){
+			
+			if (data.result.errno == 0) {
+				
+				if (typeof data.schedulingId == 'undefined') {
+					
+					alert('订单创建生成有误');
+					
+				} else {					
+		
+					var rootDiv = $('.example').clone();
+					
+					$(rootDiv).removeClass('example');
+					
+					$(rootDiv).show();
+					
+					// 添加行程
+					$('.example').before(rootDiv);
+					
+					// 设置行程编号
+					$(rootDiv).find('input[name="scheduling_id"]').val(data.schedulingId);
+					
+					// 设置行程天数
+					$(rootDiv).find('.xingcheng-day').html(data.day_num);
+					
+					$(rootDiv).find('.xingcheng-numday').html(data.day_char);
+										
+					// 绑定修改信息
+					$(rootDiv).find('.dingdan_btn_bianji').click(saveData);
+					
+					// 绑定取消编辑
+					$(rootDiv).find('.dingdan_btn_cancel').click(cancelEdit);
+					
+					// 绑定删除编辑
+					$(rootDiv).find('.delete-xingcheng').click(deleteData);
+					
+				}
+				
+			} else {
+				
+				alert(data.result.message);
+				
+			}
+ 			
+		});		
+		
+	}
+		
+	// 保存信息
+	function saveData() {
+		
+		var tagInput = $(this).parent().find('.dingdan_bianji');
+		
+		if ($(tagInput).is(':visible') == false) {
+			
+			showEditTags(this, true, 1);
+			
+			return true;
+						
+		}
+		
+		var root = $(this).parents('.xingcheng-main');
+		
+		var schedulingId = $(root).find('input[name="scheduling_id"]').val();
+		
+		if (schedulingId == '' || schedulingId == 0) {
+			
+			alert('行程编号有误，无法进行编辑');
+			
+			return false;
+			
+		}
+				
+		var ds = new Array();
+		
+		if ($(tagInput).length > 1) {
+			
+			for(var k = 0; k < $(tagInput).length; k++) {
+				
+				var name = $(tagInput[k]).attr('name');
+				
+				var val = $(tagInput[k]).val();
+								
+				ds[k] = {'name': name, 'value': val};
+				
+			}
+			
+		} else {
+				
+			var name = $(tagInput).attr('name');
+			
+			var val = $(tagInput).val();
+			
+			ds[0] = {'name': name, 'value': val};
+			
+		}
+		
+		var jsonData = {
+			
+			op: 'modify',
+			
+			id: schedulingId,
+			
+			data: ds,
+			
+		}
+		
+		var obj = this;
+		
+		$.post('{:U("team/scheduling")}', jsonData, function(data){
+			
+			if (data.result.errno != 0) {
+				
+				alert(data.result.message);
+				
+			}
+			
+			showEditTags(obj, false, data.result.errno);
+			
+		});
+			
+	}
+		
+	// 隐藏编辑信息
+	function cancelEdit() {
+		
+		showEditTags(this, false, 1);
+		
+	}
+	
+	// 删除编辑信息
+	function deleteData() {
+		
+		var root = $(this).parents('.xingcheng-main');
+		
+		var schedulingId = $(root).find('input[name="scheduling_id"]').val();
+		
+		if (schedulingId == '' || schedulingId == 0) {
+			
+			alert('行程编号有误');
+			
+			return false;
+			
+		}
+		
+		$.post('{:U("team/scheduling")}', {op: 'delete', id: schedulingId}, function(data){
+			
+			if (data.result.errno == 0) {
+				
+				if (data.jumpUrl == '') {
+					
+					$(root).remove();
+					
+				} else {
+					
+					location.href = data.jumpUrl;
+										
+				}
+				
+			} else {
+				
+				alert(data.result.message);
+				
+			}
+			
+		});
+		
+	}
+
+
+	//编辑、保存切换
+	function showEditTags(obj, bShow, bFail) {
+		
+		var tagInput = $(obj).parent().find('.dingdan_bianji');
+		
+		var tagBtnEdit = $(obj).parent().find('.dingdan_btn_bianji');
+		
+		var tagBtnCancel = $(obj).parent().find('.dingdan_btn_cancel');
+		
+		if (bShow == true) {		
+			
+			$(tagInput).show();
+			
+			$(tagInput).prev().hide();
+			
+			$(tagBtnCancel).show();
+			
+			$(tagBtnEdit).val('保存');
+			
+			for (var i = 0; i < $(tagInput).length; i++) {
+				
+				if ($(tagInput[i]).get(0).tagName == 'TEXTAREA') {
+					
+					$(tagInput[i]).html($(tagInput[i]).prev().html());
+					
+				} else {
+					
+					$(tagInput[i]).val($(tagInput[i]).prev().html());
+					
+				}
+				
+			}	
+			
+		} else {
+			
+			$(tagInput).hide();
+			
+			$(tagInput).prev().show();
+			
+			$(tagBtnCancel).hide();
+			
+			$(tagBtnEdit).val('编辑');
+			
+			if (bFail == 0) {
+				
+				for (var i = 0; i < $(tagInput).length; i++) {
+					
+					$(tagInput[i]).prev().html($(tagInput[i]).val());
+					
+				}	
+					
+			}
+			
+		}
+		
+	}
+
+</script>

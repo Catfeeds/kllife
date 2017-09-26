@@ -1,0 +1,109 @@
+<include file="Common/top" />
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/images_list.css">
+	<style type="text/css">
+		/*活动回顾*/
+		.active-review {background: #fff;margin-bottom: .5rem;max-width:750px;}
+		.active-review-content {margin: 0 3%; padding-bottom: 1rem;}
+		.active-review-content > a { display: block; width: 8rem; height: 2rem; line-height: 2rem; margin: 0 auto; margin-top: 1rem; color: #ff7200; text-align: center; border: 1px solid #ff7200; border-radius: 5px; }
+		.active-review-list { position: relative; padding-top: 0.75rem; }
+		.active-review-sublist { margin-bottom: 2rem; }
+		.active-review-sublist p {text-align: center;text-align: -webkit-center; font-size: 15px; color: #333;margin-top:10px; }
+		.card { margin: 0; }
+		.card-content { position: relative; box-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .3);border-radius: 3px;}
+		.card-content > img { width: 100%; max-width: 100%; border-top-left-radius: .1rem; border-top-right-radius: .1rem; }
+		.card-content > a { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+		.card-content-inner { padding: .5rem; }
+		.load-more{text-align: center;text-align: -webkit-center;}
+	</style>
+
+	<div class="page" style="position: absolute;top:60px;padding-bottom:50px;">
+		<div class="content">
+			<!-- 列表内容 -->
+			<div class="active-review">
+				<div class="active-review-content">
+					<div class="active-review-list  infinite-scroll infinite-scroll-bottom" data-distance="100">
+						
+					</div>
+					<!-- 更多往期回顾 -->
+					<div class="load-more"></div>
+				</div>				
+			</div>			
+		</div>
+	</div>
+	
+<script>
+	// 无限加载
+	var loading = false;
+	// 最多可加载的条目
+	var maxItems = parseInt('{$page_count}');
+
+	// 上次加载的序号
+	var thisPageIndex = 0;
+
+	function addItems(pageIndex) {
+		if (parseInt(pageIndex) == parseInt(maxItems)) {		
+			$('.load-more').html('没有更多的数据...');
+			return false;
+		}
+		console.log('page:'+pageIndex+',max:'+maxItems);
+						
+		var jsonData = {
+			op_type: 'list',
+			page: pageIndex,
+		}
+		$.post('{:U("article/list")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				if (typeof(data.ds) != 'undefined' && data.ds != null) {				
+					var nowLiCount = $('li').length;		
+					for (var i=0; i<data.ds.length; i++) {
+						var thisLiIndex = nowLiCount + i;
+						var liClass = thisLiIndex % 2 == 0 ? 'li0' : 'li1';												
+						var d = data.ds[i];
+						var include_image = typeof(d.face_image)=='undefined' ? false : true;
+						
+						var html = '<div class="active-review-sublist">';
+							html +='	<div class="card demo-card-header-pic">';
+							html +='		<div class="card-content">';
+							html +='			<img src="'+d.face_image+'" alt="">';
+							html +='			<div class="card-content-inner">';
+							html +='				<p>'+d.title+'</p>';
+							html +='			</div>';
+							html +='			<a href="'+'{:U("article/info")}/id/'+d.id+'" external></a>';
+							html +='		</div>';
+							html +='	</div>';
+							html +='</div>';
+						// 添加新条目
+						$('.infinite-scroll-bottom').append(html);
+					}
+					// 下拉次数累加
+					thisPageIndex += 1;					
+					if (data.ds.length < data.page_size || thisPageIndex >= data.page_count) {
+						$('.load-more').html('没有更多的数据...');
+					}
+				} else {
+					$('.load-more').html('没有更多的数据...');
+				}
+			} else {
+				console.log(data.result.message);
+			}
+		});
+
+		// 生成新条目的HTML
+
+	}
+
+	//预先加载
+	addItems(thisPageIndex);
+
+	//鼠标滚动到下方在加载二十条
+    $(document).scroll(function(){
+        var bheight = $(document).height();//获取窗口高度
+        var sheight = $("body")[0].scrollHeight;//获取滚动条高度，[0]是为了把jq对象转化为js对象
+        var stop = $("body").scrollTop();//滚动条距离顶部的距离
+        if(stop>=sheight-bheight){
+            addItems(thisPageIndex);
+        }
+    });
+
+</script>
+<include file="Common/bottom" />

@@ -1,0 +1,38 @@
+<include file="Common/header" />
+<div class="row">	
+	<div class="col-md-1">						
+		<div class="form-group">
+			<label class="control-label" for="sms_inf">开启短信接口</label><br />							
+		    <input id="sms_inf" name="sms_inf" data-id="{$sms_set.id}" type="checkbox" class="iswitch iswitch-secondary">
+		</div>						
+	</div>
+</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+	$('#sms_inf').change(function(){
+		var jsonData = {
+			op_type: 'sms_inf',
+			id: $('#sms_inf').attr('data-id'),
+			s: $('#sms_inf').prop('checked') ? 0 : 1,
+		}
+		$.post('{:U("settle/especial")}', jsonData, function(data){
+			if (data.result != null) {
+				if (data.result.errno == 0) {
+					toastr.success(data.result.message);						
+				} else {
+					toastr.error(data.result.message);
+				}
+			}
+		});
+	});
+	
+	function initSmsSet() {
+		if ('{$sms_set.value.forbidden}' != '') {
+			$('#sms_inf').prop('checked', '{$sms_set.value.forbidden}'=='0' ? true : false).trigger();	
+		}		
+	}
+	
+	$(document).ready(function(){
+		initSmsSet();
+	});
+</script>

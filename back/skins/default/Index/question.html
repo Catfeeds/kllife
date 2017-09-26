@@ -1,0 +1,44 @@
+<include file="Common/header" />
+	<style>
+		.head_tab {margin-left: 50px;}
+		.word_tab {margin-left: 80px;}
+	</style>
+	<div class="row">
+		<hr style="width:95%; height:5px; border:none; border-top:5px ridge green;" />
+		<span class="head_tab"><strong>您是否要提问？</strong></span><br><br>
+		<span class="word_tab">答：您可以联系开发人员将常见的问题登记在册以供其它人员参考。</span><br><br>
+	</div>
+	<div class="row">
+		<hr style="width:95%; height:5px; border:none; border-top:5px ridge green;" />
+		<span class="head_tab"><strong>如何区别订单类型？</strong></span><br><br>
+		<span class="word_tab">答：熟悉了解订单有助于业务开展与处理，您可以通过模糊搜索查找订单，订单开头标示如下：</span><br><br>		
+		<span class="word_tab"><span style="color: green;">'LX-'开头</span>：线上订单</span><br><br>
+		<span class="word_tab"><span style="color: green;">'XX-'开头</span>：线下订单</span><br><br>
+		<span class="word_tab"><span style="color: green;">'YD-'开头</span>：小包团订单</span><br><br>
+	</div>
+	<div class="row">
+		<hr style="width:95%; height:5px; border:none; border-top:5px ridge green;" />
+		<span class="head_tab"><strong>订单详细中的优惠券如何区别？</strong></span><br><br>
+		<span class="word_tab"><span style="color: green;">即时</span>：优惠券中面额将会从订单总金额中减去</span><br><br>
+		<span class="word_tab"><span style="color: green;">团期</span>：优惠券中面额不纳入订单总金额</span><br><br>
+	</div>
+	<div class="row">
+		<hr style="width:95%; height:5px; border:none; border-top:5px ridge green;" />
+		<span class="head_tab"><strong>如何区分订单状态含义？</strong></span><br><br>
+		<span class="word_tab"><span style="color: green;">未审核</span>：客户填写完成提交订单后的订单状态。</span><br><br>
+		<span class="word_tab"><span style="color: green;">无效</span>：客户取消该订单后的订单状态。本状态为最终状态不可逆。该状态下订单为只读状态不可进行任何其他操作。</span><br><br>
+		<span class="word_tab"><span style="color: green;">已审核</span>：客服审核订单并确定该订单可以进行下一步操作的订单。</span><br><br>
+		<span class="word_tab"><span style="color: green;">替补</span>：客服审核订单尚未确定该笔订单是否可以进行下一步操作的订单。</span><br><br>
+		<span class="word_tab"><span style="color: green;">已付部分款</span>：客户通过线下支付为该订单支付了一笔费用，但该费用不等于预付款金额或全款金额时的状态；该功能为二次审核功能，需经财务审核才可实现。判断依据为订单实付金额。</span><br><br>
+		<span class="word_tab"><span style="color: green;">已付预付款</span>：客户通过线下支付或线上支付为该订单支付了预付款时的状态；若费用为线下审核订单，该订单状态需要财务审核才可实现。判断依据为当实付金额为团费总额一半时显示为该状态。</span><br><br>
+		<span class="word_tab"><span style="color: green;">已付全款</span>：客户通过线下支付或线上支付为该订单支付了全款时的状态；若费用为线下审核订单，该订单状态需要财务审核才可实现。当实付金额等于订单总额时显示为该状态。</span><br><br>
+		<span class="word_tab"><span style="color: green;">已完成</span>：该订单所在团期批次结束后客户通过评论结束该订单，若一周内客户无任何操作，系统自动修改订单状态为结束状态。本状态为最终状态不可逆。该状态下订单为只读状态不可进行任何其他操作。</span><br><br>
+		<span class="word_tab"><span style="color: green;">信息变动审核中</span>：该状态为一个中间状态，用于订单信息变化而引发订单金额更改的状态，仅限于改团、退团、订单人数变化三种情况。该状态为客服发起订单变化信息之后未经财务审核的状态。该状态下订单为只读状态不可进行任何其他操作。</span><br><br>
+		<span class="word_tab"><span style="color: green;">等待退款</span>：该订单为客户已缴费用大于订单总额时的一个财务退款提醒状态。该状态下订单详情为只读状态，只可进行线下退款操作。</span><br><br>
+		<span class="word_tab"><span style="color: green;">付款中</span>：该状态为一个中间状态，用于客人发起线下付款后客服或财务提交付款信息等待财务管理员审核的状态。该状态为只读状态不可进行任何其他操作。</span><br><br>
+		<span class="word_tab"><span style="color: green;">退款中</span>：该状态为一个中间状态，用于财务提交退款信息后等待财务管理员审核的状态。该状态为只读状态不可进行任何其他操作。</span><br><br>
+		<span class="word_tab"><span style="color: green;">退团</span>：该状态为退团状态，客户退团须经客服发起信息变更申请，经财务审核，并退款后才可更改为该状态。该状态为只读状态不可进行任何其他操作。</span><br><br>
+		<span class="word_tab"><span style="color: green;">已取消</span>：该状态为系统状态，开团第一天系统自动将已审核、未审核、替补状态下的订单自动转为已取消状态。本状态为最终状态不可逆。本状态为最终状态不可逆，切勿人工操作。该状态为只读状态不可进行任何其他操作。</span><br><br>
+		<span class="word_tab"><span style="color: green;">退多了！呵呵</span>：错误状态订单，实付金额为负值时产生该订单。</span><br><br>
+	</div>
+<include file="Common/footer" />

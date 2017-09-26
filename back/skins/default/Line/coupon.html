@@ -1,0 +1,487 @@
+<include file="Common/header" />
+	<style>
+		.dataTables_wrapper .table thead > tr .sorting:before, .dataTables_wrapper .table thead > tr .sorting_asc:before, .dataTables_wrapper .table thead > tr .sorting_desc:before { content: ''; }
+		.create-coupon { position: relative; border: 1px solid #dcdcdc; margin-bottom:20px; padding: 15px; }
+		.create-coupon .row { margin-bottom:20px; }
+		.create-coupon-write .input-group { height: 36px; }
+		.create-coupon-write input { width: 100%; height: 36px; }
+		.input-group-addon { padding: 4px 40px; }
+		.coupon-img { text-align: center; }
+		.coupon-img img { width: 158px; height: 91px; margin: 10px 0; border: 1px solid #dcdcdc; cursor: pointer; }		
+		.btn-save-coupon { position : absolute; width:100px; right: 50px; bottom: 20px; background-color: #ffba00; color: #fff; }
+		.coupon-tbody img { width: 158px; height: 91px; border: 1px solid #dcdcdc; } 
+		.issuing-coupon-search { width: 30%; margin: 20px auto; }
+		
+		.list-page { width: 100%; text-align: right; }
+
+	.list-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+
+	.list-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+
+	.list-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }
+	</style>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> 
+						{:C('CONTENT_TITLE')}
+					</h3>
+				</div>
+				<div class="panel-body row">
+				
+				<!--在此地编辑内容-->
+				<!--<div class="panel-body">-->
+					<!--创建优惠券-->
+					<div class="create-coupon">
+						<div class="create-coupon-write">
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">标题</i>
+										</div>
+										<input class="title" type="text" class="form-control">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">金额</i>
+										</div>
+										<input class="money" type="text" class="form-control">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-9">
+									<div class="col-md-12">
+										选择优惠券:
+									</div>
+									<div class="coupon-img col-md-2">
+										<img class="icon_valid" src=""/>
+										<p>未使用</p>
+									</div>
+									<div class="coupon-img col-md-2">
+										<img class="icon_use" src=""/>
+										<p>已使用</p>
+									</div>
+									<div class="coupon-img col-md-2">
+										<img class="icon_pass" src=""/>
+										<p>已过期</p>
+									</div>
+								</div>
+							</div>
+							
+							<button class="btn btn-save-coupon">保存</button>
+						</div>
+					</div>
+								
+				
+					<!--优惠券表格-->
+					<div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+						<table class="table table-bordered table-striped dataTable no-footer" id="table_coupon" role="grid" aria-describedby="example-2_info">
+							<thead>
+								<tr role="row" class="head">
+									<th class="no-sorting sorting_asc" rowspan="1" colspan="1" style="width: 20px;">
+										<!--全选按钮-->
+										<div class="cbr-replaced">
+											<div class="cbr-input">
+												<input type="checkbox" class="cbr cbr-done">
+											</div>
+											<div class="cbr-state">
+												<span></span>
+											</div>
+										</div>
+									</th>
+									<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 130px;">标题</th>
+									<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 130px;">金额</th>
+									<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 130px;">创建时间</th>
+									<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 240px;">状态图片</th>						
+									<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 150px;">操作</th>
+								</tr>
+							</thead>
+						
+							<tbody class="middle-align coupon-tbody">
+								<volist id="c" name="coupons">
+									<if condition="$key % 2 == 0">
+										<tr role="row" class="odd" data-id="{$c.id}">
+									<else />
+										<tr role="row" class="even" data-id="{$c.id}">
+									</if>
+										<td class="sorting_1">
+											<div class="cbr-replaced">
+												<div class="cbr-input">
+													<input type="checkbox" class="cbr cbr-done">
+												</div>
+												<div class="cbr-state">
+													<span></span>
+												</div>
+											</div>
+										</td>
+										<td>{$c.title}</td>
+										<td>{$c.money}</td>
+										<td>{$c.create_time}</td>
+										<td>
+											<img src="{$c.icon_valid}"/>
+											<img src="{$c.icon_pass}"/>
+											<img src="{$c.icon_use}"/>
+										</td>
+										<td>
+											<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit_coupon">
+												编辑
+											</a>
+											
+											<a href="#" class="btn btn-danger btn-sm btn-icon icon-left btn_delete_coupon">
+												删除
+											</a>
+										</td>
+									</tr>
+								</volist>
+							</tbody>
+						</table>
+					</div>
+					<!--end 优惠券表格-->
+					
+					
+					<!--发放优惠券-->
+					<div class="issuing-coupon">
+						
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								发放优惠券
+							</h3>
+						</div>
+						
+						<br />
+						
+						<form role="form" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="field-5">优惠前有效的起始结束时间</label>
+								<div class="col-sm-4">
+									<input type="text" id="coupon_time_range" class="form-control daterange" data-time-picker="true" data-time-picker-increment="1" data-format="YYYY-MM-DD HH:mm:ss" />
+								</div>
+								<div class="col-sm-4">
+									<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left send_coupon">
+										发放优惠券
+									</a>									
+								</div>
+							</div>
+						</form>
+						
+						<div class="issuing-coupon-search">
+							<div class="input-group">
+								<input type="text" class="form-control">
+								<div class="input-group-addon" style="background-color: #68b828; color: #fff; cursor: pointer;" placeholder="搜索内容可以是姓名、用户名、手机">
+									<i class="search_user" style="font-style: normal;">搜索</i>
+								</div>
+							</div>
+						</div>
+						
+						<!--发放优惠券表格-->
+						<div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+							<table class="table table-bordered table-striped dataTable no-footer" id="table_user" role="grid" aria-describedby="example-2_info">
+								<thead>
+									<tr role="row" class="head">
+										<th class="no-sorting sorting_asc" rowspan="1" colspan="1" style="width: 20px;">
+										<!--全选按钮-->
+										<div class="cbr-replaced">
+											<div class="cbr-input">
+												<input type="checkbox" class="cbr cbr-done">
+											</div>
+											<div class="cbr-state">
+												<span></span>
+											</div>
+										</div>
+										</th>
+										<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 130px;">编码</th>
+										<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 130px;">姓名</th>
+										<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 257px;">手机号</th>			
+										<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 257px;">身份证号</th>			
+										<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 214px;">操作</th>
+									</tr>
+								</thead>
+							
+								<tbody class="middle-align coupon-tbody">
+								</tbody>
+							</table>
+							<div class="list-page"></div>
+						</div>
+
+					</div>
+					
+					<div class="response_message">
+						
+					</div>
+					
+					
+					
+				<!--</div>-->
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="__PUBLIC__/home/js/page.js"></script>	
+<script type="text/javascript">	
+	var ckCouponIds = [], ckAccountIds = [];
+	$(function(){
+		//选中哪一条数据
+		$(document).on('click','.cbr-state',function(){
+			$(this).parent('.cbr-replaced').toggleClass('cbr-checked');
+			if ($(this).closest('tr').hasClass('head')) {
+				$(this).closest('table').find('tbody').find('.cbr-state').parent('.cbr-replaced').toggleClass('cbr-checked');
+			}
+		})
+	});
+		
+	// 设置优惠券的状态图片
+	function chooseStateImage(obj, imageList) {
+		if ($(obj).length == 0 || $(obj).is('img') == false || $(imageList).length == 0) {
+			alert('设置图片失败,'+$(obj)[0].tagName+',len:'+$(imageList).length);
+			return false;
+		}			
+		$(obj).attr('src', imageList[0]);
+	}
+		
+	// 选择优惠券各状态图片
+	$('.create-coupon-write').find('.coupon-img').click(function(){
+		funcModalImageSelectorCallBack = chooseStateImage;
+		showModalSelectorImageDialog($(this).find('img'));
+	})
+	
+	// 编辑优惠券
+	function editCoupon() {
+		var trObj = $(this).closest('tr');		
+		var rootObj = $('.create-coupon-write');		
+		$(rootObj).attr('data-id', $(trObj).attr('data-id'));
+		$(rootObj).find('.title').val($(trObj).find('td:eq(1)').html());
+		$(rootObj).find('.money').val($(trObj).find('td:eq(2)').html());
+		var imgObjs = $(trObj).find('td:eq(4)').find('img');
+		var icon_valid = $(imgObjs[0]).attr('src');
+		console.log(icon_valid);
+		$(rootObj).find('.icon_valid').attr('src',icon_valid);
+		var icon_pass = $(imgObjs[1]).attr('src');
+		console.log(icon_pass);
+		$(rootObj).find('.icon_pass').attr('src', icon_pass);
+		var icon_use = $(imgObjs[2]).attr('src');
+		console.log(icon_use);
+		$(rootObj).find('.icon_use').attr('src', icon_use);
+	}
+	$('.btn_edit_coupon').click(editCoupon);
+	
+	// 删除优惠券
+	function deleteCoupon() {
+		var trObj = $(this).closest('tr');
+		var jsonData = {
+			op_type: 'delete_coupon', 
+			id: $(trObj).attr('data-id'),
+		};
+		
+		$.post('{:U("line/coupon")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				$(trObj).remove();
+			}
+			alert(data.result.message);
+		});
+	}
+	$('.btn_delete_coupon').click(deleteCoupon);
+	
+	// 清空编辑优惠券内容
+	function clearEditCoupon() {
+		var rootObj = $('.create-coupon-write');		
+		$(rootObj).attr('data-id', '');
+		$(rootObj).find('.title').val(''),
+		$(rootObj).find('.money').val(''),
+		$(rootObj).find('.icon_valid').attr('src', '');
+		$(rootObj).find('.icon_pass').attr('src', '');
+		$(rootObj).find('.icon_use').attr('src', '');
+	}
+	
+	// 保存优惠券
+	$('.btn-save-coupon').click(function(){
+		var rootObj = $('.create-coupon-write');
+		var jsonData = {
+			op_type: 'save_coupon',
+			id: $(rootObj).attr('data-id'),
+			title: $(rootObj).find('.title').val(),
+			money: $(rootObj).find('.money').val(),
+			icon_valid: $(rootObj).find('.icon_valid').attr('src'),
+			icon_pass: $(rootObj).find('.icon_pass').attr('src'),
+			icon_use: $(rootObj).find('.icon_use').attr('src'),
+		}	
+		
+		$.post('{:U("line/coupon")}', jsonData, function(data){
+			console.log(JSON.stringify(data));
+			if (data.result.errno == 0) {
+				if (data.ds != null) {
+					// 清空优惠券编辑信息
+					clearEditCoupon();
+					
+					var tabObj = $('#table_coupon')
+					if (data.op != null && data.op == 'create') {
+						var d = data.ds;
+						var trClass = $(tabObj).find('tbody tr:first').hasClass('odd') ? 'even' : 'odd';
+						var vhtml = '<tr role="row" class="'+trClass+'" data-id="'+d.id+'">'+
+									'	<td class="sorting_1">'+
+									'		<div class="cbr-replaced">'+
+									'			<div class="cbr-input">'+
+									'				<input type="checkbox" class="cbr cbr-done">'+
+									'			</div>'+
+									'			<div class="cbr-state"><span></span></div>'+
+									'		</div>'+
+									'	</td>'+
+									'	<td>'+d.title+'</td>'+
+									'	<td>'+d.money+'</td>'+
+									'	<td>'+d.create_time+'</td>'+
+									'	<td>'+
+									'		<img src="'+d.icon_valid+'"/>'+
+									'		<img src="'+d.icon_pass+'"/>'+
+									'		<img src="'+d.icon_use+'"/>'+
+									'	</td>'+
+									'	<td>'+
+									'		<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit_coupon">编辑</a>'+
+									'		<a href="#" class="btn btn-danger btn-sm btn-icon icon-left btn_delete_coupon">删除</a>'+
+									'	</td>'+
+									'</tr>';
+						$(tabObj).find('tbody').prepend(vhtml);
+						var trObj = $(tabObj).find('tbody').find('tr:first');
+						$(trObj).find('btn_edit_coupon').click(editCoupon);
+						$(trObj).find('btn_delete_coupon').click(deleteCoupon);
+					} else {
+						var trObj = $(tabObj).find('tr[data-id="'+data.ds.id+'"]');
+						$(trObj).find('td:eq(1)').html(jsonData.title);
+						$(trObj).find('td:eq(2)').html(jsonData.money);
+						$(trObj).find('td:eq(3)').find('img:eq(0)').attr('src',jsonData.icon_valid);
+						$(trObj).find('td:eq(3)').find('img:eq(1)').attr('src',jsonData.icon_pass);
+						$(trObj).find('td:eq(3)').find('img:eq(2)').attr('src',jsonData.icon_use);
+					}
+				}				
+			}
+			alert(data.result.message);
+		});
+	});
+	
+	// 发送优惠券
+	function sendCoupon() {
+		var fireObj = this;
+		var timeRange = $('#coupon_time_range').val();
+		if (timeRange == '') {
+			alert('起效时间与失效时间不能为空');
+			return false;
+		}
+		
+		var times = timeRange.split(' - ');
+		if ($(times).length != 2) {
+			alert('起效时间与失效时间格式错误');
+			return false;
+		}
+		
+		// 暂时只取本页的优惠券
+		ckCouponIds = [];
+		$('#table_coupon').find('tbody').find('.cbr-checked').each(function(i,ev){
+			ckCouponIds.push($(this).closest('tr').attr('data-id'));
+		});
+		// 暂时只取本页的用户
+		ckAccountIds = [];
+		$('#table_user').find('tbody').find('.cbr-checked').each(function(i,ev){
+			var chTrObj = $(this).closest('tr');
+			ckAccountIds.push({id: $(chTrObj).attr('data-id'), type_id: $(chTrObj).attr('data-type-id')});
+		});
+	
+		// 自己没有选中的话，选中并包含自己，再给所有选中用户发送优惠券
+		var trObj = $(fireObj).closest('tr');
+		if ($(trObj).hasClass('head') == false) {
+			alert($(trObj).attr('data-id')+'>>'+$(trObj).find('.cbr-replaced').attr('class'));
+			if ($(trObj).find('.cbr-replaced').hasClass('cbr-checked') == false) {
+				$(trObj).find('.cbr-replaced').addClass('cbr-checked');
+				ckAccountIds.push({id: $(trObj).attr('data-id'), type_id: $(trObj).attr('data-type-id')});	
+			}
+		}
+		
+		var jsonData = {
+			op_type: 'send_coupon',
+			valid_time: times[0],
+			invalid_time: times[1],
+			coupon_ids: ckCouponIds,
+			accounts: ckAccountIds,
+		}
+		
+		showLoading(true);
+		$.post('{:U("line/coupon")}', jsonData, function(data){
+			showLoading(false);			
+			$('.response_message').append('<hr width="100%" />');
+			$('.response_message').append(data.result.message);
+		});
+	}
+	$('.send_coupon').click(sendCoupon);
+	
+	//搜索用户
+	$('.issuing-coupon-search').find('.search_user').click(function(){
+		findUser(1);
+	});
+	
+	
+//	constructionPage($('.list-page'), 1, 1, findUser, true);
+	
+	var forceCreatePage = true;
+	function findUser(p) {		
+		var searchval = $('.issuing-coupon-search').find('input').val();
+		var jsonData = {
+			op_type:'find_user',
+			page: p-1,
+			cds: 'lname|'+searchval+'|lphone|'+searchval+'|lusername|'+searchval,
+		}
+		
+		$.post('{:U("line/coupon")}', jsonData, function(data){
+			var tabObj = $('#table_user');
+			if (data.result.errno == 0) {
+				$(tabObj).find('tbody').empty();
+				if (data.ds != null && data.ds != 'undefined') {				
+					var html = '';
+					for (var i = 0; i < data.ds.length; i ++){
+						var d = data.ds[i];
+						var trClass = i % 2 == 0 ? 'odd' : 'even';
+						html +=	'<tr role="row" class="'+trClass+'" data-id="'+d.id+'" data-type-id="'+d.account_type.id+'">'+
+								'	<td class="sorting_1">'+
+								'		<div class="cbr-replaced">'+
+								'			<div class="cbr-input">'+
+								'				<input type="checkbox" class="cbr cbr-done">'+
+								'			</div>'+
+								'			<div class="cbr-state">'+
+								'				<span></span>'+
+								'			</div>'+
+								'		</div>'+
+								'	</td>'+
+								'	<td>'+d.id+'</td>'+
+								'	<td>'+d.name+'</td>'+
+								'	<td>'+d.phone+'</td>'+
+								'	<td>'+d.cert+'</td>'+
+								'	<td>'+
+								'		<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left send_coupon">'+
+								'			发放优惠券'+
+								'		</a>'+
+								'		'+
+								'	</td>'+
+								'</tr>';
+					}
+					$(tabObj).find('tbody').append(html);
+					$(tabObj).find('tbody').find('.send_coupon').click(sendCoupon);
+				} else {	// 没有数据
+					alert('没有查到任何数据');
+				}
+				// 构建分页
+				constructionPage($('.list-page'), p, data.page_count, findUser, forceCreatePage);
+				forceCreatePage = false;
+			} else {
+				alert(data.result.message);	
+			}			
+		})
+		
+	}
+
+</script>
+<include file="Common/footer" />

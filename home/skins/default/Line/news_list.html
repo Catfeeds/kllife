@@ -1,0 +1,113 @@
+<include file="Common/top" />
+	<style>
+		body { background-color:#f3f5f6; }
+	</style>
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/article.css">
+	<div id="content">
+		<div class="article-list">
+			<volist id="art" name="articles">
+				<if condition="empty($art['face_image']) eq true">
+					<div class="article-information-word">				
+						<a href="{:U('line/news')}/id/{$art.id}"></a>			
+						<div class="article-information-word-div">
+							<h3>{$art.title}</h3>
+							<if condition="$art['send_word_simple'] eq 1" >
+								<p>{$art.send_word_show}<a href="{:U('line/news')}/id/{$art.id}"></a></p>
+							<else />
+								<p>{$art.send_word_show}</p>
+							</if>
+							<i>{$art.create_time}</i>
+						</div>
+					</div>
+				<else />
+					<div class="article-information-img">
+						<a href="{:U('line/news')}/id/{$art.id}"></a>
+						<div class="article-information-img-left">
+							<img src="{$art.face_image}" alt="">
+						</div>
+						<div class="article-information-img-right">
+							<h3>{$art.title}</h3>
+							<if condition="$art['send_word_simple'] eq 1" >
+								<p>{$art.send_word_show}<a href="{:U('line/news')}/id/{$art.id}"></a></p>
+							<else />
+								<p>{$art.send_word_show}</p>
+							</if>
+							<i>{$art.create_time}</i>
+						</div>
+					</div>
+				</if>
+			</volist>
+		</div>
+		<div class="load-more">
+			<a href="javascript:;">加载更多...</a>
+		</div>
+	</div>
+	<!--图片延迟加载-->
+	<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(
+			function($){
+				$("img").lazyload({
+					placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+					effect      : "fadeIn",
+					threshold : 100,
+					failure_limit : 10
+				});
+			});
+	</script>
+	<script type="text/javascript">
+		//加载更多文章
+		var pageIndex = 0;
+		$('.load-more a').click( function () {
+			if ($(this).html() == '没有更多的数据了') {
+				return false;
+			}
+
+			$(this).html('正在加载...');
+			var jsonData = {
+				op_type: 'list',
+				page: pageIndex+1,
+			}
+
+			$.post('{:U("line/news")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (typeof(data.ds) != 'undefined' && data.ds != null) {
+						$('.load-more').find('a').html('加载更多...');
+						for (var i=0; i<data.ds.length; i++) {
+							var d = data.ds[i];
+							var include_image = typeof(d.face_image)=='undefined' ? false : true;
+							var vhtml = '<div class="article-information-img">';
+							if (include_image == false) {
+								vhtml = '<div class="article-information-word">';
+							}
+								vhtml +='	<a href="'+'{:U("line/article")}/id/'+d.id+'"></a>';
+							if (include_image == true) {
+								vhtml +='	<div class="article-information-img-left">';
+								vhtml +='		<img src="'+d.face_image+'" alt="">';
+								vhtml +='	</div>';
+								vhtml +='	<div class="article-information-img-right">';
+							} else {
+								vhtml +='	<div class="article-information-word-div">';
+							}							
+							vhtml +='		<h3>'+d.title+'</h3>'+
+									'		<p>'+d.send_word+'</p>'+
+									'		<h6>'+d.create_time+'</h6>'+
+									'	</div>'+
+									'</div>';
+							$('.article-list').append(vhtml);
+						}
+						// 下拉次数累加
+						pageIndex += 1;
+					} else {
+						$('.load-more').find('a').html('没有更多的数据了');
+					}
+				} else {
+					$('.load-more').find(a).html('加载更多...');
+					alert(data.result.message);
+				}
+			});
+		} );	
+	</script>
+<include file="Common/right" />
+<include file="Common/bottom" />

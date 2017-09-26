@@ -1,0 +1,242 @@
+	<!-- Modal -->                    
+	<div id="modal_data_edit"  class="modal fade custom-width">
+		<div class="modal-dialog" style="width: 40%;">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h3 id="lab_modal_data_edit_title" class="modal-title">窗口标题</h3>
+				</div>
+				
+				<div class="modal-body pan">
+					<form>
+						<div class="form-group has-error">
+							<label class="control-label col-sm-11" id="lab_modal_data_edit_errmsg"></label>
+						</div>
+					</form>
+	        		<form class="form-horizontal" id="form_modal_data_edit">
+	       			</form>							
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btn_modal_data_edit_confirm">确认</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript" >
+		var modal_data_edit_init_data;
+		$('document').ready(function(){
+			_initModalDataEdit();		
+		}); 
+		
+		// 设置操作提示语言
+		function setModalDataEditTips(msg) {
+			$('#lab_modal_data_edit_errmsg').html(msg);
+		}
+		
+		// 重置窗口（需要重新初始化）
+		function _resetModalDataEdit() {
+			setModalDataEditTips('');
+			$('#form_modal_data_edit').empty();
+		}
+		
+		// 重置窗口Form（不许再次初始化）
+		function _resetModalDataEditForm() {
+			setModalDataEditTips('');
+			var ds = modal_data_edit_init_data;
+			var elmt = ds['elmt'];
+			for (var i = 0; i < elmt.length; ++ i) {
+				$('#field_modal_data_edit_'+elmt[i]['id']).val(elmt[i]['value']);
+			}
+		}
+		
+		// 初始化
+		function _initModalDataEdit() {
+			$('#modal_data_edit').on('show.bs.modal', function () {
+			    $('body', document).addClass('modal-open');
+			    $('<div class="modal-backdrop fade in"></div>').appendTo($('body', document));
+			});
+			$('#modal_data_edit').on('hide.bs.modal', function () {
+			    $('body', document).removeClass('modal-open');
+			    $('div.modal-backdrop').remove();
+			    _resetModalDataEditForm();
+			});
+		}
+		
+		// 获取输入值
+		function getModalDataEditInputValues(ds) {
+			var vals = new Object();
+			var elmt = ds['elmt'];
+			for (var i = 0; i < elmt.length; ++ i) {
+				var idText = '#field_modal_data_edit_'+elmt[i]['id'];				
+				var tagName = $(idText).get(0).tagName				
+				if (tagName == ''){
+					vals[elmt[i]['id']] = $(idText).html();
+				} else {
+					vals[elmt[i]['id']] = $(idText).val();
+				}
+			}
+			return vals;
+		}
+		
+		// 填充输入值
+		function setModalDataEditInputValues(ds) {
+			var elmt = ds['elmt'];
+			for (var i = 0; i < elmt.length; ++ i) {
+				var attrs = elmt[i];
+				var idText = '#field_modal_data_edit_'+attrs['id'];
+				var tagName = $(idText).get(0).tagName
+//				alert(tagName+'==>>'+JSON.stringify(attrs));
+				if (tagName == 'SELECT') {
+					$(idText).children('option').each(function(){
+						if ($(this).val() == attrs['value']){
+							$(this).prop('selected', true);
+//							$(this).val(attrs['value']).trigger('change');
+						} else {
+							$(this).removeAttr('selected');
+						}
+					});
+				} else {
+					$(idText).val(attrs['value']);
+				}
+			}
+		}
+		
+		// 添加可选值
+		function appendModalDataEditInputValues(ds, clean) {
+			var elmt = ds['elmt'];
+			for (var i = 0; i < elmt.length; ++ i) {
+				var idText = '#field_modal_data_edit_'+elmt[i]['id'];
+				var tagName = $(idText).get(0).tagName
+//				alert(tagName+'==>>'+JSON.stringify(elmt[i]));
+				if (tagName == 'INPUT') {					
+					var val = elmt[i]['value'];
+					if (clean == false) {
+						val = val + elmt[i]['value'];
+					}
+					$(idText).val(val);
+				} else {			
+					var html = elmt[i]['value'];
+					if (clean == false) {
+						html = html + elmt[i]['value'];
+					}
+					$(idText).html(html);	
+				}
+			}
+		}
+		
+		// 绑定移除属性
+		function bindModalDataEditInputAttr(ds) {
+			var elmt = ds['elmt'];
+			for (var i = 0; i < elmt.length; ++ i) {
+				var d = elmt[i];
+				if (d['id'] == 'undefined') {
+					continue;
+				}
+				var idText = '#field_modal_data_edit_' + d['id'];
+				if (d['op'] != 'undefined' && d['attr'] != 'undefined' && d['attr'].length > 0) {					
+					for (var k = 0; k < d['attr'].length; ++ k) {
+						var a = d['attr'][k];
+						if (a['op'] == 'bind') {
+							if (a['name'] != 'undefined' && a['value'] != 'undefined'){
+								$(idText).attr(a['name'], a['value']);	
+							}
+						} else {
+							if (a['name'] != 'undefined'){
+								$(idText).removeAttr(a['name']);	
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		// 绑定确认按钮事件
+		function bindModalDataEditConfirmEvent(callback) {
+			modal_data_edit_init_data['callback_confirm'] = callback;
+		    // 重新绑定事件
+		    $('#btn_modal_data_edit_confirm').off('click');
+			$('#btn_modal_data_edit_confirm').on('click', function(){
+				if (typeof(modal_data_edit_init_data['callback_confirm']) == 'function'){
+					var vals = getModalDataEditInputValues(modal_data_edit_init_data);
+					modal_data_edit_init_data['callback_confirm'](vals);
+				}
+			});
+		}
+		
+		// 引入插件
+		function bindModalDataEditPlugins(ds) {
+			if (ds['elmt']=='undefined') {
+				return false;
+			}
+			for (var i = 0; i < ds['elmt'].length; i++) {
+				var elmt = ds['elmt'][i];
+				var idText = '#field_modal_data_edit_' + elmt['id'];
+				if (elmt['tag'] == 'select') {
+//					alert(idText + '   ' + JSON.stringify(elmt));					
+					$(idText).select2({
+						placeholder: '请选择批次',
+						allowClear: true,
+						minimumResultsForSearch: -1, 
+						// Hide the search bar
+						formatResult: function(d){
+							return "<div class='select2-user-result cx_border02'>" + d.text + "</div>"; 
+						}
+					});
+				}
+			}
+		}
+		
+		// 添加元素
+		function appendModalDataEditElement(ds) {
+			if (ds['elmt']=='undefined') {
+				return false;
+			}
+			var	html = $('#form_modal_data_edit').html();
+			for (var i = 0; i < ds['elmt'].length; i++) {
+				var elmt = ds['elmt'][i];
+				html += '<div class="row">';
+				html += '	<div class="col-md-2">';
+				html += '		<label for="field_modal_data_edit_'+elmt['id']+'" class="control-label">'+elmt['lab']+'</label>';
+				html += '	</div>';
+				html += '	<div class="col-md-9">';
+				html += '		<div class="form-group">';										
+				html += '			<'+elmt['tag']+' id="field_modal_data_edit_'+elmt['id']+'" class="form-control"></'+elmt['tag']+'>';
+				html += '		</div>';									
+				html += '	</div>';
+				html += '</div>';
+			}
+						
+			$('#form_modal_data_edit').append(html);
+			bindModalDataEditInputAttr(ds);
+		}
+		
+		// 初始化页面
+		function initModalDataEditPage(ds) {
+			modal_data_edit_init_data = ds;
+			// 初始化窗口输入
+			appendModalDataEditElement(ds);
+			// 初始化插件
+//			bindModalDataEditPlugins(ds);
+			// 其他控件初始化
+			$('#lab_modal_data_edit_title').html(ds['lab_title_text']);
+			$('#btn_modal_data_edit_confirm').html(ds['btn_confirm_text']);
+			// 绑定事件
+			bindModalDataEditConfirmEvent(ds['callback_confirm']);
+		}
+		
+		// 显示窗口
+		function showModalDataEdit() {		
+			$("#modal_data_edit").modal('show', {backdrop: 'static'});
+		}
+		
+		// 隐藏窗口
+		function hideModalDataEdit() {
+			$("#modal_data_edit").modal('hide');
+		}
+		
+	</script>
+	

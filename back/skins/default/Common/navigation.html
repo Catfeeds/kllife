@@ -1,0 +1,627 @@
+		<!-- Add "fixed" class to make the sidebar fixed always to the browser viewport. -->
+		<!-- Adding class "toggle-others" will keep only one menu item open at a time. -->
+		<!-- Adding class "collapsed" collapse sidebar root elements and show only icons. -->
+		<div class="sidebar-menu toggle-others collapsed">
+			
+			<div class="sidebar-menu-inner">	
+				
+				<header class="logo-env" style="z-index: -1; height: 50px;">
+					
+					<!-- logo -->
+					<div class="logo">
+						<a href="{__GLOBAL_APPLICATION_URL__}" class="logo-expanded">
+							<img src="__PUBLIC__/assets/images/logo.png" width="80" alt="" />
+						</a>
+						
+						<a href="{__GLOBAL_APPLICATION_URL__}" class="logo-collapsed">
+							<img src="__PUBLIC__/assets/images/logo.png" width="40" alt="" />
+						</a>
+					</div>
+					
+					<!-- This will toggle the mobile menu and will be visible only on mobile devices -->
+					<div class="mobile-menu-toggle visible-xs">
+						<a href="{__GLOBAL_APPLICATION_URL__}" data-toggle="user-info-menu">
+							<i class="fa-bell-o"></i>
+							<span class="badge badge-success">7</span>
+						</a>
+						
+						<a href="{__GLOBAL_APPLICATION_URL__}" data-toggle="mobile-menu">
+							<i class="fa-bars"></i>
+						</a>
+					</div>
+					
+					<!-- This will open the popup with user profile settings, you can use for any purpose, just be creative -->
+					<!--<div class="settings-icon">
+						<a href="#" data-toggle="settings-pane" data-animate="true">
+							<i class="linecons-cog"></i>
+						</a>
+					</div>-->		
+								
+				</header>
+						
+				
+						
+				<ul id="main-menu" class="main-menu">
+					<!-- add class "multiple-expanded" to allow multiple submenus to open -->
+					<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+					<li {:C('MENU_ACTIVE')=='home' ? 'class="active opened"' : ''}><!-- class="active opened"-->
+						<a href="{__GLOBAL_APPLICATION_URL__}">
+							<i class="fa-home"><!--<i class="linecons-cog">--></i>
+							<span class="title">后台首页</span>
+						</a>
+					</li>
+					<li {:C('MENU_ACTIVE')=='admin' ? 'class="active opened"' : ''}>
+						<a href="#">
+							<i class="el-user"></i>
+							<span class="title">管理员</span>
+						</a>
+						<ul>
+							<if condition="check_grant('list_account') eq true">
+								<li {:C('MENU_CURRENT')=='admin_acct_list' ? 'class="active"' : ''}>
+									<a href="{:U('admin/list')}"><span class="title">账号管理</span></a>
+								</li>
+							</if>
+							<if condition="$admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='admin_station_list' ? 'class="active"' : ''}>
+									<a href="{:U('admin/station')}"><span class="title">站点管理</span></a>
+								</li>
+							</if>
+							<if condition="$admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='account_type' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=account_type')}"><span class="title">账户类型</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_admin_type') eq true">
+								<li {:C('MENU_CURRENT')=='admin_type' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=admin_type')}"><span class="title">管理员类型</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_grant') eq true and $admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='admin_grant' ? 'class="active"' : ''}>
+									<a href="{:U('grant/list')}"><span class="title">权限管理</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_grant_group') eq true and $admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='admin_grant_group' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=admin_grant_group')}"><span class="title">权限组管理</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_grant_type') eq true and $admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='admin_grant_type' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=admin_grant_type')}"><span class="title">权限类型管理</span></a>
+								</li>
+							</if>
+						</ul>
+					</li>
+					<if condition="$line_system eq true or $admin['account'] == 'admin'">
+					<li {:C('MENU_ACTIVE')=='line' ? 'class="active opened"' : ''}>
+						<a href="#">
+							<i class="fa-th"></i>
+							<span class="title">产品管理</span>
+						</a>
+						<ul>
+							<li {:C('MENU_CURRENT')=='line_list' ? 'class="active"' : ''}>
+								<a href="{:U('line/list')}"><span class="title">产品列表</span></a>
+							</li>
+							<if condition="check_grant('line_edit') eq true">
+								<li {:C('MENU_CURRENT')=='line_create' ? 'class="active"' : ''}>
+									<a href="{:U('line/create')}"><span class="title">产品生成</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('line_subject') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='line_subject' ? 'class="active"' : ''}>
+									<a href="{:U('line/subject')}"><span class="title">产品专题</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('question_system') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='line_question' ? 'class="active"' : ''}>
+									<a href="{:U('line/question')}"><span class="title">问题系统</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('article_system') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='line_article' ? 'class="active"' : ''}>
+									<a href="{:U('line/article')}/type/list"><span class="title">文章系统</span></a>
+								</li>
+							</if>
+							<!--<li {:C('MENU_CURRENT')=='line_leader' ? 'class="active"' : ''}>
+								<a href="{:U('line/leader')}/type/list"><span class="title">领队系统</span></a>
+							</li>-->
+							<if condition="check_grant('video_center') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='line_video' ? 'class="active"' : ''}>
+									<a href="{:U('line/video')}"><span class="title">视频中心</span></a>
+								</li>
+							</if>
+							
+							<li {:C('MENU_CURRENT')=='line_taocan' ? 'class="active"' : ''}>
+								<a href="{:U('line/taocan')}"><span class="title">套餐系统</span></a>
+							</li>
+						</ul>
+					</li>
+					</if>
+					<if condition="check_grant('user_center') eq true and $admin['account'] heq 'admin'">
+					<li {:C('MENU_ACTIVE')=='user' ? 'class="active opened"' : ''}>
+						<a href="#">
+							<i class="fa-users"></i>
+							<span class="title">用户中心</span>
+						</a>
+						<ul>
+							<li {:C('MENU_CURRENT')=='user_center' ? 'class="active"' : ''}>
+								<a href="{:U('user/center')}"><span class="title">用户中心</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='user_distribute' ? 'class="active"' : ''}>
+								<a href="{:U('user/distribute')}"><span class="title">分销用户</span></a>
+							</li>
+							<if condition="check_grant('user_coupon') eq true">
+								<li {:C('MENU_CURRENT')=='user_coupon' ? 'class="active"' : ''}>
+									<a href="{:U('user/coupon')}"><span class="title">优惠券</span></a>
+								</li>
+							</if>
+						</ul>
+					</li>
+					</if>
+					<li {:C('MENU_ACTIVE')=='order' ? 'class="active opened"' : ''}>
+						<a href="#">
+							<i class="fa-tty"></i>
+							<span class="title">订单管理</span>
+						</a>
+						<ul>
+							<if condition="check_grant('list_order') eq true">
+								<li {:C('MENU_CURRENT')=='order_list' ? 'class="active"' : ''}>
+									<a href="{:U('order/list', 'obj=order_list')}"><span class="title">订单列表</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_order') eq true and $admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='order_list1' ? 'class="active"' : ''}>
+									<a href="{:U('order/list', 'test=1')}"><span class="title">订单列表1</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('create_order') eq true">
+								<li {:C('MENU_CURRENT')=='order_create' ? 'class="active"' : ''}>
+									<a href="{:U('order/info', 'obj=order_create')}"><span class="title">线下报名</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('create_order') eq true">
+								<li {:C('MENU_CURRENT')=='order_channel' ? 'class="active"' : ''}>
+									<a href="{:U('order/info', 'ch=1')}"><span class="title">渠道订单</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('order_robot') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='order_robot' ? 'class="active"' : ''}>
+									<a href="{:U('order/robot', 'obj=order_robot')}"><span class="title">人气报名</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_order_from') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='order_from' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=order_from')}"><span class="title">订单来源</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_state_type') eq true and $admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='state_type' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=state_type')}"><span class="title">状态类型</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_order_state') eq true">
+								<li {:C('MENU_CURRENT')=='order_state' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=order_state')}"><span class="title">订单状态</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_member_type') eq true">
+								<li {:C('MENU_CURRENT')=='order_member_type' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=order_member_type')}"><span class="title">人员类型</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_certificate_type') eq true">
+								<li {:C('MENU_CURRENT')=='order_certificate_type' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=order_certificate_type')}"><span class="title">证件类型</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_coupon_type') eq true and $admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='order_coupon_type' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=order_coupon_type')}"><span class="title">优惠券类型</span></a>
+								</li>
+							</if>
+							<!--<li {:C('MENU_CURRENT')=='order_import' ? 'class="active"' : ''}>
+								<a href="#"><span class="title">订单导入</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='order_export' ? 'class="active"' : ''}>
+								<a href="#"><span class="title">订单导出</span></a>
+							</li>-->
+						</ul>
+					</li>
+					<script type="text/javascript">
+						$(document).ready(function(){
+//							$.post('{:U("review/getWaitReview")}',{},function(data){
+////								console.log('getWaitReview=>'+JSON.stringify(data));
+//								if (data.result.errno != 0) {
+//									alert(data.result.message);
+//								} else {
+//									$('#review_sum').html(data.review_sum);
+//									$('#review_account').html(data.review_account);
+//									$('#review_change_line').html(data.change_line);
+//									$('#review_member_count').html(data.member_count);
+//									$('#review_exit_team').html(data.exit_team);
+//								}
+//							})
+						});
+					</script>
+					<li {:C('MENU_ACTIVE')=='review' ? 'class="active opened"' : ''}>
+						<a href="#">
+							<i class="fa-dollar"></i>
+							<span class="title">审核管理</span>
+							<if condition="check_grant('list_order_review') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<span id="review_sum" class="badge badge-purple">0</span>
+							</if>
+						</a>
+						<ul>
+							<if condition="check_grant('list_order_review') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='review_list' ? 'class="active"' : ''}>
+									<a href="{:U('review/list')}">
+										<span class="title">审核查询</span>
+										<span id="review_account" class="badge badge-purple">0</span>
+									</a>
+								</li>
+							</if>
+							<!--<if condition="check_grant('submit_finance_review') eq true">
+								<li {:C('MENU_CURRENT')=='review_request' ? 'class="active"' : ''}>
+									<a href="{:U('review/request')}"><span class="title">审核请求</span></a>
+								</li>
+							</if>-->
+							<if condition="check_grant('list_online_pay') eq true">
+								<li {:C('MENU_CURRENT')=='pay_log_online' ? 'class="active"' : ''}>
+									<a href="{:U('review/payonline')}">
+										<span class="title">线上支付</span>
+									</a>
+								</li>
+							</if>
+							<if condition="check_grant('list_order_review') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='change_line' ? 'class="active"' : ''}>
+									<a href="{:U('review/changeLine')}">
+										<span class="title">改团审核</span>
+										<span id="review_change_line" class="badge badge-purple">0</span>
+									</a>
+								</li>
+							</if>
+							<if condition="check_grant('list_order_review') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='change_count' ? 'class="active"' : ''}>
+									<a href="{:U('review/changeCount')}">
+										<span class="title">人数审核</span>
+										<span id="review_member_count" class="badge badge-purple">0</span>
+									</a>
+								</li>
+							</if>
+							<if condition="check_grant('list_order_review') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='exit_team' ? 'class="active"' : ''}>
+									<a href="{:U('review/exitTeam')}">
+										<span class="title">退团审核</span>
+										<span id="review_exit_team" class="badge badge-purple">0</span>
+									</a>
+								</li>
+							</if>
+							<if condition="check_grant('list_order_review') eq true and $admin['station_id_data']['key'] heq 'main'">
+								<li {:C('MENU_CURRENT')=='take_cash' ? 'class="active"' : ''}>
+									<a href="{:U('review/takecash')}">
+										<span class="title">提现审核</span>
+										<span id="review_take_cash" class="badge badge-purple">0</span>
+									</a>
+								</li>
+							</if>
+							<if condition="check_grant('list_review_type') eq true and $admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='review_type' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=review_type')}"><span class="title">审核状态</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_cash_use') eq true and $admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='review_cash_use' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=review_cash_use')}"><span class="title">费用用途</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_cash_function') eq true and $admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='review_cash_function' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=review_cash_function')}"><span class="title">费用功能</span></a>
+								</li>
+							</if>
+						</ul>
+					</li>
+					<li {:stripos(C('MENU_CURRENT'), 'financial') === false ? '' : 'class="active opened"'}>
+						<a href="javascript:;">
+							<i class="fa-cny"></i>
+							<span class="title">财务计调</span>
+						</a>
+						<ul>							
+							<li {:stripos(C('MENU_CURRENT'), 'financial_team') === false ? '' : 'class="active opened"'}>
+								<a href="{:U('type/list')}"><span class="title">团期管理</span></a>
+								<ul>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_team_list') === false ? '' : 'class="active opened"'}>
+										<a href="{:U('financial/team', 'op=list')}"><span class="title">团期列表</span></a>
+									</li>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_team_new') === false ? '' : 'class="active"'}>
+										<a href="{:U('financial/team', 'op=new')}"><span class="title">创建团期</span></a>
+									</li>
+								</ul>
+							</li>				
+							<li {:stripos(C('MENU_CURRENT'), 'financial_review') === false ? '' : 'class="active opened"'}>
+								<a href="{:U('type/list')}"><span class="title">审核管理</span></a>
+								<ul>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_review_commit') === false ? '' : 'class="active"'}>
+										<a href="{:U('financial/deposit', 'op=new')}"><span class="title">预交金提审</span></a>
+									</li>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_review_deposit') === false ? '' : 'class="active"'}>
+										<a href="{:U('financial/deposit', 'op=list')}"><span class="title">预交金审核</span></a>
+									</li>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_review_price') === false ? '' : 'class="active"'}>
+										<a href="{:U('financial/price', 'op=review')}"><span class="title">资源价审核</span></a>
+									</li>
+								</ul>
+							</li>
+							
+							<li {:stripos(C('MENU_CURRENT'), 'financial_resource') === false ? '' : 'class="active opened"'}>
+								<a href="javascript:;"><span class="title">资源录入</span></a>
+								<ul>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_resource_insurance') === false ? '' : 'class="active opened"'}>
+										<a href="{:U('financial/source', 'src=insurance')}"><span class="title">保险资源</span></a>
+									</li>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_resource_leader') === false ? '' : 'class="active"'}>
+										<a href="{:U('financial/source', 'src=leader')}"><span class="title">领队资源</span></a>
+									</li>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_resource_hotel') === false ? '' : 'class="active"'}>
+										<a href="{:U('financial/source', 'src=hotel')}"><span class="title">酒店资源</span></a>
+									</li>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_resource_driver') === false ? '' : 'class="active"'}>
+										<a href="{:U('financial/source', 'src=driver')}"><span class="title">司机资源</span></a>
+									</li>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_resource_bus') === false ? '' : 'class="active"'}>
+										<a href="{:U('financial/source', 'src=bus')}"><span class="title">大巴资源</span></a>
+									</li>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_resource_view') === false ? '' : 'class="active"'}>
+										<a href="{:U('financial/source', 'src=view')}"><span class="title">景点资源</span></a>
+									</li>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_resource_agency') === false ? '' : 'class="active"'}>
+										<a href="{:U('financial/source', 'src=agency')}"><span class="title">同行地接</span></a>
+									</li>
+									<li {:stripos(C('MENU_CURRENT'), 'financial_resource_source') === false ? '' : 'class="active"'}>
+										<a href="{:U('financial/source', 'src=source')}"><span class="title">其他资源</span></a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<script type="text/javascript">
+//						$(document).ready(function(){
+//							$.post('{:U("team/getWaitDispose")}',{},function(data){
+////								console.log('getWaitDispose=>'+JSON.stringify(data));
+//								$('#team_assign_count').html(data.assign_count);
+//								$('#team_dispose_count').html(data.dispose_count);
+//							})
+//						});
+					</script>
+					<li {:C('MENU_ACTIVE')=='team_group' ? 'class="active opened"' : ''}>
+						<a href="#">
+							<i class="el-flag"></i>
+							<span class="title">小包团</span>
+							<if condition="check_grant('list_team_group') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<span id="team_assign_count" class="badge badge-purple">0</span>
+							</if>
+						</a>
+						<ul>
+							<if condition="check_grant('list_team_group') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='list' ? 'class="active"' : ''}>
+									<a href="{:U('team/list')}">
+										<span class="title">包团列表</span>
+										<span id="team_dispose_count" class="badge badge-green">0</span>
+									</a>									
+								</li>
+							</if>
+                
+			                <if condition="check_grant('create_team_group') eq true and $admin['station_id_data']['attached'] heq '1'">
+								<li {:C('MENU_CURRENT')=='create' ? 'class="active"' : ''}>
+									<a href="{:U('team/create')}"><span class="title">创建包团</span></a>									
+								</li>
+			                </if>
+						</ul>
+					</li>
+					<li {:C('MENU_ACTIVE')=='statistics' ? 'class="active opened"' : ''}>
+						<a href="#">
+							<i class="fa-bar-chart"></i>
+							<span class="title">数据统计</span>
+						</a>
+						<ul>
+							<li {:C('MENU_CURRENT')=='statistics_order' ? 'class="active"' : ''}>
+								<a href="{:U('statistics/order')}"><span class="title">订单统计</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='statistics_line' ? 'class="active"' : ''}>
+								<a href="{:U('statistics/line')}"><span class="title">报名统计</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='statistics_pay' ? 'class="active"' : ''}>
+								<a href="{:U('statistics/pay')}"><span class="title">支付统计</span></a>
+							</li>
+						</ul>
+					</li>
+					<li {:C('MENU_ACTIVE')=='menu' ? 'class="active opened"' : ''}>
+						<a href="#">
+							<i class="el-indent-left"></i>
+							<span class="title">菜单管理</span>
+						</a>
+						<ul>
+							<if condition="check_grant('list_menu_type') eq true and $admin['station_id_data']['key'] heq 'main'">
+								<li {:C('MENU_CURRENT')=='menu_type' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=menu_type')}"><span class="title">菜单类型</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_menu_item') eq true and $admin['station_id_data']['key'] heq 'main'">
+								<li {:C('MENU_CURRENT')=='menu_item' ? 'class="active"' : ''}>
+									<a href="{:U('menu/list')}"><span class="title">菜单项</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_need_data') eq true">
+								<li {:C('MENU_CURRENT')=='request_data' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=request_data')}"><span class="title">需求数据</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_data_type') eq true">
+								<li {:C('MENU_CURRENT')=='data_type' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=data_type')}"><span class="title">数据类型</span></a>
+								</li>
+							</if>
+							<if condition="$admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='list_procedure' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=data_type')}"><span class="title">流程设计</span></a>
+								</li>
+							</if>
+						</ul>
+					</li>
+					<li {:C('MENU_ACTIVE')=='picture_library' ? 'class="active opened"' : ''}>
+						<a href="#">
+							<i class="el-picture"></i>
+							<span class="title">图片库</span>
+						</a>
+						<ul>
+							<li {:C('MENU_CURRENT')=='image_list' ? 'class="active"' : ''}>
+								<a href="{:U('image/list')}"><span class="title">图片展示</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='image_uplaod' ? 'class="active"' : ''}>
+								<a href="{:U('image/upload')}"><span class="title">图片上传</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='image_type' ? 'class="active"' : ''}>
+								<a href="{:U('type/list', 'obj=image_type')}"><span class="title">图片类型</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='image_from' ? 'class="active"' : ''}>
+								<a href="{:U('type/list', 'obj=image_from')}"><span class="title">图片来源</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='image_content' ? 'class="active"' : ''}>
+								<a href="{:U('type/list', 'obj=image_content')}"><span class="title">图片内容</span></a>
+							</li>
+						</ul>
+					</li>
+					<if condition="$task_alert eq true or $admin['account'] heq 'admin'">
+					<li {:C('MENU_ACTIVE')=='alert_task' ? 'class="active opened"' : ''}>
+						<a href="#">
+							<i class="el-megaphone"></i>
+							<span class="title">任务提醒</span>
+						</a>
+						<ul>
+							<li {:C('MENU_CURRENT')=='alert_task_activity' ? 'class="active"' : ''}>
+								<a href="{:U('task/alert', 'op_type=list')}"><span class="title">我的提醒</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='alert_task_line' ? 'class="active"' : ''}>
+								<a href="{:U('task/archive')}"><span class="title">线路列表</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='alert_task_list' ? 'class="active"' : ''}>
+								<a href="{:U('task/task','op_type=list')}"><span class="title">任务列表</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='alert_task_date_type' ? 'class="active"' : ''}>
+								<a href="{:U('type/list', 'obj=alert_task_date_type')}"><span class="title">日期类型</span></a>
+							</li>
+							<li {:C('MENU_CURRENT')=='alert_task_project' ? 'class="active"' : ''}>
+								<a href="{:U('type/list', 'obj=alert_task_project')}"><span class="title">项目类型</span></a>
+							</li>
+						</ul>
+					</li>
+					</if>
+					<li {:C('MENU_ACTIVE')=='settle' ? 'class="active opened"' : ''}>
+						<a href="#">
+							<i class="el-cog-circled"></i>
+							<span class="title">个人中心</span>
+						</a>
+						<ul>
+							<if condition="check_grant('list_log_type') eq true and $admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='settle_log_type' ? 'class="active"' : ''}>
+									<a href="{:U('type/list', 'obj=settle_log_type')}"><span class="title">日志类型</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('list_log') eq true and $admin['account'] heq 'admin'">
+								<li {:C('MENU_CURRENT')=='settle_log' ? 'class="active"' : ''}>
+									<a href="{:U('settle/loglist')}"><span class="title">查看日志</span></a>
+								</li>
+							</if>
+							<li {:C('MENU_CURRENT')=='settle_modify_passwd' ? 'class="active"' : ''}>
+								<a href="{:U('settle/modifypassword')}"><span class="title">管理员信息</span></a>
+							</li>
+							<if condition="empty($allow_especial_set) eq false">
+								<li {:C('MENU_CURRENT')=='settle_especial' ? 'class="active"' : ''}>
+									<a href="{:U('settle/especial')}"><span class="title">特殊设置</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('pc_home_set') eq true">
+								<li {:C('MENU_CURRENT')=='settle_pc_home' ? 'class="active"' : ''}>
+									<a href="{:U('settle/settle')}/type/pchome"><span class="title">PC首页设置</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('pc_set') eq true and $admin[station_id_data]['key'] heq 'main'">
+								<li {:C('MENU_CURRENT')=='settle_pcset' ? 'class="active"' : ''}>
+									<a href="{:U('settle/pcset')}"><span class="title">PC主站设置</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('phone_home_set') eq true and $admin[station_id_data]['key'] heq 'main'">
+								<li {:C('MENU_CURRENT')=='settle_phone_home' ? 'class="active"' : ''}>
+									<a href="{:U('settle/settle')}/type/phonehome"><span class="title">手机首页设置</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('qinglvpai_home_set') eq true and $admin[station_id_data]['key'] heq 'main'">
+								<li {:C('MENU_CURRENT')=='settle_qlp_home' ? 'class="active"' : ''}>
+									<a href="{:U('settle/settle')}/type/qinglvpai"><span class="title">轻旅拍设置</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('sms_set') eq true and $admin[station_id_data]['key'] heq 'main'">
+								<li {:C('MENU_CURRENT')=='settle_sms_template' ? 'class="active"' : ''}>
+									<a href="{:U('settle/smstemplate')}"><span class="title">短信模板</span></a>
+								</li>
+							</if>
+							<if condition="check_grant('sms_set') eq true and $admin[station_id_data]['key'] heq 'main'">
+								<li {:C('MENU_CURRENT')=='settle_keywords' ? 'class="active"' : ''}>
+									<a href="{:U('settle/keywords')}"><span class="title">页面关键字</span></a>
+								</li>
+							</if>
+						</ul>
+					</li>
+					<li {:C('MENU_ACTIVE')=='lock_screen' ? 'class="active opened"' : ''}>
+						<a href="{:U('admin/lockscreen')}">
+							<i class="el-off"></i>
+							<span class="title">锁屏</span>
+						</a>
+					</li>
+					<li {:C('MENU_ACTIVE')=='question' ? 'class="active opened"' : ''}>
+						<a href="{:U('index/question')}">
+							<i class="el-help"></i>
+							<span class="title">常见问题</span>
+						</a>
+					</li>
+					<li {:C('MENU_ACTIVE')=='help' ? 'class="active opened"' : ''}>
+						<a href="{:U('index/help')}">
+							<i class="linecons-cloud"></i>
+							<span class="title">帮助文档</span>
+						</a>
+					</li>
+					<li {:C('MENU_ACTIVE')=='update' ? 'class="active opened"' : ''}>
+						<a href="{:U('index/about')}">
+							<i class="fa-refresh"></i>
+							<span class="title">关于&更新</span>
+						</a>
+					</li>
+					<if condition="$admin['account'] heq 'admin'">
+						<li {:C('MENU_ACTIVE')=='sql' ? 'class="active opened"' : ''}>
+							<a href="{:U('index/sql')}">
+								<i class="fa-refresh"></i>
+								<span class="title">数据库</span>
+							</a>
+						</li>
+					</if>
+				</ul>
+						
+			</div> <!--div:sidebar-menu-inner-->						
+		</div> <!--div:sidebar-menu-->
+		
+		<!--<script type="text/javascript">
+			var mainNavPrevOpenedLi = $('#main-menu').find('.opened');
+			var mainNavPrevActiveLi = $('#main-menu').find('.active');
+			$('#main-menu').find('li').click(function(){
+				$(mainNavPrevOpenedLi).remove('opened');
+				$(mainNavPrevActiveLi).remove('active');
+				
+				$(this).addClass('expanded');
+				var firstUl = $(this).find('ul:first');
+				if ($(firstUl).length > 0) {
+					$(firstUl).slideDown();
+				}
+				mainNavPrevActiveLi = this;
+			});
+		</script>-->

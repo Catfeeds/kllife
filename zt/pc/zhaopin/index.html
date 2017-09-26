@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<!-- iPhone 手机上设置手机号码不被显示为拨号链接 -->
+	<meta name="format-detection" content="telephone=no" />
+	<meta content="telephone=no, address=no" name="format-detection" />
+	<!--  IOS私有属性，可以添加到主屏幕 -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!--  IOS私有属性，网站开启对 web app 程序的支持 -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<title>领袖户外2016西安平台招聘</title>
+	<link rel="stylesheet" href="css/jq-fullpage.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/html5shiv.min.js"></script>
+	<script src="js/respond.min.js"></script>
+    <script>
+	function uaredirect(murl){
+		try {
+				if(document.getElementById("bdmark") != null){
+					return;
+				}
+				var urlhash = window.location.hash;
+				if (!urlhash.match("fromapp")){
+					if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i))) {
+							location.replace(murl);
+					}
+				}
+			} catch(err){}
+	}
+	</script>
+	<script type="text/javascript">uaredirect("http://3g.kllife.com/zt/zhaopinzt/");</script>
+</head>
+<body>
+	<div id="fullpage">
+		<div class="section section1">
+			<nav>
+				<img class="logo" src="images/logo.png" alt="">
+				<ul>
+					<li><a href="http://kllife.com">首页</a></li>
+				</ul>
+				<a class="login" href="http://kllife.com/member/">
+					<img src="images/login.png" alt="">
+				</a>
+				<a class="register" href="http://shequ.kllife.com/Index/zhuce.html">
+					<img src="images/register.png" alt="">
+				</a>
+				<a class="small" href="http://kllife.com/member/">
+					<img src="images/small.png" alt="">
+				</a>
+			</nav>
+        	<img class="big" src="images/big.png" alt="">
+        	<div class="remove">
+        		<img class="greencar" src="images/greencar.png" alt="小汽车">
+	        	<img class="graycar" src="images/graycar.png" alt="小汽车">
+	        	<img class="redcar" src="images/redcar.png" alt="小汽车">
+        	</div>
+        	<div class="cloud">
+        		<img class="cloud01" src="images/cloud01.png" alt="">
+        		<img class="cloud02" src="images/cloud02.png" alt="">
+        		<img class="cloud03" src="images/cloud03.png" alt="">
+        		<img class="cloud04" src="images/cloud04.png" alt="">
+        		<img class="cloud05" src="images/cloud05.png" alt="">
+        		<img class="cloud06" src="images/cloud06.png" alt="">
+        	</div>
+	    </div>
+	    <div class="section section2">
+	        <img class="wenzi02" src="images/wenzi02.png" alt="">
+	        <img class="desk" src="images/desk.png" alt="">
+	    </div>
+	    <div class="section section3">
+	        <div class="left_03">
+	        	<img src="images/people.png" alt="">
+	        </div>
+	        <div class="right_03">
+	        	<img src="images/wenzi03.png" alt="">
+	        	<div class="shanguang">
+	        		<u>爱心午餐</u>
+	        		<u>带薪年假</u>
+	        		<u>集体旅游</u>
+	        		<u>旅游大奖</u>
+	        		<u>法定社保</u>
+	        		<u class="last">各种出其不意的奖金</u>
+	        	</div>
+	        </div>
+	    </div>
+	    <div class="section section4">
+	        <div class="left_04">
+	        	<img src="images/wenzi04.png" alt="">
+	        </div>
+	        <div class="right_04">
+	        	<img src="images/woshou.png" alt="">
+	        </div>
+	    </div>
+	    <div class="section section5">
+	        <div class="left_05">
+	        	<img src="images/bijiben.png" alt="">
+	        </div>
+	        <div class="right_05">
+	        	<img src="images/wenzi05.png" alt="">
+	        </div>
+	    </div>
+	    <div class="section section6">
+	    	<div class="left_06">
+	    		<img src="images/wenzi06.png" alt="">
+	    	</div>
+	        <div class="right_06">
+	        	<img src="images/point.png" alt="">
+	        </div>
+	    </div>
+	    <div class="section section7">
+	        <img class="erweima" src="images/erweima.png" alt="">
+	        <ul>
+				<li>领袖户外</li>
+				<li>网址：www.kllife.com</li>
+				<li>电话：029-62593829</li>
+				<li>邮箱：81902944@qq.com</li>
+			</ul>
+	    </div>
+	</div>
+	<div id="ie" >
+		<img src="images/ie.jpg" alt="">
+	</div>
+
+
+
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/jq-fullpage.min.js"></script>
+	<script>
+		//fullpage
+		$(function(){
+	    	$('#fullpage').fullpage({
+		        'verticalCentered': false,
+		        'css3': true,
+		        'loopBottom': true,
+		        'sectionsColor': ['#e1e2e3', '', '#254587', ''],
+		        anchors: ['page1', 'page2', 'page3', 'page4','page5','page6','page7'],
+		        'loopHorizontal':true,
+		        'navigation': true,
+		        'navigationPosition': 'right',
+		        'navigationTooltips': ['第一页', '第二页', '第三页', '第四页','第五页','第六页','第七页'],
+		        afterLoad: function(anchorLink, index){
+					if(index == 1){
+						//小汽车
+						$('.greencar').animate({right: '10rem'},2000);
+						$('.graycar').animate({right: '50rem'},3000);
+						$('.redcar').animate({right: '100rem'},4000);
+						//云朵
+						$('.cloud01').animate({left:'25%'},10000);
+						$('.cloud02').animate({left:'40%'},12000);
+						$('.cloud03').animate({left:'30%'},7000);
+						$('.cloud04').animate({right:'40%'},14000);
+						$('.cloud05').animate({right:'30%'},5000);
+						$('.cloud06').animate({right:'40%'},9000);
+					}
+					if(index == 2){
+						$('.desk').animate({top:'20%',opacity:'1'},2000);
+						$('.wenzi02').animate({left:'20%',opacity:'1'},2000);
+					}
+					if(index == 3){
+						$('.left_03').animate({bottom:'30%',opacity:'1'},2000);
+						$('.right_03').animate({top:'30%',opacity:'1'},2000);
+					}
+					if(index == 4){
+						$('.left_04').fadeIn(2000);
+						$('.right_04').fadeIn(2000);
+					}
+					if(index == 5){
+						$('.left_05').animate({bottom:'30%',opacity:'1'},2000);	
+						$('.right_05').animate({right:'20%',opacity:'1'},2000);
+					}
+					if(index == 6){
+						$('.left_06').animate({left:'15%'},2000);
+						$('.right_06 img').animate({opacity:'1'},2000);
+						function move(){
+							$('.right_06 img').animate({top:'27rem'},500);
+							$('.right_06 img').animate({top:'26rem'},500);	
+						};
+						setInterval(move,500);
+					}
+					if(index == 7){
+						$('.erweima').fadeIn(2000);
+						$('.section7 ul').fadeIn(2000);
+					}
+				},
+				onLeave: function(index, direction){
+
+				}
+    		})
+		})
+	</script>
+	
+	<script>
+		//如果是ie
+		if (isIE = navigator.userAgent.indexOf("MSIE")!=-1){
+            
+        };
+	</script>
+</body>
+</html>

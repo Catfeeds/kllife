@@ -1,0 +1,665 @@
+
+				
+				<style type="text/css">
+					.line_my_pic_border{
+						position: relative; 
+						float: left;
+						width: 350px;
+						height:300px;
+						border:1px solid #FCFCFC; 
+			    		overflow: hidden;
+					}
+					.line_my_pic { 
+			   			position: relative;
+					}
+				</style>
+				
+				<div class="row">					
+					<div class="col-md-12">						
+						<div class="form-group">
+							<label class="control-label">产品展示图片 &nbsp;&nbsp;<span style="color:red;">(注:图1:新旅拍规格[936x702],其他规格[620x465];图2:新旅拍规格[1000x625],其他暂不使用;图3、图4暂无他用)</label>
+							<div>
+								<div class="line_my_pic_border">
+									<img class="img1 line_my_pic" src="__PUBLIC__/home/images/content_img/days1.jpg" alt="请点击选择图片" />
+								</div>
+								<div class="line_my_pic_border">
+									<img class="img2 line_my_pic" src="__PUBLIC__/home/images/content_img/days2.jpg" alt="请点击选择图片" />
+								</div>
+								<div class="line_my_pic_border">
+									<img class="img3 line_my_pic" src="__PUBLIC__/home/images/content_img/days3.jpg" alt="请点击选择图片" />
+								</div>
+								<div class="line_my_pic_border">
+									<img class="img4 line_my_pic" src="__PUBLIC__/home/images/content_img/days4.jpg" alt="请点击选择图片" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br />
+				<br />
+	
+				<div class="row">					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" for="full_name">产品标题<span style="color: red;">(*产品标题不能超出11个字)</span></label> <!--data-validate="required"-->
+							<input class="form-control" name="full_name" id="full_name" placeholder="请输入产品的标题,并控制内容在16个字符以内" maxlength="11" />
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" for="second_name">产品长标题</label> <!--data-validate="required"-->
+							<input class="form-control" name="second_name" id="second_name" placeholder="请输入产品的副标题" />
+						</div>
+					</div>					
+				</div>
+				
+				<div class="row">					
+					<div class="col-md-1">
+						<div class="form-group">
+							<label class="control-label" for="adult_price">成人起步价格</label>
+							<input class="form-control" name="adult_price" id="adult_price" data-validate="number" value="0.00" />
+						</div>
+					</div>
+					
+					<div class="col-md-1">
+						<div class="form-group">
+							<label class="control-label" for="child_price">小孩起步价</label>
+							<input class="form-control" name="child_price" id="child_price" data-validate="number" value="0.00" />
+						</div>
+					</div>
+					
+					<!--<div class="col-md-1">
+						<div class="form-group">
+							<label class="control-label" for="receipt_price">发票邮费</label>
+							<input class="form-control" name="receipt_price" id="receipt_price" data-validate="number" value="20.00" />
+						</div>
+					</div>-->
+					
+					<div class="col-md-1">
+						<div class="form-group">
+							<label class="control-label" for="line_score">线路积分</label>
+							<input class="form-control" name="line_score" id="line_score" data-validate="number" value="1" />
+						</div>
+					</div>
+					
+					<div class="col-md-1">
+						<div class="form-group">
+							<label class="control-label" for="success_count">成团人数</label>
+							<input class="form-control" name="success_count" id="success_count" data-validate="number" value="1"/>
+						</div>
+					</div>	
+					
+					<div class="col-md-1">
+						<div class="form-group">
+							<label class="control-label" for="max_count">满团人数</label>
+							<input class="form-control" name="max_count" id="max_count" data-validate="number" value="1"/>
+						</div>
+					</div>	
+					
+					<div class="col-md-1">
+						<div class="form-group">
+							<label class="control-label" for="start_time">开始日期</label>
+							<input class="form-control datepicker" name="start_time" id="start_time" data-start-view="1"  data-start-date="0d" placeholder="请选择开始日期" data-format="yyyy-mm-dd"  />
+						</div>
+					</div>
+					
+					<div class="col-md-1">
+						<div class="form-group">
+							<label class="control-label" for="end_time">截止日期</label>
+							<input class="form-control datepicker" name="end_time" id="end_time" data-start-view="1"  data-start-date="+1d" placeholder="请选择结束日期" data-format="yyyy-mm-dd" />
+						</div>
+					</div>
+					
+					<div class="col-md-1">
+						<div class="form-group">						
+							<label class="control-label" for="travel_day">行程天数（天）</label>
+							<script type="text/javascript">
+								$(document).ready(function(){
+									var travel_day_type = $("#travel_day").selectBoxIt();
+									for (var i = 1; i < 31; i ++) {							
+										$(travel_day_type).data('selectBox-selectBoxIt').add({value:i, text:i+'天'});
+									}
+								});
+							</script>
+							<select name="travel_day" id="travel_day" class="form-control">
+							</select>						
+						</div>
+					</div>
+					
+					<div class="col-md-1">
+						<div class="form-group">
+							<label class="control-label" for="seek_qq">咨询QQ</label>
+							<input class="form-control" name="seek_qq" id="seek_qq" data-validate="number" value="15"/>
+						</div>
+					</div>
+					
+					<div class="col-md-1">
+						<div class="form-group">
+							<label class="control-label" for="qq_verify">咨询QQ验证信息</label>
+							<input class="form-control" name="qq_verify" id="qq_verify" data-validate="text" value="31"/>
+						</div>
+					</div>	
+					
+					<!--<div class="col-md-1">
+						<div class="form-group">
+							<label class="control-label" for="click_count">点击量</label>
+							<input class="form-control" name="click_count" id="click_count" data-validate="number" value="10"/>
+						</div>
+					</div>-->	
+				</div>
+				
+				<div class="row">										
+				
+					<if condition="$admin['station_id_data']['attached'] heq '1'">										
+						<div class="col-md-1">
+							<div class="form-group">						
+								<label class="control-label" for="qinglvpai">轻旅拍</label>
+								<script type="text/javascript">
+									$(document).ready(function(){
+										var qinglvpai_type = $("#qinglvpai").selectBoxIt();
+										$(qinglvpai_type).data('selectBox-selectBoxIt').add({value:0, text:'非轻旅拍产品'});
+										$(qinglvpai_type).data('selectBox-selectBoxIt').add({value:1, text:'全部均可使用'});
+										$(qinglvpai_type).data('selectBox-selectBoxIt').add({value:2, text:'仅轻旅拍使用'});
+									});
+								</script>
+								<select name="qinglvpai" id="qinglvpai" class="form-control">
+								</select>						
+							</div>
+						</div>
+					</if>
+										
+					<if condition="$admin[account] heq 'admin'">
+						<div class="col-md-1">						
+							<div class="form-group">
+								<label class="control-label" for="distribute">分销线路</label><br />							
+							    <input id="distribute" name="distribute" type="checkbox" class="iswitch iswitch-secondary">
+							</div>						
+						</div>
+										
+						<div class="col-md-1">
+							<div class="form-group">
+								<label class="control-label" for="commision_adult">成人分销佣金</label>
+								<input class="form-control" name="commision_adult" id="commision_adult" data-validate="number" value="0.00" />
+							</div>
+						</div>
+										
+						<div class="col-md-1">
+							<div class="form-group">
+								<label class="control-label" for="commision_child">儿童分销佣金</label>
+								<input class="form-control" name="commision_child" id="commision_child" data-validate="number" value="0.00" />
+							</div>
+						</div>
+					</if>
+					<div class="col-md-1">						
+						<div class="form-group">
+							<label class="control-label" for="hot_line">全网爆款</label><br />							
+						    <input id="hot_line" name="hot_line" type="checkbox" class="iswitch iswitch-secondary">
+						</div>						
+					</div>
+					
+					<div class="col-md-1">											
+						<div class="form-group">
+							<label class="control-label" for="recommend_line">极致体验</label><br />							
+						    <input id="recommend_line" name="recommend_line"  type="checkbox" class="iswitch iswitch-secondary">
+						</div>							
+					</div>	
+					
+					<div class="col-md-1">						
+						<div class="form-group">
+							<label class="control-label" for="leader_recommend">高性价比</label><br />							
+						    <input id="leader_recommend" name="leader_recommend" type="checkbox" class="iswitch iswitch-secondary">
+						</div>						
+					</div>
+					
+					<div class="col-md-1">											
+						<div class="form-group">
+							<label class="control-label" for="time_preference">限时特惠</label><br />							
+						    <input id="time_preference" name="time_preference"  type="checkbox" class="iswitch iswitch-secondary">
+						</div>							
+					</div>	
+					
+					<div class="col-md-1">											
+						<div class="form-group">
+							<label class="control-label" for="check_price">价格核算中</label><br />							
+						    <input id="check_price" name="check_price"  type="checkbox" class="iswitch iswitch-secondary">
+						</div>							
+					</div>
+					
+					<div class="col-md-1">						
+						<div class="form-group">
+							<label class="control-label" for="extra_line">外链线路</label><br />							
+						    <input id="extra_line" name="extra_line" type="checkbox" class="iswitch iswitch-secondary">
+						</div>						
+					</div>				
+				</div>
+				
+				<if condition="$admin['station_id_data']['attached'] heq '1'">	
+					<div class="row">
+												
+						<div class="col-md-5">						
+							<div class="form-group">
+								<label class="control-label" for="old_pc_line">绑定旧PC端线路</label>
+								<input class="form-control" type="text" name="old_pc_line" id="old_pc_line" />
+							</div>
+						</div>
+												
+						<div class="col-md-5">						
+							<div class="form-group">
+								<label class="control-label" for="old_pc_line">绑定旧手机端线路</label>
+								<input class="form-control" type="text" name="old_phone_line" id="old_phone_line" />
+							</div>
+						</div>						
+					</div>
+				</if>
+				
+				<div class="row">							
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" for="start_price_explain">起价说明</label>
+							<textarea class="form-control autogrow" name="start_price_explain" id="start_price_explain" placeholder="请输入产品起价说明"></textarea>
+						</div>
+					</div>		
+											
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" for="send_word">产品寄语</label>
+							<textarea class="form-control autogrow" name="send_word" id="send_word" placeholder="请输入产品寄语"></textarea>
+						</div>
+					</div>							
+				</div>
+				
+				<div class="row">								
+					<div class="col-md-2">						
+						<div class="form-group">
+							<label class="control-label" for="member_type">允许参团人类型<span style="color:red;">(*必选)</span></label>
+							<input class="form-control" type="text" name="member_type" id="member_type" />
+						</div>							
+					</div>	
+					
+					<div class="col-md-2">
+						<div class="form-group">						
+							<label class="control-label" for="pay_type">付款方式<span style="color:red;">(*必选)</span></label>
+							<input class="form-control" type="text" name="pay_type" id="pay_type" />						
+						</div>
+					</div>		
+							
+					<div class="col-md-2">						
+						<div class="form-group">
+							<label class="control-label" for="trip_traffic">出行方式</label>
+							<input class="form-control" type="text" name="trip_traffic" id="trip_traffic" />
+						</div>							
+					</div>		
+							
+					<div class="col-md-2">						
+						<div class="form-group">
+							<label class="control-label" for="manager_admin">负责经理</label>
+							<input class="form-control" type="text" name="manager_admin" id="manager_admin" />
+						</div>							
+					</div>		
+							
+					<div class="col-md-2">						
+						<div class="form-group">
+							<label class="control-label" for="operator_admin">负责计调</label>
+							<input class="form-control" type="text" name="operator_admin" id="operator_admin" />
+						</div>							
+					</div>										
+				</div>	
+				
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label" for="assembly_point">所属站点</label>
+							<input class="form-control" type="text" name="station" id="station" />
+						</div>
+					</div>
+								
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label" for="assembly_point">集合地点</label>
+							<input class="form-control" type="text" name="assembly_point" id="assembly_point" />
+						</div>
+					</div>
+								
+					<div class="col-md-4">
+						<div class="form-group">				
+							<label class="control-label" for="dismiss_place">散团地点</label>
+							<input class="form-control" type="text" id="dismiss_place" />							
+						</div>
+					</div>							
+				</div>
+				
+				<div class="row">
+					<div class="col-md-3">						
+						<div class="form-group">
+							<label class="control-label" for="theme_type">旅行主题</label>
+							<input class="form-control" type="text" id="theme_type" />
+						</div>							
+					</div>	
+					
+					<div class="col-md-3">						
+						<div class="form-group">
+							<label class="control-label" for="theme_type">产品区域</label>
+							<input class="form-control" type="text" id="line_area" />
+						</div>							
+					</div>
+					
+					<div class="col-md-6">						
+						<div class="form-group">
+							<label class="control-label" for="play_type">体验内容</label>
+							<input class="form-control" type="text" id="play_type" />
+						</div>							
+					</div>		
+				</div>						
+				
+				<div class="row">
+					
+					<div class="col-md-6">
+						<div class="form-group">						
+							<label class="control-label" for="destination">目的地</label>
+							<input class="form-control" type="text" id="destination" />			
+						</div>
+					</div>	
+					
+					<div class="col-md-6">						
+						<div class="form-group">
+							<label class="control-label" for="view_point">景点包含</label>
+							<input class="form-control" type="text" id="view_point" />
+						</div>							
+					</div>	
+				</div>
+				
+				<div class="row">					
+					<div class="col-md-6">						
+						<div class="form-group">
+							<label class="control-label" for="hotel_type">酒店类别</label>
+							<input class="form-control" type="text" id="hotel_type" />
+						</div>							
+					</div>										
+							
+					<div class="col-md-6">						
+						<div class="form-group">
+							<label class="control-label" for="trip_month">出行月份</label>
+							<input class="form-control" type="text" id="trip_month" />
+						</div>							
+					</div>	
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12">						
+						<div class="form-group">
+							<label class="control-label" for="largess">赠送物品</label>
+							<input class="form-control" type="text" id="largess" />
+						</div>							
+					</div>	
+				</div>
+																
+				<div class="row">					
+					<div class="col-md-12">						
+						<div class="form-group">
+							<label class="control-label" for="cost_description">费用说明</label>
+							<script type="text/javascript">
+								$(document).ready(function(){
+									$('#cost_description').wysihtml5({
+										size: 'white',
+										stylesheets: "__PUBLIC__/assets/js/wysihtml5/lib/css/wysiwyg-color.css",
+										image: false,
+									});
+								});
+							</script>
+							<textarea class="form-control" id="cost_description" name="cost_description"></textarea>
+						</div>							
+					</div>					
+				</div>
+				
+				<div class="row">					
+					<div class="col-md-12">						
+						<div class="form-group">
+							<label class="control-label" for="booking_notes">预订须知</label>
+							<script type="text/javascript">
+								$(document).ready(function(){
+									$('#booking_notes').wysihtml5({
+										size: 'white',
+										stylesheets: "__PUBLIC__/assets/js/wysihtml5/lib/css/wysiwyg-color.css",
+										image: false,
+									});
+								});
+							</script>
+							<textarea class="form-control" id="booking_notes" name="booking_notes"></textarea>
+						</div>							
+					</div>					
+				</div>
+				<div class="row">					
+					<div class="col-md-12">						
+						<div class="form-group">
+							<button class="btn btn-secondary btn_save_info">保存基本信息</button>
+						</div>							
+					</div>					
+				</div>
+				
+				<script type="text/javascript">	
+					$(document).ready(function(){						
+						var ds = {tab:'archives', prefix: 'xz_', show_col:'title'}
+						bindSelect2DropMenu($('#old_pc_line'), ds, '选择绑定的旧PC端线路', false, false);
+						bindSelect2DropMenu($('#old_phone_line'), ds, '选择绑定的旧手机端线路', false, false);	
+						bindTypeDataDropMenu($('#member_type'), 'line_member_type', '选择产品的参团人类型');
+						bindTypeDataDropMenu($('#pay_type'), 'line_pay_type', '选择产品的付款方式');	
+						bindTypeDataDropMenu($('#trip_traffic'), 'line_trip_traffic', '选择产品的出行交通');
+						bindAdminDropMenu($('#manager_admin'), '', '选择产品的负责经理');
+						bindAdminDropMenu($('#operator_admin'), 'operator', '选择产品的负责计调');
+						ds = {tab:'station_info', show_col:'name'}
+						bindSelect2DropMenu($('#station'), ds, '选择产品所属的站点', false, true);
+						bindTypeDataDropMenu($('#assembly_point'), 'line_assembly_point', '选择产品的集合地点,可输入内容筛选', true, true, true);
+						bindTypeDataDropMenu($('#dismiss_place'), 'line_dismiss_place', '选择产品的散团地点,可输入内容筛选', true, true, true);
+						bindTypeDataDropMenu($('#theme_type'), 'line_theme', '选择产品的旅行主题,可输入内容筛选', false, false, true);
+						bindTypeDataDropMenu($('#line_area'), 'line_area', '选择产品的区域,可输入内容筛选', false, false, true);
+						bindTypeDataDropMenu($('#play_type'), 'line_play_type', '选择产品所提供的体验内容,可输入内容筛选', true, false, true);
+						bindTypeDataDropMenu($('#destination'), 'line_destination', '选择产品到达的目的地,可输入内容筛选', true, false, true);
+						bindTypeDataDropMenu($('#view_point'), 'line_view_point', '选择产品包含的项目景点,可输入内容筛选', true, false, true);
+						bindTypeDataDropMenu($('#hotel_type'), 'line_hotel_type', '选择产品所提供的住宿特色,可输入内容筛选', true, false, true);
+						bindTypeDataDropMenu($('#trip_month'), 'month', '选择产品所在的出行月份,可输入内容筛选', false, false, true);
+						bindTypeDataDropMenu($('#largess'), 'line_largess', '请选择赠送物品,可输入内容筛选', false, false, true);
+					});
+				
+					// 获取复选框值
+					function getCheckBoxValueStr(ckObj) {
+						var str = '';
+						$(ckObj).find(':checked').each(function(i, el){
+							if (str != '') {
+								str += ',';
+							}
+							str += $(el).val();
+						});
+						return str;
+					}
+					
+					// 设置复选框值
+					function setCheckBoxValueByStr(ckObj, valstr){
+						$(ckObj).each(function(i, el) {
+							var val = $(el).attr('value');
+							if (valstr.indexOf(val) != -1) {
+								$(el).prop('checked', true);
+							} else {
+								$(el).prop('checked', false);
+							}
+						})
+					}
+					
+					// 获取基本信息
+					function getLineBaseInfo() {
+						var costDescription = $('#cost_description').data('wysihtml5').editor.getValue();
+						var bookingNotes = $('#booking_notes').data('wysihtml5').editor.getValue();
+						var jsonData = {
+							id: $('#line_id').val(),
+							title: $('#full_name').val(),
+							subheading: $('#second_name').val(),
+							start_price_adult: $('#adult_price').val(),
+							start_price_child: $('#child_price').val(),
+//							receipt_price: $('#receipt_price').val(),
+							line_score: $('#line_score').val(),
+							success_team_count: $('#success_count').val(),
+							max_team_count: $('#max_count').val(),
+							start_time: $('#start_time').val(),
+							end_time: $('#end_time').val(),
+							travel_day: $('#travel_day').val(),
+							seek_qq:$('#seek_qq').val(),
+							qq_verify:$('#qq_verify').val(),
+//							click_count:$('#click_count').val(),
+							hot: $('#hot_line').prop('checked') ? 1 : 0,
+							recommend: $('#recommend_line').prop('checked') ? 1 : 0,
+							leader_recommend: $('#leader_recommend').prop('checked') ? 1 : 0,
+							time_preference: $('#time_preference').prop('checked') ? 1 : 0,
+							check_price: $('#check_price').prop('checked') ? 0 : 1,
+							extra: $('#extra_line').prop('checked') ? 1 : 0,
+							start_price_explain: $('#start_price_explain').val(),
+							send_word: $('#send_word').val(),
+							member_type: getSelect2Value('#member_type'),
+							allow_pay_type: getSelect2Value('#pay_type'),
+							trip_traffic: getSelect2Value('#trip_traffic'),
+							manager_admin: getSelect2Value('#manager_admin',['id','account']),
+							operator_admin: getSelect2Value('#operator_admin',['id','account']),
+							station: getSelect2Value('#station',['id','key','name']),
+							dismiss_place: getSelect2Value('#dismiss_place'),
+							assembly_point: getSelect2Value('#assembly_point'),
+							theme_type: getSelect2Value('#theme_type'),
+							line_area: getSelect2Value('#line_area'),
+							play_type: getSelect2Value('#play_type'),
+							destination: getSelect2Value('#destination'),
+							view_point: getSelect2Value('#view_point'),
+							hotel_type: getSelect2Value('#hotel_type'),
+							trip_month: getSelect2Value('#trip_month'),
+							largess: getSelect2Value('#largess'),
+							cost_description: costDescription,
+							booking_notes: bookingNotes,
+							img1: $('.line_my_pic .img1').attr('src'),
+							img2: $('.line_my_pic .img2').attr('src'),
+							img3: $('.line_my_pic .img3').attr('src'),
+							img4: $('.line_my_pic .img4').attr('src'),
+						}
+						
+						if ('{$admin["station_id_data"]["attached"]}' == '1') {
+							qinglvpai: $('#qinglvpai').val();
+							old_pc_line: getSelect2Value('#old_pc_line',['id','title']);
+							old_phone_line: getSelect2Value('#old_phone_line',['id','title']);
+						}
+						
+						if ('{$admin["account"]}' == 'admin') {
+							jsonData['distribute'] = $('#distribute').prop('checked') ? 1 : 0;
+							jsonData['commision_adult'] = $('#commision_adult').val();
+							jsonData['commision_child'] = $('#commision_child').val();
+						}
+						
+						return jsonData;
+					}
+					
+					// 设置线路基本信息
+					function setLineBaseInfo(ds) {
+						if (ds != null && typeof(ds) == 'undefined') {
+							return false;
+						}
+						$('#line_id').val(ds.id);
+						$('#full_name').val(ds.title);
+						$('#second_name').val(ds.subheading);
+						$('#adult_price').val(ds.start_price_adult);
+						$('#child_price').val(ds.start_price_child);
+//						$('#receipt_price').val(ds.receipt_price);
+						$('#line_score').val(ds.line_score);
+						$('#success_count').val(ds.success_team_count);
+						$('#max_count').val(ds.max_team_count);
+						$('#start_time').val(ds.start_time).trigger('change');
+						$('#end_time').val(ds.end_time).trigger('change');
+						$('#travel_day').val(ds.travel_day).trigger('change');
+						$('#seek_qq').val(ds.seek_qq);
+						$('#qq_verify').val(ds.qq_verify);
+//						$('#click_count').val(ds.click_count);
+						$('#hot_line').prop('checked', ds.hot == 1 ? true : false).trigger('change');
+						$('#recommend_line').prop('checked', ds.recommend == 1 ? true : false).trigger('change');
+						$('#leader_recommend').prop('checked', ds.leader_recommend == 1 ? true : false).trigger('change');
+						$('#time_preference').prop('checked', ds.time_preference == 1 ? true : false).trigger('change');
+						$('#check_price').prop('checked', ds.check_price == 0 ? true : false).trigger('change');
+						$('#extra_line').prop('checked', ds.extra == 1 ? true : false).trigger('change');
+						if ('{$admin["account"]}' == 'admin') {
+							$('#distribute').prop('checked', ds.distribute == 1 ? true : false).trigger('change');
+							$('#commision_adult').val(ds.commision_adult);
+							$('#commision_child').val(ds.commision_child);
+						}
+						if ('{$admin["station_id_data"]["attached"]}' == '1') {
+							$('#qinglvpai').val(ds.qinglvpai).trigger('change');
+							setSelect2Value('#old_pc_line',ds.old_pc_line);
+							setSelect2Value('#old_phone_line',ds.old_phone_line);
+						}
+						$('#start_price_explain').val(ds.start_price_explain);
+						$('#send_word').val(ds.send_word);
+						setSelect2Value('#member_type',ds.member_type);
+						setSelect2Value('#pay_type',ds.allow_pay_type);
+						setSelect2Value('#trip_traffic',ds.trip_traffic);
+						setSelect2Value('#manager_admin',ds.manager_admin);
+						setSelect2Value('#operator_admin',ds.operator_admin);
+						setSelect2Value('#station',ds.station);
+						setSelect2Value('#dismiss_place',ds.dismiss_place);
+						setSelect2Value('#assembly_point',ds.assembly_point);
+						setSelect2Value('#theme_type',ds.theme_type);
+						setSelect2Value('#line_area',ds.line_area);
+						setSelect2Value('#play_type',ds.play_type);
+						setSelect2Value('#destination',ds.destination);
+						setSelect2Value('#view_point',ds.view_point);
+						setSelect2Value('#hotel_type',ds.hotel_type);
+						setSelect2Value('#trip_month',ds.trip_month);
+						setSelect2Value('#largess',ds.largess);
+						$('#cost_description').data('wysihtml5').editor.setValue(ds.cost_description);
+						$('#booking_notes').data('wysihtml5').editor.setValue(ds.booking_notes);
+						if (ds.img1 != null) {
+							$('.line_my_pic.img1').attr('src', ds.img1);	
+						}
+						if (ds.img2 != null) {
+							$('.line_my_pic.img2').attr('src', ds.img2);
+						}
+						if (ds.img3 != null) {
+							$('.line_my_pic.img3').attr('src', ds.img3);
+						}
+						if (ds.img4 != null) {
+							$('.line_my_pic.img4').attr('src', ds.img4);
+						}
+					}
+		
+					// 更换行程图片
+					function changeLineImage(imageObj, imageList) {
+						var lineId = $('#line_id').val();
+						if (lineId == 0) {
+							return false;
+						}
+						var jsonData = {
+							op_type: 'edit',
+							id: lineId,
+						};
+						if ($(imageObj).hasClass('img1')) {
+							jsonData['img1'] = imageList[0];
+						} else if($(imageObj).hasClass('img2')) {
+							jsonData['img2'] = imageList[0];
+						} else if($(imageObj).hasClass('img3')) {
+							jsonData['img3'] = imageList[0];
+						} else {
+							jsonData['img4'] = imageList[0];
+						}
+						$.post('{:U("line/create")}', jsonData, function(data){
+							if (data.result.errno == 0)	{
+								$(imageObj).attr('src', imageList[0]);
+							} else {
+								alert(data.result.message);
+							}
+						});
+					}
+					
+					
+					// 更换图片
+					$('.line_my_pic').click(function(ev){
+						ev.preventDefault();
+						funcModalImageSelectorCallBack = changeLineImage;
+						showModalSelectorImageDialog(this);
+					});	
+					
+					$('.btn_save_info').click(function(ev){
+						ev.preventDefault();
+						createLine();
+					});
+				</script>

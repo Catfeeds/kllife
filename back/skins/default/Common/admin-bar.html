@@ -1,0 +1,83 @@
+
+			<!-- User Info, Notifications and Menu Bar -->
+			<nav class="navbar user-info-navbar" role="navigation" style="background-color: #dddddd;">
+				
+				<!-- Left links for user info navbar -->
+				<ul class="user-info-menu left-links list-inline list-unstyled">
+					
+					<li class="hidden-sm hidden-xs" style="border: #cccccc;">
+						<a href="#" data-toggle="sidebar">
+							<i class="fa-bars"></i>
+						</a>
+					</li>
+					
+					<!--<li class="dropdown hover-line">
+						<a href="#" data-toggle="dropdown">
+							<i class="fa-envelope-o"></i>
+							<span class="badge badge-green">15</span>
+						</a>
+					</li>-->					
+					
+					<!--<if condition="check_grant('list_order_review') eq true">
+						<li class="dropdown hover-line">
+							<a href="{:U('review/list')}">
+								<i class="fa-bell-o"></i>
+								<span class="badge badge-purple">0</span>
+							</a>
+						</li>
+						<script type="text/javascript">
+							$(document).ready(function(){
+								$.post('{:U("review/getWaitReview")}',{},function(data){
+									if (data.result.errno != 0) {
+										alert(data.result.message);
+									} else {
+										$('.badge-purple').html(data.waitCount);
+									}
+								})
+							});
+						</script>
+					</if>-->
+					
+				</ul>
+				
+				<!-- Right links for user info navbar -->
+				<ul class="user-info-menu right-links list-inline list-unstyled">
+					
+					<li class="dropdown user-profile" style="border: #cccccc;">
+						<a href="#" data-toggle="dropdown">
+							<img src="__PUBLIC__/assets/images/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
+							<span>
+								欢迎~!&nbsp;[<strong>{$admin.type_id_data.type_desc}][{$admin.show_name}</strong>]&nbsp;登录，您的所处权限为[<strong>{$admin.group_id_data.type_desc}</strong>]								
+							</span>
+							<i class="fa-angle-down"></i>
+						</a>
+						
+						<ul class="dropdown-menu user-profile-menu list-unstyled" style="border: #cccccc;">
+							<!--<li>
+								<a href="{:U('admin/login')}">
+									<i class="fa-tty"></i>
+									客服
+								</a>
+							</li>
+							<li>
+								<a href="{:U('admin/login')}">
+									<i class="fa-dollar"></i>
+									财务
+								</a>
+							</li>
+							<li>
+								<a href="{:U('admin/login')}">
+									<i class="fa fa-spin fa-cog"></i>
+									管理员
+								</a>
+							</li>-->
+							<li class="last">
+								<a href="{:U('admin/logout')}">
+									<i class="el-export"></i>
+									退 出
+								</a>
+							</li>
+						</ul>
+					</li>					
+				</ul>
+			</nav>

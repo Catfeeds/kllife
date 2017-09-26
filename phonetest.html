@@ -1,0 +1,2879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 1:1显示 -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	<!-- 忽略页面中的数字识别为电话号码和邮箱 -->
+	<meta name="format-detection" content="telephone=no,email=no" />
+	<!-- 允许全屏浏览 ios -->
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 不让百度转码 -->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+	<!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">    
+	<meta content="领袖户外" name="author"/>	
+	<!--分销标题关键字-->
+			<meta content="好玩不贵的小团慢旅行-领袖户外旅行网" name="title"/>
+		<meta content="小团慢旅行,周边游,民族行,跟拍游,领袖户外旅行网" name="keywords"/>
+		<meta content="不止如此，还有更多线路-领袖户外旅行网" name="description"/>
+		<title>好玩不贵的小团慢旅行-领袖户外旅行网</title>	
+		
+	<link rel="stylesheet" href="/source/Static/phone/common/css/light7.css">
+	<link rel="stylesheet" href="/source/Static/common/css/common.css">
+	<!-- Imported toastr -->
+	<script src="/source/Static/assets/js/toastr/toastr.min.js"></script>
+	<script src="/source/Static/common/js/jquery-1.11.1.min.js"></script>
+	<script src="/source/Static/common/js/functions.js"></script>
+
+	<!-- jq -->
+	<!--<script src="/source/Static/phone/common/js/jquery.min.js"></script>-->
+	<style>
+		.black-mark { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; text-align: center; color:#ececec; background: rgba(0,0,0,.5); z-index:3000; }
+		.black-mark p { margin-top: 230px; color: #fff; text-align: center; }
+	</style>
+	<script>			
+		function ShowMark(){
+			$('.black-mark').show();
+		};
+		function HideMark(){
+			$('.black-mark').hide();
+		};		
+	</script>
+</head>
+<body>
+	<div class="black-mark">
+		<p>稍等一会儿...</p>
+	</div>
+<!-- swiper -->
+<link rel="stylesheet" href="/source/Static/phone/common/css/swiper-3.3.1.min.css">
+<!-- mycss -->
+<link rel="stylesheet" href="/source/Static/phone/css/welcome.css">
+<!--小团慢css-->
+<link rel="stylesheet" href="/source/Static/phone/css/slow-travel.css">
+<style>.background-img-loading{background-image: url(/source/Static/home/common/images/background-img-loading.gif);background-repeat: no-repeat;background-position: center center;z-index:100;}</style>
+<div class="page">
+		    <nav class="bar bar-tab">
+	    	<a class="tab-item active" href="/phone/index.php?s=/phone/index/welcome" external>
+			      <i class="iconfont">&#xe605;</i>
+			      <p>首页</p>
+			    </a>
+			    <a class="tab-item" href="/phone/index.php?s=/phone/line/list" external>
+			      <i class="iconfont">&#xe604;</i>
+			      <p>目的地</p>
+			    </a>
+			    <a class="tab-item" href="http://pqt.zoosnet.net/LR/Chatpre.aspx?id=PQT43116159&lng=cn" external>
+			      <i class="iconfont">&#xe602;</i>
+			      <p>咨询</p>
+			    </a>
+			    <a class="tab-item" href="http://shequ.kllife.com/" external>
+			      <i class="iconfont">&#xe603;</i>
+			      <p>论坛</p>
+			    </a>
+			    <a class="tab-item" href="/phone/index.php?s=/phone/user/info" external>
+			      <i class="iconfont">&#xe601;</i>
+			      <p>我的</p>
+			    </a>
+	    			</nav>
+		<!--<script src="/source/Static/qinglvpai/common/js/jquery.lazyload.js"></script>-->
+		<script type="text/javascript">
+//            jQuery(document).ready(function($){
+//                $("img").lazyload({
+//                    placeholder : "/source/Static/qinglvpai/common/js/grey.gif",
+//                    effect      : "fadeIn",
+//                    threshold : 0,
+//                    failure_limit : 10,
+//                    skip_invisible : false
+//                });
+//            });
+
+			$('nav').find('a:last-child').click(function(){
+				$.post('/phone/index.php?s=/phone/index/url', {type:'nav_mine'}, function(data){
+					if (data.result.errno == 0) {
+						if (data.jumpUrl != null) {
+							location.href = data.jumpUrl;
+						}
+					} else {
+						alert(data.result.message);
+					}
+				});
+			});
+		</script>
+	<div class="content">
+		<!-- 这里是页面内容区 -->
+		<!-- slider -->
+		<div class="module01">
+			<div class="swiper-container" >
+				<div class="swiper-wrapper">
+											<div class="swiper-slide"><a href="/home/index.php?s=/home/subject/xibei" external><img src="http://img.kllife.com/2017-05-10_5912c96579897.jpg" alt=""></a></div>						<div class="swiper-slide"><a href="/home/index.php?s=/home/line/xiezhenlvxing" external><img src="http://img.kllife.com/2017-05-25_592633e260b20.jpg" alt=""></a></div>						<div class="swiper-slide"><a href="/home/index.php?s=/home/subject/xinjiang" external><img src="http://img.kllife.com/2017-04-06_58e5cc5b8079a.jpg" alt=""></a></div>						<div class="swiper-slide"><a href="/home/index.php?s=/home/line/subject/id/22" external><img src="http://img.kllife.com/2017-04-26_5900282378f6c.jpg" alt=""></a></div>						<div class="swiper-slide"><a href="/home/index.php?s=/home/line/subject/id/42" external><img src="http://img.kllife.com/2017-06-21_594a244545c94.jpg" alt=""></a></div>						<div class="swiper-slide"><a href="/home/index.php?s=/home/line/subject/id/38" external><img src="http://img.kllife.com/2017-06-13_593f4d9e538f0.jpg" alt=""></a></div>						<div class="swiper-slide"><a href="/home/index.php?s=/home/line/subject/id/20" external><img src="http://img.kllife.com/2017-05-11_59142834d8da8.jpg" alt=""></a></div>				</div>
+			</div>
+		</div>
+		<!-- slide 点点点-->
+		<div class="swiper-pagination swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div>
+		<!-- 电话 -->
+		<div class="telephone">
+			<a href="tel:400-080-5860" external><img src="/source/Static/phone/images/index/telephone.png" alt=""></a>
+		</div>
+		<!-- logo 搜索 -->
+		<div class="logo-search">
+			<div class="logo-search-content">
+				<div class="searchbar">
+					<img src="/source/Static/phone/images/index/logo.png" alt="">
+					<div class="search-input">
+						<i class="iconfont">&#xe607;</i>
+						<label class="icon icon-search" for="search"></label>
+						<input type="search" id="search" value="" style="padding-left: 1.2rem;" placeholder="搜索产品...">
+
+					</div>
+					<script type="text/javascript">
+                        $("#search").keydown(function(event){
+                            if(event.which == 13){
+                                $('#search').blur();
+                            }
+                        });
+
+                        $('#search').blur(function(){
+                            var search_val = $(this).val();
+                            $.post('/phone/index.php?s=/phone/line/search', {searchval:search_val}, function(data){
+                                if (data.jumpUrl != null) {
+                                    location.href = data.jumpUrl;
+                                }
+                            });
+                        });
+					</script>
+				</div>
+			</div>
+		</div>
+		<!-- 顶部 -->
+		<div class="top-div">
+			<!-- 顶部分类 -->
+			<div class="content-padded grid-demo">
+				<div class="top-list">
+					<div class="top-sublist">
+						<a href="/phone/index.php?s=/phone/line/list/t/sd" external>
+							<img src="/source/Static/phone/images/index/2.png" alt="">
+							<p>小团慢旅行</p>
+						</a>
+					</div>
+					<div class="top-sublist">
+						<a href="/phone/index.php?s=/phone/line/xiezhenlvxing" external>
+							<img src="/source/Static/phone/images/index/5.png" alt="">
+							<p>跟拍游</p>
+						</a>
+					</div>
+					<div class="top-sublist">
+						<a href="/phone/index.php?s=/phone/line/list/t/sy" external>
+							<img src="/source/Static/phone/images/index/3.png" alt="">
+							<p>摄影游</p>
+						</a>
+					</div>
+					<div class="top-sublist">
+						<a href="/phone/index.php?s=/phone/line/book" external>
+							<img src="/source/Static/phone/images/index/4.png" alt="">
+							<p>定制游</p>
+						</a>
+					</div>
+				</div>
+				<!--<div class="top-list">
+                    <div class="top-sublist">
+                        <a href="/phone/index.php?s=/phone/line/list/t/zb" external>
+                            <img src="/source/Static/phone/images/index/1.png" alt="">
+                            <p>周边游</p>
+                        </a>
+                    </div>
+                    <div class="top-sublist">
+                        <a href="javascript:;" external>
+                            <img src="/source/Static/phone/images/index/6.png" alt="">
+                            <p>深度游</p>
+                        </a>
+                    </div>
+                    <div class="top-sublist">
+                        <a href="javascript:;" external>
+                            <img src="/source/Static/phone/images/index/7.png" alt="">
+                            <p>摄影游</p>
+                        </a>
+                    </div>
+                    <div class="top-sublist">
+                        <a href="javascript:;" external>
+                            <img src="/source/Static/phone/images/index/8.png" alt="">
+                            <p>出境游</p>
+                        </a>
+                    </div>
+                </div>-->
+			</div>
+			<!-- end 顶部分类 -->
+			<!-- 报名动态 -->
+			<div class="swiper_wrap">
+				<img src="/source/Static/phone/images/index/baoming.png" alt="报名动态">
+				<ul class="font_inner">
+					<li><a href="/phone/index.php?s=/phone/line/info/id/337">
+							-3小时以后							<span>186****7010</span>
+							丝绸之路全景游9...						</a></li><li><a href="/phone/index.php?s=/phone/line/info/id/337">
+							-2小时以后							<span>153****5615</span>
+							丝绸之路全景游9...						</a></li><li><a href="/phone/index.php?s=/phone/line/info/id/337">
+							-38分钟以后							<span>157****9310</span>
+							丝绸之路全景游9...						</a></li><li><a href="/phone/index.php?s=/phone/line/info/id/22">
+							18分钟以前							<span>189****2888</span>
+							悦步毅行						</a></li><li><a href="/phone/index.php?s=/phone/line/info/id/180">
+							23分钟以前							<span>186****5699</span>
+							甘南全景						</a></li><li><a href="/phone/index.php?s=/phone/line/info/id/337">
+							36分钟以前							<span>183****1559</span>
+							丝绸之路全景游9...						</a></li><li><a href="/phone/index.php?s=/phone/line/info/id/200">
+							39分钟以前							<span>139****1684</span>
+							丝绸之路精华七日...						</a></li><li><a href="/phone/index.php?s=/phone/line/info/id/78">
+							55分钟以前							<span>181****6110</span>
+							喀纳斯之夏						</a></li><li><a href="/phone/index.php?s=/phone/line/info/id/186">
+							59分钟以前							<span>152****8387</span>
+							新疆全景						</a></li><li><a href="/phone/index.php?s=/phone/line/info/id/180">
+							1小时以前							<span>137****8131</span>
+							甘南全景						</a></li>				</ul>
+			</div>
+		</div>
+		<!-- end 顶部 -->
+		<!--小团慢-->
+		<div class="slow-travel">
+			<a href="/phone/index.php?s=/phone/subject/brand" external>
+				<img src="/source/Static/phone/images/index/xiaotuanman.jpg" alt="">
+			</a>
+		</div>
+		<!-- 小专题 -->
+		<!--<div class="special">
+                                        <div class="special-list" style="border-bottom: 1px solid #dcdcdc;">                    <div class="special-sublist" style="border-right: 1px solid #dcdcdc;">
+                        <a href="/home/index.php?s=/home/subject/xibei" external>
+                            <span style="color: #f60;">大美青海</span>
+                            <p>每个人都该去的环湖路！</p>
+                            <img src="http://img.kllife.com/2017-03-18_58ccade9da79d.jpg" alt="">
+                        </a>
+                    </div>
+                                                    <div class="special-sublist" style="">
+                        <a href="/home/index.php?s=/home/line/subject/id/22" external>
+                            <span style="color: #75b168;">甘南净土</span>
+                            <p>享受18°的夏天</p>
+                            <img src="http://img.kllife.com/2017-01-25_58881e2723097.jpg" alt="">
+                        </a>
+                    </div>
+                </div>                <div class="special-list" style="">                    <div class="special-sublist" style="border-right: 1px solid #dcdcdc;">
+                        <a href="/home/index.php?s=/home/subject/xinjiang" external>
+                            <span style="color: #41d3fd;">新疆是个好地方</span>
+                            <p></p>
+                            <img src="http://img.kllife.com/2017-03-18_58ccac695075a.jpg" alt="">
+                        </a>
+                    </div>
+                                                    <div class="special-sublist" style="">
+                        <a href="/home/index.php?s=/home/line/subject/id/20" external>
+                            <span style="color: #f50c3d;">圣域西藏</span>
+                            <p>神的孩子都要去西藏</p>
+                            <img src="http://img.kllife.com/2017-01-25_58882323432af.jpg" alt="">
+                        </a>
+                    </div>
+                </div>        </div>-->
+		<!--超级目的地-->
+		<div class="module02">
+			<div class="tit">超级目的地</div>
+			<div class="swiper-container" style="padding-left:3%;padding-right:3%;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/subject/xibei" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-03-18_58ccade9da79d.jpg" alt=""></div>
+								<p class="lg">大美青海</p>
+								<p class="sm">每个人都该去的环湖路！</p>
+							</div><div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/line/subject/id/22" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-01-25_58881e2723097.jpg" alt=""></div>
+								<p class="lg">甘南净土</p>
+								<p class="sm">享受18°的夏天</p>
+							</div><div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/subject/xinjiang" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-03-18_58ccac695075a.jpg" alt=""></div>
+								<p class="lg">新疆是个好地方</p>
+								<p class="sm"></p>
+							</div><div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/line/subject/id/20" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-01-25_58882323432af.jpg" alt=""></div>
+								<p class="lg">圣域西藏</p>
+								<p class="sm">神的孩子都要去西藏</p>
+							</div><div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/line/subject/id/18" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-03-18_58ccae3f93716.jpg" alt=""></div>
+								<p class="lg">醉美云南</p>
+								<p class="sm">旅游必不可少的目的地</p>
+							</div><div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/line/subject/id/36" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-04-12_58edf8197f458.jpg" alt=""></div>
+								<p class="lg">畅游华东</p>
+								<p class="sm">印象华东 绝美山水</p>
+							</div><div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/line/subject/id/19" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-03-18_58ccacf49899e.jpg" alt=""></div>
+								<p class="lg">多彩贵州</p>
+								<p class="sm">淳朴的少数民族风情</p>
+							</div><div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/line/subject/id/39" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-05-11_5913bfaada474.jpg" alt=""></div>
+								<p class="lg">悠游广西</p>
+								<p class="sm">山水广西，风情民族</p>
+							</div><div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/line/subject/id/28" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-03-18_58cca7683e2b7.png" alt=""></div>
+								<p class="lg">魅力三秦</p>
+								<p class="sm">探索世界文明四大古都</p>
+							</div><div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/line/subject/id/32" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-03-18_58cca6a82bf88.png" alt=""></div>
+								<p class="lg">无徒步不旅行</p>
+								<p class="sm">轻徒步，慢穿越，邂逅</p>
+							</div><div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/line/subject/id/34" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-03-27_58d86e7651ab6.png" alt=""></div>
+								<p class="lg">上帝为什么造四川</p>
+								<p class="sm">赏蜀中文化 去天府之</p>
+							</div><div class="swiper-slide" style="position: relative;">
+																<a href="/phone/index.php?s=/phone/line/subject/id/40" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+								<div><img src="http://img.kllife.com/2017-05-11_5913c01faa9aa.jpg" alt=""></div>
+								<p class="lg">遇见海岛</p>
+								<p class="sm">邂逅海岛 浪漫一夏</p>
+							</div>				</div>
+				<!-- Add Pagination -->
+				<!--<div class="swiper-pagination"></div>-->
+			</div>
+		</div>
+		<!-- end 小专题 -->
+
+		<!-- 热卖专区 -->
+		<div class="hot-sale">
+			<h3>热卖专区</h3>
+			<div class="hot-sale-content">
+				<!-- 切换 -->
+				<div class="buttons-tab">
+					<a href="#hot_line_recommend" class="tab-link active button">推荐</a>
+																<a href="#hot_line_destination_quanjingxilie" class="tab-link button">全景系列</a>								<a href="#hot_line_destination_jinghuaxilie" class="tab-link button">精华系列</a>				</div>
+				<div class="tabs">
+					<div id="hot_line_recommend" class="tab active">
+														<!-- 深度游 -->
+						<div class="depth-travel">
+							<div class="depth-travel-content">
+								<div class="travel-content">
+																			<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-03-08_58bfbe1e8a449.jpg" alt="">
+												<div class="card-content-inner">
+													<p>坝上休闲A线</p>
+													<p>2017全年计划：策马、越野乌兰布统坝上草原、登金山岭长城/慕田峪长城 6日休闲游（金牌路线）</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/248" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：北京</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/248" class="link active-recommend">
+																											<span>￥2380.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-01-25_588868b26f4e6.jpg" alt="">
+												<div class="card-content-inner">
+													<p>新疆全景</p>
+													<p>江布拉克-五彩滩-喀纳斯-禾木-赛里木湖-薰衣草农场-喀拉峻-那拉提-巴音布鲁克-吐鲁番13日游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/186" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：乌鲁木齐</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/186" class="link active-recommend">
+																											<span>￥5180.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-06-27_5951f11367708.jpg" alt="">
+												<div class="card-content-inner">
+													<p>丝绸之路全景游9日</p>
+													<p>兰州-塔尔寺-青海湖-茶卡盐湖-水上魔鬼城-莫高窟-鸣沙山月牙泉-张掖丹霞-卓尔山9日游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/337" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：兰州</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/337" class="link active-recommend">
+																											<span>￥3780.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-02-14_58a2da8759696.jpg" alt="">
+												<div class="card-content-inner">
+													<p>甘南全景</p>
+													<p>2017年独家  拉卜楞寺-扎尕那-花湖-年宝玉则-若尔盖草原-阿万仓湿地-尕海湖-郎木寺 8日游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/180" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：兰州</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/180" class="link active-recommend">
+																											<span>￥2880.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-05-10_5912cd8a70256.jpg" alt="">
+												<div class="card-content-inner">
+													<p>丝路巅峰体验十日游</p>
+													<p>沙岛-青海湖-茶卡盐湖-祁连-张掖-嘉峪关-敦煌十日游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/273" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：西安,兰州</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/273" class="link active-recommend">
+																											<span>￥4280.00元起</span>												</a>
+											</div>
+										</div>
+									<!-- 查看更多超值热卖 -->
+									<a href="/phone/index.php?s=/phone/line/list" external>查看更多超值热卖</a>
+								</div>
+							</div>
+						</div>
+				</div> <!--结束tab-->								<div id="hot_line_destination_quanjingxilie" class="tab">						<!-- 深度游 -->
+						<div class="depth-travel">
+							<div class="depth-travel-content">
+								<div class="travel-content">
+																			<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-02-07_589987eb417e8.jpg" alt="">
+												<div class="card-content-inner">
+													<p>藏地全景</p>
+													<p>2017年拉萨-林芝-巴松措-峡谷秘境-羊湖-普姆雍措-日喀则-珠峰-纳木措11日深度游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/149" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：拉萨</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/149" class="link active-recommend">
+																											<span>￥5200.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-01-25_588868b26f4e6.jpg" alt="">
+												<div class="card-content-inner">
+													<p>新疆全景</p>
+													<p>江布拉克-五彩滩-喀纳斯-禾木-赛里木湖-薰衣草农场-喀拉峻-那拉提-巴音布鲁克-吐鲁番13日游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/186" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：乌鲁木齐</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/186" class="link active-recommend">
+																											<span>￥5180.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-02-08_589ab81895cb5.jpg" alt="">
+												<div class="card-content-inner">
+													<p>贵州全景游</p>
+													<p>秘境茂兰-荔波-黔东南-镇远-西江苗寨-黄果树深度纯玩九日游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/35" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：贵阳</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/35" class="link active-recommend">
+																											<span>￥3980.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-02-14_58a2da8759696.jpg" alt="">
+												<div class="card-content-inner">
+													<p>甘南全景</p>
+													<p>2017年独家  拉卜楞寺-扎尕那-花湖-年宝玉则-若尔盖草原-阿万仓湿地-尕海湖-郎木寺 8日游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/180" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：兰州</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/180" class="link active-recommend">
+																											<span>￥2880.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-03-23_58d32e9297da3.jpg" alt="">
+												<div class="card-content-inner">
+													<p>北疆金秋经典环线游</p>
+													<p>2017年喀纳斯-白哈巴-禾木-五彩滩-魔鬼城-可可托海 9日深度游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/281" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：乌鲁木齐</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/281" class="link active-recommend">
+													<span>核算中</span>
+																										</a>
+											</div>
+										</div>
+									<!-- 查看更多超值热卖 -->
+									<a href="/phone/index.php?s=/phone/line/list" external>查看更多超值热卖</a>
+								</div>
+							</div>
+						</div>
+				</div> <!--结束tab-->								<div id="hot_line_destination_jinghuaxilie" class="tab">						<!-- 深度游 -->
+						<div class="depth-travel">
+							<div class="depth-travel-content">
+								<div class="travel-content">
+																			<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-02-08_589ab85a5e791.jpg" alt="">
+												<div class="card-content-inner">
+													<p>贵州精华游</p>
+													<p>2017年黄果树-西江苗寨-小七孔-青岩古镇深度纯玩六日游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/39" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：贵阳</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/39" class="link active-recommend">
+																											<span>￥2880.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-01-24_5886fd3332a02.jpg" alt="">
+												<div class="card-content-inner">
+													<p>新疆精华</p>
+													<p>天山天池-喀纳斯-禾木-五彩滩-赛里木湖-薰衣草庄园-那拉提-巴音布鲁克-吐鲁番11日游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/191" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：乌鲁木齐</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/191" class="link active-recommend">
+																											<span>￥4480.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-05-10_5912cf4ef31ed.jpg" alt="">
+												<div class="card-content-inner">
+													<p>丝绸之路精华七日游</p>
+													<p>2017年青海湖-茶卡盐湖-敦煌-嘉峪关-张掖丹霞七日游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/200" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：西宁</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/200" class="link active-recommend">
+																											<span>￥2980.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-02-09_589c17da6afbf.jpg" alt="">
+												<div class="card-content-inner">
+													<p>九色甘南</p>
+													<p> 兰州-八角城-夏河-拉卜楞寺-桑科草原-扎尕那-九曲黄河第一湾-唐克-花湖-郎木寺6日游</p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/203" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：兰州</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/203" class="link active-recommend">
+																											<span>￥1980.00元起</span>												</a>
+											</div>
+										</div>										<div class="card demo-card-header-pic">
+											<div class="card-content">
+												<img class="background-img-loading" data-echo="http://img.kllife.com/2017-04-17_58f491de1e9c7.jpg" alt="">
+												<div class="card-content-inner">
+													<p>2017滇西北精华</p>
+													<p>云南丽江、香格里拉、普达措、梅里雪山、虎跳峡、泸沽湖精彩7天游 </p>
+												</div>
+												<!-- 跳转a -->
+												<a href="/phone/index.php?s=/phone/line/info/id/288" external></a>
+											</div>
+											<div class="card-footer">
+												<span>出发地：丽江</span>
+												<a href="/phone/index.php?s=/phone/line/info/id/288" class="link active-recommend">
+																											<span>￥2980.00元起</span>												</a>
+											</div>
+										</div>
+									<!-- 查看更多超值热卖 -->
+									<a href="/phone/index.php?s=/phone/line/list" external>查看更多超值热卖</a>
+								</div>
+							</div>
+						</div>
+				</div> <!--结束tab-->			</div>
+
+		</div>
+	</div>
+
+	<!-- 小团慢旅行 -->
+	<div class="hot-sale">
+		<h3>小团慢旅行</h3>
+		<div class="hot-sale-content">
+			<!-- 切换 -->
+			<div class="buttons-tab">
+				<a href="#depth_line_recommend" class="tab-link active button">推荐</a>
+														<a href="#depth_line_destination_xinjiang" class="tab-link button">新疆</a>							<a href="#depth_line_destination_qinghai" class="tab-link button">青海</a>							<a href="#depth_line_destination_guizhou" class="tab-link button">贵州</a>							<a href="#depth_line_destination_gannan" class="tab-link button">甘南</a>			</div>
+			<div class="tabs">
+				<div id="depth_line_recommend" class="tab active">
+												<!-- 小团慢旅行 -->
+					<div class="depth-travel">
+						<div class="depth-travel-content">
+							<div class="travel-content">
+																	<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-05-10_5912cf4ef31ed.jpg" alt="">
+											<div class="card-content-inner">
+												<p>丝绸之路精华七日游</p>
+												<p>2017年青海湖-茶卡盐湖-敦煌-嘉峪关-张掖丹霞七日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/200" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：西宁</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/200" class="link active-recommend">
+																									<span>￥2980.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-02-08_589ab81895cb5.jpg" alt="">
+											<div class="card-content-inner">
+												<p>贵州全景游</p>
+												<p>秘境茂兰-荔波-黔东南-镇远-西江苗寨-黄果树深度纯玩九日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/35" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：贵阳</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/35" class="link active-recommend">
+																									<span>￥3980.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-01-24_5886fd3332a02.jpg" alt="">
+											<div class="card-content-inner">
+												<p>新疆精华</p>
+												<p>天山天池-喀纳斯-禾木-五彩滩-赛里木湖-薰衣草庄园-那拉提-巴音布鲁克-吐鲁番11日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/191" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：乌鲁木齐</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/191" class="link active-recommend">
+																									<span>￥4480.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-02-08_589ab85a5e791.jpg" alt="">
+											<div class="card-content-inner">
+												<p>贵州精华游</p>
+												<p>2017年黄果树-西江苗寨-小七孔-青岩古镇深度纯玩六日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/39" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：贵阳</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/39" class="link active-recommend">
+																									<span>￥2880.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-05-04_590acb2a6dd87.jpg" alt="">
+											<div class="card-content-inner">
+												<p>喀纳斯之夏</p>
+												<p>2017年7～8月 天池-吐鲁番-魔鬼城-禾木-喀纳斯-白哈巴-五彩滩深度九日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/78" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：乌鲁木齐</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/78" class="link active-recommend">
+																									<span>￥4580.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-02-09_589c17da6afbf.jpg" alt="">
+											<div class="card-content-inner">
+												<p>九色甘南</p>
+												<p> 兰州-八角城-夏河-拉卜楞寺-桑科草原-扎尕那-九曲黄河第一湾-唐克-花湖-郎木寺6日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/203" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：兰州</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/203" class="link active-recommend">
+																									<span>￥1980.00元起</span>											</a>
+										</div>
+									</div>
+								<!-- 查看更多周边游 -->
+								<a href="/phone/index.php?s=/phone/line/list/t/sd/" external>查看更多产品</a>
+
+							</div>
+						</div>
+					</div>
+			</div> <!--结束tab-->							<div id="depth_line_destination_xinjiang" class="tab">					<!-- 小团慢旅行 -->
+					<div class="depth-travel">
+						<div class="depth-travel-content">
+							<div class="travel-content">
+																	<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-05-03_5909a242e0d7f.jpg" alt="">
+											<div class="card-content-inner">
+												<p>天山环线深度游</p>
+												<p>2017年赛里木湖-伊犁-昭苏-夏特古道-喀拉峻-巴音布鲁克九日深度游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/304" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：乌鲁木齐</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/304" class="link active-recommend">
+																									<span>￥3780.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-01-23_5885b2010b5fb.jpg" alt="">
+											<div class="card-content-inner">
+												<p>骑马行天山</p>
+												<p>赛里木湖-薰衣草农场-夏特古道-喀拉峻-琼库什台-那拉提-红河谷雅丹地貌9日深度游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/150" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：乌鲁木齐</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/150" class="link active-recommend">
+																									<span>￥3980.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-01-24_5886fd3332a02.jpg" alt="">
+											<div class="card-content-inner">
+												<p>新疆精华</p>
+												<p>天山天池-喀纳斯-禾木-五彩滩-赛里木湖-薰衣草庄园-那拉提-巴音布鲁克-吐鲁番11日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/191" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：乌鲁木齐</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/191" class="link active-recommend">
+																									<span>￥4480.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-01-25_588868b26f4e6.jpg" alt="">
+											<div class="card-content-inner">
+												<p>新疆全景</p>
+												<p>江布拉克-五彩滩-喀纳斯-禾木-赛里木湖-薰衣草农场-喀拉峻-那拉提-巴音布鲁克-吐鲁番13日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/186" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：乌鲁木齐</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/186" class="link active-recommend">
+																									<span>￥5180.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-03-23_58d32e9297da3.jpg" alt="">
+											<div class="card-content-inner">
+												<p>北疆金秋经典环线游</p>
+												<p>2017年喀纳斯-白哈巴-禾木-五彩滩-魔鬼城-可可托海 9日深度游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/281" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：乌鲁木齐</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/281" class="link active-recommend">
+												<span>核算中</span>
+																								</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-05-04_590acb2a6dd87.jpg" alt="">
+											<div class="card-content-inner">
+												<p>喀纳斯之夏</p>
+												<p>2017年7～8月 天池-吐鲁番-魔鬼城-禾木-喀纳斯-白哈巴-五彩滩深度九日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/78" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：乌鲁木齐</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/78" class="link active-recommend">
+																									<span>￥4580.00元起</span>											</a>
+										</div>
+									</div>
+								<!-- 查看更多周边游 -->
+								<a href="/phone/index.php?s=/phone/line/list/t/sd/" external>查看更多产品</a>
+
+							</div>
+						</div>
+					</div>
+			</div> <!--结束tab-->							<div id="depth_line_destination_qinghai" class="tab">					<!-- 小团慢旅行 -->
+					<div class="depth-travel">
+						<div class="depth-travel-content">
+							<div class="travel-content">
+																	<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-05-10_5912cd8a70256.jpg" alt="">
+											<div class="card-content-inner">
+												<p>丝路巅峰体验十日游</p>
+												<p>沙岛-青海湖-茶卡盐湖-祁连-张掖-嘉峪关-敦煌十日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/273" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：西安,兰州</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/273" class="link active-recommend">
+																									<span>￥4280.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-06-20_5948831319a05.jpg" alt="">
+											<div class="card-content-inner">
+												<p>丝绸之路经典九日</p>
+												<p>沙岛-青海湖-茶卡盐湖-卓尔山-张掖丹霞-嘉峪关-敦煌9日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/274" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：西安,兰州</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/274" class="link active-recommend">
+																									<span>￥3580.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-05-10_5912cf4ef31ed.jpg" alt="">
+											<div class="card-content-inner">
+												<p>丝绸之路精华七日游</p>
+												<p>2017年青海湖-茶卡盐湖-敦煌-嘉峪关-张掖丹霞七日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/200" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：西宁</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/200" class="link active-recommend">
+																									<span>￥2980.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-06-01_592fac733dfd9.jpg" alt="">
+											<div class="card-content-inner">
+												<p>穿越丝路之旅八日游</p>
+												<p>水上魔鬼城-青海湖-门源-敦煌-张掖-嘉峪关-茶卡盐湖八日深度游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/323" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：西宁</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/323" class="link active-recommend">
+																									<span>￥3380.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-02-28_58b53c3d0476e.jpg" alt="">
+											<div class="card-content-inner">
+												<p>青海湖环湖5日深度游</p>
+												<p>茶卡、门源、祁连、精华300°青海湖环湖</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/244" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：西宁</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/244" class="link active-recommend">
+																									<span>￥2480.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-04-06_58e5e66b5a2a8.jpg" alt="">
+											<div class="card-content-inner">
+												<p>柴达木无人区深度5日游</p>
+												<p>敦煌-石油小镇-南八仙-沙海雅丹-水上雅丹-茶卡盐湖-青海湖5日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/292" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：敦煌</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/292" class="link active-recommend">
+																									<span>￥2980.00元起</span>											</a>
+										</div>
+									</div>
+								<!-- 查看更多周边游 -->
+								<a href="/phone/index.php?s=/phone/line/list/t/sd/" external>查看更多产品</a>
+
+							</div>
+						</div>
+					</div>
+			</div> <!--结束tab-->							<div id="depth_line_destination_guizhou" class="tab">					<!-- 小团慢旅行 -->
+					<div class="depth-travel">
+						<div class="depth-travel-content">
+							<div class="travel-content">
+																	<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-02-08_589ab85a5e791.jpg" alt="">
+											<div class="card-content-inner">
+												<p>贵州精华游</p>
+												<p>2017年黄果树-西江苗寨-小七孔-青岩古镇深度纯玩六日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/39" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：贵阳</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/39" class="link active-recommend">
+																									<span>￥2880.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-02-08_589ab81895cb5.jpg" alt="">
+											<div class="card-content-inner">
+												<p>贵州全景游</p>
+												<p>秘境茂兰-荔波-黔东南-镇远-西江苗寨-黄果树深度纯玩九日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/35" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：贵阳</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/35" class="link active-recommend">
+																									<span>￥3980.00元起</span>											</a>
+										</div>
+									</div>
+								<!-- 查看更多周边游 -->
+								<a href="/phone/index.php?s=/phone/line/list/t/sd/" external>查看更多产品</a>
+
+							</div>
+						</div>
+					</div>
+			</div> <!--结束tab-->							<div id="depth_line_destination_gannan" class="tab">					<!-- 小团慢旅行 -->
+					<div class="depth-travel">
+						<div class="depth-travel-content">
+							<div class="travel-content">
+																	<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-02-14_58a2da8759696.jpg" alt="">
+											<div class="card-content-inner">
+												<p>甘南全景</p>
+												<p>2017年独家  拉卜楞寺-扎尕那-花湖-年宝玉则-若尔盖草原-阿万仓湿地-尕海湖-郎木寺 8日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/180" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：兰州</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/180" class="link active-recommend">
+																									<span>￥2880.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-05-04_590add03c67a4.jpg" alt="">
+											<div class="card-content-inner">
+												<p>甘青藏域小环线</p>
+												<p>兰州-郎木寺-花湖-九曲黄河第一湾-年宝玉则-拉卜楞寺-唐卡画院-青海湖-茶卡盐湖</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/285" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：兰州</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/285" class="link active-recommend">
+																									<span>￥3580.00元起</span>											</a>
+										</div>
+									</div>
+								<!-- 查看更多周边游 -->
+								<a href="/phone/index.php?s=/phone/line/list/t/sd/" external>查看更多产品</a>
+
+							</div>
+						</div>
+					</div>
+			</div> <!--结束tab-->							<div id="depth_line_destination_xizang" class="tab">					<!-- 小团慢旅行 -->
+					<div class="depth-travel">
+						<div class="depth-travel-content">
+							<div class="travel-content">
+																	<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-05-02_5907fcc572030.jpg" alt="">
+											<div class="card-content-inner">
+												<p>漫游西藏</p>
+												<p>2017年  巴松错-林芝-南迦巴瓦-鲁朗-羊湖-日喀则-纳木错-深度纯玩9日</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/210" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：拉萨</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/210" class="link active-recommend">
+																									<span>￥4180.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-04-17_58f48a9391038.jpg" alt="">
+											<div class="card-content-inner">
+												<p>大美川藏</p>
+												<p>2017从你的全世界路过 — 川藏南线+滇藏线+稻城亚丁+梅里雪山+来古村11日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/291" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：成都</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/291" class="link active-recommend">
+																									<span>￥5780.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-03-30_58dcc12f10110.jpg" alt="">
+											<div class="card-content-inner">
+												<p>西藏深度环游</p>
+												<p>巴松错-雅鲁藏布大峡谷-拉姆拉错-达沽峡谷-桑耶寺-羊湖-白居寺-扎什伦布寺-纳木错9日游</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/284" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：拉萨</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/284" class="link active-recommend">
+																									<span>￥4780.00元起</span>											</a>
+										</div>
+									</div>
+								<!-- 查看更多周边游 -->
+								<a href="/phone/index.php?s=/phone/line/list/t/sd/" external>查看更多产品</a>
+
+							</div>
+						</div>
+					</div>
+			</div> <!--结束tab-->							<div id="depth_line_destination_nmg" class="tab">					<!-- 小团慢旅行 -->
+					<div class="depth-travel">
+						<div class="depth-travel-content">
+							<div class="travel-content">
+																	<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-03-03_58b9482cb09c4.jpg" alt="">
+											<div class="card-content-inner">
+												<p>坝上骑行</p>
+												<p>6-10月 独家坝上新玩法：踏上自行车，骑游草原，换一种方式亲近大自然，带你嗨玩乌兰布统 6日之旅</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/256" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：北京</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/256" class="link active-recommend">
+																									<span>￥2280.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-03-10_58c20f9d08b64.jpg" alt="">
+											<div class="card-content-inner">
+												<p>坝上亲子旅拍专线</p>
+												<p>宝贝成长记：大手牵小手，勇闯大草原，牧羊、骑马、越野6日（7大亲子互动项目，配备摄影师）</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/255" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：北京</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/255" class="link active-recommend">
+																									<span>￥2450.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-03-08_58bfb586e1378.jpg" alt="">
+											<div class="card-content-inner">
+												<p>坝上休闲C线</p>
+												<p>纯坝上精华之旅，嗨翻草原3日——有限的假期，无限的快乐！</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/253" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：北京</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/253" class="link active-recommend">
+																									<span>￥980.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-03-08_58bfbe1e8a449.jpg" alt="">
+											<div class="card-content-inner">
+												<p>坝上休闲A线</p>
+												<p>2017全年计划：策马、越野乌兰布统坝上草原、登金山岭长城/慕田峪长城 6日休闲游（金牌路线）</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/248" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：北京</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/248" class="link active-recommend">
+																									<span>￥2380.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-04-07_58e6e93d2218c.jpg" alt="">
+											<div class="card-content-inner">
+												<p>坝上休闲B线</p>
+												<p>2017独家坝上环线：穿越草原天路，撒欢乌兰布统，承德避暑山庄，金山岭长城/慕田峪长城7日（全景之旅，美景一网打尽）</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/250" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：北京</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/250" class="link active-recommend">
+																									<span>￥2980.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-05-18_591d119832807.jpg" alt="">
+											<div class="card-content-inner">
+												<p>坝上穿越线</p>
+												<p>6-9月 玩转内蒙，带你越野穿行无人区：乌兰布统草原-西拉沐沦大峡谷-达里湖-浑善达克沙地-玉龙沙湖 7日深度行！（独家精彩全景穿越）</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/247" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：北京</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/247" class="link active-recommend">
+																									<span>￥3080.00元起</span>											</a>
+										</div>
+									</div>
+								<!-- 查看更多周边游 -->
+								<a href="/phone/index.php?s=/phone/line/list/t/sd/" external>查看更多产品</a>
+
+							</div>
+						</div>
+					</div>
+			</div> <!--结束tab-->							<div id="depth_line_destination_gx" class="tab">					<!-- 小团慢旅行 -->
+					<div class="depth-travel">
+						<div class="depth-travel-content">
+							<div class="travel-content">
+																	<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-02-28_58b547eb4838f.jpg" alt="">
+											<div class="card-content-inner">
+												<p>广西乐业</p>
+												<p>美仑美奂的洞穴穿越、亚洲第一的地宫探秘、45米速降体验！130米的极限挑战！</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/245" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：南宁</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/245" class="link active-recommend">
+																									<span>￥2800.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-01-25_5888b4314220f.jpg" alt="">
+											<div class="card-content-inner">
+												<p>浪漫广西</p>
+												<p>2017全年计划：广西南宁-德天大瀑布-明仕田园-北海银滩-涠洲岛，浪漫阳光海滩半自助6日旅行</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/196" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：南宁</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/196" class="link active-recommend">
+																									<span>￥2480.00元起</span>											</a>
+										</div>
+									</div>									<div class="card demo-card-header-pic">
+										<div class="card-content">
+											<img src="http://img.kllife.com/2017-01-18_587f09fb513d9.jpg" alt="">
+											<div class="card-content-inner">
+												<p>桂林休闲</p>
+												<p>赏龙脊神韵，临漓江秀水奇山之骑行遇龙河5日半自助</p>
+											</div>
+											<!-- 跳转a -->
+											<a href="/phone/index.php?s=/phone/line/info/id/174" external></a>
+										</div>
+										<div class="card-footer">
+											<span>出发地：桂林</span>
+											<a href="/phone/index.php?s=/phone/line/info/id/174" class="link active-recommend">
+																									<span>￥1480.00元起</span>											</a>
+										</div>
+									</div>
+								<!-- 查看更多周边游 -->
+								<a href="/phone/index.php?s=/phone/line/list/t/sd/" external>查看更多产品</a>
+
+							</div>
+						</div>
+					</div>
+			</div> <!--结束tab-->		</div>
+	</div>
+</div>
+
+<!-- 跟拍游 -->
+<div class="hot-sale">
+	<h3>跟拍游</h3>
+	<div class="hot-sale-content">
+		<!-- 切换 -->
+		<div class="buttons-tab">
+			<a href="#qinglvpai_line_recommend" class="tab-link active button">推荐</a>
+								</div>
+		<div class="tabs">
+			<div id="qinglvpai_line_recommend" class="tab active">
+										<!-- 跟拍游 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-04-03_58e2069ed7ef9.jpg" alt="">
+										<div class="card-content-inner">
+											<p>圆梦西藏跟拍游</p>
+											<p>拉萨-巴松措-结巴村-鲁朗林海-扎西岗村-甘丹寺-千佛崖-羊卓雍措-雅江沙丘-纳木错-藏北草原8日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/287" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：拉萨</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/287" class="link active-recommend">
+																							<span>￥5280.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-03-15_58c8e301bd944.jpg" alt="">
+										<div class="card-content-inner">
+											<p>纵情丝路跟拍游</p>
+											<p>沙岛-青海湖-茶卡盐湖-祁连-张掖-嘉峪关-敦煌9日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/268" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：兰州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/268" class="link active-recommend">
+																							<span>￥4880.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-03-29_58db13d709f81.jpg" alt="">
+										<div class="card-content-inner">
+											<p>新疆拾光全景跟拍游</p>
+											<p>乌鲁木齐-五彩滩-布尔津-喀纳斯-禾木-魔鬼城-赛里木湖-解忧公主薰衣草农场-喀拉峻-巴音布鲁克-博斯腾湖-库木塔格沙漠14日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/231" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：乌鲁木齐</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/231" class="link active-recommend">
+																							<span>￥5680.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-03-29_58db0edb6a7a5.jpg" alt="">
+										<div class="card-content-inner">
+											<p>逐梦青海湖跟拍游</p>
+											<p>门源-阿柔大寺-天境祁连-卓尔山-冰沟林海-沙岛-青海湖-茶卡盐湖6日</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/269" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：西宁</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/269" class="link active-recommend">
+																							<span>￥3180.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-05-26_5927b548e1ee2.jpg" alt="">
+										<div class="card-content-inner">
+											<p>魅影甘南跟拍游</p>
+											<p>拉卜楞寺-扎尕那-花湖-年宝玉则-若尔盖草原-阿万仓湿地-郎木寺 8日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/263" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：兰州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/263" class="link active-recommend">
+																							<span>￥3180.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/qlp/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->	</div>
+</div>
+</div>
+
+<!-- 摄影游 -->
+<div class="hot-sale">
+	<h3>摄影游</h3>
+	<div class="hot-sale-content">
+		<!-- 切换 -->
+		<div class="buttons-tab">
+			<a href="#photograph_line_recommend" class="tab-link active button">推荐</a>
+												<a href="#photograph_line_destination_xinjiang" class="tab-link button">新疆</a>						<a href="#photograph_line_destination_nmg" class="tab-link button">内蒙古</a>						<a href="#photograph_line_destination_gx" class="tab-link button">广西</a>						<a href="#photograph_line_destination_zj" class="tab-link button">浙江</a>		</div>
+		<div class="tabs">
+			<div id="photograph_line_recommend" class="tab active">
+										<!-- 摄影游 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-04-07_58e6e7b308604.jpg" alt="">
+										<div class="card-content-inner">
+											<p>坝上夏季摄影</p>
+											<p>6-8月生如夏花，坝上草原6日全景摄影创作团（坝上拍摄四天）</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/246" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：北京</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/246" class="link active-recommend">
+																							<span>￥2680.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-09_589c16e8cc251.jpg" alt="">
+										<div class="card-content-inner">
+											<p>行摄甘南</p>
+											<p>2017年年宝玉则-扎尕那-郎木寺-唐克-拉卜楞寺-若尔盖九日摄影游-领袖户外独家线路</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/135" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：兰州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/135" class="link active-recommend">
+																							<span>￥3580.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-04-06_58e5faf452efd.jpg" alt="">
+										<div class="card-content-inner">
+											<p>东南摄影</p>
+											<p>6.17-6.23 瓯江帆影-楠溪江渔火-悠山索面-福建霞浦-茗岙梯田-水墨仙都 7日摄影创作团</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/147" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：杭州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/147" class="link active-recommend">
+																							<span>￥2380.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-25_5888b0a6a8a34.jpg" alt="">
+										<div class="card-content-inner">
+											<p>柬埔寨摄影</p>
+											<p>2017超值计划：高棉的微笑，神秘吴哥窟 6日风光人文摄影团（当地集合，7日券，5人成行）</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/182" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：暹粒</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/182" class="link active-recommend">
+																							<span>￥3980.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-24_58af92e67f84e.jpg" alt="">
+										<div class="card-content-inner">
+											<p>行摄天山</p>
+											<p>乌鲁木齐-赛里木湖-特克斯-阔克苏大峡谷-喀拉峻-巴音布鲁克-薰衣草农场-红山大峡谷-努尔加大峡谷8日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/239" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：乌鲁木齐</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/239" class="link active-recommend">
+																							<span>￥3680.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-03-20_58cf92646c350.jpg" alt="">
+										<div class="card-content-inner">
+											<p>青海湖摄影7日</p>
+											<p>西宁-贵德黄河-茶卡盐湖-青海湖-沙岛-卓尔山-门源摄影7日</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/271" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：西宁</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/271" class="link active-recommend">
+																							<span>￥3880.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/sy/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="photograph_line_destination_xinjiang" class="tab">				<!-- 摄影游 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-24_58af92e67f84e.jpg" alt="">
+										<div class="card-content-inner">
+											<p>行摄天山</p>
+											<p>乌鲁木齐-赛里木湖-特克斯-阔克苏大峡谷-喀拉峻-巴音布鲁克-薰衣草农场-红山大峡谷-努尔加大峡谷8日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/239" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：乌鲁木齐</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/239" class="link active-recommend">
+																							<span>￥3680.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/sy/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="photograph_line_destination_nmg" class="tab">				<!-- 摄影游 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-04-07_58e6e7b308604.jpg" alt="">
+										<div class="card-content-inner">
+											<p>坝上夏季摄影</p>
+											<p>6-8月生如夏花，坝上草原6日全景摄影创作团（坝上拍摄四天）</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/246" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：北京</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/246" class="link active-recommend">
+																							<span>￥2680.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-03-02_58b7ca540eff4.jpg" alt="">
+										<div class="card-content-inner">
+											<p>坝上摄影姊妹线</p>
+											<p>3-6月，翁牛特—喀喇沁，沙漠奇峰、古松怪石、草原湖泊，5日风光摄影创作团</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/249" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：北京</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/249" class="link active-recommend">
+																							<span>￥2380.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-03-08_58bfb9e8008bc.jpg" alt="">
+										<div class="card-content-inner">
+											<p>坝上秋摄</p>
+											<p>9-10月金秋，北沟、杨树背、五彩山、蛤蟆坝、野鸭湖、公主湖等坝上草原秋色一网打尽 6日摄影创作团（坝上拍摄4天）</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/257" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：北京</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/257" class="link active-recommend">
+																							<span>￥2680.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-03-08_58bfad58414b7.jpg" alt="">
+										<div class="card-content-inner">
+											<p>坝上蒸汽机车节摄影</p>
+											<p>12月，坝上雪原-克旗蒸汽机车节-达里湖捕鱼节-达日罕银冬骆驼节，7日摄影创作团</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/262" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：北京</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/262" class="link active-recommend">
+																							<span>￥0.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-25_5888b0f59c7b9.jpg" alt="">
+										<div class="card-content-inner">
+											<p>坝上冬摄</p>
+											<p>12-2月 冰雪童话：北京—内蒙坝上雪原—激情摄影5日创作团</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/261" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：北京</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/261" class="link active-recommend">
+																							<span>￥0.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/sy/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="photograph_line_destination_gx" class="tab">				<!-- 摄影游 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-06_5898247827dea.jpg" alt="">
+										<div class="card-content-inner">
+											<p>桂林全景摄影</p>
+											<p>2017桂林，尧山日出-八角寨丹霞-灵渠古迹-黄布倒影-兴坪佳境-漓江渔火-遇龙河风光-高田风光-龙脊梯田7日摄影创作团</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/204" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：桂林</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/204" class="link active-recommend">
+																							<span>￥2680.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-18_587f06894407e.jpg" alt="">
+										<div class="card-content-inner">
+											<p>桂林摄影</p>
+											<p>2017桂林，尧山日出-黄布倒影-兴坪佳境-漓江渔火-遇龙河风光-高田风光-龙脊梯田5日摄影创作团</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/173" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：桂林</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/173" class="link active-recommend">
+																							<span>￥2380.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/sy/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="photograph_line_destination_zj" class="tab">				<!-- 摄影游 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-10_58749e5f44c79.jpg" alt="">
+										<div class="card-content-inner">
+											<p>丽水摄影</p>
+											<p>4-10月，瓯江帆影，浙江绿谷，秀美山水 古民居、古堰 2日摄影团</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/140" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：杭州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/140" class="link active-recommend">
+																							<span>￥530.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-25_5888b375034dc.jpg" alt="">
+										<div class="card-content-inner">
+											<p>丽水全景摄影</p>
+											<p>4-10月，水墨仙都，瓯江帆影，南尖岩云海，云和梯田，松阳古村 5日风光人文摄影创作团</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/141" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：丽水</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/141" class="link active-recommend">
+																							<span>￥1680.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-10_58748d55767f3.jpg" alt="">
+										<div class="card-content-inner">
+											<p>南尖岩摄影</p>
+											<p>2017年全年计划 南尖岩云海-乌溪江景-大柯梯田-独山古寨2日摄影团</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/139" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：杭州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/139" class="link active-recommend">
+																							<span>￥490.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-25_5888b3ea65bea.png" alt="">
+										<div class="card-content-inner">
+											<p>渔山岛摄影</p>
+											<p>渔山海恋—碧海奇礁，聚焦远海孤岛之美 （2天2夜快艇出海） 2日摄影团</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/152" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：杭州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/152" class="link active-recommend">
+																							<span>￥1050.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-27_58b39d1d5ca05.jpg" alt="">
+										<div class="card-content-inner">
+											<p>浙南摄影</p>
+											<p>拍舴艋舟重出江湖，摄日出楠溪江渔火，捕茗岙梯田光影，品浙南古村韵味（独家策划舴艋舟）</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/142" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：杭州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/142" class="link active-recommend">
+																							<span>￥790.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-04-06_58e5faf452efd.jpg" alt="">
+										<div class="card-content-inner">
+											<p>东南摄影</p>
+											<p>6.17-6.23 瓯江帆影-楠溪江渔火-悠山索面-福建霞浦-茗岙梯田-水墨仙都 7日摄影创作团</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/147" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：杭州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/147" class="link active-recommend">
+																							<span>￥2380.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/sy/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="photograph_line_destination_qinghai" class="tab">				<!-- 摄影游 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-03-20_58cf92646c350.jpg" alt="">
+										<div class="card-content-inner">
+											<p>青海湖摄影7日</p>
+											<p>西宁-贵德黄河-茶卡盐湖-青海湖-沙岛-卓尔山-门源摄影7日</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/271" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：西宁</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/271" class="link active-recommend">
+																							<span>￥3880.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/sy/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="photograph_line_destination_chujing" class="tab">				<!-- 摄影游 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-07_58993ed5c113b.jpg" alt="">
+										<div class="card-content-inner">
+											<p>缅甸摄影</p>
+											<p>昆明直飞缅甸，曼德勒-蒲甘-茵莱湖-仰光三飞 7晚8天缅甸精华摄影之旅</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/208" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：昆明</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/208" class="link active-recommend">
+																							<span>￥7280.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-25_5888b0a6a8a34.jpg" alt="">
+										<div class="card-content-inner">
+											<p>柬埔寨摄影</p>
+											<p>2017超值计划：高棉的微笑，神秘吴哥窟 6日风光人文摄影团（当地集合，7日券，5人成行）</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/182" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：暹粒</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/182" class="link active-recommend">
+																							<span>￥3980.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/sy/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->	</div>
+</div>
+</div>
+
+<!-- 民族行 -->
+<div class="hot-sale">
+	<h3>民族行</h3>
+	<div class="hot-sale-content">
+		<!-- 切换 -->
+		<div class="buttons-tab">
+			<a href="#theme_line_recommend" class="tab-link active button">推荐</a>
+												<a href="#theme_line_destination_yunnan" class="tab-link button">云南</a>						<a href="#theme_line_destination_sichuan" class="tab-link button">四川</a>						<a href="#theme_line_destination_xizang" class="tab-link button">西藏</a>						<a href="#theme_line_destination_guizhou" class="tab-link button">贵州</a>		</div>
+		<div class="tabs">
+			<div id="theme_line_recommend" class="tab active">
+										<!-- 民族行 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-22_58ad592e660ae.jpg" alt="">
+										<div class="card-content-inner">
+											<p>醉美九寨环线</p>
+											<p>2017年九寨黄龙-年宝玉则-九曲黄河-若尔盖花湖8日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/169" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：成都</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/169" class="link active-recommend">
+																							<span>￥2980.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-24_58afd88f4cfb5.jpg" alt="">
+										<div class="card-content-inner">
+											<p>心花路放</p>
+											<p>大理双廊、沙溪古镇、丽江古城、香格里拉、泸沽湖7日滇西北全景深度游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/236" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：昆明</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/236" class="link active-recommend">
+																							<span>￥3280.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-03-03_58b8ddc2782d3.jpg" alt="">
+										<div class="card-content-inner">
+											<p>醉美普者黑</p>
+											<p>《三生三世》普者黑—世外桃源坝美—马岭河大峡谷—醉美万峰林—万峰湖—抚仙湖8日深度游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/254" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：昆明</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/254" class="link active-recommend">
+																							<span>￥3280.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-07_589987eb417e8.jpg" alt="">
+										<div class="card-content-inner">
+											<p>藏地全景</p>
+											<p>2017年拉萨-林芝-巴松措-峡谷秘境-羊湖-普姆雍措-日喀则-珠峰-纳木措11日深度游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/149" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：拉萨</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/149" class="link active-recommend">
+																							<span>￥5200.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-24_58af8b81dd7f6.jpg" alt="">
+										<div class="card-content-inner">
+											<p>梦中天堂</p>
+											<p>2017年稻城亚丁-新都桥-丹巴-九日深度游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/166" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：成都</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/166" class="link active-recommend">
+																							<span>￥2780.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-06-05_5934be63d7584.jpg" alt="">
+										<div class="card-content-inner">
+											<p>草原牧歌A线</p>
+											<p>海拉尔-金帐汗蒙古部落-室韦-白桦林-黑山头骑马穿越-186彩带河滑草-狼岛-满洲里5日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/315" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：海拉尔</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/315" class="link active-recommend">
+																							<span>￥1780.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/mz/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="theme_line_destination_yunnan" class="tab">				<!-- 民族行 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-03-03_58b8ddc2782d3.jpg" alt="">
+										<div class="card-content-inner">
+											<p>醉美普者黑</p>
+											<p>《三生三世》普者黑—世外桃源坝美—马岭河大峡谷—醉美万峰林—万峰湖—抚仙湖8日深度游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/254" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：昆明</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/254" class="link active-recommend">
+																							<span>￥3280.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-05_586dffeecbad9.jpg" alt="">
+										<div class="card-content-inner">
+											<p>七彩云南-昆大丽</p>
+											<p>昆明-楚雄-大理-诺邓村-沙溪古镇-丽江-虎跳峡-香格里拉8日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/128" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：昆明</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/128" class="link active-recommend">
+																							<span>￥2880.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-04-17_58f4855214ec6.jpg" alt="">
+										<div class="card-content-inner">
+											<p>滇西边境</p>
+											<p>大理古城、诺邓古村、腾冲、和顺、瑞丽、芒市、双廊滇西精华8日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/289" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：昆明</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/289" class="link active-recommend">
+																							<span>￥3280.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-08_589ac8580af7b.jpg" alt="">
+										<div class="card-content-inner">
+											<p>七彩云南-怒江</p>
+											<p>昆明-福贡-丙中洛-雾里村-秋那桶-独龙江-钦郎当 -六库-大理9日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/114" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：昆明</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/114" class="link active-recommend">
+																							<span>￥3580.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-24_58afd88f4cfb5.jpg" alt="">
+										<div class="card-content-inner">
+											<p>心花路放</p>
+											<p>大理双廊、沙溪古镇、丽江古城、香格里拉、泸沽湖7日滇西北全景深度游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/236" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：昆明</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/236" class="link active-recommend">
+																							<span>￥3280.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-05_586df12c3182b.jpg" alt="">
+										<div class="card-content-inner">
+											<p>七彩云南-版纳</p>
+											<p>昆明-墨江-普洱-西双版纳-澜沧县-惠民县-8日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/125" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：昆明</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/125" class="link active-recommend">
+																							<span>￥4980.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/mz/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="theme_line_destination_sichuan" class="tab">				<!-- 民族行 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-24_58af8b81dd7f6.jpg" alt="">
+										<div class="card-content-inner">
+											<p>梦中天堂</p>
+											<p>2017年稻城亚丁-新都桥-丹巴-九日深度游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/166" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：成都</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/166" class="link active-recommend">
+																							<span>￥2780.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-22_58ad592e660ae.jpg" alt="">
+										<div class="card-content-inner">
+											<p>醉美九寨环线</p>
+											<p>2017年九寨黄龙-年宝玉则-九曲黄河-若尔盖花湖8日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/169" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：成都</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/169" class="link active-recommend">
+																							<span>￥2980.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-25_5888b1cc622c2.jpg" alt="">
+										<div class="card-content-inner">
+											<p>三江源深度大环线</p>
+											<p>2017年甘南-年宝玉则-色达-五明佛学院-川藏北线、生命净土三江源-鄂陵湖 扎陵湖12日人文行摄之旅！</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/133" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：兰州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/133" class="link active-recommend">
+																							<span>￥6800.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-06-12_593e41e7edc58.jpg" alt="">
+										<div class="card-content-inner">
+											<p>大美九色</p>
+											<p>九寨沟+黄龙+色达喇荣五明佛学院+达古冰川经典8日</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/329" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：成都</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/329" class="link active-recommend">
+																							<span>￥2980.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-04-17_58f491747580c.jpg" alt="">
+										<div class="card-content-inner">
+											<p>大美色稻</p>
+											<p>2017穿过佛国净土，走进最后香格里拉——色达+稻城亚丁9日</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/290" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：成都</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/290" class="link active-recommend">
+																							<span>￥3280.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-08_589ae40ed46b5.jpg" alt="">
+										<div class="card-content-inner">
+											<p>康巴藏家佛国净土</p>
+											<p>成都-理县-马尔康-色达-五明佛学院-甘孜-白玉-新龙-泸定 9日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/129" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：成都</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/129" class="link active-recommend">
+																							<span>￥4680.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/mz/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="theme_line_destination_xizang" class="tab">				<!-- 民族行 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-07_589987eb417e8.jpg" alt="">
+										<div class="card-content-inner">
+											<p>藏地全景</p>
+											<p>2017年拉萨-林芝-巴松措-峡谷秘境-羊湖-普姆雍措-日喀则-珠峰-纳木措11日深度游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/149" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：拉萨</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/149" class="link active-recommend">
+																							<span>￥5200.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-07_5899879f1916a.jpg" alt="">
+										<div class="card-content-inner">
+											<p>西藏往西</p>
+											<p>2017年阿里南线朝圣转山 心灵祭拜12日</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/146" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：拉萨</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/146" class="link active-recommend">
+																							<span>￥6380.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-25_5888b5208d770.jpg" alt="">
+										<div class="card-content-inner">
+											<p>珠峰徒步</p>
+											<p>2017年拉萨-羊湖-卡若拉冰川-日喀则-曲当-卓湘-珠峰东坡大本营-嘎玛沟 14日经典徒步线路</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/148" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：拉萨</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/148" class="link active-recommend">
+																							<span>￥9880.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-07_58998b3fd1e1b.jpg" alt="">
+										<div class="card-content-inner">
+											<p>探秘藏文化</p>
+											<p>2017年探秘藏文化发源地-拉萨-林芝-鲁朗-山南-拉姆拉措-羊湖-纳木措九天小环线</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/145" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：拉萨</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/145" class="link active-recommend">
+																							<span>￥3400.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/mz/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="theme_line_destination_guizhou" class="tab">				<!-- 民族行 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-08_589ab882f2c30.jpg" alt="">
+										<div class="card-content-inner">
+											<p>醉美贵州-黔西南</p>
+											<p>贵阳-中洞-安顺-万峰林-兴义-马岭河-关岭-黄果树-安顺7日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/127" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：贵阳</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/127" class="link active-recommend">
+																							<span>￥2980.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-08_589ab8a0ac4e4.jpg" alt="">
+										<div class="card-content-inner">
+											<p>醉美贵州-黔东南</p>
+											<p>贵阳-凯里-西江苗寨-从江-占里-黄岗侗寨-岜沙-高华8日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/124" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：贵阳</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/124" class="link active-recommend">
+																							<span>￥3880.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/mz/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="theme_line_destination_gannan" class="tab">				<!-- 民族行 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-09_589c17da6afbf.jpg" alt="">
+										<div class="card-content-inner">
+											<p>九色甘南</p>
+											<p> 兰州-八角城-夏河-拉卜楞寺-桑科草原-扎尕那-九曲黄河第一湾-唐克-花湖-郎木寺6日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/203" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：兰州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/203" class="link active-recommend">
+																							<span>￥1980.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-05-09_5911289d6249e.jpg" alt="">
+										<div class="card-content-inner">
+											<p>年宝穿越</p>
+											<p>年保玉则仙女湖妖女湖上下日干措徒步6日</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/312" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：成都</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/312" class="link active-recommend">
+																							<span>￥2980.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/mz/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="theme_line_destination_qinghai" class="tab">				<!-- 民族行 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-06-01_592fac733dfd9.jpg" alt="">
+										<div class="card-content-inner">
+											<p>穿越丝路之旅八日游</p>
+											<p>水上魔鬼城-青海湖-门源-敦煌-张掖-嘉峪关-茶卡盐湖八日深度游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/323" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：西宁</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/323" class="link active-recommend">
+																							<span>￥3380.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/mz/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="theme_line_destination_nmg" class="tab">				<!-- 民族行 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-06-05_5934be63d7584.jpg" alt="">
+										<div class="card-content-inner">
+											<p>草原牧歌A线</p>
+											<p>海拉尔-金帐汗蒙古部落-室韦-白桦林-黑山头骑马穿越-186彩带河滑草-狼岛-满洲里5日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/315" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：海拉尔</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/315" class="link active-recommend">
+																							<span>￥1780.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-06-05_5934be2bedcdf.jpg" alt="">
+										<div class="card-content-inner">
+											<p>草原牧歌B线</p>
+											<p>越野车纵横海拉尔-金帐汗蒙古部落-莫尔道嘎-太平村-室韦-中俄边境线-白桦林-黑山头骑马穿越-186彩带河-狼岛-满洲里7日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/314" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：海拉尔</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/314" class="link active-recommend">
+																							<span>￥3180.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-05-10_5912744b0daed.jpg" alt="">
+										<div class="card-content-inner">
+											<p>草原8日环线</p>
+											<p>哈尔滨-扎龙保护区-阿荣旗-满洲里-室韦-阿尔山-长春8日大环线</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/313" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：哈尔滨</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/313" class="link active-recommend">
+																							<span>￥3280.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/mz/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->						<div id="theme_line_destination_chujing" class="tab">				<!-- 民族行 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-06-07_593787ad8ee60.jpg" alt="">
+										<div class="card-content-inner">
+											<p>仙本那休闲游</p>
+											<p>风下之乡沙巴-仙本那-诗巴丹-卡帕莱-马布岛-天堂海岛七日纯玩</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/327" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：仙本那</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/327" class="link active-recommend">
+																							<span>￥3080.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-06-07_5937a298ebe0c.jpg" alt="">
+										<div class="card-content-inner">
+											<p>斯里兰卡</p>
+											<p>【斯里兰卡】上山下海，徒步平原，探访世界的尽头，双车游锡兰八天深度游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/328" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：科伦坡</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/328" class="link active-recommend">
+																							<span>￥5680.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/mz/" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->	</div>
+</div>
+</div>
+<!-- 周边游 -->
+<div class="hot-sale">
+			<h3>周边游</h3>	<div class="hot-sale-content">
+		<!-- 切换 -->
+		<div class="buttons-tab">
+			<a href="#surrounding_line_recommend" class="tab-link active button">推荐</a>
+								</div>
+		<div class="tabs">
+			<div id="surrounding_line_recommend" class="tab active">
+										<!-- 周边游 -->
+				<div class="depth-travel">
+					<div class="depth-travel-content">
+						<div class="travel-content">
+															<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-05-26_5927f11e96f81.jpg" alt="">
+										<div class="card-content-inner">
+											<p>雏鹰训练营2日游</p>
+											<p>高远探险 【雏鹰训练营】精彩夏日（2天）皮划艇@徒步露营 @ 传统弓箭训练活动</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/318" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：西安</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/318" class="link active-recommend">
+																							<span>￥630.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-05-26_5927f104a4daa.jpg" alt="">
+										<div class="card-content-inner">
+											<p>鲸鱼沟亲子1日游</p>
+											<p>5月13日鲸鱼沟竹林徒步皮划艇竞技亲子一日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/317" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：西安</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/317" class="link active-recommend">
+																							<span>￥280.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-21_58abe98089c3c.jpg" alt="">
+										<div class="card-content-inner">
+											<p>陕北信天游</p>
+											<p>西安-乾坤湾-波浪谷-延安-壶口瀑布4日游</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/229" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：西安</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/229" class="link active-recommend">
+																							<span>￥1680.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-02-21_58abe9514e46f.jpg" alt="">
+										<div class="card-content-inner">
+											<p>漫游三秦</p>
+											<p>西安-乾坤湾-波浪谷-延安-壶口瀑布-城墙-华清池-兵马俑-华山-袁家村8日</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/228" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：西安</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/228" class="link active-recommend">
+																							<span>￥3480.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-01-23_5885abf68d2e7.jpg" alt="">
+										<div class="card-content-inner">
+											<p>武功山徒步</p>
+											<p>华东驴友进阶必修课——江西武功山徒步穿越之旅！（2017全年计划，周五晚上出发周日回（节假日除外），无须请假！）</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/179" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：萍乡</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/179" class="link active-recommend">
+																							<span>￥278.00元起</span>										</a>
+									</div>
+								</div>								<div class="card demo-card-header-pic">
+									<div class="card-content">
+										<img src="http://img.kllife.com/2017-04-26_590050c3990a0.jpg" alt="">
+										<div class="card-content-inner">
+											<p>千丈幽谷</p>
+											<p>2017全年计划：单日新昌飞越千丈幽谷，探秘倒脱靴，俯瞰江南第一拐—韩妃江大拐弯（徒步约12公里）</p>
+										</div>
+										<!-- 跳转a -->
+										<a href="/phone/index.php?s=/phone/line/info/id/177" external></a>
+									</div>
+									<div class="card-footer">
+										<span>出发地：杭州</span>
+										<a href="/phone/index.php?s=/phone/line/info/id/177" class="link active-recommend">
+																							<span>￥130.00元起</span>										</a>
+									</div>
+								</div>
+							<!-- 查看更多周边游 -->
+							<a href="/phone/index.php?s=/phone/line/list/t/zb" external>查看更多产品</a>
+
+						</div>
+					</div>
+				</div>
+		</div> <!--结束tab-->	</div>
+</div>
+</div>
+
+
+<!-- 活动回顾 -->
+<div class="active-review">
+	<div class="active-review-content">
+		<div class="active-review-header">
+			<img src="/source/Static/phone/images/index/sublist_logo.png" alt="">
+			<span>活动回顾</span>
+		</div>
+		<div class="active-review-list">
+							<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-06-20_5948bfe968af6.jpg" alt="">
+							<div class="card-content-inner">
+								<p>2017纵情丝路直播帖——大量美女图，看的时候口水不要滴在键盘上哦</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3050" external></a>
+						</div>
+						<div class="card-footer">
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3050" class="link">
+								<!--<img src="/source/Static/phone/images/index/people.png" alt="">-->
+								作者：<span>黑山来客</span>
+							</a>
+							<!--<a href="#" class="link active-recommend">
+                            <strong>重点推荐腾冲银杏</strong>
+                            &nbsp;|&nbsp;
+                            <span>5892元</span></a>-->
+						</div>
+					</div>
+				</div>				<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-06-20_5948bce836dc3.jpg" alt="">
+							<div class="card-content-inner">
+								<p>六月，跟摄影师穆穆游别样新疆，错过等一年</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3065" external></a>
+						</div>
+						<div class="card-footer">
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3065" class="link">
+								<!--<img src="/source/Static/phone/images/index/people.png" alt="">-->
+								作者：<span>穆穆</span>
+							</a>
+							<!--<a href="#" class="link active-recommend">
+                            <strong>重点推荐腾冲银杏</strong>
+                            &nbsp;|&nbsp;
+                            <span>5892元</span></a>-->
+						</div>
+					</div>
+				</div>				<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-06-20_5948bee8c15d4.jpg" alt="">
+							<div class="card-content-inner">
+								<p>2017新疆全景直播贴——你想要的唯美旅行照，都在江布拉克郁金香花海中</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3049" external></a>
+						</div>
+						<div class="card-footer">
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3049" class="link">
+								<!--<img src="/source/Static/phone/images/index/people.png" alt="">-->
+								作者：<span>MADKING</span>
+							</a>
+							<!--<a href="#" class="link active-recommend">
+                            <strong>重点推荐腾冲银杏</strong>
+                            &nbsp;|&nbsp;
+                            <span>5892元</span></a>-->
+						</div>
+					</div>
+				</div>				<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-06-27_5951c65c4c19a.jpg" alt="">
+							<div class="card-content-inner">
+								<p>丝绸之路巅峰十日直播：一条越走越慢越慢越美的线路</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3078" external></a>
+						</div>
+						<div class="card-footer">
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3078" class="link">
+								<!--<img src="/source/Static/phone/images/index/people.png" alt="">-->
+								作者：<span>穆穆</span>
+							</a>
+							<!--<a href="#" class="link active-recommend">
+                            <strong>重点推荐腾冲银杏</strong>
+                            &nbsp;|&nbsp;
+                            <span>5892元</span></a>-->
+						</div>
+					</div>
+				</div>				<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-06-27_5951c7c71f435.jpg" alt="">
+							<div class="card-content-inner">
+								<p>寻觅夏日里的清凉——甘南，与天更近，众神关照</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3076" external></a>
+						</div>
+						<div class="card-footer">
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3076" class="link">
+								<!--<img src="/source/Static/phone/images/index/people.png" alt="">-->
+								作者：<span>可乐</span>
+							</a>
+							<!--<a href="#" class="link active-recommend">
+                            <strong>重点推荐腾冲银杏</strong>
+                            &nbsp;|&nbsp;
+                            <span>5892元</span></a>-->
+						</div>
+					</div>
+				</div>				<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-06-20_5948caaecc672.jpg" alt="">
+							<div class="card-content-inner">
+								<p>北京之北，以梦为马，让我们一起放肆驰骋坝上草原</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=1583" external></a>
+						</div>
+						<div class="card-footer">
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=1583" class="link">
+								<!--<img src="/source/Static/phone/images/index/people.png" alt="">-->
+								作者：<span>杰森</span>
+							</a>
+							<!--<a href="#" class="link active-recommend">
+                            <strong>重点推荐腾冲银杏</strong>
+                            &nbsp;|&nbsp;
+                            <span>5892元</span></a>-->
+						</div>
+					</div>
+				</div>				<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-06-20_5948cbb468ef8.jpg" alt="">
+							<div class="card-content-inner">
+								<p>人品与美景齐飞，穿越年保玉则的甘南之旅</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="http://shequ.kllife.com/Index/youjidetail/id/2097.html" external></a>
+						</div>
+						<div class="card-footer">
+							<a href="http://shequ.kllife.com/Index/youjidetail/id/2097.html" class="link">
+								<!--<img src="/source/Static/phone/images/index/people.png" alt="">-->
+								作者：<span>黑山来客</span>
+							</a>
+							<!--<a href="#" class="link active-recommend">
+                            <strong>重点推荐腾冲银杏</strong>
+                            &nbsp;|&nbsp;
+                            <span>5892元</span></a>-->
+						</div>
+					</div>
+				</div>				<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-06-27_5951c71af3ed8.jpg" alt="">
+							<div class="card-content-inner">
+								<p>大美西北，浪起来——记6.24丝绸之路巅峰之旅</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3072" external></a>
+						</div>
+						<div class="card-footer">
+							<a href="http://shequ.kllife.com/Index/youjidetail.html?id=3072" class="link">
+								<!--<img src="/source/Static/phone/images/index/people.png" alt="">-->
+								作者：<span>小小</span>
+							</a>
+							<!--<a href="#" class="link active-recommend">
+                            <strong>重点推荐腾冲银杏</strong>
+                            &nbsp;|&nbsp;
+                            <span>5892元</span></a>-->
+						</div>
+					</div>
+				</div>
+		</div>
+		<!-- 更多往期回顾 -->
+		<a href="http://shequ.kllife.com/" external>更多往期回顾</a>
+	</div>
+</div>
+<!-- end 活动回顾 -->
+
+<!-- 精彩分享 -->
+<div class="active-review">
+	<div class="active-review-content">
+		<div class="active-review-header">
+			<img src="/source/Static/phone/images/index/sublist_logo.png" alt="">
+			<span>精彩分享</span>
+		</div>
+		<div class="active-review-list">
+
+							<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-03-15_58c8ff03b2298.jpg" alt="">
+							<div class="card-content-inner">
+								<p>天然石城，人间净土</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="/phone/index.php?s=/phone/line/article/id/32" external></a>
+						</div>
+					</div>
+				</div>				<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-03-14_58c7b2ae536e3.jpg" alt="">
+							<div class="card-content-inner">
+								<p>带你领略中国的玻利维亚盐湖</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="/phone/index.php?s=/phone/line/article/id/31" external></a>
+						</div>
+					</div>
+				</div>				<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-03-09_58c0f154889fb.jpg" alt="">
+							<div class="card-content-inner">
+								<p>情缘赛里木湖</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="/phone/index.php?s=/phone/line/article/id/28" external></a>
+						</div>
+					</div>
+				</div>				<div class="active-review-sublist">
+					<div class="card demo-card-header-pic">
+						<div class="card-content">
+							<img src="http://img.kllife.com/2017-03-14_58c7ad931c3aa.jpg" alt="">
+							<div class="card-content-inner">
+								<p>青海大柴旦水上雅丹</p>
+							</div>
+							<!-- 跳转a -->
+							<a href="/phone/index.php?s=/phone/line/article/id/30" external></a>
+						</div>
+					</div>
+				</div>
+		</div>
+		<!-- 更多往期回顾 -->
+		<a href="/phone/index.php?s=/phone/line/article" external>更多精彩分享</a>
+	</div>
+
+</div>
+<!-- end 精彩分享 -->
+
+</div>
+</div>
+
+<!--图片延时加载-->
+<script src="/source/Static/home/common/js/echo.min.js"></script>
+<script>
+    //初始化图片延迟加载
+    echo.init();
+</script>
+<!--每刻美弹出框-->
+<!--<div class="meikemei" style="position:fixed;top:0px;left:0px;width:100%;height:100%;background: rgba(0,0,0,0.5);z-index:10000000;">-->
+<!--<div style="position: relative;">-->
+<!--<div id="meikemei-img" style="position: fixed;top:10%;left:10%;width:80%;"><img style="width:100%;" src="/source/Static/phone/images/index/phone-tc.png" alt=""></div>-->
+<!--<div id="remove-tc" style="position: fixed;top:12%;right:12%;"><img src="/source/Static/phone/images/index/remove-tc.png" alt=""></div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<!-- light7 -->
+<script src="/source/Static/phone/common/js/light7.js"></script>
+<!-- i18n 中文 -->
+<script src="/source/Static/phone/common/js/cn.js"></script>
+<!--公用JS文件-->
+<script src="/source/Static/common/js/functions.js"></script>
+
+<!-- swiper -->
+<script src="/source/Static/phone/common/js/swiper-3.3.1.min.js"></script>
+
+<script>
+    $(function(){
+
+        $.init();
+        var swiper = new Swiper('.module01 .swiper-container', {
+            pagination: '.swiper-pagination',
+            slidesPerView: 1,
+            paginationClickable: true,
+            spaceBetween: 10,
+            loop: true,
+            centeredSlides: true,
+            autoplay: 2500,
+            autoplayDisableOnInteraction: false
+        });
+        var swiper = new Swiper('.module02 .swiper-container', {
+            slidesPerView: 2.7,
+            paginationClickable: true,
+            spaceBetween: 20,
+            freeMode: true
+        });
+    });
+</script>
+<!--超级目的地-->
+<script>
+
+</script>
+<script>
+    //每刻美弹出框
+    //        $("#remove-tc").on("click",function(){
+    //            $(".meikemei").hide();
+    //		})
+    //		$("#meikemei-img").on("click",function(){
+    //		    window.location.href="/phone/index.php?s=/phone/line/xiezhenlvxing";
+    //            $(".meikemei").hide();
+    //		})
+    //图片垂直居中
+    $(document).ready(function(){
+        $("#meikemei-img").on("load",function(){
+            var imgh = $(this).height();
+            var body = $("body").height();
+            var top = (body-imgh)/2;
+            var topRemove = top+1;
+            $(this).css("top",top+"px");
+            $("#remove-tc").css("top",topRemove+"px");
+        });
+    });
+
+    //小团慢旅行
+    $(".slow-travel-detail .click").on("click",function(){
+        var Index = $(this).index();
+        $(this).find("div").addClass("active").parents(".click").siblings(".click").find("div").removeClass("active");
+        $(".slow-travel-explain div").eq(Index).show().siblings("div").hide();
+    })
+</script>
+<script>
+    //滚动文字
+    $(function(){
+        //1文字轮播(2-5页中间)开始
+        $(".font_inner li:eq(0)").clone(true).appendTo($(".font_inner"));//克隆第一个放到最后(实现无缝滚动)
+        var liHeight = $(".swiper_wrap").height();//一个li的高度
+        //获取li的总高度再减去一个li的高度(再减一个Li是因为克隆了多出了一个Li的高度)
+        var totalHeight = ($(".font_inner li").length *  $(".font_inner li").eq(0).height()) -liHeight;
+        $(".font_inner").height(totalHeight);//给ul赋值高度
+        var index = 0;
+        var autoTimer = 0;//全局变量目的实现左右点击同步
+        var clickEndFlag = true; //设置每张走完才能再点击
+        function tab(){
+            $(".font_inner").stop().animate({
+                top: -index * liHeight
+            },400,function(){
+                clickEndFlag = true;//图片走完才会true
+                if(index == $(".font_inner li").length -1) {
+                    $(".font_inner").css({top:0});
+                    index = 0;
+                }
+            })
+        };
+        function nextword() {
+            index++;
+            if(index > $(".font_inner li").length - 1) {
+                //判断index为最后一个Li时index为0
+                index = 0;
+            }
+            tab();
+        };
+        function prevword() {
+            index--;
+            if(index < 0) {
+                index = $(".font_inner li").size() - 2;//因为index的0 == 第一个Li，减二是因为一开始就克隆了一个LI在尾部也就是多出了一个Li，减二也就是_index = Li的长度减二
+                $(".font_inner").css("top",- ($(".font_inner li").size() -1) * liHeight);//当_index为-1时执行这条，也就是走到li的最后一个
+            }
+            tab();
+        };
+        //自动轮播
+        autoTimer = setInterval(nextword,3000);
+        $(".font_inner a").hover(function(){
+            clearInterval(autoTimer);
+        },function() {
+            autoTimer = setInterval(nextword,3000);
+        });
+    });
+
+
+</script>
+<!--百度统计-->
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+		var hm = document.createElement("script");
+		hm.src = "//hm.baidu.com/hm.js?a6f69a2a062b07c67a4ae301e0963ca8";
+		var s = document.getElementsByTagName("script")[0]; 
+		s.parentNode.insertBefore(hm, s);
+	})();
+</script> 
+<!--商务通统计-->
+<script language="javascript" src="http://pqt.zoosnet.net/JS/LsJS.aspx?siteid=PQT43116159&lng=cn"></script>
+<!--CNZZ统计-->
+<script type="text/javascript">
+	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cdiv id='cnzz_stat_icon_1000019958'%3E%3C/div%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000019958%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

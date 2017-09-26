@@ -1,0 +1,970 @@
+<include file="Common/header" />
+	<style>
+		.dataTables_wrapper .table thead > tr .sorting:before, .dataTables_wrapper .table thead > tr .sorting_asc:before, .dataTables_wrapper .table thead > tr .sorting_desc:before { content: ''; }
+		.create { position: relative; border: 1px solid #dcdcdc; margin-bottom:20px; padding: 15px; }
+		.create .row { margin-bottom:20px; }
+		.create-write .input-group { height: 36px; }
+		.create-write input { width: 100%; height: 36px; }
+		.input-group-addon { padding: 4px 40px; }
+		.btn-save { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		.btn-clear { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		.list-tbody img { width: 158px; height: 91px; border: 1px solid #dcdcdc; } 
+		.issuing-list-search { width: 50%; margin: 20px auto; }
+		.list-page { width: 100%; text-align: right; }
+		.list-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+		.list-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+		.list-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }
+		select{ height: 36px!important; }
+		/* 上传文件 */
+		.image-file-input { position: absolute; top: 0; width: 100%; height: 300px; opacity: 0; }
+		.line_my_pic_border{ position: relative; float: left; width: 350px; height:300px; border:1px solid #FCFCFC; overflow: hidden; }
+		.line_my_pic { position: relative; }
+		/* 问题列表 */
+		.hover_content i { color: #68b828; font-style: normal; cursor: pointer; }
+		.edit-input { display: none; margin-top: 5px; }
+		header { border-left: 10px solid #ffba00; padding-left: 10px;}
+		.story-comment { border-left: 10px solid #8dc63f;  padding-left: 10px;}
+		.story-comment-content { margin-left: 0px !important; }
+		article { padding-top:0px !important; margin-bottom:0px !important; }
+		.separator-line { border-top:1px dashed #00b19d; margin-top: 15px; margin-bottom: 15px; }
+		.photo_list div{margin:10px 0px;}
+		.photo_list .photo_item {position: relative;}
+		.photo_list .photo_item .photo_remove{position: absolute;top:5px;right:20px;width:50px;}
+
+		/* 上传文件*/
+		.image-file-input { position: absolute; top: 0; width: 100%; opacity: 0; }
+		
+	</style>
+	<script src="__PUBLIC__/home/js/page.js"></script>	
+	<div class="page-title">
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	<!--信息录入创建-->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">领队录入</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">			
+				<!--在此地编辑内容-->
+					<!--创建优惠券-->
+					<div class="create">
+						<div class="create-write" data-id="{$leader.id}">
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">姓名</i>
+										</div>
+										<input type="text" class="form-control data_name" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">昵称</i>
+										</div>
+										<input type="text" class="form-control data_nickname" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">艺名</i>
+										</div>
+										<input type="text" class="form-control data_stagename" />
+									</div>
+								</div>
+								<div class="col-md-3 data_sex">
+									<div class="input-group">
+										<label class="radio-inline">性别：</label>										
+										<label class="radio-inline"><input style="width: initial; height: initial;" type="radio" name="sex" checked value="1">男</label>
+										<label class="radio-inline"><input style="width: initial; height: initial;" type="radio" name="sex" value="2">女</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">所属</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){
+												bindTypeDataDropMenu($('.data_owner'), 'cj_leader_owner', '选择领队所属',true);
+											});
+										</script>
+										<input type="text" class="form-control data_owner">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">类型</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){
+												bindTypeDataDropMenu($('.data_type'), 'cj_leader_type', '选择领队类型');
+											});
+										</script>
+										<input type="text" class="form-control data_type">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">星座</i>
+										</div>
+										<select class="form-control data_constellation">
+											<option value="1" selected>白羊座</option>
+											<option value="2">金牛座</option>
+											<option value="3">双子座</option>
+											<option value="4">巨蟹座</option>
+											<option value="5">狮子座</option>
+											<option value="6">处女座</option>
+											<option value="7">天秤座</option>
+											<option value="8">天蝎座</option>
+											<option value="9">射手座</option>
+											<option value="10">摩羯座</option>
+											<option value="11">水瓶座</option>
+											<option value="12">双鱼座</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">血型</i>
+										</div>
+										<select class="form-control data_blood_type">
+											<option value="1" selected>A型</option>
+											<option value="2">B型</option>
+											<option value="3">AB型</option>
+											<option value="4">O型</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">电话号码</i>
+										</div>
+										<input type="text" class="form-control data_tel" maxlength="15" placeholder="请输入电话号码" />
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">印象</i>
+										</div>
+										<input type="text" class="form-control data_impression" placeholder="多个印象请用','隔开">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">服务星级</i>
+										</div>
+										<input type="number" class="form-control data_star_level" maxlength="1" placeholder="服务星级为1-5级" />
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">个人简介</i>
+										</div>
+										<input type="text" class="form-control data_intro" placeholder="请输入个人简介">
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">结单方式</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){
+												bindTypeDataDropMenu($('.data_pay_type'), 'cj_pay_type', '选择结单方式');
+											});
+										</script>
+										<input type="text" class="form-control data_pay_type">
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">所属线路</i>
+										</div>	
+										<script type="text/javascript">
+											$(document).ready(function(){
+												var voption = {obj:$('.data_line'), search:1, multiple:true, placeholder: '请输入搜索并选择线路', show_col:'title', select_col:'title'};
+												var vds = {tab:'line', search_col: 'title', cdsstr: 'invalid|=|0|AND|online|=|1|AND', cdtype:4}
+												var member_line = new MySelect2(voption, vds);
+											});
+										</script>
+										<input type="text" class="form-control data_line">
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">收款人</i>
+										</div>
+										<input type="text" class="form-control data_payee">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">银行账号</i>
+										</div>
+										<input type="number" class="form-control data_bank_card" maxlength="16">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">开户行与地址</i>
+										</div>
+										<input type="text" class="form-control data_bank_address">
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">导游证编号</i>
+										</div>
+										<input type="text" class="form-control data_leader_certificate_no" maxlength="32" />
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">身份证</i>
+										</div>
+										<input type="text" class="form-control data_id_card" maxlength="32" />
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">去过的线路</i>
+										</div>
+										<input type="text" class="form-control data_arrived_line" placeholder="请把多个线路用','隔开" />
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">特别关注</i>
+										</div>
+										<input type="text" class="form-control data_special_focus" placeholder="请把多个关注用','隔开" />
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<p>领队详情页头像</p>
+										<img class="xiuxiu_upload data_face_image" data-set="face_image" width="100%" src="{$leader.face_image}" alt="详情页领队展示图片"/>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<p>导游证图片</p>
+										<img class="xiuxiu_upload data_leader_certificate_image" data-set="leader_certificate_image" width="100%" src="{$leader.leader_certificate_image}" alt="导游证图片"/>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<p>身份证正面照</p>
+										<img class="xiuxiu_upload data_id_card_image_front" width="100%" data-set="id_card_image_front" src="{$leader.id_card_image_front}" alt="身份证正面图片"/>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<p>身份证反面照</p>
+										<img class="xiuxiu_upload data_id_card_image_behind" width="100%" data-set="id_card_image_behind" src="{$leader.id_card_image_behind}" alt="身份证反面图片"/>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<button class="btn btn-save">保存</button>	
+								<button class="btn btn-clear">重置</button>	
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--编辑模板-->
+	<div class="form-group template_content_editbox hidden_ctrl">
+		<textarea class="form-control input-unstyled autogrow editbox"></textarea>
+	</div>
+	<!--问题模板-->
+	<article class="timeline-story template_question hidden_ctrl" data-id="">
+		<i class="fa-paper-plane-empty block-icon"></i>
+		<!-- User info -->
+		<header>							
+			<!-- Story Content Wrapped inside Paragraph -->
+			<p class="hover_content" style="margin-bottom: 30px;">
+				<span class="content"></span><br />
+				<i class="content_edit question">[编辑]</i>
+				<i class="content_delete question">[删除]</i>
+			</p>
+			<!-- Story Options Links -->
+			<div class="story-options-links">				
+				<time style="float: right;"></time>
+				<span class="sign_name" style="float: right;"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>			
+		</header>
+		<div class="answer-content" style="margin-left: 25px;">
+			<!-- Story Comments -->
+			<ul class="list-unstyled story-comments">
+			</ul>
+			<form method="post" action="" class="story-comment-form">
+				<textarea class="form-control input-unstyled autogrow answer_reply_textarea" placeholder="回复..."></textarea>
+				<button type="button" class="btn btn-single btn-xs btn-success">发送</button>
+			</form>
+		</div>
+	</article>
+	<!--回答模板-->
+	<div class="story-comment template_answer hidden_ctrl" data-id="">
+		<div class="story-comment-content">
+			<a href="#" class="story-comment-user-name">
+				<span class="answer_name"></span>
+				<time></time>
+			</a>
+			<p class="hover_content" style="margin-bottom: 30px;">
+				<span class="answer_content"></span><br />
+				<i class="content_edit answer">[编辑]</i>
+				<i class="content_delete answer">[删除]</i>
+				<br /><br />
+			</p>
+		</div>
+	</div><!--结束回答-->
+	<!--查询信息，列表展示-->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">问题列表</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<section class="profile-env">
+						<!-- User Post form and Timeline -->
+						<form method="post" action="" class="profile-post-form">
+							<textarea class="form-control input-unstyled input-lg autogrow" placeholder="请输入您的问题"></textarea>
+							<i class="el-edit block-icon"></i><br />							
+							<button type="button" class="btn btn-single btn-xs btn-success post-story-button">发送</button>
+						</form>
+						<!-- User timeline stories -->
+						<section class="user-timeline-stories">
+							<volist id="quest" name="questions">
+								<hr class="separator-line"/>
+								<!-- Timeline Story Type: Status -->
+								<article class="timeline-story" data-id="{$quest.id}" data-leader-id="{quest.leader_id}">
+									<i class="fa-paper-plane-empty block-icon"></i>
+									<!-- User info -->
+									<header>							
+										<!-- Story Content Wrapped inside Paragraph -->
+										<p class="hover_content" style="margin-bottom: 30px;">									
+											<span class="content">{$quest.content}</span><br />
+											<i class="content_edit question">[编辑]</i>
+											<i class="content_delete question">[删除]</i>
+										</p>
+										<!-- Story Options Links -->
+										<div class="story-options-links">
+											<span class="sign_name" style="float: right;">
+												<time style="float: right;">{$quest.create_time}</time>
+												<span class="sign_name" style="float: right;">[{$quest.account_id_data.account_type.type_desc}]{$quest.account_id_show_name}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+											</span>
+										</div>
+									</header>
+									<div class="answer-content" style="margin-left: 25px;">
+										<!-- Story Comments -->
+										<ul class="list-unstyled story-comments">
+											<volist id="answer" name="quest.answers">
+											<li>
+												<div class="story-comment" data-id="{$answer.id}">
+													<div class="story-comment-content">
+														<p class="hover_content" style="margin-bottom: 30px;">
+															<span class="answer_content">{$answer.content}</span><br />
+															<i class="content_edit answer">[编辑]</i>
+															<i class="content_delete answer">[删除]</i><br /><br />
+														</p>
+														<a href="#" class="story-comment-user-name">
+															<span class="answer_name">[{$answer.account_id_data.account_type.type_desc}]{$answer.account_id_show_name}</span>														
+															<time>{$answer.create_time}</time>
+														</a>
+													</div>
+												</div>
+											</li>
+											</volist>
+										</ul>
+										<form method="post" action="" class="story-comment-form">
+											<textarea class="form-control input-unstyled autogrow answer_reply_textarea" placeholder="回复..."></textarea>
+											<button type="button" class="btn btn-single btn-xs btn-success">发送</button>
+										</form>
+									</div> <!--结束回答-->
+								</article>
+							</volist>
+						</section>	<!--结束问题列表Section-->
+						<div class="list-page question_page"></div>
+					</section> <!--结束整个问题系统Section-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		// 初始化翻页
+		constructionPage('.question_page', 1, '{$question_page_count}', changeQuestionPage, true);
+		// 添加问题HTML
+		function appendQuestionHtml(container, ds, pageIndex, pageCount, before) {
+//			console.log('container:'+container+',before'+before+',ds:'+JSON.stringify(ds));										
+			if (ds != null) {	
+				for (var i = 0; i < $(ds).length; i ++) {
+					var d = ds[i];
+					var rootObj = $('.template_question').clone(true);
+					$(rootObj).removeClass('template_question');
+					$(rootObj).removeClass('hidden_ctrl');
+					$(rootObj).attr('data-id', d.id);
+					$(rootObj).attr('data-leader-id', d.leader_id);
+					$(rootObj).find('.content').html(d.content);
+					$(rootObj).find('.sign_name').html('['+d.account_id_data.account_type.type_desc+']'+d.account_id_show_name);
+					$(rootObj).find('time').html(d.create_time);
+					//回复内容
+					if (typeof(d.answers) != 'undefined' && d.answers != null) {
+						for (var j = 0; j < d.answers.length; j++) {
+							var a = d.answers[j];
+							var answerObj = $('.template_answer').clone(true);
+							$(answerObj).removeClass('template_answer');
+							$(answerObj).removeClass('hidden_ctrl');
+							$(answerObj).attr('data-id', a.id);
+							$(answerObj).find('.answer_name').html('['+a.account_id_data.account_type.type_desc+']'+a.account_id_show_name);
+							$(answerObj).find('time').html(a.create_time);
+							$(answerObj).find('.answer_content').html(a.content);
+							$(rootObj).find('.story-comments').append('<li></li>');
+							$(rootObj).find('.story-comments').find('li:last').append(answerObj);
+						}
+					}
+					if (typeof(before) == 'undefined'){
+						$(container).append('<hr class="separator-line" />');
+						$(container).append(rootObj);	
+					} else {
+						$(container).prepend('<hr class="separator-line" />');
+						$(container).prepend(rootObj);
+					}
+				}				
+				// 重构翻页
+				constructionPage('.question_page', pageIndex, pageCount, changeQuestionPage, false);				
+			}
+		}
+		// 切换问题页
+		function changeQuestionPage(p) {
+			var leaderId = '{$leader.id}';
+			var jsonData = {
+				op_type: 'list_question',
+				leader_id: leaderId,
+				page: p-1,
+			}
+			$.post('{:U("financial/leader")}', jsonData, function(data){
+				if (data.result.errno == 0) {					
+					$('.user-timeline-stories').empty();
+					appendQuestionHtml('.user-timeline-stories', data.ds, p, data.page_count, false);
+				} else {
+					alert(data.result.message);
+				}
+			});
+		}
+		// 生成问题
+		$('.post-story-button').click(function(){
+			var content = $('.profile-post-form').find('textarea').val();			
+			if (content == '') {
+				alert('问题内容不能为空');
+				return false;
+			}	
+			createQuestion('.user-timeline-stories', 0, content);
+			$('.profile-post-form').find('textarea').val('');
+		});
+		
+		// 回答问题
+		$('.story-comment-form').find('button').click(function(){
+			var rootObj = $(this).closest('article');
+			var questionId = $(rootObj).attr('data-id');
+//			var content = $(rootObj).find('.answer_reply_textarea').data('wysihtml5').editor.getValue();
+			var content = $(rootObj).find('.answer_reply_textarea').val();
+			if (content == '') {
+				alert('回答内容不能为空');
+				return false;
+			}	
+			var container = $(this).closest('.answer-content').find('.story-comments'); 
+			createQuestion(container, questionId, content);
+			$(rootObj).find('.answer_reply_textarea').val();
+		});
+		// 添加问题HTML
+		function appendQuestionOnlyHtml(container, ds, pageCount, before) {
+			if (ds != null) {	
+				for (var i = 0; i < $(ds).length; i ++) {
+					var d = ds[i];
+					var rootObj = $('.template_question').clone(true);
+					$(rootObj).removeClass('template_question');
+					$(rootObj).removeClass('hidden_ctrl');
+					$(rootObj).attr('data-id', d.id);
+					$(rootObj).find('.content').html(d.content);
+					$(rootObj).find('.sign_name').html('['+d.account_id_data.account_type.type_desc+']'+d.account_id_show_name);
+					$(rootObj).find('time').html(d.create_time);
+					
+					if (typeof(before) == 'undefined'){
+						$(container).append(rootObj);	
+					} else {
+						$(container).prepend(rootObj);
+					}
+				}			
+				// 重构翻页
+				if (pageCount != 0) {
+					constructionPage('.question_page', 1, pageCount, changeQuestionPage);					
+				}
+			}
+		}
+		// 添加答案HTML
+		function appendAnswerOnlyHtml(container, ds, before) {
+			if (ds != null) {	
+				for (var i = 0; i < $(ds).length; i ++) {
+					var a = ds[i];
+					var answerObj = $('.template_answer').clone(true);
+					$(answerObj).removeClass('template_answer');
+					$(answerObj).removeClass('hidden_ctrl');
+					$(answerObj).attr('data-id', a.id);
+					$(answerObj).find('.answer_name').html('['+a.account_id_data.account_type.type_desc+']'+a.account_id_show_name);
+					$(answerObj).find('time').html(a.create_time);
+					$(answerObj).find('.answer_content').html(a.content);
+					
+					if (typeof(before) == 'undefined'){
+						$(container).append('<li></li>');
+						$(container).find('li:last').append(answerObj);	
+					} else {
+						$(container).prepend('<li></li>');
+						$(container).find('li:first').append(answerObj);
+					}
+				}			
+			}
+		}
+		// 生成问题
+		function createQuestion(container, questionId, content) {	
+			var leaderId = '{$leader.id}';
+			if (leaderId == '') {
+				toastr.error('领队的编号不能为空');
+				return false;
+			}
+			var jsonData = {
+				op_type: 'save_question',
+				leader_id: '{$leader.id}',
+				question_id: questionId,
+				content: content,				
+			}
+			
+			$.post('{:U("financial/leader")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (data.ds != null) {
+						var dss = new Array();
+						dss[0] = data.ds;
+						if (questionId == 0) {
+							appendQuestionOnlyHtml(container, dss, 0, true);	
+						} else {
+							appendAnswerOnlyHtml(container, dss, true);
+						}
+						$(container).find('')
+					}
+				} else {
+					toastr.error(data.result.message);
+					if (data.jumpUrl != null) {
+						location.href = data.jumpUrl;
+					}
+				}
+			});
+		}
+		// 保存问题
+		function saveContent(jsonData) {			
+			var ds = {ds:null, result:{errno:-1, message:'未保存成功'}};
+			$.ajax({
+				url: '{:U("financial/leader")}',
+				type: 'POST',
+				async: false,
+				data: jsonData,
+				dataType: 'json',
+				success: function(data) {
+					ds = data;
+				}
+			});			
+			return ds;
+		}
+		
+		//编辑问题
+		$('.content_edit').click(function(){				
+			// 获取当前跟对象
+			var rootObj = null;
+			if ($(this).hasClass('question') == true) {
+				var rootObj = $(this).closest('.timeline-story');
+			} else {
+				var rootObj = $(this).closest('.story-comment');
+			}	
+			
+			if (rootObj == null) {
+				console.log('无法获取根对象!');
+				return false;
+			}			
+			
+			var cnt = '';
+			if($(this).html() == '[编辑]'){
+				// 设置当前编辑的问题，取消上一个编辑的问题
+				recoverUnsaveQuestion();								
+				$(this).html('[保存]');
+				
+				// 获取当前问题内容
+				if ($(this).hasClass('question') == true) {
+					cnt = $(rootObj).find('.content').html();
+				} else {
+					cnt = $(rootObj).find('.answer_content').html();
+				}			
+				
+				// 设置到编辑框
+				var tempObj = $('.template_content_editbox').clone();
+				$(tempObj).removeClass('template_content_editbox');
+				$(tempObj).removeClass('hidden_ctrl');
+				$(tempObj).addClass('content_editbox');
+				$(tempObj).find('.editbox').val(cnt);
+				$(rootObj).find('.hover_content:first').after(tempObj);
+				
+			}else{
+				// 获取当前编辑问题的ID和内容
+				var qid = $(rootObj).attr('data-id');				
+				cnt = $(rootObj).find('.editbox').val();				
+				if (qid == 0 ||  cnt == '') {
+					toastr.warning('编号或回答内容不能为空');
+					return false;
+				}
+				
+				var jsonData = {
+					op_type: 'save_question',
+					id: qid,
+					content: cnt,
+				}
+				// 处理新编辑的问题
+				var data = saveContent(jsonData);
+				if (data.result.errno == 0) {					
+					if ($(this).hasClass('question')) {
+						$(rootObj).find('.content').html(cnt);
+					} else {
+						$(rootObj).find('.answer_content').html(cnt);
+					}
+					$(rootObj).find('.editbox').val('');
+				} else {
+					toastr.error(data.result.message);
+				}
+				
+				// 移除编辑框
+				recoverUnsaveQuestion();
+			}
+		});
+		
+		// 恢复上一个编辑的问题
+		function recoverUnsaveQuestion() {			
+			if ($('.content_editbox').prev().hasClass('hover_content')) {
+				var spanObj = $('.content_editbox').prev().find('.content_edit').html('[编辑]');
+			}
+			
+			// 把编辑框移除并放回模板位置
+			$('.content_editbox').remove();
+		}
+		
+		// 删除问题
+		$('.content_delete').click(function(){
+			var qid = 0;
+			if ($(this).hasClass('question')) {
+				qid = $(this).closest('.timeline-story').attr('data-id');
+			} else {
+				qid = $(this).closest('.story-comment').attr('data-id');
+			}
+			
+			if (qid == 0) {
+				toastr.warning('编号不能为空');
+				return false;
+			}
+			
+			var jsonData = {
+				op_type: 'delete_question',
+				id: qid,
+			}
+			
+			var data = saveContent(jsonData);
+			if (data.result.errno == 0) {
+				// 移除问题编辑框
+				recoverUnsaveQuestion();				
+				if ($(this).hasClass('question')) {
+					$(this).closest('.timeline-story').remove();
+				} else {
+					$(this).closest('.story-comment').remove();
+				}
+				$(rootObj).find('.editbox').val('');
+			} else {
+				toastr.error(data.result.message);
+			}	
+			
+		});
+	</script>
+		
+	<!--查询信息，列表展示-->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">作品列表<button class="btn btn-secondary btn_append_leader_picture" style="margin-bottom:0px;margin-left:20px;">添加图片</button></h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row photo_list">
+						<volist id="pic" name="pictures">
+							<div class="col-xs-3 photo_item" data-id="{$pic.id}">
+								<img class="img-responsive" src="{$pic.path}" alt="">
+								<img class="photo_remove" src="__PUBLIC__/back/images/error.png" alt="">
+							</div>
+						</volist>
+					</div>
+					<div class="row">
+						<div class="list-page picture_page"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		// 初始化翻页
+		constructionPage('.picture_page', 1, '{$picture_page_count}', changePicturePage, true);
+		// 作品添加成功
+		function changePicturePage(p) {
+			var leaderId = '{$leader.id}';
+			var jsonData = {
+				op_type: 'list_picture', 
+				leader_id: leaderId,
+				page: p-1
+			}
+			$.post('{:U("financial/leader")}', jsonData, function(data){
+				$('.photo_list').children().remove();				
+				if (data.ds != null) {
+					for (var i=0; i < data.ds.length; i++) {
+						var d = data.ds[i];
+						var vhtml = '<div class="col-xs-3 photo_item" data-id="'+d.id+'">';
+							vhtml +='	<img class="img-responsive" src="'+d.path+'" alt="">';
+							vhtml +='	<img class="photo_remove" src="__PUBLIC__/back/images/error.png" alt="">';
+							vhtml +='</div>';
+						$('.photo_list').append(vhtml);
+					}
+					constructionPage('.picture_page', p, data.page_count, changePicturePage, false);
+					
+					// 绑定移除事件
+					$('.photo_remove').click(removePicture);
+				}
+			});
+		}
+		
+		// 添加作品
+		function appendPicture(obj, imageList) {
+			changePicturePage(1);
+		}
+	
+		// 添加作品
+		$('.btn_append_leader_picture').click(function(){
+			funcModalUploadCallBack = appendPicture;
+			showModalLeaderUploadDialog($('.photo_list'), '{$leader.id}');
+		});
+		
+		// 移除作品
+		function removePicture() {
+			var picId = $(this).closest('.photo_item').attr('data-id');
+			var jsonData = {
+				op_type: 'delete_picture',
+				id: picId,
+			}
+			$.post('{:U("financial/leader")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					toastr.success(data.result.message);
+					// 刷新页面
+					var pageIndex = $('.picture_page').attr('data-page-index');
+					changePicturePage(pageIndex);
+				} else {
+					toastr.error(data.result.message);
+				}	
+			});
+		}
+		$('.photo_remove').click(removePicture);
+	</script>
+
+<include file="Common/footer" />
+<script type="text/javascript">	
+	// 打开上传美图秀秀
+	var myxx = null;
+	$('.xiuxiu_upload').click(function(){
+		var imageName = $(this).attr('data-set');
+		if (imageName == null || imageName == 'undefined') {
+			toastr.warning('设置的对象无效');
+			return false;
+		}
+		
+		if (myxx == null) {
+			var url = 'http://kllife.com{:U("financial/leader")}';
+			console.log('input url:'+url);
+			myxx = new myxiuxiu(url, xiuxiuComplated);
+		}
+		var leaderId = '{$leader.id}';
+		var jsonData = {
+			op_type: 'local_upload_image',
+			leader_id: leaderId,
+			image_name: imageName,
+		}
+		myxx.showModal(jsonData);
+	});
+	
+	// 美图秀秀上传结束
+	function xiuxiuComplated(data) {
+		console.log(JSON.stringify(data));
+		if (data.ds.image_name != null && data.ds.image_url != null) {
+			console.log('.data_'+data.ds.image_name+'  image_name:'+data.ds.image_name+'   image_url:'+data.ds.image_url);
+			var imgObj =  $('.data_'+data.ds.image_name);
+			if ($(imgObj).length > 0) {
+				var imageSrc = data.ds.image_url+'?t='+Math.random();
+				console.log('imgage_src：'+imageSrc);
+				$(imgObj).attr('src', imageSrc);
+			}
+		}
+		if (data.result != null) {
+			toastr.error(data.result.message);
+		}
+	}
+	
+	// 添加用户
+	$('.btn-save').click(function(){
+		var al = $('.data_arrived_line').val().replace('，', ',');
+		var sf = $('.data_special_focus').val().replace('，', ',');
+		var imp = $('.data_impression').val().replace('，', ',');
+		var leaderId = '{$leader.id}';
+		var jsonData = {
+			op_type: 'save',
+			src: 'leader',
+			id: leaderId,
+			name: $('.data_name').val(),
+			nickname: $('.data_nickname').val(),
+			stagename: $('.data_stagename').val(),
+			owner: getSelect2Value($('.data_owner')),
+			type: getSelect2Value($('.data_type')),
+			constellation: $('.data_constellation').val(),
+			blood_type: $('.data_blood_type').val(),
+			sex: $('.data_sex input[name="sex"]:checked').val(),
+			tel: $('.data_tel').val(),
+			inpression: imp,
+			star_level: $('.data_star_level').val(),
+			intro: $('.data_intro').val(),
+			line: getSelect2Value($('.data_line'), ['id','title']),
+			payee: $('.data_payee').val(),
+			bank_card: $('.data_bank_card').val(),
+			bank_address: $('.data_bank_address').val(),
+			pay_type: getSelect2Value($('.data_pay_type')),
+			leader_certificate_no: $('.data_leader_certificate_no').val(),
+			id_card: $('.data_id_card').val(),
+			arrived_line: al,
+			special_focus: sf,
+		}	
+		
+		$.post('{:U("financial/source")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				toastr.success(data.result.message);
+			} else {
+				toastr.error(data.result.message);
+			}
+		});
+	});
+	
+	// 编辑信息
+	function initLeader(){
+		var did = '{$leader.id}';
+		$.post('{:U("financial/source")}', {op_type:'find', src:'leader', id:did}, function(data){
+			if (data.ds != null) {
+				var d = data.ds;
+				$('.create-write').attr('data-id', d.id);
+				$('.data_name').val(d.name);
+				$('.data_nickname').val(d.nickname);
+				$('.data_stagename').val(d.stagename);
+				if (d.sex > 0) {
+					$('.data_sex [value="'+d.sex+'"]').prop('checked', true).trigger('change');	
+				}
+				setSelect2Value($('.data_owner'), d.owner);
+				setSelect2Value($('.data_type'), d.type);
+				$('.data_constellation').val(d.constellation).trigger('change');
+				$('.data_blood_type').val(d.blood_type).trigger('change');
+				$('.data_tel').val(d.tel);
+				$('.data_impression').val(d.impression);
+				$('.data_star_level').val(d.star_level);
+				$('.data_intro').val(d.intro);
+				setSelect2Value($('.data_line'), d.line);
+				$('.data_payee').val(d.payee);
+				$('.data_bank_card').val(d.bank_card);
+				$('.data_bank_address').val(d.bank_address);
+				setSelect2Value($('.data_pay_type'), d.pay_type);
+				$('.data_leader_certificate_no').val(d.leader_certificate_no);
+				$('.data_id_card').val(d.id_card);
+				$('.data_arrived_line').val(d.arrived_line);
+				$('.data_special_focus').val(d.special_focus);
+				$('.data_face_image').val(d.face_image);
+				$('.data_leader_certificate_image').val(d.leader_certificate_image);
+				$('.data_id_card_image_front').val(d.id_card_image_front);
+				$('.data_id_card_image_behind').val(d.id_card_image_behind);
+			}
+		});
+	}
+	initLeader();
+</script>

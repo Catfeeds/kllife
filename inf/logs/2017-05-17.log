@@ -1,0 +1,10 @@
+[2017-05-17 09:37:23][info] ----------------------------------------
+[2017-05-17 09:37:23][info] {"discount":"0.00","payment_type":"1","subject":"\u68a6\u4e2d\u5929\u5802","trade_no":"2017051721001004530234737581","buyer_email":"879779653@qq.com","gmt_create":"2017-05-17 09:36:47","notify_type":"trade_status_sync","quantity":"1","out_trade_no":"LX-17051622074990506-c","seller_id":"2088421286007493","notify_time":"2017-05-17 09:37:23","body":"2017\u5e74\u7a3b\u57ce\u4e9a\u4e01-\u65b0\u90fd\u6865-\u4e39\u5df4-\u4e5d\u65e5\u6df1\u5ea6\u6e38","trade_status":"TRADE_SUCCESS","is_total_fee_adjust":"N","total_fee":"3180.00","gmt_payment":"2017-05-17 09:37:23","seller_email":"2287684289@qq.com","price":"3180.00","buyer_id":"2088802176998536","notify_id":"f409e9e2c43267206702c6e55cdf0e0k3a","use_coupon":"N","sign_type":"MD5","sign":"5813d2b58024ad64919eecc48290bde8"}
+[2017-05-17 09:37:24][info] 数据存储反馈成功！
+[2017-05-17 09:37:24][info] success
+[2017-05-17 09:37:24][info] 写入结束!!!
+[2017-05-17 20:45:03][info] ----------------------------------------
+[2017-05-17 20:45:03][info] {"discount":"0.00","payment_type":"1","subject":"\u4e1d\u7ef8\u4e4b\u8def\u5dc5\u5cf0\u4f53\u9a8c9\u65e5\u6e38","trade_no":"2017051721001004600259004793","buyer_email":"18688110133","gmt_create":"2017-05-17 20:39:12","notify_type":"trade_status_sync","quantity":"1","out_trade_no":"LX-17051606132519606-3","seller_id":"2088421286007493","notify_time":"2017-05-17 20:45:03","body":"\u6c99\u5c9b-\u9752\u6d77\u6e56-\u8336\u5361\u76d0\u6e56-\u7941\u8fde-\u5f20\u6396-\u5609\u5cea\u5173-\u6566\u714c9\u65e5\u6e38","trade_status":"TRADE_SUCCESS","is_total_fee_adjust":"N","total_fee":"8860.00","gmt_payment":"2017-05-17 20:45:02","seller_email":"2287684289@qq.com","price":"8860.00","buyer_id":"2088502833806605","notify_id":"0c861c3551ff93b780c95f462c90aadkmq","use_coupon":"N","sign_type":"MD5","sign":"e0e05d72f9e4c2800bd4b3b33314a174"}
+[2017-05-17 20:45:03][info] 数据存储反馈成功！
+[2017-05-17 20:45:03][info] success
+[2017-05-17 20:45:03][info] 写入结束!!!

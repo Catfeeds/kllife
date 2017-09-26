@@ -1,0 +1,73 @@
+<include file="Common/top" />
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/pay_success.css">
+	<div id="content">
+		<div class="pay-success">
+			<div class="success-information">
+				<if condition="empty($state)">
+					<img src="__PUBLIC__/home/images/pay_success_img/error.png" alt="">
+					<h3>订单已支付失败！</h3>
+				<else />
+					<img src="__PUBLIC__/home/images/pay_success_img/ok.png" alt="">
+					<h3>订单已支付成功！</h3>
+				</if>
+				<p><span>交 易 编 号：{$trans_no}</span></p>
+				<if condition="empty($state)">
+					<p><span> 错误信息：<strong>{$err_msg}</strong></span></p>
+				</if>
+				<p><span>订 单 号：{$order_sn}</span></p>
+				<p><span> 在线支付：<strong>{$money}元</strong></span></p>
+				<i>重要提示：近期机票欺诈短信猖狂，请不要随意相信任何航班取消短信和400电话；任何情况都不要提供银行卡信息及密码等信息。</i>
+				<a href="{:U('index/welcome')}">回到首页</a>
+			</div>
+		</div>
+		<!-- 精彩专题 -->
+		<include file="Common/zhuanti" />
+
+
+	</div>
+
+	<!-- 更改tab-bg -->
+	<script src="__PUBLIC__/home/common/js/movebg.js"></script>
+	<!-- tab -->
+	<script src="__PUBLIC__/home/common/js/tab.js"></script>
+<!--图片延迟加载-->
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(
+        function($){
+            $("img").lazyload({
+                placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+                effect      : "fadeIn",
+                threshold : 100,
+                failure_limit : 10
+            });
+        });
+</script>
+
+	<script>
+		//small轮播
+		$('.special-exhibition').unslider({ 
+			dots: true
+		});
+		//精彩专题
+		$('.special-exhibition-product').fadeInAndOut('special-img', 'div');
+		//move-bg
+	 	$(".tab-list").movebg({	
+	 		width:78/*滑块的大小*/,
+	        extra:0/*额外反弹的距离*/,
+	        speed:500/*滑块移动的速度*/,
+	        rebound_speed:400/*滑块反弹的速度*/
+	    });
+	    //热门单品
+		$('.hot-sale-product a').hover( 
+			function () {
+				$(this).find('.hot-sale-img').stop().hide(500);			
+			},
+			function () {
+				$(this).find('.hot-sale-img').stop().show(1000);	
+			}
+		);
+	</script>
+<include file="Common/right" />
+<include file="Common/bottom" />

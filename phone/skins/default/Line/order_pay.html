@@ -1,0 +1,330 @@
+<include file="common/top" />
+	<!-- mycss -->
+<!--<link rel="stylesheet" href="__PUBLIC__/phone/css/bootstrap.css">-->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/order_pay.css">
+	<style>
+		.coupon-has-choosed { border: 1px solid #e4393c; }
+		.coupon-content .row .coupon-has-choosed-bgcolor { background-color: #e4393c; }
+	</style>
+	<div class="page">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="{:U('line/order')}/type/center">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">支付</h1>
+		</header>
+		<include file="common/footer"/>
+		<div class="content">
+			<!-- 消费总额 -->
+			<div class="all-money">
+				<div class="content-padded" style="margin-bottom: 0; border-bottom: 1px solid #e7e7e7;">
+					消费总额：<span>￥{$order.need_pay_money}</span>
+				</div>
+			</div>
+			<!--预付款-->
+			<if condition="$order['exist_pay_log'] eq 0">
+				<div class="list-block" style="background-color: #fff; font-size: .75rem;">
+					<div class="item-content" style="margin: 0 1rem;">
+					
+						<div class="item-inner">
+								<div class="item-title label" style="width: 85%;">仅支付预付款</div>
+								<div class="item-input">
+									<label class="label-switch pay-part">
+										<input type="checkbox">
+										<div class="checkbox"></div>
+									</label>
+								</div>
+						</div>
+	        		</div>
+				</div>
+			</if>
+			
+			<!-- 优惠券 -->
+			<div class="coupon">
+				<div class="content-padded">
+					<i class="iconfont">&#xe60e;</i>
+					优惠券
+					<if condition="count($coupons) == 0">
+						<span>无可用</span>
+					</if>
+					<i class="iconfont up-down">&#xe60f;</i>
+				</div>
+				<div class="coupon-content">
+					<div class="content-padded">
+						<volist id="coupon" name="coupons">	
+							<if condition="$coupon['invalid'] eq 0 and $coupon['disabled'] eq 0 and $coupon['use'] eq 0">
+								<div class="row no-gutter" data-id="{$coupon.id}">
+									<div class="col-70">
+										<div class="content-padded">
+											<p>每人每次限用一张，仅限6日以上长线使用，不可与其他优惠活动同时使用</p>
+											<span>本劵有效期{$coupon.valid_time}起到{$coupon.invalid_time}</span>
+										</div>
+									</div>
+									<div class="col-30">
+										<div class="content-padded">
+											<p><span data-money='{$coupon.money}'>{$coupon.money}</span>元</p>
+											<strong>现金券</strong>
+										</div>
+									</div>
+								</div>
+							</if>
+						</volist>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 优惠码 -->
+			<div class="promo-codes hidden_ctrl">
+				<div class="content-padded">
+					<i class="iconfont">&#xe60e;</i>
+					优惠码
+					<span>无可用</span>
+					<i class="iconfont up-down">&#xe60f;</i>
+				</div>
+				<div class="promo-codes-content">
+					<div class="content-padded">
+						<h5>请输入优惠兑换码：</h5>
+						<div class="write-code">
+							<input type="text" maxlength="4">
+							—
+							<input type="text" maxlength="4">
+							—
+							<input type="text" maxlength="4">
+							—
+							<input type="text" maxlength="4">
+						</div>
+						<a href="javascript:;" external>兑换</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- 消费总额 -->
+			<div class="pay-money">
+				<div class="content-padded">
+					<div class="row no-gutter">
+						<div class="col-70">消费总额</div><div class="col-30">￥{$order.need_pay_money}</div>
+						<div class="col-70">已付金额</div><div class="col-30">-￥<span>{$order.paid_money}</span></div>
+						<div class="col-70">优惠券</div><div class="col-30">-￥<span class="coupon_money">0</span></div>
+						<div class="col-70">实付金额</div><div class="col-30">￥<span class="final_pay_money">{$order.final_pay_money}</span></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 选择支付方式 -->
+			<div class="pay-mode">
+				<h5>选择支付方式</h5>
+				<div class="content-padded">
+					<div class="list-block media-list">
+						<ul>
+							<!--<li>
+								<label class="label-checkbox item-content pay-has-checked">
+									<input type="radio" name="my-radio" checked value="weixin">
+									<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+									<div class="item-inner">
+										<div class="item-subtitle"><img src="__PUBLIC__/phone/images/order_pay/wx.png" alt="">微信支付</div>
+									</div>
+								</label>
+							</li>-->
+							<li>
+								<label class="label-checkbox item-content pay-has-checked">
+									<input type="radio" name="my-radio" value="zhifubao">
+									<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+									<div class="item-inner">
+										<div class="item-subtitle"><img src="__PUBLIC__/phone/images/order_pay/ali.png" alt="">支付宝支付</div>
+									</div>
+								</label>
+							</li>
+							<!--<li>
+								<label class="label-checkbox item-content" >
+									<input type="radio" name="my-radio" value="wangyin">
+									<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+									<div class="item-inner">
+										<div class="item-subtitle"><img src="__PUBLIC__/phone/images/order_pay/atm.png" alt="">银行卡支付</div>
+									</div>
+								</label>
+							</li>-->
+							<if condition="$order['id'] eq '27364'">
+								<li>
+									<label class="label-checkbox item-content" >
+										<input type="radio" name="my-radio" value="xiyin">
+										<div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+										<div class="item-inner">
+											<div class="item-subtitle"><img src="__PUBLIC__/phone/images/order_pay/xiyin.png" alt="">西银在线</div>
+										</div>
+									</label>
+								</li>
+							</if>
+						</ul>
+					</div>
+					<a class="comfirm_payment" href="javascript:;" external><span class="final_pay_money">{$order.final_pay_money}</span>元 确认支付</a>
+					<div class="popup_pay"></div>
+					
+				</div>
+			</div>
+
+			<!--弹出二维码-->
+			<div class="pay-mark"></div>
+			<div class="pay-code-content">
+				<h4>微信扫描二维码完成付款<a href="javascript:;">x</a></h4>
+				<div class="pay-code">
+					<img style="width:185px;margin:0 auto;" src="" alt="二维码"/><br>
+					<a id="btn_pay_complated" class="btn_pay" type="button" >付款完成，点击查看结果</a>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+	<include file="common/js" />
+	<script>	
+		function showPayQrcode(img, order_sn) {
+			$('.pay-mark').show();
+			$('.pay-code-content').show();
+			$('.pay-code-content').find('img').attr('src', img);
+			$('.pay-code-content').find('#btn_pay_complated').attr('data-val', order_sn);
+		}
+		
+		$('.pay-code-content a').click(function(){
+			$('.pay-mark').hide();
+			$('.pay-code-content').hide();
+		});
+		
+		$('#btn_pay_complated').click(function(){				
+			$.post('{:U("line/wxpayresult")}', 
+			{'order_sn': $(this).attr('data-val')},
+			function(data){
+				if (data.result != null && data.result.errno != 0) {
+					alert (data.result.message);
+				}
+				if (data.jumpUrl != null) {
+					location.href = data.jumpUrl;
+				} 
+			})
+		});
+		
+		$( function(){
+			$.init();
+			//选择是否仅支付预付款
+			$('.pay-part').click(function(){
+				$(this).toggleClass('choosed-part');
+								
+				var couponMoney = parseFloat($('.coupon_money').html());
+				var paidMoney = parseFloat('{$order.paid_money}');
+				var needMoney = parseFloat('{$order.need_pay_money}');
+				var finalPayMoney = parseFloat('$order.need_pay_money');
+				if ($(this).hasClass('choosed-part')) {
+					finalPayMoney = (needMoney - couponMoney - paidMoney) * 0.5;
+				} else {
+					finalPayMoney = needMoney - couponMoney - paidMoney;
+				}				
+				$('.final_pay_money').html(finalPayMoney);				
+			});			
+			
+			//显示与隐藏优惠券
+			$('.coupon > .content-padded').click( 
+				function (){
+					$(this).parent('.coupon').children('.coupon-content').slideToggle();
+					//优惠券等高以及文本垂直
+					$('.coupon-content .col-30').height($('.coupon-content .col-70').height());
+					var ww = $('.coupon-content .row .col-30 .content-padded').width();
+					var www = parseInt(ww) / -2; 
+					var hh = $('.coupon-content .row .col-30 .content-padded').height();
+					var hhh = parseInt(hh) / -2;
+					$('.coupon-content .row').each( 
+						function () {
+							$(this).children('.col-30').height($(this).children('.col-70').height());
+							$(this).children('.col-30').find('.content-padded').css({'marginTop':hhh,'marginLeft':www});
+						}
+					);
+				}
+			);
+			
+			//选择优惠券后
+			$('.coupon-content .row').click( function () {
+				var obj = this;
+				$('.coupon').find('.row').each(function(){
+					$(this).removeClass('coupon-has-choosed');
+					$(this).find('.col-30').removeClass('coupon-has-choosed-bgcolor')
+				});
+				$(obj).addClass('coupon-has-choosed');
+				$(obj).find('.col-30').addClass('coupon-has-choosed-bgcolor');
+				
+				//优惠券金额		
+				var couponMoney = parseFloat($(this).find('.col-30 span').attr('data-money'));		
+				$('.coupon_money').html(couponMoney);
+				var finalPayMoney = parseFloat('{$order.final_pay_money}') - couponMoney;
+				$('.final_pay_money').html(finalPayMoney);
+			} );
+			
+			//显示与隐藏优惠码
+			$('.promo-codes > .content-padded').click(
+				function () {
+					$(this).parent('.promo-codes').children('.promo-codes-content').slideToggle();
+				}
+			);
+			$('.pay-mode').find('.label-checkbox').click(function(){
+				$(this).parents('.pay-mode').find('.label-checkbox').removeClass('pay-has-checked');
+				$(this).addClass('pay-has-checked');
+			});
+			
+			
+			$('.comfirm_payment').click(function(){
+				var couponId = $('.coupon').find('.coupon-has-choosed').attr('data-id');
+				if (typeof(couponId) == 'undefined') {
+					couponId = 0;
+				}
+				var payType =  $('.pay-has-checked').find("input").val();					
+				var payChannel = 'chuxuka';
+				if (payType != 'wangyin' && payType != 'xiyin') {
+					payChannel = payType;
+					payType = 'platform';
+				}
+				if(payType == 'xiyin') {
+					payType = 'pay_menu_xianbank_pay';
+					payChannel = 'pay_menu_xianbank_pay';
+				}
+				var payMoneyAll = 1;
+				if ($('.pay-part').length > 0) {
+					payMoneyAll = $('.pay-part').hasClass('choosed-part') ? 0 : 1
+				}
+				
+				var jsonData = {
+					op_type: 'pay',
+					id: '{$order.id}',
+					coupon_id: couponId,
+					pay_type: payType,
+					pay_channel: payChannel,
+					pay_bank: '',
+					pay_money_all: payMoneyAll,
+				}
+//				ShowMark();
+				$.post('{:U("line/order")}', jsonData, function(data){
+					
+					if (data.html != null) {
+						console.log(data.html);
+						$('.popup_pay').html(data.html);
+						return true;
+					}
+					
+					if (data.image != null) {
+						showPayQrcode(data.image, data.order_sn);
+					}
+					
+					if (data.result != null) {
+						alert(data.result.message);
+				 	}
+					
+					if (data.jumpUrl != null) {
+				 		location.href = data.jumpUrl;
+				 	}
+				 	
+//					HideMark();
+				});
+			});
+			
+		})
+	</script>
+<include file="common/swt" />
+</body>
+</html>

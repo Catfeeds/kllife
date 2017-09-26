@@ -1,0 +1,673 @@
+.chuanxi{
+    margin-top:127px;
+    margin-bottom:50px;
+    overflow: hidden;
+    background: #f4f4f4;
+}
+.chuanxi .banner{
+    height:702px;
+    background: url("../images/chuanxi/banner.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.chuanxi .chart{
+    position: relative;
+    height:578px;
+    background: url("../images/chuanxi/chart.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-top:-1px;
+}
+.chuanxi .chart2{
+    position: relative;
+    height:403px;
+    background: url("../images/chuanxi/chart2.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.chuanxi .chart img{
+    position: absolute;
+    bottom:-28px;
+    left:55%;
+    z-index:90;
+}
+.chuanxi .xiaotuanman{
+    position: relative;
+    height:945px;
+    background: #d8edf4;
+}
+.chuanxi .xiaotuanman .xiaotuanman2{
+    padding-top:65px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.chuanxi .xiaotuanman .xiaotuanman2 div{
+    display: inline-block;
+    margin:0px 180px;
+}
+.chuanxi .review{
+    background: #fee9ed;
+}
+.chuanxi .review .goods-group{
+    margin-top:0px;
+    padding-top:80px;
+}
+.chuanxi .review .goods-group .review-img img{
+    display: block;
+    margin: auto;
+    margin-bottom:80px;
+}
+.chuanxi .review .goods-group .item .tit{
+    height:50px;
+}
+.chuanxi .review .goods-group .item .tit p{
+    font-size: 16px;
+    line-height:20px;
+}
+.box
+{
+    position: relative;
+    width: 1200px;
+    margin: 0 auto;
+    top:240px;
+}
+.box-two{
+    display: none;
+}
+.lg-left{
+    position: absolute;top:-174px;left:-47px;width:550px;height:600px;border:1px solid #ddd;display: none;
+}
+.lg-right{
+    position: absolute;top:-174px;right:-57px;width:550px;height:600px;border:1px solid #ddd;display: none;
+}
+.lineF, .lineS
+{
+    position: absolute;
+    visibility: hidden;
+    padding-left: 30px;
+}
+.lineS
+{
+    top: 166px;
+    left: 95px;
+}
+.boxF, .boxS, .boxT, .overlay
+{
+    width: 180px;
+    height: 205px;
+    overflow: hidden;
+}
+.boxF, .boxS
+{
+    visibility: hidden;
+}
+.boxF
+{
+    transform: rotate(120deg);
+    float: left;
+    margin-left: 10px;
+    -ms-transform: rotate(120deg);
+    -moz-transform: rotate(120deg);
+    -webkit-transform: rotate(120deg);
+}
+.boxS
+{
+    transform: rotate(-60deg);
+    -ms-transform: rotate(-60deg);
+    -moz-transform: rotate(-60deg);
+    -webkit-transform: rotate(-60deg);
+}
+.boxT
+{
+    transform: rotate(-60deg);
+    background: no-repeat 50% center;
+    -ms-transform: rotate(-60deg);
+    -moz-transform: rotate(-60deg);
+    -webkit-transform: rotate(-60deg);
+    visibility: visible;
+    background-position: center center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.box-B .boxT:hover{
+    margin-left:-2px;
+}
+.box-B .boxT{
+    moz-transition: all .2s;
+    -webkit-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+}
+.overlay
+{
+    transition: all 250ms ease-in-out 0s;
+    display: none;
+    position: relative;
+}
+.overlay a
+{
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -16px 0 0 -16px;
+    border-radius: 3px;
+    background-color: #d3b850;
+    text-align: center;
+    line-height: 32px;
+    width: 32px;
+    height: 32px;
+    text-decoration: none;
+    color: White;
+    font-size: 18px;
+    font-weight: bolder;
+}
+.chuanxi .show{
+    text-align: center;
+    text-align: -webkit-center;
+    padding:70px 0px 10px;
+}
+.chuanxi .show #show{
+    cursor: pointer;
+    width:350px;
+    margin:auto;
+    margin-top:20px;
+}
+.chuanxi .show #show img{
+    width:100%;
+}
+.chuanxi .select{
+    overflow: hidden;
+    display: none;
+}
+.chuanxi .select .to-go{
+    position: relative;
+    padding-top:50px;
+    width:852px;
+    margin:auto;
+}
+.chuanxi .select .to-go .img2{
+    position: absolute;
+    bottom:22px;
+    left:-133px;
+}
+.chuanxi .select .to-go .img3{
+    position: relative;
+}
+.chuanxi .select .to-go .img3 .spot{
+    position: absolute;
+    top:150px;
+    left:70px;
+    width:750px;
+    height:80px;
+}
+.chuanxi .select .to-go .img3 .spot div span{
+    display: inline-block;
+    font-size: 25px;
+    color:#3e3a39;
+    padding:3px 10px;
+    margin:5px 0px;
+    border:1px solid #f4f4f4;
+    cursor: pointer;
+}
+.chuanxi .select .to-go .img3 .spot div .active{
+    border-color:#9aadc7;
+    color:#9aadc7;
+}
+.chuanxi .select .selecttwo{
+    width:1034px;
+    margin:auto;
+}
+.chuanxi .select .selecttwo .img3{
+    position: relative;
+}
+.chuanxi .select .selecttwo .img3 .season{
+    position: absolute;
+    top:90px;
+    left:70px;
+    height:100px;
+    width:170px;
+}
+.chuanxi .select .selecttwo .img3 .season span{
+    display: inline-block;
+    font-size: 20px;
+    color:#3e3a39;
+    padding:4px 10px;
+    margin:5px 0px;
+    border:1px solid transparent;
+    cursor: pointer;
+}
+.chuanxi .select .selecttwo .img3 .season .active{
+    border-color:#cf8b74;
+    color:#cf8b74;
+}
+.chuanxi .select .selecttwo .img3 .interest{
+    position: absolute;
+    top:110px;
+    left:340px;
+    height:130px;
+    width:190px;
+}
+.chuanxi .select .selecttwo .img3 .interest span{
+    display: inline-block;
+    font-size: 20px;
+    color:#3e3a39;
+    padding:4px 10px;
+    margin:5px 0px;
+    border:1px solid transparent;
+    cursor: pointer;
+}
+.chuanxi .select .selecttwo .img3 .interest .active{
+    border-color:#b0aa5a;
+    color:#b0aa5a;
+}
+.chuanxi .select .selecttwo .img3 .price{
+    position: absolute;
+    top:120px;
+    left:630px;
+    height:110px;
+    width:190px;
+}
+.chuanxi .select .selecttwo .img3 .price span{
+    display: inline-block;
+    font-size: 20px;
+    color:#3e3a39;
+    padding:4px 10px;
+    margin:3px 0px;
+    border:1px solid transparent;
+    cursor: pointer;
+}
+.chuanxi .select .selecttwo .img3 .price .active{
+    border-color:#a0c0a9;
+    color:#a0c0a9;
+}
+.chuanxi .select .selecttwo .img3 .day{
+    position: absolute;
+    top:140px;
+    left:890px;
+    height:150px;
+    width:150px;
+}
+.chuanxi .select .selecttwo .img3 .day span{
+    display: inline-block;
+    font-size: 20px;
+    color:#3e3a39;
+    padding:4px 10px;
+    margin:3px 0px;
+    border:1px solid transparent;
+    cursor: pointer;
+}
+.chuanxi .select .selecttwo .img3 .day .active{
+    border-color:#8a6c52;
+    color:#8a6c52;
+}
+.chuanxi .goods-group{
+    width:1214px;
+    margin:auto;
+    padding-bottom:30px;
+    overflow: hidden;
+}
+.chuanxi .goods-group .item{
+    position: relative;
+    background: #fff;
+    float: left;
+    width:32.16%;
+    margin:7px 7px;
+    moz-transition: all .3s;
+    -webkit-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    border-radius: .3px;
+}
+.chuanxi .goods-group .item .today-hot{
+	position: absolute;
+	top:0px;right:10px;
+}
+.chuanxi .goods-group .item:hover{
+    -webkit-box-shadow:0 5px 10px rgba(0,0,0,0.3); box-shadow:0 5px 10px rgba(0,0,0,0.3); -webkit-transform:translate3d(0, -2px, 0); transform:translate3d(0, -2px, 0);
+}
+.chuanxi .goods-group .item a{
+    position: absolute;
+    top:0px;
+    lefT:0px;
+    width:100%;
+    height:100%;
+}
+.chuanxi .goods-group .item .img{
+    position: relative;
+    overflow: hidden;
+    height:232px;
+}
+.chuanxi .goods-group .item .img img{
+    width:100%;
+}
+.chuanxi .goods-group .item .img p{
+    position: absolute;
+    top:0px;
+    left:0px;
+    background: #ff7200;
+    color:#fff;
+    padding:10px;
+    font-size: 14px;
+}
+.chuanxi .goods-group .item .tit{
+    padding:10px;
+}
+.chuanxi .goods-group .item .tit .lg{
+    font-size: 20px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.chuanxi .goods-group .item .tit .money{
+    position: relative;
+    height:40px;
+}
+.chuanxi .goods-group .item .tit .money .sm{
+    color:#808080;
+    font-size: 12px;
+    line-height:20px;
+}
+.chuanxi .goods-group .item .tit .money .sm span{
+    background: #fd4e4e;
+    color:#fff;
+    padding:2px;
+    margin-right:5px;
+}
+.chuanxi .goods-group .item .tit .money .sm1{
+    position: absolute;
+    top:-32px;
+    right:0px;
+    color:#ff7200;
+    font-size: 14px;
+    float: right;
+}
+.chuanxi .goods-group .item .tit .money .sm1 .lg1{
+    font-size: 25px;
+    padding:0px 2px;
+}
+.chuanxi .customized{
+    position: relative;
+    background: #d8edf4;
+    height:440px;
+}
+.chuanxi .customized .earth{
+    text-align: center;
+    text-align: -webkit-center;
+    padding-top:45px;
+}
+.chuanxi .customized .customized1{
+    position: absolute;
+    top:90px;
+    left:0px;
+    right:0px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.chuanxi .customized .customized2{
+    margin-top:30px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.chuanxi .customized .btn-customized{
+    display: block;
+    background: #007ba8;
+    border-color: #007ba8;
+    color:#fff;
+    width:210px;
+    height:66px;
+    line-height:66px;
+    font-size: 27px;
+    border-radius: 66px;
+    margin:40px auto;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.chuanxi .goods-group-two{
+    margin-top:70px;
+    padding-bottom:55px;
+}
+.chuanxi .goods-group .left{
+    position: relative;
+    width:26%;
+    display: inline-block;
+}
+.chuanxi .goods-group .left div{
+    text-align: center;
+    text-align: -webkit-center;
+}
+.chuanxi .goods-group .left .abso1{
+    position: absolute;
+    left:0px;
+    right:0px;
+    bottom:120px;
+}
+.chuanxi .goods-group .left .abso2{
+    position: absolute;
+    left:0px;
+    right:0px;
+    bottom:-60px;
+}
+.chuanxi .goods-group .right{
+    width:66.7%;
+    display: inline-block;
+}
+.chuanxi .goods-group .right .item{
+    width:47.4%;
+}
+.chuanxi .zhoubian{
+    position: relative;
+    height:1194px;
+    background: url("../images/chuanxi/periphery.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.chuanxi .zhoubian .goods-group{
+    position: absolute;
+    top:370px;
+    left:0px;
+    right:0px;
+}
+.advice{
+    position: fixed;
+    bottom:40px;
+    right:100px;
+    z-index:1000;
+}
+
+.chuanxi.recommend{
+    position: relative;
+    background: #fec23d;
+    overflow: hidden;
+    z-index:0;
+}
+.chuanxi .recommend1{
+    background: #f4f4f4;
+}
+.chuanxi .recommend .content{
+    margin:auto;
+    width:1200px;
+    overflow: hidden;
+}
+.chuanxi .recommend .content .tit{
+    overflow: hidden;
+    position: relative;
+}
+.chuanxi .recommend .content .tit img{
+    display: block;
+    margin:auto;
+    margin-top:50px;
+
+}
+.chuanxi .recommend .content .tit .border{
+    border:1px solid #990000;
+    width:520px;
+    position: absolute;
+    top:189px;
+    left:0px;
+    right:0px;
+    margin:auto;
+    z-index:-1;
+}
+.chuanxi .recommend .content .tit ul{
+    overflow: hidden;
+    margin:auto;
+    width:736px;
+}
+.chuanxi .recommend .content .tit ul li{
+     float: left;
+     width:160px;
+     height:50px;
+     border-radius: 50px;
+     border:2px solid #ff7200;
+     text-align: center;
+     line-height:50px;
+     margin:40px 10px 50px;
+     font-size: 20px;
+     cursor: pointer;
+     background: #f4f4f4;
+     color:#ff7200;
+ }
+.chuanxi .recommend1 .content .tit ul li{
+    background: #ffffea;
+}
+.chuanxi .recommend .content .tit ul .active{
+    background: #ff7200;
+    color:#fff;
+}
+.chuanxi .recommend .content .item{
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    margin-bottom:20px;
+    border:1px solid #dcdcdc;
+}
+.chuanxi .recommend .content .item a{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    z-index:0;
+}
+.chuanxi .recommend .content .item .left{
+	position:relative;
+    width:400px;
+    height:300px;
+    margin-right:10px;
+    float: left;
+    overflow: hidden;
+}
+.chuanxi .recommend .content .item .left .today-hot{
+	position: absolute;
+	top:0px;
+	right:10px;
+}
+.chuanxi .recommend .content .item .left img{
+    height:100%;
+}
+.chuanxi .recommend .content .item .right{
+    position: relative;
+    margin-left:10px;
+    width:760px;
+    height:300px;
+    float: left;
+}
+.chuanxi .recommend .content .item .right h1{
+	font-size: 24px;
+    display: inline-block;
+    margin: 20px 0px;
+}
+.chuanxi .recommend .content .item .right .tag{
+    padding:2px 5px;
+    background: #ff1c77;
+    margin-left:5px;
+    color:#fff;
+}
+.chuanxi .recommend .content .item .right p{
+    font-size: 14px;
+    padding:10px 0px;
+}
+.chuanxi .recommend .content .item .right .brief{
+    color:#990000;
+    white-space:nowrap;/*强制文本在一行内显示*/
+	text-overflow:ellipsis; /*溢出省略号，支持ie、safari（webkit）*/
+	-o-text-overflow:ellipsis; /*溢出省略号，支持opera*/
+	overflow:hidden;/*溢出隐藏*/
+	-moz-binding:url('ellipsis.xml#ellipsis');
+}
+.chuanxi .recommend .content .item .right .choice-time{
+    overflow: hidden;
+}
+.chuanxi .recommend .content .item .right .choice-time .time{
+    float: left;
+    width:40%;
+}
+.chuanxi .recommend .content .item .right .choice-time .time .span{
+    display: inline-block;
+    font-size: 14px;
+    padding:10px 0px;
+}
+.chuanxi .recommend .content .item .right .choice-time .time select{
+    padding:2px;
+    font-size: 14px;
+    position: absolute;
+    top:136px;
+    z-index:1;
+}
+.chuanxi .recommend .content .item .right .price{
+    margin-top:10px;
+}
+.chuanxi .recommend .content .item .right .price span{
+    display: inline-block;
+    color:#ff7200;
+    font-size: 36px;
+    margin:0px 5px;
+}
+.chuanxi .recommend .content .item .right .sig-up{
+    position: absolute;
+    bottom:30px;
+    right:30px;
+}
+.chuanxi .recommend .content .item .right .sig-up p{
+    display: inline;
+    color:#666;
+}
+.chuanxi .recommend .content .item .right .sig-up p span{
+    color:#990000;
+}
+.chuanxi .recommend .content .item .right .sig-up .btn{
+    display: inline-block;
+    width:135px;
+    height:40px;
+    line-height:40px;
+    border-radius: 40px;
+    background: #ff7200;
+    color:#fff;
+    font-size: 18px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.chuanxi .recommend .botton{
+    position: absolute;
+    left:0px;
+    bottom:0px;
+    margin-top:-900px;
+}
+.chuanxi .xiaotuanman{
+    position: relative;
+    height:945px;
+    background: url("../images/northwest/xiaotuanman-background.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.chuanxi .xiaotuanman .xiaotuanman2{
+    padding-top:65px;
+    text-align: center;
+    text-align: -webkit-center;
+}
+.chuanxi .xiaotuanman .xiaotuanman2 div{
+    display: inline-block;
+    margin:0px 180px;
+}

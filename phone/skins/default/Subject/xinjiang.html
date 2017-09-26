@@ -1,0 +1,324 @@
+<include file="common/top" />
+<style>
+    .page{background: #fff;}
+    .today-hot{position:absolute;top:0px;right:10px;}
+</style>
+<div class="page">
+    <!-- mycss -->
+    <link rel="stylesheet" href="__PUBLIC__/phone/css/xinjiang.css">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="javascript:history.back();">
+            <i class="iconfont">&#xe606;</i>
+        </a>
+        <h1 class="title">新疆专题</h1>
+    </header>
+    
+    <div class="item template_item hidden_ctrl">
+        <img class="img-responsive" src="" alt="">
+        <div class="detail">
+            <p class="lg"></p>
+            <p class="sm"></p>
+        </div>
+        <div class="price">
+            <span class="place">出发地 : </span>
+            <span class="right">￥<span class="money"></span></span>
+        </div>
+        <a href="javascript:;" external></a>
+    </div>
+    <div class="content">
+        <div class="xinjiang">
+            <div class="top">
+                <img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/xinjiang_01.jpg" alt="">
+                <img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/promotion-phone.jpg" alt="">
+                <img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/xinjiang_03.jpg" alt="">
+            </div>
+            <!--<div class="recommend">
+                <div class="tit"><img src="__PUBLIC__/phone/images/xinjiang/Recommend.png" alt=""></div>
+                <div class="recommend1 find_line" data-op="dest"><img src="__PUBLIC__/phone/images/xinjiang/Recommend1.png" alt=""></div>
+                <div class="recommend2 find_line" data-op="dest" data-tab="line_theme_xtmlx"><img src="__PUBLIC__/phone/images/xinjiang/Recommend2.png" alt=""></div>
+                <div class="recommend3 find_line" data-op="dest" data-tab="line_theme_sheying"><img src="__PUBLIC__/phone/images/xinjiang/Recommend3.png" alt=""></div>
+                <div class="recommend4 find_line" data-op="dest" data-tab="line_theme_qlp"><img src="__PUBLIC__/phone/images/xinjiang/Recommend4.png" alt=""></div>
+            </div>-->
+            <!--<div class="recommend-result line_container dest">
+            	<volist id="l" name="dest_line_xinjiang">
+				    <div class="item" data-id="{$l.id}">
+				        <img class="img-responsive" src="{$l.img1}" alt="">
+				        <if condition="empty($l['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img src="__PUBLIC__/home/images/index_img/{$l['line_especial_icon']}" alt="">
+									</div>
+								</if>
+				        <div class="detail">
+				            <p class="lg">{$l.title}</p>
+				            <p class="sm">{$l.subheading}</p>
+				        </div>
+				        <div class="price">
+				            <span class="place">出发地 : {$l.assembly_point_show_text}</span>
+				            <span class="right">￥
+				                <if condition="empty($l['check_price'])">
+				                	<span class="money">核算中</span>
+				                <else />
+				                	<span class="money">{$l.start_price_adult}</span>
+				                </if>
+				            </span>
+				        </div>
+				        <a href="{:U('line/info')}/id/{$l.id}" external></a>
+				    </div>
+			    </volist>
+            </div>-->
+            <!--新疆金秋-->
+	        <div class="recommend-two">
+	            <div class="tit"><img src="__PUBLIC__/phone/images/xinjiang/xinjiang-jinqiu.png" alt=""></div>
+	            <div class="tit-tag">
+                	<volist id="tab" name="subject_line_tab_xinjiang">
+                		<if condition="$key eq 0">
+                    		<span class="find_line active" data-op="subject" data-tab="{$tab.type_key}">{$tab.type_desc}</span>
+                		<else />
+                			<span class="find_line" data-op="subject" data-tab="{$tab.type_key}">{$tab.type_desc}</span>
+                		</if>
+                    </volist>
+	            </div>
+	            <div class="recommend-result line_container subject">
+	            	<volist id="l" name="subject_line_xinjiang">
+		                <div class="item">
+		                    <img class="img-responsive" src="{$l.img1}" alt="">
+		                    <if condition="empty($l['line_especial_icon']) eq false">
+									<div class="today-hot">
+										<img src="__PUBLIC__/home/images/index_img/{$l['line_especial_icon']}" alt="">
+									</div>
+								</if>
+		                    <div class="detail">
+		                        <p class="lg">{$l.title}</p>
+		                        <p class="sm subheading">{$l.subheading}</p>
+		                        <p class="sm">本线路已有 <span>{$l.order_member_count}</span> 人已报名</p>
+		                    </div>
+		                    <div class="price">
+		                        <span class="place">出发地 : {$l.assembly_point_show_text}</span>
+		                        <span class="right">
+		                            <if condition="empty($l['check_price'])">
+		                                <span class="money">核算中</span>
+		                                <else />
+		                                ￥<span class="money">{$l.start_price_adult}</span>元起 (成人)
+		                            </if>	                            
+	                            </span>
+		                    </div>
+		                    <a href="{:U('line/info')}/id/{$l.id}" external></a>
+		                </div>
+	                </volist>
+	            </div>
+	        </div>
+	        <!--照片切换-->
+            <div class="photo">
+                <div class="tit">
+                    <span id="kllife"><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/kllife-phone.png" alt=""></span>
+                    <span id="meikemei"><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/meikemei-phone1.png" alt=""></span>
+                </div>
+                <div class="photo-list kllife-photo-list">
+                    <span><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/kllife-photo-list.png" alt=""></span>
+                    <!--<a href="{:U('index/welcome')}" external><span class="add"><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/kllife-add.png" alt=""></span></a>-->
+                </div>
+                <div class="photo-list meikemei-photo-list" style="display: none;">
+                    <span><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/meikemei-photo-list.png" alt=""></span>
+                    <!--<a href="http://m.xinlvpai.com/" external><span class="add"><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/meikemei-add.png" alt=""></span></a>-->
+                </div>
+            </div>
+            <div class="other">
+                <div class="tit">
+                    <span class="left"><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/other.jpg" alt=""></span>
+                    <span class="right"><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/recommend2.gif" alt=""></span>
+                </div>
+            </div>
+            <div class="recommend-result">
+            	<volist id="rd" name="recommend">
+	                <div class="item">
+	                    <img class="img-responsive" src="{$rd.img1}" alt="">
+	                    <if condition="empty($rd['line_especial_icon']) eq false">
+							<div class="today-hot">
+								<img src="__PUBLIC__/home/images/index_img/{$rd['line_especial_icon']}" alt="">
+							</div>
+						</if>
+	                    <div class="detail">
+	                        <p class="lg">{$rd.title}</p>
+	                        <p class="sm">{$rd.subheading}</p>
+	                    </div>
+	                    <div class="price">
+	                        <span>出发地 : {$rd.assembly_point_show_text}</span>
+	                        <span class="right">
+	                        	<if condition="empty($rd['check_price'])">
+	                        		核算中
+	                        	<else />
+	                        		￥<span class="money">{$rd.start_price_adult}</span>起
+	                        	</if>
+	                        </span>
+	                    </div>
+	                    <a href="{:U('line/info')}/id/{$rd.id}" external></a>
+	                </div>
+                </volist>
+            </div>
+            <!--私人定制-->
+            <div class="customized">
+                <span class="span1"><img src="__PUBLIC__/phone/images/xinjiang/earth.gif" alt=""></span>
+                <span class="span2"><img src="__PUBLIC__/phone/images/xinjiang/customized1.png" alt=""></span>
+                <span class="span3"><img src="__PUBLIC__/phone/images/xinjiang/customized2.png" alt=""></span>
+                <a href="{:U('line/book')}" class="btn-customized" external>定制我的旅行</a>
+            </div>
+            <!--活动回顾-->
+            <div class="review">
+                <div class="goods-group">
+                    <div class="review-img"><img src="__PUBLIC__/phone/images/xinjiang/review-phone.png" alt=""></div>
+                    <div class="item">
+                        <img class="img-responsive" src="__PUBLIC__/home/images/xinjiang/youji2016-07-14_57873ece175e4.jpg" alt="">
+                        <div class="detail">
+                            <p class="sm">新疆天山9日环游记</p>
+                        </div>
+                        <a href="http://shequ.kllife.com/Mobile/Index/youjidetail/id/1438.html" external></a>
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="__PUBLIC__/home/images/xinjiang/youji2016-10-14_5800e59965059.jpg" alt="">
+                        <div class="detail">
+                            <p class="sm">金秋，行走在迷人的北疆--北疆九日游</p>
+                        </div>
+                        <a href="http://shequ.kllife.com/Mobile/Index/youjidetail/id/1966.html" external></a>
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="__PUBLIC__/home/images/xinjiang/youji2016-10-13_57ff241ad12ae.jpg" alt="">
+                        <div class="detail">
+                            <p class="sm">这里是新疆，一个美丽的地方！</p>
+                        </div>
+                        <a href="http://shequ.kllife.com/Mobile/Index/youjidetail/id/1960.html" external></a>
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="__PUBLIC__/home/images/xinjiang/youji2016-10-26_5810bb50157de.jpg" alt="">
+                        <div class="detail">
+                            <p class="sm">2016额济纳全景游——赴一场黄金盛宴</p>
+                        </div>
+                        <a href="http://shequ.kllife.com/Mobile/Index/youjidetail/id/2026.html" external></a>
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="__PUBLIC__/home/images/xinjiang/youji2016-11-30_583e6c0cbffef.jpg" alt="">
+                        <div class="detail">
+                            <p class="sm">西北行漫记——大漠传奇意象</p>
+                        </div>
+                        <a href="http://shequ.kllife.com/Mobile/Index/youjidetail/id/2186.html" external></a>
+                    </div>
+                    <div class="item">
+                        <img class="img-responsive" src="__PUBLIC__/home/images/xinjiang/youji2016-10-17_5804e218278b0.jpg" alt="">
+                        <div class="detail">
+                            <p class="sm">菲林下的西域，带着胶卷游新疆（反转片）</p>
+                        </div>
+                        <a href="http://shequ.kllife.com/Mobile/Index/youjidetail/id/1972.html" external></a>
+                    </div>
+                </div>
+            </div>
+            <!--周边游-->
+            <!--<div class="zhoubian">
+                <span class="zhoubian-img"><img class="img-responsive" src="__PUBLIC__/phone/images/xinjiang/zhoubian.jpg" alt=""></span>
+                <div class="recommend-result">
+                	<volist id="sur" name="surrounding">
+        				<if condition="stripos($key, 'surrounding') heq 0">
+		                    <div class="item">
+		                        <img class="img-responsive" src="{$sur.img1}" alt="">
+		                        <div class="detail">
+		                            <p class="lg">{$sur.title}</p>
+		                            <p class="sm">{$sur.subheading}</p>
+		                        </div>
+		                        <div class="price">
+		                            <span>出发地 : {$sur.assembly_point_show_text}</span>
+		                            <span class="right">
+			                        	<if condition="empty($sur['check_price'])">
+			                        		核算中
+			                        	<else />
+			                        		￥<span class="money">{$sur.start_price_adult}</span>起
+			                        	</if>
+			                        </span>
+		                        </div>
+		                        <a href="{:U('line/info')}/id/{$sur.id}" external></a>
+		                    </div>
+						</if>
+                    </volist>
+                </div>
+            </div>-->
+        </div>
+        <notempty name="qrcode">
+	        <div style="margin-bottom:60px;">
+	        	<p style="text-align: center;">长按二维码了解更多</p>
+	        	<img style="width:90%;display:block;margin:auto;" src="__PUBLIC__/phone/images/xinjiang/xinjiang-ewm.png" alt="" />
+	        	<p style="text-align: center;">微信号：lxtour</p>
+	        </div>
+        </notempty>
+        <include file="common/js" />
+    </div>
+</div>
+<script>
+
+//    // 初始加载新疆线路（不采用岩石加载）
+//    findLine(null, null);  
+	//新疆金秋标签切换
+	$(".recommend-two .tit-tag span").on("click",function(){
+       $(this).addClass("active").siblings().removeClass("active");
+	})
+    //图片列表切换
+    $("#kllife").on("click",function(){
+        $(".kllife-photo-list").show();
+        $(".meikemei-photo-list").hide();
+        $(this).find("img").attr("src","__PUBLIC__/phone/images/xinjiang/kllife-phone.png")
+        $("#meikemei").find("img").attr("src","__PUBLIC__/phone/images/xinjiang/meikemei-phone1.png")
+    })
+    $("#meikemei").on("click",function(){
+        $(".meikemei-photo-list").show();
+        $(".kllife-photo-list").hide();
+        $(this).find("img").attr("src","__PUBLIC__/phone/images/xinjiang/meikemei-phone.png")
+        $("#kllife").find("img").attr("src","__PUBLIC__/phone/images/xinjiang/kllife-phone1.png")
+    })
+    
+        
+    // 查找产品
+    function findLine(vop, vtheme) {
+    	var jsonData = {
+    		op: vop,
+    		tab: vtheme,
+    		theme: vtheme,
+    	}
+    	$.post('{:U("subject/xinjiang")}', jsonData, function(data){
+    		$('.line_container.'+vop).children().remove();
+    		if (data.ds != null) {
+    			for (var i=0; i < data.ds.length; i++) {
+    				var d = data.ds[i];    				
+    				var rootObj = $('.template_item').clone(true);
+    				$(rootObj).removeClass('template_item');
+    				$(rootObj).removeClass('hidden_ctrl');
+    				$(rootObj).attr('data-id', d.id);
+    				$(rootObj).find('img').attr('src', d.img1);
+    				$(rootObj).find('.detail .lg').html(d.title);
+    				$(rootObj).find('.detail .sm').html(d.subheading);
+    				if (d.line_especial_icon == 0) {
+						$(rootObj).find('.today-hot').remove();
+					}
+    				if (d.order_member_count != null) {
+    					$(rootObj).find('.detail').append('<p class="sm">本线路已有 <span>'+d.order_member_count+'</span> 人已报名</p>')	
+    				}
+    				$(rootObj).find('.price .place').html('出发地 : '+d.assembly_point_show_text);
+    				if (d.check_price == 0) {
+    					$(rootObj).find('.price .money').parent().html('核算中');	
+    				} else {							
+    					$(rootObj).find('.price .money').html(d.start_price_adult);	
+    				}
+    				$(rootObj).find('a').attr('href', '{:U("line/info")}/id/'+d.id);
+    				$('.line_container.'+vop).append(rootObj);
+                    console.log(rootObj)
+    			}
+    		} else {
+    			$('.line_container.'+vop).html('<div style="text-align: center; font-size:20px;">亲，没有您要的线路，可以选择定制或者尝试其他选项哦</div>');
+    		}
+    	});
+    }
+    $('.find_line').click(function(){
+    	var opType = $(this).attr('data-op');
+    	var themeType = $(this).attr('data-tab');
+    	findLine(opType, themeType);
+    });
+</script>
+<include file="common/swt"/>
+</body>
+<include file="common/footer"/>
+</html>

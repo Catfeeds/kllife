@@ -1,0 +1,1351 @@
+<include file="Common/top" />
+	<style type="text/css">
+		.btn-disabled { background-color: #ececec!important; }
+	</style>
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/order.css">
+	<!-- 验证码 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/common/css/drag.css">
+	<!-- 参团成人模板 -->
+	<div class="adult-information hidden_ctrl template_adult">
+		<div class="adult-information-num">
+			<p>第<span></span>位</p>
+			<u>成人</u>
+		</div>
+		<div class="adult-information-write">
+			<p>
+				<span>姓名：</span><input type="text" class="name" placeholder="请输入真实姓名">
+			</p>
+			<div class="adult-information-card">
+				<span>证件类型：</span><div class="adult-information-card-choose">
+					<if condition="count($certs) gt 0">
+						<span data-id="{$certs[0]['id']}">{$certs[0]['type_desc']}</span>
+					</if>
+					<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+					<ul>
+						<volist id="cert" name="certs">
+							<if condition="$cert.type_desc eq '港澳证'">
+								<li class="hongkong-macao" data-id="{$cert.id}">{$cert.type_desc}</li>
+							<else />
+								<li data-id="{$cert.id}">{$cert.type_desc}</li>
+							</if>
+						</volist>
+					</ul>
+				</div>
+				<input type="text" class="cert" placeholder="请输入证件号码">
+			</div>
+			<div class="adult-information-birth">
+				<span>出生日期：</span><div class="adult-information-birth-year">
+					<span>2016</span>
+					<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+					<ul></ul>
+				</div>
+				<div class="adult-information-birth-month">
+					<span>1</span>
+					<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+					<ul></ul>
+				</div>
+				<div class="adult-information-birth-day">
+					<span>1</span>
+					<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+					<ul></ul>
+				</div>
+			</div>
+			<p>
+				<span>联系电话：</span><input type="text" class="phone" placeholder="请输入手机号码">
+			</p>
+		</div>		
+		<if condition="empty($largess) eq false">
+			<div class="largess" style="margin-top:30px;padding:0px 140px;">
+				<p style="margin:0px 0px 10px;padding:0px 0px 20px 29px;width:470px;border-bottom:1px solid #ddd;">赠品：</p>
+				<volist id="g" name="largess">
+					<p class="largess_item" style="padding-top:10px" data-id="{$g.id}">
+						<span style="width:65px;display: inline-block;text-align: right;">{$g.type_desc}：</span>
+						<select class="largess_data" style="width:430px;height:32px;padding-left:5px;">
+							<volist id="gd" name="g.data">
+								<option value="{$gd.id}">{$gd.type_desc}</option>
+							</volist>
+						</select>
+					</p>
+				</volist>
+			</div>
+		</if>
+	</div>
+
+	<!-- 参团儿童模板 -->
+	<div class="children-information hidden_ctrl template_children">
+		<div class="children-information-num">
+			<p>第<span></span>位</p>
+			<u>儿童</u>
+		</div>
+		<div class="children-information-write">
+			<p>
+				<span>姓名：</span><input type="text" class="name" placeholder="请输入真实姓名">
+			</p>
+			<div class="children-information-card">
+				<span>证件类型：</span><div class="children-information-card-choose">
+					<if condition="count($certs) gt 0">
+						<span data-id="{$certs[0]['id']}">{$certs[0]['type_desc']}</span>
+					</if>
+					<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+					<ul>
+						<volist id="cert" name="certs">
+							<if condition="cert.type_desc eq '港澳证'">
+								<li class="hongkong-macao" data-id="{$cert.id}">{$cert.type_desc}</li>
+							<else />
+								<li data-id="{$cert.id}">{$cert.type_desc}</li>
+							</if>
+						</volist>
+					</ul>
+				</div>
+				<input type="text" class="cert" placeholder="请输入证件号码">
+			</div>
+			<div class="children-information-birth">
+				<span>出生日期：</span><div class="children-information-birth-year">
+					<span>2016</span>
+					<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+					<ul></ul>
+				</div>
+				<div class="children-information-birth-month">
+					<span>1</span>
+					<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+					<ul></ul>
+				</div>
+				<div class="children-information-birth-day">
+					<span>1</span>
+					<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+					<ul></ul>
+				</div>
+			</div>
+			<p>
+				<span>联系电话：</span><input type="text" class="phone" placeholder="请输入手机号码">
+			</p>
+			<p class="children-no-card" style="margin-top: 20px; color: #e4393c;">*若无身份证，填写出生日期即可</p>
+		</div>
+		<if condition="empty($largess) eq false">
+			<div class="largess" style="margin-top:30px;padding:0px 140px;">
+				<p style="margin:0px 0px 10px;padding:0px 0px 20px 29px;width:470px;border-bottom:1px solid #ddd;">赠品：</p>
+				<volist id="g" name="largess">
+					<p class="largess_item" style="padding-top:10px" data-id="{$g.id}">
+						<span style="width:65px;display: inline-block;text-align: right;">{$g.type_desc}：</span>
+						<select class="largess_data" style="width:430px;height:32px;padding-left:5px;">
+							<volist id="gd" name="g.data">
+								<option value="{$gd.id}">{$gd.type_desc}</option>
+							</volist>
+						</select>
+					</p>
+				</volist>
+			</div>
+		</if>
+	</div>
+	<!-- 主要内容 -->
+	<div class="order-content" data-id="{$line.id}">
+		<!-- 支付详情 -->
+		<div class="order-details">
+			<div class="order-details-left">
+				<div class="order-details-place">
+					<h3>{$line.title}</h3>
+					<notempty name="line.batchs">
+						<div class="order-details-choose">
+							出发日期：
+							<div class="cfrq-choose">
+								<span data-id="{$cur_batch['id']}">{$cur_batch['start_date_show']}--{$cur_batch['end_date_show']}  成人：{$cur_batch['price_adult']}元</span>
+								<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+								<ul>
+									<volist id="batch" name="line.batchs">
+										<li data-id="{$batch.id}" data-title="{$batch.title}" data-price-adult="{$batch.price_adult}" data-price-child="{$batch.price_child}" data-use="{$batch.can_use}" data-invalid="{$batch.signup_invalid}" data-start-date-show="{$batch.start_date_show}">
+											{$batch.start_date_show}--{$batch.end_date_show}  成人：{$batch.price_adult}元 [{$batch.state_data.type_desc}]
+										</li>
+									</volist>
+								</ul>
+							</div>
+						</div>
+						<!-- 套餐内容开始 -->
+						<if condition="empty($line['taocanList']) neq true">
+							<div class="order-details-choose tclx">
+								<span class="taocan_tit">套餐类型：</span>
+								<div class="div taocan-list">
+									<volist id="taocan" name="line.taocanList">					
+										<div data-id="{$taocan.id}" data-date="0">
+											<p>{$taocan.name}</p>
+											<img src="__PUBLIC__/home/images/content_img/taocan_active.png" alt="" />
+										</div>
+									</volist>									
+								</div>
+							</div>
+						</if>
+						<!-- 套餐内容结束 -->
+						<div class="order-details-line-money">
+							线路价格：
+							<div class="xljg">
+								<if condition="empty($tcp) eq ture">
+									<span>成人/￥{$cur_batch['price_adult']}</span>
+									<span>儿童/￥{$cur_batch['price_child']}</span>
+								<else />
+									<span>成人/￥{$tcp['price_adult']}</span>
+									<span>儿童/￥{$tcp['price_child']}</span>
+								</if>
+							</div>
+						</div>
+						<div class="order-details-people">
+							出游人数：
+							<div class="cyrs">
+								<if condition="empty($check['only_child']) eq true">
+									<div class="adult-num-man">
+										<u>成人男</u>
+										<a class="add-adult" href="javascript:;"><i class="adult-add"></i></a>
+										<span class="member_count">{$member_male_count}</span>
+										<a class="minus-adult" href="javascript:;"><i class="adult-minus"></i></a>
+
+									</div>
+									<div class="adult-num-woman">
+										<u>成人女</u>
+										<a class="add-adult" href="javascript:;"><i class="adult-add"></i></a>
+										<span class="member_count">{$member_woman_count}</span>
+										<a class="minus-adult" href="javascript:;"><i class="adult-minus"></i></a>
+									</div>
+								</if>
+								<if condition="empty($check['only_adult']) eq true">
+									<div class="children-num">
+										<u>儿童</u>
+										<a class="add-children" href="javascript:;"><i class="children-add"></i></a>
+										<span class="member_count">{$member_child_count}</span>
+										<a class="minus-children" href="javascript:;"><i class="children-minus"></i></a>
+									</div>
+								</if>
+							</div>
+						</div>
+					</notempty>
+					<!-- 出游人确认 -->
+					<div class="order-details-people-sure">
+						<div class="people-sure-content">
+							<h6>出游人确认</h6>
+							<div>
+								<p>出游人中是否有60周岁(含)至80周岁(不含)的老人？</p>
+								<div class="old-man">
+									<i></i><span>有</span>
+									<i class="choose-man"></i><span>没有</span>
+								</div>
+							</div>
+							<div>
+								<p>出游人中是否有外籍友人？</p>
+								<div class="foreign-man">
+									<i></i><span>有</span>
+									<i class="choose-man"></i><span>没有</span>
+								</div>
+							</div>
+							<div>
+								<p>出游人中是否有港澳台同胞？</p>
+								<div class="gat-man">
+									<i></i><span>有</span>
+									<i class="choose-man"></i><span>没有</span>
+								</div>
+							</div>
+							<p>本产品不支持孕妇或者80周岁(含)以上的老人出游，18周岁以下的未成年人必须有成年人陪同出游，敬请谅解！</p>
+						</div>
+					</div>
+				</div>
+				<!-- 联系人信息 -->
+				<div class="order-details-contact">
+					<h3>联系人信息</h3>
+					<div class="order-details-contact-write">
+						<p><span>姓名：</span><input id="contact_name" type="text"></p>
+						<p><span>联系电话：</span><input id="contact_phone" type="text"></p>
+
+						<if condition="empty($user)">
+							<p class="send-code">
+								<span>校验码：</span><input id="contact_verify_code" type="text">
+								<input id="btnSendCode" type="button" value="发送校验码" />
+								<span id="contact_result"></span>
+							</p>
+						<else />
+							<p><span>验证码：</span><span id="drag"></span></p>
+						</if>
+					</div>
+				</div>
+				<!-- 发票信息 -->
+				<div class="order-details-invoice">
+					<h3>发票信息</h3>
+					<div class="order-details-invoice-choose">
+						<label><input id="no-invoice" name="invoice" type="radio" value="0" checked />不需要发票</label>
+						<label><input id="enterprise-invoice" name="invoice" type="radio" value="1" />企业发票</label>
+						<label><input id="personal-invoice" name="invoice" type="radio" value="2" />个人发票</label>
+					</div>
+					<div class="order-details-invoice-write-enterprise">
+						<div class="invoice-write-enterprise01">
+							<span>单位名称：<input class="receipt_company" type="text" placeholder="请输入单位名称"></span>
+							<span>纳税人识别号：<input class="receipt_company_no" type="text" placeholder="请输入纳税人识别号"></span>
+						</div>
+						<div class="invoice-write-enterprise02">
+							<span>单位地址：<input class="receipt_company_addr" type="text" placeholder="请输入单位地址"></span>
+						</div>
+						<div class="invoice-write-enterprise03">
+							<span>单位电话：<input class="receipt_company_tel" type="text" placeholder="请输入单位电话"></span>
+							<span>收件人：<input class="receipt_receiver" type="text" placeholder="请输入真实姓名"></span>
+							<span>收件电话：<input class="receipt_receiver_tel" type="text" placeholder="请输入收件电话"></span>
+						</div>
+						<div class="invoice-write-enterprise04">
+							<span>收件地址：</span><input class="receipt_receiver_addr" type="text" placeholder="请输入收件地址">
+						</div>
+						<p>备注：1、活动结束后的2个月内寄出；2、跨年度及超过2个月未索取发票的无法开具发票。<a style="color: #0000ff;" target="_blank" href="http://kllife.com/home/index.php?s=/home/service/question/id/133">详情请点击</a></p>
+					</div>
+					<div class="order-details-invoice-write-personal">
+						<div class="invoice-write-personal01">
+							<span>收件人：</span><input class="receipt_receiver" type="text" placeholder="请输入真实姓名">
+							<span>电话：</span><input class="receipt_receiver_tel" type="text" placeholder="请输入手机号码">
+						</div>
+						<div class="invoice-write-personal02">
+							<span>收件地址：</span><input class="receipt_receiver_addr" type="text" placeholder="请输入收件地址">
+						</div>
+						<p style="margin-top: 15px;">备注：1、活动结束后的2个月内寄出；2、跨年度及超过2个月未索取发票的无法开具发票。<a style="color: #0000ff;" target="_blank" href="http://kllife.com/home/index.php?s=/home/service/question/id/133">详情请点击</a></p>
+					</div>
+				</div>
+				<!-- 出游人信息 -->
+				<div class="order-details-travel-people">
+					<h3>出游人信息</h3>
+					<div class="travel-people-warning">
+						<p>· 为了保障您的合法权益，请准确、完整地填写游客证件信息，错误的身份信息可能造成额外的退、改费用。</p>
+						<p>· 儿童游客如无相关证件，证件类型请选择"其他"，并填写出生日期。</p>
+						<p>· 出游人信息不完整会影响您的正常出游；因信息不完整、填写不正确造成的额外损失、保险拒赔等问题，我司不承担相应责任，需由客人自行承担。</p>
+					</div>
+					<div class="adult-div">
+						<assign name="adult_count" value="$member_male_count+$member_woman_count" />
+						<for start="0" end="$adult_count" name="m">
+							<div class="adult-information">
+								<div class="adult-information-num">
+									<p>第<span>{$m+1}</span>位</p>
+									<if condition="$m lt $member_male_count">
+										<u>成人男</u>
+									<else />
+										<u>成人女</u>
+									</if>
+								</div>
+								<div class="adult-information-write">
+									<p>
+										<span>姓名：</span><input type="text" class="name" placeholder="请输入真实姓名">
+									</p>
+									<div class="adult-information-card">
+										<span>证件类型：</span><div class="adult-information-card-choose">
+											<if condition="count($certs) gt 0">
+												<span data-id="{$certs[0]['id']}">{$certs[0]['type_desc']}</span>
+											</if>
+											<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+											<ul>
+												<volist id="cert" name="certs">
+													<if condition="$cert.type_desc eq '港澳证'">
+														<li class="hongkong-macao" data-id="{$cert.id}">{$cert.type_desc}</li>
+													<else />
+														<li data-id="{$cert.id}">{$cert.type_desc}</li>
+													</if>
+												</volist>
+											</ul>
+										</div>
+										<input type="text" class="cert" placeholder="请输入证件号码">
+									</div>
+									<div class="adult-information-birth">
+										<span>出生日期：</span><div class="adult-information-birth-year">
+											<span>2016</span>
+											<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+											<ul></ul>
+										</div>
+										<div class="adult-information-birth-month">
+											<span>1</span>
+											<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+											<ul></ul>
+										</div>
+										<div class="adult-information-birth-day">
+											<span>1</span>
+											<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+											<ul></ul>
+										</div>
+									</div>
+									<p>
+										<span>联系电话：</span><input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" class="phone" placeholder="请输入手机号码" maxlength="11">
+									</p>
+								</div>
+								<if condition="empty($largess) eq false">
+									<div class="largess" style="margin-top:30px;padding:0px 140px;">
+										<p style="margin:0px 0px 10px;padding:0px 0px 20px 29px;width:470px;border-bottom:1px solid #ddd;">赠品：</p>
+										<volist id="g" name="largess">
+											<p class="largess_item" style="padding-top:10px" data-id="{$g.id}">
+												<span style="width:65px;display: inline-block;text-align: right;">{$g.type_desc}：</span>
+												<select class="largess_data" style="width:430px;height:32px;padding-left:5px;">
+													<volist id="gd" name="g.data">
+														<option value="{$gd.id}">{$gd.type_desc}</option>
+													</volist>
+												</select>
+											</p>
+										</volist>
+									</div>
+								</if>
+							</div>
+						</for>
+					</div>
+					<div class="children-div">
+						<for start="0" end="$member_child_count" name="n">
+							<div class="children-information">
+								<div class="children-information-num">
+									<p>第<span>{$n+1}</span>位</p>
+									<u>儿童</u>
+								</div>
+								<div class="children-information-write">
+									<p>
+										<span>姓名：</span><input type="text" class="name" placeholder="请输入真实姓名">
+									</p>
+									<div class="children-information-card">
+										<span>证件类型：</span><div class="children-information-card-choose">
+											<if condition="count($certs) gt 0">
+												<span data-id="{$certs[0]['id']}">{$certs[0]['type_desc']}</span>
+											</if>
+											<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+											<ul>
+												<volist id="cert" name="certs">
+													<if condition="cert.type_desc eq '港澳证'">
+														<li class="hongkong-macao" data-id="{$cert.id}">{$cert.type_desc}</li>
+													<else />
+														<li data-id="{$cert.id}">{$cert.type_desc}</li>
+													</if>
+												</volist>
+											</ul>
+										</div>
+										<input type="text" class="cert" placeholder="请输入证件号码">
+									</div>
+									<div class="children-information-birth">
+										<span>出生日期：</span><div class="children-information-birth-year">
+											<span>2016</span>
+											<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+											<ul></ul>
+										</div>
+										<div class="children-information-birth-month">
+											<span>1</span>
+											<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+											<ul></ul>
+										</div>
+										<div class="children-information-birth-day">
+											<span>1</span>
+											<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+											<ul></ul>
+										</div>
+									</div>
+									<p>
+										<span>联系电话：</span><input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"  class="phone" placeholder="请输入手机号码" maxlength="11">
+									</p>
+									<p class="children-no-card" style="margin-top: 20px; color: #e4393c;">*若无身份证，填写出生日期即可</p>
+								</div>
+								<if condition="empty($largess) eq false">
+									<div class="largess" style="margin-top:30px;padding:0px 140px;">
+										<p style="margin:0px 0px 10px;padding:0px 0px 20px 29px;width:470px;border-bottom:1px solid #ddd;">赠品：</p>
+										<volist id="g" name="largess">
+											<p class="largess_item" style="padding-top:10px" data-id="{$g.id}">
+												<span style="width:65px;display: inline-block;text-align: right;">{$g.type_desc}：</span>
+												<select class="largess_data" style="width:430px;height:32px;padding-left:5px;">
+													<volist id="gd" name="g.data">
+														<option value="{$gd.id}">{$gd.type_desc}</option>
+													</volist>
+												</select>
+											</p>
+										</volist>
+									</div>
+								</if>
+							</div>
+						</for>
+					</div>
+
+				</div>
+				<!-- 预定须知 -->
+				<div class="order-details-reserve">
+					<h3>预订须知</h3>
+					<div class="reserve-content">
+						<p style="padding: 10px 0; color: #00f;">特别声明：领袖户外的行程安排可能会根据实际突发情况和队员反馈进行调整和优化，但调整不会涉及费用包含的景区、游览天数、集散地点以及住宿标准，最终行程安排以合同内容为准。
+</p>
+						{$line.booking_notes}
+					</div>
+				</div>
+				<!-- 提交订单 -->
+				<div class="order-details-submit">
+					<a href="javascript:;">我已阅读预定须知并同意,提交订单</a>
+				</div>
+				<!-- 旅游合同 -->
+				<div class="order-details-contract">
+					<h3>旅游合同<span>(为了保障双方的合法权益，我们将与您使用在线签约方式签署合同，此合同在得到资源确认并付款完成时正式生效。)</span></h3>
+					<div class="contract-img">
+						<img src="__PUBLIC__/home/images/order_img/contract1.jpg" alt="">
+						<img src="__PUBLIC__/home/images/order_img/contract2.jpg" alt="">
+						<img src="__PUBLIC__/home/images/order_img/contract3.jpg" alt="">
+						<img src="__PUBLIC__/home/images/order_img/contract4.jpg" alt="">
+						<img src="__PUBLIC__/home/images/order_img/contract5.jpg" alt="">
+						<img src="__PUBLIC__/home/images/order_img/contract6.jpg" alt="">
+						<img src="__PUBLIC__/home/images/order_img/contract7.jpg" alt="">
+						<img src="__PUBLIC__/home/images/order_img/contract8.jpg" alt="">
+					</div>
+				</div>
+			</div>
+			<!-- 右侧 -->
+			<div class="order-details-right">
+				<h3>支付信息</h3>
+				<div class="order-details-right-top">
+					<h6>产品名称</h6>
+					<if condition="empty($cur_batch) eq false">
+						<span>{$line.title}</span>
+						<h6>旅行团费</h6>
+						<div class="order-details-right-people">
+							<p class="adult-money"><span>{$member_adult_count}</span> 成人 x ￥<u>{$adult_price}</u><i>￥<b>{$adult_total_price}</b></i></p>
+							<p class="children-money"><span>{$member_child_count}</span> 儿童 x ￥<u>{$child_price}</u><i>￥<b>{$child_total_price}</b></i></p>
+							<p>总团费</p>
+							<p class="team-money">&nbsp&nbsp&nbsp&nbsp原价:<i>￥<b class="full">{$team_money.full}</b></i> 现价:<i>￥<b class="cut">{$team_money.cut}</b></i></p>
+							<volist id="offer" name="line_offer">
+								<p class="line_offer {$key}">'+{$offer.data.type_desc}+': ￥<u>'+{$offer.money}+'</p>
+							</volist>
+							<p class="invoice-money" style="display: none;"><span>1</span> 发票邮寄 x ￥<u>{$line.receipt_price}</u><i>￥<b>{$line.receipt_price}</b></i></p>
+						</div>
+					<else />
+						<span>未知批次</span>
+						<h6>旅行团费</h6>
+						<div class="order-details-right-people">
+							<p class="adult-money"><span>0</span> 成人 x ￥<u>0</u><i>￥<b>0</b></i></p>
+							<p class="children-money"><span>0</span> 儿童 x ￥<u>0</u><i>￥<b>0</b></i></p>
+							<p>总团费</p>
+							<p class="team-money">&nbsp&nbsp&nbsp&nbsp原价:<i>￥<b class="full">0</b></i> 现价:<i>￥<b class="cut">0</b></i></p>
+							<p class="invoice-money" style="display: none;"><span>1</span> 发票邮寄 x ￥<u>0</u><i>￥<b>0</b></i></p>
+						</div>
+					</if>
+				</div>
+				<div class="order-details-right-money">
+					<p>订单金额</p>
+					<span>￥<strong class="need_pay_money">{$team_money.cut}</strong></span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="mark"></div>
+	<div id="alert-modal">
+
+		<div class="alert-modal-top">
+			<a href="javascript:;"><img src="__PUBLIC__/home/common/images/video_close.png"/></a>
+		</div>
+		<div class="alert-modal-content">
+			<p></p>
+		</div>
+
+	</div>
+
+
+	<!-- 出生日期 -->
+	<script src="__PUBLIC__/home/js/birthday.js"></script>
+	<!-- 验证码 -->
+	<script src="__PUBLIC__/home/js/drag.js"></script>
+	<!--图片延迟加载-->
+	<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(
+			function($){
+				$("img").lazyload({
+					placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+					effect      : "fadeIn",
+					threshold : 100,
+					failure_limit : 10
+				});
+				
+				//加载已选套餐
+				var tcids = '{$tcp.taocan_ids}';
+				var tcidsArr = tcids.split(',');
+				for(i = 0; i < tcidsArr.length; i++){
+					$('.tclx .taocan-list').find('div[data-id="'+tcidsArr[i]+'"]').addClass('active');
+				}
+			});
+	</script>
+	<script type="text/javascript">
+		//modal关闭
+		$('.alert-modal-top a').click(function(){
+			$('.mark').hide();
+			$('#alert-modal').hide();
+		});
+	
+	
+	
+		//下拉框宽度一致
+	
+		$('.cfrq-choose ul').width($('.cfrq-choose span').width() + 98);	
+		
+		//验证码
+		$('#drag').drag();
+			
+		// 出游人数
+		$('.add-adult').click(changeMemberCount);
+		$('.add-children').click(changeMemberCount);
+		$('.minus-adult').click(changeMemberCount);
+		$('.minus-children').click(changeMemberCount);
+		
+		// 重新核算总价
+		function calcOrderTotal() {			
+			var adultCount = 0, childCount = 0;
+			$('.order-details-people').find('.member_count').each(function(i, ev){
+				if ($(this).parent().hasClass('children-num')) {
+					childCount += parseInt($(this).html());
+				} else {
+					adultCount += parseInt($(this).html());
+				}
+			});
+			
+			var jsonData = {
+				op_type: 'calc_money',
+				batch_id: $('.cfrq-choose').find('span').attr('data-id'),
+				adult_count: adultCount,
+				child_count: childCount,
+			}
+			
+			var taocanIds = ',';
+			$('.tclx .taocan-list').find('div.active').each(function(){
+				taocanIds += $(this).attr('data-id') + ',';
+			});
+			if (taocanIds != ',') {
+				jsonData['taocan_ids'] = taocanIds;
+			}
+			
+			$.post('{:U("line/order")}', jsonData, function(data){
+				if (data.result.errno == 0) {					
+					// 优惠后的单价
+					var adultPrice = parseFloat(data.money.price_adult);
+					var childPrice = parseFloat(data.money.price_child);					
+					if (data.offer != null) {
+						if (data.offer.line_special_offer_adult != null) {
+							adultPrice = parseFloat(data.offer.line_special_offer_adult.money);
+						}
+						if (data.offer.line_special_offer_child != null) {
+							childPrice = parseFloat(data.offer.line_special_offer_child.money);
+						}
+					}
+					
+					// 优惠后的各类型总价
+					var adultTotalPrice = adultPrice * adultCount;
+					var childTotalPrice = childPrice * childCount;
+					
+					var vhtml = '';
+					// 各类型团费
+					vhtml += '<p class="adult-money"><span>'+adultCount+'</span> 成人 x ￥<u>'+adultPrice+'</u><i>￥<b>'+adultTotalPrice+'</b></i></p>'
+					vhtml += '<p class="children-money"><span>'+childCount+'</span> 儿童 x ￥<u>'+childPrice+'</u><i>￥<b>'+childTotalPrice+'</b></i></p>'
+					
+					// 优惠信息
+					if (data.offer != null) {
+						for (k in data.offer) {
+							var f = data.offer[k];
+							vhtml += '<p class="line_offer '+k+'">'+f.data.type_desc+': ￥<u>'+f.money+'</p>';								
+						}
+					}					
+					vhtml += '<p>总团费</p>';
+					vhtml += '<p class="team-money">&nbsp;&nbsp;&nbsp;&nbsp;原价:<i>￥<b class="full">'+data.money.full+'</b></i> 现价:<i>￥<b class="cut">'+data.money.cut+'</b></i></p>'		
+					
+					// 发票类型
+					var receiptType = $('.order-details-invoice').find('.order-details-invoice-choose').find('input:checked').val();
+					var receiptClass = receiptType == 0 ? 'hidden_ctrl' : '';				
+					vhtml += '<p class="invoice-money '+receiptClass+'"><span>1</span> 发票邮寄 x ￥<u>'+'{$line.receipt_price}'+'</u><i>￥<b>'+'{$line.receipt_price}'+'</b></i></p>';
+					
+					// 显示计算内容
+					$('.order-details-right-people').empty();
+					$('.order-details-right-people').html(vhtml);
+					
+					// 总价格
+					var needPayMoney = parseFloat(data.money.cut);
+					if (receiptType != 0) {
+					  needPayMoney += parseFloat('{$line.receipt_price}');						
+					}					
+					$('.order-details-right-money').find('.need_pay_money').html(needPayMoney);										
+				} else {
+					$('.mark').show()
+					$('#alert-modal').show();
+					$('#alert-modal').find('p').html(data.result.message);
+					setTimeout(function(){
+						$('.mark').hide()
+						$('#alert-modal').hide();
+					},3000);
+					//alert(data.result.message);
+				}
+			});	
+		}
+		
+		// 添加参团人HTML
+		function appendMember(isAdult, isMan) {
+			var obj_attach = isAdult == true ? '.adult' : '.children'; 
+			var containerObj = isAdult == true ? '.adult-div' : '.children-div';
+			var index = $(containerObj).find(obj_attach+'-information').length + 1;
+			var rootClass = 'template_'+(isAdult==true?'adult':'children');
+			var rootObj = $('.'+rootClass).clone(true);
+			$(rootObj).removeClass(rootClass);
+			$(rootObj).removeClass('hidden_ctrl');
+			// 名次人员类型
+			var snObj = $(rootObj).find(obj_attach+'-information-num');
+			$(snObj).find('p span').html(index);
+			$(snObj).find('u').html(isAdult == false ? '儿童' : (isMan == false ? '成人女' : '成人男'));
+			$(containerObj).append(rootObj);
+		}
+		
+		// 改变出游人数
+		function changeMemberCount() {
+			var isAdult = true, isAdd = true, isMan = false;
+			if ($(this).parent().hasClass('children-num')) {
+				isAdult = false;
+			}
+			if ($(this).attr('class').indexOf('add') == -1) {
+				isAdd = false;
+			}
+			if ($(this).parent().attr('class').indexOf('woman') == -1) {
+				isMan = true
+			}
+						
+			var nNum = parseInt($(this).parent().find('span').html());
+			// 是否需要减少人数HTML
+			var needReduce = isAdd == false && nNum == 0 ? false : true;
+			nNum = isAdd ? nNum + 1 : nNum - 1;
+			if (nNum < 0) {
+				nNum = 0;
+			}						
+			// 设置当前参团人数
+			$(this).parent().find('span').html(nNum);
+						
+			// 设置计价单总价
+			calcOrderTotal();
+			
+			// 添加参团人HTML
+			if (isAdd == false) {
+				var rootObj = isAdult?'.adult-div':'.children-div';
+				var reduceObj = isAdult?'.adult-information:last':'.children-information:last';
+				$(rootObj).find(reduceObj).remove();
+			} else {
+				appendMember(isAdult, isMan);
+			} 
+		}
+			
+		// 选择批次后
+		function chooseBatch(id, title, adult_price, child_price, data_show) {
+			$('.order-details-right').find('h6').html(title);
+			$('.order-details-right').find('.adult-money u').html(adult_price);
+			$('.order-details-right').find('.children-money u').html(child_price);
+			$('.order-details-left').find('.xljg span:first').html('￥'+adult_price+'/成人');
+			$('.order-details-left').find('.xljg span:last').html('￥'+child_price+'/儿童');
+			// 重新计算订单价格
+			calcOrderTotal();			
+			// 设置套餐可选状态
+			setTaocanIsChoose(id, data_show);			
+		}
+		
+		//鼠标离开，关闭下拉框
+		$('.adult-information-card-choose').mouseleave(function(){
+			$(this).children('ul').hide();
+		});
+		$('.children-information-card-choose').mouseleave(function(){
+			$(this).children('ul').hide();
+		});
+		$('.children-information-birth-year').mouseleave(function(){
+			$(this).children('ul').hide();
+		});
+		$('.children-information-birth-month').mouseleave(function(){
+			$(this).children('ul').hide();
+		});
+		$('.children-information-birth-day').mouseleave(function(){
+			$(this).children('ul').hide();
+		});
+		//选择下拉框
+		function chooseDown( f ) {
+			$( '.' + f + ' span').click( function () {
+				$(this).parent( '.' + f ).children('ul').show();
+			} );
+			$( '.' + f + ' img').click( function () {
+				$(this).parent( '.' + f ).children('ul').show();
+			} );
+			$( '.' + f + ' ul li').click( function () {
+				if (f == 'cfrq-choose') {
+					if ($(this).attr('data-invalid') == 1) {
+						alert('该批次已过期报名时间，详情请咨询客服MM');
+						return false;
+					}
+					if ($(this).attr('data-use') == 0) {
+						alert('该批次已被禁用或已经下架，详情请咨询客服MM');
+						return false;
+					}
+				}
+				$(this).parents( '.' + f ).children('span').html($(this).html());
+				$(this).parents( '.' + f ).children('span').attr('data-id', $(this).attr('data-id'))
+				$(this).parent('ul').hide();
+				
+				if (f == 'cfrq-choose') {
+					var batchId = $(this).attr('data-id');
+					var title = $(this).attr('data-title');
+					var adult_price = $(this).attr('data-price-adult');
+					var child_price = $(this).attr('data-price-child');
+					var data_show = $(this).attr('data-start-date-show');
+					chooseBatch(batchId, title, adult_price, child_price, data_show);
+				}
+			} );
+		};
+		$('.adult-information').birthday('.adult-information-birth-year', '.adult-information-birth-month' , '.adult-information-birth-day' , '.adult-information-birth' , 100);
+		$('.children-information').birthday('.children-information-birth-year', '.children-information-birth-month' , '.children-information-birth-day' , '.children-information-birth' , 16);
+		//选择出发日期
+		chooseDown('cfrq-choose');
+		//成人选择证件
+		chooseDown('adult-information-card-choose');
+		//儿童选择证件
+		chooseDown('children-information-card-choose');		
+		//成人出生日期
+		chooseDown('adult-information-birth-year');
+		chooseDown('adult-information-birth-month');
+		chooseDown('adult-information-birth-day');
+		//儿童出生日期
+		chooseDown('children-information-birth-year');
+		chooseDown('children-information-birth-month');
+		chooseDown('children-information-birth-day');
+				
+		// 港澳证
+		$('.hongkong-macao').click( function () {
+			$(this).parents('.adult-information-write').find('.adult-information-birth').show();
+		} );
+		
+		$('.hongkong-macao').siblings('li').click( function () {
+			$(this).parents('.adult-information-write').find('.adult-information-birth').hide();
+		} );
+		
+		
+		
+		// 老人&外国友人
+		$('.old-man i , .foreign-man i , .gat-man i ').click( function () {
+			$(this).addClass('choose-man');
+			$(this).siblings('i').removeClass('choose-man');
+		} );
+		
+		//发票
+		$('.order-details-invoice-choose label').click( function () {
+			if ( $('#enterprise-invoice').is(':checked') ) {
+				$('.order-details-invoice-write-enterprise').show();
+				$('.order-details-invoice-write-personal').hide();
+				$('.invoice-money').show();
+				//清空个人发票信息
+				$('.order-details-invoice-write-personal input').val('');
+			}else if ( $('#personal-invoice').is(':checked') ) {
+				$('.order-details-invoice-write-personal').show();
+				$('.order-details-invoice-write-enterprise').hide();
+				$('.invoice-money').show();
+				//清空企业发票信息
+				$('.order-details-invoice-write-enterprise input').val('');
+			}else {
+				$('.order-details-invoice-write-enterprise').hide();
+				$('.order-details-invoice-write-personal').hide();
+				$('.invoice-money').hide();
+			}
+			calcOrderTotal();
+		} );
+		
+		//右侧订总价位置样式（随窗口大小不同改变）
+		var Width = $(window).width();
+		$('.order-details-right').css('right', (Width - 1200)/2 );
+		$(window).resize(function(){
+			var WidthR = $(window).width();
+	        if( WidthR > 1210 ) {
+	        	$(".order-details-right").stop().animate({
+	            	right: (WidthR - 1200)/2
+	        	},150);
+	        	console.log(WidthR);
+	        }else {
+	        	$(".order-details-right").css('right', '44px' );
+	        }
+	    }); 
+		
+		// 联系人手机效验码验证
+		var IntervalContactSend = 0, sub_send_second = 60, contact_phone='';
+		$('#btnSendCode').click(function(data){			
+			if ($(this).is(":disabled") == false) {
+				contact_phone = $('#contact_phone').val();
+				if (checkMobile(contact_phone) == false) {
+					alert('电话号码有误');
+					return false;
+				}
+				var jsonData = {
+					type: 'send',
+					tel: contact_phone,
+					use: 'order_contact_phone',
+					interval: 600,
+					rd: '{$pagerd}',
+				};
+				
+				$.post('{:U("common/sms")}', jsonData, function(data){
+					if (data.result.errno == 0) {
+						sub_send_second = 600
+						$('#btnSendCode').val(sub_send_second+'秒后重新发送');
+						$("#btnSendCode").attr("disabled", "disabled");
+						IntervalContactSend = window.setInterval(refreshContactPhoneCode, 1000);
+						$('.mark').show()
+						$('#alert-modal').show();
+						setTimeout(function(){
+							$('.mark').hide()
+							$('#alert-modal').hide();
+						},3000);
+						//alert(data.ds.code);
+					} else {
+						//alert(data.result.message);
+						$('.mark').show()
+						$('#alert-modal').show();
+						$('#alert-modal').find('p').html(data.result.message);
+						setTimeout(function(){
+							$('.mark').hide()
+							$('#alert-modal').hide();
+						},3000);
+					}
+				});
+			} else {
+				$('.mark').show()
+				$('#alert-modal').show();
+				$('#alert-modal').find('p').html('验证码已经发送，请随后在此发送');
+				setTimeout(function(){
+					$('.mark').hide()
+					$('#alert-modal').hide();
+				},3000);
+				//alert('验证码已经发送，请随后在此发送');
+			}
+		});
+		
+		// 刷新发送联系人手机验证码时间
+		function refreshContactPhoneCode() {
+			if (sub_send_second == 0) {
+				window.clearInterval(IntervalContactSend);
+				$('#btnSendCode').val('发送验证码');
+				$('#btnSendCode').removeAttr('disabled');
+			} else {
+				sub_send_second--;
+				$('#btnSendCode').val(sub_send_second+'秒后重新发送');
+			}
+		}
+		
+		// 更换联系人电话号码
+		$('#contact_phone').blur(function(){
+			var phone = $('#contact_phone').val();
+			if (phone != contact_phone) {
+				$('#contact_result').html('');
+			}
+		});
+		
+		// 验证联系人发送的验证码
+		$('#contact_verify_code').blur(function(){
+			if ($('#contact_result').html() != '') {
+				return false;
+			}
+			var sCode = $(this).val();
+			if (sCode == '') {
+				$('.mark').show()
+				$('#alert-modal').show();
+				$('#alert-modal').find('p').html('验证码不能为空');
+				setTimeout(function(){
+					$('.mark').hide()
+					$('#alert-modal').hide();
+				},3000);
+				//alert('验证码不能为空');
+				return false;
+			}
+			var phone = $('#contact_phone').val();
+			if (checkMobile(phone) == false) {
+				$('.mark').show()
+				$('#alert-modal').show();
+				$('#alert-modal').find('p').html('验证码有误');
+				setTimeout(function(){
+					$('.mark').hide()
+					$('#alert-modal').hide();
+				},3000);
+				//alert('验证码有误');
+				return false;
+			}
+			var jsonData = {
+				type: 'check',
+				tel: phone,
+				use: 'order_contact_phone',
+				code: sCode,
+			};
+			
+			$.post('{:U("common/sms")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					$('#contact_result').html('验证通过');
+					window.clearInterval(IntervalContactSend);
+					$('#btnSendCode').val('发送验证码');
+					$('#btnSendCode').removeAttr('disabled');
+				} else {
+					alert(data.result.message);
+				}
+			});
+		});
+		
+		// 获取订单人数
+		function getOrderMemberCount() {
+			var memberCount = {adult:0, child:0, total:0};
+			$('.order-details-people').find('.member_count').each(function(i, ev){
+				if ($(this).parent().hasClass('children-num')) {
+					memberCount.child = parseInt(memberCount.child) + parseInt($(this).html());
+				} else {
+					memberCount.adult = parseInt(memberCount.adult) + parseInt($(this).html());
+				}
+			});
+			memberCount.total = parseInt(memberCount.adult) + parseInt(memberCount.child);
+			return memberCount;
+		}
+		
+		// 检查订单信息
+		function checkOrder() {
+			// 出游人数检查
+			var memberCount = getOrderMemberCount();
+			if (memberCount.total == 0) {
+				$('.mark').show()
+				$('#alert-modal').show();
+				$('#alert-modal').find('p').html('出游人数不能为0');
+				setTimeout(function(){
+					$('.mark').hide()
+					$('#alert-modal').hide();
+				},3000);
+				//alert('出游人数不能为0');
+				return false;
+			}
+			
+			// 联系人检查
+			if ($('#contact_name').val() == '') {
+				$('.mark').show()
+				$('#alert-modal').show();
+				$('#alert-modal').find('p').html('联系人姓名不能为空');
+				setTimeout(function(){
+					$('.mark').hide()
+					$('#alert-modal').hide();
+				},3000);
+				//alert("联系人姓名不能为空");
+				return false;
+			}
+			
+			// 联系人手机确认
+			if ('{$user.id}' == '') {
+				if ($('#contact_result').html() != '验证通过') {
+					$('.mark').show()
+					$('#alert-modal').show();
+					$('#alert-modal').find('p').html('联系人手机未验证确认');
+					setTimeout(function(){
+						$('.mark').hide()
+						$('#alert-modal').hide();
+					},3000);
+					//alert("联系人手机未验证确认");
+					return false;
+				}	
+			} else {
+				var contactPhone = $('#contact_phone').val();
+				if (checkMobile(contactPhone) == false && checkTel(contactPhone) == false) {	
+					$('.mark').show()
+					$('#alert-modal').show();
+					$('#alert-modal').find('p').html('联系人电话有错误,'+contactPhone);
+					setTimeout(function(){
+						$('.mark').hide()
+						$('#alert-modal').hide();
+					},3000);				
+					return false;
+				};
+				//TODO 用户登录后出现滑动验证
+				if(!($('.handler').hasClass('handler_ok_bg'))){
+					$('.mark').show()
+					$('#alert-modal').show();
+					$('#alert-modal').find('p').html('请滑动验证码完成验证');
+					setTimeout(function(){
+						$('.mark').hide()
+						$('#alert-modal').hide();
+					},3000);
+					return false;
+				};
+			}
+			
+			return true;
+		}
+		
+		// 获取赠品信息
+		function getLargessData(obj) {
+			var largess = [];
+			$(obj).find('.largess_item').each(function(i,ev){
+				var l = {
+					largess_id: $(this).attr('data-id'),
+					data_id: $(this).find('.largess_data').val(),
+				};
+				largess.push(l);
+			});
+			return largess;
+		}
+		
+		// 获取参团人信息
+		function getMemberData() {
+			var adultObjs = $('.order-details-travel-people .adult-div').find('.adult-information');
+			var childObjs = $('.order-details-travel-people .children-div').find('.children-information');
+			
+			var jsonData = new Array(), idx = 0;
+			for (var i=0; i < $(adultObjs).length; i++,idx++) {
+				var adult = $(adultObjs[i]);
+				var mobilePhone = $(adult).find('.phone').val();
+				if (mobilePhone != '' && checkMobile(mobilePhone) == false) {
+					var typeDesc = $(adult).find('.adult-information-num').find('u').html();
+					alert('第'+i+'位'+typeDesc+'的电话号码错误！');
+					return false;
+				}
+								
+				var certTypeObj = $(adult).find('.adult-information-card-choose').find('span');
+				var cert = $(adult).find('.adult-information-card').find('.cert').val();
+				var obj = {
+					name: $(adult).find('.name').val(),
+					type: $(adult).find('.adult-information-num').find('u').html(),
+					certificate_type_id: $(certTypeObj).attr('data-id'),
+					certificate_num: cert,
+					tel: mobilePhone,
+//					user_id: $(adult).find('.name').val(),
+//					research: $(adult).find('.name').val(),
+					largess: getLargessData(adult),
+				}
+				
+				if ((obj.name != '' || obj.tel != '') && $(certTypeObj).html() == '身份证') {
+					if (checkCard(obj['certificate_num']) == false) {
+						return false;
+					}	
+				}
+				
+				if ($(certTypeObj).html() == '港澳证') {
+					var y = $(adult).find('.adult-information-birth-year').find('span').html();
+					var m = $(adult).find('.adult-information-birth-month').find('span').html();
+					var d = $(adult).find('.adult-information-birth-day').find('span').html();
+					var birth = y + '-' + m + '-' + d;
+					obj['birthday'] = birth;
+				}
+				jsonData[idx] = obj;
+			}
+			
+			for (var j=0; j < $(childObjs).length; j++,idx++) {
+				var child = $(childObjs[j]);
+				var mobilePhone = $(child).find('.phone').val();
+				if (mobilePhone != '' && checkMobile(mobilePhone) == false) {
+					var typeDesc = $(child).find('.children-information-num').find('u').html();
+					alert('第'+i+'位'+typeDesc+'的电话号码错误！');
+					return false;
+				}
+				
+				var certTypeObj = $(child).find('.children-information-card-choose').find('span');
+				var cert = $(child).find('.children-information-card').find('.cert').val();
+				var obj = {
+					name: $(child).find('.name').val(),
+					type: $(child).find('.children-information-num').find('u').html(),
+					certificate_type_id: $(certTypeObj).attr('data-id'),
+					certificate_num: cert,
+					tel: mobilePhone,
+//					user_id: $(child).find('.name').val(),
+//					research: $(child).find('.name').val(),
+					largess: getLargessData(child),
+				}
+				
+				if ((obj.name != '' || obj.tel != '') && $(certTypeObj).html() == '身份证') {
+					if (checkCard(obj['certificate_num']) == false) {
+						return false;
+					}	
+				}
+				
+				if ($(certTypeObj).html() == '港澳证') {
+					var y = $(child).find('.children-information-birth-year').find('span').html();
+					var m = $(child).find('.children-information-birth-month').find('span').html();
+					var d = $(child).find('.children-information-birth-day').find('span').html();
+					var birth = y + '-' + m + '-' + d;
+					obj['birthday'] = birth;
+				}
+				jsonData[idx] = obj;
+			}
+			return jsonData;
+		}
+		
+		// 获取订单数据
+		function getOrderData() {
+			var oldManHtml = $('.order-details-people-sure').find('.old-man').find('.choose-man').next().html();
+			var foreignerHtml = $('.order-details-people-sure').find('.foreign-man').find('.choose-man').next().html();
+			var HkMcHtml = $('.order-details-people-sure').find('.gat-man').find('.choose-man').next().html();
+			var receiptType = $('.order-details-invoice').find('.order-details-invoice-choose').find('input:checked').val();
+			var  manCount = $('.adult-num-man').find('span').html();
+			var  womanCount = $('.adult-num-woman').find('span').html();
+			var  childCount = $('.children-num').find('span').html();
+			
+			var memberData = getMemberData();
+			if (memberData === false) {
+				return false;
+			}
+			
+			var memberCount = getOrderMemberCount();
+			var jsonData = {
+				op_type: 'create',
+				lineid: $('.order-content').attr('data-id'),
+				hdid: $('.cfrq-choose').find('span').attr('data-id'),
+				userid: '{$user.id}',
+				duid: '{$duid}',
+				male: manCount == '' || manCount == null ? 0 : manCount,
+				woman: womanCount == '' || womanCount == null ? 0 : womanCount,
+				child: childCount == '' || childCount == null ? 0 : childCount,
+				member_total_count: memberCount.total,
+				types: '成人', //联系人类型
+				names: $('#contact_name').val(), //联系人名称
+				gendar: '男', // 联系人性别
+				mob: $('#contact_phone').val(),
+				members: memberData,
+				oldman: oldManHtml == '没有' ? 0 : 1,
+				foreigner: foreignerHtml == '没有' ? 0 : 1,
+				hk_mc: HkMcHtml == '没有' ? 0 : 1,
+				receipt_type: receiptType,
+				book_account_type: '{$user.account_type.id}',
+			}
+			
+			if ('{$user.id}' == '') {
+				jsonData['mob_code'] = $('#contact_verify_code').val();
+			}
+			
+			if (receiptType != 0) {
+				var parentClass = receiptType == 1 ? '.order-details-invoice-write-enterprise' : '.order-details-invoice-write-personal';
+				if (receiptType == 1) {
+					jsonData['receipt_company'] = $(parentClass).find('.receipt_company').val();
+					jsonData['receipt_company_no'] = $(parentClass).find('.receipt_company_no').val();
+					jsonData['receipt_company_address'] = $(parentClass).find('.receipt_company_addr').val();
+					jsonData['receipt_company_phone'] = $(parentClass).find('.receipt_company_tel').val();
+				}
+				jsonData['receipt_receiver'] = $(parentClass).find('.receipt_receiver').val();
+				jsonData['receipt_receiver_phone'] = $(parentClass).find('.receipt_receiver_tel').val();
+				jsonData['receipt_receiver_address'] = $(parentClass).find('.receipt_receiver_addr').val();
+			}
+			return jsonData;
+		}		
+		
+		// 下单
+		$('.order-details-submit').find('a').click(function(){
+			var thisObj = this;
+			if ($(thisObj).hasClass('btn-disabled')) {
+				return false;
+			}
+			
+			if (checkOrder() == false) {
+				return false;
+			}
+			
+			var jsonData = getOrderData();	
+			if (jsonData === false) {
+				return false;
+			}
+			
+			// 已选套餐
+			var taocanIds = ',';
+			$('.tclx .taocan-list').find('div.active').each(function(){
+				taocanIds += $(this).attr('data-id') + ',';
+			});
+			if (taocanIds != ',') {
+				jsonData['taocan_ids'] = taocanIds;
+			}
+			
+			if (parseInt(jsonData['member_total_count']) == 0) {
+				$('.mark').show()
+				$('#alert-modal').show();
+				$('#alert-modal').find('p').html('出游人数总和不能为0');
+				setTimeout(function(){
+					$('.mark').hide()
+					$('#alert-modal').hide();
+				},3000);
+				//alert('出游人数总和不能为0');
+				return false;
+			}
+			
+			$(thisObj).addClass('btn-disabled');			
+			$.post('{:U("line/order")}', jsonData, function(data){
+				$(thisObj).removeClass('btn-disabled');
+				if (data.result.errno != 0) {
+					alert(data.result.message);
+				}
+				if (data.jumpUrl != null && data.jumpUrl != 'undefined'){
+					location.href = data.jumpUrl;
+				}
+			});
+		});
+		
+		// 设置套餐是否可选
+		function setTaocanIsChoose(batch_id, data_show) {
+			//设置套餐可选状态
+			$('.tclx .taocan-list div').each(function(){
+				$(this).removeClass();
+				$(this).addClass('disabled');
+			});
+	        var lineId = '{$line.id}';			
+	        var jsonData = {
+	        	type:'find_taocan_batch',
+	        	line_id:lineId,
+	        	year:data_show,
+	        	batch_id:batch_id,
+	        };
+	        $.post('{:U("line/info")}', jsonData, function(data){
+	        	console.log(data);
+	        	if (data.result.errno == 0) {
+	        		if (data.taocan_ids != null && typeof(data.taocan_ids) != 'undefined') {
+	                     for(i = 0; i < data.taocan_ids.length; i++){
+						 	$('.tclx .taocan-list').find('div[data-id="'+data.taocan_ids[i]+'"]').removeClass();
+						 }
+	                }
+	        	}
+        	});
+		}
+		
+		// 套餐点击
+		$(".tclx .taocan-list div").on("click",function(){
+			if ($(this).hasClass('disabled')) {
+				return false;
+			}
+			var number = $(this).attr("data-date")
+			if(number == 1){
+				$(this).addClass("disabled")
+			}else{
+				$(this).toggleClass("active").siblings().removeClass("active");
+			}
+			
+			var lineId = '{$line.id}';
+	        var taocanIds = ',';
+			$('.tclx .taocan-list').find('div.active').each(function(){
+				taocanIds += $(this).attr('data-id') + ',';
+			});
+			
+			var chBId = $('.cfrq-choose span').attr('data-id');
+			var batchObj = $('.cfrq-choose ul').find('li[data-id="'+chBId+'"]');
+	        var batchId = $(batchObj).attr('data-id');
+			var title = $(batchObj).attr('data-title');
+			if (taocanIds == ',') {
+				var adult_price = $(batchObj).attr('data-price-adult');
+				var child_price = $(batchObj).attr('data-price-child');
+				var data_show = $(batchObj).attr('data-start-date-show');
+				
+				$('.order-details-right').find('h6').html(title);
+				$('.order-details-right').find('.adult-money u').html(adult_price);
+				$('.order-details-right').find('.children-money u').html(child_price);
+				$('.order-details-left').find('.xljg span:first').html('￥'+adult_price+'/成人');
+				$('.order-details-left').find('.xljg span:last').html('￥'+child_price+'/儿童');
+				// 重新计算订单价格
+				calcOrderTotal();
+	        } else {
+	        	var jsonData = {
+		        	type:'find_taocan_batch',
+		        	line_id:lineId,
+		        	year:$('.cfrq-choose ul').find('li[data-id="'+chBId+'"]').attr('data-start-date-show'),
+		        	taocan_ids:taocanIds,
+		        	batch_id:chBId,	
+		        };
+		        
+		        $.post('{:U("line/info")}', jsonData, function(data){
+		        	console.log(data);
+		        	if (data.result.errno == 0) {
+		        		if (data.ds != null && typeof(data.ds) != 'undefined') {
+		        			$('.order-details-right').find('h6').html(title);
+							$('.order-details-right').find('.adult-money u').html(data.ds[0].price_adult);
+							$('.order-details-right').find('.children-money u').html(data.ds[0].price_child);
+							$('.order-details-left').find('.xljg span:first').html('￥'+data.ds[0].price_adult+'/成人');
+							$('.order-details-left').find('.xljg span:last').html('￥'+data.ds[0].price_child+'/儿童');
+		        		}
+		        	}
+		        });
+		        // 重新计算订单价格
+				calcOrderTotal();
+	        }
+		});
+		
+	</script>		
+		
+<include file="Common/right" />
+<include file="Common/bottom" />

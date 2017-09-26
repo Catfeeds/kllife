@@ -1,0 +1,53 @@
+<include file="Common/header" />
+<!-- 轮播样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/common/css/slide.css">
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/css/img_text.css">
+	<div id="content">
+		<div class="img-text-content">
+			<h3>{$article.title}</h3>
+			<!-- 浏览&分享 -->
+			<div class="browse-time-share">
+				<div class="browse">
+					<i class="browse-img"></i>
+					浏览：<span>{$article.read}</span>
+				</div>
+				<div class="time-share">
+					<div class="time">
+						作者：<span>{$article.account.show_name}</span>
+						|
+						<i>{$article.create_time}</i>
+					</div>
+					<div class="share">
+						分享到：
+						<i class="weibo"></i>
+						<i class="qq"></i>
+						<i class="qzone"></i>
+						<i class="renren"></i>
+					</div>
+				</div>
+			</div>
+			<!-- 图文内容 -->
+			<div class="img-text-information">
+				<!-- 头部有引号 -->
+				<div class="img-text-information-head">
+					<p>{$article.send_word}</p>
+					<i class="quotes"></i>
+					<if condition="empty($article['face_image']) eq false">
+						<div class="img-information">
+							<span>
+								<img src="{$article.face_image}" alt="">
+							</span>
+						</div>
+					</if>
+				</div>
+				<!-- 主要内容 -->
+				<div class="img-text-information-content">
+					<div class="text-information">
+						{$article.body}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<include file="Common/footer" />

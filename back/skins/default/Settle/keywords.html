@@ -1,0 +1,337 @@
+<include file="Common/header" />
+	<style>
+		.dataTables_wrapper .table thead > tr .sorting:before, .dataTables_wrapper .table thead > tr .sorting_asc:before, .dataTables_wrapper .table thead > tr .sorting_desc:before { content: ''; }
+		.create { position: relative; border: 1px solid #dcdcdc; margin-bottom:20px; padding: 15px; }
+		.create .row { margin-bottom:20px; }
+		.create-write .input-group { height: 36px; }
+		.create-write input { width: 100%; height: 36px; }
+		.input-group-addon { padding: 4px 40px; }
+		.btn-group {}
+		.btn-save { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		.btn-clear { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		.list-tbody img { width: 158px; height: 91px; border: 1px solid #dcdcdc; } 
+		.issuing-list-search { width: 50%; margin: 20px auto; }
+		
+		.list-page { width: 100%; text-align: right; }
+
+		.list-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+
+		.list-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+
+		.list-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }
+		
+		.input-select { margin-left: -15px; min-width:288px; min-height: 36px;}
+		.input-select > select { height: 36px; }
+	</style>
+
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description" >{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-12">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">关键字录入</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">			
+				<!--在此地编辑内容-->
+					<!--创建优惠券-->
+					<div class="create">
+						<div class="create-write" data-id="">
+						
+							<div class="row">
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">页面名称</i>
+										</div>
+										<input type="text" class="form-control data_page_name" />
+									</div>
+								</div>
+								
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">页面键</i>
+										</div>
+										<input type="text" class="form-control data_page" />
+									</div>
+								</div>
+							
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">页面所属站点类型</i>
+										</div>
+										<div class="col-sm-10 input-select">
+											<select class="form-control data_type">
+												<option value="main">主站/手机站</option>
+												<option value="qinglvpai">新旅拍/新旅拍手机站</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">标题</i>
+										</div>
+										<input type="text" class="form-control data_title">
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">关键字</i>
+										</div>
+										<input type="text" class="form-control data_keywords">
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">描述</i>
+										</div>
+										<input type="text" class="form-control data_description">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<button class="btn btn-clear">清除</button>	
+								<button class="btn btn-save">保存</button>	
+							</div>
+							
+						</div>
+					</div>
+					
+					<!--用户列表-->
+					<div class="issuing-list">
+						
+						<div class="issuing-list-search">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="搜索内容可以是编号、页面类型、页面名称、页面键、页面标题、页面关键字、页面描述">
+								<div class="input-group-addon btn_search" style="background-color: #68b828; color: #fff; cursor: pointer;">
+									<i style="font-style: normal;">搜索</i>
+								</div>
+							</div>
+						</div>
+						
+						<!--用户列表-->
+						<div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+							<table class="table table-bordered table-striped dataTable no-footer" id="table_list" role="grid" aria-describedby="example-2_info">
+								<thead>
+									<tr role="row" class="head">
+										<th class="sorting" rowspan="1" colspan="1" style="width: 50px;">编号</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 100px;">页面所属站</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">页面名称</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">页面键</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 200px;">页面标题</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 200px;">页面关键字</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 200px;">页面描述</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">操作</th>
+									</tr>
+								</thead>
+							
+								<tbody class="middle-align list-tbody">
+									<volist id="keyword" name="datas">
+										<if condition="$key % 2 == 0">
+											<tr role="row" class="odd" data-id="{$keyword.id}">
+										<else />
+											<tr role="row" class="even" data-id="{$keyword.id}">
+										</if>
+											<td>{$keyword.id}</td>
+											<td>{$keyword.type}</td>
+											<td>{$keyword.page_name}</td>
+											<td>{$keyword.page}</td>
+											<td>{$keyword.title}</td>
+											<td>{$keyword.keywords}</td>
+											<td>{$keyword.description}</td>
+											<td>
+												<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit">编辑</a>
+												<a href="#" class="btn btn-danger btn-sm btn-icon icon-left btn_del">删除</a>
+											</td>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							<div class="list-page"></div>
+						</div>
+					</div>		
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+<script src="__PUBLIC__/home/js/page.js"></script>	
+<script type="text/javascript">
+
+	// 清除信息
+	function clearInfo() {
+		$('.create-write').attr('data-id', '');
+		var defualtVal = $('.data_type').find('option:first').attr('value');
+		$('.data_type').val(defualtVal).trigger('change');
+		$('.data_page_name').val('');
+		$('.data_page').val('');
+		$('.data_title').val('');
+		$('.data_keywords').val('');
+		$('.data_description').val('');
+	}	
+	$('.btn-clear').click(function(){
+		clearInfo();
+	});
+
+	// 添加用户
+	$('.btn-save').click(function(){
+		var jsonData = {
+			op_type: 'save',
+			id: $('.create-write').attr('data-id'),
+			type: $('.data_type').val(),
+			page_name: $('.data_page_name').val(),
+			page: $('.data_page').val(),
+			title: $('.data_title').val(),
+			keywords: $('.data_keywords').val(),
+			description: $('.data_description').val(),
+		}	
+		
+		$.post('{:U("settle/keywords")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				if (data.type != null && data.type == 'create') {
+					location.href = '{:U("settle/keywords")}';
+				} else {
+					if (data.ds != null) {
+						var d = data.ds;
+						var trObj = $('tr[data-id="'+d.id+'"]');
+						$(trObj).find('td:eq(1)').html(d.type);
+						$(trObj).find('td:eq(2)').html(d.page_name);
+						$(trObj).find('td:eq(3)').html(d.page);
+						$(trObj).find('td:eq(4)').html(d.title);
+						$(trObj).find('td:eq(5)').html(d.keywords);
+						$(trObj).find('td:eq(6)').html(d.description);
+					}
+					clearInfo();
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		});
+	});
+	
+	// 编辑信息
+	function editData(){
+		var trObj = $(this).closest('tr');
+		var did = $(trObj).attr('data-id');
+		$('.create-write').attr('data-id', did);
+		$('.data_type').val($(trObj).find('td:eq(1)').html()).trigger('change');
+		$('.data_page_name').val($(trObj).find('td:eq(2)').html());
+		$('.data_page').val($(trObj).find('td:eq(3)').html());
+		$('.data_title').val($(trObj).find('td:eq(4)').html());
+		$('.data_keywords').val($(trObj).find('td:eq(5)').html());
+		$('.data_description').val($(trObj).find('td:eq(6)').html());
+	}
+	$('.btn_edit').click(editData);
+	
+	// 删除信息
+	function deleteData() {
+		if (!confirm('您确定要删除这条页面关键字设置信息?')) {
+			return false;
+		}
+		var trObj = $(this).closest('tr');
+		var did = $(trObj).attr('data-id');
+		$.post('{:U("settle/keywords")}', {op_type:'delete', id:did}, function(data){
+			if (data.result != null) {
+				if (data.result.errno == 0) {
+					toastr.success(data.result.message);
+					$(trObj).remove();
+				} else {
+					toastr.error(data.result.message);
+				}
+			}
+		});
+	}
+	$('.btn_del').click(deleteData);
+	
+	
+	//搜索用户
+	$('.issuing-list-search').find('.btn_search').click(function(){
+		var searchval = $('.issuing-list-search').find('input').val();
+		findPageData(1);
+	});
+	
+	// 搜索用户数据
+	constructionPage($('.list-page'), 1, '{$page_count}', findPageData, true);	
+	function findPageData(p) {			
+		var jsonData = {
+			op_type:'list',
+			page: p-1,
+		}
+		
+		var searchval = $('.issuing-list-search').find('input').val();
+		if (searchval != '') {
+			jsonData['cdsstr'] = 'id|=|'+searchval+'|OR|type|LIKE|%'+searchval+'%|OR|page_name|LIKE|%'+searchval+'%|OR|page|LIKE|%'+searchval+'%|OR|title|LIKE|%'+searchval+'%|OR|keywords|LIKE|%'+searchval+'%|OR|description|LIKE|%'+searchval+'%|OR';
+		}
+		
+		$.post('{:U("settle/keywords")}', jsonData, function(data){
+			var tabObj = $('#table_list');
+			if (data.result.errno == 0) {
+				$(tabObj).find('tbody').empty();
+				if (data.ds != null && data.ds != 'undefined') {	
+					for (var i = 0; i < data.ds.length; i ++){
+						var d = data.ds[i];
+						
+						var trClass = i % 2 == 0 ? 'odd' : 'even';
+						var vhtml =	'<tr role="row" class="'+trClass+'" data-id="'+d.id+'">'+
+								'	<td>'+d.id+'</td>'+
+								'	<td>'+d.type+'</td>'+
+								'	<td>'+d.page_name+'</td>'+
+								'	<td>'+d.page+'</td>'+
+								'	<td>'+d.title+'</td>'+
+								'	<td>'+d.keywords+'</td>'+
+								'	<td>'+d.description+'</td>'+
+								'	<td>'+
+								'		<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit">编辑</a>'+
+								'		<a href="#" class="btn btn-danger btn-sm btn-icon icon-left btn_del">删除</a>'+
+								'	</td>'+
+								'</tr>';
+						$(tabObj).find('tbody').append(vhtml);
+					}
+					$(tabObj).find('tbody').find('.btn_edit').click(editData);
+					$(tabObj).find('tbody').find('.btn_del').click(deleteData);
+					
+				} else {	// 没有数据
+					toastr.warning('没有查到任何数据');
+				}
+				// 构建分页
+				constructionPage($('.list-page'), p, data.page_count, findPageData, false);
+			} else {
+				toastr.error(data.result.message);	
+			}			
+		})
+		
+	}
+	
+</script>
+
+<include file="Common/footer" />

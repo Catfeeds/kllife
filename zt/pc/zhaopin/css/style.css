@@ -1,0 +1,206 @@
+html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,p,blockquote,fieldset,input,abbr,article,aside,details,figure,footer,header,hgroup,mark,meter,nav,output,progress,section,summary,time { margin: 0; padding: 0; }
+h1,h2,h3,h4,h5,h6,pre,address,caption,cite,code,em,strong,th,figcaption { margin: 0; padding: 0; }
+html { font-family: 'SimHei'; }
+body { min-width: 320px; background-color: #fff; }
+a { text-decoration: none; }
+li { list-style: none; }
+u { text-decoration: none; }
+canvas { width: 100%; display: block; margin: 0 auto; }
+/* 禁用iPhone中Safari的字号自动调整 */
+html { -webkit-text-size-adjust: none; }
+/* 设置图片视频等自适应调整 */
+img { max-width: 100%; height: auto; width: auto9; /* ie8 */ }
+a, img {
+    -webkit-touch-callout: none; /* 禁止长按链接与图片弹出菜单 */
+}
+
+html { font-size: 62.5%; } 
+body { font-size: 14px; font-size: 1.4rem; font-family: 'SimHei'; } 
+
+.section1 { background: url(../images/bg01.png)center center no-repeat; background-size: cover; }
+.section2 { background: url(../images/bg02.png)center center no-repeat; background-size: cover; }
+.section3 { background: url(../images/bg03.png)center center no-repeat; background-size: cover; }
+.section4 { background: url(../images/bg04.png)center center no-repeat; background-size: cover; }
+.section5 { background: url(../images/bg05.png)center center no-repeat; background-size: cover; }
+.section6 { background: #fed600; }
+.section7 { background: url(../images/bg07.png)center center no-repeat; background-size: cover; }
+/*第一页*/
+/*第一页*/
+nav { background-color: #fff; width: 100%; height: 4rem; overflow: hidden;}
+.logo { position: absolute; width: 5%; top: .5rem; left: 20%; }
+nav ul { margin-right: 10%; }
+nav ul li { float: right; text-align: center; margin-right: 3rem; font-size: 1.6rem; line-height: 4rem; }
+nav ul li a { color: #000; }
+.login , .register { position: absolute; top: 1.3rem; right: 5%; }
+.register { right: 2%; }
+.small { display: none; }
+.big { display: block; margin: 0 auto; margin-top: 5%; width: 30%; }
+.greencar, .graycar , .redcar { position: absolute; bottom: 10%; right: 0;}
+.cloud01 , .cloud02 , .cloud03 , .cloud04 , .cloud05 , .cloud06 { position: absolute; }
+.cloud01 { top: 30%; left: 15%; }
+.cloud02 { top: 25%; left: 30%; }
+.cloud03 { top: 15%; left: 20%; }
+.cloud04 { top: 15%; right: 30%; }
+.cloud05 { top: 30%; right: 20%; }
+.cloud06 { top: 25%; right: 30%; }
+
+
+/*第二页*/
+.wenzi { position: absolute; width: 50%; top: 20%; left: 20%; }
+.wenzi ul li { font-size: 2rem; color: #fff; line-height: 5rem; }
+.wenzi02 { position: absolute; left: -30%; top: 20%; opacity: 0; }
+.desk { position: absolute; top: -20%; right: 20%; opacity: 0; }
+#word1 , #word2 , #word5 , #word6 { font-size: 5rem; }
+#word5 { margin-top: 3rem; }
+#word3 , #word4 , #word7 , #word8 { line-height: 3rem; }
+
+
+/*第三页*/
+.right_03 { opacity: 0; position: absolute; right: 15%; top: 0%; }
+.shanguang u {
+	display: inline-block; 
+	font-size: 2rem; width: 4rem; padding: 1rem 1.2rem; border: 1px solid #fff; color: #fff; text-align: center; 
+	color: rgba(255,255,255,1);
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+	position: relative;
+	border: 1px solid rgba(255,255,255,0.5);
+	}
+.shanguang .last { width: 10rem; margin-top: 2rem; }
+.shanguang u:hover { background-color: rgba(255,255,255,0.2);
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border-radius: 25px; }
+.left_03 { position: absolute; left: 20%; bottom: -25%; opacity: 0;  }
+.left_03 img { transition: all 1s; }
+.left_03 img:hover { transform:rotateY(180deg);
+-ms-transform:rotateY(180deg); /* IE 9 */
+-moz-transform:rotateY(180deg); /* Firefox */
+-webkit-transform:rotateY(180deg); /* Safari 和 Chrome */
+-o-transform:rotateY(180deg); /* Opera */ }
+
+/*第四页*/
+.left_04 { display: none; position: absolute; left: 20%; top: 35%; }
+.right_04 { position: absolute; right: 20%; top: 35%; display: none; }
+
+
+/*第五页*/
+.left_05 { position: absolute; left: 20%; bottom: 0%; opacity: 0; }
+.right_05 { position: absolute; right: 0%; top: 25%; opacity: 0;}
+
+
+/*第六页*/
+.left_06 { position: absolute; left: -35%; top: 30%; }
+.right_06 img { position:absolute; right: 25%; top: 26rem; opacity: 0; }
+
+
+/*第七页*/
+.erweima { position: absolute; bottom: 30%; left: 40%; display: none; }
+.section7 ul { display: none; position: absolute; bottom: 30.2%; right: 40%; }
+.section7 ul li { color: #fff; font-size: 2rem; line-height: 2.5rem; }
+
+@media only screen and (max-width: 400px){
+	.big { width: 100%; margin-top: 20%; }
+	.logo { width: 20%; left: 2%; top: 1rem; }
+	.login , .register { display: none; }
+	.small { display: block; position: absolute; top: 1.4rem; right: 1%; }
+	nav ul { margin-right: 5%; }
+	nav ul li { margin-right: 1rem; font-size: 1.6rem; line-height: 4rem; }
+	.desk { position: absolute; margin: 0; right: 3%; top: 50%; width: 50%; }
+	.wenzi { display: none; }
+	.wenzi02 { display: block; position: absolute; top: 2%; left: 0%; }
+	#word1 , #word2 , #word5 , #word6 { font-size: 2.5rem; }
+	.wenzi ul li { line-height: 2rem; color: #000; }
+	.left_03 img { left: 0%; top:0;}
+	.left_04 { top: 8%; left: 5%; }
+	.right_05 { top: 0; }
+	.left_06 { top: 5%; }
+	.right_06 img { right: 12%; width: 50%; }
+	.section7 { background-size: 350% 100%; }
+}
+@media only screen and (min-width: 401px) and (max-width: 600px){
+	.logo { width: 20%; left: 3%; }
+	nav ul { margin-right: 20%; }
+	nav ul li { margin-right: 1rem; font-size: 1.6rem; line-height: 4rem; }
+	.login , .register { top: 1.5rem; right: 5%; }
+	.login { right: 11%; }
+	.register { right: 0%; }
+	.big { width: 90%; margin-top: 20%; }
+	.desk { position: absolute; margin: 0; right: 3%; top: 50%; width: 50%; }
+	.wenzi { display: none; }
+	.wenzi02 { display: block; position: absolute; top: 2%; left: 0%; }
+	#word1 , #word2 , #word5 , #word6 { font-size: 3rem; }
+	.wenzi ul li { line-height: 3rem; color: #000; }
+	.left_03 img { top: 0%; }
+	.right_03 { width: 100%; left: 3%; top: 0%; }
+	.right_03 ul li { font-size: 2rem; }
+	.left_03 img { left: 0%; }
+	.left_04 { left: 5%; top: 10%; }
+	.right_05 { top: 10%; }
+	.left_06 { top: 5%; }
+	.section7 { background-size: 350% 100%; }
+
+}
+@media only screen and (min-width: 601px) and (max-width: 800px){
+	.logo { width: 15%; left: 3%; }
+	.login , .register { top: 1.5rem; right: 5%; }
+	.login { right: 11%; }
+	.register { right: 4%; }
+	.big { width: 70%; margin-top: 10%; }
+	.desk { margin-right: 3%; margin-top: 30%; }
+	.wenzi { width: 70%; left: 10%; top: 5%; }
+	#word1 , #word2 , #word5 , #word6 { font-size: 3rem; }
+	.wenzi ul li { line-height: 3rem; }
+	.left_03 img { top: 0%; }
+	.left_04 { left: 10%; top: 5%; }
+	.right_05 { left: 0; }
+	.left_05 { left: 40%; }
+	.left_06 { top: 0%; }
+	.right_06 img { right: 10%; }
+}
+@media only screen and (min-width: 801px) and (max-width: 1000px){
+	.logo { width: 13%; left: 3%; }
+	.login , .register { top: 1.5rem; right: 5%; }
+	.login { right: 11%; }
+	.register { right: 4%; }
+	.big { width: 55%; }
+	.desk { margin-right: 5%; margin-top: 20%; }
+	.wenzi { width: 70%; left: 10%; top: 5%; }
+	#word1 , #word2 , #word5 , #word6 { font-size: 3rem; }
+	.wenzi ul li { line-height: 3rem; }
+	.left_03 img { left: 0%; }
+	.right_03 { right: 5%; }
+	.left_04 { left: 10%; top: 5%; }
+	.left_05 { left: 8%; }
+	.right_05 { right: 5%; }
+	.left_06 { top: 5%; }
+	.right_06 img { right: 10%; }
+}
+@media only screen and (min-width: 1001px) and (max-width: 1200px){
+	.logo { width: 10%; left: 3%; }
+	.login , .register { top: 1.5rem; right: 5%; }
+	.login { right: 11%; }
+	.register { right: 4%; }
+	.big { width: 45%; }
+	.wenzi { width: 70%; left: 5%; top: 20%; }
+	#word1 , #word2 , #word5 , #word6 { font-size: 3rem; }
+	.wenzi ul li { line-height: 3rem; }
+	.left_03 img { left: 5%; }
+	.right_03 { right: 5%; }
+	.left_04 { left: 10%; top: 5%; }
+	.left_05 { left: 8%; }
+	.right_05 { right: 5%; }
+	.left_06 { top: 5%; }
+}
+@media only screen and (min-width: 1201px) and (max-width: 1400px){
+	.logo { width: 10%; left: 3%; }
+	.login , .register { top: 1.5rem; right: 5%; }
+	.login { right: 8%; }
+	.register { right: 4%; }
+	.wenzi { width: 70%; left: 10%; top: 5%; }
+	.left_03 img { left: 8%; }
+	.left_05 { left: 8%; }
+	.left_04 { left: 10%; top: 5%; }
+}

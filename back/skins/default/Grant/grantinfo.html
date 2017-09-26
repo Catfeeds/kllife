@@ -1,0 +1,172 @@
+<include file="Common/header" />
+	<div class="row">
+		<div class="panel panel-color panel-info panel-content-pos">
+			<div class="panel panel-heading">
+				<empty name="grant">
+					<span class="description">创建权限</span>
+				</empty>
+				<notempty name="grant">
+					<span class="description">编辑权限&nbsp;>&nbsp;{$grant.grant_desc}</span>
+				</notempty>
+				<input id="grant_id" type="hidden" value="{$grant.id}"/>
+			</div>
+			<div class="panel panel-color panel-content">
+				<div class="row">
+					<div class="col-md-1">
+						<label for="grant_key" class="control-label">权限键</label>
+					</div>
+					<div class="col-md-11">
+						<div class="form-group col-xs-3">
+							<input id="grant_key" class="form-control" value="{$grant.grant_key}" />
+						</div>	
+					</div>
+					<div class="col-md-1">
+						<label for="grant_value" class="control-label">权限值</label>
+					</div>
+					<div class="col-md-11">		
+						<div class="form-group col-xs-3">
+							<input id="grant_value" class="form-control" value="{$grant.grant_value}" />
+						</div>						
+					</div>
+					<div class="col-md-1">
+						<label for="grant_type" class="control-label">权限类型</label>
+					</div>
+					<div class="col-md-11">
+						<div class="form-group col-xs-3">
+							<select id="grant_type">
+								<volist id="gt" name="grantType">
+									<option value="{$gt.id}" {$gt.selected}>{$gt.type_desc}</option>
+								</volist>
+							</select>
+						</div>								
+					</div>
+					<div class="col-md-1">
+						<label for="grant_desc" class="control-label">权限描述</label>
+					</div>
+					<div class="col-md-11">
+						<div class="form-group col-xs-8">
+							<input id="grant_desc" class="form-control" value="{$grant.grant_desc}" />
+						</div>								
+					</div>
+					<div class="col-md-12">
+						<hr style="height:2px; width:100%; color:#eeeeee;"/>
+						请选择可使用该权限的对象类型:<br><br>						
+						<volist id="at" name="adminType">
+							<label>
+								<input type="checkbox" class="iswitch iswitch-secondary" value="{$at.id}" {$at.checked}/>&nbsp;&nbsp;{$at.type_desc}&nbsp;&nbsp;
+							</label>
+						</volist>
+					</div>
+				</div>       
+				<br /><br /><br />
+				<div class="row">
+					<if condition="$grant_save eq true">
+						<div class="col-md-1">
+							<a href="#" class="btn btn-primary" style="float: right" onclick="saveGrant()" >保存信息</a>
+						</div>
+					</if>
+					<div class="col-md-11">
+						<a href="#" class="btn btn-info" onclick="backToList()">返回列表</a>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 权限类型	
+		$("#grant_type").selectBoxIt({
+			showEffect: 'fadeIn',
+			hideEffect: 'fadeOut',
+		});
+		
+		// 绑定权限的使用对象
+		$('.iswitch').change(bindGrantUseObject);
+	});
+	
+	// 绑定使用对象
+	function bindGrantUseObject() {
+		if ($('#grant_id').val() == '') {
+			return false;
+		}
+		var jsonData = {
+			'op_type': $(this).prop('checked')?'bind':'unbind',
+			'grant_id': $('#grant_id').val(),
+			'admin_type_id': $(this).val(),
+		}
+		var obj = $(this);
+		$.post('{:U("grant/list")}', jsonData, function(data){
+			console.log(JSON.stringify(data));
+			if (data.result.errno != 0) {
+				alert(data.result.message);
+				var checked = $(obj).prop('checked');
+				$(obj).prop('checked', !checked);					
+			}
+		});
+	}
+	 	
+	/**
+	* 测试字符串类型
+	* @private
+	*/
+	function checkType(checkType, checkValue) {
+		var type = {
+			'ffint': /^\d+$/,　　//非负整数（正整数 + 0）
+			'zint': /^[0-9]*[1-9][0-9]*$/,　　//正整数
+			'fzint': /^((-\d+)|(0+))$/,　　//非正整数（负整数 + 0）
+			'fint': /^-[0-9]*[1-9][0-9]*$/,　　//负整数
+			'int': /^-?\d+$/,　　　　//整数
+			'fffloat': /^\d+(\.\d+)?$/,　　//非负浮点数（正浮点数 + 0）
+			'zfloat': /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/,　　//正浮点数
+			'fzfloat': /^((-\d+(\.\d+)?)|(0+(\.0+)?))$/,　　//非正浮点数（负浮点数 + 0）
+			'ffloat': /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/,　　//负浮点数
+			'float': /^(-?\d+)(\.\d+)?$/,　　//浮点数
+		}
+		
+		return type[checkType].test(checkValue);
+	}
+	
+	// 保存权限
+	function saveGrant() {
+		var grant_val = $('#grant_value').val();
+		if (!checkType('float', grant_val)) {
+			alert('权限值不为浮点型，请检查后重新提交');
+			return false;
+		}		
+		
+		var jsonData = {
+			'op_type': 'create',
+			'grant_key': $('#grant_key').val(),
+			'grant_value': $('#grant_value').val(),
+			'type_id': $('#grant_type').val(),
+			'grant_desc': $('#grant_desc').val(),
+		};
+		
+		var grantId = $('#grant_id').val();
+		if (grantId != '') {
+			jsonData['id'] = $('#grant_id').val();
+			jsonData['op_type'] = 'edit';
+		}
+		
+		if (grantId == '') {
+			var checkList = new Array();
+			$('input[type="checkbox"]:checked').each(function(i, o){
+				checkList[checkList.length] =$(this).val();
+			});
+			jsonData['bind'] = checkList;
+		}
+		
+		$.post('{:U("grant/list")}', jsonData, function(data){
+			alert(data.result.message);
+			if (data.result.errno == 0) {
+				history.back(-1);
+			}
+		});
+	}
+	
+	// 返回列表
+	function backToList() {
+		history.back(-1);
+	}
+</script>

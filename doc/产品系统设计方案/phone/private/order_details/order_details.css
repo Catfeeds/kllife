@@ -1,0 +1,22 @@
+.order-details-header { background-color: #fff3dd; }
+.order-details-header > .content-padded { margin-bottom: 0; padding: .5rem 0; }
+.order-details-header p { color: #333; font-size: .6rem; }
+.order-details-header p span { color: #ff7200; }
+/*订单详情*/
+.order-details-content { padding-bottom: .5rem; background-color: #fff; }
+.order-details-content > .content-padded { margin-top: 0; }
+.order-details-content h4 { margin: 0; padding: 0.75rem 0; font-size: 0.65rem; font-weight: normal; border-bottom: 1px solid #dcdcdc; }
+.order-details-content .row { line-height: 2; font-size: .65rem; }
+.order-details-content .row .col-25 { color: #999; }
+.order-details-content .row span { color: #f00; }
+.order-details-content .row strong { color: #ff7200; font-weight: normal; }
+/*订单联系人信息*/
+.order-details-contact { padding-bottom: .5rem; background-color: #fff; }
+.order-details-contact h4 { margin: 0; padding: 0.75rem 0; font-size: 0.65rem; font-weight: normal; }
+.order-details-contact .row { line-height: 2; font-size: .65rem; border-top: 1px solid #dcdcdc; }
+.order-details-contact .row .col-25 { color: #999; }
+/*订单消费*/
+.order-details-money { background-color: #fff; }
+.order-details-money .row { line-height: 2; font-size: .65rem; }
+.order-details-money .row .col-75 { text-align: right; }
+.order-details-money .row .col-75:last-child { color: #ff7200; }

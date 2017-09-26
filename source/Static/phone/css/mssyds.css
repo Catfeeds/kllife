@@ -1,0 +1,84 @@
+
+
+a { text-decoration: none; cursor: pointer; -webkit-tap-highlight-color: rgba(0,0,0,0);}
+
+.Wrapper { width: 100%; padding: 0; margin: 0; }
+
+li { list-style: none; }
+
+a { text-decoration: none; color: #555756; font-family: SimHei;}
+
+s , i{ font-style: normal; }
+
+s ,u { text-decoration: none; }
+
+a:hover { color: #141414; text-decoration: none; }
+
+a img { border: none; }
+
+a > img { vertical-align: bottom; }
+
+.min-height { min-height: 0; height: auto; _height: 0; overflow: hidden; _overflow: visible; }
+
+.position-absolute { position: absolute; }
+
+.position-relative { position: relative; }
+
+.overflow-hidden { overflow: hidden; }
+
+.page-container{ position: relative; font-size: .8rem;}
+
+.text-right { text-align: right;}
+
+.text-left { text-align: left;}
+
+.right { float: right;}
+
+.left { float: left; }
+
+
+
+/*人像摄影大赛*/
+.photomatch-content { margin-bottom: 5rem; background-color: #fafafa; }
+.photomatch-banner { position: relative; margin-bottom: -5px; }
+.photomatch-banner img { width: 100%; }
+.photomatch-banner a { position: absolute; left: 50%; bottom: .5rem; display: block; width: 8rem; height: 1.6rem; line-height: 1.6rem; margin-left: -4rem; text-align: center; font-size: .7rem; color: #fff; background-color: #7c7c7c; border-radius: 3px; }
+.photomatch-tabs { width: 100%; height: 2rem; background-color: #fff; border-bottom: 1px solid #e5e5e5; }
+.photomatch-tabs-list { text-align: center; }
+.photomatch-tabs-list a { display: inline-block; width: 25%; height: 2rem; line-height: 2rem; font-size: .7rem; color: #999; }
+.photomatch-tabs-list a.checked { background-color: #f68704; color: #fff; }
+.contest-profile { margin: 0 .5rem; margin-top: 1rem; font-size: .7rem; }
+.contest-time , .awards , .contribution-method , .jury , .selection-method , .entry-information { margin-top: 1rem; }
+.contest-profile h2 , .contest-time h2 , .awards h2 , .contribution-method h2 , .jury h2 { color: #f68704; margin: 0; font-size:.7rem; }
+.contest-profile p { line-height: 1.5; }
+.contest-time img { width: 100%; margin-top: 1rem; }
+.awards img { width: 100%; margin-top: .5rem; }
+.contribution-method p , .jury p , .selection-method p { margin-top: .5rem; line-height: 1.5; font-size: .7rem; }
+.contribution-method p i { display: inline-block; border-radius: 3px; background-color: #00a0e9; color: #fff; font-style: normal;  }
+.selection-method p span { display: inline-block; width: 11rem; height: 2.2rem; line-height: 2.2rem; margin-right: 1rem; font-size: 1.4rem; color: #fff; text-align: center; border-radius: 3px; }
+.entry-information p { line-height: 1.8; }
+.entry-information p span { display: inline-block; width: 1.4rem; height: .7rem; line-height: .7rem; border: 1px solid #fda81c; background-color: #fda81c; color: #fff; border-radius: 50%; text-align: center; }
+.photomatch-erweima { margin-top: 1rem; margin-bottom: 1rem; text-align: center; }
+.photomatch-erweima p { margin-left: 0 auto; text-align: center; font-size: .7rem; }
+.photomatch-erweima p img { display: block; max-width: 100%; margin: 0 auto; }
+
+.all-works , .hot-works , .award-publicity { display: none; }
+.all-works > ul , .hot-works > ul { max-width: 96%; margin: 0 auto; padding-left: 0; text-align: center; overflow: hidden; }
+.all-works > ul > li , .hot-works > ul > li { position: relative; display: inline-block; width: 48%; margin-top: .5rem; margin-left: 1%; margin-right: 1%; }
+.all-works > ul > li > a img , .hot-works > ul > li > a img { width:100%; max-width: 100%; height:5.1rem; }
+
+.works-details { position: relative; width: 100%; padding: .25rem 0; border: 1px solid #eee; text-align: left; }
+.whose img { width: 1.5rem; height: 1.5rem; border-radius: 50%; margin-left: .15rem; }
+
+.works-details p { position: absolute; bottom: .6rem; right: .1rem; font-size: .7rem; color: #666; }
+.works-details p a { display: inline-block; width: 19px; height: 19px; margin-right: .1rem; vertical-align: bottom; }
+.works-details .title {
+	position: absolute; left: 2rem; bottom: .8rem; color: #333; font-size: 14px; width: 66%; height: 25px; line-height: 25px; margin: 0; overflow: hidden; text-align: left;
+}
+.name { position: absolute; left: 2rem; bottom: .1rem; color: #666; font-size: 14px; }
+
+.zan { background: url('../images/mssyds/zan.png'); }
+.zanguo { background: url('../images/mssyds/zanguo.png'); }
+.award-publicity { width: 100%; height: 500px; padding-top: 1rem; text-align: center; font-size: .7rem; }
+
+

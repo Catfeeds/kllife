@@ -1,0 +1,366 @@
+
+	<!-- Gallery Modal Image -->
+	<div class="modal fade" id="gallery-image-edit-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-gallery-image">
+					<img src="" class="img-responsive" />
+				</div>
+				
+				<div class="modal-body">
+									
+					<div class="row">
+						<div class="col-md-12">							
+							<div class="form-group">
+								<label for="modal_img_title" class="control-label">图片标题：</label>
+								<input id="modal_img_title" type="text" class="form-control" style="border-color: #4EC83B;" placeholder="图片标题不能为空">
+							</div>						
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">							
+							<div class="form-group">
+								<label for="modal_img_author" class="control-label">图片作者：</label>
+								<input id="modal_img_author" type="text" class="form-control" style="border-color: #4EC83B;">
+							</div>							
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">							
+							<div class="form-group">
+								<label for="modal_img_tags" class="control-label">图片标签：</label>
+								<input id="modal_img_tags" type="text" class="form-control" style="border-color: #4EC83B;" placeholder="多个标签之间用逗号分隔开">
+							</div>							
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">							
+							<div class="form-group">
+								<label for="modal_img_intro" class="control-label">图片描述：</label>
+								<textarea id="modal_img_intro" class="form-control autogrow" style="border-color: #4EC83B;" placeholder="请输出图片描述" style="min-height: 80px;"></textarea>
+							</div>							
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">							
+							<div class="form-group">
+								<label for="modal_img_type" class="control-label">图片类型：</label>
+								<script type="text/javascript">
+									jQuery(document).ready(function($)
+									{
+										var image_type_obj = $("#modal_img_type").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+										// 默认选择第一个
+										var initVal = $(image_type_obj).find('option:first').attr('value');									
+										$(image_type_obj).val(initVal).trigger('change');
+									});
+								</script>
+								<select id="modal_img_type" class="form-control">
+									<option value="-1">不限</option>
+									<volist id="imgType" name="ImageTypes">
+										<option value="{$imgType.id}">{$imgType.type_desc}</option>
+									</volist>
+								</select>
+							</div>							
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">							
+							<div class="form-group">
+								<label for="modal_img_from" class="control-label">图片来源：</label>
+								<script type="text/javascript">
+									jQuery(document).ready(function($)
+									{
+										var image_from_obj = $("#modal_img_from").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+										var initVal = $(image_from_obj).find('option:first').attr('value');									
+										$(image_from_obj).val(initVal).trigger('change');
+									});
+								</script>
+								<select id="modal_img_from" class="form-control">
+									<option value="-1">不限</option>
+									<volist id="imgFrom" name="ImageFroms">
+										<option value="{$imgFrom.id}">{$imgFrom.type_desc}</option>
+									</volist>
+								</select>
+							</div>								
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">							
+							<div class="form-group">
+								<label for="modal_img_content" class="control-label">内容类型：</label>
+								<script type="text/javascript">
+									jQuery(document).ready(function($)
+									{
+										var image_content_obj = $("#modal_img_content").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+										var initVal = $(image_content_obj).find('option:first').attr('value');									
+										$(image_content_obj).val(initVal).trigger('change');
+									});
+								</script>
+								<select id="modal_img_content" class="form-control">
+									<option value="-1">不限</option>
+									<volist id="imgContent" name="ImageContents">
+										<option value="{$imgContent.id}">{$imgContent.type_desc}</option>
+									</volist>
+								</select>
+							</div>								
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">							
+							<div class="form-group">
+								<label for="modal_img_domain" class="control-label">地域类型：</label>
+								<script type="text/javascript">
+									function getMenuItem(parentObj, childObj) {
+										if ($(parentObj).val() == null) {
+											return false;
+										}
+										
+										var jsonData = {
+											op_type: 'find',
+											data_type: 'all',
+											parent_id: $(parentObj).val(),
+										};
+																	
+										$.post('{:U("menu/list")}', jsonData, function(backData){
+											if (backData.result.errno == 0) {
+												$(childObj).data('selectBox-selectBoxIt').remove();
+												if (backData.data != null) {
+													for (var k=0; k < backData.data.length; k++) {		
+														var d = backData.data[k];													
+														$(childObj).data('selectBox-selectBoxIt').add({value:d['id'], text:d['item_desc']});
+													}	
+												}
+											}
+										});
+									}
+									
+									var modal_image_domain_obj=null, modal_image_district_obj=null, modal_image_distination_obj=null;	
+									jQuery(document).ready(function($)
+									{
+										modal_image_domain_obj = $("#modal_img_domain").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+										
+										// 初始化
+										var initVal = $(modal_image_domain_obj).find('option:first').attr('value');									
+										$(modal_image_domain_obj).val(initVal).trigger('change');
+										
+										// 选项改变
+										$(modal_image_domain_obj).change(function(){
+											if (modal_image_domain_obj != null && modal_image_district_obj != null) {
+												getMenuItem(modal_image_domain_obj, modal_image_district_obj);
+												if ($.isEmptyObject(modal_image_data) == false) {
+													$(modal_image_district_obj).val(modal_image_data.district_type_id).trigger('change');
+												}
+											}									
+										});
+										
+									});
+								</script>
+								<select id="modal_img_domain" class="form-control">
+									<option value="-1">不限</option>
+									<volist id="imgDomain" name="ImageDomains">
+										<option value="{$imgDomain.id}">{$imgDomain.item_desc}</option>
+									</volist>
+								</select>
+							</div>								
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							
+							<div class="form-group">
+								<label for="modal_img_district" class="control-label">辖区类型：</label>
+								<script type="text/javascript">
+									jQuery(document).ready(function($)
+									{
+										modal_image_district_obj = $("#modal_img_district").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+										var initVal = $(modal_image_district_obj).find('option:first').attr('value');									
+										$(modal_image_district_obj).val(initVal).trigger('change');
+									});
+										
+									// 选项改变
+									$(modal_image_district_obj).change(function(){	
+										if (modal_image_district_obj != null && modal_image_distination_obj != null) {
+											getMenuItem(modal_image_district_obj, modal_image_distination_obj);
+											if ($.isEmptyObject(modal_image_data) == false) {
+												$(modal_image_distination_obj).val(modal_image_data.distination_type_id).trigger('change');	
+											}
+										}									
+									});
+								</script>
+								<select id="modal_img_district" class="form-control">
+									<option value="-1">不限</option>
+								</select>
+							</div>	
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">							
+							<div class="form-group">
+								<label for="modal_img_distination" class="control-label">目的地：</label>
+								<script type="text/javascript">
+									jQuery(document).ready(function($)
+									{
+										var modal_image_distination_obj = $("#modal_img_distination").selectBoxIt().on('open', function()
+										{
+											// Adding Custom Scrollbar
+											$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+										});	
+									});
+								</script>
+								<select id="modal_img_distination" class="form-control">
+									<option value="-1">不限</option>
+								</select>
+							</div>	
+						</div>
+					</div>
+					
+					
+				</div>
+				
+				<div class="modal-footer modal-gallery-top-controls">
+					<button type="button" class="btn btn-xs btn-white" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-xs btn-info">图片裁减</button>
+					<button type="button" class="btn btn-xs btn-secondary">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		var modal_image_ids = '';
+		var modal_image_data = '';
+		var funcModalImageEditCallBack = null;
+	
+		// 查询图片信息
+		function _getImageInfo(pid) {
+			var rs = false;
+			$.ajaxSetup('async', true);
+			console.log(rs);
+			return rs;
+		}
+	
+		// 显示编辑窗口
+		function showModalImageEdit(ids) {
+			if (ids == '') {
+				return false;
+			}
+			
+			var firstId = 0;
+			var split_index = ids.indexOf(',');
+			if (split_index == -1) {
+				firstId = parseInt(ids);
+			} else {
+				firstId = parseInt(ids.substr(0, split_index));
+			}
+			
+			$.post('{:U("image/find")}', {id: firstId}, function(data){
+				if (data.result.errno == 0) {
+					modal_image_data = data.ds;
+					var iData = modal_image_data;
+					var rootObj = $('#gallery-image-edit-modal');
+					$(rootObj).find('.modal-gallery-image img').attr('src', iData.path);
+					$(rootObj).find('#modal_img_title').val(iData.title);
+					$(rootObj).find('#modal_img_author').val(iData.author);
+					$(rootObj).find('#modal_img_tags').val(iData.tags);
+					$(rootObj).find('#modal_img_intro').val(iData.intro);
+					$(rootObj).find('#modal_img_type').val(iData.type_id).trigger('change');
+					$(rootObj).find('#modal_img_from').val(iData.from_type_id).trigger('change');
+					$(rootObj).find('#modal_img_content').val(iData.content_type_id).trigger('change');
+					$(modal_image_domain_obj).val(iData.domain_type_id).trigger('change');
+//					$(rootObj).find('#modal_img_domain').val(iData.domain_type_id).trigger('change');
+//					$(rootObj).find('#modal_img_district').val(iData.district_type_id).trigger('change');
+//					$(rootObj).find('#modal_img_distination').val(iData.distination_type_id).trigger('change');
+					$(rootObj).modal('show');
+				} else {
+					alert(data.result.message);					
+				}
+			});
+		}
+		
+		// 保存编辑的图片
+		$('#gallery-image-edit-modal').find('.btn-secondary').click(function(){
+			if (typeof(funcModalImageEditCallBack) == 'function' && typeof(modal_image_data) == 'object') {
+				var rootObj = $('#gallery-image-edit-modal');
+				var temp = {
+					'title': $(rootObj).find('#modal_img_title').val(),
+					'author': $(rootObj).find('#modal_img_author').val(),
+					'intro': $(rootObj).find('#modal_img_intro').val(),
+					'type_id': $(rootObj).find('#modal_img_type').val(),
+					'from_type_id': $(rootObj).find('#modal_img_from').val(),
+					'content_type_id': $(rootObj).find('#modal_img_content').val(),
+					'tags': $(rootObj).find('#modal_img_tags').val(),
+					'domain_type_id': $(rootObj).find('#modal_img_domain').val(),
+					'district_type_id': $(rootObj).find('#modal_img_district').val(),
+					'distination_type_id': $(rootObj).find('#modal_img_distination').val(),
+				};
+				
+				var ds = new Object();
+				if (temp.title != modal_image_data.title) {
+					ds['title'] = temp.title;
+				}
+				if (temp.author != modal_image_data.author) {
+					ds['author'] = temp.author;
+				}
+//				if (temp.type_id != modal_image_data.type_id) {
+//					ds['type_id'] = temp.type_id;
+//				}
+				if (temp.from_type_id != modal_image_data.from_type_id) {
+					ds['from_type_id'] = temp.from_type_id;
+				}
+				if (temp.content_type_id != modal_image_data.content_type_id) {
+					ds['content_type_id'] = temp.content_type_id;
+				}
+				if (temp.tags != modal_image_data.tags) {
+					ds['tags'] = temp.tags;
+				}
+				if (temp.domain_type_id != modal_image_data.domain_type_id) {
+					ds['domain_type_id'] = temp.domain_type_id;
+				}
+				if (temp.district_type_id != modal_image_data.district_type_id) {
+					ds['district_type_id'] = temp.district_type_id;
+				}
+				if (temp.distination_type_id != modal_image_data.distination_type_id) {
+					ds['distination_type_id'] = temp.distination_type_id;
+				}
+				
+				if ($.isEmptyObject(ds) == false) {
+					funcModalImageEditCallBack(modal_image_ids, ds);	
+				} else {
+					alert('数据未改变,请修改后再次保存');
+				}
+				modal_image_ids = null;
+				$(rootObj).modal('hide');
+			}
+		});
+		
+	</script>

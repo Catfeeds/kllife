@@ -1,0 +1,415 @@
+<include file="Common/header" />
+	<style>
+		.dataTables_wrapper .table thead > tr .sorting:before, .dataTables_wrapper .table thead > tr .sorting_asc:before, .dataTables_wrapper .table thead > tr .sorting_desc:before { content: ''; }
+		.create-coupon { position: relative; border: 1px solid #dcdcdc; margin-bottom:20px; padding: 15px; }
+		.create-coupon .row { margin-bottom:20px; }
+		.create-coupon-write .input-group { height: 36px; }
+		.create-coupon-write input { width: 100%; height: 36px; }
+		.input-group-addon { padding: 4px 40px; }
+		.coupon-img { text-align: center; }
+		.coupon-img img { width: 158px; height: 91px; margin: 10px 0; border: 1px solid #dcdcdc; cursor: pointer; }		
+		.btn-save-coupon { position : absolute; width:100px; right: 180px; bottom: 20px; background-color: #68b828; color: #fff; }
+		.btn-clear-coupon { position : absolute; width:100px; right: 50px; bottom: 20px; background-color: #68b828; color: #fff; }
+		.coupon-tbody img { width: 158px; height: 91px; border: 1px solid #dcdcdc; } 
+		.issuing-coupon-search { width: 30%; margin: 20px auto; }
+		
+		.list-page { width: 100%; text-align: right; }
+
+		.list-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+
+		.list-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+
+		.list-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }
+		
+		.input-select { margin-left: -15px; min-width:288px; min-height: 36px;}
+		.input-select > select { height: 36px; }
+	</style>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> 
+						{:C('CONTENT_TITLE')}
+					</h3>
+				</div>
+				<div class="panel-body row">				
+				<!--在此地编辑内容-->
+					<!--创建优惠券-->
+					<div class="create-coupon">
+						<div class="create-coupon-write" data-id="">
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">账号</i>
+										</div>
+										<input type="text" class="form-control data_username" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">密码</i>
+										</div>
+										<input type="password" class="form-control data_password">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">姓名</i>
+										</div>
+										<input type="text" class="form-control data_name">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">类型</i>
+										</div>
+										<div class="col-sm-10 input-select">
+											<select class="form-control data_type">
+												<volist id="ut" name="user_types">
+													<option value="{$ut.id}">{$ut.type_desc}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">电话号码</i>
+										</div>
+										<input type="number" class="form-control data_phone" maxlength="11">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">电子邮件</i>
+										</div>
+										<input type="text" class="form-control data_email">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<button class="btn btn-save-coupon">保存</button>	
+								<button class="btn btn-clear-coupon">重置</button>	
+							</div>
+							
+						</div>
+					</div>
+					
+					<!--用户列表-->
+					<div class="issuing-coupon">
+						
+						<div class="issuing-coupon-search">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="搜索内容可以是编号、用户名、姓名、手机、邮箱">
+								<div class="input-group-addon search_user" style="background-color: #68b828; color: #fff; cursor: pointer;">
+									<i style="font-style: normal;">搜索</i>
+								</div>
+							</div>
+						</div>
+						
+						<!--用户列表-->
+						<div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+							<table class="table table-bordered table-striped dataTable no-footer" id="table_user" role="grid" aria-describedby="example-2_info">
+								<thead>
+									<tr role="row" class="head">
+										<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 50px;">编号</th>
+										<th class="sorting" tabindex="1" rowspan="1" colspan="1" style="width: 100px;">用户名</th>
+										<th class="sorting" tabindex="2" rowspan="1" colspan="1" style="width: 100px;">姓名</th>
+										<th class="sorting" tabindex="3" rowspan="1" colspan="1" style="width: 100px;">手机</th>
+										<th class="sorting" tabindex="4" rowspan="1" colspan="1" style="width: 130px;">邮箱</th>
+										<th class="sorting" tabindex="5" rowspan="1" colspan="1" style="width: 80px;">类型</th>
+										<th class="sorting" tabindex="6" rowspan="1" colspan="1" style="width: 130px;">订单(已完成/未完成)</th>
+										<th class="sorting" tabindex="7" rowspan="1" colspan="1" style="width: 130px;">成人/小孩人数</th>
+										<th class="sorting" tabindex="8" rowspan="1" colspan="1" style="width: 80px;">禁用</th>
+										<th class="sorting" tabindex="9" rowspan="1" colspan="1" style="width: 180px;">操作</th>
+									</tr>
+								</thead>
+							
+								<tbody class="middle-align coupon-tbody">
+									<volist id="u" name="users">
+										<if condition="$key % 2 == 0">
+											<tr role="row" class="odd" data-id="{$u.id}">
+										<else />
+											<tr role="row" class="even" data-id="{$u.id}">
+										</if>
+											<td>{$u.id}</td>
+											<td>{$u.username}</td>
+											<td>{$u.name}</td>
+											<td>{$u.phone}</td>
+											<td>{$u.email}</td>
+											<td>{$u.type_id_data.type_desc}</td>
+											<td>{$u.order_complated}/{$u.order_uncomplated}</td>
+											<td>已完成：{$u.member_adult_complated}/{$u.member_child_complated}<br />未完成：{$u.member_adult_uncomplated}/{$u.member_child_uncomplated}</td>
+											<td><if condition="$u['forbidden'] eq 1">已禁用<else />正常</if></td>
+											<td>
+												<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left btn_modify_info">编辑</a>
+												<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left btn_modify_password">更改密码</a>
+												<if condition="$u['forbidden'] eq 1">
+													<a href="#" data-set='forbidden' data-val="{$u.forbidden}" class="btn btn-danger btn-sm btn-icon icon-left btn_modify">启用</a>
+												<else />
+													<a href="#" data-set='forbidden' data-val="{$u.forbidden}" class="btn btn-secondary btn-sm btn-icon icon-left btn_modify">禁用</a>
+												</if>
+											</td>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							<div class="list-page"></div>
+						</div>
+					</div>		
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="__PUBLIC__/home/js/page.js"></script>	
+<script type="text/javascript">	
+
+	// 清除信息
+	function clearInfo() {
+		$('.create-coupon-write').attr('data-id', '');
+		$('.data_username').val('');
+		$('.data_password').val('');
+		$('.data_name').val('');
+		var defualtVal = $('.data_type').find('option:first').attr('value');
+		$('.data_type').val(defualtVal).trigger('change');
+		$('.data_phone').val('');
+		$('.data_email').val('');
+	}	
+	$('.btn-clear-coupon').click(function(){
+		clearInfo();
+	});
+
+	// 添加用户
+	$('.btn-save-coupon').click(function(){
+		var jsonData = {
+			op_type: 'save',
+			id: $('.create-coupon-write').attr('data-id'),
+			username: $('.data_username').val(),
+			password: $('.data_password').val(),
+			name: $('.data_name').val(),
+			type_id: $('.data_type').val(),
+			phone: $('.data_phone').val(),
+			email: $('.data_email').val(),
+		}	
+		
+		$.post('{:U("user/distribute")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				if (data.type != null && data.type == 'create') {
+					location.href = '{:U("user/distribute")}';
+				} else {
+					if (data.ds != null) {
+						var d = data.ds;
+						var trObj = $('tr[data-id="'+data.ds.id+'"]');
+						$(trObj).find('td:eq(1)').html(d.username);
+						$(trObj).find('td:eq(2)').html(d.name);
+						$(trObj).find('td:eq(3)').html(d.phone);
+						$(trObj).find('td:eq(4)').html(d.email);
+						$(trObj).find('td:eq(5)').html(d.type_id_data.type_desc);
+					}
+					clearInfo();
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		});
+	});
+	
+	// 编辑信息
+	$('.btn_modify_info').click(function(){
+		var trObj = $(this).closest('tr');
+		var userId = $(trObj).attr('data-id');
+		$.post('{:U("user/distribute")}', {op_type:'find', id:userId}, function(data){
+			if (data.ds != null) {
+				var d = data.ds;
+				$('.create-coupon-write').attr('data-id', d.id);
+				$('.data_username').val(d.username);
+				$('.data_password').val(d.password);
+				$('.data_name').val(d.name);
+				$('.data_type').val(d.type_id).trigger('change');
+				$('.data_phone').val(d.phone);
+				$('.data_email').val(d.email);
+			}
+			if (data.result != null) {
+				toastr.error(data.result.message);
+			}
+		});
+	});
+
+	// 初始化弹出编辑框数据
+	function initModalDataEdit() {
+		var modalDataEditData = {};
+		modalDataEditData['lab_title_text'] = '修改密码';
+		modalDataEditData['btn_confirm_text'] = '确认保存';
+		
+		modalDataEditData['elmt']=[
+			{tag:'input', id:'Id', lab:'', attr:[
+				{op:'bind', name:'type',value:'hidden'},
+			]},
+			{tag:'input', id:'Password', lab:'新密码', attr:[
+				{op:'bind', name:'type',value:'password'},
+				{op:'bind', name:'placeholder',value:'请输入新密码，密码位数不能超出20位'},
+				{op:'bind', name:'maxlength',value:'20'},
+			]},
+			{tag:'input', id:'ComfirmPwd', lab:'确认密码', attr:[
+				{op:'bind', name:'type',value:'password'},
+				{op:'bind', name:'placeholder',value:'请重复新密码，密码位数不能超出20位'},
+				{op:'bind', name:'maxlength',value:'20'},
+			]},
+		];
+		modalDataEditData['callback_confirm'] = modifyPassword;
+		initModalDataEditPage(modalDataEditData);
+	}	
+		
+	// 初始化弹出窗口
+	initModalDataEdit();
+	
+	// 弹出修改密码
+	function showModifyPassword(ds) {	
+		var userId = $(this).closest('tr').attr('data-id');
+		// 填充数据		
+		var ds = {'elmt': [{id:'Id', value:userId}]};			
+		setModalDataEditInputValues(ds);
+		// 显示窗口
+		showModalDataEdit();	
+	}
+	$('.btn_modify_password').click(showModifyPassword);
+	
+	// 修改密码
+	function modifyPassword(ds) {
+		console.log(JSON.stringify(ds));
+		if (ds['ComfirmPwd'] != ds['Password']) {
+			setModalDataEditTips('两次输入的密码不一致');
+			return false;
+		}
+		var jsonData = {
+			'op_type': 'password',
+			'id': ds['Id'],
+			'password': ds['Password'],
+		};
+		
+		console.log(JSON.stringify(jsonData));
+		$.post('{:U("user/distribute")}',jsonData, function(backdata,status) {
+	        if (backdata['result']['errno'] == 0) {
+	            hideModalDataEdit();
+	            alert('修改密码成功');
+	        } else {
+				setModalDataEditTips(backdata['result']['message']);
+	        }
+		});
+	}
+	
+	// 修改用户信息
+	function modifyUserState() {
+		var btnObj = $(this);
+		var trObj = $(this).closest('tr');
+		var jsonData = {
+			op_type: 'save', 
+			id: $(trObj).attr('data-id'),
+		};
+		var col = $(this).attr('data-set');
+		var val = $(this).attr('data-val') == 0 ? 1 : 0;
+		jsonData[col] = val;
+		
+		$.post('{:U("user/distribute")}', jsonData, function(data){
+			$(btnObj).attr('data-val', val);
+			if (data.result.errno == 0) {
+				if (col == 'forbidden') {
+					var vhtml = val == 1 ? '已禁用' : '正常';
+					$(btnObj).html(val == 1 ? '启用' : '禁用');
+					if ($(btnObj).hasClass('btn-danger')) {
+						$(btnObj).removeClass('btn-danger');
+						$(btnObj).addClass('btn-secondary');
+					} else {
+						$(btnObj).addClass('btn-danger');
+						$(btnObj).removeClass('btn-secondary');
+					}
+					$(trObj).find('td:eq(6)').html(vhtml);
+				}
+			}
+//			alert(data.result.message);
+		});
+	}
+	$('.btn_modify').click(modifyUserState);
+		
+	//搜索用户
+	$('.issuing-coupon-search').find('.search_user').click(function(){
+		var searchval = $('.issuing-coupon-search').find('input').val();
+		if (searchval == '') {
+			toastr.error('搜索内容不能为空！');
+			return false;
+		}
+		findUser(1);
+	});
+	
+	// 搜索用户数据
+	constructionPage($('.list-page'), 1, '{$page_count}', findUser, true);	
+	function findUser(p) {			
+		var jsonData = {
+			op_type:'list',
+			page: p-1,
+		}
+		
+		var searchval = $('.issuing-coupon-search').find('input').val();
+		if (searchval != '') {
+			jsonData['cdsstr'] = 'id|=|'+searchval+'|OR|username|LIKE|%'+searchval+'%|OR|name|LIKE|%'+searchval+'%|OR|phone|LIKE|%'+searchval+'%|OR|email|LIKE|%'+searchval+'%|OR';
+		}
+		
+		$.post('{:U("user/distribute")}', jsonData, function(data){
+			var tabObj = $('#table_user');
+			if (data.result.errno == 0) {
+				$(tabObj).find('tbody').empty();
+				if (data.ds != null && data.ds != 'undefined') {	
+					for (var i = 0; i < data.ds.length; i ++){
+						var d = data.ds[i];
+						var trClass = i % 2 == 0 ? 'odd' : 'even';
+						var forbidClass = d.forbidden == 0 ? 'btn-secondary' : 'btn-danger';
+						var forbidTd = d.forbidden == 1 ? '已拉黑' : '正常';
+						var forbidBtn = d.forbidden == 1 ? '恢复' : '拉黑';
+						
+						var vhtml =	'<tr role="row" class="'+trClass+'" data-id="'+d.id+'">'+
+								'	<td>'+d.id+'</td>'+
+								'	<td>'+d.username+'</td>'+
+								'	<td>'+d.name+'</td>'+
+								'	<td>'+d.phone+'</td>'+
+								'	<td>'+d.email+'</td>'+
+								'	<td>'+d.type_id_data.type_desc+'</td>'+
+								'	<td>'+d.order_complated+'/'+d.order_uncomplated+'</td>'+
+								'	<td>未完成：'+d.member_adult_complated+'/'+d.member_child_complated+'<br />已完成：'+d.member_adult_uncomplated+'/'+d.member_child_uncomplated+'</td>'+
+								'	<td>'+ forbidTd + '</td>'+
+								'	<td>'+
+								'		<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left btn_modify_password">更改密码</a>'+
+								'		<a href="#" data-set="forbidden" data-val="'+d.forbidden+'" class="btn '+forbidClass+' btn-sm btn-icon icon-left btn_modify">'+ forbidBtn + '</a>'+
+								'	</td>'+
+								'</tr>';
+						$(tabObj).find('tbody').append(vhtml);
+					}
+					$(tabObj).find('tbody').find('.btn_modify_password').click(showModifyPassword);
+					$(tabObj).find('tbody').find('.btn_modify').click(modifyUserState);
+					
+				} else {	// 没有数据
+					alert('没有查到任何数据');
+				}
+				// 构建分页
+				constructionPage($('.list-page'), p, data.page_count, findUser, false);
+			} else {
+				alert(data.result.message);	
+			}			
+		})
+		
+	}
+
+</script>
+<include file="Common/footer" />

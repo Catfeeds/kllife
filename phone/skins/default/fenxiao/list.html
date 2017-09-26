@@ -1,0 +1,160 @@
+<include file="common/top" />
+<!-- mycss -->
+<link rel="stylesheet" href="__PUBLIC__/phone/css/line_list.css">
+<!--小团慢css-->
+<link rel="stylesheet" href="__PUBLIC__/phone/css/slow-travel.css">
+<style type="text/css">
+	.image-banner {
+		text-align: center;
+		overflow: hidden;
+	}
+	.content{top:0px;}
+	.slow-travel { margin-top: 0px; }
+	.travel-content-word > span { top: 0; }
+	.travel-content-sublist { margin-top: .3rem; }
+</style>
+<div class="page">
+	<include file="common/footer" />
+	<div class="content">
+		<!--banner图-->
+		<div class="image-banner">
+			<img style="width:100%;" src="{$fxset.shop_banner.data.value}" alt="">
+		</div>
+		<!--小团慢-->
+		<div class="slow-travel">
+			<a href="{:U('Subject/brand')}"><img src="__PUBLIC__/phone/images/index/fenxiao-xiaomantuan.jpg" width="100%" alt=""></a>
+		</div>
+		<!--列表内容-->
+		<div class="list-block">
+			<ul class="list-container">
+				<volist id="line" name="lines">
+					<li class="item-content">
+						<div class="travel-content-list">
+							<div class="travel-content-sublist">
+								<div class="travel-content-img">
+									<img src="{$line.img1}" alt="">
+								</div>
+								<div class="travel-content-word">
+									<h4>{$line.title}</h4>
+									<p style="margin-top: 0;">{$line.subheading_show}</p>
+									<p style="margin-top: 0;">发团日期：{$line.start_time} 至 {$line.end_time}</p>
+									<if condition="$line.free_line eq '0' and (empty($line['min_batch']) eq true or empty($line['min_batch']['price_state']) eq false)">
+										<span>核算中</span>
+										<else />
+										<span>￥{$line.min_batch.adult_cut}</span>
+									</if>
+								</div>
+								<a href="{:U('line/info')}/id/{$line.id}/duid/{$line.bind_user_id}" external></a>
+							</div>
+						</div>
+					</li>
+				</volist>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<include file="common/js" />
+<script type="text/javascript">
+	// 查找产品		
+	var loading = false;	// 是否在加载中
+	var pageIndex = 1;
+	var noMoreData = false;
+	function loadMoreData(p) {
+		var jsonData = {
+			duid: '{$duser.id}',
+			page: p,
+		}
+		
+		$.post('{:U("fenxiao/list")}', jsonData, function(data){
+			loading = false;
+			if (data.result.errno == 0) {
+				if (data.ds != null && data.ds != 'undefined') {
+					var html = '';
+					for (var i=0; i < data.ds.length; i++) {
+						var d = data.ds[i];
+						
+						var price = 0, cut_price = 0;
+						if (d.free_line == 0 && (d.min_batch == null || d.min_batch.price_state != null)) {
+							price = '核算中', cut_price = '核算中';
+						} else {
+							price = d.min_batch.price_adult, cut_price = d.min_batch.adult_cut+'起';
+						}
+						
+						html += '<li class="item-content">' + 
+								'	<div class="travel-content-list">' +
+								'		<div class="travel-content-sublist">' +
+								'			<div class="travel-content-img">' +
+								'				<img src="'+d.img1+'" alt="">' +
+								'			</div>' +
+								'			<div class="travel-content-word">' +
+								'				<h4>'+d.title+'</h4>' +
+								'				<p style="margin-top: 0;">'+d.subheading_show+'</p>' +
+								'				<p>发团日期：'+d.start_time+' 至 '+d.end_time+'</p>' +
+//								'				<s>原价：'+price+'</s>' +
+								'				<span>￥'+cut_price+'</span>' +
+								'			</div>' +
+								'			<a href="'+'{:U("line/info")}/id/'+d.id+'/duid/'+d.bind_user_id+'" external></a>' +
+								'		</div>' +
+								'	</div>' + 
+								'</li>';
+					} // end for
+					// 添加新条目
+					$('.list-container').append(html);
+					pageIndex ++;
+				}
+				if (data.ds == null || data.ds.length < data.page_size || pageIndex >= data.page_count) {
+					noMoreData = true;
+				}
+			} else {
+				console.log(data.result.message);
+			}
+			// 数据读取结束
+			procLoadEnd();
+		});
+	}
+		
+	// 处理加载
+	function procLoadEnd() {
+		loading = false;
+		if (noMoreData == false) {
+			$('.list-block').find('.no-more-data').remove();
+			var newTop = $('.content').scrollTop() - $('.list-block').find('.no-more-data').height();
+			$('.content').scrollTop(newTop);
+		} else {
+			$('.list-block').find('.no-more-data').html('没有更多数据...');
+		}
+	}
+	
+	$('.content').on('scroll', function(){
+		if (loading == true) {
+			return false;
+		}
+		var v = {
+			offset_top: $(this).scrollTop(),
+			ul_offset_top: $(this).find('ul').offset().top,
+			ul_height: $(this).find('ul').height(),
+			footer_height: $('nav').height(),
+			window_height: $(window).height(),
+		}
+		v['cur_height'] = v.ul_offset_top + v.ul_height + v.footer_height;
+		if (v.cur_height < v.window_height) {
+			if (noMoreData == false) {
+				loading = true;
+				if ($('.list-block').find('.no-more-data').length > 0) {
+					$('.list-block').find('.no-more-data').html('数据加载中...');
+				} else {
+					$('.list-block').append('<div class="no-more-data" style="height: 20px;">数据加载中...</div>');	
+				}
+				var newTop = v.offset_top + $('.list-block').find('.no-more-data').height();
+				$('.content').scrollTop(newTop);
+				
+				// 模拟1s的加载过程
+				setTimeout(function() {loadMoreData(pageIndex);}, 1000);
+			}			
+		}
+	});
+	</script>
+<include file="common/swt" />
+</body>
+</html>

@@ -1,0 +1,811 @@
+<include file="common/top_echo" />
+<!-- swiper -->
+<link rel="stylesheet" href="__PUBLIC__/phone/common/css/swiper-3.3.1.min.css">
+<!-- mycss -->
+<link rel="stylesheet" href="__PUBLIC__/phone/css/welcome.css">
+<!--小团慢css-->
+<link rel="stylesheet" href="__PUBLIC__/phone/css/slow-travel.css">
+<style>
+	.background-img-loading{min-height:240px;background-image: url(__PUBLIC__/home/common/images/background-img-loading.gif);background-repeat: no-repeat;background-position: center center;z-index:100;}
+</style>
+<div class="page">
+	<!--{:p_a($access_ip)}-->
+	<include file="common/footer" />
+		<div class="content">
+			<!-- 这里是页面内容区 -->
+			<!-- slider -->
+			<div class="module01">
+				<div class="swiper-container" >
+					<div class="swiper-wrapper">
+						<for start="1" end="7" comparison="elt">
+							<php>$img = $set['lunbo'.$i]; $url = $set['lunbo'.$i.'_url'];</php>
+							<div class="swiper-slide"><a href="{$url}" external><img src="{$img}?imageMogr2/thumbnail/414x" alt=""></a></div>
+						</for>
+					</div>
+				</div>
+			</div>
+			<!-- slide 点点点-->
+			<div class="swiper-pagination swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div>
+			<!-- 电话 -->
+			<div class="telephone">
+				<a href="tel:400-080-5860" external><img src="__PUBLIC__/phone/images/index/telephone.png" alt=""></a>
+			</div>
+			<!-- logo 搜索 -->
+			<div class="logo-search">
+				<div class="logo-search-content">
+					<div class="searchbar">
+						<img src="__PUBLIC__/phone/images/index/logo.png" alt="">
+						<div class="search-input">
+							<i class="iconfont">&#xe607;</i>
+							<label class="icon icon-search" for="search"></label>
+							<input type="search" id="search" value="{$station.id}" style="padding-left: 1.2rem;" placeholder="搜索产品...">
+						
+						</div>
+						<script type="text/javascript">
+							$("#search").keydown(function(event){ 
+								if(event.which == 13){
+								  	$('#search').blur();
+								}	
+							});
+						
+							$('#search').blur(function(){
+								var search_val = $(this).val();
+								$.post('{:U("line/search")}', {searchval:search_val}, function(data){
+									if (data.jumpUrl != null) {
+										location.href = data.jumpUrl;
+									}
+								});
+							});
+						</script>
+					</div>
+				</div>
+			</div>
+			<!-- 顶部 -->
+			<div class="top-div">
+				<!-- 顶部分类 -->
+				<div class="content-padded grid-demo">
+					<div class="top-list">
+						<div class="top-sublist">
+							<a href="{:U('line/list')}/t/sd" external>
+								<img src="__PUBLIC__/phone/images/index/2.png" alt="">
+								<p>小团慢旅行</p>
+							</a>
+						</div>
+						<div class="top-sublist">
+							<a href="{:U('line/xiezhenlvxing')}" external>
+								<img src="__PUBLIC__/phone/images/index/5.png" alt="">
+								<p>跟拍游</p>
+							</a>
+						</div>
+						<div class="top-sublist">
+							<a href="{:U('line/list')}/t/sy" external>
+								<img src="__PUBLIC__/phone/images/index/3.png" alt="">
+								<p>摄影游</p>
+							</a>
+						</div>
+						<div class="top-sublist">
+							<a href="{:U('line/book')}" external>
+								<img src="__PUBLIC__/phone/images/index/4.png" alt="">
+								<p>定制游</p>
+							</a>
+						</div>
+					</div>
+					<!--<div class="top-list">
+						<div class="top-sublist">
+							<a href="{:U('line/list')}/t/zb" external>
+								<img src="__PUBLIC__/phone/images/index/1.png" alt="">
+								<p>周边游</p>
+							</a>
+						</div>
+						<div class="top-sublist">
+							<a href="javascript:;" external>
+								<img src="__PUBLIC__/phone/images/index/6.png" alt="">
+								<p>深度游</p>
+							</a>
+						</div>
+						<div class="top-sublist">
+							<a href="javascript:;" external>
+								<img src="__PUBLIC__/phone/images/index/7.png" alt="">
+								<p>摄影游</p>
+							</a>
+						</div>
+						<div class="top-sublist">
+							<a href="javascript:;" external>
+								<img src="__PUBLIC__/phone/images/index/8.png" alt="">
+								<p>出境游</p>
+							</a>
+						</div>
+					</div>-->
+				</div>
+				<!-- end 顶部分类 -->
+				<!-- 报名动态 -->
+				<div class="swiper_wrap">
+					<img src="__PUBLIC__/phone/images/index/baoming.png" alt="报名动态">
+					<ul class="font_inner">
+						<volist id="order" name="orders">
+							<li><a href="{:U('line/info')}/id/{$order.lineid}">
+								{$order.addtime_short_show} 
+								<span>{$order.mob_show}</span> 
+								{$order.title_short_show}
+							</a></li>
+						</volist>
+					</ul>
+				</div>
+			</div>
+			<!-- end 顶部 -->
+			<!--小团慢-->
+			<div class="slow-travel">
+				<a href="{:U('subject/brand')}" external>
+					<img src="__PUBLIC__/phone/images/index/xiaotuanman.jpg" alt="">
+				</a>
+			</div>
+			<!-- 小专题 -->
+			<!--<div class="special">
+				<php> 
+					$titleColor = array('f60','75b168','41d3fd','f50c3d'); 
+					$divStyle=array('border-right: 1px solid #dcdcdc;', '', 'border-right: 1px solid #dcdcdc;', ''); 
+				</php>
+				<for start="0" end="4" comperison="elt">
+					<php>
+						$rowClass = intval($i / 2) == 0 ? 'border-bottom: 1px solid #dcdcdc;' : '';
+						$zt = $set['zhuanti'.$i];
+					</php>
+					<if condition="$i % 2 == 0">
+						<div class="special-list" style="{$rowClass}">
+					</if>
+						<div class="special-sublist" style="{$divStyle[$i]}">
+							<a href="{$zt.url}" external>
+								<span style="color: #{$titleColor[$i]};">{$zt.title}</span>
+								<p>{$zt.subheading}</p>
+								<img src="{$zt.img_main}" alt="">
+							</a>
+						</div>
+					<if condition="$i % 2 == 1">
+						</div>
+					</if>				
+				</for>
+			</div>-->
+			<!--超级目的地-->
+			<div class="module02">
+				<div class="tit">超级目的地</div>
+				<div class="swiper-container" style="padding-left:3%;padding-right:3%;">
+					<div class="swiper-wrapper">
+						<volist id='zt' name="set">
+							<if condition="strpos($key,'zhuanti') heq 0">
+								<div class="swiper-slide" style="position: relative;">
+									<php>$url = str_replace('home','phone',$zt['url']);</php>
+									<a href="{$url}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" external></a>
+									<div><img src="{$zt.img_main}" alt=""></div>
+									<p class="lg">{$zt.title}</p>
+									<p class="sm">{$zt.subheading}</p>
+								</div>
+							</if>
+						</volist>
+					</div>
+					<!-- Add Pagination -->
+					<!--<div class="swiper-pagination"></div>-->
+				</div>
+			</div>
+			<!-- end 小专题 -->
+
+			<!-- 热卖专区 -->
+			<div class="hot-sale">
+				<h3>热卖专区</h3>
+				<div class="hot-sale-content">
+					<!-- 切换 -->
+					<div class="buttons-tab">
+						<volist id="tab" name="set.hot_line_tab">
+							<if condition="$key lt 5">
+								<if condition="$key eq 0">
+								<a href="#{$tab.type_key}" class="tab-link active button">{$tab.type_desc}</a>
+								<else />
+								<a href="#{$tab.type_key}" class="tab-link button">{$tab.type_desc}</a>
+								</if>
+							</if>
+						</volist>
+					</div>
+				    <div class="tabs">
+						<volist id="tab" name="set.hot_line_tab">
+							<if condition="$key eq 0">
+							<div id="{$tab.type_key}" class="tab active">
+							<else />
+							<div id="{$tab.type_key}" class="tab">
+							</if>								
+								<!-- 深度游 -->
+								<div class="depth-travel">
+									<div class="depth-travel-content">
+										<div class="travel-content">
+											<for start="0" end="5">
+												<php>
+													$v = $set[$tab['type_key'].$i];
+													if (empty($v)) {
+														continue;
+													}
+												</php>
+												<div class="card demo-card-header-pic">
+													<div class="card-content">
+														<img class="background-img-loading" data-echo="{$v.img1}" alt="">
+														<div class="card-content-inner">
+															<p>{$v.title}</p>
+															<p>{$v.subheading}</p>
+														</div>
+														<!-- 跳转a -->
+														<a href="{:U('line/info')}/id/{$v.id}" external></a>
+													</div>
+													<div class="card-footer">
+														<span>出发地：{$v['assembly_point_show_text']}</span>
+														<a href="{:U('line/info')}/id/{$v.id}" class="link active-recommend">
+															<if condition="empty($v['check_price'])">
+																<span>核算中</span>
+															<else />
+																<span>￥{$v.start_price_adult}元起</span>
+															</if>
+														</a>
+													</div>
+												</div>
+											</for>
+
+											<!-- 查看更多超值热卖 -->
+											<a href="{:U('line/list')}" external>查看更多超值热卖</a>
+										</div>
+									</div>
+								</div>
+							</div> <!--结束tab-->
+						</volist>
+				    </div>
+				    
+				</div>
+			</div>
+			
+			<!-- 小团慢旅行 -->
+			<div class="hot-sale">
+				<h3>小团慢旅行</h3>
+				<div class="hot-sale-content">
+					<!-- 切换 -->
+					<div class="buttons-tab">
+						<volist id="tab" name="set.depth_line_tab">
+							<if condition="$key lt 5">
+								<if condition="$key eq 0">
+								<a href="#{$tab.type_key}" class="tab-link active button">{$tab.type_desc}</a>
+								<else />
+								<a href="#{$tab.type_key}" class="tab-link button">{$tab.type_desc}</a>
+								</if>
+							</if>
+						</volist>
+					</div>
+				    <div class="tabs">
+						<volist id="tab" name="set.depth_line_tab">
+							<if condition="$key eq 0">
+							<div id="{$tab.type_key}" class="tab active">
+							<else />
+							<div id="{$tab.type_key}" class="tab">
+							</if>								
+								<!-- 小团慢旅行 -->
+								<div class="depth-travel">
+									<div class="depth-travel-content">
+										<div class="travel-content">
+											<for start="0" end="6">
+												<php>
+													$v = $set[$tab['type_key'].$i];
+													if (empty($v)) {
+														continue;
+													}
+												</php>											
+												<div class="card demo-card-header-pic">
+													<div class="card-content">
+														<img class="background-img-loading" data-echo="{$v.img1}" alt="">
+														<div class="card-content-inner">
+															<p>{$v.title}</p>
+															<p>{$v.subheading}</p>
+														</div>
+														<!-- 跳转a -->
+														<a href="{:U('line/info')}/id/{$v.id}" external></a>
+													</div>
+													<div class="card-footer">
+														<span>出发地：{$v['assembly_point_show_text']}</span>
+														<a href="{:U('line/info')}/id/{$v.id}" class="link active-recommend">
+															<if condition="empty($v['check_price'])">
+																<span>核算中</span>
+															<else />
+																<span>￥{$v.start_price_adult}元起</span>
+															</if>
+														</a>
+													</div>
+												</div>
+											</for>
+
+											<!-- 查看更多周边游 -->
+											<a href="{:U('line/list')}/t/sd/" external>查看更多产品</a>
+											
+										</div>
+									</div>
+								</div>
+							</div> <!--结束tab-->
+						</volist>
+				    </div>				    
+				</div>				
+			</div>
+			
+			<!-- 跟拍游 -->
+			<div class="hot-sale">
+				<h3>跟拍游</h3>
+				<div class="hot-sale-content">
+					<!-- 切换 -->
+					<div class="buttons-tab">
+						<volist id="tab" name="set.qinglvpai_line_tab">							
+							<if condition="$key lt 5">
+								<if condition="$key eq 0">
+								<a href="#{$tab.type_key}" class="tab-link active button">{$tab.type_desc}</a>
+								<else />
+								<a href="#{$tab.type_key}" class="tab-link button">{$tab.type_desc}</a>
+								</if>
+							</if>
+						</volist>
+					</div>
+				    <div class="tabs">
+						<volist id="tab" name="set.qinglvpai_line_tab">
+							<if condition="$key eq 0">
+							<div id="{$tab.type_key}" class="tab active">
+							<else />
+							<div id="{$tab.type_key}" class="tab">
+							</if>								
+								<!-- 跟拍游 -->
+								<div class="depth-travel">
+									<div class="depth-travel-content">
+										<div class="travel-content">
+											<for start="0" end="6">
+												<php>
+													$v = $set[$tab['type_key'].$i];
+													if (empty($v)) {
+														continue;
+													}
+												</php>											
+												<div class="card demo-card-header-pic">
+													<div class="card-content">
+														<img class="background-img-loading" data-echo="{$v.img1}" alt="">
+														<div class="card-content-inner">
+															<p>{$v.title}</p>
+															<p>{$v.subheading}</p>
+														</div>
+														<!-- 跳转a -->
+														<a href="{:U('line/info')}/id/{$v.id}" external></a>
+													</div>
+													<div class="card-footer">
+														<span>出发地：{$v['assembly_point_show_text']}</span>
+														<a href="{:U('line/info')}/id/{$v.id}" class="link active-recommend">
+															<if condition="empty($v['check_price'])">
+																<span>核算中</span>
+															<else />
+																<span>￥{$v.start_price_adult}元起</span>
+															</if>
+														</a>
+													</div>
+												</div>
+											</for>
+
+											<!-- 查看更多周边游 -->
+											<a href="{:U('line/list')}/t/qlp/" external>查看更多产品</a>
+											
+										</div>
+									</div>
+								</div>
+							</div> <!--结束tab-->
+						</volist>
+				    </div>				    
+				</div>				
+			</div>
+			
+			<!-- 摄影游 -->
+			<div class="hot-sale">
+				<h3>摄影游</h3>
+				<div class="hot-sale-content">
+					<!-- 切换 -->
+					<div class="buttons-tab">
+						<volist id="tab" name="set.photograph_line_tab">
+							<if condition="$key lt 5">
+								<if condition="$key eq 0">
+								<a href="#{$tab.type_key}" class="tab-link active button">{$tab.type_desc}</a>
+								<else />
+								<a href="#{$tab.type_key}" class="tab-link button">{$tab.type_desc}</a>
+								</if>
+							</if>
+						</volist>
+					</div>
+				    <div class="tabs">
+						<volist id="tab" name="set.photograph_line_tab">
+							<if condition="$key eq 0">
+							<div id="{$tab.type_key}" class="tab active">
+							<else />
+							<div id="{$tab.type_key}" class="tab">
+							</if>								
+								<!-- 摄影游 -->
+								<div class="depth-travel">
+									<div class="depth-travel-content">
+										<div class="travel-content">
+											<for start="0" end="6">
+												<php>
+													$v = $set[$tab['type_key'].$i];
+													if (empty($v)) {
+														continue;
+													}
+												</php>											
+												<div class="card demo-card-header-pic">
+													<div class="card-content">
+														<img class="background-img-loading" data-echo="{$v.img1}" alt="">
+														<div class="card-content-inner">
+															<p>{$v.title}</p>
+															<p>{$v.subheading}</p>
+														</div>
+														<!-- 跳转a -->
+														<a href="{:U('line/info')}/id/{$v.id}" external></a>
+													</div>
+													<div class="card-footer">
+														<span>出发地：{$v['assembly_point_show_text']}</span>
+														<a href="{:U('line/info')}/id/{$v.id}" class="link active-recommend">
+															<if condition="empty($v['check_price'])">
+																<span>核算中</span>
+															<else />
+																<span>￥{$v.start_price_adult}元起</span>
+															</if>
+														</a>
+													</div>
+												</div>
+											</for>
+
+											<!-- 查看更多周边游 -->
+											<a href="{:U('line/list')}/t/sy/" external>查看更多产品</a>
+											
+										</div>
+									</div>
+								</div>
+							</div> <!--结束tab-->
+						</volist>
+				    </div>				    
+				</div>				
+			</div>
+			
+			<!-- 民族行 -->
+			<div class="hot-sale">
+				<h3>民族行</h3>
+				<div class="hot-sale-content">
+					<!-- 切换 -->
+					<div class="buttons-tab">
+						<volist id="tab" name="set.theme_line_tab">
+							<if condition="$key lt 5">
+								<if condition="$key eq 0">
+								<a href="#{$tab.type_key}" class="tab-link active button">{$tab.type_desc}</a>
+								<else />
+								<a href="#{$tab.type_key}" class="tab-link button">{$tab.type_desc}</a>
+								</if>
+							</if>
+						</volist>
+					</div>
+				    <div class="tabs">
+						<volist id="tab" name="set.theme_line_tab">
+							<if condition="$key eq 0">
+							<div id="{$tab.type_key}" class="tab active">
+							<else />
+							<div id="{$tab.type_key}" class="tab">
+							</if>								
+								<!-- 民族行 -->
+								<div class="depth-travel">
+									<div class="depth-travel-content">
+										<div class="travel-content">
+											<for start="0" end="6">
+												<php>
+													$v = $set[$tab['type_key'].$i];
+													if (empty($v)) {
+														continue;
+													}
+												</php>											
+												<div class="card demo-card-header-pic">
+													<div class="card-content">
+														<img class="background-img-loading" data-echo="{$v.img1}" alt="">
+														<div class="card-content-inner">
+															<p>{$v.title}</p>
+															<p>{$v.subheading}</p>
+														</div>
+														<!-- 跳转a -->
+														<a href="{:U('line/info')}/id/{$v.id}" external></a>
+													</div>
+													<div class="card-footer">
+														<span>出发地：{$v['assembly_point_show_text']}</span>
+														<a href="{:U('line/info')}/id/{$v.id}" class="link active-recommend">
+															<if condition="empty($v['check_price'])">
+																<span>核算中</span>
+															<else />
+																<span>￥{$v.start_price_adult}元起</span>
+															</if>
+														</a>
+													</div>
+												</div>
+											</for>
+
+											<!-- 查看更多周边游 -->
+											<a href="{:U('line/list')}/t/mz/" external>查看更多产品</a>
+											
+										</div>
+									</div>
+								</div>
+							</div> <!--结束tab-->
+						</volist>
+				    </div>				    
+				</div>				
+			</div>
+			<!-- 周边游 -->
+			<div class="hot-sale">
+				<if condition="$station111['key'] neq 'main'">
+					<h3>{$station111.name}周边游</h3>
+					<else />
+					<h3>周边游</h3>
+				</if>
+				<div class="hot-sale-content">
+					<!-- 切换 -->
+					<div class="buttons-tab">
+						<volist id="tab" name="set.surrounding_line_tab">
+							<if condition="$key lt 5">
+								<if condition="$key eq 0">
+									<a href="#{$tab.type_key}" class="tab-link active button">{$tab.type_desc}</a>
+									<else />
+									<a href="#{$tab.type_key}" class="tab-link button">{$tab.type_desc}</a>
+								</if>
+							</if>
+						</volist>
+					</div>
+					<div class="tabs">
+						<volist id="tab" name="set.surrounding_line_tab">
+							<if condition="$key eq 0">
+								<div id="{$tab.type_key}" class="tab active">
+									<else />
+									<div id="{$tab.type_key}" class="tab">
+							</if>
+							<!-- 周边游 -->
+							<div class="depth-travel">
+								<div class="depth-travel-content">
+									<div class="travel-content">
+										<for start="0" end="6">
+											<php>
+												$v = $set[$tab['type_key'].$i];
+												if (empty($v)) {
+												continue;
+												}
+											</php>
+											<div class="card demo-card-header-pic">
+												<div class="card-content">
+													<img class="background-img-loading" data-echo="{$v.img1}" alt="">
+													<div class="card-content-inner">
+														<p>{$v.title}</p>
+														<p>{$v.subheading}</p>
+													</div>
+													<!-- 跳转a -->
+													<a href="{:U('line/info')}/id/{$v.id}" external></a>
+												</div>
+												<div class="card-footer">
+													<span>出发地：{$v['assembly_point_show_text']}</span>
+													<a href="{:U('line/info')}/id/{$v.id}" class="link active-recommend">
+														<if condition="empty($v['check_price'])">
+															<span>核算中</span>
+															<else />
+															<span>￥{$v.start_price_adult}元起</span>
+														</if>
+													</a>
+												</div>
+											</div>
+										</for>
+
+										<!-- 查看更多周边游 -->
+										<a href="{:U('line/list')}/t/zb" external>查看更多产品</a>
+
+									</div>
+								</div>
+							</div>
+					</div> <!--结束tab-->
+					</volist>
+				</div>
+			</div>
+			</div>
+
+
+<!-- 活动回顾 -->
+			<!--<div class="active-review">-->
+				<!--<div class="active-review-content">-->
+					<!--<div class="active-review-header">-->
+						<!--<img src="__PUBLIC__/phone/images/index/sublist_logo.png" alt="">-->
+						<!--<span>活动回顾</span>-->
+					<!--</div>-->
+					<!--<div class="active-review-list">						-->
+						<!--<for start="0" end="8">-->
+							<!--<php>$act = $set['activity'.$i]</php>-->
+							<!--<div class="active-review-sublist">-->
+								<!--<div class="card demo-card-header-pic">-->
+									<!--<div class="card-content">-->
+										<!--<img src="{$act.img}" alt="">-->
+										<!--<div class="card-content-inner">-->
+											<!--<p>{$act.subheading}</p>-->
+										<!--</div>-->
+										<!--&lt;!&ndash; 跳转a &ndash;&gt;-->
+										<!--<a href="{$act.url}" external></a>-->
+									<!--</div>-->
+									<!--<div class="card-footer">-->
+										<!--<a href="{$act.url}" class="link">-->
+											<!--&lt;!&ndash;<img src="__PUBLIC__/phone/images/index/people.png" alt="">&ndash;&gt;-->
+											<!--作者：<span>{$act.author}</span>-->
+										<!--</a>-->
+										<!--&lt;!&ndash;<a href="#" class="link active-recommend">-->
+										<!--<strong>重点推荐腾冲银杏</strong>-->
+										<!--&nbsp;|&nbsp; -->
+										<!--<span>5892元</span></a>&ndash;&gt;-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</div>-->
+						<!--</for>						-->
+
+					<!--</div>-->
+					<!--&lt;!&ndash; 更多往期回顾 &ndash;&gt;-->
+					<!--<a href="http://shequ.kllife.com/" external>更多往期回顾</a>-->
+				<!--</div>				-->
+			<!--</div>-->
+			<!--&lt;!&ndash; end 活动回顾 &ndash;&gt;-->
+						<!---->
+			<!--&lt;!&ndash; 精彩分享 &ndash;&gt;-->
+			<!--<div class="active-review">-->
+				<!--<div class="active-review-content">-->
+					<!--<div class="active-review-header">-->
+						<!--<img src="__PUBLIC__/phone/images/index/sublist_logo.png" alt="">-->
+						<!--<span>精彩分享</span>-->
+					<!--</div>-->
+					<!--<div class="active-review-list">-->
+						<!---->
+						<!--<for start="0" end="4">-->
+							<!--<php>$article = $set['article'.$i]</php>-->
+							<!--<div class="active-review-sublist">-->
+								<!--<div class="card demo-card-header-pic">-->
+									<!--<div class="card-content">-->
+										<!--<img src="{$article.face_image}" alt="">-->
+										<!--<div class="card-content-inner">-->
+											<!--<p>{$article.short_title}</p>-->
+										<!--</div>-->
+										<!--&lt;!&ndash; 跳转a &ndash;&gt;-->
+										<!--<a href="{:U('line/article')}/id/{$article.id}" external></a>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</div>-->
+						<!--</for>						-->
+
+					<!--</div>-->
+					<!--&lt;!&ndash; 更多往期回顾 &ndash;&gt;-->
+					<!--<a href="{:U('line/article')}" external>更多精彩分享</a>-->
+				<!--</div>-->
+				<!---->
+			<!--</div>-->
+			<!-- end 精彩分享 -->
+			
+		</div>
+	</div>
+	<!--每刻美弹出框-->
+	<!--<div class="meikemei" style="position:fixed;top:0px;left:0px;width:100%;height:100%;background: rgba(0,0,0,0.5);z-index:10000000;">-->
+		<!--<div style="position: relative;">-->
+			<!--<div id="meikemei-img" style="position: fixed;top:10%;left:10%;width:80%;"><img style="width:100%;" src="__PUBLIC__/phone/images/index/phone-tc.png" alt=""></div>-->
+			<!--<div id="remove-tc" style="position: fixed;top:12%;right:12%;"><img src="__PUBLIC__/phone/images/index/remove-tc.png" alt=""></div>-->
+		<!--</div>-->
+	<!--</div>-->
+	<include file="common/js" />
+	<!-- swiper -->
+	<script src="__PUBLIC__/phone/common/js/swiper-3.3.1.min.js"></script>
+	<!--图片延时加载-->
+	<script src="__PUBLIC__/home/common/js/echo.min.js"></script>
+	<script>
+		//初始化图片延迟加载
+        echo.init({
+            offset: 200,
+            throttle: 0
+        });
+	</script>
+	
+	<script>
+		$(function(){
+
+			$.init();
+			var swiper = new Swiper('.module01 .swiper-container', {
+		        pagination: '.swiper-pagination',
+		        slidesPerView: 1,
+		        paginationClickable: true,
+		        spaceBetween: 10,
+		        loop: true,
+		        centeredSlides: true,
+		        autoplay: 2500,
+		        autoplayDisableOnInteraction: false
+		    });
+            var swiper = new Swiper('.module02 .swiper-container', {
+                slidesPerView: 2.7,
+                paginationClickable: true,
+                spaceBetween: 20,
+                freeMode: true
+            });
+		});
+	</script>
+	<!--超级目的地-->
+	<script>
+
+	</script>
+	<script>
+		//每刻美弹出框
+//        $("#remove-tc").on("click",function(){
+//            $(".meikemei").hide();
+//		})
+//		$("#meikemei-img").on("click",function(){
+//		    window.location.href="{:U('line/xiezhenlvxing')}";
+//            $(".meikemei").hide();
+//		})
+        //图片垂直居中
+        $(document).ready(function(){
+            $("#meikemei-img").on("load",function(){
+                var imgh = $(this).height();
+                var body = $("body").height();
+                var top = (body-imgh)/2;
+                var topRemove = top+1;
+                $(this).css("top",top+"px");
+                $("#remove-tc").css("top",topRemove+"px");
+            });
+        });
+
+		//小团慢旅行
+		$(".slow-travel-detail .click").on("click",function(){
+			var Index = $(this).index();
+			$(this).find("div").addClass("active").parents(".click").siblings(".click").find("div").removeClass("active");
+			$(".slow-travel-explain div").eq(Index).show().siblings("div").hide();
+		})
+	</script>
+	<script>
+		//滚动文字
+		$(function(){
+			//1文字轮播(2-5页中间)开始
+			$(".font_inner li:eq(0)").clone(true).appendTo($(".font_inner"));//克隆第一个放到最后(实现无缝滚动)
+			var liHeight = $(".swiper_wrap").height();//一个li的高度
+			//获取li的总高度再减去一个li的高度(再减一个Li是因为克隆了多出了一个Li的高度)
+			var totalHeight = ($(".font_inner li").length *  $(".font_inner li").eq(0).height()) -liHeight;
+			$(".font_inner").height(totalHeight);//给ul赋值高度
+			var index = 0;
+			var autoTimer = 0;//全局变量目的实现左右点击同步
+			var clickEndFlag = true; //设置每张走完才能再点击
+			function tab(){
+				$(".font_inner").stop().animate({
+					top: -index * liHeight
+				},400,function(){
+					clickEndFlag = true;//图片走完才会true
+					if(index == $(".font_inner li").length -1) {
+						$(".font_inner").css({top:0});
+						index = 0;
+					}
+				})
+			};
+			function nextword() {
+				index++;
+				if(index > $(".font_inner li").length - 1) {
+					//判断index为最后一个Li时index为0
+					index = 0;
+				}
+				tab();
+			};
+			function prevword() {
+				index--;
+				if(index < 0) {
+					index = $(".font_inner li").size() - 2;//因为index的0 == 第一个Li，减二是因为一开始就克隆了一个LI在尾部也就是多出了一个Li，减二也就是_index = Li的长度减二
+					$(".font_inner").css("top",- ($(".font_inner li").size() -1) * liHeight);//当_index为-1时执行这条，也就是走到li的最后一个
+				}
+				tab();
+			};
+			//自动轮播
+			autoTimer = setInterval(nextword,3000);
+			$(".font_inner a").hover(function(){
+				clearInterval(autoTimer);
+			},function() {
+				autoTimer = setInterval(nextword,3000);
+			});
+		});
+		
+		
+	</script>	
+	<include file="common/swt" />
+</body>
+</html>

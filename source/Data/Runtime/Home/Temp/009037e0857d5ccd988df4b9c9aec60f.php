@@ -1,0 +1,3 @@
+<?php
+//000000000000a:13:{s:2:"id";s:1:"5";s:5:"title";N;s:10:"subheading";N;s:8:"keywords";N;s:4:"desc";N;s:6:"banner";s:50:"http://img.kllife.com/2017-01-18_587f0ed3d7e96.jpg";s:4:"sort";s:4:"1000";s:11:"create_time";s:19:"2017-01-18 14:44:39";s:8:"line_tab";a:3:{i:0;a:3:{s:2:"id";s:1:"0";s:8:"type_key";s:20:"line_theme_recommend";s:9:"type_desc";s:6:"推荐";}i:1;a:3:{s:2:"id";s:3:"116";s:8:"type_key";s:18:"line_theme_hz_line";s:9:"type_desc";s:12:"杭州周边";}i:2;a:3:{s:2:"id";s:3:"300";s:8:"type_key";s:19:"line_theme_nianpiao";s:9:"type_desc";s:6:"年票";}}s:24:"tab_line_theme_recommend";N;s:22:"tab_line_theme_hz_line";N;s:23:"tab_line_theme_nianpiao";N;s:18:"config_update_time";i:1487846816;}
+?>

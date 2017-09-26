@@ -1,0 +1,167 @@
+<include file="Common/top-two" />
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/css/payment.css">
+<style>
+	#content{margin-top:50px;}
+	#content > p strong,.coupon p span, .promotion-code span{color:#ff1c77;}
+	#content > a{background: #ff1c77;}
+	.benefit .use-benefit{color:#ff1c77;border-color:#ff1c77;}
+</style>
+	<!-- 主要内容 -->
+	<div id="content">
+		<h2>核对订单信息</h2>
+		<div class="payment-content" data-id="{$order.id}">
+			<!-- 联系人信息 -->
+			<div class="consignee-information">
+				<h3>联系人信息</h3>
+				<p>{$order.names} {$order.mob}</p>
+			</div>
+			<!-- 订单详情 -->
+			<div class="order-details">
+				<h3>订单详情</h3>
+				<p>订 单 号：{$order.order_sn}</p>
+				<p>订单状态：{$order.zhuangtai_data.type_desc}</p>
+				<p>活动名称：{$order.lineid_title}</p>
+				<p>活动时间：{$order.hdid_show_text]}</p>
+				<p>联系人：{$order.names}</p>
+				<p>联系人电话：{$order.mob}</p>
+				<p>参团人数：   <span>{$order.male}</span> 男[成人]     <span>{$order.woman}</span>  女[成人]      <span>{$order.child}</span> 儿童 </p>
+				<p>其他费用：
+					<empty name="order.extra_cash">无</empty>
+					<volist id="ec" name="order.extra_cash">
+						{$ec.cash_use_id_data.type_desc}  <i>{$ec.cash}元</i> 
+					</volist>
+				</p>
+				<p>
+					系统优惠券:
+					<empty name="order.extra_cash">无</empty>
+					<volist id="oc" name="order.order_coupon">
+						{$oc.coupon_type_id_data.type_desc}  <i>{$oc.cash}元</i>
+					</volist>
+				</p>
+			</div>
+			<!-- 发票信息 -->
+			<if condition="$order.receipt_type eq 1">
+				<div class="invoice-information">
+					<h3>发票信息 <span>(企业发票)</span></h3>
+					<p>单位名称：{$oreder.receipt_company}</p>
+					<p>纳税人识别号：{$order.receipt_company_no}</p>
+					<p>单位地址：{$order.receipt_company_address}</p>
+					<p>电话号码：{$order.receipt_company_phone}</p>
+					<p>收件人：{$order.receipt_receiver}</p>
+					<p>收件电话：{$order.receipt_receiver_phone}</p>
+					<p>收件地址：{$order.receipt_receiver_address}</p>
+				</div>
+			<elseif condition="$order.receipt_type eq 2" />
+				<div class="invoice-information">
+					<h3>发票信息 <span>(个人发票)</span></h3>
+					<p>收件人：{$order.receipt_receiver}</p>
+					<p>收件电话：{$order.receipt_receiver_phone}</p>
+					<p>收件地址：{$order.receipt_receiver_address}</p>
+				</div>
+			</if>
+			<!--{:p_a($user_coupons)}-->
+			<!-- 优惠券，优惠码 -->
+			<div class="benefit">
+				<h3>使用优惠/礼品券/抵用<i></i></h3>
+				<div class="benefit-div">
+					<a class="use-benefit show-coupon" href="javascript:;">优惠券</a>
+					<a class="show-code" href="javascript:;">优惠码</a>
+					<div class="coupon">
+						<volist id="coupon" name="user_coupons" >
+							<if condition="$coupon['invalid'] eq 0 and $coupon['disabled'] eq 0 and $c['use'] eq 0">
+								<a href="javascript:;" title="{$coupon.money}" data-id="{$coupon.id}">								<div class="coupon-box">
+										<div class="coupon-common coupon-bg-color-3" data-id="{$coupon.id}">
+											<p class="coupon-money">￥<span>{$coupon.money}</span>元</p>
+											<p>{$coupon.title}</p>
+											<p>每人每次限用一张</p>
+											<p>有效期{$coupon.valid_date}到{$coupon.invalid_date}</p>
+										</div>
+									</div>
+								</a>
+							</if>
+						</volist>
+						<br/>
+						<p>金额抵用<span>￥0.00</span></p>
+					</div>
+					<div class="promotion-code">
+						<h6>请输入优惠券兑换码:</h6>
+						<input type="text" maxlength="4">
+						-
+						<input type="text" maxlength="4">
+						-
+						<input type="text" maxlength="4">
+						-
+						<input type="text" maxlength="4">
+						<p>金额抵用<span>￥0.00</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p>结算信息：<strong>￥</strong><strong class="final_pay_money">{$order.final_pay_money}</strong> 元</p>
+		<a class="btn_pay" href="javascript:;">去结算</a>
+	</div>
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(
+        function($){
+            $("img").lazyload({
+                placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+                effect      : "fadeIn",
+                threshold : 100,
+                failure_limit : 10
+            });
+        });
+</script>
+	<script>
+		//优惠券、优惠码隐藏与显示
+		$('.benefit h3').click(
+			function () {
+				$(this).children('i').toggleClass('show-benefit');
+				$('.benefit-div').toggle();
+			}
+		);
+		//改变class
+		function changeClass(a , b , c){
+			$(a).click( function () {
+				$(this).siblings(c).removeClass(b);
+				$(this).addClass(b);
+			} );
+		};
+		changeClass('.benefit-div > a', 'use-benefit' ,'a');
+		
+		
+		$(document).on('click','.coupon > a',function(){
+			$(this).siblings().find('.coupon-common').removeClass('use-coupon');
+			$(this).find('.coupon-common').toggleClass('use-coupon');
+			
+		});
+
+		$('.show-coupon').click( function () {
+			$('.coupon').show();
+			$('.promotion-code').hide();
+		} );
+		$('.show-code').click( function () {
+			$('.coupon').hide();
+			$('.promotion-code').show();
+			$('.coupon > a').removeClass('use-coupon');
+		} );
+		
+		//优惠券
+		$('.coupon > a').click( function () {
+			var couponMoney = $(this).attr('title');
+			$('.coupon span').html('￥' + couponMoney + '.00');
+			var needPayMoney = parseFloat('{$order.final_pay_money}') - parseFloat(couponMoney);
+			$('.final_pay_money').html(needPayMoney + '.00');
+		} );
+		//TODO 优惠码
+		
+		$('.btn_pay').click(function(){
+			var couponId = $('.coupon').find('.use-coupon').attr('data-id');
+			if (typeof(couponId) == 'undefined') {
+				couponId = 0;
+			}
+            window.open('{:U("line/order")}/type/pay/id/{$order.id}/cid/'+couponId) ;
+		});
+	</script>
+<include file="Common/bottom" />

@@ -1,0 +1,39 @@
+<include file="Common/header" />
+
+	<div class="page-error centered">
+		
+		<div class="error-symbol">
+			<i class="fa-warning"></i>
+		</div>
+		
+		<h2>
+			{$err.title}
+			<small>{$err.content}</small>
+		</h2>
+		
+		<p>{$err.reason}</p>
+		<p>{$err.suggest}</p>
+		
+	</div>
+	
+	<div class="page-error-search centered">
+		<!--<form class="form-half" method="get" action="" enctype="application/x-www-form-urlencoded">
+			<input type="text" class="form-control input-lg" placeholder="Search..." />
+			
+			<button type="submit" class="btn-unstyled">
+				<i class="linecons-search"></i>
+			</button>
+		</form>-->
+		
+		<a href="#" class="go-back" onclick="history.back(-1);">
+			<i class="fa-angle-left"></i>
+			返回上一页
+		</a>
+		
+		<a href="{:U('index/welcome')}" class="go-back">
+			<i class="fa-angle-left"></i>
+			首页
+		</a>
+	</div>
+
+<include file="Common/footer" />

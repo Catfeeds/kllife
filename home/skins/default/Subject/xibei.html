@@ -1,0 +1,654 @@
+<include file="Common/top" />
+<link rel="stylesheet" href="__PUBLIC__/home/css/northwest.css">
+<div class="northwest">
+    <!--banner-->
+    <div class="banner"></div>
+    <!--小团-->
+    <div class="xiaotuan"></div>
+    <!--推荐线路-->
+    <div class="item template_item hidden_ctrl" data-id="">
+        <div class="left">
+        	<img class="line_image" src="" alt="">
+			<div class="today-hot">
+				<img src="" alt="">
+			</div>
+        </div>
+        <div class="right">
+            <h1 class="title"></h1><span class="tag"></span>
+            <p class="subheading"></p>
+            <p class="brief">线路简介：<span class="send_word"></span></p>
+            <div class="choice-time">
+                <div class="time"><p>活动时间：<span class="date"></span></p></div>
+                <div class="time">
+                    <span class="span">出发日期：</span>
+                    <select class="batch">
+                    </select>
+                </div>
+            </div>
+            <p>集合地点：<span class="assembly"></span></p>
+            <p>目的地：<span class="destination"></span></p>
+            <p class="price">￥<span class="adult_price"></span>元起 (成人)</p>
+            <div class="sig-up">
+                <p>本条线路已有 <span class="order_member_count"></span> 人已报名</p>
+                <span class="btn">立即报名</span>
+            </div>
+        </div>
+        <a href="" target="_blank"></a>
+    </div>
+    <!--盛夏西北-->
+    <div class="recommend recommend1">
+        <div class="content xibei1" data-subject="'xibei1">
+            <div class="tit">
+                <img src="__PUBLIC__/home/images/northwest/recommend-tit1.png" alt="">
+                <ul class="recommend_filter" style="width:552px;">
+                	<volist id="tab" name="subject_line_tab_xibei1">
+                		<if condition="$key eq 0">
+                    		<li class="active" data-subject="xibei1" data-tab="{$tab.type_key}">{$tab.type_desc}</li>
+                    	<else />
+                    		<li data-subject="xibei1" data-tab="{$tab.type_key}">{$tab.type_desc}</li>
+                    	</if>
+                    </volist>
+                </ul>
+                <div class="border"><!--此div只用于border--></div>
+            </div>
+            <volist id="l" name="subject_line_xibei1">
+                <div class="item" data-id="{$l.id}">
+                    <div class="left">
+                    	<img class="line_image" src="{$l.img1}" alt="">
+                    	<if condition="empty($l['line_especial_icon']) eq false">
+							<div class="today-hot">
+								<img src="__PUBLIC__/home/images/index_img/{$l['line_especial_icon']}" alt="">
+							</div>
+						</if>
+                    </div>
+                    <div class="right">
+                        <h1 class="title">{$l['title']}</h1><span class="tag {$l['theme_type_list'][0]['type_key']}">{$l['theme_type_list'][0]['type_desc']}</span>
+                        <p class="subheading">{$l['subheading']}</p>
+                        <p class="brief">线路简介：<span class="send_word">{$l.send_word_show}</span></p>
+                        <div class="choice-time">
+                            <div class="time"><p>活动时间：<span class="date">{$l.start_time} 至 {$l.end_time}</span></p></div>
+                            <div class="time">
+                                <span class="span">出发日期：</span>
+                                <select class="batch">
+                                    <volist id="b" name="l.batchs">
+                                        <option value="{$b.id}">{$b.start_date_show}[{$b.state_data.type_desc}]</option>
+                                    </volist>
+                                </select>
+                            </div>
+                        </div>
+                        <p>集合地点：<span class="assembly">{$l.assembly_point_show_text}</span></p>
+                        <p>目的地：<span class="destination">{$l.destination_show_text}</span></p>
+                        <p class="price">
+                            <if condition="empty($l['check_price'])">
+                                <span class="adult_price">核算中</span>
+                                <else />
+                                ￥<span class="adult_price">{$l.start_price_adult}</span>元起 (成人)
+                            </if>
+                        </p>
+                        <div class="sig-up">
+                            <p>本条线路已有 <span class="order_member_count">{$l.order_member_count}</span> 人已报名</p>
+                            <span class="btn">立即报名</span>
+                        </div>
+                    </div>
+                    <a href="{:U('line/info')}/id/{$l.id}" target="_blank"></a>
+                </div>
+            </volist>
+        </div>
+        <img class="bottom" style="margin-top:-400px;" src="__PUBLIC__/home/images/northwest/recommend2-bottom.jpg" alt="">
+    </div>
+    <!--金秋西北-->
+    <div class="recommend">
+    	<div style="width:1200px;margin:auto;"><a href="http://pqt.zoosnet.net/lr/chatpre.aspx?id=pqt43116159&lng=cn&r=&rf1=&rf2=&p=http%3A//kllife.com/home/index.php%3Fs%3D/home/subject/xinjiang&cid=1497598677796708383968&sid=1499908846033380364902" target="_blank"><img src="__PUBLIC__/home/images/xinjiang/ejina-kefu.gif" alt="" /></a></div>
+        <div class="content xibei2" data-subject="'xibei2">
+            <div class="tit">
+                <img src="__PUBLIC__/home/images/northwest/recommend-tit2.png" alt="">
+                <ul class="recommend_filter"  style="width:552px;">
+                	<volist id="tab" name="subject_line_tab_xibei2">
+                		<if condition="$key eq 0">
+                    		<li class="active" data-subject="xibei2" data-tab="{$tab.type_key}">{$tab.type_desc}</li>
+                    	<else />
+                    		<li data-subject="xibei2" data-tab="{$tab.type_key}">{$tab.type_desc}</li>
+                    	</if>
+                    </volist>
+                </ul>
+                <div class="border"></div>
+            </div>
+            <volist id="l" name="subject_line_xibei2">
+                <div class="item" data-id="{$l.id}">
+                    <div class="left">
+                    	<img class="line_image" src="{$l.img1}" alt="">
+                    	<if condition="empty($l['line_especial_icon']) eq false">
+							<div class="today-hot">
+								<img src="__PUBLIC__/home/images/index_img/{$l['line_especial_icon']}" alt="">
+							</div>
+						</if>
+                    </div>
+                    <div class="right">
+                        <h1 class="title">{$l['title']}</h1><span class="tag {$l['theme_type_list'][0]['type_key']}">{$l['theme_type_list'][0]['type_desc']}</span>
+                        <p class="subheading">{$l['subheading']}</p>
+                        <p class="brief">线路简介：<span class="send_word">{$l.send_word_show}</span></p>
+                        <div class="choice-time">
+                            <div class="time"><p>活动时间：<span class="date">{$l.start_time} 至 {$l.end_time}</span></p></div>
+                            <div class="time">
+                                <span class="span">出发日期：</span>
+                                <select class="batch">
+                                    <volist id="b" name="l.batchs">
+                                        <option value="{$b.id}">{$b.start_date_show}[{$b.state_data.type_desc}]</option>
+                                    </volist>
+                                </select>
+                            </div>
+                        </div>
+                        <p>集合地点：<span class="assembly">{$l.assembly_point_show_text}</span></p>
+                        <p>目的地：<span class="destination">{$l.destination_show_text}</span></p>
+                        <p class="price">
+                            <if condition="empty($l['check_price'])">
+                                <span class="adult_price">核算中</span>
+                                <else />
+                                ￥<span class="adult_price">{$l.start_price_adult}</span>元起 (成人)
+                            </if>
+                        </p>
+                        <div class="sig-up">
+                            <p>本条线路已有 <span class="order_member_count">{$l.order_member_count}</span> 人已报名</p>
+                            <span class="btn">立即报名</span>
+                        </div>
+                    </div>
+                    <a href="{:U('line/info')}/id/{$l.id}" target="_blank"></a>
+                </div>
+            </volist>
+        </div>
+        <img class="bottom" style="margin-top:-400px;" src="__PUBLIC__/home/images/northwest/recommend-bottom.jpg" alt="">
+    </div>
+    <!--小团慢每刻美切换-->
+    <div class="xiaotuanman">
+        <div class="xiaotuanman2">
+            <div class="kllife"><a href="javascript:;"><img src="__PUBLIC__/home/images/xinjiang/kllife.png" alt=""></a></div>
+            <div class="meikemei"><a href="javascript:;"><img src="__PUBLIC__/home/images/xinjiang/meikemei1.png" alt=""></a></div>
+        </div>
+        <div class="box box-one">
+            <!--第一行-->
+            <div class="lineS" style="top:-166px;">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman1.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/01.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman2.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/02.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman3.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/03.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman4.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/04.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman5.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/05.PNG">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--第2行-->
+            <div class="lineF" style="padding-left:222px">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman6.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/06.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman7.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/07.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman8.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/08.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman9.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/09.PNG">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--第3行-->
+            <div class="lineS">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman10.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/10.JPG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman11.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/11.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman12.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/12.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/northwest/xiaotuanman13.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/13.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF">
+                    <div class="boxS">
+                        <a href="{:U('index/welcome')}" target="_blank"><div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/kllife-add.png);"></div></a>
+                    </div>
+                </div>
+            </div>
+            <div class="lg-left"></div>
+            <div class="lg-right"></div>
+        </div>
+        <div class="box box-two">
+            <!--第一行-->
+            <div class="lineS" style="top:-166px;">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman16.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/14.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman17.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/15.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman18.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/16.JPG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman19.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/17.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman20.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/18.PNG">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--第2行-->
+            <div class="lineF" style="padding-left:222px;">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman21.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/19.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman22.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/20.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman23.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/21.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman24.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/22.PNG">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--第3行-->
+            <div class="lineS">
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman27.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/23.JPG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman28.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/24.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman29.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/25.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF box-B">
+                    <div class="boxS">
+                        <div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/xiaotuanman30.jpg);background-position: center center;background-size: 100% 100%;" data-img="__PUBLIC__/home/images/northwest/26.PNG">
+                        </div>
+                    </div>
+                </div>
+                <div class="boxF">
+                    <div class="boxS">
+                        <a href="http://xiezhenlvxing.com" target="_blank"><div class="boxT" style="background: url(__PUBLIC__/home/images/xinjiang/meikemei-add.png);"></div></a>
+                    </div>
+                </div>
+            </div>
+            <div class="lg-left" style="background-color: #fff;background-repeat: no-repeat;background-position: center center;background-size:auto 100%;"></div>
+            <div class="lg-right" style="background-color: #fff;background-repeat: no-repeat;background-position: center center;background-size:auto 100%;"></div>
+        </div>
+    </div>
+    <!--私人定制-->
+    <div class="customized">
+        <div class="earth"><img style="width:140px;" src="__PUBLIC__/home/images/silk/earth.gif" alt=""></div>
+        <div class="customized2"><img src="__PUBLIC__/home/images/silk/customized2.png" alt=""></div>
+        <a href="{:U('line/book')}" class="btn btn-customized" target="_blank">定制我的旅行</a>
+    </div>
+    <!--往期游记-->
+    <div class="review">
+        <div class="content">
+            <div class="tit"><img src="__PUBLIC__/home/images/northwest/review-tit.png" alt=""></div>
+            <video style="position:absolute;left:0px;right:0px;margin:auto;margin-top:40px;background: #fff;" height="255" width="420" controls="controls"  x5-video-player-type="h5"/>
+            <source src="__PUBLIC__/home/mp4/10029799-1.mp4" type="video/mp4">
+            </video>
+            <div class="goods-group">
+                <div class="item">
+                    <div class="img"><img class="img-responsive" src="__PUBLIC__/home/images/silk/youji2016-07-25_57957e6b6fa9a.jpeg" alt=""></div>
+                    <div class="tit">
+                        <p>七月的丝路之行！</p>
+                    </div>
+                    <a href="http://shequ.kllife.com/Index/youjidetail/id/1495.html" target="_blank"></a>
+                </div>
+                <div class="item">
+                    <div class="img"><img class="img-responsive" src="http://7xosrp.com1.z0.glb.clouddn.com/youji2016-10-28_5812f55e8c4ab.jpg?imageView2/2/w/1000/q/100/|watermark/1/image/aHR0cDovLzd4b3NycC5jb20xLnowLmdsYi5jbG91ZGRuLmNvbS95b3VqaTIwMTYtMDYtMjRfNTc2Y2RmZTBiOWUzZi5wbmc=/dissolve/100/gravity/SouthEast" alt=""></div>
+                    <div class="tit">
+                        <p>西北偏北———额济纳</p>
+                    </div>
+                    <a href="http://shequ.kllife.com/Index/youjidetail.html?id=2034" target="_blank"></a>
+                </div>
+                <div class="item">
+                    <div class="img"><img class="img-responsive" src="__PUBLIC__/home/images/northwest/youji2.jpg" alt=""></div>
+                    <div class="tit">
+                        <p>兰州集合，丝路经典9天西北大环线领略水上魔鬼城--2016.8.7</p>
+                    </div>
+                    <a href="http://shequ.kllife.com/Index/youjidetail.html?id=1783" target="_blank"></a>
+                </div>
+                <div class="item">
+                    <div class="img"><img class="img-responsive" src="http://7xosrp.com1.z0.glb.clouddn.com/youji2017-06-08_5938ce270a797.jpg?watermark/1/image/aHR0cDovLzd4b3NycC5jb20xLnowLmdsYi5jbG91ZGRuLmNvbS95b3VqaTIwMTYtMDYtMjRfNTc2Y2RmZTBiOWUzZi5wbmc=/dissolve/100/gravity/SouthEast" alt=""></div>
+                    <div class="tit">
+                        <p>有了纵情丝路，其它的都弱爆了——直播，有大量美女，看的时候口水不要滴键盘上</p>
+                    </div>
+                    <a href="http://shequ.kllife.com/Index/youjidetail.html?id=3050" target="_blank"></a>
+                </div>
+                <div class="item">
+                    <div class="img"><img class="img-responsive" src="__PUBLIC__/home/images/northwest/youji3.jpg" alt=""></div>
+                    <div class="tit">
+                        <p>西北行漫记——大漠传奇意象</p>
+                    </div>
+                    <a href="http://shequ.kllife.com/Index/youjidetail.html?id=2186" target="_blank"></a>
+                </div>
+                <div class="item">
+                    <div class="img"><img class="img-responsive" src="http://7xosrp.com1.z0.glb.clouddn.com/youji2016-10-25_580ecfc2be0a9.png?watermark/1/image/aHR0cDovLzd4b3NycC5jb20xLnowLmdsYi5jbG91ZGRuLmNvbS95b3VqaTIwMTYtMDYtMjRfNTc2Y2RmZTBiOWUzZi5wbmc=/dissolve/100/gravity/SouthEast" alt=""></div>
+                    <div class="tit">
+                        <p>西北游</p>
+                    </div>
+                    <a href="http://shequ.kllife.com/Index/youjidetail.html?id=2013" target="_blank"></a>
+                </div>
+
+                <a class="more" href="http://shequ.kllife.com" target="_blank"><img src="__PUBLIC__/home/images/northwest/more.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+    <!--其他线路推荐-->
+    <div class="other">
+        <div class="tit-one"><img class="background-img-loading" src="__PUBLIC__/home/images/northwest/qita-tit.png" alt=""></div>
+        <div class="goods-group">
+            <volist id="rd" name="recommend">
+                <div class="item" data-id="{$rd.id}">
+                    <div class="img">
+                        <img class="background-img-loading" src="{$rd.img1}" alt="">
+                        <p><span>{$rd.travel_day}</span>日游</p>
+                    </div>
+                    <if condition="empty($rd['line_especial_icon']) eq false">
+						<div class="today-hot">
+							<img src="__PUBLIC__/home/images/index_img/{$rd['line_especial_icon']}" alt="">
+						</div>
+					</if>
+                    <div class="tit">
+                        <p><span class="theme {$rd['theme_type_list'][0]['type_key']}">{$rd['theme_type_list'][0]['type_desc']}</span></p>
+                        <p class="lg">{$rd['title']}</p>
+                        <p class="money">
+                            <span class="sm">{$rd.send_word_show}</span>
+                            <span class="sm1">
+	                        	<if condition="empty($rd['check_price'])">
+	                        		<span class="lg1">核算中</span>
+	                        	<else />
+	                        		¥<span class="lg1">{$rd.start_price_adult}</span>起
+	                        	</if>
+	                        </span>
+                        </p>
+                    </div>
+                    <div class="choice-time">
+                        <div class="time1">
+                            <span class="span">出发时间：</span>
+                            <select class="batch">
+                                <volist id="b" name="rd.batchs">
+                                    <option value="{$b.id}">{$b.start_date_show}[{$b.state_data.type_desc}]</option>
+                                </volist>
+                            </select>
+                        </div>
+                        <div class="time2">本条线路已有 <span>{$rd.order_member_count}</span> 人报名</div>
+                    </div>
+                    <a href="{:U('line/info')}/id/{$rd.id}" target="_blank"></a>
+                </div>
+            </volist>
+        </div>
+    </div>
+    <!--周边线路推荐-->
+    <div class="other zhoubian">
+        <div class="tit-one"><img class="background-img-loading" src="__PUBLIC__/home/images/northwest/zhoubian-tit.png" alt=""></div>
+        <div class="goods-group">
+            <volist id="sur" name="surrounding">            
+                <div class="item" data-id="{$sur.id}">
+                    <div class="img">
+                        <img class="background-img-loading" src="{$sur.img1}" alt="">
+                        <p><span>{$sur.travel_day}</span>日游</p>
+                    </div>
+                    <if condition="empty($sur['line_especial_icon']) eq false">
+						<div class="today-hot">
+							<img src="__PUBLIC__/home/images/index_img/{$sur['line_especial_icon']}" alt="">
+						</div>
+					</if>
+                    <div class="tit">
+                        <p><span class="theme {$sur['theme_type_list'][0]['type_key']}">{$sur['theme_type_list'][0]['type_desc']}</span></p>
+                        <p class="lg">{$sur['title']}</p>
+                        <p class="money">
+                            <span class="sm">{$sur.send_word_show}</span>
+                            <span class="sm1">
+	                        	<if condition="empty($sur['check_price'])">
+                        			<span class="lg1">核算中</span>
+	                        	<else />
+	                        		¥<span class="lg1">{$sur.start_price_adult}</span>起
+	                        	</if>
+	                        </span>
+                        </p>
+                    </div>
+                    <div class="choice-time">
+                        <div class="time1">
+                            <span class="span">出发时间：</span>
+                            <select class="batch">
+                                <volist id="b" name="sur.batchs">
+                                    <option value="{$b.id}">{$b.start_date_show}[{$b.state_data.type_desc}]</option>
+                                </volist>
+                            </select>
+                        </div>
+                        <div class="time2">本条线路已有 <span>{$sur.order_member_count}</span> 人报名</div>
+                    </div>
+                    <a href="{:U('line/info')}/id/{$sur.id}" target="_blank"></a>
+                </div>
+            </volist>
+        </div>
+    </div>
+</div>
+<!--弹框-->
+<!--<div class="Popup" style="background: rgba(0,0,0,0.5);width:100%;height:100%;position: fixed;top:0px;left:0px;z-index:1000;">-->
+<!--<div style="text-align: center;text-align: -webkit-center;margin-top:15%;">-->
+<!--<span style="position: relative;display: inline-block;cursor: pointer;">-->
+<!--<img src="__PUBLIC__/home/images/northwest/cuxiao-pc.jpg" alt="">-->
+<!--<img style="position: absolute;top:10px;right:10px;" src="__PUBLIC__/home/images/index_img/xiaotuanmannone.png" alt="">-->
+<!--</span>-->
+<!--</div>-->
+<!--</div>-->
+</body>
+<!--图片延迟加载-->
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(
+        function($){
+            $("img").lazyload({
+                placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+                effect      : "fadeIn",
+                threshold : 100,
+                failure_limit : 10
+            });
+        });
+</script>
+<script>
+    //关闭弹框
+    //    $(".Popup").on("click",function(){
+    //        $(this).fadeOut("slow");
+    //    })
+    //推荐标签切换
+//	$(".recommend_filter li").index(0).addClass('active');	
+    $(".recommend_filter li").on("click",function(){
+        $(this).addClass("active").siblings().removeClass("active");
+        var opModal = $(this).attr('data-subject');
+        var jsonData = {
+        	op: opModal,
+            tab: $(this).attr('data-tab'),
+        };
+        if ('{$refresh}' != '') {
+            jsonData['refresh'] = '{$refresh}';
+        }
+        $.post('{:U("subject/xibei")}', jsonData, function(data){
+            if (data.result != null && data.result.errno != 0) {
+                alert(data.result.message);
+            }
+
+            $('.recommend').find('.'+opModal).find('.item').remove();
+            if (data.ds != null) {
+                for (var i=0; i < data.ds.length; i++) {
+                    var d = data.ds[i];
+                    var itemObj = $('.template_item').clone();
+                    $(itemObj).removeClass('hidden_ctrl');
+                    $(itemObj).removeClass('template_item');
+                    $(itemObj).attr('data-id', d.id);
+                    $(itemObj).find('.line_image').attr('src', d.img1);
+                    $(itemObj).find('.title').html(d.title);
+                    var themeType = d.theme_type_list != null && d.theme_type_list.length > 0 ? d.theme_type_list[0] : {type_key:'unknow', type_desc:'未知类型'};
+                    $(itemObj).find('.tag').addClass(themeType.type_key);
+                    $(itemObj).find('.tag').html(themeType.type_desc);
+                    $(itemObj).find('.subheading').html(d.subheading);
+                    $(itemObj).find('.send_word').html(d.send_word_show);
+                    $(itemObj).find('.date').html(d.start_time+' 至 '+d.end_time);
+                    if (d.line_especial_icon == 0) {
+						$(itemObj).find('.today-hot').remove();
+					}
+                    if (d.batchs != null && d.batchs.length > 0) {
+                        for (var j=0; j < d.batchs.length; j++) {
+                            var b = d.batchs[j];
+                            var sel = j==0 ? 'selected' : '';
+                            if (b.state_data != null) {
+                                $(itemObj).find('.batch').append('<option '+sel+' value="'+b.id+'">'+b.start_date_show+'['+b.state_data.type_desc+']</option>');
+                            } else {
+                                $(itemObj).find('.batch').append('<option '+sel+' value="'+b.id+'">'+b.start_date_show+'</option>');
+                            }
+                        }
+                    }
+                    $(itemObj).find('.assembly').html(d.assembly_point_show_text);
+                    $(itemObj).find('.destination').html(d.destination_show_text);
+                    if (d.check_price == 0) {
+                        $(itemObj).find('.adult_price').parent().html('<span class="adult_price">核算中</span>');
+                    } else {
+                        $(itemObj).find('.adult_price').html(d.start_price_adult);
+                    }
+                    $(itemObj).find('.order_member_count').html(d.order_member_count);
+                    $(itemObj).find('a').attr('href', '{:U("line/info")}/id/'+d.id);
+                    $('.recommend').find('.'+opModal).append(itemObj);
+                }
+
+                if (data.ds.length > 0)  {
+                    $(".bottom").css("margin-top","-870px");
+                } else {
+                    $(".bottom").css("margin-top","-550px");
+                }
+            }
+        });
+    })
+
+    //推荐线路背景图片定位
+    if($(".recommend .content .item").length>0){
+        $(".bottom").css("margin-top","-870px")
+    }else{
+        $(".bottom").css("margin-top","-550px")
+    }
+
+    //kliiife和meikemei图片切换
+    $(".xiaotuanman2 .kllife").on("mouseover",function(){
+        $(".box-one").show();
+        $(".box-two").hide();
+        $(this).find("img").attr("src","__PUBLIC__/home/images/xinjiang/kllife.png")
+        $(".meikemei").find("img").attr("src","__PUBLIC__/home/images/xinjiang/meikemei1.png")
+    })
+    $(".xiaotuanman2 .meikemei").on("mouseover",function(){
+        $(".box-two").show();
+        $(".box-one").hide();
+        $(this).find("img").attr("src","__PUBLIC__/home/images/xinjiang/meikemei.png")
+        $(".kllife").find("img").attr("src","__PUBLIC__/home/images/xinjiang/kllife1.png")
+    })
+    $(".box-B").on("mouseover",function(){
+        var index = $(this).index();
+        var img = $(this).find(".boxT").attr("data-img");
+        if(index<2){
+            $(".lg-right").show();
+            $(".lg-left").hide();
+            $(".lg-right").css({"background":"url("+ img +")","background-repeat":"no-repeat","background-color":"#fff","background-position":"center center","background-size":"auto 100%"});
+        }else{
+            $(".lg-left").show();
+            $(".lg-right").hide();
+            $(".lg-left").css({"background":"url("+ img +")","background-repeat":"no-repeat","background-color":"#fff","background-position":"center center","background-size":"auto 100%"});
+        }
+    })
+    $(".box-B").on("mouseout",function(){
+        $(".lg-right").hide();
+        $(".lg-left").hide();
+    })
+
+    //点击显示筛选
+    $("#show").on("click",function(){
+        $(this).slideUp();
+        $(".xinjiang .select").slideDown(1000);
+    })
+</script>
+</html>
+<include file="Common/right"/>
+<include file="Common/bottom"/>

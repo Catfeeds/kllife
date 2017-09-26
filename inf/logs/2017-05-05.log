@@ -1,0 +1,10 @@
+[2017-05-05 19:09:24][info] ----------------------------------------
+[2017-05-05 19:09:24][info] {"discount":"0.00","payment_type":"1","subject":"\u8d35\u5dde\u5168\u666f\u6e38","trade_no":"2017050521001004720284327577","buyer_email":"zdw67@sohu.com","gmt_create":"2017-05-05 19:08:37","notify_type":"trade_status_sync","quantity":"1","out_trade_no":"LX-17042517561997006-1","seller_id":"2088421286007493","notify_time":"2017-05-05 19:09:24","body":"\u79d8\u5883\u8302\u5170-\u8354\u6ce2-\u9ed4\u4e1c\u5357-\u9547\u8fdc-\u897f\u6c5f\u82d7\u5be8-\u9ec4\u679c\u6811\u6df1\u5ea6\u7eaf\u73a9\u4e5d\u65e5\u6e38","trade_status":"TRADE_SUCCESS","is_total_fee_adjust":"N","total_fee":"8360.00","gmt_payment":"2017-05-05 19:09:24","seller_email":"2287684289@qq.com","price":"8360.00","buyer_id":"2088202555325726","notify_id":"b7b54c044021d657488f8e9a58b2b3alk2","use_coupon":"N","sign_type":"MD5","sign":"c9095fdd63d5f6471819abed2c1dfa3b"}
+[2017-05-05 19:09:25][info] 数据存储反馈成功！
+[2017-05-05 19:09:25][info] success
+[2017-05-05 19:09:25][info] 写入结束!!!
+[2017-05-05 20:50:53][info] ----------------------------------------
+[2017-05-05 20:50:53][info] {"discount":"0.00","payment_type":"1","subject":"\u85cf\u5730\u5168\u666f","trade_no":"2017050521001004470299160988","buyer_email":"13752304123","gmt_create":"2017-05-05 20:50:01","notify_type":"trade_status_sync","quantity":"1","out_trade_no":"LX-1704261042273201-3","seller_id":"2088421286007493","notify_time":"2017-05-05 20:50:52","body":"2017\u5e74\u62c9\u8428-\u6797\u829d-\u5df4\u677e\u63aa-\u5ce1\u8c37\u79d8\u5883-\u7f8a\u6e56-\u666e\u59c6\u96cd\u63aa-\u65e5\u5580\u5219-\u73e0\u5cf0-\u7eb3\u6728\u63aa11\u65e5\u6df1\u5ea6\u6e38","trade_status":"TRADE_SUCCESS","is_total_fee_adjust":"N","total_fee":"2600.00","gmt_payment":"2017-05-05 20:50:52","seller_email":"2287684289@qq.com","price":"2600.00","buyer_id":"2088502816889470","notify_id":"2e7d1bb515372e988abae20eb44b06djmm","use_coupon":"N","sign_type":"MD5","sign":"22cb13e4fb498291b3fbd43bd184a918"}
+[2017-05-05 20:50:55][info] 数据存储反馈成功！
+[2017-05-05 20:50:55][info] success
+[2017-05-05 20:50:55][info] 写入结束!!!

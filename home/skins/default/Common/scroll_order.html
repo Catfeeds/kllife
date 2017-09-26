@@ -1,0 +1,64 @@
+<style>
+	.user-tel{width:1200px;margin:auto;padding:20px 0px;text-align: right;overflow: hidden}
+.user-tel .user-tel-img{
+    float: left;
+    width:100px;
+    padding-right:20px;
+}
+.user-tel .user-tel-img img{width:100%;}
+#demo {
+    background: #FFF;
+    overflow:hidden;
+    width: 1070px;
+    float: left;
+    margin-top:7px;
+    font-size: 14px;
+}
+#indemo {
+    float: left;
+    width: 1500%;
+}
+#indemo a{color:#333;margin:0px 1px;}
+#indemo a span{display:inline-block;color:#2c6eb7;}
+#indemo a .span{color:orange;}
+#demo1 {
+    float: left;
+}
+#demo2 {
+    float: left;
+}
+</style>
+
+<!--报名状态显示-->
+<div class="user-tel">
+	<div class="user-tel-img"><img src="__PUBLIC__/home/images/index_img/sign_up.png" alt=""></div>
+	<div id="demo">
+		<div id="indemo">
+			<div id="demo1">
+				<volist id="order" name="top_signup_orders">
+					<a href="{:U('line/info')}/id/{$order.lineid}" target="_blank">用户 <span class="span">{$order.mob_show}</span> 预订 <span>{$order.lineid_title} |</span></a>
+				</volist>
+			</div>
+			<div id="demo2"></div>
+		</div>
+	</div>
+</div>
+<script>
+	//预订用户滚动显示
+    var speed=20;
+    var tab=document.getElementById("demo");
+    var tab1=document.getElementById("demo1");
+    var tab2=document.getElementById("demo2");
+    tab2.innerHTML=tab1.innerHTML;
+    function Marquee(){
+        if(tab2.offsetWidth-tab.scrollLeft<=0)
+            tab.scrollLeft-=tab1.offsetWidth
+        else{
+            tab.scrollLeft++;
+        }
+    }
+    var MyMar=setInterval(Marquee,speed);
+    tab.onmouseover=function() {clearInterval(MyMar)};
+    tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
+
+</script>

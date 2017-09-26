@@ -1,0 +1,289 @@
+<include file="Common/header" />
+<style>
+	.dataTables_wrapper .table thead > tr .sorting:before, .dataTables_wrapper .table thead > tr .sorting_asc:before, .dataTables_wrapper .table thead > tr .sorting_desc:before { content: ''; }
+
+	.create-sms { position: relative; border: 1px solid #dcdcdc; margin-bottom:20px; padding: 15px; }
+	
+	.create-sms-write .input-group { height: 36px; }
+	
+	.create-sms-write input { width: 100%; height: 36px; }
+	
+	.input-group-addon { padding: 4px 12px; }
+		
+	.btn-save-template { position : absolute; width:100px; right: 50px; bottom: 7px; background-color: #ffba00; color: #fff; }
+		
+	.sms-tbody input { width: 100%; height: 36px; }		
+		
+	.list-page { width: 100%; text-align: right; }
+
+	.list-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+
+	.list-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+
+	.list-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }
+	
+</style>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> 
+						{:C('CONTENT_TITLE')}
+					</h3>
+				</div>
+				<div class="panel-body row">				
+				<!--在此地编辑内容-->
+								
+					
+					<div class="create-sms">
+						<div class="create-sms-write">
+						
+							<div class="row">
+								<div class="col-md-5">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">模板名称</i>
+										</div>
+										<input class="name" type="text" class="form-control" maxlength="64" placeholder="请输入模板名称"/>
+									</div>
+								</div>
+								
+								<div class="col-md-5">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">模板键值</i>
+										</div>
+										<input class="key" type="text" class="form-control" placeholder="请输入模板键值"/>
+									</div>
+								</div>	
+								
+								<div class="col-md-10" style="margin-top: 10px;">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">模板内容</i>
+										</div>
+										<input class="content" type="text" class="form-control" placeholder="请输入模板的内容，验证码部分请以#code代替"/>
+									</div>
+								</div>
+								
+								
+								
+								
+							
+								<button class="btn btn-save-template">保存</button>
+							</div>
+						</div>
+					</div>
+								
+					<!--模板表格-->
+					<div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+						<table class="table table-bordered table-striped dataTable no-footer" id="table_template" role="grid" aria-describedby="example-2_info">
+							<thead>
+								<tr role="row" class="head">
+									<th class="no-sorting sorting_asc" rowspan="1" colspan="1" style="width: 20px;">
+										<!--全选按钮-->
+										<div class="cbr-replaced">
+											<div class="cbr-input">
+												<input type="checkbox" class="cbr cbr-done">
+											</div>
+											<div class="cbr-state">
+												<span></span>
+											</div>
+										</div>
+									</th>
+									<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 130px;">编号</th>
+									<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 300px;">模板名称</th>
+									<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 300px;">模板键值</th>
+									<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 800px;">模板内容</th>				
+									<th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 150px;">操作</th>
+								</tr>
+							</thead>
+						
+							<tbody class="middle-align sms-tbody">
+								<volist id="t" name="templates">
+									<if condition="$key % 2 == 0">
+										<tr role="row" class="odd" data-id="{$t.id}">
+									<else />
+										<tr role="row" class="even" data-id="{$t.id}">
+									</if>
+										<td class="sorting_1">
+											<div class="cbr-replaced">
+												<div class="cbr-input">
+													<input type="checkbox" class="cbr cbr-done">
+												</div>
+												<div class="cbr-state">
+													<span></span>
+												</div>
+											</div>
+										</td>
+										<td>{$t.id}</td>
+										<td>{$t.name}</td>
+										<td>{$t.key}</td>
+										<td>{$t.content}</td>
+										<td>
+											<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit_template">
+												编辑
+											</a>
+											
+											<a href="#" class="btn btn-danger btn-sm btn-icon icon-left btn_delete_template">
+												删除
+											</a>
+										</td>
+									</tr>
+								</volist>
+							</tbody>
+						</table>
+					</div>
+					
+					<div class="list-page"></div>
+				<!--结束内容编辑-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script src="__PUBLIC__/home/js/page.js"></script>	
+<script type="text/javascript">
+
+	
+	//选中哪一条数据
+	$(document).on('click','.cbr-state',function(){
+		$(this).parent('.cbr-replaced').toggleClass('cbr-checked');
+		if ($(this).closest('tr').hasClass('head')) {
+			$(this).closest('table').find('tbody').find('.cbr-state').parent('.cbr-replaced').toggleClass('cbr-checked');
+		}
+	});
+		
+	// 编辑优惠券
+	function editTemplate() {
+		var trObj = $(this).closest('tr');
+		var rootObj = $('.create-sms-write');
+		$(rootObj).attr('data-id', $(trObj).find('td:eq(1)').html());
+		$(rootObj).find('.name').val($(trObj).find('td:eq(2)').html());
+		$(rootObj).find('.key').val($(trObj).find('td:eq(3)').html());
+		$(rootObj).find('.content').val($(trObj).find('td:eq(4)').html());
+		$(rootObj).find('.key').prop('readonly', true);	
+	}
+	$('.btn_edit_template').click(editTemplate);
+	
+	// 删除模板
+	function deleteTemplate() {
+		var trObj = $(this).closest('tr');
+		var jsonData = {
+			op_type: 'delete', 
+			id: $(trObj).attr('data-id'),
+		};
+		
+		$.post('{:U("settle/smstemplate")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				$(trObj).remove();
+			}
+			alert(data.result.message);
+		});
+	}
+	$('.btn_delete_template').click(deleteTemplate);
+	
+	// 清空编辑模板内容
+	function clearEditTemplate() {
+		var rootObj = $('.create-sms-write');
+		$(rootObj).attr('data-id', '');
+		$(rootObj).find('.name').val('');
+		$(rootObj).find('.key').val('');
+		$(rootObj).find('.content').val('');
+		$(rootObj).find('.key').prop('readonly', false);
+	}
+	
+	// 保存模板信息
+	$('.btn-save-template').click(function(){
+		var rootObj = $('.create-sms-write');
+		var jsonData = {
+			op_type: 'save',
+			id: $(rootObj).attr('data-id'),
+			name: $(rootObj).find('.name').val(),
+			key: $(rootObj).find('.key').val(),
+			content: $(rootObj).find('.content').val(),
+		}	
+		
+		$.post('{:U("settle/smstemplate")}', jsonData, function(data){
+			console.log(JSON.stringify(data));
+			if (data.result.errno == 0) {
+				var tabObj = $('#table_template');
+				if (data.op != null && data.op == 'create') {
+					var page = $('.page-list').attr('data-page-index');
+					// 刷新模板内容
+					loadMoreData(page);
+				} else {
+					// 更新内容
+					if (data.ds != null) {
+						var trObj = $(tabObj).find('tr[data-id="'+data.ds.id+'"]');
+						$(trObj).find('td:eq(1)').html(data.ds.id);
+						$(trObj).find('td:eq(2)').html(data.ds.name);
+						$(trObj).find('td:eq(3)').html(data.ds.key);
+						$(trObj).find('td:eq(4)').html(data.ds.content);
+					}	
+				}			
+			}
+			// 清空短信模板编辑信息
+			clearEditTemplate();
+			alert(data.result.message);
+		});
+	});
+	
+	
+	// 分页初始化
+	constructionPage($('.list-page'), 1, '{$page_count}', loadMoreData, true);
+	
+	// 加载更多数据
+	function loadMoreData(p) {		
+	
+		var jsonData = {
+			op_type: 'list',
+			page: parseInt(p)-1,
+		}
+		
+		$.post('{:U("settle/smstemplate")}', jsonData, function(data){
+			var tabObj = $('#table_template');			
+			if (data.result.errno == 0) {
+				$(tabObj).find('tbody').empty();
+				if (data.ds != null && data.ds != 'undefined') {				
+					var vhtml = '';
+					for (var i = 0; i < data.ds.length; i ++){
+						var d = data.ds[i];
+						var trClass = i % 2 == 0 ? 'odd' : 'even';
+						vhtml = '<tr role="row" class="'+trClass+'" data-id="'+d.id+'">'+
+								'	<td class="sorting_1">'+
+								'		<div class="cbr-replaced">'+
+								'			<div class="cbr-input">'+
+								'				<input type="checkbox" class="cbr cbr-done">'+
+								'			</div>'+
+								'			<div class="cbr-state"><span></span></div>'+
+								'		</div>'+
+								'	</td>'+
+								'	<td>'+d.id+'</td>'+
+								'	<td>'+d.name+'</td>'+
+								'	<td>'+d.key+'</td>'+
+								'	<td>'+d.content+'</td>'+
+								'	<td>'+
+								'		<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit_template">编辑</a>'+
+								'		<a href="#" class="btn btn-danger btn-sm btn-icon icon-left btn_delete_template">删除</a>'+
+								'	</td>'+
+								'</tr>';
+						$(tabObj).find('tbody').append(vhtml);
+					}
+					$('.btn_edit_template').click(editTemplate);
+					$('.btn_delete_template').click(deleteTemplate);
+				} else {	// 没有数据
+					alert('没有查到任何数据');
+				}
+				// 构建分页
+				constructionPage($('.list-page'), p, data.page_count, loadMoreData, false);
+			} else {
+				alert(data.result.message);	
+			}			
+		})
+		
+	}
+
+</script>
+<include file="Common/footer" />

@@ -1,0 +1,45 @@
+body { width: #fff; }
+#content { position: relative; width: 100%; height: 800px; background-image: url(../images/login_img/bg.jpg); background-size: 100% 100%; font-size: 14px; }
+.footer-bottom { background-color: #fff; color: #999; }
+.footer-bottom-content { color: #999; }
+.footer-bottom-content p { padding-top: 48px; padding-bottom: 13px; }
+.footer-bottom-content p a { color: #999; }
+.footer-bottom-content span { margin-bottom: 13px; }
+/*登录*/
+.login-content { position: absolute; left: 50%; top: 63px; width: 478px; margin-left: -239px; padding-top: 36px; padding-bottom: 46px; background-color: #fff; border-radius: 5px; }
+.login { width: 280px; margin: 0 auto; }
+.login > img { display: block; margin: 0 auto; }
+.login > h2 { margin-top: 40px; margin-bottom: 50px; font-size: 30px; font-weight: normal; color: #666; text-align: center; }
+.login > input { width: 258px; height: 38px; line-height: normal; margin-bottom: 18px; padding-left: 20px; border: 1px solid #dcdcdc; border-radius: 5px; }
+.login > a { display: block; width: 280px; height: 40px; line-height: 40px; margin-bottom: 12px; background-color: #ff7200; color: #fff; text-align: center; }
+.login > p { margin-top: 13px; color: #666; text-align: center; }
+.login > p a { color: #ff7200; }
+.automatic-forget { position: relative; width: 280px; margin-bottom: 30px; }
+.automatic-forget p { color: #666; }
+.automatic-forget i { display: inline-block; width: 13px; height: 13px; margin-right: 6px; background-image: url(../images/login_img/login.png); background-position: -26px 0; vertical-align: bottom; cursor: pointer; }
+.automatic-forget .checked { background-position: 0 0; }
+.automatic-forget a { position: absolute; right: 0; top: 0; color: #ff7200; }
+.else-login { margin-top: 12px; text-align: center; }
+.qq-login { margin-right: 17px; }
+/*注册*/
+.register-content { display: none; position: absolute; left: 50%; top: 63px; width: 478px; margin-left: -239px; padding-top: 36px; padding-bottom: 46px; background-color: #fff; border-radius: 5px; }
+.register { width: 420px; margin: 0 auto; }
+.register > img { display: block; margin: 0 auto; }
+.register > h2 { margin-top: 40px; margin-bottom: 50px; font-size: 30px; font-weight: normal; color: #666; text-align: center; }
+.register > p { margin-bottom: 16px; }
+.register > p strong { display: inline-block; width: 60px; margin-right: 10px; font-weight: normal; text-align: right; }
+.register > p input { width: 268px; height: 38px; line-height: normal; padding-left: 10px; border: 1px solid #dcdcdc; border-radius: 5px; }
+.register .verification-code input { width: 138px; }
+.register .verification-code img { vertical-align: bottom; }
+.register .verification-code a { margin-left: 10px; color: #089ef5; }
+.register .get-code { position: relative; }
+.register .get-code input { width: 170px; }
+.register .get-code a { position: absolute; right: 70px; top: 0; display: inline-block; width: 108px; height: 40px; line-height: 40px; color: #fff; background-color: #ff7200; text-align: center; }
+.register-now { width: 280px; margin: 0 auto; }
+.register-now p { font-size: 12px; color: #666; }
+.register-now p a { color: #089ef5; }
+.register-now p i { display: inline-block; width: 13px; height: 13px; margin-right: 6px; background-image: url(../images/login_img/login.png); background-position: -26px 0; vertical-align: bottom; cursor: pointer; }
+.register-now p .checked { background-position: 0 0; }
+.register-now > a { display: block; height: 40px; line-height: 40px; margin: 20px 0; color: #fff; background-color: #ff7200; border-radius: 5px; text-align: center; }
+.register-now h6 { font-weight: normal; color: #666; }
+.register-now h6 a { color: #ff7200; }

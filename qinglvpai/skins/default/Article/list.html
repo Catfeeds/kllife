@@ -1,0 +1,130 @@
+<include file="Common/top" />
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/bootstrap.min.css" />
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/animate.css" />
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/fresco/fresco.css" />
+<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/article_list.css"/>
+<!-- 弹出图片 -->
+<div class="popup">
+	<div class="header">
+		搞笑
+	</div>
+	<div class="content">
+		<a href="javascript:;" style="position: relative;display: inline-block;overflow: hidden;">
+			<img class="img" src="__PUBLIC__/qinglvpai/images/index/banner.png" />
+			<div class="word" style="position: absolute;padding-left:30px;font-size:16px;bottom:0px;color:#fff;width:100%;height:60px;line-height:60px;background: rgba(0,0,0,0.7);">
+				这里是描述文字
+			</div>
+			<!--分享-->
+			<a href="javascript:;" style="position: absolute;display: inline;top:0px;right:-50px;height:100px;height:100px;"><img src="__PUBLIC__/qinglvpai/images/article/share.png" alt=""></a>
+			<!--关闭-->
+			<a class="closed" href="javascript:;" style="position: absolute;display: inline;top:0px;right:-150px;height:100px;height:100px;text-decoration: none;"><span class="glyphicon glyphicon-remove" style="display:block;color:#fff;font-size: 30px;"></span></a>
+		</a>
+		<div class="div_perview_button"><span class="glyphicon glyphicon-menu-left"></span></div>
+		<div class="div_next_button"><span class="glyphicon glyphicon-menu-right"></span></div>
+	</div>
+</div>
+
+<!--列表-->
+<div class="list-group">
+	<div class="line">
+		<h3>写真作品</h3>
+	</div>
+</div>
+
+<div id='page'>
+	<div class='demonstrations'>
+		<volist id="art" name="articles">
+			<a href='{:U("article/info")}/id/{$art.id}' target="_blank" class='fresco' data-fresco-group='example' data-id="{$art.id}">
+				<img style="height:289px;" class="img-responsive" src='{$art.face_image}' alt=''/>
+				<div class="animated"><!-此div只用于遮罩层-></div>
+				<span class="lg animated">{$art.title}</span>
+				<span class="sm animated">作者：{$art.account.show_name}</span>
+			</a>
+		</volist>
+	</div>
+</div>
+
+<div class="block popup-layer-title"></div>
+<div class="block popup-layer-content"></div>
+<a href="javascript:;">
+	<div class="block popup-layer-image">
+		<img style="position: fixed;top:90px;right:225px;" src='' alt=''/>
+	</div>
+</a>
+<!--查看更多-->
+<div class="add more" data-more="1" data-page-index="0">查看更多</div>
+<!--[if lt IE 9]-->
+<!--<script type='text/javascript' src='__PUBLIC__/qinglvpai/js/css3-mediaqueries.js'></script>-->
+<!--&lt;!&ndash; Fresco &ndash;&gt;-->
+<!--<script type="text/javascript" src="__PUBLIC__/qinglvpai/js/fresco.js"></script>-->
+<script>
+
+    //头部点击选中状态
+    $(".header ul a").on("click",function(){
+        $(this).addClass("active").siblings("a").removeClass("active");
+    })
+
+    //旅拍作品鼠标滑过显示与隐藏旅拍作品遮罩层
+    $(".fresco").on("mouseenter",function() {
+        $(this).find(".animated").show();
+        $(this).find("div").addClass("slideInLeft")
+        $(this).find(".lg").addClass("fadeInDown")
+        $(this).find(".sm").addClass("fadeInUp")
+    })
+
+    $(".fresco").on(" mouseleave",function() {
+        $(this).find(".animated").hide();
+    })
+
+    // 刷新列表
+    function findMore() {
+    	if ($('.more').attr('data-more') != '1') {
+			$('.more').attr('data-more','0');
+			$('.more').html('没有更多的数据了');
+    		return false;
+    	}
+		var pageIndex = parseInt($('.more').attr('data-page-index'))+1;
+		var jsonData = {
+			op_type: 'list',
+			page: pageIndex,
+		};
+		
+		$.post('{:U("article/list")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				if (data.ds != null && data.ds != 'undefined') {
+					for (var i=0; i < data.ds.length; i++) {
+						var d = data.ds[i];
+						var linePrice = '0.00';
+						if (d.min_batch != null) {
+							linePrice = d.min_batch.price_state != null ? '核算中' : d.min_batch.price_adult;
+						} else {
+							linePrice = d.free_line == 0 ? '0.00' : '核算中';		   	
+						}
+						
+						
+						var vhtml = '<a href="'+'{:U("article/info")}/id/'+d.id+'" target="_blank" class="fresco" data-fresco-group="example" data-id="'+d.id+'">'+
+									'	<img style="height:289px;" class="img-responsive" src="'+d.face_image+'" alt=""/>'+
+									'	<div class="animated"><!-此div只用于遮罩层-></div>'+
+									'	<span class="lg animated">'+d.title+'</span>'+
+									'	<span class="sm animated">作者：'+d.account.show_name+'</span>'+
+									'</a>';
+						$('.demonstrations').append(vhtml);
+						$('.more').attr('data-page-index', pageIndex);
+					}
+					if (data.ds.length < data.page_size || pageIndex >= data.page_count) {
+						$('.more').attr('data-more','0');
+						$('.more').html('没有更多的数据了');
+					}
+				} else {
+					$('.more').attr('data-more','0');
+					$('.more').html('没有更多的数据了');
+				}
+			} else {
+				$('.more').html(data.result.message);
+			}
+		});
+    }
+    
+    $('.more').click(findMore);
+</script>
+<include file="Common/bottom" />

@@ -1,0 +1,89 @@
+<include file="Common/top" />
+	<!--私有样式-->
+	<link rel="stylesheet" href="__PUBLIC__/qlpphone/common/css/weui.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/qlpphone/css/article_list.css">
+
+	<div class="page" style="position: absolute;top:60px;padding-bottom:50px;">
+		<div class="content">
+			<div class="banner"><img class="img-responsive" src="__PUBLIC__/qlpphone/images/article_list/banner.jpg" alt=""></div>
+			<div class="group">
+				
+				<volist id="leader" name="leaders">
+					<div class="item">
+						<img class="img-responsive" src="{$leader.face_image}" />
+						<p>{$leader.show_name}</p>
+						<a href="{:U('leader/info')}/id/{$leader.id}"></a>
+					</div>
+				</volist>				
+				<p class="scroll-tip"></p>
+			</div>
+		</div>
+		<div class="weui-loadmore" data-more="1">
+			<i class="weui-loading"></i>
+			<span class="weui-loadmore__tips">正在加载</span>
+		</div>
+	</div>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/city-picker.min.js"></script>
+<script type="text/javascript">
+    $(document.body).infinite(100);
+
+    var loading = false;  //状态标记
+    $(document.body).infinite().on("infinite", function() {
+        if(loading) return;
+        loading = true;
+        setTimeout(function() {
+            findMore();
+            loading = false;
+        }, 1000);   //模拟延迟
+    });
+
+	// 数据加载结束
+	function loadEnd() {
+		$('.weui-loadmore').attr('data-more', '0');
+		$(".scroll-tip").html("更多摄影师信息，逐步开放中");
+        $(document.body).destroyInfinite();
+        $(".weui-loadmore").hide();
+	}
+
+	// 查找更多信息
+	var pageIndex = 0;
+	function findMore() {		
+		if ($('.weui-loadmore').attr('data-more') == '0'){
+			return false;
+		}
+
+		var jsonData = {
+			op_type: 'list',
+			page: pageIndex + 1,
+		}
+
+		$.post('{:U("leader/list")}', jsonData, function(data){
+			if (data.result.errno == 0){
+				if (data.ds != null){
+					for(var i=0; i<data.ds.length; i++){
+						var d = data.ds[i];
+
+						var vhtml = '<div class="item">'+
+							        '	<img class="img-responsive" src="'+ d.face_image +'">'+
+							        '	<p>'+ d.show_name +'</p>'+
+							        '	<a href="{:U("leader/info")}/id/'+ d.id +'" target="_blank"></a>'+
+							        '</div>';
+						$(".scroll-tip").before(vhtml);
+					}
+					// 下拉次数累加
+					pageIndex += 1;
+				} else {
+           			loadEnd();
+				}
+			} else {
+           		$(".scroll-tip").html(data.result.message);
+			}
+		});
+	}
+	
+</script>
+
+<include file="Common/bottom" />

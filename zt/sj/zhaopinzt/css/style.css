@@ -1,0 +1,116 @@
+html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,p,blockquote,fieldset,input,abbr,article,aside,details,figure,footer,header,hgroup,mark,meter,nav,output,progress,section,summary,time { margin: 0; padding: 0; }
+h1,h2,h3,h4,h5,h6,pre,address,caption,cite,code,em,strong,th,figcaption { margin: 0; padding: 0; }
+html { font-family: 'SimHei'; }
+body { min-width: 320px; background-color: #fff; }
+a { text-decoration: none; }
+li { list-style: none; }
+u { text-decoration: none; }
+canvas { width: 100%; display: block; margin: 0 auto; }
+/* 禁用iPhone中Safari的字号自动调整 */
+html { -webkit-text-size-adjust: none; }
+/* 设置图片视频等自适应调整 */
+img { max-width: 100%; height: auto; width: auto9; /* ie8 */ }
+a, img {
+    -webkit-touch-callout: none; /* 禁止长按链接与图片弹出菜单 */
+}
+
+html { font-size: 10px; } 
+body { font-family: 'SimHei'; } 
+
+.section1 { background: url(../images/bg01.png)center center no-repeat; background-size: cover; }
+.section2 { background: url(../images/bg02.png)center center no-repeat; background-size: cover; }
+.section3 { background: url(../images/bg03.png)center center no-repeat; background-size: cover; }
+.section4 { background: url(../images/bg04.png)center center no-repeat; background-size: cover; }
+.section5 { background: url(../images/bg05.png)center center no-repeat; background-size: cover; }
+.section6 { background: #fed600; }
+.section7 { background: url(../images/bg07.png)center center no-repeat; background-size: 300% 100%; }
+
+/*第一页*/
+.big { display: block; margin: 0 auto; padding-top: 15%; width: 80%; }
+.greencar, .graycar , .redcar { position: absolute; bottom: 10%; right: 0;}
+.cloud01 , .cloud02 , .cloud03 , .cloud04 , .cloud05 , .cloud06 { position: absolute; }
+.cloud01 { top: 30%; left: 15%; }
+.cloud02 { top: 25%; left: 30%; }
+.cloud03 { top: 15%; left: 20%; }
+.cloud04 { top: 15%; right: 30%; }
+.cloud05 { top: 30%; right: 20%; }
+.cloud06 { top: 25%; right: 30%; }
+
+
+/*第二页*/
+.wenzi ul li { font-size: 2rem; color: #fff; line-height: 5rem; }
+.wenzi02 { position: absolute; width: 80%; left: -30%; top: 5%; opacity: 0; z-index: 9;}
+.desk { position: absolute; width: 70%; bottom: -20%; right: 20%; opacity: 0; }
+#word1 , #word2 , #word5 , #word6 { font-size: 5rem; }
+#word5 { margin-top: 3rem; }
+#word3 , #word4 , #word7 , #word8 { line-height: 3rem; }
+
+
+/*第三页*/
+.right_03 { opacity: 0; position: absolute; width: 90%; left: 5%; top: 0%; }
+.left_03 { position: absolute; left: 1%; bottom: -25%; opacity: 0;  }
+
+/*第四页*/
+.left_04 { display: none; position: absolute; left: 5%; top: 15%; }
+.right_04 { position: absolute; left: 5%; top: 35%; display: none; }
+
+
+/*第五页*/
+.left_05 { position: absolute; left: 20%; bottom: 0%; opacity: 0; }
+.right_05 { position: absolute; right: 0%; top: 5%; opacity: 0;}
+
+
+/*第六页*/
+.left_06 { position: absolute; left: -80%; top: 10%; opacity: 0; }
+.right_06 img { width: 50%; position:absolute; right: 25%; top: 26rem; opacity: 0; }
+
+
+/*第七页*/
+.erweima { position: absolute; bottom: 20%; left: 7%; display: none; }
+.section7 ul { display: none; position: absolute; bottom: 20%; right: 7%; }
+.section7 ul li { color: #fff; font-size: 1.5rem; line-height: 2.5rem; }
+
+@media only screen and (min-width: 360px){
+    html {
+        font-size: 10px !important;
+    }
+}
+@media only screen and (max-width: 401px) and (min-width: 360px){
+    html {
+        font-size: 11px !important;
+    }
+}
+@media only screen and (min-width: 401px){
+    html {
+        font-size: 11px !important;
+    }
+}
+@media only screen and (min-width: 428px){
+    html {
+        font-size: 12px !important;
+    }
+}
+@media only screen and (min-width: 481px){
+    html {
+        font-size: 12px !important; 
+    }
+}
+@media only screen and (min-width: 569px){
+    html {
+        font-size: 14px !important; 
+    }
+}
+@media only screen and (min-width: 641px){
+    html {
+        font-size: 16px !important; 
+    }
+@media only screen and (min-width: 717px){
+    html {
+        font-size: 18px !important; 
+    }
+@media only screen and (min-width: 800px){
+    html {
+        font-size: 20px !important; 
+    }
+
+}

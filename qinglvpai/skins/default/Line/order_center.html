@@ -1,0 +1,602 @@
+<include file="Common/top-two" />
+	<!-- 私有样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/home/css/order_center.css">
+	<style type="text/css">
+		.order-center-right {
+			margin: auto;
+			float: none;
+		}
+		#content{margin-top:50px;}
+		.order-center-content{width:1000px;}
+		.order-center-list a{width:159px;}
+		.all-order{width:920px;}
+		.order-center-right{margin-bottom:30px;height:auto;}
+		.order-center-list a.active,.order-status span,.order-center-list a:hover,.all-order-page a, .obligation-order-page a, .part-money-order-page a, .all-money-order-page a, .evaluate-order-page a, .done-order-page a{color:#ff1c77;}
+		.all-order-page span.current, .obligation-order-page span.current, .part-money-order-page span.current, .all-money-order-page span.current, .evaluate-order-page span.current, .done-order-page span.current{background: #ff1c77;border-color:#ff1c77;}
+	</style>
+	<div id="content">
+		<div class="order-center-content">
+			<div class="order-center-right">
+				<div class="order-center-list">
+					<if condition="$state eq 'all'">
+						<a class="active" href="#all-order">全部订单</a>
+					<else />
+						<a href="#all-order">全部订单</a>
+					</if>
+					<if condition="$state eq 'review'">
+						<a class="active" href="#obligation-order">待付款订单</a>
+					<else />
+						<a href="#obligation-order">待付款订单</a>
+					</if>
+					<if condition="$state eq 'pay_part'">
+						<a class="active" href="#part-money-order">已付部分款订单<span><img src="__PUBLIC__/qinglvpai/images/article/ready_pay.png" /></span></a>
+					<else />
+						<a href="#part-money-order">已付部分款订单<span><img src="__PUBLIC__/qinglvpai/images/article/ready_pay.png" /></span></a>
+					</if>
+					<if condition="$state eq 'pay_complate'">
+						<a class="active" href="#all-money-order">已付全款订单</a>
+					<else />
+						<a href="#all-money-order">已付全款订单</a>
+					</if>
+					<if condition="$state eq 'pay_comment'">
+						<a class="active" href="#evaluate-order">待评价订单</a>
+					<else />
+						<a href="#evaluate-order">待评价订单</a>
+					</if>
+					<if condition="$state eq 'complated'">
+						<a class="active" href="#done-order">已完成订单</a>
+					<else />
+						<a href="#done-order">已完成订单</a>
+					</if>
+				</div>
+				<div id="all-order" class="all-order">
+					<table>
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>金额</th>
+								<th>订单状态</th>
+								<th>合同状态</th>
+								<th>操作</th>
+								<th>其他操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist id='order' name="all_orders" >
+								<tr>
+									<td colspan="3">{$order.hdid_show_text}</td>
+									<td colspan="3">订单号：{$order.order_sn}</td>
+								</tr>
+								<tr>
+									<td class="order-name">
+										<a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">
+											{$order.lineid_title}<br>{$order.lineid_subheading}
+										</a>
+									</td>
+									<td>￥{$order.need_pay_money}元</td>
+									<td class="order-status">
+										<span>{$order.zhuangtai_data.type_desc}</span>
+										<p><a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">订单详情</a></p>
+									</td>
+									<td class="contract-status">
+										<if condition="empty($order[agreenment])">
+											<span>未生效</span>
+										<else />
+											<span>已生效</span>
+											<p><a href="{__GLOBAL_HOST_URL__}fpdf/domo/pdf.php?did={$order.id}&new_line={$order.new_line}" target="_blank">下载</a></p>
+										</if>
+									</td>
+									<td class="order-operate">
+										<if condition="$order['operate'] eq 'pay'" >
+											<a class="online-pay-small" href="{:U('line/order')}/id/{$order.id}/type/payment" target="_blank">在线支付</a>
+											<p><a class="online-pay-other" href="javascript:;">其他支付方式</a></p>
+										<elseif condition="$order['operate'] eq 'wait_review'" />
+											<span>等待审核</span>
+										<elseif condition="$order['operate'] eq 'team_end'" />											
+											<span>团期已结束</span>
+										<else />
+											<span>按时参团</span>
+										</if>
+									</td>
+									<td class="other-operate">
+										<if condition="$order['new_line'] eq '1'">
+											<p><a href="{:U('line/info')}/id/{$order.lineid}/schedule/1" target="_blank">查看行程</a></p>
+										</if>
+										<p><a href="javascript:;">退出活动</a></p>
+									</td>
+								</tr>								
+							</volist>
+						</tbody>
+					</table>
+					<!-- 翻页 -->
+					<div class="all-order-page" data-page-count="{$page_count}" data-page-index="1"></div>
+				</div>
+				<!-- end 全部订单-->
+				<!-- 待付款订单 -->
+				<div id="obligation-order" class="obligation-order">
+					<table>
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>金额</th>
+								<th>订单状态</th>
+								<th>合同状态</th>
+								<th>操作</th>
+								<th>其他操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist id='order' name="review_orders" >
+								<tr>
+									<td colspan="3">{$order.hdid_show_text}</td>
+									<td colspan="3">订单号：{$order.order_sn}</td>
+								</tr>
+								<tr>
+									<td class="order-name">
+										<a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">
+											{$order.lineid_title}<br>{$order.lineid_subheading}
+										</a>
+									</td>
+									<td>￥{$order.need_pay_money}元</td>
+									<td class="order-status">
+										<span>{$order.zhuangtai_data.type_desc}</span>
+										<p><a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">订单详情</a></p>
+									</td>
+									<td class="contract-status">
+										<if condition="empty($order[agreenment])">
+											<span>未生效</span>
+										<else />
+											<span>已生效</span>
+											<p><a href="{__GLOBAL_HOST_URL__}fpdf/domo/pdf.php?did={$order.id}&new_line={$order.new_line}" target="_blank">下载</a></p>
+										</if>
+									</td>
+									<td class="order-operate">
+										<if condition="$order['operate'] eq 'pay'" >
+											<a class="online-pay-small" href="{:U('line/order')}/id/{$order.id}/type/payment" target="_blank">在线支付</a>
+											<p><a class="online-pay-other" href="javascript:;">其他支付方式</a></p>
+										<elseif condition="$order['operate'] eq 'wait_review'" />
+											<span>等待审核</span>
+										<elseif condition="$order['operate'] eq 'team_end'" />											
+											<span>团期已结束</span>
+										<else />
+											<span>按时参团</span>
+										</if>
+									</td>
+									<td class="other-operate">
+										<p><a href="{:U('line/info')}/id/{$order.lineid}/schedule/1" target="_blank">查看行程</a></p>
+										<p><a href="javascript:;">退出活动</a></p>
+									</td>
+								</tr>								
+							</volist>
+						</tbody>
+					</table>
+					<!-- 翻页 -->
+					<div class="obligation-order-page" data-page-count="{$page_count}" data-page-index="1"></div>
+				</div>
+				<!-- end 待付款订单 -->
+				<!-- 已付部分款订单 -->
+				<div id="part-money-order" class="part-money-order">
+					<table>
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>金额</th>
+								<th>订单状态</th>
+								<th>合同状态</th>
+								<th>操作</th>
+								<th>其他操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist id='order' name="pay_part_orders" >
+								<tr>
+									<td colspan="3">{$order.hdid_show_text}</td>
+									<td colspan="3">订单号：{$order.order_sn}</td>
+								</tr>
+								<tr>
+									<td class="order-name">
+										<a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">
+											{$order.lineid_title}<br>{$order.lineid_subheading}
+										</a>
+									</td>
+									<td>￥{$order.need_pay_money}元</td>
+									<td class="order-status">
+										<span>{$order.zhuangtai_data.type_desc}</span>
+										<p><a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">订单详情</a></p>
+									</td>
+									<td class="contract-status">
+										<if condition="empty($order[agreenment])">
+											<span>未生效</span>
+										<else />
+											<span>已生效</span>
+											<p><a href="{__GLOBAL_HOST_URL__}fpdf/domo/pdf.php?did={$order.id}&new_line={$order.new_line}" target="_blank">下载</a></p>
+										</if>
+									</td>
+									<td class="order-operate">
+										<if condition="$order['operate'] eq 'pay'" >
+											<a class="online-pay-small" href="{:U('line/order')}/id/{$order.id}/type/payment" target="_blank">在线支付</a>
+											<p><a class="online-pay-other" href="javascript:;">其他支付方式</a></p>
+										<elseif condition="$order['operate'] eq 'wait_review'" />
+											<span>等待审核</span>
+										<elseif condition="$order['operate'] eq 'team_end'" />											
+											<span>团期已结束</span>
+										<else />
+											<span>按时参团</span>
+										</if>
+									</td>
+									<td class="other-operate">
+										<p><a href="{:U('line/info')}/id/{$order.lineid}/schedule/1" target="_blank">查看行程</a></p>
+										<p><a href="javascript:;">退出活动</a></p>
+									</td>
+								</tr>								
+							</volist>
+						</tbody>
+					</table>
+					<!-- 翻页 -->
+					<div class="part-money-order-page" data-page-count="{$page_count}" data-page-index="1"></div>
+				</div>
+				<!-- end 已付部分款订单 -->
+				
+				
+				<!-- 已付全款订单 -->
+				<div id="all-money-order" class="all-money-order">
+					<table>
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>金额</th>
+								<th>订单状态</th>
+								<th>合同状态</th>
+								<th>操作</th>
+								<th>其他操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist id='order' name="pay_complate_orders" >
+								<tr>
+									<td colspan="3">{$order.hdid_show_text}</td>
+									<td colspan="3">订单号：{$order.order_sn}</td>
+								</tr>
+								<tr>
+									<td class="order-name">
+										<a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">
+											{$order.lineid_title}<br>{$order.lineid_subheading}
+										</a>
+									</td>
+									<td>￥{$order.need_pay_money}元</td>
+									<td class="order-status">
+										<span>{$order.zhuangtai_data.type_desc}</span>
+										<p><a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">订单详情</a></p>
+									</td>
+									<td class="contract-status">
+										<if condition="empty($order[agreenment])">
+											<span>未生效</span>
+										<else />
+											<span>已生效</span>
+											<p><a href="{__GLOBAL_HOST_URL__}fpdf/domo/pdf.php?did={$order.id}&new_line={$order.new_line}" target="_blank">下载</a></p>
+										</if>
+									</td>
+									<td class="order-operate">
+										<if condition="$order['operate'] eq 'pay'" >
+											<a class="online-pay-small" href="{:U('line/order')}/id/{$order.id}/type/payment" target="_blank">在线支付</a>
+											<p><a class="online-pay-other" href="javascript:;">其他支付方式</a></p>
+										<elseif condition="$order['operate'] eq 'wait_review'" />
+											<span>等待审核</span>
+										<elseif condition="$order['operate'] eq 'team_end'" />											
+											<span>团期已结束</span>
+										<else />
+											<span>按时参团</span>
+										</if>
+									</td>
+									<td class="other-operate">
+										<p><a href="{:U('line/info')}/id/{$order.lineid}/schedule/1" target="_blank">查看行程</a></p>
+										<p><a href="javascript:;">退出活动</a></p>
+									</td>
+								</tr>								
+							</volist>
+						</tbody>
+					</table>
+					<!-- 翻页 -->
+					<div class="all-money-order-page" data-page-count="{$page_count}" data-page-index="1"></div>
+				</div>
+				<!-- end 已付全款订单 -->
+				
+				
+				
+				<!-- 待评价订单 -->
+				<div id="evaluate-order" class="evaluate-order">
+					<table>
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>金额</th>
+								<th>订单状态</th>
+								<th>合同状态</th>
+								<th>操作</th>
+								<th>其他操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist id='order' name="comment_orders" >
+								<tr>
+									<td colspan="3">{$order.hdid_show_text}</td>
+									<td colspan="3">订单号：{$order.order_sn}</td>
+								</tr>
+								<tr>
+									<td class="order-name">
+										<a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">
+											{$order.lineid_title}<br>{$order.lineid_subheading}
+										</a>
+									</td>
+									<td>￥{$order.need_pay_money}元</td>
+									<td class="order-status">
+										<span>{$order.zhuangtai_data.type_desc}</span>
+										<p><a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">订单详情</a></p>
+									</td>
+									<td class="contract-status">
+										<if condition="empty($order[agreenment])">
+											<span>未生效</span>
+										<else />
+											<span>已生效</span>
+											<p><a href="{__GLOBAL_HOST_URL__}fpdf/domo/pdf.php?did={$order.id}&new_line={$order.new_line}" target="_blank">下载</a></p>
+										</if>
+									</td>
+									<td class="order-operate">
+										<if condition="$order['operate'] eq 'pay'" >
+											<a class="online-pay-small" href="{:U('line/order')}/id/{$order.id}/type/payment" target="_blank">在线支付</a>
+											<p><a class="online-pay-other" href="javascript:;">其他支付方式</a></p>
+										<elseif condition="$order['operate'] eq 'wait_review'" />
+											<span>等待审核</span>
+										<elseif condition="$order['operate'] eq 'team_end'" />											
+											<span>团期已结束</span>
+										<else />
+											<span>按时参团</span>
+										</if>
+									</td>
+									<td class="other-operate">
+										<p><a href="{:U('line/info')}/id/{$order.lineid}/schedule/1" target="_blank">查看行程</a></p>
+										<p><a href="javascript:;">退出活动</a></p>
+									</td>
+								</tr>								
+							</volist>
+						</tbody>
+					</table>
+					<!-- 翻页 -->
+					<div class="evaluate-order-page" data-page-count="{$page_count}" data-page-index="1"></div>
+				</div>
+				<!-- end 待评价订单-->
+				<!-- 已完成订单 -->
+				<div id="done-order" class="done-order">
+					<table>
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>金额</th>
+								<th>订单状态</th>
+								<th>合同状态</th>
+								<th>操作</th>
+								<th>其他操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist id='order' name="complated_orders" >
+								<tr>
+									<td colspan="3">{$order.hdid_show_text}</td>
+									<td colspan="3">订单号：{$order.order_sn}</td>
+								</tr>
+								<tr>
+									<td class="order-name">
+										<a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">
+											{$order.lineid_title}<br>{$order.lineid_subheading}
+										</a>
+									</td>
+									<td>￥{$order.need_pay_money}元</td>
+									<td class="order-status">
+										<span>{$order.zhuangtai_data.type_desc}</span>
+										<p><a href="{:U('line/order')}/id/{$order.id}/type/info" target="_blank">订单详情</a></p>
+									</td>
+									<td class="contract-status">
+										<if condition="empty($order[agreenment])">
+											<span>未生效</span>
+										<else />
+											<span>已生效</span>
+											<p><a href="{__GLOBAL_HOST_URL__}fpdf/domo/pdf.php?did={$order.id}&new_line={$order.new_line}" target="_blank">下载</a></p>
+										</if>
+									</td>
+									<td class="order-operate">
+										<if condition="$order['operate'] eq 'pay'" >
+											<a class="online-pay-small" href="{:U('line/order')}/id/{$order.id}/type/payment" target="_blank">在线支付</a>
+											<p><a class="online-pay-other" href="javascript:;">其他支付方式</a></p>
+										<elseif condition="$order['operate'] eq 'wait_review'" />
+											<span>等待审核</span>
+										<elseif condition="$order['operate'] eq 'team_end'" />											
+											<span>团期已结束</span>
+										<else />
+											<span>按时参团</span>
+										</if>
+									</td>
+									<td class="other-operate">
+										<p><a href="{:U('line/info')}/id/{$order.lineid}/schedule/1" target="_blank">查看行程</a></p>
+										<p><a href="javascript:;">退出活动</a></p>
+									</td>
+								</tr>								
+							</volist>
+						</tbody>
+					</table>
+					<!-- 翻页 -->
+					<div class="done-order-page" data-page-count="{$page_count}" data-page-index="1"></div>
+				</div>			
+			</div>
+		</div>
+	</div>
+	
+<!-- 分页 -->
+<script src="__PUBLIC__/home/js/page.js"></script>
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(
+        function($){
+            $("img").lazyload({
+                placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+                effect      : "fadeIn",
+                threshold : 100,
+                failure_limit : 10
+            });
+        });
+</script>
+<script>
+	//订单分类
+	$('.order-center-list a').click( function (event) {
+		var $anchor = $(this);
+		$anchor.siblings().removeClass('active');
+		$anchor.addClass('active');
+		for ( var i = 0 ; i < $('.order-center-list a').length; i ++ ){
+			$($('.order-center-list a:eq(' + i + ')').attr('href')).hide();
+		}		
+		
+		var tab = $anchor.attr('href');
+		var p = $(tab).find('table').next().attr('data-page-index');
+		_ajaxOrderList(p);
+		$(tab).show();		
+		//阻止默认行为
+		event.preventDefault();
+	} );
+	
+	//表格样式（for IE8）
+	function tableCss( obj ) {
+			//偶数tr
+		$( obj + ' tr:even').css({'backgroundColor': '#fff', 'height': '60px', 'color': '#666'});
+			//奇数tr
+		$( obj + ' tr:odd').css({'backgroundColor': '#f9f8f8', 'height': '34px'});
+			//偶数第1个td
+		$( obj + ' tr:even td:first-child').css({'width': '252px', 'padding': '0px 15px', 'wordBreak': 'break-all'});
+			//奇数第1个td
+		$( obj + ' tr:odd td:first-child').css({'textAlign': 'left', 'paddingLeft': '20px'});
+			//奇数最后一个td
+		$( obj + 'tr:odd td:last-child').css({'textAlign': 'right', 'paddingRight': '20px'});
+			//偶数第2个td
+		$( obj + 'tr:even td:nth-child(2)').css('width', '150px');
+			//偶数第3个td
+		$( obj + 'tr:even td:nth-child(3)').css('width', '130px');
+			//偶数第4个td
+		$( obj + 'tr:even td:nth-child(4)').css('width', '90px');
+			//偶数第5个td
+		$( obj + 'tr:even td:nth-child(5)').css('width', '120px');
+			//偶数第6个td
+		$( obj + 'tr:even td:nth-child(6)').css('width', '150px');
+	};
+	
+	tableCss('.all-order');
+	tableCss('.obligation-order');
+	tableCss('.part-money-order');
+	tableCss('.all-money-order');
+	tableCss('.evaluate-order');
+	tableCss('.done-order');
+	
+	function _ajaxOrderList(p) {
+		var aObj = $('.order-center-list').find('a.active');
+		var stateMap = {
+			"#all-order": 'all',
+			"#obligation-order": 'review',
+			"#part-money-order": 'pay_part',
+			"#all-money-order": 'pay_complate',
+			"#evaluate-order": 'complated',
+			"#done-order": 'complated',
+		}
+		var h = $(aObj).attr('href');
+		var jsonData = {
+			op_type: 'list',
+			page: p-1,
+			state: stateMap[h],
+		}
+		$.post('{:U("line/order")}', jsonData, function(data){
+			$(h).find('tbody').empty();
+			var newPageCount = 1;
+			if (data.result.errno == 0) {
+				if (data.ds != null) {
+					var hostUrl = '{__GLOBAL_HOST_URL__}';
+					for(var i=0; i < data.ds.length; i++) {
+						var d = data.ds[i];
+						var vhtml=  '<tr>'+
+									'	<td colspan="3">'+d.hdid_show_text+'</td>'+
+									'	<td colspan="3">订单号'+d.order_sn+'</td>'+
+									'</tr>'+
+									'<tr>'+
+									'	<td class="order-name">'+
+									'		<a href="'+'{:U("line/order")}'+'/id/'+d.id+'/type/info" target="_blank">'+
+									'			'+d.lineid_title+'<br>'+d.lineid_subheading+
+									'		</a>'+
+									'	</td>'+
+									'	<td>￥'+d.need_pay_money+'元</td>'+
+									'	<td class="order-status">'+
+									'		<span>'+d.zhuangtai_data.type_desc+'</span>'+
+									'		<p><a href="'+'{:U("line/order")}'+'/id/'+d.id+'/type/info" target="_blank">订单详情</a></p>'+
+									'	</td>'+
+									'	<td class="contract-status">';
+									
+									if (d.agreenment) {
+										vhtml += '<span>已生效</span><p><a href="'+hostUrl+'fpdf/domo/pdf.php?did='+d.id+'&new_line='+d.new_line+'" target="_blank">下载</a></p>';
+									} else {
+										vhtml += '<span>未生效</span>';
+									}
+									vhtml += '	</td><td class="order-operate">';
+									if (d.operate == 'pay') {
+										vhtml += '<a class="online-pay-small" href="'+'{:U("line/order")}'+'/id/'+d.id+'/type/payment" target="_blank">在线支付</a>';
+										vhtml += '<p><a class="online-pay-other" href="javascript:;">其他支付方式</a></p>';
+									} else if (d.operate == 'wait_review') {
+										vhtml += '<span>等待审核</span>';
+									} else if (d.operate == 'team_end') {
+										vhtml += '<span>团期已结束</span>';
+									} else {
+										vhtml += '<span>按时参团</span>';	
+									}
+									vhtml += '	</td>'+
+									'	<td class="other-operate">'+
+									'		<p><a href="'+'{:U("line/info")}'+'/id/'+d.lineid+'/schedule/1" target="_blank">查看行程</a></p>'+
+									'		<p><a href="javascript:;">退出活动</a></p>'+
+									'	</td>'+
+									'</tr>';
+						$(h).find('tbody').append(vhtml);
+						newPageCount = data.page_count;
+					}
+				}
+			} else {
+				var vhtml = '<tr><td>'+data.result.message+'</td></tr>';
+				$(h).find('tbody').html(vhtml);
+			}
+			
+			// 分页
+			var pageObj = $(h).find('table').next();
+			var force = $(pageObj).html() == '' ? true : false;
+			constructionPage(pageObj, p, data.page_count, _ajaxOrderList, force);
+						
+			tableCss('.all-order');
+			tableCss('.obligation-order');
+			tableCss('.part-money-order');
+			tableCss('.all-money-order');
+			tableCss('.evaluate-order');
+			tableCss('.done-order');
+		});		
+	}
+	
+	$(document).ready(function(){	
+		// 创建当前激活面本的分页	
+		var tabObj = $('.order-center-list').find('a.active').attr('href');
+		if ($(tabObj).length > 0) {
+			for ( var i = 0 ; i < $('.order-center-list a').length; i ++ ){
+				$($('.order-center-list a:eq(' + i + ')').attr('href')).hide();
+			}		
+			$(tabObj).show();
+			
+			if ($(tabObj).find('tbody').html() == '') {
+				var vhtml = '<tr><td>'+'没有更多的数据'+'</td></tr>';
+				$(tabObj).find('table').find('tbody').html(vhtml);	
+			}
+			var pageObj = $(tabObj).find('table').next();
+			var forceCreatePage = $(pageObj).html() == '' ? true : false;
+			constructionPage(pageObj, 1, '{$page_count}', _ajaxOrderList, forceCreatePage);
+		}		
+	});
+	
+</script>
+<include file="Common/bottom" />

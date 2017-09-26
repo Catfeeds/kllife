@@ -1,0 +1,1153 @@
+<include file="Common/header" />
+
+	<style>
+
+		.cantuanrenshu span { margin-right: 1%; }
+
+		.ctr_xinxi label { margin-left: 2%; color: #fff; }
+
+		.ctr_top { margin-left: .1%; margin-top: 1%; background: #999; }
+
+		.ctr_top p { color: #fff; }
+
+		.ctr_input , .ctr_select { height: 32px; padding: 6px 12px; color: #000; }
+
+		.ctr_select { vertical-align: bottom; margin-left: -4px; }
+
+		#table td { vertical-align: middle; }
+
+		.ctr_xingming , .ctr_shouji { width: 80%; height: 32px; padding: 6px 12px; border: 1px solid #40bbea; display: none; }
+
+		.ctr_baocun , .ctr_sex , .ctr_card { display: none; }
+
+		#table .ctr_card_num { float: right; width: 60%; height: 32px; margin-right: 39px; padding: 6px 12px; border: 1px solid #40bbea; display: none; }
+
+		.selectboxit-btn { background: #fff; border-color: #40bbea; }
+
+		.selectboxit-list { background-color: #fff; border: 1px solid #40bbea; }
+
+		.selectboxit-list .selectboxit-option-anchor { color: #979898; }
+
+		.form-control:focus { border-color: #40bbea; }
+
+		a { color: #979898; }
+
+		.add_xinxi { display: none; }
+
+		.dingdan_bianji , .dingdan_bianji01 , .dingdan_bianji02 { border: 1px solid #40bbea; }
+
+		.dingdan_bottom > p , .dingdan_bottom span{ margin-top: 7px; }
+
+		.add_xingming , .add_shouji , .add_card_btn_num { border: 1px solid #40bbea; }
+
+		.add_xingming , .add_shouji { outline: none; }
+
+		.add_xingming:focus , .add_shouji:focus { border: 1px solid #40bbea; }
+
+		.dingdan_bottom { margin-bottom: 10px; }
+
+		.cx_border02 , html .select2-container .select2-choice , #s2id_activity{ border-color: #40bbea !important; }
+
+		.info-color { border-color: #40bbea !important; }
+
+		#select2-drop { border-color: #40bbea;  } 
+
+		#order_fromSelectBoxItContainer {
+
+			vertical-align: middle;
+
+		}
+
+		
+
+		.word_vert_middle { vertical-align: middle; }
+
+		#s2id_activity_1 { border-color: #40bbea !important; }
+
+	</style>
+
+	<div class="row">
+
+		<div class="col-sm-12">
+
+			<div class="panel panel-default">
+
+				<div class="panel-body row">
+
+					<div id="dingdan_main" class="col-sm-12" style="margin-left: 5%;">
+
+						<div class="row">
+
+							<div class="form-group row">
+
+								<p id='err_msg' class="col-sm-3" style="color:#e4393c;"></p>
+
+							</div>
+
+							<div class="form-group row">
+
+								<p class="col-sm-1">线路名称：</p>	
+
+								<div class="input-group col-sm-5" style="float:left;">
+
+									<script type="text/javascript">
+
+										jQuery(document).ready(function($)
+
+										{
+
+											$("#line_article").select2({
+
+												minimumInputLength: 1,
+
+												placeholder: '搜索',
+
+												ajax: {
+
+													url: '{:U("order/linefind")}',
+
+													type: 'post',
+
+													dataType: 'json',
+
+													quietMillis: 100,
+
+													data: function(term, page) {
+
+														return {
+
+															limit: -1,
+
+															q: term,
+															
+															new_line: 1, //$('.new_line1').is(':checked') == false ? 0 : 1,
+
+														};
+
+													},
+
+													results: function(data, page ) {
+
+														if (data['result']['errno'] == 0) {
+
+															return { results: data['data'] }	
+
+														} else {
+
+															return { results: '' };	
+
+														}
+
+													}
+
+												},
+
+												formatResult: function(data) { 
+
+													return "<div class='select2-user-result cx_border02'>" + data.title + "</div>"; 
+
+												},
+
+												formatSelection: function(data) { 		
+														
+													var newLine = 1; // $('.new_line1').is(':checked') == false ? 0 : 1;											
+
+													$.post('{:U("order/activityFind")}', {aid:data.id, new_line:newLine}, function(resp){
+
+														var html = ''; var id=0;
+
+														if (resp['result']['errno'] == 0 ){
+
+															for (var i = 0; i < resp['data'].length; i ++) {																
+
+																var ds = resp['data'][i];
+
+																html += '<option value="'+ds['id']+'">'+ds['show_text']+'</option>'
+																
+																if (id == 0) {
+																	
+																	id = ds['id'];
+																	
+																}
+
+															}
+
+														} else {
+
+															html += '<option value="-1">未能查到更多信息</option>';
+															
+															id = -1;
+
+														}
+
+														$("#activity").html(html);
+														
+														if (id != 0) {
+															
+															$("#activity").val(id).trigger('change');
+															
+														}
+
+													});													
+
+													return  data.title; 
+
+												}
+
+												
+
+											});
+
+										});
+
+									</script>								
+
+									<input type="hidden" class="cx_border02" id="line_article" />
+
+								</div>							
+								
+								<!--<div class="col-sm-1">									
+										
+									<label>
+									
+										<input type="checkbox" checked class="iswitch iswitch-secondary new_line1" />	
+																				
+										新线路
+									
+									</label>
+									
+								</div>-->
+								
+							</div>
+
+							<div class="form-group row">
+
+								<p class="col-sm-1">线路批次：</p>
+
+								<div class="input-group col-sm-5" style="border-color: #40bbea;">
+
+									<script type="text/javascript">
+
+											jQuery(document).ready(function($)
+
+											{
+
+												var s2exp = $("#activity").select2({
+
+													placeholder: '请选择批次',
+
+													allowClear: true,
+
+													minimumResultsForSearch: -1, // Hide the search bar
+
+													formatResult: function(ds){
+
+														return "<div class='select2-user-result cx_border02'>" + ds.text + "</div>"; 
+
+													}
+
+												});
+
+												
+
+												$(s2exp).on('select2-open', function(){	
+
+													$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+
+												});
+
+											});
+
+									</script>
+
+									<select class="form-control" id="activity"></select>
+
+								</div>	
+
+							</div>
+							
+							<div class="form-group row">
+
+								<p class="cantuanrenshu col-sm-1">订单创建时间：</p>		
+								
+								<div class="input-group col-sm-3" style="border-color: #40bbea;">
+									
+									<input type="text" id="create_order_time" readonly class="form-control daterange" data-format="YYYY-MM-DD" data-separator=" / " />
+									
+									<div class="input-group-addon">
+									
+										<a href="#"><i class="linecons-calendar"></i></a>
+										
+									</div>		
+									
+								</div>
+								
+							</div>
+
+							<div class="form-group row">
+
+								<p class="cantuanrenshu col-sm-1">生成订单数量：</p>
+
+								<span class="col-sm-1 text-left" style="padding-left: 0;">
+
+									<input id="create_order_count" class="dingdan_bianji" style="height: 35px;" maxlength="2" type="text" value="1"/>
+
+								</span>
+
+							</div>							
+
+							<div class="row dingdan_bottom">
+
+								<p class="cantuanrenshu col-sm-1">参团人数：</p>
+
+								<span class="col-sm-1 text-left" style="padding-left: 0;">
+
+									<input id="member_count_min" class="dingdan_bianji" style="width: 30%" maxlength="2" type="text" value="1"/>&nbsp;-&nbsp;
+
+									<input id="member_count_max" class="dingdan_bianji" style="width: 30%" maxlength="2" type="text" value="5"/>
+
+								</span>
+
+							</div>
+
+						</div>
+
+						<br />
+
+						<button id="add_robot" type="button" class="btn btn-blue" style="margin-left: 1%;">增加人气报名</button>
+
+					</div>
+
+				</div> <!--end panel row-->
+
+			</div>
+
+			
+
+			
+
+			<div class="panel panel-default">
+
+				<div class="panel-body row">
+
+					<div id="dingdan_main" class="col-sm-12" style="margin-left: 5%;">
+
+						<div class="row">
+
+							<div class="form-group row">
+
+								<p class="col-sm-1">线路名称：</p>	
+
+								<div class="input-group col-sm-5" style="float: left;">
+
+									<script type="text/javascript">
+
+										jQuery(document).ready(function($)
+
+										{
+
+											$("#line_article_1").select2({
+
+												minimumInputLength: 1,
+
+												placeholder: '搜索',
+
+												ajax: {
+
+													url: '{:U("order/linefind")}',
+
+													type: 'post',
+
+													dataType: 'json',
+
+													quietMillis: 100,
+
+													data: function(term, page) {
+
+														return {
+
+															limit: -1,
+
+															q: term,
+															
+															new_line: $('.new_line2').is(':checked') == false ? 0 : 1,
+
+														};
+
+													},
+
+													results: function(data, page ) {
+
+														if (data['result']['errno'] == 0) {
+
+															return { results: data['data'] }	
+
+														} else {
+
+															return { results: '' };	
+
+														}
+
+													}
+
+												},
+
+												formatResult: function(data) { 
+
+													return "<div class='select2-user-result cx_border02'>" + data.title + "</div>"; 
+
+												},
+
+												formatSelection: function(data) { 				
+														
+													var newLine = $('.new_line2').is(':checked') == false ? 0 : 1;									
+
+													$.post('{:U("order/activityFind")}', {aid:data.id, new_line:newLine}, function(resp){
+
+														var html = ''; var id=0;
+
+														if (resp['result']['errno'] == 0 ){
+
+															for (var i = 0; i < resp['data'].length; i ++) {																
+
+																var ds = resp['data'][i];
+
+																html += '<option value="'+ds['id']+'">'+ds['show_text']+'</option>';
+																
+																if (id == 0) {
+																	
+																	id = ds['id'];
+																	
+																}
+
+															}
+
+														} else {
+
+															html += '<option value="-1">未能查到更多信息</option>';
+															
+															id = -1;
+
+														}
+
+														$("#activity_1").html(html);
+														
+														if (id != 0) {
+															
+															$("#activity_1").val(id).trigger('change');
+															
+														}
+
+													});													
+
+													return  data.title; 
+
+												}
+
+												
+
+											});
+
+										});
+
+									</script>								
+
+									<input type="hidden" class="cx_border02" id="line_article_1" />
+
+								</div>							
+								
+								<div class="col-sm-1">									
+										
+									<label>
+									
+										<input type="checkbox" checked class="iswitch iswitch-secondary new_line2" />	
+										<!--<input type="checkbox" class="cbr cbr-secondary">-->
+										
+										新线路
+									
+									</label>
+									
+								</div>						
+
+							</div>
+
+							<div class="form-group row">
+
+								<p class="cantuanrenshu col-sm-1">线路批次：</p>
+
+								<div class="input-group col-sm-5" style="border-color: #40bbea;">
+
+									<script type="text/javascript">
+
+											jQuery(document).ready(function($)
+
+											{
+
+												var s2exp1 = $("#activity_1").select2({
+
+													placeholder: '请选择批次',
+
+													allowClear: true,
+
+													minimumResultsForSearch: -1, // Hide the search bar
+
+													formatResult: function(ds){
+
+														return "<div class='select2-user-result cx_border02'>" + ds.text + "</div>"; 
+
+													}
+
+												});
+
+												
+
+												$(s2exp1).on('select2-open', function(){	
+
+													$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+
+												});
+
+												
+
+												$(s2exp1).on('change', function(){
+
+													var lineId = $("#line_article_1").val();
+
+													var activityId = $('#activity_1').val();
+														
+													var newLine = $('.new_line2').is(':checked') == false ? 0 : 1;														
+
+													$.post('{:U("order/robot")}', 
+
+														{op:'order_count', lineid:lineId, hdid:activityId, new_line:newLine},
+
+														function(data){
+
+															if (data.result.errno == 0) {
+
+																$('#order_count').html(data.count);
+
+															} else {
+
+																alert(data.result.message);
+
+															}
+
+														});															
+
+													
+
+													var stateId = $('#order_state').val();												
+
+													$.post('{:U("order/robot")}', 
+
+														{op:'order_count', lineid:lineId, hdid:activityId, zhuangtai:stateId},
+
+														function(data){
+
+															if (data.result.errno == 0) {
+
+																$('#order_state_count').html(data.count);
+
+															} else {
+
+																alert(data.result.message);
+
+															}
+
+														});													
+
+												});
+
+											});
+
+									</script>
+
+									<select class="form-control" id="activity_1"></select>
+
+								</div>	
+
+							</div>
+
+							<div class="form-group row">
+
+								<p class="cantuanrenshu col-sm-1">人气订单数量：</p>
+
+								<span id="order_count" class="col-sm-1 text-left" style="padding-left: 0;">0</span>
+
+							</div>
+
+							<br />
+
+							<div class="row form-group">
+
+								<p class="cantuanrenshu col-sm-1">订单状态：</p>
+
+								<div class="input-group col-sm-3" style="border-color: #40bbea;">
+
+									<script type="text/javascript">
+
+										jQuery(document).ready(function($)
+
+										{
+
+											$("#order_state").selectBoxIt().on('open', function()
+
+											{
+
+												// Adding Custom Scrollbar
+
+												$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+
+											}).on('change', function(data){
+
+												var lineId = $("#line_article_1").val();
+
+												var activityId = $('#activity_1').val();
+
+												var stateId = $(this).val();
+
+												
+
+												if (lineId == '' || activityId == null) {
+
+													alert('线路或者批次不能为空');
+
+													return false;
+
+												}
+														
+												var newLine = $('.new_line2').is(':checked') == false ? 0 : 1;	
+
+												$.post('{:U("order/robot")}', 
+
+													{op:'order_count', lineid:lineId, hdid:activityId, new_line:newLine, zhuangtai:stateId},
+
+													function(data){
+
+														if (data.result.errno == 0) {
+
+															$('#order_state_count').html(data.count);
+
+														} else {
+
+															alert(data.result.message);
+
+														}
+
+													});	
+
+											});
+
+										});
+
+									</script>
+
+									<select id="order_state" class="form-control">
+
+										<volist id="os" name="orderState">
+
+											<option value="{$os.id}">{$os.type_desc}</option>
+
+										</volist>
+
+									</select>
+
+								</div>
+
+							</div>
+
+							<div class="form-group row">
+
+								<p class="cantuanrenshu col-sm-1">该状态数量：</p>
+
+								<span id="order_state_count" class="col-sm-1 text-left" style="padding-left: 0;">0</span>
+
+							</div>
+
+							<div class="form-group row">
+
+								<p class="cantuanrenshu col-sm-1">操作订单数量：</p>
+
+								<span class="col-sm-1 text-left" style="padding-left: 0;">
+
+									<input id="modify_state_count" class="dingdan_bianji" style="height: 35px;" maxlength="2" type="text"/>
+
+								</span>
+
+							</div>
+
+						</div>
+
+						<br />
+
+						<button id="modify_orders_state" type="button" class="btn btn-blue" style="margin-left: 1%;">修改状态</button>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			
+
+			
+
+			
+
+			<!--<div class="panel panel-default">
+
+				<div class="panel-body row">
+
+					<div id="dingdan_main" class="col-sm-12" style="margin-left: 5%;">
+
+						<div class="row">
+
+							<div class="form-group row">
+
+								<p class="col-sm-1">线路名称：</p>	
+
+								<div class="input-group col-sm-5">
+
+									<script type="text/javascript">
+
+										jQuery(document).ready(function($)
+
+										{
+
+											$("#line_article_2").select2({
+
+												minimumInputLength: 1,
+
+												placeholder: '搜索',
+
+												ajax: {
+
+													url: '{:U("order/linefind")}',
+
+													type: 'post',
+
+													dataType: 'json',
+
+													quietMillis: 100,
+
+													data: function(term, page) {
+
+														return {
+
+															limit: -1,
+
+															q: term
+
+														};
+
+													},
+
+													results: function(data, page ) {
+
+														if (data['result']['errno'] == 0) {
+
+															return { results: data['data'] }	
+
+														} else {
+
+															return { results: '' };	
+
+														}
+
+													}
+
+												},
+
+												formatResult: function(data) { 
+
+													return "<div class='select2-user-result cx_border02'>" + data.title + "</div>"; 
+
+												},
+
+												formatSelection: function(data) { 													
+
+													$.post('{:U("order/activityFind")}', {aid:data.id}, function(resp){
+
+														var html = ''; var id=0;
+
+														if (resp['result']['errno'] == 0 ){
+
+															for (var i = 0; i < resp['data'].length; i ++) {																
+
+																var ds = resp['data'][i];
+
+																html += '<option value="'+ds['id']+'">'+ds['show_text']+'</option>';
+																
+																if (id == 0) {
+																	
+																	id = ds['id'];
+																	
+																}
+
+															}
+
+														} else {
+
+															html += '<option value="-1">未能查到更多信息</option>';
+															
+															id = -1;
+
+														}
+
+														$("#activity_2").html(html);
+														
+														if (id != 0) {
+															
+															$("#activity_2").val(id).trigger('change');
+															
+														}
+
+													});													
+
+													return  data.title; 
+
+												}
+
+												
+
+											});
+
+										});
+
+									</script>								
+
+									<input type="hidden" class="cx_border02" id="line_article_2" />
+
+								</div>							
+
+							</div>
+
+							<div class="form-group row">
+
+								<p class="cantuanrenshu col-sm-1">线路批次：</p>
+
+								<div class="input-group col-sm-5" style="border-color: #40bbea;">
+
+									<script type="text/javascript">
+
+											jQuery(document).ready(function($)
+
+											{
+
+												var s2exp1 = $("#activity_2").select2({
+
+													placeholder: '请选择批次',
+
+													allowClear: true,
+
+													minimumResultsForSearch: -1, // Hide the search bar
+
+													formatResult: function(ds){
+
+														return "<div class='select2-user-result cx_border02'>" + ds.text + "</div>"; 
+
+													}
+
+												});
+
+												
+
+												$(s2exp1).on('select2-open', function(){	
+
+													$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+
+												});
+
+												
+
+												$(s2exp1).on('change', function(){
+
+													var lineId = $("#line_article_2").val();
+
+													var activityId = $('#activity_2').val();
+
+													
+
+													$.post('{:U("order/robot")}', 
+
+														{op:'order_count', lineid:lineId, hdid:activityId},
+
+														function(data){
+
+															if (data.result.errno == 0) {
+
+																$('#order_count2').html(data.count);
+
+															} else {
+
+																alert(data.result.message);
+
+															}
+
+														});														
+
+												});
+
+											});
+
+									</script>
+
+									<select class="form-control" id="activity_2"></select>
+
+								</div>	
+
+							</div>
+
+							<div class="form-group row">
+
+								<p class="cantuanrenshu col-sm-1">人气订单数量：</p>
+
+								<span id="order_count2" class="col-sm-1 text-left" style="padding-left: 0;">0</span>
+
+							</div>
+
+							<div class="form-group row">
+
+								<p class="cantuanrenshu col-sm-1">操作订单数量：</p>
+
+								<span class="col-sm-1 text-left" style="padding-left: 0;">
+
+									<input id="delete_count" class="dingdan_bianji" style="height: 35px;" maxlength="2" type="text" value="0"/>
+
+								</span>
+
+							</div>
+
+						</div>
+
+						<br />
+
+						<button id="delete_orders" type="button" class="btn btn-blue" style="margin-left: 1%;">删除订单</button>
+
+					</div>
+
+				</div>
+
+			</div>-->
+
+			
+
+			
+
+		</div>
+
+	</div>
+
+<include file="Common/footer" />
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+
+		// 创建人气订单
+
+		$('#add_robot').click(addRobotOrders);
+
+		// 修改订单状态
+
+		$('#modify_orders_state').click(modifyOrdersState);
+
+		// 删除订单
+
+		$('#delete_orders').click(deleteOrders);
+
+	});
+
+			
+
+	// 创建订单
+
+	function addRobotOrders() {
+
+		var lineId = $('#line_article').val();
+
+		var hdId = $('#activity').val();
+
+		var orderCount = $('#create_order_count').val();
+		
+		var createTime = $('#create_order_time').val();
+
+		var minCount = $('#member_count_min').val();
+
+		var maxCount = $('#member_count_max').val();
+														
+		var newLine = 1; // $('.new_line1').is(':checked') == false ? 0 : 1;	
+
+		if (lineId=='' || hdId==null || orderCount=='' || orderCount==0 || createTime=='' || minCount=='' || minCount==0 || maxCount=='' || maxCount==0) {
+
+			alert('线路、批次、订单数量、最小、最大参团人数不能为空');
+
+			return false;
+
+		}		
+
+		var jsonData = {
+
+			'op': 'order_create',
+
+			'lineid': lineId,
+
+			'hdid': hdId,
+			
+			'new_line': newLine,
+
+			'order_count': orderCount,
+			
+			'create_time': createTime,
+
+			'min_count': minCount,
+
+			'max_count': maxCount,
+
+		}
+
+				
+
+		$.post('{:U("order/robot")}', jsonData, function(data){
+//			console.log(JSON.stringify(data));
+			
+			if (data.result.errno == 0) {
+
+				toastr.success('创建订单成功');
+				
+//				location.href = '{:U("order/list")}';
+
+			} else {
+
+				alert(data.result.message);
+
+			}
+			
+			if (data.jumpUrl != null) {
+				
+				location.href = jumpUrl;
+				
+			}
+
+		});
+
+	}
+
+	
+
+	// 修改人气订单状态
+
+	function modifyOrdersState() {
+
+		var lineId = $('#line_article_1').val();
+
+		var hdId = $('#activity_1').val();
+
+		var stateId = $('#order_state').val();
+
+		var stateCount = $('#modify_state_count').val();
+														
+		var newLine = $('.new_line2').is(':checked') == false ? 0 : 1;		
+
+		if (lineId=='' || hdId==null || stateCount=='' || stateCount==0) {
+
+			alert('线路、批次、修改状态、修改状态的数量不能为空');
+
+			return false;
+
+		}		
+
+		var jsonData = {
+
+			'op': 'order_state_modify',
+
+			'lineid': lineId,
+
+			'hdid': hdId,
+			
+			'new_line': newLine,
+
+			'zhuangtai': stateId,
+
+			'state_count': stateCount,
+
+		}
+
+				
+
+		$.post('{:U("order/robot")}', jsonData, function(data){
+
+			if (data.result.errno == 0) {
+
+				toastr.success('修改订单成功');
+				
+//				location.href = '{:U("order/list")}';
+
+			} else {
+
+				alert(data.result.message);
+
+			}
+
+		});
+
+	}
+
+	
+
+	// 删除人气订单
+
+	function deleteOrders() {
+
+		var lineId = $('#line_article_2').val();
+
+		var hdId = $('#activity_2').val();
+
+		var orderCount = $('#delete_count').val();
+
+		
+
+		if (lineId=='' || hdId==null || orderCount==0) {
+
+			alert('线路、批次、删除数量不能为空');
+
+			return false;
+
+		}
+
+		var jsonData = {
+
+			'op': 'order_delete',
+
+			'lineid': lineId,
+
+			'hdid': hdId,
+
+			'count': orderCount,
+
+		}
+
+				
+
+		$.post('{:U("order/robot")}', jsonData, function(data){
+
+//			console.log(JSON.stringify(data));
+
+			if (data.result.errno == 0) {
+
+				$('#order_count2').html(data.count);
+
+				alert('删除订单成功');
+
+			} else {
+
+				alert(data.result.message);
+
+			}
+
+		});
+
+	}
+
+</script>

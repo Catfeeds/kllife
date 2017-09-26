@@ -1,0 +1,172 @@
+<include file="Common/header" />
+<script src="__PUBLIC__/assets/js/ckeditor/ckeditor.js"></script>
+<style type="text/css">		
+	.selectboxit-btn {background: #fff;border-color: #4EC83B;}	
+	.selectboxit-list {	background-color: #fff;	border: 1px solid #4EC83B;}	
+	.selectboxit-list .selectboxit-option-anchor {color: #979898;}	
+	
+</style>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"> 
+					{:C('CONTENT_TITLE')}
+					<input id="article_id" type="hidden" value="{$article.id}"/>
+				</h3>
+			</div>
+			<div class="panel-body row">
+				<div id="dingdan_main" class="col-sm-12">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label" for="title">文章标题</label> <!--data-validate="required"-->
+								<input class="form-control" maxlength="32" name="title" id="title" value="{$article.title}" placeholder="请输入文章的标题" />
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label" for="short_title">文章短标题</label> <!--data-validate="required"-->
+								<input class="form-control" maxlength="16" name="short_title" id="short_title" value="{$article.short_title}" placeholder="请输入文章的标题" />
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="control-label" for="keyword">关键字</label> <!--data-validate="required"-->
+								<input class="form-control" name="keyword" id="keyword" value="{$article.keywords}" placeholder="请输入文章的关键字,多个关键字请用“，”隔开" />
+							</div>
+						</div>		
+					</div>
+					<div class="row">											
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label" for="send_word">文章寄语</label>
+								<textarea class="form-control autogrow" name="send_word" id="send_word" placeholder="请输入文章寄语">{$article.send_word}</textarea>
+							</div>
+						</div>					
+					</div>
+					<div class="row">		
+						<div class="col-md-1">						
+							<div class="form-group">
+								<label class="control-label" for="hot">热点文章</label><br />
+								<if condition="$article.hot eq 1">
+							    	<input id="hot" name="hot" type="checkbox" checked="checked" class="iswitch iswitch-secondary">
+								<else />
+							    	<input id="hot" name="hot" type="checkbox" class="iswitch iswitch-secondary">
+								</if>
+							</div>						
+						</div>
+						
+						<div class="col-md-1">											
+							<div class="form-group">
+								<label class="control-label" for="recommend">推荐文章</label><br />						
+								<if condition="$article.recommend eq 1">
+							   		<input id="recommend" name="recommend"  type="checkbox" checked="checked" class="iswitch iswitch-secondary">
+								<else />
+							    	<input id="recommend" name="recommend"  type="checkbox" class="iswitch iswitch-secondary">
+								</if>	
+							</div>							
+						</div>	
+						
+						<div class="col-md-2">
+							<div class="form-group">						
+								<label class="control-label" for="classid">所属栏目</label>
+								<script type="text/javascript">
+									$(document).ready(function(){
+										var classid_type = $("#classid").selectBoxIt();
+										$(classid_type).data('selectBox-selectBoxIt').add({value:0, text:'首页'});
+										$(classid_type).data('selectBox-selectBoxIt').add({value:1, text:'新疆专题'});
+										$(classid_type).data('selectBox-selectBoxIt').add({value:38, text:'坝上专题'});
+										$(classid_type).data('selectBox-selectBoxIt').add({value:43, text:'额济纳专题'});
+									});
+								</script>
+								<select name="classid" id="classid" class="form-control">
+								</select>						
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group">
+							<label class="control-label" for="keyword">文章内容</label>
+							<textarea id="body" name="body" class="form-control ckeditor" rows="20" style="visibility: hidden; display: none;">{$article.body}</textarea>
+						</div>
+					</div>
+					
+					<div class="row">							
+						<div class="col-md-8">
+							<div class="form-group">
+								<button class="btn btn-secondary save_article">保存文章基本信息</button>
+							</div>							
+						</div>	
+					</div>
+
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<link rel="stylesheet" href="__PUBLIC__/assets/js/wysihtml5/src/bootstrap-wysihtml5.css">
+<script src="__PUBLIC__/assets/js/wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+<script src="__PUBLIC__/assets/js/wysihtml5/src/bootstrap-wysihtml5.js"></script>
+<script src="__PUBLIC__/assets/js/formwizard/jquery.bootstrap.wizard.min.js"></script>
+
+<script>
+	// 保存文章基本信息
+	$('.save_article').click(function(){			
+		var stitle = $('#title').val();
+		if (stitle == '') {
+			toastr.warning('文章标题不能为空');
+			return false;
+		}
+		
+		var shortTitle = $('#short_title').val();
+		if (shortTitle == '') {
+			toastr.warning('文章短标题标题不能为空');
+			return false;
+		}
+		
+		var keyWords = $('#keyword').val();
+		var sendWords = $('#send_word').val();
+		
+		var jsonData = {
+			op_type: 'create',
+			id: $('#article_id').val(),
+			title: stitle,
+			short_title: shortTitle,
+			keywords: keyWords,
+			send_word: sendWords,
+			hot: $('#hot').prop('checked') ? 1 : 0,
+			recommend: $('#recommend').prop('checked') ? 1 : 0,
+			classid: $('#classid').val(),
+			body:$('#body').val(),
+		}
+		
+		
+		var articleId = $('#article_id').val();
+		if (articleId != '' || articleId != 0) {
+			jsonData['id'] = articleId;
+		}
+		
+		$.post('{:U("line/article")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				$('#article_id').val(data.id);
+				toastr.success('保存文章基本信息成功');
+				$('.save_success_tip').html('请将鼠标移至横线下方开始添加修改文章内容...');
+			} else {
+				toastr.error(data.result.message);
+				if (typeof(data.jumpUrl) != 'undefined') {
+					location.href = data.jumpUrl;
+				}
+			}
+		});
+	});	
+	
+	// 初始化页面
+	$(document).ready(function(){
+		// 文章显示板块
+		$('#classid').val('{$article.classid}').trigger('change');
+	});
+</script>
+<include file="Common/footer" />

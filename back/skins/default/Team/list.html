@@ -1,0 +1,705 @@
+<include file="Common/header" /> 
+	<style>
+
+	.form-control { width: 30%; }
+
+	.form-control:focus { border-color: #40bbea; }
+
+	.chaxun { margin-right: 100px; margin-bottom: 30px; }
+
+	#activitySelectBoxIt ,#team_stateSelectBoxIt { border-radius: 0 15px 15px 0 ; background-color: #fff; border-color: #40bbea; overflow: hidden; }
+
+	#activitySelectBoxItOptions , #team_stateSelectBoxItOptions { border-radius: 0 15px 15px 15px; background-color: #fff; border-color: #40bbea; }
+
+	#activitySelectBoxItOptions li a , #team_stateSelectBoxItOptions li a { color: #000; }
+
+
+
+	.selectboxit-option-icon-container { overflow: hidden; }
+
+	.cx_border01 { border-radius: 15px 0 0 15px; border-color: #40bbea; }
+
+	.cx_border02 , html .select2-container .select2-choice , #s2id_activity{ border-radius: 0 15px 15px 0 !important; border-color: #40bbea !important; }
+
+	.tab-pane > div { margin-top: 10px; height: 35px; }
+
+	.ctr_card_btn_num:focus { border-color: #40bbea; }
+
+	.dropdown-menu.dropdown-info > li > a { color: #000; }
+
+	.dropdown-menu.dropdown-info > li > a:hover { background-color: #999 !important; }
+
+	.nav.nav-tabs > li.active > a { border: 1px solid #40bbea; border-bottom: 2px solid #fff; }
+
+	.nav.nav-tabs > li > a { padding-left: 30px; padding-right: 30px; }
+
+	.nav.nav-tabs > li > a:hover { background-color: #40bbea; color: #fff; }
+
+	.hvr-curl-top-left {
+
+	  display: inline-block;
+
+	  vertical-align: middle;
+
+	  -webkit-transform: translateZ(0);
+
+	  transform: translateZ(0);
+
+	  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+
+	  -webkit-backface-visibility: hidden;
+
+	  backface-visibility: hidden;
+
+	  -moz-osx-font-smoothing: grayscale;
+
+	  position: relative;
+
+	}
+
+	.hvr-curl-top-left:before {
+
+	  pointer-events: none;
+
+	  position: absolute;
+
+	  content: '';
+
+	  height: 0;
+
+	  width: 0;
+
+	  top: 0;
+
+	  left: 0;
+
+	  background: white;
+
+	  /* IE9 */
+
+	  background: linear-gradient(135deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
+
+	  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff', endColorstr='#000000');
+
+	  /*For IE7-8-9*/
+
+	  z-index: 1000;
+
+	  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+
+	  -webkit-transition-duration: 0.3s;
+
+	  transition-duration: 0.3s;
+
+	  -webkit-transition-property: width, height;
+
+	  transition-property: width, height;
+
+	}
+
+	.hvr-curl-top-left:hover:before, .hvr-curl-top-left:focus:before {
+
+	  width: 15px;
+
+	  height: 15px;
+
+	}
+
+	.info-color { background-color: #40bbea !important; border-color: #40bbea !important; }
+
+	.info-border-color { border-color: #40bbea !important; }
+
+	.select2-arrow { color: #fff !important; }
+
+	#select2-drop { border-color: #40bbea;  } 
+
+	.mybtn { margin-left: 0 !important; }
+
+	.dataTables_wrapper table.dataTable thead > tr > th { padding: 15px 0px 15px 0px; }
+
+	.selectboxit-btn { background-color: #fff; border-color: #40bbea; } 
+
+	.selectboxit-list { background-color: #fff; border-color: #40bbea; }
+	
+	.selectboxit-list .selectboxit-option-anchor { color: #000; }
+
+	.selectboxit-container .selectboxit-options { border-radius: 0 0 0 15px; }
+
+	#team_stateSelectBoxItOptions { border-radius: 0 0 0 15px; }
+
+	.selectboxit-container .selectboxit { border-radius: 0 15px 15px 0 !important; }
+
+	.selectboxit-arrow-container { background-color: #40bbea; }
+
+	.selectboxit-arrow-container i { color: #fff; }
+</style>
+	<div class="row">
+		<div class="panel panel-color panel-info panel-content-pos">
+			<div class="panel panel-heading">
+				<span class="description">{:C(CONTENT_TITLE)}</span>					
+			</div>
+			<div class="panel panel-color panel-content">
+				<!-- 查询 -->
+				<div class="row chaxun">
+					<!-- tab标签 -->
+					<div class="col-sm-12">
+						<div class="tab-content"  style="border-top: 1px solid #40bbea; margin-top: -1px;">
+							<div class="tab-pane active" id="order">
+								
+								<div class="col-sm-3">
+									<div class="input-group">
+										<span class="input-group-addon info-color text-white cx_border01">编号:</span>
+										<input type="text" class="form-control cx_border02" id="team_id">
+									</div>
+								</div>
+								
+								<div class="col-sm-3">
+									<div class="input-group">
+										<span class="input-group-addon info-color text-white cx_border01">标题:</span>
+										<input type="text" class="form-control cx_border02" id="team_title">
+									</div>
+								</div>
+
+								<div class="col-sm-3">
+									<div class="input-group">
+										<span class="input-group-addon info-color text-white cx_border01">接单人员:</span>
+										<input type="text" class="form-control cx_border02" id="create_admin">
+										<script type="text/javascript">	
+											$(document).ready(function(){
+												var cds = 'forbidden|=|0|AND||0';
+												if ('{$admin.station_id}' != '1') {
+													cds += '|station_id|=|{$admin.station_id}|AND||0';
+												}
+												cds += '|type_id|=|4|OR||1|type_id|=|5|OR||1';
+												var voption = {obj:$('#create_admin'), search:1, placeholder: '请选择接单人员', show_col:'account', select_col:'account'};
+												var vds = {tab:'admin', search_col: 'account', cdsstr: cds, cdtype:6, sort:'sort|asc'}
+												var acceptAdminObj = new MySelect2(voption, vds);
+											});
+										</script>
+									</div>
+								</div>
+
+								<div class="col-sm-3">
+									<div class="input-group">
+										<span class="input-group-addon info-color text-white cx_border01">处理人员:</span>
+										<input type="text" class="form-control cx_border02" id="dispose_admin">
+										<script type="text/javascript">	
+											$(document).ready(function(){
+												var cds = 'type_id|=|5|AND|forbidden|=|0|AND';
+												if ('{$admin.station_id}' != '1') {
+													cds += '|station_id|=|{$admin.station_id}|AND';
+												}
+												var voption = {obj:$('#dispose_admin'), search:1, placeholder: '请选择处理人员', show_col:'account', select_col:'account'};
+												var vds = {tab:'admin', search_col: 'account', cdsstr: cds, cdtype:4, sort:'sort|asc'}
+												var disposeAdminObj = new MySelect2(voption, vds);
+											});
+										</script>
+									</div>
+								</div>
+								
+								<div class="col-sm-3">
+									<div class="input-group">
+										<span class="input-group-addon info-color text-white cx_border01">编号/标题:</span>
+										<input type="text" class="form-control cx_border02" id="title">
+									</div>
+								</div>
+
+								<div class="col-sm-3">
+									<div class="input-group">
+										<span class="input-group-addon info-color text-white cx_border01">联系人:</span>
+										<input type="text" class="form-control cx_border02" id="link_man">
+									</div>
+								</div>
+
+								<div class="col-sm-3">
+									<div class="input-group">
+										<span class="input-group-addon info-color text-white cx_border01">联系电话:</span>
+										<input type="text" class="form-control cx_border02" id="link_tel">
+									</div>
+								</div>
+							
+								<div class="col-sm-3">
+									<div class="input-group">
+										<span class="input-group-addon info-color text-white cx_border01">包团来源:</span>
+										<script type="text/javascript">
+												jQuery(document).ready(function($)
+												{
+													$("#team_from").selectBoxIt({
+														showEffect: 'fadeIn',
+														hideEffect: 'fadeOut'
+													});
+												});
+										</script>
+										<select class="form-control" name="" id="team_from">
+											<option value="-1">不限</option>
+											<notempty name="TeamFrom">
+												<volist id="from" name="TeamFrom">	
+													<option value="{$from.id}">{$from.type_desc}</option>
+												</volist>
+											</notempty>
+										</select>
+									</div>
+								</div>
+							
+								<div class="col-sm-3">
+									<div class="input-group">
+										<span class="input-group-addon info-color text-white cx_border01">包团状态:</span>
+										<script type="text/javascript">
+												jQuery(document).ready(function($)
+												{
+													$("#team_state").selectBoxIt({
+														showEffect: 'fadeIn',
+														hideEffect: 'fadeOut'
+													});
+												});
+										</script>
+										<select class="form-control" name="" id="team_state">
+											<option value="-1">不限</option>
+											<notempty name="TeamState">
+												<volist id="state" name="TeamState">	
+													<option value="{$state.id}">{$state.type_desc}</option>
+												</volist>
+											</notempty>
+										</select>
+									</div>
+								</div>
+							
+								<div class="col-sm-3">
+									<div class="input-group">
+										<span class="input-group-addon info-color text-white cx_border01">处理结果:</span>
+										<script type="text/javascript">
+												jQuery(document).ready(function($)
+												{
+													$("#team_result").selectBoxIt({
+														showEffect: 'fadeIn',
+														hideEffect: 'fadeOut'
+													});
+												});
+										</script>
+										<select class="form-control" name="" id="team_result">
+											<option value="-1">不限</option>
+											<notempty name="TeamResult">
+												<volist id="result" name="TeamResult">	
+													<option value="{$result.id}">{$result.type_desc}</option>
+												</volist>
+											</notempty>
+										</select>
+									</div>
+								</div>
+								
+								<div class="col-sm-6">
+									<div class="input-group">			
+										<span class="input-group-btn">
+											<button id="date_type" type="button" class="btn btn-info dropdown-toggle cx_border01" data-toggle="dropdown" data-id="request" style="background-color: #40bbea; color: #555;">
+												<span class="ctr_card_btn_num" style="background-color: #40bbea; color: #fff;">提交时间</span> 
+												<!--<span class="caret text-white"></span>-->
+											</button>
+											<!--<ul class="dropdown-menu dropdown-info ctr_card_change" style="background-color: #fff; border-color: #40bbea;">
+												<li><a href="javascript:;" name="request">提审时间</a></li>
+												<li><a href="javascript:;" name="review">回执时间</a></li>
+											</ul>-->
+										</span>
+										<input type="text" class="form-control datepicker info-border-color" style="display: inline-block;" data-format="yyyy-mm-dd" id="start_date">
+										<div class="input-group-addon info-color text-white" style="border-radius: 0 15px 15px 0;">
+											<a href="#"><i class="linecons-calendar text-white"></i></a>
+										</div>
+										<span style="display: table-cell; vertical-align: middle;">&nbsp;到&nbsp;</span>
+										<input type="text" class="form-control datepicker info-border-color" style="display: inline-block; border-radius:15px 0 0 15px;" data-format="yyyy-mm-dd" id="end_date">
+										<div class="input-group-addon info-color text-white cx_border02">
+											<a href="#"><i class="linecons-calendar text-white"></i></a>
+										</div>
+									</div>
+								</div>		
+													
+							</div>					
+						</div>
+				
+						<button class="btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_search" style="float: right; margin-top: 30px;">
+							<i class="fa-search"></i>
+							<span>查 询</span>
+						</button>
+						<button class="btn btn-warning btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_reset" style="float: right; margin-top: 30px; margin-right: 10px;">
+							<i class="fa-refresh"></i>
+							<span>重 置</span>
+						</button>
+					</div>
+				</div>
+                <table id="test" class="table aspTable lcnp" cellpadding="0" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="7%">编号</th>
+                            <th width="15%">目的地/包团标题</th>
+                            <th width="10%">联系人信息</th>
+                            <th width="7%">来源/人数/天数</th>
+                            <th width="7%">处理状态</th>
+                            <th width="10%">接单/处理人</th>
+                            <th width="7%">处理结果</th>
+                            <th width="10%">提交日期</th>
+                           	<th width="15%">分配/完善</th>
+                        </tr>
+                    </thead>
+                </table>   
+                
+			</div>
+		</div>		
+	</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+	var myTable, pageRequestData;
+	var modalDataEditData = new Object();
+	$(document).ready(function(){
+		
+		// 初始化数据表格
+		myTable = initDataTable();
+		
+		// 初始化弹出窗口
+		initModalDataEdit();
+		
+		// 开始查询
+		$('#button_search').click(function(){myTable.fnReloadAjax(myTable.fnSettings());});
+		
+		// 重置查询条件
+		$('#button_reset').click(resetFindConds);
+	});
+	
+	// 重置查询条件
+	function resetFindConds() {
+		$('#team_id').val('');
+		
+		$('#team_title').val('');
+		
+		setSelect2Value('#create_admin', null);
+		
+		setSelect2Value('#dispose_admin', null);
+		
+		$('#link_man').val('');
+		
+		$('#link_tel').val('');
+		 
+		$('#team_from').val(-1).trigger('change');		
+		 
+		$('#team_state').val(-1).trigger('change');			
+		 
+		$('#team_result').val(-1).trigger('change');		
+
+		$('#start_date').val('');
+
+		$('#end_date').val('');
+		
+		myTable.fnReloadAjax(myTable.fnSettings())
+	}
+	
+	// 设置类型列表
+	function setTypeList(objId) {
+		$.post('{:U("team/disposeAdmin")}', {op:'list'}, function(data){
+			if (data.result.errno == 0) {
+				if (typeof(data.ds) == 'object') {
+					var html = '';
+					for (var i = 0; i < data.ds.length; i++) {
+						var obj =  data.ds[i];
+						html += '<option value="' + obj['id'] + '">' + obj['account'] + '</option>';
+					}	
+					var data = {elmt: [{id:objId, value:html}]}
+					appendModalDataEditInputValues(data, true);
+				}	
+			} else {
+				toastr.error(data.result.message);
+			}
+		});	
+	}
+	
+	// 初始化弹出编辑框数据
+	function initModalDataEdit() {
+		modalDataEditData['lab_title_text'] = '请选择处理小包团管理员';
+		modalDataEditData['btn_confirm_text'] = '确认处理';
+		
+		modalDataEditData['elmt']=[
+			{tag:'input', id:'Id', lab:'', attr:[
+				{op:'bind', name:'type',value:'hidden'},
+			]},
+			{tag:'select', id:'Admin', lab:'管理员', attr:[]},
+		];
+		modalDataEditData['callback_confirm'] = _assginAjax;
+		initModalDataEditPage(modalDataEditData);
+		
+		// 设置可选管理员类型
+		setTypeList('Admin');
+	}
+
+
+	// 初始化数据列表
+	function initDataTable() {	
+		var vTable = $(".aspTable").dataTable({
+			"bSort": true,
+			"searching": false,
+			"bAutoWidth": true,
+			"bFilter": true,
+			"bInfo": true,//页脚信息
+			"bPaginate": true, //翻页功能
+			"bLengthChange": true, //改变每页显示数据数量
+			"bStateSave": true,	//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+			"sPaginationType": "full_numbers", //显示数字的翻页样式"
+			"aLengthMenu": [[10, 25, 50],[10, 25, 50]],	// 可分页的数量值与显示
+			"isDisplayLength": 10,	// 当前每页显示数量
+			"oLanguage": {
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+				"sZeroRecords": "抱歉， 没有找到",
+				"sInfo": "从 _START_ 到 _END_ / 共 _TOTAL_ 条数据",
+				"sInfoEmpty": "没有数据",
+				"sInfoFiltered": "(从_MAX_条数据中检索)",
+				"oPaginate": {
+					"sFirst": "首页",
+					"sPrevious": "前一页",
+					"sNext": "后一页",
+					"sLast": "尾页"
+				},
+				"sZeroRecords": "没有检索到数据",
+				"sProcessing": "<src='__PUBLIC__/images/loader.gif' />",
+			},
+			//Ajax获取信息
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "{$ajaxReqUrl}",
+			//如果加上下面这段内容，则使用post方式传递数据
+			"fnServerData": getPageData,
+			"aoColumns": dataTablesBindCols(),//$_GET[‘sColumns’]将接收到aoColumns传递数据
+			"aoColumnDefs": [{"sDefaultContent": "", "aTargets": ["_all"]}],
+		});
+		return vTable;
+	}
+
+	// 绑定列
+	function dataTablesBindCols() {
+		var cols = new Array();
+		cols = [
+				{"bSortable": false, "mData": "id", "aTargets": [0]},
+				{"bSortable": false, "mData": "destination", "aTargets": [1], "fnCreatedCell": appendMiddleCol},
+				{"bSortable": false, "mData": "linkman", "aTargets": [2], "fnCreatedCell": appendMiddleCol},
+				{"bSortable": false, "mData": "days", "aTargets": [3], "fnCreatedCell": appendMiddleCol},
+				{"bSortable": false, "mData": "dispose_state_id", "aTargets": [4], "fnCreatedCell": appendMiddleCol},
+				{"bSortable": false, "mData": "create_admin_id", "aTargets": [5], "fnCreatedCell": appendMiddleCol},
+				{"bSortable": false, "mData": "team_result", "aTargets": [6], "fnCreatedCell": appendMiddleCol},
+				{"bSortable": false, "mData": "create_time", "aTargets": [7]},
+				{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [8], "fnCreatedCell": appendLastCol},
+			];	//$_GET[‘sColumns’]将接收到aoColumns传递数据
+		return cols;
+	}
+	
+	function combineConds(cdsstr, key, op, val, lop) {
+		if (val != null && val != '' && val != -1 && val != '%%' && val != ' 00:00:00' && val != ' 23:59:59') {
+			if (cdsstr != '' && cdsstr != null) {
+				cdsstr += '|';
+			}
+			cdsstr += key+'|'+op+'|'+val+'|'+lop;
+		}
+		return cdsstr;
+	}
+
+	// 获取条件
+	function getConditions() {
+		var valstr = $('#title').val();
+		var cdsstr = '';
+		cdsstr = combineConds(cdsstr,'id','=',$('#team_id').val(),'AND');
+		cdsstr = combineConds(cdsstr,'title','=',$('#team_title').val(),'AND');
+		valstr = getSelect2Value('#create_admin', ['id']);
+		if (valstr != null && valstr != '') {
+			var val = $.parseJSON(valstr);
+			cdsstr = combineConds(cdsstr,'create_admin_id','=',val.id,'AND');
+		}
+		valstr = getSelect2Value('#dispose_admin', ['id']);
+		if (valstr != null && valstr != '') {
+			var val = $.parseJSON(valstr);
+			cdsstr = combineConds(cdsstr,'dispose_admin_id','=',val.id,'AND');
+		}
+		cdsstr = combineConds(cdsstr,'linkman','LIKE','%'+$('#link_man').val()+'%','AND');
+		cdsstr = combineConds(cdsstr,'tel','LIKE','%'+$('#link_tel').val()+'%','AND');
+		cdsstr = combineConds(cdsstr,'from_id','=',$('#team_from').val(),'AND');
+		cdsstr = combineConds(cdsstr,'dispose_state_id','=',$('#team_state').val(),'AND');
+		cdsstr = combineConds(cdsstr,'team_result','=',$('#team_result').val(),'AND');
+		cdsstr = combineConds(cdsstr,'create_time','>=',$('#start_date').val()+' 00:00:00','AND');
+		cdsstr = combineConds(cdsstr,'create_time','<=',$('#end_date').val()+' 23:59:59','AND');
+		return cdsstr;
+	}
+
+	//Ajax获取数据
+	function getPageData ( sSource, aoData, fnCallback ) {
+		showLoading(true);				
+		var cdsstr = getConditions();
+		var typeObj = '{$typeObj}';
+		aoData.push({'name':'type_obj','value':typeObj});
+		aoData.push({'name':'op_type','value':'list'});
+		aoData.push({'name':'cdsstr','value': cdsstr});
+		pageRequestData = aoData;
+		$.post(sSource, aoData, function(data,status){
+				if (data['result']['errno'] == 0) {
+					fnCallback(data);
+				} else {
+					toastr.error(data['result']['message']);
+				}			
+				showLoading(false);
+			},'JSON');
+	}
+	
+	// 添加中间列
+	function appendMiddleCol(nTd, sData, oData, iRow, iCol) {
+		var html='';	
+		if (iCol == 1) {
+			$(nTd).html('目的地:'+oData['destination']+'<br />');
+			$(nTd).append('标题:'+oData['title']);
+		} else if (iCol == 2) {
+			$(nTd).html('<span class="ctr_search" data-ctrl-id="link_man" data-ctrl-val="'+oData['linkman']+'">'+'联系人:'+oData['linkman']+'</span><br />');
+			$(nTd).append('<span class="ctr_search" data-ctrl-id="link_tel" data-ctrl-val="'+oData['tel']+'">'+'电话:'+oData['tel']+'</span>');
+		} else if (iCol == 3) {
+			$(nTd).html('<span class="ctr_search" data-ctrl-id="team_from" data-ctrl-val="'+oData['from_id']+'">'+'来源:'+oData['from_id.type_desc']+'</span><br />');
+			$(nTd).append('天数:'+oData['days']+'<br />');
+			$(nTd).append('人数:'+oData['member_count']);
+		} else if (iCol == 4) {
+			$(nTd).html('<span class="ctr_search" data-ctrl-id="team_state" data-ctrl-val="'+oData['dispose_state_id']+'">'+oData['dispose_state_id.type_desc']+'</span>');
+		} else if (iCol == 5) {
+			$(nTd).html('<span class="ctr_search" data-ctrl-id="create_admin" data-ctrl-val="'+oData['create_admin_id.account']+'">'+'接团人:'+oData['create_admin_id.show_text']+'</span><br />');
+			$(nTd).append('<span class="ctr_search" data-ctrl-id="dispose_admin" data-ctrl-val="'+oData['dispose_admin_id.account']+'">'+'处理人:'+oData['dispose_admin_id.show_text']+'</span>');
+		} else if (iCol == 6) {
+			$(nTd).html('<span class="ctr_search" data-ctrl-id="team_result" data-ctrl-val="'+oData['team_result']+'">'+oData['team_result.type_desc']+'</span>');
+		}	
+		$(nTd).find('.ctr_search').click(setSearchContent);
+	}
+
+	// 添加最后一列控件
+	function appendLastCol(nTd, sData, oData, iRow, iCol) {
+//		alert(nTd+'|'+JSON.stringify(sData)+'|'+JSON.stringify(oData)+'|'+iRow+'|'+iCol);
+		var id = parseInt(oData['id']);
+		var html = '';
+		if (oData['show_assign_btn'] == true) {
+			html += '<a href="#" class="btn btn-warning btn-sm btn-icon icon-left" onclick="_assignFun('+id+')">分配处理</a>';	
+		} 
+		if (oData['show_dispose_btn'] == true) {
+			html += '<a href="#" class="btn btn-warning btn-sm btn-icon icon-left" onclick="_acceptFun('+id+')">接受处理</a>';	
+		}		 
+		html += '<a href="'+'{:U("team/info")}/id/'+id+'" class="btn btn-secondary btn-sm btn-icon icon-left" target="_blank">详细信息</a>';
+		if (oData['show_delete_btn'] == true) {
+		html += '<a href="#" class="btn btn-danger btn-sm btn-icon icon-left" onclick="_deleteFun('+id+')">删除</a>';
+		}
+	    $(nTd).html(html);
+	}
+
+	// 设置搜索内容并搜索	
+	function setSearchContent() {
+		var searchObj = '#'+$(this).attr('data-ctrl-id')
+		var searchVal = $(this).attr('data-ctrl-val')
+		var tagName = $(searchObj).get(0).tagName;
+		if (tagName == 'SELECT') {
+			$(searchObj).val(searchVal).trigger('change');
+		} else {
+			$(searchObj).val(searchVal);
+		}	
+		myTable.fnReloadAjax();
+	}
+
+	function _assignFun(aid) {
+		$.post('{:U("team/list")}',
+			{op_type:'find', data_type:'one', id:aid},
+			function(data,status){
+				if (data['result']['errno'] == 0) {			
+					// 填充数据		
+					var ds = {
+						'elmt': [
+							{id:'Id', value:data['data']['id']},
+							{id:'Admin', value:data['data']['dispose_admin_id']},
+						]
+					};			
+					setModalDataEditInputValues(ds);	
+					// 显示窗口
+					showModalDataEdit();
+				} else {
+					toastr.error(data['result']['message']);					
+				}
+		});			
+		// 显示窗口
+		showModalDataEdit();
+	}
+	
+	function _assginAjax(ds) {		
+		var jsonData = {
+			op: 'assign',
+			id: ds['Id'],
+			admin_id: ds['Admin'],
+		}
+		
+		$.post('{:U("team/disposeAdmin")}', jsonData, function(data){
+			if (data.result.errno != 0) {
+				toastr.error(data.result.message);
+			} else {				
+		    	hideModalDataEdit();
+		    	myTable.fnReloadAjax();
+			}
+		});	
+	}
+	
+	// 接受处理小包团
+	function _acceptFun(aid) {		
+		var jsonData = {
+			op: 'accept',
+			id: aid,
+		}
+		
+		$.post('{:U("team/disposeAdmin")}', jsonData, function(data){
+			if (data.result.errno != 0) {
+				toastr.error(data.result.message);
+			} else {				
+		    	myTable.fnReloadAjax();
+			}
+		});	
+	}
+
+	// 弹出编辑数据界面
+	function _editFun(aid) {
+		$.getJSON("{:U('team/info')}", {op:'team_info', id:aid}, function(data){
+			if (data.result.errno == 0) {			
+				location.href=data.jumpUrl;	
+		        myTable.fnReloadAjax(myTable.fnSettings());
+			} else {
+				toastr.error(data.result.message);
+			}
+		})
+	}
+
+	// 删除数据
+	function _deleteFun(aid) {		
+		var jsonData = {
+			op_type: 'delete',
+			id: aid,
+		}
+		
+		$.post('{:U("team/list")}', jsonData, function(data){
+			if (data.result.errno != 0) {
+				toastr.error(data.result.message);
+			} else {				
+		    	myTable.fnReloadAjax();
+			}
+		});	
+	}
+
+	/*
+	add this plug in
+	// you can call the below function to reload the table with current state
+	Datatables刷新方法
+	oTable.fnReloadAjax(oTable.fnSettings());
+	*/
+	$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings) {
+		//oSettings.sAjaxSource = sNewSource;
+		this.fnClearTable(this);
+		this.oApi._fnProcessingDisplay(oSettings, true);
+		var that = this;
+
+		$.getJSON(oSettings.sAjaxSource, null, function (json) {
+		    /* Got the data - add it to the table */
+		    for (var i = 0; i < json.aaData.length; i++) {
+		        that.oApi._fnAddData(oSettings, json.aaData[i]);
+		    }
+		    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+		    that.fnDraw(that);
+		    that.oApi._fnProcessingDisplay(oSettings, false);
+		});
+	}
+	
+</script>

@@ -1,0 +1,363 @@
+<include file="Common/header" />
+<style>
+	.form-control { width: 30%; }
+	.form-control:focus { border-color: #40bbea; }
+	.chaxun { margin-right: 100px; margin-bottom: 30px; }
+	#cash_useSelectBoxIt, #cash_funcSelectBoxIt, #review_typeSelectBoxIt { 
+		border-radius: 0 15px 15px 0 ; 
+		background-color: #fff; 
+		border-color: #40bbea; 
+		overflow: hidden; 
+	}
+	
+	.selectboxit-options { 
+		border-radius: 0 15px 15px 15px; 
+		background-color: #fff; 
+		border-color: #40bbea; 
+	}
+	
+	.selectboxit-options li a { color: #000; }
+
+	.selectboxit-option-icon-container { overflow: hidden; }
+	.cx_border01 { border-radius: 15px 0 0 15px; border-color: #40bbea; }
+	.cx_border02 , html .select2-container .select2-choice , #s2id_activity{ border-radius: 0 15px 15px 0 !important; border-color: #40bbea !important; }
+	.tab-pane > div { margin-top: 10px; height: 35px; }
+	.ctr_card_btn_num:focus { border-color: #40bbea; }
+	.dropdown-menu.dropdown-info > li > a { color: #000; }
+	.dropdown-menu.dropdown-info > li > a:hover { background-color: #999 !important; }
+	.nav.nav-tabs > li.active > a { border: 1px solid #40bbea; border-bottom: 2px solid #fff; }
+	.nav.nav-tabs > li > a { padding-left: 30px; padding-right: 30px; }
+	.nav.nav-tabs > li > a:hover { background-color: #40bbea; color: #fff; }
+	.hvr-curl-top-left {
+	  display: inline-block;
+	  vertical-align: middle;
+	  -webkit-transform: translateZ(0);
+	  transform: translateZ(0);
+	  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+	  -webkit-backface-visibility: hidden;
+	  backface-visibility: hidden;
+	  -moz-osx-font-smoothing: grayscale;
+	  position: relative;
+	}
+	.hvr-curl-top-left:before {
+	  pointer-events: none;
+	  position: absolute;
+	  content: '';
+	  height: 0;
+	  width: 0;
+	  top: 0;
+	  left: 0;
+	  background: white;
+	  /* IE9 */
+	  background: linear-gradient(135deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
+	  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff', endColorstr='#000000');
+	  /*For IE7-8-9*/
+	  z-index: 1000;
+	  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+	  -webkit-transition-duration: 0.3s;
+	  transition-duration: 0.3s;
+	  -webkit-transition-property: width, height;
+	  transition-property: width, height;
+	}
+	.hvr-curl-top-left:hover:before, .hvr-curl-top-left:focus:before {
+	  width: 15px;
+	  height: 15px;
+	}
+	.info-color { background-color: #40bbea !important; border-color: #40bbea !important; }
+	.info-border-color { border-color: #40bbea !important; }
+	.select2-arrow { color: #fff !important; }
+	#select2-drop { border-color: #40bbea;  } 
+	
+	.selectboxit-container .selectboxit { border-radius: 0 15px 15px 0 !important; }             
+	.selectboxit-arrow-container { background-color: #40bbea; }
+	.selectboxit-arrow-container i { color: #fff; }
+	#activitySelectBoxIt , #sboxit-5SelectBoxIt , #order_fromSelectBoxIt , #order_stateSelectBoxIt , #sboxit-8SelectBoxIt { border-radius: 0 15px 15px 0 ; background-color: #fff; border-color: #40bbea; overflow: hidden; }
+	#activitySelectBoxItOptions , #sboxit-5SelectBoxItOptions , #order_fromSelectBoxItOptions , #order_stateSelectBoxItOptions , #sboxit-8SelectBoxItOptions , #cash_funcSelectBoxItOptions { border-radius: 0 15px 15px 15px; background-color: #fff; border-color: #40bbea; }
+	#activitySelectBoxItOptions li a , #sboxit-5SelectBoxItOptions li a , #order_fromSelectBoxItOptions li a ,  #sboxit-8SelectBoxItOptions li a , #cash_funcSelectBoxItOptions li a , .selectboxit-list li a{ color: #000; }	
+	.selectboxit-list .selectboxit-option-anchor{color:#000;}
+	
+</style>
+	<div class="row">
+		<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">{:C('CONTENT_TITLE')}</h3>
+			
+			<div class="panel-options">
+				<a href="#" data-toggle="panel">
+					<span class="collapse-icon">&ndash;</span>
+					<span class="expand-icon">+</span>
+				</a>
+
+			</div>
+		</div>
+		<div class="panel-body">
+			<!-- 查询 -->
+			<div class="row chaxun">
+				<!-- tab标签 -->
+				<div class="col-sm-12">
+					<div class="tab-content"  style="border-top: 1px solid #40bbea; margin-top: 0px;">
+						<div class="tab-pane active" id="order">
+							<div class="col-sm-3">
+								<div class="input-group">
+									<span class="input-group-addon info-color text-white cx_border01">提现用户:</span>
+									<input type="text" class="form-control cx_border02" id="contact">
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="input-group">
+									<span class="input-group-addon info-color text-white cx_border01">审阅类型:</span>
+									<script type="text/javascript">
+										jQuery(document).ready(function($)
+										{
+											$("#review_type").selectBoxIt({
+												showEffect: 'fadeIn',
+												hideEffect: 'fadeOut'
+											});
+										});
+									</script>
+									<select class="form-control" id="review_type">
+										<option value="-1">不限</option>
+										<notempty name="ReviewType">
+											<volist id="rt" name="ReviewType">											
+												<option value="{$rt.id}">{$rt.type_desc}</option>
+											</volist>
+										</notempty>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="input-group">
+									<span class="input-group-addon info-color text-white cx_border01">审核人账户:</span>
+									<input type="text" class="form-control cx_border02" id="admin_acct">
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="input-group">			
+									<span class="input-group-btn">
+										<button id="date_type" type="button" class="btn btn-info dropdown-toggle cx_border01" data-toggle="dropdown" data-id="request" style="background-color: #40bbea; color: #555;">
+											<span class="ctr_card_btn_num" style="background-color: #40bbea; color: #fff;">提审时间</span> 
+											<span class="caret text-white"></span>
+										</button>
+										<ul class="dropdown-menu dropdown-info ctr_card_change" style="background-color: #fff; border-color: #40bbea;">
+											<li><a href="javascript:;" name="request">提审时间</a></li>
+											<li><a href="javascript:;" name="review">审批时间</a></li>
+										</ul>
+									</span>
+									<input type="text" class="form-control datepicker info-border-color" style="display: inline-block;" data-format="yyyy-mm-dd" id="start_date">
+									<div class="input-group-addon info-color text-white" style="border-radius: 0 15px 15px 0;">
+										<a href="#"><i class="linecons-calendar text-white"></i></a>
+									</div>
+									<span style="display: table-cell; vertical-align: middle;">&nbsp;到&nbsp;</span>
+									<input type="text" class="form-control datepicker info-border-color" style="display: inline-block; border-radius:15px 0 0 15px;" data-format="yyyy-mm-dd" id="end_date">
+									<div class="input-group-addon info-color text-white cx_border02">
+										<a href="#"><i class="linecons-calendar text-white"></i></a>
+									</div>
+								</div>
+							</div>							
+						</div>					
+					</div>
+			
+					<button class="btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_search" style="float: right; margin-top: 30px;">
+						<i class="fa-search"></i>
+						<span>查 询</span>
+					</button>
+					<button class="btn btn-warning btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_reset" style="float: right; margin-top: 30px; margin-right: 10px;">
+						<i class="fa-refresh"></i>
+						<span>重 置</span>
+					</button>
+				</div>
+			</div>
+
+			<table class="table table-bordered table-striped" id="example-1">
+				<thead>
+					<tr>
+						<th>提现用户</th>
+						<th>提现渠道</th>
+						<th>提现金额</th>
+						<th>审核状态</th>
+						<th>审核人</th>
+						<th>提现时间</th>
+						<th>审核时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+			</table>					
+		</div>
+	</div>
+</div>	
+<include file="Common/footer" />
+
+
+<script type="text/javascript">
+	var myTable, pageRequestData;
+	var modalDataEditData = new Object();
+	$(document).ready(function(){
+		
+		// 初始化数据表格
+		myTable = initDataTable();
+		
+		$(".ctr_card_change li").click(function(){
+			var timeType = $(this).find('a').attr('name');
+			var timeDesc = $(this).find('a').html();
+			$(this).parent().prev().attr('data-id', timeType);
+			$(this).parent().prev().find('.ctr_card_btn_num').html(timeDesc);
+		});
+		
+		//搜索
+		$("#button_search").click(function(){
+	    	myTable.fnReloadAjax(myTable.fnSettings());
+		});
+		
+		// 重置条件
+		$("#button_reset").click(function(){
+			$('#review_type').val(-1).trigger('change');
+			$('#user').val('');
+			$('#admin_acct').val('')
+			$('#start_date').val('')
+			$('#end_date').val('')
+		});
+	});
+
+	// 初始化数据列表
+	function initDataTable() {	
+		var vTable = $("#example-1").dataTable({
+			"bSort": true,
+			"bAutoWidth": true,
+			"bFilter": true,
+			"searching": false,
+			"bInfo": true,//页脚信息
+			"bPaginate": true, //翻页功能
+			"bLengthChange": true, //改变每页显示数据数量
+			"bStateSave": true,	//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+			"sPaginationType": "full_numbers", //显示数字的翻页样式"
+			"aLengthMenu": [[50, 100, 200],[50, 100, 200]],	// 可分页的数量值与显示
+			"isDisplayLength": 50,	// 当前每页显示数量
+			"oLanguage": {
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+				"sZeroRecords": "抱歉， 没有找到",
+				"sInfo": "从 _START_ 到 _END_ / 共 _TOTAL_ 条数据",
+				"sInfoEmpty": "没有数据",
+				"sInfoFiltered": "(从_MAX_条数据中检索)",
+				"oPaginate": {
+					"sFirst": "首页",
+					"sPrevious": "前一页",
+					"sNext": "后一页",
+					"sLast": "尾页"
+				},
+				"sZeroRecords": "没有检索到数据",
+				"sProcessing": "<src='__PUBLIC__/images/loader.gif' />",
+			},
+			//Ajax获取信息
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "{$ajaxReqUrl}",
+			//如果加上下面这段内容，则使用post方式传递数据
+			"fnServerData": getPageData,
+			"aoColumns": [
+				{"mData": "user_id", "aTargets": [0], "fnCreatedCell": replaceContent},
+				{"mData": "pay_channel_id", "aTargets": [1], "fnCreatedCell": replaceContent},
+				{"mData": "cash", "aTargets": [2]},
+				{"mData": "review_type_id", "aTargets": [3], "fnCreatedCell": replaceContent},
+				{"mData": "admin_id", "aTargets": [4], "fnCreatedCell": replaceContent},
+				{"mData": "take_time", "aTargets": [5]},
+				{"mData": "review_time", "aTargets": [6]},
+				{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [6], "fnCreatedCell": appendLastCol},
+			],//$_GET[‘sColumns’]将接收到aoColumns传递数据
+			"aoColumnDefs": [{"sDefaultContent": "", "aTargets": ["_all"]}],
+		});
+		return vTable;
+	}
+	
+	function getFindData() {		
+		var jsonData = [
+				{'name':'user', 'value':$('#user').val()},
+				{'name':'review_type', 'value':$('#review_type').val()},
+				{'name':'admin_acct', 'value':$('#admin_acct').val()},
+				{'name':'date_type', 'value':$('#date_type').attr('data-id')},
+				{'name':'sdate', 'value':$('#start_date').val()},
+				{'name':'edate', 'value':$('#end_date').val()},
+			];		
+		return jsonData;
+	}
+
+	//Ajax获取数据
+	function getPageData ( sSource, aoData, fnCallback ) {
+		showLoading(true);
+		var jsonData = getFindData();
+		$.post('{$ajaxReqUrl}', {'op_type': 'cddata', 'cds': jsonData}, function(data){			
+			aoData.push({'name':'op_type','value':'list'});
+//			console.log(JSON.stringify(aoData));
+			pageRequestData = aoData;
+			$.post(sSource, aoData, function(data,status){
+					showLoading(false);
+//					console.log(data.sql1 + ">>>>>" +　data.sql2);
+					if (data['result']['errno'] == 0) {
+						fnCallback(data);
+					} else {
+						alert(data['result']['message']);
+					}			
+				},'JSON');
+		})
+		
+	}
+	
+	// 内容替换
+	function replaceContent(nTd, sData, oData, iRow, iCol) {
+		if (iCol == 0) {
+			$(nTd).html(oData.user_id_data.show_name);	
+		} else if (iCol == 1) {
+			$(nTd).html(oData.pay_channel_id_data.item_desc);
+		} else if (iCol == 3) {
+			$(nTd).html(oData.review_type_id_data.type_desc);
+		} else if (iCol == 4) {
+			$(nTd).html(oData.admin_id_data.show_name);
+		}
+	}
+
+	// 添加最后一列控件
+	function appendLastCol(nTd, sData, oData, iRow, iCol) {
+//		alert(nTd+'|'+JSON.stringify(sData)+'|'+JSON.stringify(oData)+'|'+iRow+'|'+iCol);  
+		var id = parseInt(oData['id']);
+//		alert(JSON.stringify(oData['review_complate']));
+		if (oData['review_complate']) {
+    		$(nTd).html('<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left" onclick="_editFun('+id+')">查看审核</a>');
+		} else {
+			if ('{$grant_review}' == true) {
+    			$(nTd).html('<a href="#" class="btn btn-warning btn-sm btn-icon icon-left" onclick="_editFun('+id+')">审核订单</a>');		
+			} else {
+				$(nTd).html('等待审核');
+			}
+		}
+	}
+
+	// 进入订单审核界面
+	function _editFun(aid) {
+		location.href = '{:U("review/takecash")}/op/info/id/'+aid;
+	}
+
+	/*
+	add this plug in
+	// you can call the below function to reload the table with current state
+	Datatables刷新方法
+	oTable.fnReloadAjax(oTable.fnSettings());
+	*/
+	$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings) {
+		//oSettings.sAjaxSource = sNewSource;
+		this.fnClearTable(this);
+		this.oApi._fnProcessingDisplay(oSettings, true);
+		var that = this;
+
+		$.getJSON(oSettings.sAjaxSource, null, function (json) {
+		    /* Got the data - add it to the table */
+		    for (var i = 0; i < json.aaData.length; i++) {
+		        that.oApi._fnAddData(oSettings, json.aaData[i]);
+		    }
+		    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+		    that.fnDraw(that);
+		    that.oApi._fnProcessingDisplay(oSettings, false);
+		});
+	}
+
+</script>
+	

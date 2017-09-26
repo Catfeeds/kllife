@@ -1,0 +1,65 @@
+	    <nav class="bar bar-tab">
+	    	<if condition="empty($duid)">
+			    <a class="tab-item active" href="{:U('index/welcome')}" external>
+			      <i class="iconfont">&#xe605;</i>
+			      <p>首页</p>
+			    </a>
+			    <a class="tab-item" href="{:U('line/book')}" external>
+			      <i class="iconfont">&#xe604;</i>
+			      <p>定制游</p>
+			    </a>
+			    <a class="tab-item" href="{$pcset.askfor_link}" external>
+			      <i class="iconfont">&#xe602;</i>
+			      <p>咨询</p>
+			    </a>
+			    <a class="tab-item" href="http://shequ.kllife.com/" external>
+			      <i class="iconfont">&#xe603;</i>
+			      <p>游记</p>
+			    </a>
+			    <a class="tab-item" href="{:U('user/info')}" external>
+			      <i class="iconfont">&#xe601;</i>
+			      <p>我的</p>
+			    </a>
+	    	<else />
+			    <a class="tab-item active" href="{:U('fenxiao/welcome')}/duid/{$duid}" external>
+			      <i class="iconfont">&#xe605;</i>
+			      <p>首页</p>
+			    </a>
+			    <a class="tab-item" href="{:U('line/book')}" external>
+			      <i class="iconfont">&#xe604;</i>
+			      <p>定制游</p>
+			    </a>
+			    <a class="tab-item" href="{$pcset.askfor_link}" external>
+			      <i class="iconfont">&#xe602;</i>
+			      <p>咨询</p>
+			    </a>
+			    <a class="tab-item" href="{:U('user/info')}/duid/{$duid}" external>
+			      <i class="iconfont">&#xe601;</i>
+			      <p>我的</p>
+			    </a>
+	    	</if>
+		</nav>
+		<!--<script src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>-->
+		<script type="text/javascript">
+//            jQuery(document).ready(function($){
+//                $("img").lazyload({
+//                    placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+//                    effect      : "fadeIn",
+//                    threshold : 0,
+//                    failure_limit : 10,
+//                    skip_invisible : false
+//                });
+//            });
+
+			$('nav').find('a:last-child').click(function(){
+				$.post('{:U("index/url")}', {type:'nav_mine'}, function(data){
+					if (data.result.errno == 0) {
+						if (data.jumpUrl != null) {
+							location.href = data.jumpUrl;
+						}
+					} else {
+						alert(data.result.message);
+					}
+				});
+			});
+		</script>

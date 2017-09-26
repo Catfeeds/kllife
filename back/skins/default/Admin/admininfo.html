@@ -1,0 +1,351 @@
+<include file="Common/header" />
+	<style>
+		.cantuanrenshu span { margin-right: 1%; }
+		.ctr_xinxi label { margin-left: 2%; color: #fff; }
+		.ctr_top { margin-left: .1%; margin-top: 1%; background: #999; }
+		.ctr_top p { color: #fff; }
+		.ctr_input , .ctr_select { height: 32px; padding: 6px 12px; color: #000; }
+		.ctr_select { vertical-align: bottom; margin-left: -4px; }
+		#table td { vertical-align: middle; }
+		.ctr_xingming , .ctr_shouji { width: 80%; height: 32px; padding: 6px 12px; border: 1px solid #40bbea; display: none; }
+		.ctr_baocun , .ctr_sex , .ctr_card { display: none; }
+		#table .ctr_card_num { float: right; width: 60%; height: 32px; margin-right: 39px; padding: 6px 12px; border: 1px solid #40bbea; display: none; }
+		.selectboxit-btn { background: #fff; border-color: #40bbea; }
+		.selectboxit-list { background-color: #fff; border: 1px solid #40bbea; }
+		.selectboxit-list .selectboxit-option-anchor { color: #979898; }
+		.form-control:focus { border-color: #40bbea; }
+		a { color: #979898; }
+		.dingdan_bianji { display: none; }
+		.dingdan_bottom > p , .dingdan_bottom span{ margin-top: 7px; }
+		.add_xingming , .add_shouji , .add_card_btn_num { border: 1px solid #40bbea; }
+		.add_xingming , .add_shouji { outline: none; }
+		.add_xingming:focus , .add_shouji:focus { border: 1px solid #40bbea; }
+		.dingdan_bottom { margin-bottom: 10px; }
+		.cx_border02 , html .select2-container .select2-choice , #s2id_activity{ border-color: #40bbea !important; }
+		.info-color { border-color: #40bbea !important; }
+		#select2-drop { border-color: #40bbea;  } 
+		#order_fromSelectBoxItContainer {
+			vertical-align: middle;
+		}
+		.selectboxit-container span {height: 32px; line-height: 32px;}
+		.btn_cancel { display: none; }		
+	</style>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> 
+						{:C('CONTENT_TITLE')}
+						<input id="admin_id" type="hidden" value="{$admin123.id}"/>
+					</h3>
+				</div>
+				<div class="panel-body row">
+					<div id="dingdan_main" class="col-sm-12" style="margin-left: 5%;">
+						<div class="row">
+							<div class="form-group row">
+								<p id='err_msg' class="col-sm-3" style="color:#e4393c;"></p>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">管理员编号：</p>
+								<span id="id_show" class="col-sm-3" style="padding-left: 0;">{$admin123.id}</span>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">管理员账户：</p>
+								<span id="account_show" class="col-sm-3" style="padding-left: 0;">{$admin123.account}</span>
+								<input type="text" id="account_val" style="height: 32px;" class="dingdan_bianji col-sm-3">
+								<if condition="$grant_update_admin eq true">
+									<input type="button" name="account" class="btn btn-info btn_edit" style="vertical-align: middle;" value="编辑">
+									<input type="button" name="account" class="btn btn-info btn_cancel" style="vertical-align: middle;" value="取消">
+								</if>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">管理员昵称：</p>
+								<span id="nickname_show" class="col-sm-3" style="padding-left: 0;">{$admin123.nickname}</span>
+								<input type="text" id="nickname_val" style="height: 32px;" class="dingdan_bianji col-sm-3">
+								<input type="button" name="nickname" class="btn btn-info btn_edit" style="vertical-align: middle;" value="编辑">
+								<input type="button" name="nickname" class="btn btn-info btn_cancel" style="vertical-align: middle;" value="取消">
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">管理员电话：</p>
+								<span id="tel_show" class="col-sm-3" style="padding-left: 0;">{$admin123.tel}</span>
+								<input type="text" id="tel_val" maxlength="11" style="height: 32px;" class="dingdan_bianji col-sm-3">
+								<if condition="$grant_update_admin eq true">
+									<input type="button" name="tel" class="btn btn-info btn_edit" style="vertical-align: middle;" value="编辑">
+									<input type="button" name="tel" class="btn btn-info btn_cancel" style="vertical-align: middle;" value="取消">
+								</if>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">管理员邮箱：</p>
+								<span id="email_show" class="col-sm-3" style="padding-left: 0;">{$admin123.email}</span>
+								<input type="text" id="email_val" style="height: 32px;" class="dingdan_bianji col-sm-3">
+								<if condition="$grant_update_admin eq true">
+									<input type="button" name="email" class="btn btn-info btn_edit" style="vertical-align: middle;" value="编辑">
+									<input type="button" name="email" class="btn btn-info btn_cancel" style="vertical-align: middle;" value="取消">
+								</if>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">管理员所属站点：</p>
+								<span id="station_id_show" class="col-sm-3" style="padding-left: 0; float: left;">{$admin123.station_id_name}</span>
+								<if condition="$admin.account eq 'admin'">
+									<div id="station_id_container" class="input-group col-sm-3 dingdan_bianji" style="border-color: #40bbea; float: left;">
+										<script type="text/javascript">
+											jQuery(document).ready(function($)
+											{
+												$("#station_id_val").selectBoxIt().on('open', function()
+												{
+													// Adding Custom Scrollbar
+													$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+												});
+											});
+										</script>
+										<select id="station_id_val" class="form-control">
+											<volist id="station" name="adminStation">
+												<option value="{$station.id}">{$station.name}</option>
+											</volist>
+										</select>
+									</div>
+									<if condition="$grant_update_admin eq true">
+										<input type="button" name="station_id" class="btn btn-info btn_edit" style="vertical-align: middle;" value="编辑">
+										<input type="button" name="station_id" class="btn btn-info btn_cancel" style="vertical-align: middle;" value="取消">
+									</if>
+								</if>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">管理员类型：</p>
+								<span id="type_id_show" class="col-sm-3" style="padding-left: 0; float: left;">{$admin123.type_id_type_desc}</span>
+								<if condition="$admin.account eq 'admin'">
+									<div id="type_id_container" class="input-group col-sm-3 dingdan_bianji" style="border-color: #40bbea; float: left;">
+										<script type="text/javascript">
+											jQuery(document).ready(function($)
+											{
+												$("#type_id_val").selectBoxIt().on('open', function()
+												{
+													// Adding Custom Scrollbar
+													$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+												});
+											});
+										</script>
+										<select id="type_id_val" class="form-control">
+											<volist id="type" name="adminType">
+												<option value="{$type.id}">{$type.type_desc}</option>
+											</volist>
+										</select>
+									</div>
+									<if condition="$grant_update_admin eq true">
+										<input type="button" name="type_id" class="btn btn-info btn_edit" style="vertical-align: middle;" value="编辑">
+										<input type="button" name="type_id" class="btn btn-info btn_cancel" style="vertical-align: middle;" value="取消">
+									</if>
+								</if>
+							</div>
+							
+							<if condition="$admin.account eq 'admin'">
+								<div class="row dingdan_bottom">
+									<p class="col-sm-1">管理员权限组：</p>
+									<span id="group_id_show" class="col-sm-3" style="padding-left: 0; float: left;">{$admin123.group_id_type_desc}</span>
+									<div id="group_id_container" class="input-group col-sm-3 dingdan_bianji" style="border-color: #40bbea; float: left;">
+										<script type="text/javascript">
+											jQuery(document).ready(function($)
+											{
+												$("#group_id_val").selectBoxIt().on('open', function()
+												{
+													// Adding Custom Scrollbar
+													$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+												});
+											});
+										</script>
+										<select id="group_id_val" class="form-control">
+											<volist id="group" name="adminGroup">
+												<option value="{$group.id}">{$group.type_desc}</option>
+											</volist>
+										</select>
+									</div>
+									<if condition="$grant_update_admin eq true">
+										<input type="button" name="group_id" class="btn btn-info btn_edit" style="vertical-align: middle;" value="编辑">
+										<input type="button" name="group_id" class="btn btn-info btn_cancel" style="vertical-align: middle;" value="取消">
+									</if>
+								</div>
+							</if>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">禁用状态：</p>
+								<span id="forbiden_show" class="col-sm-3" style="padding-left: 0;">{$admin123.forbidden_show_text}</span>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">创建时间：</p>
+								<span id="create_time_show" class="col-sm-3" style="padding-left: 0;">{$admin123.create_time}</span>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">最后登录时间：</p>
+								<span id="login_time_show" class="col-sm-3" style="padding-left: 0;">{$admin123.last_login_time}</span>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">最后登录IP：</p>
+								<span id="login_ip_show" class="col-sm-3" style="padding-left: 0;">{$admin123.last_login_ip}</span>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">当前登录时间：</p>
+								<span id="login_time_show" class="col-sm-3" style="padding-left: 0;">{$admin123.login_time}</span>
+							</div>
+							
+							<div class="row dingdan_bottom">
+								<p class="col-sm-1">当前登录IP：</p>
+								<span id="login_ip_show" class="col-sm-3" style="padding-left: 0;">{$admin123.login_ip}</span>
+							</div>
+							
+							<!--跟进信息-->
+							<div class="col-sm-12" style=" margin-top: 2%;">	
+								<p class="text-danger lead">管理员账号记录：</p><br />
+								<div class="row">
+									<table id="table_message" class="table text-left" style="width: 80%;">
+										<thead>
+											<tr>
+												<th class="col-sm-2">记录时间</th>
+												<th class="col-sm-10">记录内容</th>
+											</tr>
+											<tbody>
+												<volist id="log" name="adminLog">
+													<tr>
+														<td><span>{$log.create_time}</span></td>
+														<td><span>{$log.content}</span></td>
+													</tr>
+												</volist>
+											</tbody>
+										</thead>
+									</table>
+								</div>
+							</div>
+							
+						</div>
+						
+						<br />
+						<br />
+
+						<button id="back_list" type="button" class="btn btn-secondary" style="margin-left: 1%;">返回列表</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		// 检测电话是否正确
+		$('#tel_val').blur(checkTel);
+		
+		// 返回列表
+		$('#back_list').click(function(){window.history.go(-1);});
+		
+		// 编辑数据
+		$('.btn_edit').click(saveData);
+		
+		// 取消数据
+		$('.btn_cancel').click(function(){
+			showEditTags($(this).parent(), $(this).attr('name'));
+		});
+	});
+	
+	// 检测电话号码
+	function checkTel() {
+		var val = $(this).val();
+		if (checkMobile(val) == false) {
+			alert('手机号码格式有误，您确定继续修改');
+			return false;
+		}
+	}
+	
+	function showEditTags(divObj, namestr, bFail) {
+		var editVal = $(divObj).find('.btn_edit').val();		
+		var containerObj = $(divObj).find('#'+namestr+'_container');
+		var showObj = $(divObj).find('#'+namestr+'_show');
+		var valObj = $(divObj).find('#'+namestr+'_val');
+		var showHtmlObj = $(containerObj).length > 0 ? containerObj : valObj;
+		if (editVal == '编辑') {
+			var dataText = $(showObj).html();
+			var tagHtml = $(valObj).get(0).tagName;
+			if (tagHtml == 'INPUT') {
+				$(valObj).val(dataText);
+			} else if (tagHtml == 'SELECT') {
+				$(valObj).val('11').trigger('change');
+			} else if (tagHtml == 'TEXTAREA') {
+				$(valObj).html(dataText);
+			}
+			
+			$(showObj).hide();
+			$(showHtmlObj).show();
+			
+			$(divObj).find('.btn_edit').val('保存');
+			$(divObj).find('.btn_cancel').show();
+		} else {
+			
+			$(showObj).show();
+			$(showHtmlObj).hide();
+			
+			$(divObj).find('.btn_edit').val('编辑');
+			$(divObj).find('.btn_cancel').hide();
+		}
+	}
+	
+	function saveData() {
+		var divObj = $(this).parent();
+		var namestr = $(this).attr('name');
+		
+		var editVal = $(divObj).find('.btn_edit').val();
+		if (editVal == '编辑') {
+			showEditTags(divObj, namestr);
+			return false;
+		}		
+		
+		var showObj = $(divObj).find('#'+namestr+'_show');
+		var valObj = $(divObj).find('#'+namestr+'_val');
+		
+		
+		var showText = ''
+		var modifyData = '';
+		var tagName = $(valObj).get(0).tagName;
+		if (tagName == 'SELECT') {
+			showText = $(divObj).find('#'+namestr+'_valSelectBoxItText').html();
+			modifyData = $(valObj).val();
+		} else {
+			modifyData = $(valObj).val();
+			showText = modifyData;
+		}
+		
+		if (modifyData == '') {
+			showEditTags(divObj, namestr);
+			alert('修改数据不能为空');
+			return false;
+		}
+		
+		var adminId = $('#admin_id').val();
+		var jsonData = {
+			op_type: 'edit',
+			cd:{'id' : adminId},
+			data: [
+				{name:namestr, value:modifyData},
+			]
+		}
+		
+		console.log(JSON.stringify(jsonData));
+		
+		$.post('{:U("admin/info")}', jsonData, function(data){
+			if (data.result.errno != 0) {
+				alert(data.result.message);
+			} else {				
+				$(showObj).html(showText);
+			}
+			showEditTags(divObj, namestr);
+		});	
+	}
+</script>

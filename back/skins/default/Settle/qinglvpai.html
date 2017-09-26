@@ -1,0 +1,604 @@
+<include file="Common/header" />
+	<link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/animate.css">
+    <link rel="stylesheet" href="__PUBLIC__/qinglvpai/css/style.css">
+	<style>
+		#add{padding:2px 20px;}
+		.tag{font-size: 18px;}
+		.new-tag{position: relative;margin:0px 5px;}
+		/*.new-tag .remove{color:#888;position: absolute;top:-7px;right:0px;cursor: pointer;font-size: 14px;padding:7px;border-left:1px solid #a9a9a9;border-right:1px solid #a9a9a9;background: #fff;}*/
+		.new-tag .remove{position: absolute; top:-3px;right:8px;cursor: pointer;font-size: 14px;padding:7px;}
+		.index-line .place-name .new-tag input{height:30px;font-size: 16px;color:#888;}
+		.index-line .place-name .new-tag .active{background:#ef6249;color:#fff;}
+		.index-line .left .travel-image0{width:567.997px;height:568.182px;}
+		.index-line .right .travel-image1{width:610.994px;height:361.818px;}
+		.index-line .right .travel-image2{width:295.994px;height:186.364px;}
+		
+		.right-fixed-aside { position: fixed; top: 200px; left:300px; z-index:998; }
+		.right-fixed-aside ul li a {
+		    display: block;
+		    padding: 10px 10px;
+		    margin-top: 2px;
+		    background-color: #858585;
+		    color: #fff;
+		    font-size: 14px;
+		}
+		.right-fixed-aside ul li:last-child a {
+		    display: block;
+		    padding: 10px 10px;
+		    margin-top: 2px;
+		    background-color: #8dc63f;
+		    color: #fff;
+		    font-size: 14px;
+		}
+		
+		.article-choose { height:105px; padding-top:44px; }
+		.article-choose-use { height:105px; padding-top:17px; }
+		.modal-content { line-height:1; }
+	</style>
+	
+	<!--header-->
+	<div class="header banner">
+	    <a href="javascript:;"><img class="img-responsive set_image" data-set="banner" src="{$set.banner}" alt="" style="width: 1920px; height: 919px;"></a>
+	</div>
+	<!--header-->
+	<div class="header content_banner">
+	    <a href="javascript:;"><img class="img-responsive set_image" data-set="content_banner" src="{$set.content_banner}" alt="" style="width: 1920px; height: 800px;"></a>
+	</div>
+	<!--header-->
+	<div class="header qinglvpai_content_banner">
+	    <a href="javascript:;"><img class="img-responsive set_image" data-set="qinglvpai_content_banner" src="{$set.qinglvpai_content_banner}" alt="" style="width: 1920px; height: 450px;"></a>
+	</div>
+	<!--header-->
+	<div class="header xiaomantuan_banner">
+	    <a href="javascript:;"><img class="img-responsive set_image" data-set="xiaomantuan_banner" src="{$set.xiaomantuan_banner}" alt="" style="width: 1920px; height: 800px;"></a>
+	</div>
+	<!--header-->
+	<div class="header xiaomantuan_content_banner">
+	    <a href="javascript:;"><img class="img-responsive set_image" data-set="xiaomantuan_content_banner" src="{$set.xiaomantuan_content_banner}" alt="" style="width: 1920px; height: 450px;"></a>
+	</div>
+	<!--企业简介-->
+	<div class="index-company-profile">
+	    <img class="img-responsive set_image" data-set="company_background" src="{$set.company_background}" alt="" style="width: 1730px; height: 829.091px;">
+	    <!--<div class="mask"><!-此div只用于显示遮罩层-></div>-->
+	    <h2>企业简介</h2>
+	    <div class="profile" style= "background:transparent;">
+			<textarea class="set_text" data-set="company_intro" cols="50" rows="10" style= "padding:15px;background:transparent;" placeholder="请输入企业简介">{$set.company_intro}</textarea>
+		</div>
+	</div>
+	<!--旅拍线路-->
+	<div class="index-line">
+	    <div class="center">
+	        <h2>旅拍产品</h2>
+	        <div class="place-name" style="text-align: left">
+	            <span class="tag">标签：</span>
+	            <a class="btn btn-orange-two active" href="javascript:;" id="add">添加</a>
+	            <volist id="travel_tab" name="set">
+	            	<if condition="stripos($key, 'travel_tab') heq 0 and stripos($key, '_line_') heq false and stripos($key, '_line_image_') heq false">
+	            		<php> $sortIndex = $set['sort_'.$key]; </php>
+		            	<span class="new-tag">
+		            		<if condition="empty($firstTab) eq true">
+		            			<assign name="firstTab" value="$key" />
+	            				<a class="btn btn-orange-two active set_tab" data-set="{$key}" data-index="{$sortIndex}" href="javascript:;">{$travel_tab}&nbsp;&nbsp;</a>
+		            		<else />
+	            				<a class="btn btn-orange-two set_tab" data-set="{$key}" data-index="{$sortIndex}" href="javascript:;">{$travel_tab}&nbsp;&nbsp;</a>
+		            		</if>
+		            		<i class="glyphicon glyphicon-remove remove" style="z-index:999;"></i>
+		            	</span>
+	            	</if>
+	            </volist>
+	        </div>
+	        <div>
+        		<php>
+        			$classList = array('relative-line relative-line-one', 'right-top relative-line relative-line-two', 'left-two relative-line relative-line-three', 'right-two relative-line relative-line-three');
+        			$beforeHtml = array('<div class="left">','<div class="right">', '<div class="right-bottom">', '');
+        			$behindHtml = array('</div>','','','</div></div>');
+        			$imgClass = array('travel-image0', 'travel-image1', 'travel-image2', 'travel-image2');
+        		</php>
+	        	<for start="0" end="4" name="k">
+	        		<php>
+	        			if (empty($firstTab)) {
+	        				break;
+	        			}
+	        			$line = $set[$firstTab.'_line_'.$k]; 
+	        			$bugKey = $firstTab.'_line_'.$k;
+	        			if (!empty($line)) {
+	        				$lineBackground = $line['img1'];
+	        				$bugKey = $firstTab.'_line_image_'.$k;
+	        				if (!empty($set[$firstTab.'_line_image_'.$k])) {
+	        					$lineBackground = $set[$firstTab.'_line_image_'.$k];	
+	        				}
+	        			}
+	        		</php>
+					{$beforeHtml[$k]}
+	                <div class="{$classList[$k]} travel_tab_line">
+	                    <a href="javascript:;">
+	                    	<img class="img-responsive {$imgClass[$k]}" src="{$lineBackground}" alt="">
+	                    </a>
+	                    <div class="animated tab_set_image" data-set="line_image_{$k}"><!--此div只用于显示遮罩层--></div>
+	                    <h2 class="animated">{$line.title}-{$line.destination_show_text}</h2>
+	                    <a type="button" class="btn btn-orange-three animated tab_set_line" data-set="line_{$k}" data-index="{$k}">设置线路</a>
+	                </div>
+					{$behindHtml[$k]}
+	        	</for>
+	        </div>
+	    </div>
+	</div>
+	
+	<!--慢旅行-->
+	<div class="index-travel">
+	    <div class="tit">慢旅行</div>
+	    <div class="recommended-circuit">
+	    	<php>$line = $set['slowly_line_0'];</php>
+	        <div class="left"><img class="img-responsive" src="{$line.img1}" alt="" style="width: 500px; height: 374.545px;"></div>
+	        <div class="right">
+	            <h2>{$line.title}-{$line.destination_show_text}</h2>
+	            <h3>{$line.subheading}</h3>
+	            <p>产品寄语：<span>{$line.send_word}</span></p>
+	            <div class="time-zan">
+	                <div class="time">Time：{$line.start_time} </div>
+	                <!--<div class="zan">21<span class="glyphicon glyphicon-heart"></span></div>-->
+	            </div>
+	            <a type="button" class="btn btn-orange-three set_line" data-set="slowly_line_0">设置线路</a>
+	        </div>
+	    </div>
+	    <div class="circuit">
+	    	<for start="1" end="5">
+	    		<php>$line = $set['slowly_line_'.$i];</php>
+		        <a href="javascript:;">
+		            <div class="circuit-item">
+		                <div class="img"><img class="img-responsive" src="{$line.img1}" alt="" style="width: 274.517px; height: 206.364px;"></div>
+		                <div class="background">
+		                    <h3>{$line.title}-{$line.destination_show_text}</h3>
+		                    <a type="buttom" class="btn btn-orange-four set_line" data-set="slowly_line_{$i}">设置线路</a>
+		                </div>
+		            </div>
+		        </a>
+	    	</for>
+	    </div>
+	</div>
+	<!--旅拍作品-->
+	<div class="index-works">
+	    <img src="__PUBLIC__/qinglvpai/images/index/index-works-background.png" alt="">
+	    <div class="absolute" style="position: absolute;">
+	        <h2>旅拍作品</h2>
+	        <for start="0" end="6">
+	        	<php>$art = $set['travel_article_'.$i];</php>
+		        <div class="works">
+		            <img src="{$art.face_image}" alt="" style="width: 420.994px; height: 315.994px;">
+		            <div class="animated set_travel_article" data-set="travel_article_{$i}" data-index="{$i}"><!--此div只用于遮罩层--></div>
+		            <span class="lg animated">{$art.title}</span>
+		            <span class="sm animated">作者：{$art.author}</span>
+		        </div>
+		    </for>
+	    </div>
+	</div>
+	<!--线路回顾-->
+	<div class="index-review">
+	    <h2>线路回顾</h2>
+	    <for start="0" end="3">
+	        <php>$art = $set['travel_review_article_'.$i];</php>
+		    <a href="javascript:;">
+		        <div class="review">
+		            <img class="img-responsive" src="{$art.face_image}" alt="" style="width: 373.324px; height: 233.636px;">
+		            <div class="background">
+		                <h3>{$art.title}</h3>
+		                <div class="time-zan">
+		                    <div class="time">{$art.create_time}</div>
+		                    <!--<div class="zan">21 <span class="glyphicon glyphicon-heart"></span></div>-->
+		                </div>
+		                <p>产品寄语：<span class="send_word">{$art.send_word}</span></p>
+		                <a type="button" class="btn btn-orange-five set_travel_review" data-set="travel_review_article_{$i}" data-index="{$i}">设置</a>
+		            </div>
+		        </div>
+		    </a>
+	    </for>
+  		
+	</div>
+	
+	<!-- 右侧导航栏 -->
+	<div class="right-fixed-aside">
+		<ul>
+			<li><a class="right-fixed-banner" href="javascript:;">欢迎首图</a></li>
+			<li><a class="right-fixed-content-banner" href="javascript:;">内容首图</a></li>
+			<li><a class="right-fixed-qlp-content-banner" href="javascript:;">轻旅拍内<br/>容页首图</a></li>
+			<li><a class="right-fixed-xmt-banner" href="javascript:;">小团首图</a></li>
+			<li><a class="right-fixed-xmt-content-banner" href="javascript:;">小慢团内<br/>容页首图</a></li>
+			<li><a class="right-fixed-company" href="javascript:;">公司简介</a></li>
+			<li><a class="right-fixed-qinglvpai" href="javascript:;">旅拍线路</a></li>
+			<li><a class="right-fixed-slowly" href="javascript:;">小团线路</a></li>
+			<li><a class="right-fixed-article" href="javascript:;">旅拍作品</a></li>
+			<li><a class="right-fixed-review" href="javascript:;">线路回顾</a></li>
+			<li><a class="update_cache" href="javascript:;" data-set="qlp_pc_home_index">更新缓存</a></li>
+		</ul>
+	</div>
+	<script>
+		$('body').css('background', '#f2f4f5');
+	
+		//右侧锚点
+		function toTag(g, h) {
+			$(g).click(		
+				function(){				
+					$("html,body").animate({scrollTop: $(h).offset().top}, 1000);
+				}
+			);
+		};
+		
+		toTag('.right-fixed-banner','.banner');
+		toTag('.right-fixed-content-banner','.content_banner');
+		toTag('.right-fixed-qlp-content-banner','.qinglvpai_content_banner');
+		toTag('.right-fixed-xmt-banner','.xiaomantuan_banner');
+		toTag('.right-fixed-xmt-content-banner','.xiaomantuan_content_banner');
+		toTag('.right-fixed-company','.index-company-profile');
+		toTag('.right-fixed-qinglvpai','.index-line');
+		toTag('.right-fixed-slowly','.index-travel');
+		toTag('.right-fixed-article','.index-works');
+		toTag('.right-fixed-review','.index-review');	
+		
+
+	    //鼠标滚动简介动画显示
+	    $(window).scroll( function (){
+	        if($(this).scrollTop() > 100 ) {
+	            $('.index-company-profile .mask').addClass('animated bounceInLeft');
+	            $('.index-company-profile h2').addClass('animated bounceInRight');
+	            $('.index-company-profile .profile').addClass('animated bounceInUp');
+	        }
+	    });
+	    
+		// 设置首页配置
+		function setQinglvPaiConfig(key, val, nGroup, nSort, sql_type, keyLike, stationId) {			
+			if (key == '' || key == 'undefined' || key == null) {
+				toastr.warning('修改项错误');
+				return false;
+			}
+			var jsonData = {
+				op_type: 'set',
+				type: 'qlp_pc_home_index',
+				key: key,
+				value: val,
+			}
+			if (nGroup != 'undefined' && nGroup != null) {
+				jsonData['group'] = nGroup;
+			}
+			if (nSort != 'undefined' && nSort != null) {
+				jsonData['sort'] = nSort;
+			}
+			if (sql_type != 'undefined' && sql_type != null) {
+				jsonData['sql_type'] = sql_type;
+			}
+			if (keyLike != 'undefined' && keyLike != null) {
+				jsonData['key_like'] = 1;
+			}
+			if (stationId != 'undefined' && stationId != null) {
+				jsonData['station_id'] = stationId;
+			}
+			
+			var ds = {ds:null, result:{errno:-1, message:'设置为未功'}};
+			$.ajax({
+				url: '{:U("settle/settle")}',
+				type: 'POST',
+				async: false,
+				data: jsonData,
+				dataType: 'json',
+				success: function(data) {
+					if (data.jumpUrl != null) {
+						location.href = data.jumpUrl;
+					}
+					ds = data;
+				},
+				complete: function(data) {
+				}
+			});			
+			return ds;
+		}
+		
+		// 绑定选择图片函数	
+		function chooseImage() {
+			funcModalImageSelectorCallBack = setImage;
+			showModalSelectorImageDialog($(this));
+		}
+		
+		// 设置图片
+		function setImage(obj, imageList) {
+			var key = $(obj).attr('data-set');			
+			if ($(obj).hasClass('tab_set_image')) {				
+				var activeTab = $('.place-name').find('.new-tag').find('a.active');
+				if ($(activeTab).length > 0) {
+					key = $(activeTab).attr('data-set')+'_'+key;
+				} else {
+					toastr.warning('没有选择旅拍产品的标签,不能设置背景图片');
+					return false;
+				}
+			}
+			
+			var val = '';				
+			for (var i=0; i < $(imageList).length; i++) {	
+				if (imageList[i] == '') {
+					continue;
+				}
+				val = imageList[i];
+				break;
+			}
+			
+			var data = setQinglvPaiConfig(key, val);
+			if (data.result.errno == 0) {
+				$(obj).attr('src', val);
+				if ($(obj).hasClass('tab_set_image')) {
+					$(obj).prev().find('img').attr('src', val);
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		}
+		
+		// 绑定设置图片事件
+		$('.set_image').click(chooseImage);
+		$('.tab_set_image').click(chooseImage);
+		
+		// 绑定文本
+		$('.set_text').blur(function(){
+			var key = $(this).attr('data-set');
+			if (key == '' || key == null || key == 'undefined') {
+				toastr.warning('绑定事件的控件未设置要配置的内容键');
+				return false;
+			}
+			
+			var val = '';
+			if ($(this)[0].tagName == 'textarea') {
+				val = $(this).val();	
+			} else {
+				val = $(this).val();	
+			}
+			
+			if (val == '') {
+				toastr.warning('设置的内容不能为空');
+				return false;
+			}
+			
+			var data = setQinglvPaiConfig(key, val);
+			if (data.result.errno == 0) {
+				toastr.success(data.result.message);
+			} else {
+				toastr.error(data.result.message);
+			}			
+		});		
+
+	    //旅拍线路按钮点击切换
+	    $(".place-name a").on("click",function(){
+	        $(this).addClass("active").siblings().removeClass("active");
+	    });
+
+	    //旅拍作品鼠标滑过显示与隐藏旅拍作品遮罩层
+	    $(".index-works .works").on("mouseenter",function() {
+	        $(this).find(".animated").show();
+	        $(this).find("div").addClass("flipInY");
+	        $(this).find(".lg").addClass("fadeInRight");
+	        $(this).find(".sm").addClass("fadeInLeft");
+	    });
+	    
+	    $(".index-works .works").on(" mouseleave",function() {
+	        $(this).find(".animated").hide();
+	    });
+	    
+	    //旅拍线路鼠标滑过显示与隐藏旅拍作品遮罩层
+	    $(".index-line .relative-line").on("mouseenter",function() {
+	        $(this).find(".animated").show();
+	        $(this).find("div").addClass("flipInY")
+	        $(this).find("h2").addClass("fadeInRight")
+	        $(this).find(".btn").addClass("fadeInLeft")
+	    });
+	    
+	    $(".index-line .relative-line").on(" mouseleave",function() {
+	        $(this).find(".animated").hide();
+	    });
+		
+		// 切换标签页
+		function changeTab() {
+			clearTravelLines();
+			var activeObj = $('.index-line').find('.place-name').find('.new-tag .active');
+			if ($(activeObj).length == 0) {
+				toastr.warning('没有选定旅拍产品的标签');
+				return false;
+			}
+		
+			var key = $(activeObj).attr('data-set');
+			$('.travel_tab_line').each(function(i,obj){
+				var setval = key+'_line_image_'+i;
+				$(this).find('.tab_set_image').attr('data-set', setval);
+			});
+			
+			var data = setQinglvPaiConfig(key, '', null, null, 'find', true);
+			if (data.ds != null && data.ds != 'undefined') {
+				var idx = 0;
+				for (x in data.ds) {
+					if (x.indexOf('travel_tab_') == 0 && x.indexOf('_line_') != -1 && x.indexOf('_line_image_') == -1) {
+						var d = data.ds[x];
+						var rootObj = $('.index-line').find('.travel_tab_line:eq('+idx+')');
+						$(rootObj).find('h2').html(d.title+'-'+d.destination_show_text);
+						var imgKey = $(rootObj).find('.tab_set_image').attr('data-set');
+						var imgData = setQinglvPaiConfig(imgKey, '', null, null, 'find');
+						if (imgData.ds == null || imgData.ds == 'undefined') {
+							$(rootObj).find('.tab_set_image').prev().find('img').attr('src', d.img1);
+						} else {
+							$(rootObj).find('.tab_set_image').prev().find('img').attr('src', imgData.ds[imgKey]);
+						}
+						idx ++;
+					}
+				}
+			}		
+			if (data.result != null && data.result != 'undefined') {
+				toastr.error(data.result.errno);
+			}
+		}
+
+		function selectTag(ev) {
+			ev.preventDefault();
+			$(this).closest('.place-name').find('.new-tag a').removeClass('active');
+			$(this).addClass('active');
+			changeTab();
+		}
+		
+		function clearTravelLines() {
+			$('.index-line').find('.travel_tab_line').each(function(){
+				$(this).find('.tab_set_image').attr('data-set', '');
+				$(this).find('.tab_set_image').prev().find('img').attr('src', '');
+				$(this).find('h2').html('');
+			});
+		}
+
+		function removeTag(ev) {
+			ev.preventDefault();
+			var rootObj = $(this).closest(".new-tag");
+			var key = $(rootObj).find('a').attr('data-set');
+			if (key == '' || key == null) {
+				toastr.warning('要配置的键名错误');
+				return false;
+			}
+			
+			var data = setQinglvPaiConfig(key, '', 0, 0, 'delete', true);
+			if (data.result.errno == 0) {
+	        	$(this).closest(".new-tag").remove();
+	        	clearTravelLines();
+			} else {
+				toastr.error(data.result.message);
+			}
+		}
+		
+		// 标签的选择
+		$('.place-name').find('.new-tag').find('a.set_tab').click(selectTag);
+		// 标签的删除
+		$('.place-name').find('.new-tag').find('i.glyphicon-remove').click(removeTag);
+
+		// 添加标签
+		function appendTravelLineTab(ds) {
+			if (ds.key == null || ds.desc == null || ds.key == '' || ds.desc == '') {
+				toastr.warning('输入的内容不全,请重新输入后再次提交');
+				return false;
+			}
+			
+			var nSort = 0;
+			var rootObj = $('.index-line').find('.place-name');
+			$(rootObj).find('.new-tag').each(function(i, ev){
+				var sortIndex = parseInt($(this).find('.set_tab').attr('data-index'));
+				if (sortIndex >= nSort) {
+					nSort = sortIndex + 1;
+				}
+			});
+			
+			var key = 'travel_tab_'+ds.key;
+			var data = setQinglvPaiConfig(key, ds.desc, 1, nSort);
+			if (data.result.errno == 0) {
+				var activeClass = $(rootObj).find('.new-tag').length > 0 ? '' : 'active';		
+			    var tagHtml = '<span class="new-tag">';
+			    	tagHtml += '	<a class="btn btn-orange-two '+activeClass+' set_tab" data-set="'+key+'" data-index="'+nSort+'" href="javascript:;">'+ds.desc+'&nbsp;&nbsp;</a>';
+			    	tagHtml += '	<i class="glyphicon glyphicon-remove remove" style="z-index:999;"></i>';
+			    	tagHtml += '</span>';
+			    $(rootObj).append(tagHtml);
+			    $(rootObj).find('span:last').find('a.set_tab').click(selectTag);
+			    $(rootObj).find('span:last').find('i.glyphicon-remove').click(removeTag);
+			} else {
+				toastr.error(data.result.message);
+			}
+		}
+
+		//点击添加新标签模态框
+		$("#add").on("click",function(){showModalTabDataDialog(appendTravelLineTab);});
+				
+		// 设置线路产品
+		function setLine(obj, ids) {
+//			console.log(JSON.stringify(ids));		
+			if (ids.length == 0 || ids == null || ids == 'undefined') {
+				toastr.error('未选取线路信息');
+				return false;
+			}			
+			
+			// 获取线路信息
+			var key = $(obj).attr('data-set');
+			if ($(obj).hasClass('tab_set_line')) {
+				var activeObj = $('.index-line').find('.place-name').find('.new-tag .active');
+				if ($(activeObj).length == 0) {
+					toastr.warning('没有选定旅拍产品的标签');
+					return false;
+				}
+				key = $(activeObj).attr('data-set') + '_' + key;
+			}
+			var nsort = $(obj).attr('data-index');
+			
+			var data = setQinglvPaiConfig(key, ids[0], 2, nsort, 'line');
+			if (data.result.errno == 0) {
+				if (data.line != null && data.line != 'undefined') {
+					var d = data.line;
+					if (key.indexOf('travel_tab_') == 0) {
+						var rootObj = $(obj).closest('.travel_tab_line');
+						$(rootObj).find('h2').html(d.title+'-'+d.destination_show_text);
+						var imgKey = $(rootObj).find('.tab_set_image').attr('data-set');
+						var imgData = setQinglvPaiConfig(imgKey, '', null, null, 'find');
+						if (imgData.ds == null || imgData.ds == 'undefined') {
+							$(rootObj).find('.tab_set_image').prev().find('img').attr('src', d.img1);
+						} else {
+							$(rootObj).find('.tab_set_image').prev().find('img').attr('src', imgData.ds);
+						}
+					} else if (key.indexOf('slowly_line_') == 0) {
+						if (key == 'slowly_line_0') {
+							var rootObj = $(obj).closest('.recommended-circuit');
+							$(rootObj).find('.left').find('img').attr('src', d.img1);
+							$(rootObj).find('.right').find('h2').html(d.title+'-'+d.destination_show_text);
+							$(rootObj).find('.right').find('p span').html(d.send_word);
+							$(rootObj).find('.right').find('.time').html('Time：'+d.start_time);
+						} else {
+							var rootObj = $(obj).closest('.circuit-item');
+							$(rootObj).find('img').attr('src', d.img1);
+							$(rootObj).find('h3').html(d.title+'-'+d.destination_show_text);							
+						}						
+					}
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		}
+		
+		// 绑定选择线路事件
+		$('.tab_set_line').click(function(){showModalLineSelect(this,setLine,'',true);});
+		$('.set_line').click(function(){showModalLineSelect(this,setLine,'',true);});
+		
+		// 设置旅拍作品
+		function setArticle(obj, articleList) {	
+			if ($(articleList).length == 0) {
+				toastr.error('您没有选中文章');
+				return false;
+			}
+			
+			var key = $(obj).attr('data-set');
+			var nSort = $(obj).attr('data-index');
+			var nGroup = 3;
+			if (key.indexOf('travel_review_article_') == 0) {
+				nGroup = 4;
+			}
+			var data = setQinglvPaiConfig(key, articleList[0], nGroup, nSort, 'article');
+			if (data.result.errno == 0) {
+				if (data.ds != null && data.ds != 'undefined') {
+					var d = data.ds;
+					if (key.indexOf('travel_article_') == 0) {
+						var rootObj = $(obj).closest('.works');
+						$(rootObj).find('img').attr('src', d.face_image);
+						$(rootObj).find('span.lg').html(d.title);
+						$(rootObj).find('span.sm').html(d.author);
+					} else if (key.indexOf('travel_review_article_') == 0) {
+						var rootObj = $(obj).closest('.review');
+						$(rootObj).find('img').attr('src', d.face_image);
+						$(rootObj).find('h3').html(d.title);
+						$(rootObj).find('.time').html(d.create_time);
+						$(rootObj).find('span.send_word').html(d.send_word);						
+					}
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		}
+		
+		// 绑定选择作品事件
+		$('.set_travel_article').click(function(){showModalArticleSelect(this,setArticle);});
+		$('.set_travel_review').click(function(){showModalArticleSelect(this,setArticle);});
+	</script>
+	
+<include file="Common/footer" />

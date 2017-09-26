@@ -1,0 +1,73 @@
+body { background-color: #f3f5f6; }
+#content { width: 1200px; margin: 0 auto; margin-top: 148px; font-size: 14px; color: #333; overflow: hidden; }
+/*总金额*/
+.all-money { width: 1160px; margin: 0 auto; overflow: hidden; }
+.all-money h5 { font-size: 14px; }
+.all-money p { margin-top: 10px; font-size: 12px; color: #666; }
+.all-money p i { font-size: 12px; font-style: normal; color: #ff7200; }
+.all-money span { float: right; margin-top: -22px; }
+.all-money span strong { font-size: 24px; font-weight: bold; color: #ff7200; }
+/*选择支付形式*/
+.payment-form { width: 1200px; margin: 0 auto; margin-top: 15px; background-color: #fff; }
+.choose-payment-form { width: 1118px; margin: 0 auto; }
+.choose-payment-form > a { display: inline-block; margin: 26px 0; padding: 16px 80px; font-size: 18px; font-weight: bold; color: #fff; background-color: #ff7200; }
+.all-or-part { width: 100%; border-bottom: 1px solid #e5e5e5; }
+.all-or-part h3 { padding: 27px 0; font-size: 18px; color: #333; font-weight: normal; }
+.all-or-part a { display: inline-block; width: 164px; height: 40px; line-height: 38px; border: 1px solid #e5e5e5; color: #333; text-align: center; }
+.all-or-part .pay-checked { background: url(../images/pay_immediately_img/1.png); border-color: #ff7200; }
+.all-or-part p { margin-top: 38px; margin-bottom: 25px; color: #666; }
+.all-or-part p strong { font-size: 24px; font-weight: bold; color: #ff7200; }
+.choose-all-or-part { width: 100%; height: 42px; overflow: hidden; }
+.choose-all-or-part span { float: right; width: 766px; font-size: 12px; color: #ff7200; line-height: 1.5; word-wrap: break-all; }
+/*选择银行支付*/
+.card-pay h3 { padding: 27px 0; font-size: 18px; color: #333; font-weight: normal; }
+.card-pay h3 i { display: inline-block; width: 22px; height: 20px; margin-right: 13px; background-image: url(../images/pay_immediately_img/pay_immediately.png); background-position: -3680px 0; vertical-align: middle; cursor: pointer; }
+.card-pay .card-pay-checked { background-position: -3680px -26px; }
+.card-pay > a { display: inline-block; width: 128px; margin-right: 13px; margin-bottom: -2px; padding: 12px 0; color: #333; text-align: center; background-color: #fdfeff; border: 2px solid #fce0b6; border-bottom: none; }
+.card-pay .card-checked { color: #ff7200; border-color: #f8b551; border-bottom: 2px solid #fafcff; }
+#back-card { margin-left: 50px; }
+.choose-card { width: 1118px; height: 286px; margin: 0 auto; border: 2px solid #f8b551; background-color: #fdfeff; overflow: hidden; }
+.choose-bank-card {  }
+.choose-credit-card { display: none; }
+.choose-bank-card ul , .choose-credit-card ul { width: 1030px; margin: 0 auto; }
+.choose-bank-card ul li , .choose-credit-card ul li { float: left; width: 186px; height: 38px; margin-top: 16px; margin-left: 14px; border: 1px solid #e5e5e5; cursor: pointer; }
+.choose-bank-card ul li i , .choose-credit-card ul li i { display: inline-block; width: 186px; height: 38px; background-image: url(../images/pay_immediately_img/pay_immediately.png); }
+#bank-gongshang i , #credit-gongshang i { background-position: -564px 0; }
+#bank-jianshe i , #credit-jianshe i { background-position: -1316px 0; }
+#bank-zhaoshang i , #credit-zhaoshang i { background-position: -2968px 0; }
+#bank-xingye i , #credit-xingye i { background-position: -2592px 0; }
+#bank-zhongguo i , #credit-zhongguo i { background-position: -3304px 0; }
+#bank-jiaotong i , #credit-jiaotong i { background-position: -1504px 0; }
+#bank-minsheng i , #credit-minsheng i { background-position: -1692px 0; }
+#bank-youzheng i , #credit-guangda i { background-position: -2780px 0; }
+#bank-nongye i { background-position: -1880px 0; }
+#bank-zhongxin i { background-position: -3492px 0; }
+#bank-guangda i { background-position: -752px 0; }
+#bank-guangfa i { background-position: -940px 0; }
+#bank-beijing i { background-position: 0 0; }
+#bank-huaxia i { background-position: -1128px 0; }
+#bank-pingan i , #credit-pingan i { background-position: -2068px 0; }
+#bank-pufa i , #credit-pufa i { background-position: -2256px 0; }
+#bank-bohai i { background-position: -188px 0; }
+#bank-fazhan i { background-position: -376px 0; }
+.choose-card .bank-checked { border-color: #ff7200; }
+/*选择平台支付*/
+.platform-pay { width: 100%; overflow: hidden; }
+.platform-pay h3 { padding: 27px 0; font-size: 18px; color: #333; font-weight: normal; }
+.platform-pay h3 i { display: inline-block; width: 22px; height: 20px; margin-right: 13px; background-image: url(../images/pay_immediately_img/pay_immediately.png); background-position: -3680px 0; vertical-align: middle; cursor: pointer; }
+.platform-pay .platform-pay-checked { background-position: -3680px -26px; }
+.platform-pay ul { display: none; }
+.platform-pay ul li { float: left; width: 146px; height: 38px; margin-left: 14px; border: 1px solid #e5e5e5; cursor: pointer; }
+.platform-pay ul li i { display: inline-block; width: 100%; height: 100%; background-image: url(../images/pay_immediately_img/pay_immediately.png); }
+#zhifubao i { background-position: -3156px 0; }
+#weixin i { background-position: -2444px 0; }
+.platform-pay .platform-checked { border-color: #ff7200; }
+/*其他支付形式*/
+.other-pay { width: 1118px; padding: 0 41px; padding-bottom: 30px; margin-bottom: 20px; margin-top: 26px; background-color: #fff; }
+.other-pay h3 { padding: 27px 0; font-size: 18px; color: #333; font-weight: normal; }
+.other-pay a { font-size: 16px; color: #333; }
+.other-pay a:hover { color: #ff7200; }
+
+
+
+

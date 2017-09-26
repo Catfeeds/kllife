@@ -1,0 +1,429 @@
+<include file="Common/header" />
+	<div class="row">
+				<div class="col-sm-12">
+					
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">个人信息</h3>
+							<div class="panel-options">
+								<a href="#" data-toggle="panel">
+									<span class="collapse-icon">&ndash;</span>
+									<span class="expand-icon">+</span>
+								</a>
+								<a href="#" data-toggle="remove">
+									&times;
+								</a>
+							</div>
+						</div>
+						<div class="panel-body">
+							
+							<form role="form" class="form-horizontal">
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-1">用户名:</label>
+									<div class="col-sm-5" style="padding-right:0px;">
+										<div class="input-group">
+											<input style="width:509px;" type="text" class="form-control" id="username" value="{$user.username}" disabled />
+											<span class="input-group-addon" style="width:90px;">
+												<i class="modify_password" data-col="password">更改密码</i>
+											</span>
+										</div>
+										
+									</div>
+								</div>
+								
+								<div class="form-group-separator"></div>
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-2">手机号码</label>
+									<div class="col-sm-5" style="padding-right:0px;">
+										<div class="input-group">										
+											<input type="number" id="data_phone" class="form-control" maxlength="11" value="{$user.phone}" placeholder="请输入手机号码" />
+											<span class="input-group-addon">
+												<i class="modify_phone" data-col="phone">更改手机</i>
+											</span>
+										</div>										
+									</div>
+									<div class="col-sm-3" style="padding-left:0px;">
+										<div class="input-group">
+											<input type="number" id="data_phone_code" style="width:130px;" class="form-control" maxlength="6" placeholder="请输入手机验证码" />
+											<span class="input-group-addon" style="width:90px;">
+												<i class="send_phone_code">发送验证码</i>
+											</span>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group-separator"></div>
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-2">电子邮箱</label>
+									<div class="col-sm-5" style="padding-right:0px;">
+										<div class="input-group">
+											<input type="email" id="data_email" style="width:509px;" class="form-control" value="{$user.email}" placeholder="请输入电子邮箱" />
+											<span class="input-group-addon" style="width:90px;">
+												<i class="modify_email" data-col="email">更换邮箱</i>
+											</span>
+										</div>
+									</div>
+									<div class="col-sm-3" style="padding-left:0px;">
+										<div class="input-group">
+											<input type="text" id="data_email_code" style="width:130px;" class="form-control" maxlength="6" placeholder="请输入邮箱验证码" />
+											<span class="input-group-addon" style="width:90px;">
+												<i class="send_email_code">发送验证码</i>
+											</span>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group-separator"></div>
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-2">微信号码：</label>
+									
+									<div class="col-sm-4">
+									
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa-comments"></i>
+											</span>
+											<input type="text" class="form-control data_weixin" value="{$user.weixin}" placeholder="请输入你的微信号码" />
+										</div>
+										
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-2">支付宝号码：</label>
+									
+									<div class="col-sm-4">
+									
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa-rmb"></i>
+											</span>
+											<input type="text" class="form-control data_zhifubao" value="{$user.zhifubao}" placeholder="请输入你的支付宝" />
+										</div>
+										
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-2">姓名：</label>
+									
+									<div class="col-sm-4">
+									
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa-user"></i>
+											</span>
+											<input type="text" class="form-control data_name" value="{$user.name}" placeholder="请输入你的姓名,务必填写真实姓名" />
+										</div>
+										
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-2">银行卡号：</label>
+									
+									<div class="col-sm-5">
+									
+										<div class="input-group">
+											<input type="text" class="form-control data_card" value="{$user.bank_card}" placeholder="请输入你银行卡号" />
+											<span class="input-group-addon">
+												<i class="fa-credit-card"></i>
+											</span>
+										</div>
+										
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-2">银行卡开户行地址：</label>
+									
+									<div class="col-sm-10">
+									
+										<div class="input-group">
+											<input type="text" class="form-control data_card_addr" value="{$user.bank_deposit}" placeholder="请输入你银行卡开户行地址" />
+											<span class="input-group-addon">
+												<i class="fa-code-fork"></i>
+											</span>
+										</div>
+										
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-2"></label>
+									
+									<div class="col-sm-10">
+									
+										<div class="input-group">
+											<input type="button" class="btn btn-success btn-user-info" value="保存提现账户信息"/>
+										</div>
+										
+									</div>
+								</div>
+								
+								<div class="form-group-separator"></div>
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="tagsinput-2">可提现佣金：</label>
+									
+									<div class="col-sm-3">									
+										<div class="input-group">
+											<input type="text" class="form-control" disabled id="commision" value="{$user.money}" />
+											<span class="input-group-addon">
+												<i class="btn-commision">提现</i>
+											</span>
+										</div>										
+									</div>
+									
+									<div class="col-sm-1">									
+										<div class="input-group">
+									        <input class="icheck-12" type="radio" id="weixin_pay" name="commision" checked>
+									        <label for="weixin">微信</label>
+										</div>										
+									</div>
+									
+									<div class="col-sm-1">									
+										<div class="input-group">
+									        <input class="icheck-12" type="radio" id="zhifubao" name="commision">
+									        <label for="zhifubao">支付宝</label>
+										</div>										
+									</div>
+									<div class="col-sm-1">									
+										<div class="input-group">
+									        <input class="icheck-12" type="radio" id="chuxuka" name="commision">
+									        <label for="ICCard">银行卡</label>
+										</div>										
+									</div>
+								</div>
+							
+							</form>
+						
+						</div>
+					</div>
+				
+				</div>
+				
+				
+	</div>
+	
+	<!-- Imported styles on this page -->
+	<link rel="stylesheet" href="__PUBLIC__/assets/js/icheck/skins/all.css">
+	<!-- Imported styles on this page -->
+	<script src="__PUBLIC__/assets/js/icheck/icheck.min.js"></script>
+	
+	<script type="text/javascript">
+		//修改手机处理函数
+		var phoneInterValObj = null;
+		var phoneMaxSecond = 600;
+		var phoneCurSecond = 0;
+		function SetPhoneRemainTime() {
+			if (phoneCurSecond == 0) {          
+				clearInterval(phoneInterValObj);//停止计时器
+				$(".send_phone_code").removeAttr("disabled");//启用按钮
+				$(".send_phone_code").html("重新发送");
+			}
+			else {
+				phoneCurSecond--;
+				$(".send_phone_code").attr("disabled", "disabled");
+				$(".send_phone_code").html("剩余"+phoneCurSecond+"秒");
+			}
+		}
+		
+		// 发送修改手机验证码
+		$('.send_phone_code').click(function(){
+			// 给旧手机发信息，绑定新手机，没有旧手机则给新手机发短信
+			var phone = '{$user.phone}';
+			if (phone == '') {
+				phone = $('#data_phone').val();	
+			}
+			
+			if (checkMobile(phone) == false) {
+				toastr.warning('错误的电话号码');
+				return false;
+			}
+			
+			if ('{$user.phone}' == $('#data_phone').val()) {
+				toastr.warning('修改的手机号码与原手机号一致');
+				return false;
+			}
+			
+			toastr.info('短信已经发往'+phone+'的手机，请耐心等待');
+			if (phoneCurSecond != 0) {
+				return false;
+			}
+			
+		　　  //向后台发送处理数据
+			var jsonData = {
+				type: 'send',
+				tel: phone,
+				use: 'fenxiao_modify_phone',
+				interval: 600,		
+				rd: '{$pagerd}',		
+			}
+			
+			var thisObj = this;
+			$.post('{:U("common/sms")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					phoneCurSecond = phoneMaxSecond;
+				　　//设置button效果，开始计时
+					$(thisObj).attr("disabled", "disabled");
+					$(thisObj).html("剩余"+phoneCurSecond+"秒");
+					phoneInterValObj = setInterval(SetPhoneRemainTime, 1000); //启动计时器，1秒执行一次
+				} else {
+					toastr.error(data.result.message);
+				}
+			});
+		});
+		
+		// 修改手机
+		$('.modify_phone').click(function(){
+			// 给旧手机发信息，绑定新手机，没有旧手机则给新手机发短信
+			var jsonData = {
+				op_type: 'modify_phone',						
+				phone: $('#data_phone').val(),
+				code: $('#data_phone_code').val(),
+			}
+			
+			$.post('{:U("user/info")}', jsonData, function(data){
+				alert(data.result.message);
+			});
+			
+		});
+		
+		//修改邮箱处理函数
+		var mailInterValObj = null;
+		var mailMaxSecond = 600;
+		var mailCurSecond = 0;
+		function SetMailRemainTime() {
+			if (mailCurSecond == 0) {          
+				clearInterval(mailInterValObj);//停止计时器
+				$(".send_email_code").removeAttr("disabled");//启用按钮
+				$(".send_email_code").html("重新发送");
+			}
+			else {
+				mailCurSecond--;
+				$(".send_email_code").html("剩余"+mailCurSecond+"秒");
+			}
+		}
+		
+		// 发送修改邮箱验证码
+		$('.send_email_code').click(function(){
+			// 给旧邮箱发信息，绑定新邮箱，没有旧邮箱则给新邮箱发信息
+			var email = $('#data_email').val();
+			if (checkEmail(email) == false) {
+				alert('错误的邮箱地址');
+				return false;
+			}
+			
+			if ('{$user.email}' == $('#data_email').val()) {
+				toastr.warning('修改的邮箱与原邮箱一致');
+				return false;
+			}
+			
+			alert('验证信息已经发往'+email+'的邮箱，请耐心等待');			
+			if (mailCurSecond != 0) {
+				return false;
+			}
+			
+		　　  //向后台发送处理数据
+			var jsonData = {
+				type: 'send',
+				'email': email,
+				use: 'fenxiao_modify_email',
+				interval: 600,				
+			}
+			
+			var thisObj = this;
+			$.post('{:U("common/email")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					mailCurSecond = mailMaxSecond;
+				　　//设置button效果，开始计时
+					$(thisObj).attr("disabled", "disabled");
+					$(thisObj).html("剩余"+mailCurSecond+"秒");
+					mailInterValObj = setInterval(SetMailRemainTime, 1000); //启动计时器，1秒执行一次
+				} else {
+					alert(data.result.message);
+				}
+			});
+		});
+		
+		// 修改邮箱
+		$('.modify_email').click(function(){
+			// 给旧邮箱发信息，绑定新邮箱，没有旧邮箱则给新邮箱发信息
+			var jsonData = {
+				op_type: 'modify_email',						
+				email: $('#data_email').val(),
+				code: $('#data_email_code').val(),
+			}
+			
+			$.post('{:U("user/info")}', jsonData, function(data){
+				alert(data.result.message);
+			});
+			
+		});
+		
+		// 修改密码
+		$('.modify_password').click(function(){			
+			modifyPassword.showModal(_ajaxModifyPassword);			
+		});
+		
+		// 确认修改密码
+		function _ajaxModifyPassword(pwd, newPwd) {
+			$.post('{:U("user/info")}',
+			{op_type:'modify_password', password:pwd, new_password:newPwd},
+			function(data){				
+				if (data.result.errno != 0) {				
+					toastr.error(data.result.message);
+				} else {
+					toastr.success('修改密码成功');
+				}
+				if (data.jumpUrl != null) {
+					location.href = data.jumpUrl;
+				}				
+			});
+		}
+		
+		// 修改提现的账户信息
+		$('.btn-user-info').click(function(){
+			var jsonData = {
+				op_type: 'modify_user',
+				weixin: $('.data_weixin').val(),
+				zhifubao: $('.data_zhifubao').val(),
+				name: $('.data_name').val(),
+				bank_card: $('.data_card').val(),
+				bank_deposit: $('.data_card_addr').val(),
+			}
+			
+			$.post('{:U("user/info")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}
+			});
+		});
+		
+		// 提现
+		$('.btn-commision').click(function(){
+			var takeCashType = $('.icheck-12:checked').attr('id');
+			$.post('{:U("user/takecash")}', {take_type: takeCashType}, function(data){
+				if (data.cash != null) {
+					$('#commision').val(data.cash);
+				}
+				if (data.jumpUrl != null) {
+					location.href = data.jumpUrl;
+				}
+				if (data.result.errno == 0) {
+					toastr.success(data.result.message);
+				} else {
+					toastr.error(data.result.message);
+				}
+			});
+		});	
+		
+	</script>
+<include file="Common/footer" />

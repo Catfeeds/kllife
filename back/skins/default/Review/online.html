@@ -1,0 +1,227 @@
+<include file="Common/header" />
+	<style type="text/css">
+		div { font-family:'微软雅黑'; }
+		.table { margin-top: 25px; }
+		.table > thead > tr > th { font-weight: bold; font-size: 16px;  min-height: 40px !important; line-height: 40px; text-align: center; }
+		.table > thead > tr > td { font-size: 12px; min-height: 40px !important; line-height: 40px; }
+		.more { min-height: 50px; text-align: center; border: 1px solid #eeeeee; line-height: 50px; font-size: 16px; font-weight: bold; }		
+		.background-color-first-log { background-color:#eae415 !important; }
+		
+		.div-condition { border-bottom: 2px solid #eeeeee; }
+		.button-condition {  margin-left:10px; float: right; text-align: center; border: 1px solid #eeeeee; line-height: 30px; min-width: 150px; text-decoration: none;}		
+		.button-condition-hover { background-color: #e0e0e0; }
+		
+		.daterangepicker > .calendar.left > .table-condensed > tr { width: 234px !important; }
+	</style>
+	<div class="row">
+		<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">{:C('CONTENT_TITLE')}</h3>
+			
+			<div class="panel-options">
+				<a href="#" data-toggle="panel">
+					<span class="collapse-icon">&ndash;</span>
+					<span class="expand-icon">+</span>
+				</a>
+
+			</div>
+		</div>
+		<div class="panel-body">
+		
+			<div class="div-condition">
+				<div class="row" style="margin: 20px 5px 10px 5px;">
+					<div class="col-sm-4">
+						<div class="input-group">
+							<span class="input-group-addon">订单编号</span>
+							<input id="cd_order_sn" type="text" class="form-control form-focus-info" placeholder="请输入订单编号">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="input-group">
+							<span class="input-group-addon">联系人</span>
+							<input id="cd_contact" type="text" class="form-control form-focus-info" placeholder="请输入联系人姓名">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="input-group">
+							<span class="input-group-addon">联系人电话</span>
+							<input id="cd_phone" type="number" class="form-control form-focus-info" placeholder="请输入联系人姓名电话">
+						</div>
+					</div>					
+				</div>
+				
+				<div class="row" style="margin: 20px 5px 10px 5px;">
+					<div class="col-sm-4">									
+						<div class="input-group find_date">
+							<span class="input-group-btn">
+								<button id="cd_date_type" type="button" class="btn btn-gray dropdown-toggle" data-toggle="dropdown" data-date-type="request">
+									<i>下单时间</i><span class="caret" style="margin-left: 5px;"></span>
+								</button>								
+								<ul class="dropdown-menu dropdown-gray no-spacing">
+									<li><a href="#" data-val="request">下单时间</a></li>
+									<li><a href="#" data-val="response">响应时间</a></li>
+								</ul>
+							</span>							
+							<input id="cd_date" type="text" readonly class="form-control daterange" data-format="YYYY-MM-DD" data-separator=" / ">
+							<div class="input-group-addon">									
+								<a href="#"><i class="linecons-calendar"></i></a>								
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row" style="margin: 20px 5px 10px 5px; height: 35px;">
+					<a href="javascript:;" class="button-condition find">查找</a>
+					<a href="javascript:;" class="button-condition reset">重置</a>
+				</div>
+			</div>
+
+			<table class="table table-bordered table-striped" id="example-1">
+				<thead>
+					<tr>
+						<th>订单编号</th>
+						<th width="20%">线路名称</th>
+						<th>费用金额</th>
+						<th>银行编码</th>
+						<th>付款渠道</th>
+						<th>联系人</th>
+						<th>联系人电话</th>
+						<th>交易号</th>
+						<th>申请时间</th>
+						<th>审核时间</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			<div class="more" data-page-index='0' data-more="1">加载更多</div>				
+		</div>
+		
+		
+	</div>
+</div>
+<include file="Common/footer" />
+<script type="text/javascript">
+
+	$('.button-condition').mouseover(function(){
+		$(this).toggleClass('button-condition-hover');
+	});
+
+	$('.button-condition').mouseout(function(){
+		$(this).toggleClass('button-condition-hover');
+	});
+	
+	$('.button-condition.find').click(function(){
+		$('table tbody').children().remove();
+		$('.more').attr('data-page-index', 0);
+		$('.more').attr('data-more', 1);
+		$('.more').html('加载更多');
+		findMore();
+	});
+	
+	$('.button-condition.reset').click(function(){
+		$('#cd_order_sn').val('');
+		$('#cd_contact').val('');
+		$('#cd_phone').val('');
+		$('#cd_date').val('');
+		$('table tbody').children().remove();
+		$('.more').attr('data-page-index', 0);
+		$('.more').attr('data-more', 1);
+		$('.more').html('加载更多');
+		findMore();
+	});	
+
+	$('.find_date').find('ul li a').click(function(){
+		$('.find_date').find('button i').html($(this).html());
+		$('.find_date').find('button').attr('data-date-type', $(this).attr('data-val'));
+	});
+
+	function getConditions() {
+		var cdsstr = '';
+		var orderSN = $('#cd_order_sn').val();
+		if (orderSN != '') {
+			cdsstr += 'order_sn|'+orderSN;
+		}
+		var contact = $('#cd_contact').val();
+		if (contact != '') {
+			cdsstr += (cdsstr == '' ? 'names|' : '|names|')+contact;
+		}
+		var phone = $('#cd_phone').val();
+		if (phone != '') {
+			cdsstr += (cdsstr == '' ? 'mob|' : '|mob|')+phone;
+		}
+		var dateType = $('#cd_date_type').attr('data-date-type');
+		if (dateType != '') {
+			cdsstr += (cdsstr == '' ? 'date_type|' : '|date_type|')+dateType;
+		}
+		var sdate = $('#cd_date').val();
+		if (sdate != '') {
+			cdsstr += (cdsstr == '' ? 'date|' : '|date|')+sdate;
+		}
+		return cdsstr;
+	}
+	
+	function findMore() {
+		if ($('.more').attr('data-more') == 0) {
+			$('.more').html('没有更多的数据可供加载');
+			return false;
+		}
+		
+		var vpage = $('.more').attr('data-page-index');
+		var jsonData = {
+			op_type: 'list',
+			page: vpage,
+		}
+		var cdsstr = getConditions();
+		if (cdsstr != '') {
+			jsonData['cds'] = cdsstr;
+		}		
+		$.post('{:U("review/payonline")}', jsonData, function(data){
+			if (data.jumpUrl != null) {
+				location.href = data.jumpUrl;
+			}
+			
+			if (data.result.errno == 0) {
+				$('.more').attr('data-page-index', parseInt(vpage)+1);
+				if (data.ds != null) {
+					var dataLen = data.ds.length;
+					for (var i = 0; i < dataLen; i ++) {
+						var d = data.ds[i];
+						var trClass = $('table tbody').find('tr').length % 2 > 0 ? 'even' : 'odd';
+						var tdClass = d.q1_first_log == true ? 'background-color-first-log' : '';
+						var vhtml = '<tr role="row" class="'+trClass+'">'+
+								  	'	<td class="'+tdClass+'">'+d.q1_order_sn+'</td>'+
+								  	'	<td class="'+tdClass+'">'+d.q2_lineid_hdid_show+'</td>'+
+								  	'	<td class="'+tdClass+'">'+d.q1_TransAmount+'</td>'+
+								  	'	<td class="'+tdClass+'">'+d.q1_InstCode+'</td>'+
+								  	'	<td class="'+tdClass+'">'+d.q1_PayChannel_data.item_desc+'</td>'+
+								  	'	<td class="'+tdClass+'">'+d.q2_names+'</td>'+
+								  	'	<td class="'+tdClass+'">'+d.q2_mob+'</td>'+
+								  	'	<td class="'+tdClass+'">'+d.q1_TransNo+'</td>'+
+								  	'	<td class="'+tdClass+'">'+d.q1_SendTime_show_text+'</td>'+
+								  	'	<td class="'+tdClass+'">'+d.q1_datetime_show_text+'</td>'+
+								  	'</tr>';
+						$('table tbody').append(vhtml);
+					}
+					
+					if (data.page_size != null) {
+						if (dataLen < data.page_size) {
+							$('.more').html('没有更多的数据可供加载');
+							$('.more').attr('data-more', 0);
+						}
+					}
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		});
+	}
+	
+	// 初始化
+	$(document).ready(function(){
+		// 页面完成第一次加载数据
+		findMore();
+		
+		// 点击加载更多数据
+		$('.more').click(findMore);
+	});
+</script>

@@ -1,0 +1,18 @@
+.index .index-centent .index-selection{border-bottom:none;}
+.index .index-centent .index-selection .selection .padding-top{
+    padding-bottom:5px;
+}
+.index .index-centent .index-selection .selection .btn-gray{
+    position: absolute;
+    top:0px;
+    right:130px;
+}
+.index .tit .disabled{
+    background:#999;
+    border-color:#999;
+}
+.index .index-centent .index-selection .selection .btn-orange-two{
+    position: absolute;
+    top:0px;
+    right:0px;
+}

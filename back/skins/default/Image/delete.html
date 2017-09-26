@@ -1,0 +1,39 @@
+
+	<!-- 删除图片确认 -->
+	<div class="modal fade" id="gallery-image-delete-modal" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<h4 class="modal-title">图片删除确认</h4>
+				</div>
+				
+				<div class="modal-body">
+				
+					您确定要删除这些图片吗?
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-danger">删除</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		var funcModalDeleteImageCallBack = null;			
+		// 删除图片
+		$('#gallery-image-delete-modal').find('.btn-danger').click(function(){
+			if (typeof(funcModalDeleteImageCallBack) == 'function') {
+				funcModalDeleteImageCallBack();
+			}
+			$('#gallery-image-delete-modal').modal('hide');
+		});
+		
+		// 显示删除界面
+		function showModalDeleteImageDialog() {
+			$("#gallery-image-delete-modal").modal('show');
+		}
+	</script>

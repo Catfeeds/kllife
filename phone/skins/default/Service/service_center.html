@@ -1,0 +1,33 @@
+<include file="common/top" />
+<div class="page">
+	<!-- mycss -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/help_center.css">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="javascript:history.back();">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">帮助中心</h1>
+		</header>
+		<include file="common/footer" />
+		
+		<div class="content">
+		
+			<div class="content-padded">
+				<volist id="qt" name="service_question">
+					<div class="help-list">
+						<h4>|<span>{$qt.type_desc}</span></h4>
+						<volist id="quest" name="qt.questions">
+							<!--选中A标签添加checked-problem类-->
+							<a href="{:U('service/question')}/id/{$quest.id}" external>{$quest.content}</a>
+						</volist>
+					</div>
+				</volist>				
+			</div>
+		
+		</div>
+	
+	
+<include file="common/js" />
+<include file="common/swt" />
+</body>
+</html>

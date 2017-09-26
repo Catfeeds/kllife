@@ -1,0 +1,730 @@
+<include file="Common/header" />
+
+<style>
+
+	.form-control { width: 30%; }
+
+	.form-control:focus { border-color: #40bbea; }
+
+	.chaxun { margin-right: 100px; margin-bottom: 30px; }
+
+	#activitySelectBoxIt , #sboxit-5SelectBoxIt , #order_fromSelectBoxIt , #order_stateSelectBoxIt , #sboxit-8SelectBoxIt , #cash_funcSelectBoxIt{ border-radius: 0 15px 15px 0 ; background-color: #fff; border-color: #40bbea; overflow: hidden; }
+
+	#activitySelectBoxItOptions , #sboxit-5SelectBoxItOptions , #order_fromSelectBoxItOptions , #order_stateSelectBoxItOptions , #sboxit-8SelectBoxItOptions , #cash_funcSelectBoxItOptions { border-radius: 0 15px 15px 15px; background-color: #fff; border-color: #40bbea; }
+
+	#activitySelectBoxItOptions li a , #sboxit-5SelectBoxItOptions li a , #order_fromSelectBoxItOptions li a , #order_stateSelectBoxItOptions li a , #sboxit-8SelectBoxItOptions li a , #cash_funcSelectBoxItOptions li a { color: #000; }
+
+
+
+	.selectboxit-option-icon-container { overflow: hidden; }
+
+	.cx_border01 { border-radius: 15px 0 0 15px; border-color: #40bbea; }
+
+	.cx_border02 , html .select2-container .select2-choice , #s2id_activity{ border-radius: 0 15px 15px 0 !important; border-color: #40bbea !important; }
+
+	.tab-pane > div { margin-top: 10px; height: 35px; }
+
+	.ctr_card_btn_num:focus { border-color: #40bbea; }
+
+	.dropdown-menu.dropdown-info > li > a { color: #000; }
+
+	.dropdown-menu.dropdown-info > li > a:hover { background-color: #999 !important; }
+
+	.nav.nav-tabs > li.active > a { border: 1px solid #40bbea; border-bottom: 2px solid #fff; }
+
+	.nav.nav-tabs > li > a { padding-left: 30px; padding-right: 30px; }
+
+	.nav.nav-tabs > li > a:hover { background-color: #40bbea; color: #fff; }
+
+	.hvr-curl-top-left {
+
+	  display: inline-block;
+
+	  vertical-align: middle;
+
+	  -webkit-transform: translateZ(0);
+
+	  transform: translateZ(0);
+
+	  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+
+	  -webkit-backface-visibility: hidden;
+
+	  backface-visibility: hidden;
+
+	  -moz-osx-font-smoothing: grayscale;
+
+	  position: relative;
+
+	}
+
+	.hvr-curl-top-left:before {
+
+	  pointer-events: none;
+
+	  position: absolute;
+
+	  content: '';
+
+	  height: 0;
+
+	  width: 0;
+
+	  top: 0;
+
+	  left: 0;
+
+	  background: white;
+
+	  /* IE9 */
+
+	  background: linear-gradient(135deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
+
+	  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff', endColorstr='#000000');
+
+	  /*For IE7-8-9*/
+
+	  z-index: 1000;
+
+	  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+
+	  -webkit-transition-duration: 0.3s;
+
+	  transition-duration: 0.3s;
+
+	  -webkit-transition-property: width, height;
+
+	  transition-property: width, height;
+
+	}
+
+	.hvr-curl-top-left:hover:before, .hvr-curl-top-left:focus:before {
+
+	  width: 15px;
+
+	  height: 15px;
+
+	}
+
+	.info-color { background-color: #40bbea !important; border-color: #40bbea !important; }
+
+	.info-border-color { border-color: #40bbea !important; }
+
+	.select2-arrow { color: #fff !important; }
+
+	#select2-drop { border-color: #40bbea;  } 
+
+	.mybtn { margin-left: 0 !important; }
+
+	.dataTables_wrapper table.dataTable thead > tr > th { padding: 15px 0px 15px 0px; }
+
+	.selectboxit-btn { background-color: #fff; border-color: #40bbea; } 
+
+	.selectboxit-list { background-color: #fff; border-color: #40bbea; }
+	
+	.selectboxit-list .selectboxit-option-anchor { color: #000; }
+
+	.selectboxit-container .selectboxit-options { border-radius: 0 0 0 15px; }
+
+	#order_stateSelectBoxItOptions { border-radius: 0 0 0 15px; }
+
+	.selectboxit-container .selectboxit { border-radius: 0 15px 15px 0 !important; }
+
+	.selectboxit-arrow-container { background-color: #40bbea; }
+
+	.selectboxit-arrow-container i { color: #fff; }
+</style>
+
+	<div class="row">
+
+		<div class="panel panel-default">
+
+		<div class="panel-heading">
+
+			<h3 class="panel-title">{:C('CONTENT_TITLE')}</h3>
+
+			
+
+			<div class="panel-options">
+
+				<a href="#" data-toggle="panel">
+
+					<span class="collapse-icon">&ndash;</span>
+
+					<span class="expand-icon">+</span>
+
+				</a>
+
+
+
+			</div>
+
+		</div>
+
+		<div class="panel-body">
+
+			<!-- 查询 -->
+
+			<div class="row chaxun">
+
+				<!-- tab标签 -->
+
+				<div class="col-sm-12">				
+				
+					<div class="tab-pane active">
+
+						<div class="col-sm-3">
+
+							<div class="input-group">
+
+								<span class="input-group-addon info-color text-white cx_border01">线路标题:</span>
+
+								<input type="text" class="form-control cx_border02" id="title">
+
+							</div>
+
+						</div>
+
+						<div class="col-sm-3">
+
+							<div class="input-group">
+
+								<span class="input-group-addon info-color text-white cx_border01">作者:</span>
+
+								<input type="text" class="form-control cx_border02" id="writer">
+
+							</div>
+
+						</div>
+
+						<div class="col-sm-3">
+
+							<div class="input-group">
+
+								<span class="input-group-addon info-color text-white cx_border01">线路类型:</span>
+
+								<script type="text/javascript">
+
+										jQuery(document).ready(function($)
+
+										{
+
+											$("#task_project").selectBoxIt({
+
+												showEffect: 'fadeIn',
+
+												hideEffect: 'fadeOut'
+
+											});
+
+										});
+
+								</script>
+
+								<select class="form-control" name="" id="task_project">
+
+									<option value="-1">不限</option>
+
+									<notempty name="TaskProject">
+
+										<volist id="tp" name="TaskProject">											
+
+											<option value="{$tp.id}">{$tp.type_desc}</option>
+
+										</volist>
+
+									</notempty>
+
+								</select>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				<div>
+
+					<button class="btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_search" style="float: right; margin-top: 30px;">
+
+							<i class="fa-search"></i>
+
+							<span>查 询</span>
+
+					</button>
+
+					<button class="btn btn-warning btn-icon btn-icon-standalone btn-icon-standalone-right" id="button_reset" style="float: right; margin-top: 30px; margin-right: 10px;">
+
+							<i class="fa-refresh"></i>
+
+							<span>重 置</span>
+
+					</button>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+			<table class="table table-bordered table-striped" id="example-1">
+
+				<thead>
+
+					<tr>
+
+						<th>线路编号</th>
+
+						<th width="20%">线路名称</th>
+						
+						<th>作者</th>
+
+						<th>线路类型</th>
+
+						<th>投稿日期</th>
+
+						<th>发布日期</th>
+							
+						<th>操作</th>
+
+					</tr>
+
+				</thead>
+
+			</table>			
+
+		</div>
+
+	</div>
+
+</div>	
+
+<include file="Common/footer" />
+
+
+
+
+
+<script type="text/javascript">
+
+	var myTable, pageRequestData;
+
+	var pageData = new Array();
+
+	var modalDataEditData = new Object();
+
+	$(document).ready(function(){	
+		
+
+		// 初始化数据表格
+
+		myTable = initDataTable();	
+		
+		// 初始化弹出窗口
+		
+		initModalDataEdit();	
+				
+
+		// 搜索
+
+		$("#button_search").click(function(){
+
+	    	myTable.fnReloadAjax(myTable.fnSettings());
+
+		});
+		
+		
+		// 重置查询条件
+		$('#button_reset').click(resetFindConds);
+
+	});
+	
+	// 重置查询条件
+	function resetFindConds() {
+		
+		$('#title').val('');
+		
+		$('#writer').val('');
+		 
+		$('#task_project').val(-1).trigger('change');		
+		
+	    myTable.fnReloadAjax(myTable.fnSettings());
+	}
+	
+	// 获取管理员类型
+	function getTypeList(objType) {
+		var jsonData = {
+			type_obj: objType,
+			op_type: 'list',
+			iSortCol_0: 1,
+			sSortDir_0: 'asc',
+			iDisplayStart: 0,
+			iDisplayLength: 0,
+			sColumns: 1,
+		}
+		
+		var rs = '';
+		$.ajax({
+			url: '{:U("type/list")}',
+			type: "POST",
+			async: false,
+			data: jsonData,
+			success: function(data, status) {
+				if (data.result.errno == 0) {
+					if (data.aaData != 'undefined' && data.aaData.length > 0) {
+						rs = data['aaData'];
+					}
+				}
+			}
+		});
+		return rs;
+	}
+	
+	// 设置类型列表
+	function setTypeList(objType, objId) {
+		var typeList = getTypeList(objType);
+		if (typeList != '') {
+			var html = '';
+			for (var i = 0; i < typeList.length; i++) {
+				html += '<option value="' + typeList[i]['id'] + '">' + typeList[i]['type_desc'] + '</option>';
+			}	
+			var data = {elmt: [{id:objId, value:html}]}
+			appendModalDataEditInputValues(data, true);
+		}		
+	}
+	
+	// 初始化弹出编辑框数据
+	function initModalDataEdit() {
+		modalDataEditData['lab_title_text'] = '线路类型';
+		modalDataEditData['btn_confirm_text'] = '确认保存';
+		
+		modalDataEditData['elmt']=[
+			{tag:'input', id:'Id', lab:'', attr:[
+				{op:'bind', name:'type',value:'hidden'},
+			]},
+			{tag:'select', id:'Type', lab:'线路类型', attr:[]},
+		];
+		modalDataEditData['callback_confirm'] = _editFunAjax;
+		initModalDataEditPage(modalDataEditData);
+		
+		// 设置线路类型
+		setTypeList('alert_task_project', 'Type');
+	}
+	
+
+	// 初始化数据列表
+
+	function initDataTable() {	
+
+		var vTable = $("#example-1").dataTable({
+
+			"bSort": true,
+
+			"bAutoWidth": true,
+
+			"bFilter": true,
+
+			"searching": false,
+
+			"bInfo": true,//页脚信息
+
+			"bPaginate": true, //翻页功能
+
+			"bLengthChange": true, //改变每页显示数据数量
+
+			"bStateSave": true,	//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+
+			"sPaginationType": "full_numbers", //显示数字的翻页样式"
+
+			"aLengthMenu": [[50, 100, 200],[50, 100, 200]],	// 可分页的数量值与显示
+
+			"isDisplayLength": 50,	// 当前每页显示数量
+
+			"oLanguage": {
+
+				"sLengthMenu": "每页显示 _MENU_ 条记录",
+
+				"sZeroRecords": "抱歉， 没有找到",
+
+				"sInfo": "从 _START_ 到 _END_ / 共 _TOTAL_ 条数据",
+
+				"sInfoEmpty": "没有数据",
+
+				"sInfoFiltered": "(从_MAX_条数据中检索)",
+
+				"oPaginate": {
+
+					"sFirst": "首页",
+
+					"sPrevious": "前一页",
+
+					"sNext": "后一页",
+
+					"sLast": "尾页"
+
+				},
+
+				"sZeroRecords": "没有检索到数据",
+
+				"sProcessing": "<src='__PUBLIC__/images/loader.gif' />",
+
+			},
+
+			//Ajax获取信息
+
+			"bProcessing": true,
+
+			"bServerSide": true,
+
+			"sAjaxSource": "{$ajaxReqUrl}",
+
+			//如果加上下面这段内容，则使用post方式传递数据
+
+			"fnServerData": getPageData,
+
+			"aoColumns": dataTablesBindCols(),//$_GET[‘sColumns’]将接收到aoColumns传递数据
+
+			"aoColumnDefs": [{"sDefaultContent": "", "aTargets": ["_all"]}],
+
+		});
+
+		return vTable;
+
+	}
+
+
+
+	// 绑定列
+
+	function dataTablesBindCols() {
+
+		var cols = new Array();
+
+		cols = [
+
+				{"bSortable": false, "mData": "id", "aTargets": [0]},
+
+				{"bSortable": false, "mData": "title", "aTargets": [1]},
+				
+				{"bSortable": false, "mData": "writer", "aTargets": [2]},
+
+				{"bSortable": false, "mData": "task_project_id.type_desc", "aTargets": [3], "fnCreatedCell": replaceContent},
+
+				{"bSortable": false, "mData": "senddate.show_text", "aTargets": [4], "fnCreatedCell": replaceContent},
+
+				{"bSortable": false, "mData": "pubdate.show_text", "aTargets": [5], "fnCreatedCell": replaceContent},
+				
+				{"bSortable": false, "mDataProp":"id", "bSearchable": false, "aTargets": [6], "fnCreatedCell": appendLastCol},
+
+			];	//$_GET[‘sColumns’]将接收到aoColumns传递数据
+
+		return cols;
+
+	}
+
+
+	//Ajax获取数据
+
+	function getPageData ( sSource, aoData, fnCallback ) {
+		
+		showLoading(true);
+				
+		var cdsstr = 'title,'+$('#title').val();
+		
+			cdsstr += ',writer,'+$('#writer').val();
+			
+			cdsstr += ',task_project_id,'+$('#task_project').val();		
+		
+		aoData.push({'name':'op_type','value':'list'});
+		
+		aoData.push({'name':'cds','value': cdsstr});
+		
+		pageRequestData = aoData;
+		
+		$.post(sSource, aoData, function(data,status){
+			
+				if (data['result']['errno'] == 0) {
+					
+					fnCallback(data);
+					
+				} else {
+					
+					alert(data['result']['message']);
+					
+				}			
+				
+				showLoading(false);
+				
+			},'JSON');	
+			
+	}
+
+	
+
+	// 内容替换
+
+	function replaceContent(nTd, sData, oData, iRow, iCol) {
+
+		if (iCol == 3) {	
+
+			$(nTd).html(oData['task_project_id.type_desc']);	
+
+		} else if (iCol == 4) {
+
+			$(nTd).html(oData['senddate.show_text']);
+
+		} else if (iCol == 5) {
+			
+			$(nTd).html(oData['pubdate.show_text']);
+
+		}
+
+	}
+
+
+
+	// 添加最后一列控件
+
+	function appendLastCol(nTd, sData, oData, iRow, iCol) {
+
+		var id = parseInt(oData['id']);
+		
+		var pid = parseInt(oData['task_project_id']);
+
+		var html = '';	
+		
+		html += '<a href="#" class="btn btn-secondary btn-sm btn-icon icon-left mybtn" onclick="_editFun('+id+','+pid+')">设 置 类 型</a>';	
+
+		$(nTd).html(html);
+
+	}
+
+	
+
+	// 进入订单完善界面
+
+	function _editFun(aid,pid) {
+		
+		// 填充数据		
+		
+		var ds = {
+			
+			'elmt': [
+			
+				{id:'Id', value:aid},
+				
+				{id:'Type', value:pid},
+				
+			]
+			
+		};		
+			
+		console.log(JSON.stringify(ds));
+		
+		setModalDataEditInputValues(ds);
+		
+		// 显示窗口
+		showModalDataEdit();
+	}
+
+
+	
+
+	function _editFunAjax(ds) {
+		
+		var jsonData = {
+			
+			'type_obj':'{$typeObj}', 
+			
+			'op_type': 'edit',
+			
+			'cd' : {
+								
+				'id': ds['Id'],
+				
+			},
+			
+			'data' : {
+				
+		    	'task_project_id': ds['Type'],	
+		    	
+			},
+			
+		};
+		
+		console.log(JSON.stringify(jsonData));
+		
+	    $.post('{$ajaxReqUrl}',jsonData,
+	    
+		    function(backData,status){
+		    	
+//		    	console.log(JSON.stringify(backData));
+
+		    	if (backData['result']['errno']==0){
+		    		
+		    		hideModalDataEdit();
+		    		
+		            myTable.fnReloadAjax(myTable.fnSettings());
+		            
+		    	} else {
+		    		
+//					alert(backData['result']['message']);
+
+		    		setModalDataEditTips(backData['result']['message']);
+		    		
+		    	}
+		    });
+	} 	 
+
+
+	/*
+
+	add this plug in
+
+	// you can call the below function to reload the table with current state
+
+	Datatables刷新方法
+
+	oTable.fnReloadAjax(oTable.fnSettings());
+
+	*/
+
+	$.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings) {
+
+		//oSettings.sAjaxSource = sNewSource;
+
+		this.fnClearTable(this);
+
+		this.oApi._fnProcessingDisplay(oSettings, true);
+
+		var that = this;
+
+
+
+		$.getJSON(oSettings.sAjaxSource, null, function (json) {
+
+		    /* Got the data - add it to the table */
+
+		    for (var i = 0; i < json.aaData.length; i++) {
+
+		        that.oApi._fnAddData(oSettings, json.aaData[i]);
+
+		    }
+
+		    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+
+		    that.fnDraw(that);
+
+		    that.oApi._fnProcessingDisplay(oSettings, false);
+
+		});
+
+	}
+
+
+
+</script>
+
+	

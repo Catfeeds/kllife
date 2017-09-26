@@ -1,0 +1,443 @@
+<include file="common/top"/>
+<!-- swiper -->
+<link rel="stylesheet" href="__PUBLIC__/phone/common/css/swiper-3.3.1.min.css">
+<!-- mycss -->
+<link rel="stylesheet" href="__PUBLIC__/phone/css/line_content_test.css">
+<style>
+	.xingcheng-href{
+		width:100%;
+		background: #fff;
+		overflow: hidden;
+		margin:10px 0px;
+	}
+	.xingcheng-href a{
+		display: inline;
+		float: left;
+		margin:auto;
+		text-align: center;
+		text-align: -webkit-center;
+	}
+	.xingcheng-href a:nth-child(1){width:40%;}
+	.xingcheng-href a:nth-child(2){width:30%;}
+	.xingcheng-href a:nth-child(3){width:30%;}
+	.xingcheng-href a img{width:auto!important;height:45px;}
+	.choose-startday h3{padding: .7rem 0.5rem 0;}
+</style>
+		<header class="bar bar-nav">
+			<if condition="empty($duid) eq true">
+				<a class="button button-link button-nav pull-left back" href="{:U('line/list')}">
+			      <i class="iconfont">&#xe606;</i>
+			    </a>
+			<else />
+				<a class="button button-link button-nav pull-left back" href="{:U('fenxiao/welcome')}/duid/{$duid}">
+			      <i class="iconfont">&#xe606;</i>
+			    </a>
+		    </if>
+		    <h1 class="title">产品详情</h1>
+		</header>
+		<nav class="bar bar-tab">
+			<a class="tab-item active" href="{$pcset.askfor_link}" external>
+		      <i class="iconfont">&#xe602;</i>
+		      <span>咨询</span>
+		    </a>
+			<if condition="empty($duid) eq true">
+			    <a class="tab-item" style="width: 3%; background-color: #ff7200; color: #fff;" href="{:U('line/order')}/type/create/id/{$line.id}" external>
+			      <span>立即预定</span>
+			    </a>
+			<else />
+			    <a class="tab-item" style="width: 3%; background-color: #ff7200; color: #fff;" href="{:U('line/order')}/type/create/id/{$line.id}/duid/{$duid}" external>
+			      <span>立即预定</span>
+			    </a>
+			</if>
+		</nav>
+
+		<div class="content">
+			<div class="content-top">
+				<img src="{$line.img1}" alt="">
+				<p>产品编号：{$line.id}</p>
+				<h3>{$line.title}</h3>
+				<h5>{$line.subheading}</h5>
+				<div class="card-footer">
+					<a href="#" class="link">出发地：{$line.assembly_point_show_text}</a>
+					<a href="#" class="link">
+						<if condition="empty($line['check_price'])">
+							<strong>核算中</strong>
+						<else />
+							<span>￥</span><strong>{$line.start_price_adult}</strong>元/人起
+						</if>
+					</a>
+			    </div>
+			</div>
+			<!-- 选择出发日期和人数 -->
+			<div class="choose-startday">
+				<if condition="empty($duid) eq true">
+					<a href="{:U('line/order')}/type/create/id/{$line.id}" external><h3>选择：查看出行日期和人数</h3></a>
+				<else />
+					<a href="{:U('line/order')}/type/create/id/{$line.id}/duid/{$duid}" external><h3>选择：查看出行日期和人数</h3></a>
+				</if>
+				<div class="swiper-container tuanqi">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="div">
+								<span>07/25</span><span>周二</span>
+								<p>￥3560</p>
+								<a href="javascript:;"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 切换 -->
+			<div id="tabs">
+				<a href="javascript:;" class="a1 active" title="line-special" external>线路特色</a>
+				<a class="a2" href="javascript:;" external title="travel-introduction">行程介绍</a>
+				<a class="a3" href="javascript:;" external title="reserve-notes">预订须知</a>
+			</div>
+			<!-- 线路特色 -->
+			<div id="line-special">
+				<div class="content-padded">
+					<h4>线路特色</h4>
+					<volist id="p" name="line.phone_points">
+						<if condition="empty($p[image_url]) eq true">
+						<span>{$p.content}</span>
+						<else />
+						<img src="{$p.image_url}" />
+						</if>
+						<if condition="$line['id'] eq 337 and $p['index'] eq 2">
+							<p style="text-align: center; line-height:0;margin:10px 0px;">
+								<video poster="http://old.kllife.com/uploadfile/allimg/161110/1423554921-1.jpg" height="100%" width="100%" controls="controls"  x5-video-player-type="h5"/>
+								<source src="http://7xosrp.com1.z0.glb.clouddn.com/xb_ssyd_sp.mp4" type="video/mp4">
+								</video>
+							</p>
+						</if>
+						<if condition="$line['id'] eq 337 and $p['index'] eq 9">
+							<p style="text-align: center; line-height:0;margin:10px 0px;">
+								<video poster="__PUBLIC__/home/common/images/silk_video_banner-phone.jpg" height="100%" width="100%" controls="controls"  x5-video-player-type="h5"/>
+								<source src="__PUBLIC__/home/mp4/haibin-house.mp4" type="video/mp4">
+								</video>
+							</p>
+						</if>
+						<if condition="$line['id'] eq 274 and $p['index'] eq 20">
+							<p style="text-align: center; line-height:0;margin:10px 0px;">
+								<video poster="__PUBLIC__/home/common/images/silk_video_banner-phone.jpg" height="100%" width="100%" controls="controls"  x5-video-player-type="h5"/>
+								<source src="__PUBLIC__/home/mp4/haibin-house.mp4" type="video/mp4">
+								</video>
+							</p>
+						</if>
+						<if condition="$line['id'] eq 273 and $p['index'] eq 26">
+							<p style="text-align: center;line-height:0;margin:10px 0px;">
+								<video poster="__PUBLIC__/home/common/images/silk_video_banner-phone.jpg" height="100%" width="100%" controls="controls"  x5-video-player-type="h5"/>
+								<source src="__PUBLIC__/home/mp4/haibin-house.mp4" type="video/mp4">
+								</video>
+							</p>
+						</if>
+						<if condition="$line['id'] eq 272 and $p['index'] eq 7">
+							<p style="text-align: center; line-height:0;margin:10px 0px;">
+								<video poster="__PUBLIC__/home/common/images/silk_video_banner-phone.jpg" height="100%" width="100%" controls="controls"  x5-video-player-type="h5"/>
+								<source src="__PUBLIC__/home/mp4/haibin-house.mp4" type="video/mp4">
+								</video>
+							</p>
+						</if>
+						<if condition="$line['id'] eq 341 and $p['index'] eq 10">
+							<p style="text-align: center; line-height:0;margin:10px 0px;">
+								<video poster="__PUBLIC__/home/common/images/silk_video_banner-phone.jpg" height="100%" width="100%" controls="controls"  x5-video-player-type="h5"/>
+								<source src="__PUBLIC__/home/mp4/haibin-house.mp4" type="video/mp4">
+								</video>
+							</p>
+						</if>
+
+						<if condition="$line['id'] eq 273 and $p['index'] eq 31">
+							<div class="xingcheng-href">
+								<a href="http://kllife.com/phone/index.php?s=/phone/line/info/id/337" external><img src="__PUBLIC__/phone/images/content_img/1.png" alt=""></a>
+								<a href="http://kllife.com/phone/index.php?s=/phone/line/info/id/273" external><img src="__PUBLIC__/phone/images/content_img/2.png" alt=""></a>
+								<a href="http://kllife.com/phone/index.php?s=/phone/line/info/id/341" external><img src="__PUBLIC__/phone/images/content_img/3.png" alt=""></a>
+							</div>
+						</if>
+						<if condition="$line['id'] eq 337 and $p['index'] eq 31">
+							<div class="xingcheng-href">
+								<a href="http://kllife.com/phone/index.php?s=/phone/line/info/id/337" external><img src="__PUBLIC__/phone/images/content_img/1.png" alt=""></a>
+								<a href="http://kllife.com/phone/index.php?s=/phone/line/info/id/273" external><img src="__PUBLIC__/phone/images/content_img/2.png" alt=""></a>
+								<a href="http://kllife.com/phone/index.php?s=/phone/line/info/id/341" external><img src="__PUBLIC__/phone/images/content_img/3.png" alt=""></a>
+							</div>
+						</if>
+						<if condition="$line['id'] eq 341 and $p['index'] eq 27">
+							<div class="xingcheng-href">
+								<a href="http://kllife.com/phone/index.php?s=/phone/line/info/id/337" external><img src="__PUBLIC__/phone/images/content_img/1.png" alt=""></a>
+								<a href="http://kllife.com/phone/index.php?s=/phone/line/info/id/273" external><img src="__PUBLIC__/phone/images/content_img/2.png" alt=""></a>
+								<a href="http://kllife.com/phone/index.php?s=/phone/line/info/id/341" external><img src="__PUBLIC__/phone/images/content_img/3.png" alt=""></a>
+							</div>
+						</if>
+					</volist>
+				</div>
+			</div>
+			<!-- 行程介绍 -->
+			<div id="travel-introduction">
+				<div class="travel-introduction-header">
+					<p></p>
+					<h4>行程介绍</h4>
+				</div>
+				<div class="content-padded">
+					<div class="day-introduction">
+						<volist id='t' name="line.travels">
+							<div class="content-padded">
+								<img src="__PUBLIC__/phone/images/line_content/sublist_logo.png" alt="">
+								<span>Day{$t.day_id}</span>
+								<span>{$t.title}</span>
+								<if condition="$line['id'] eq 273 and $t['day_id'] eq 10">
+									<a style="display: inline-block;margin-top:20px;" href="{:U('line/info')}/id/341" target="_blank">
+										<img style="width:100%;" src="http://img.kllife.com/2017-06-30_5955f72d16b40.gif" alt="">
+									</a>
+								</if>
+								<div class="days-list">
+									<i class="iconfont">&#xe60c;</i>
+									<div class="days-sublist">
+										住宿：{$t.hotel}
+									</div>
+								</div>
+								<div class="days-list">
+									<i class="iconfont">&#xe60a;</i>
+									<div class="days-sublist">
+										餐饮：{$t.eat_way}
+									</div>
+								</div>
+								<div class="days-list">
+									<i class="iconfont">&#xe60b;</i>
+									<div class="days-sublist">
+										浏览重点：{$t.view_point}
+										<p>{$t.intro}</p>
+									</div>
+								</div>
+								<div class="days-list">
+									<i class="iconfont">&#xe60d;</i>
+									<div class="days-sublist">
+										温馨提示：{$t.kindly_reminder}
+										<div class="days-img">
+											<if condition="empty($t['img1']) eq  false">
+												<img src="{$t.img1}" alt="">
+											</if>
+											<if condition="empty($t['img2']) eq  false">
+												<img src="{$t.img2}" alt="">
+											</if>
+											<if condition="empty($t['img3']) eq  false">
+												<img src="{$t.img3}" alt="">
+											</if>
+										</div>
+									</div>
+								</div>
+							</div>
+						</volist>
+					</div>
+				</div>
+			</div>
+			<!-- end 行程介绍 -->
+			<!-- 预订须知 -->
+			<div id="reserve-notes">
+				<div class="reserve-notes-header">
+					<p></p>
+					<h4>预定须知</h4>
+				</div>
+				<div class="content-padded">
+					<!-- 费用说明等 -->
+					<div class="reserve-notes-list">
+						<div class="content-padded">
+							<img src="__PUBLIC__/phone/images/order_create/sublist_logo.png" alt="">
+							<span>费用说明</span>
+							<div class="reserve-notes-sublist">
+								{$line.cost_description}
+							</div>
+						</div>
+						<!-- 预订须知 -->
+						<div class="content-padded">
+							<img src="__PUBLIC__/phone/images/order_create/sublist_logo.png" alt="">
+							<span>预订须知</span>
+							<div class="reserve-notes-sublist">
+								{$line.booking_notes}
+							</div>
+						</div>
+						<!-- 沿途风光 -->
+						<div class="content-padded">
+							<img src="__PUBLIC__/phone/images/order_create/sublist_logo.png" alt="">
+							<span>沿途风光</span>
+							<div class="reserve-notes-sublist">
+								<volist id="s" name="line.scenery">
+									<if condition="empty($s[image_url]) eq true">
+									<span>{$s.content}</span>
+									<else />
+									<img src="{$s.image_url}" />
+									</if>
+								</volist>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+	        <!--相关线路-->
+	        <div class="recommend" id="recommend">
+	            <div class="recommend-tit"><img src="__PUBLIC__/phone/images/order_create/recommend-tit.png" alt=""></div>
+	            <div class="recommend-group">
+			    	<volist id="s" name="line.sets">
+			    		<if condition="stripos($s['key'], 'recommend_line') nheq FALSE">
+			                <div class="recommend-item">
+			                    <div class="img"><img src="{$s['value']['img1']}" alt="{$s['value']['title']}"></div>
+			                    <div class="div">
+			                        <p class="lg">{$s['value']['title']}</p>
+			                        <p class="sm">{$s['value']['subheading']}</p>
+		                			<if condition="empty($s['value']['check_price'])">
+		                				<p class="money"><span>核算中</span></p>
+					                <else />
+					                	<php>$price = explode('.',$s['value']['start_price_adult']);</php>
+					                	<p class="money">￥<span>{$price[0]}</span>元起</p>
+					                </if>
+			                    </div>
+		            			<a href="{:U('line/info')}/id/{$s['value']['id']}" target="_blank" title="{$s['value']['title']}：{$s['value']['subheading']}"></a>
+			                </div>
+		                </if>
+	            	</volist>
+	            </div>
+	        </div>			
+		</div>
+<include file="common/js" />
+<!-- swiper -->
+<script src="__PUBLIC__/phone/common/js/swiper-3.3.1.min.js"></script>
+<script>
+	//批次滚动
+	var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 4.3,
+            paginationClickable: true,
+            spaceBetween: 15,
+            freeMode: true
+        });
+        
+    $(function(){
+
+        $.init();
+
+    });
+    //等元素加载完在启用，防止高度获取不准确
+    window.onload = function() {
+        //元素滚动到指定位置
+        //tabs高度
+        var tabsHeight = $('#tabs').height();
+        //header高度
+        var headerHeight = $('header').height();
+        //获取content滚动的距离
+        var g = 0;
+        //线路特色距离顶部距离
+        var q = $('#line-special').offset().top;
+        //行程介绍距离顶部距离
+        var w = $('#travel-introduction').offset().top;
+        //预定须知距离顶部距离
+        var z = $('#reserve-notes').offset().top;
+        //content距顶部距离
+        var contentHeight = parseInt($('.content').css('top'));
+        //相差距离
+        var calculateHeight = tabsHeight + headerHeight + contentHeight;
+        $('.content').on( "scroll", function() {
+
+            g = $('.content').scrollTop();
+            //-1:有1px边框误差
+            //判断距离，给相应元素添加删除class
+            if( g > ( q - calculateHeight - 1 ) && g < ( w - calculateHeight - 1 ) ) {
+                $('.a1').siblings().removeClass('active');
+                $('.a1').addClass('active');
+            }else if ( g >= ( w - calculateHeight - 1 ) && g < ( z - calculateHeight - 1 ) ){
+                $('.a2').siblings().removeClass('active');
+                $('.a2').addClass('active');
+            }else if ( g >= ( z - calculateHeight -3 )){
+                $('.a3').siblings().removeClass('active');
+                $('.a3').addClass('active');
+            }
+
+        });
+
+        //tabs点击时处理事件
+        $('#tabs a').click(
+            //
+            function( event ){
+                var $anchor = $(this);
+                //定位元素距离顶部距离
+                var eleHeight = $('#' + $anchor.attr('title')).offset().top;
+                //当tabs是固定定位时
+                if($('#tabs').css('position') == 'fixed'){
+
+                    $('.content').stop().animate({scrollTop: g + eleHeight - headerHeight }, 600);
+
+                }else{
+
+                    $('.content').stop().animate({scrollTop: g + eleHeight - calculateHeight }, 600);
+
+                }
+                //取消默认操作
+                event.preventDefault();
+            }
+        );
+        //切换
+        $('#tabs a').click( function (){
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+        } );
+        // tab固定
+        function changeTab(){
+
+            var elm = $('#tabs');
+            //获取tabs距离顶部距离-header
+            var startPos = $(elm).offset().top -44 ;
+            //绑定滚动事件
+            $('.content').on( "scroll", function() {
+                //content滚动距离
+                var p = $('.content').scrollTop();
+                //当tabs距离顶部距离-header <= content滚动距离时
+                if( startPos <= p ){
+                    //固定tabs
+                    $('#tabs').css({'position':'fixed',
+                        'top':'0',
+                        'left':'0',
+                        'width':'100%',
+                        'z-index':'999'});
+                    //解决ios header盖住content
+                    $('header').hide();
+                    $('.content').css('top','0');
+                }else{
+                    //清除固定
+                    $('#tabs').css('position','static');
+                    //解决ios header盖住content
+                    $('header').show();
+                    $('.content').css('top','2.2rem');
+                }
+
+            });
+
+        }
+
+        changeTab();
+    }
+    //		$(function(){
+    //   			pushHistory();
+    //			window.addEventListener("popstate", function(e) {
+    //				alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能
+    //			}, false);
+    //		    function pushHistory() {
+    //		        var state = {
+    //		            title: "title",
+    //		            url: "#"
+    //		        };
+    //		        window.history.pushState(state, "title", "#");
+    //		    };
+    //
+    //		});
+    
+    // 团期点击事件
+    $('.tuanqi div').click(function(){
+    	var batchId = $(this).attr('data-batch-id');
+    	if ('{$duid}' != '') {
+    		location.href = '{:U("line/order")}'+'/id/{$line.id}/duid/{$duid}/type/create/b/'+batchId;
+    	} else {
+    		location.href = '{:U("line/order")}'+'/id/{$line.id}/type/create/b/'+batchId;
+    	}
+    });
+</script>
+<include file="common/swt" />
+</body>
+</html>

@@ -1,0 +1,30 @@
+
+
+<!-- light7 -->
+<script src="__PUBLIC__/phone/common/js/light7.js"></script>
+<!-- i18n 中文 -->
+<script src="__PUBLIC__/phone/common/js/cn.js"></script>
+<!--公用JS文件-->
+<script src="__PUBLIC__/common/js/functions.js"></script>
+
+<script>		
+    //加载指示
+    function PageLoading() {
+    	this.loaded = false;
+    }
+    
+    PageLoading.prototype.isLoading = function () {
+    	return this.loaded;
+    }
+    
+    PageLoading.prototype.loading = function (bshow, bstyle) {
+    	this.loaded = bshow;
+    	if (bstyle == null || bstyle == true) {
+	    	if (bshow) {
+	       		$.showPreloader();
+	    	} else {
+	            $.hidePreloader();	
+	    	}
+    	}
+    }
+</script>

@@ -1,0 +1,63 @@
+.login-header { position: relative; width: 100%; height: 8.75rem; background-color: #febd17; text-align: center; }
+.login-header-img img { width: 3.5rem; height: 3.5rem; border-radius: 3.5rem; margin-top: 1.4rem; }
+
+
+.login-tab a { display: inline-block; width: 5.7rem; height: 1.95rem; line-height: 1.95rem; text-align: center; color: #fff; font-size: .8rem; border-radius: 5px; }
+.login-tab a:first-child { margin-right: 3rem; }
+/*tab*/
+.buttons-tab { margin-top: 1rem; background-color: #febd17; border: none; }
+.buttons-tab .button { position: relative; color: #fff; border: none; }
+.buttons-tab .button.active { color: #fff; }
+.arrow-up {
+	position: absolute;
+	top: -9px;
+    width:0; 
+    height:0; 
+    margin-left: -10px;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    border-bottom:10px solid #fff;
+}
+#tab1 .arrow-up { left: 24.8%; }
+#tab2 .arrow-up { right: 23%; }
+.tab { position: relative; }
+.tabs { background-color: #fff; padding-bottom: 1rem; }
+.list-block { margin: .5rem; }
+.list-block .item-content { padding-left: 0; font-size: 0.85rem; }
+.list-block .item-content .item-input { position: relative; }
+.list-block .item-content input { font-size: .85rem; }
+.list-block .item-content .get-code { position: absolute; top: .45rem; right: -.5rem; background-color: #ff7200; color: #fff; border: none; border-radius: 5px; }
+
+#tab1 > a { display: block; color: #000; font-size: 0.8rem; text-align: right; }
+.login-btn a { display: block; width: 90%; height: 2.2rem; line-height: 2.2rem; margin: 0 auto; margin-top: .5rem; background-color: #ff7200; border: 1px solid #ff7200; color: #fff; font-size: .9rem; }
+.register-btn a { display: block; width: 90%; height: 2.2rem; line-height: 2.2rem; margin: 0 auto; margin-top: .5rem; background-color: #fff; border: 1px solid #ff7200; color: #ff7200; font-size: .9rem; }
+
+
+/*第三方登录*/
+.third-party-header { position: relative; width: 90%; margin: 0 auto; margin-top: 1rem; }
+.third-party-header p { border-bottom: 1px solid #b2b2b2; }
+.third-party-header h6 { position: absolute; top: -.35rem; left: 50%; width: 7rem; margin: 0; margin-left: -3.5rem; line-height: 1; text-align: center; font-size: 0.8rem; font-weight: normal; color: #999; background-color: #fff; }
+.third-party-btn { margin-top: 1rem; }
+.third-party-btn a img { width: 2.65rem; height: 2.65rem; }
+.third-party-btn a { text-align: center; }
+.third-party-btn a:first-child { margin-right: 2rem; }
+
+/*注册*/
+.register-header { position: relative; width: 100%; height: 8.75rem; background-color: #febd17; text-align: center; }
+.register-header-img img { width: 3.5rem; height: 3.5rem; border-radius: 3.5rem; margin-top: 1.4rem; }
+.register-header-img > p { margin-top: 1rem; color: #fff; font-size: 0.8rem; }
+.register-content { margin-top: 1.5rem; padding-bottom: 1rem; background-color: #fff; }
+.list-block .item-content .item-input > img { position: absolute; top: .25rem; right: -.5rem; width: 4.0rem; height: 1.6rem; }
+.register-content > a { display: block; width: 90%; height: 2.2rem; line-height: 2.2rem; margin: 0 auto; margin-top: .5rem; background-color: #ff7200; border: 1px solid #ff7200; color: #fff; font-size: .9rem; }
+.register-content > a:last-child { background-color: #fff; border: 1px solid #ff7200; color: #ff7200; }
+/*找回密码*/
+.find-psd { padding-bottom: 1rem; background-color: #fff; } 
+.find-psd > a { display: block; width: 90%; height: 2.2rem; line-height: 2.2rem; margin: 0 auto; margin-top: .5rem; background-color: #ff7200; border: 1px solid #ff7200; color: #fff; font-size: .9rem; text-align: center; }
+/*重置密码*/
+.reset-psd { padding-bottom: 1rem; background-color: #fff; } 
+.reset-psd > a { display: block; width: 90%; height: 2.2rem; line-height: 2.2rem; margin: 0 auto; margin-top: .5rem; background-color: #ff7200; border: 1px solid #ff7200; color: #fff; font-size: .9rem; text-align: center; }
+/*重置密码成功*/
+.reset-psd-success { margin-top: .5rem; padding-bottom: 1rem; background-color: #fff; text-align: center; }
+.reset-psd-success img { width: 2.95rem; height: 2.95rem; margin-top: 1.3rem; }
+.reset-psd-success p { margin-bottom: .5rem; }
+.reset-psd-success a { display: block; width: 30%; height: 1.75rem; line-height: 1.75rem; margin: 0 auto; background-color: #f7f7f7; text-align: center; color: #666; border: 1px solid #e5e5e5; border-radius: 3px; font-size: .9rem; }

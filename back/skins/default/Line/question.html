@@ -1,0 +1,638 @@
+<include file="Common/header" />
+
+<style>
+
+	.hover_content i { color: #68b828; font-style: normal; cursor: pointer; }
+	
+	.edit-input { display: none; margin-top: 5px; }
+		
+	.page-list { width: 100%; margin-top:30px; text-align: right; }
+
+	.page-list a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+
+	.page-list span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+
+	.page-list span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }
+	
+	.modal { height: 210px !important }	
+	
+	header { border-left: 10px solid #ffba00; padding-left: 10px;}
+	
+	.story-comment { border-left: 10px solid #8dc63f;  padding-left: 10px;}
+	
+	.story-comment-content { margin-left: 0px !important; }
+	
+	article { padding-top:0px !important; margin-bottom:0px !important; }
+	
+	.separator-line { border-top:1px dashed #00b19d; margin-top: 15px; margin-bottom: 15px; }
+		
+</style>
+	
+	<!--编辑模板-->		
+	<div class="form-group template_content_editbox hidden_ctrl">
+		<textarea class="form-control input-unstyled autogrow editbox"></textarea>
+	</div>
+	
+	<!--问题模板-->
+	<article class="timeline-story template_question hidden_ctrl" data-id="">
+		
+		<i class="fa-paper-plane-empty block-icon"></i>
+		
+		<!-- User info -->
+		<header>							
+			<!-- Story Content Wrapped inside Paragraph -->
+			<p class="hover_content" style="margin-bottom: 30px;">
+				<span class="content"></span><br />
+				<i class="content_edit question">[编辑]</i>
+				<i class="content_delete question">[删除]</i>
+			</p>
+			
+			<p class="question_line"></p>
+			
+			<!-- Story Options Links -->
+			<div class="story-options-links">
+				
+				<a href="#">
+					<i class="linecons-heart"></i>
+					点赞数 
+					<span class="like_count">(0)</span>
+				</a>
+				
+				<a href="#">
+					<i class="linecons-comment"></i>
+					评论数
+					<span class="answer_count">(0)</span>
+				</a>
+				
+				<time style="float: right;"></time>
+				<span class="sign_name" style="float: right;"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>			
+			
+		</header>
+		
+		<div class="answer-content">
+	
+			<!-- Story Comments -->
+			<ul class="list-unstyled story-comments">
+				
+			</ul>
+		
+			<form method="post" action="" class="story-comment-form">
+			
+				<textarea class="form-control input-unstyled autogrow answer_reply_textarea" placeholder="回复..."></textarea>
+				
+				<button type="button" class="btn btn-single btn-xs btn-success">发送</button>
+				
+			</form>
+		
+		</div>
+								
+	</article>
+	
+	<!--回答模板-->
+	<div class="story-comment template_answer hidden_ctrl" data-id="">
+		
+		<div class="story-comment-content">
+		
+			<a href="#" class="story-comment-user-name">
+				<span class="answer_name"></span>
+				<time></time>
+			</a>
+			
+			<p class="hover_content" style="margin-bottom: 30px;">
+				<span class="answer_content"></span><br />
+				<i class="content_edit answer">[编辑]</i>
+				<i class="content_delete answer">[删除]</i>
+				<br /><br />
+			</p>
+			
+		</div>
+		
+	</div><!--结束回答-->
+
+	<!-- Default panel -->
+	<div class="panel panel-flat">
+		<div class="panel-heading">
+			{:C('CONTENT_TITLE')}
+		</div>
+		
+		<div class="panel-body">
+			<section class="profile-env">
+				<!-- User Post form and Timeline -->
+				<form method="post" action="" class="profile-post-form">
+					<textarea class="form-control input-unstyled input-lg autogrow" placeholder="请输入您的问题"></textarea>
+					<i class="el-edit block-icon"></i><br />
+					<div class="main_type">
+						<span style="float: left;">主站问题类型:</span>
+						<volist id="qt" name="question_types" key="qt_key">
+							<if condition="$qt['type_key'] neq 'question_type_line'">
+								<label data-id="{$qt.id}" style="float: left;">
+									<input type="radio" name="question_type" class="cbr cbr-info">
+									{$qt.type_desc}
+								</label>&nbsp;&nbsp;&nbsp;&nbsp;
+							</if>
+						</volist>
+					</div>			
+					<div class="qinglvpai_type" style="width: 900px;">
+						<span style="float: left;">轻旅拍问题类型:</span>
+						<volist id="qt_qlp" name="question_qinglvpai_types" key="qt_qlp_key">
+							<if condition="$qt_qlp['type_key'] neq 'question_qinglvpai_type_line'">
+								<label data-id="{$qt_qlp.id}" style="float: left;">
+									<input type="radio" name="question_type" class="cbr cbr-info">
+									{$qt_qlp.type_desc}
+								</label>&nbsp;&nbsp;&nbsp;&nbsp;
+							</if>
+						</volist>
+					</div>
+					
+					<button type="button" class="btn btn-single btn-xs btn-success post-story-button">发送</button>
+				</form>
+				
+				<!-- User timeline stories -->
+				<section class="user-timeline-stories">
+					
+					<volist id="quest" name="questions">
+					
+						<hr class="separator-line"/>
+					
+						<!-- Timeline Story Type: Status -->
+						<article class="timeline-story" data-id="{$quest.id}" data-type-id="{$quest.type_id}" data-line-id="{quest.line_id}">
+							
+							<i class="fa-paper-plane-empty block-icon"></i>
+							
+							<!-- User info -->
+							<header>							
+								<!-- Story Content Wrapped inside Paragraph -->
+								<p class="hover_content" style="margin-bottom: 30px;">									
+									<span class="content">{$quest.content}</span><br />
+									<i class="content_edit question">[编辑]</i>
+									<i class="content_delete question">[删除]</i>
+								</p>
+								
+								<p class="question_line">
+									[{$quest.type_id_data.type_desc}]<if condition="$quest['is_line'] eq 1"> -- {$quest.line.title}({$quest.line.id})</if>
+								</p>
+								
+								<!-- Story Options Links -->
+								<div class="story-options-links">
+									
+									<a href="#">
+										<i class="linecons-heart"></i>
+										点赞数 
+										<span class="like_count">({$quest.agree})</span>
+									</a>
+									
+									<a href="#">
+										<i class="linecons-comment"></i>
+										评论数
+										<span class="answer_count">({$quest.answer_count})</span>
+									</a>
+									
+									<span class="sign_name" style="float: right;">
+									
+										<time style="float: right;">{$quest.create_time}</time>
+										
+										<span class="sign_name" style="float: right;">[{$quest.account_id_data.account_type.type_desc}]{$quest.account_id_show_name}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+										
+									</span>
+									
+								</div>								
+								
+							</header>	
+							
+							<div class="answer-content">
+							
+								<!-- Story Comments -->
+								<ul class="list-unstyled story-comments">
+								
+									<volist id="answer" name="quest.answers">
+									
+									<li>
+										
+										<div class="story-comment" data-id="{$answer.id}">
+											
+											<div class="story-comment-content">
+											
+												<a href="#" class="story-comment-user-name">														
+													<span class="answer_name">[{$answer.account_id_data.account_type.type_desc}]{$answer.account_id_show_name}</span>														
+													<time>{$answer.create_time}</time>
+												</a>
+												
+												<p class="hover_content" style="margin-bottom: 30px;">
+													<span class="answer_content">{$answer.content}</span><br />
+													<i class="content_edit answer">[编辑]</i>
+													<i class="content_delete answer">[删除]</i><br /><br />
+												</p>
+												
+											</div>
+											
+										</div>
+										
+									</li>
+									
+									</volist>
+									
+								</ul>
+								
+								<form method="post" action="" class="story-comment-form">
+								
+									<textarea class="form-control input-unstyled autogrow answer_reply_textarea" placeholder="回复..."></textarea>
+		
+									<button type="button" class="btn btn-single btn-xs btn-success">发送</button>
+									
+								</form>
+								
+							</div> <!--结束回答-->
+													
+						</article>
+						
+					</volist>
+					
+					
+				</section>	<!--结束问题列表Section-->
+				
+				<div class="page-list"></div>
+				
+			</section> <!--结束整个问题系统Section-->	
+			
+		</div>
+		
+	</div>
+	
+	<!--翻页脚本-->
+	<script src="__PUBLIC__/home/js/page.js"></script>	
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/back/wysihtml5/lib/css/bootstrap.min.css"></link>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/back/wysihtml5/lib/css/prettify.css"></link>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/back/wysihtml5/src/bootstrap-wysihtml5.css"></link>
+	
+	<script src="__PUBLIC__/back/wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+	<script src="__PUBLIC__/back/wysihtml5/lib/js/prettify.js"></script>
+	<script src="__PUBLIC__/back/wysihtml5/lib/js/bootstrap.min.js"></script>
+	<script src="__PUBLIC__/back/wysihtml5/src/bootstrap-wysihtml5.js"></script>
+	
+	
+	<script src="__PUBLIC__/assets/js/formwizard/jquery.bootstrap.wizard.min.js"></script>
+	<script type="text/javascript">
+		
+		// 初始化翻页
+		constructionPage('.page-list', 1, '{$page_count}', changePage, true);
+		
+		// 初始化回答问题框
+		$('.user-timeline-stories').find('.timeline-story').each(function(i,ev){
+			$(this).find('.answer_reply_textarea').wysihtml5({
+				size: 'white',
+				stylesheets: "__PUBLIC__/back/wysihtml5/lib/css/wysiwyg-color.css",
+			});	
+		});
+		
+		// 添加编辑框事件
+		function appendEditEvent() {
+			$('.wysihtml5-toolbar').find('.dropdown').unbind();
+			$('.wysihtml5-toolbar').find('.dropdown').click(function(){$(this).addClass('open'); });
+			$('.wysihtml5-toolbar').find('.dropdown-menu').find('li').unbind();			
+			$('.wysihtml5-toolbar').find('.dropdown-menu').find('li').click(function(){ $(this).parent().parent().removeClass('open'); });
+			$('.wysihtml5-toolbar').find('li:eq(1)').find('a').unbind();
+			$('.wysihtml5-toolbar').find('li:eq(1)').find('a').click(function(){$(this).toggleClass('wysihtml5-command-active')});
+		}
+		appendEditEvent();		
+				
+		// 添加问题HTML
+		function appendQuestionHtml(container, ds, pageIndex, pageCount, before) {
+//			console.log('container:'+container+',before'+before+',ds:'+JSON.stringify(ds));										
+			if (ds != null) {	
+				for (var i = 0; i < $(ds).length; i ++) {
+					var d = ds[i];
+					var rootObj = $('.template_question').clone(true);
+					$(rootObj).removeClass('template_question');
+					$(rootObj).removeClass('hidden_ctrl');
+					$(rootObj).attr('data-id', d.id);
+					$(rootObj).attr('data-type-id', d.type_id);
+					$(rootObj).attr('data-line-id', d.line_id);
+					$(rootObj).find('.content').html(d.content);
+					var typeContent = '['+d.type_id_data.type_desc+']'
+					if (d.is_line != null && d.is_line == 1) {
+						typeContent += '--' + d.line.title;
+					}
+					$(rootObj).find('.question_line').html(typeContent);
+					$(rootObj).find('.like_count').html('('+d.agree+')');
+					$(rootObj).find('.answer_count').html('('+d.answer_count+')');
+					$(rootObj).find('.sign_name').html('['+d.account_id_data.account_type.type_desc+']'+d.account_id_show_name);
+					$(rootObj).find('time').html(d.create_time);
+					$(rootObj).find('.answer_reply_textarea').wysihtml5({
+						size: 'white',
+						stylesheets: "__PUBLIC__/back/wysihtml5/lib/css/wysiwyg-color.css",
+					});	
+					
+					//回复内容
+					if (typeof(d.answers) != 'undefined' && d.answers != null) {
+						for (var j = 0; j < d.answers.length; j++) {
+							var a = d.answers[j];
+							var answerObj = $('.template_answer').clone(true);
+							$(answerObj).removeClass('template_answer');
+							$(answerObj).removeClass('hidden_ctrl');
+							$(answerObj).attr('data-id', a.id);
+							$(answerObj).find('.answer_name').html('['+a.account_id_data.account_type.type_desc+']'+a.account_id_show_name);
+							$(answerObj).find('time').html(a.create_time);
+							$(answerObj).find('.answer_content').html(a.content);
+							$(rootObj).find('.story-comments').append('<li></li>');
+							$(rootObj).find('.story-comments').find('li:last').append(answerObj);
+						}
+					}
+					
+					if (typeof(before) == 'undefined'){
+						$(container).append('<hr class="separator-line" />');
+						$(container).append(rootObj);	
+					} else {
+						$(container).prepend('<hr class="separator-line" />');
+						$(container).prepend(rootObj);
+					}
+					appendEditEvent();
+				}				
+				// 重构翻页
+				constructionPage('.page-list', pageIndex, pageCount, changePage, false);				
+			}
+		}
+		
+		// 切换问题页
+		function changePage(p) {
+			var jsonData = {
+				op_type: 'list',
+				page: p-1,
+			}
+			$.post('{:U("line/question")}', jsonData, function(data){
+				if (data.result.errno == 0) {					
+					$('.user-timeline-stories').empty();
+					appendQuestionHtml('.user-timeline-stories', data.ds, p, data.page_count, false);
+				} else {
+					alert(data.result.message);
+				}
+			});
+		}
+		
+		// 生成问题
+		$('.post-story-button').click(function(){
+			var typeCheckObj = $('.profile-post-form').find('.cbr-checked');
+			if ($(typeCheckObj).length == 0) {
+				alert('请选择问题所属类型');
+				return false;
+			}
+			var typeId = $(typeCheckObj).parent().attr('data-id');	
+			var content = $('.profile-post-form').find('textarea').val();			
+			if (content == '') {
+				alert('问题内容不能为空');
+				return false;
+			}	
+			createQuestion('.user-timeline-stories', 0, typeId, 0, content);
+			$('.profile-post-form').find('textarea').val('');
+		});
+		
+		// 回答问题
+		$('.story-comment-form').find('button').click(function(){
+			var rootObj = $(this).closest('article');
+			var questionId = $(rootObj).attr('data-id');
+			var typeId = $(rootObj).attr('data-type-id');
+			var lineId = $(rootObj).attr('data-line-id');
+			var content = $(rootObj).find('.answer_reply_textarea').data('wysihtml5').editor.getValue();
+			if (content == '') {
+				alert('回答内容不能为空');
+				return false;
+			}	
+			var container = $(this).closest('.answer-content').find('.story-comments'); 
+			createQuestion(container, questionId, typeId, lineId, content);
+			$(rootObj).find('.answer_reply_textarea').data('wysihtml5').editor.setValue('');
+		});
+		
+		// 添加问题HTML
+		function appendQuestionOnlyHtml(container, ds, pageCount, before) {
+			if (ds != null) {	
+				for (var i = 0; i < $(ds).length; i ++) {
+					var d = ds[i];
+					var rootObj = $('.template_question').clone(true);
+					$(rootObj).removeClass('template_question');
+					$(rootObj).removeClass('hidden_ctrl');
+					$(rootObj).attr('data-id', d.id);
+					$(rootObj).attr('data-type-id', d.type_id);
+					$(rootObj).attr('data-line-id', d.line_id);
+					$(rootObj).find('.content').html(d.content);
+					if (d.is_line != null && d.is_line == 1) {
+						$(rootObj).find('.question_line').html(d.line.title);
+					} else {
+						$(rootObj).find('.question_line').remove();
+					}
+					$(rootObj).find('.like_count').html('('+d.agree+')');
+					$(rootObj).find('.answer_count').html('('+d.answer_count+')');
+					$(rootObj).find('.sign_name').html('['+d.account_id_data.account_type.type_desc+']'+d.account_id_show_name);
+					$(rootObj).find('time').html(d.create_time);
+					$(rootObj).find('.answer_reply_textarea').wysihtml5({
+						size: 'white',
+						stylesheets: "__PUBLIC__/back/wysihtml5/lib/css/wysiwyg-color.css",
+					});
+					
+					if (typeof(before) == 'undefined'){
+						$(container).append(rootObj);	
+					} else {
+						$(container).prepend(rootObj);
+					}
+					appendEditEvent();
+				}			
+			
+				// 重构翻页
+				if (pageCount != 0) {
+					constructionPage('.page-list', 1, pageCount, changePage);					
+				}
+			}
+		}
+		
+		// 添加答案HTML
+		function appendAnswerOnlyHtml(container, ds, before) {
+			if (ds != null) {	
+				for (var i = 0; i < $(ds).length; i ++) {
+					var a = ds[i];
+					var answerObj = $('.template_answer').clone(true);
+					$(answerObj).removeClass('template_answer');
+					$(answerObj).removeClass('hidden_ctrl');
+					$(answerObj).attr('data-id', a.id);
+					$(answerObj).find('.answer_name').html('['+a.account_id_data.account_type.type_desc+']'+a.account_id_show_name);
+					$(answerObj).find('time').html(a.create_time);
+					$(answerObj).find('.answer_content').html(a.content);
+					
+					if (typeof(before) == 'undefined'){
+						$(container).append('<li></li>');
+						$(container).find('li:last').append(answerObj);	
+					} else {
+						$(container).prepend('<li></li>');
+						$(container).find('li:first').append(answerObj);
+					}
+				}			
+			}
+		}
+		
+		// 生成问题
+		function createQuestion(container, questionId, typeId, lineId, content) {	
+			var jsonData = {
+				op_type: 'create',
+				question_id: questionId,
+				type_id: typeId,
+				line_id: lineId,
+				content: content,				
+			}
+			
+//			console.log(JSON.stringify(jsonData));
+			
+			$.post('{:U("line/question")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (data.ds != null) {
+						var dss = new Array();
+						dss[0] = data.ds;
+						if (questionId == 0) {
+							appendQuestionOnlyHtml(container, dss, 0, true);	
+						} else {
+							appendAnswerOnlyHtml(container, dss, true);
+						}
+					}
+				} else {
+					alert(data.result.message);
+					if (data.jumpUrl != null) {
+						location.href = data.jumpUrl;
+					}
+				}
+			});
+		}
+		
+		// 保存问题
+		function saveContent(jsonData) {			
+			var ds = {ds:null, result:{errno:-1, message:'未保存成功'}};
+			$.ajax({
+				url: '{:U("line/question")}',
+				type: 'POST',
+				async: false,
+				data: jsonData,
+				dataType: 'json',
+				success: function(data) {
+					ds = data;
+				}
+			});			
+			return ds;
+		}
+		
+		//编辑问题
+		$('.content_edit').click(function(){				
+			// 获取当前跟对象
+			var rootObj = null;
+			if ($(this).hasClass('question') == true) {
+				var rootObj = $(this).closest('.timeline-story');
+			} else {
+				var rootObj = $(this).closest('.story-comment');
+			}	
+			
+			if (rootObj == null) {
+				console.log('无法获取根对象!');
+				return false;
+			}			
+			
+			var cnt = '';
+			if($(this).html() == '[编辑]'){
+				// 设置当前编辑的问题，取消上一个编辑的问题
+				recoverUnsaveQuestion();								
+				$(this).html('[保存]');
+				
+				// 获取当前问题内容
+				if ($(this).hasClass('question') == true) {
+					cnt = $(rootObj).find('.content').html();
+				} else {
+					cnt = $(rootObj).find('.answer_content').html();
+				}			
+				
+				// 设置到编辑框
+				var tempObj = $('.template_content_editbox').clone();
+				$(tempObj).removeClass('template_content_editbox');
+				$(tempObj).removeClass('hidden_ctrl');
+				$(tempObj).addClass('content_editbox');
+				$(tempObj).find('.editbox').wysihtml5({
+					size: 'white',
+					stylesheets: "__PUBLIC__/back/wysihtml5/lib/css/wysiwyg-color.css",
+				});
+				$(tempObj).find('.editbox').val(cnt);
+				$(rootObj).find('.hover_content:first').after(tempObj);
+				appendEditEvent();			
+				
+			}else{
+				// 获取当前编辑问题的ID和内容
+				var qid = $(rootObj).attr('data-id');				
+				cnt = $(rootObj).find('.editbox').val();				
+				if (qid == 0 ||  cnt == '') {
+					toastr.warning('编号或回答内容不能为空');
+					return false;
+				}
+				
+				var jsonData = {
+					op_type: 'edit',
+					id: qid,
+					content: cnt,
+				}
+				// 处理新编辑的问题
+				var data = saveContent(jsonData);
+				if (data.result.errno == 0) {					
+					if ($(this).hasClass('question')) {
+						$(rootObj).find('.content').html(cnt);
+					} else {
+						$(rootObj).find('.answer_content').html(cnt);
+					}
+				} else {
+					toastr.error(data.result.message);
+				}
+				
+				// 移除编辑框
+				recoverUnsaveQuestion();
+			}
+		});
+		
+		// 恢复上一个编辑的问题
+		function recoverUnsaveQuestion() {			
+			if ($('.content_editbox').prev().hasClass('hover_content')) {
+				var spanObj = $('.content_editbox').prev().find('.content_edit').html('[编辑]');
+			}
+			
+			// 把编辑框移除并放回模板位置
+			$('.content_editbox').remove();
+		}
+		
+		// 删除问题
+		$('.content_delete').click(function(){
+			var qid = 0;
+			if ($(this).hasClass('question')) {
+				qid = $(this).closest('.timeline-story').attr('data-id');
+			} else {
+				qid = $(this).closest('.story-comment').attr('data-id');
+			}
+			
+			if (qid == 0) {
+				toastr.warning('编号不能为空');
+				return false;
+			}
+			
+			var jsonData = {
+				op_type: 'delete',
+				id: qid,
+			}
+			
+			var data = saveContent(jsonData);
+			if (data.result.errno == 0) {
+				// 移除问题编辑框
+				recoverUnsaveQuestion();
+				
+				if ($(this).hasClass('question')) {
+					$(this).closest('.timeline-story').remove();
+				} else {
+					$(this).closest('.story-comment').remove();
+				}
+			} else {
+				toastr.error(data.result.message);
+			}	
+			
+		});
+		
+		
+	</script>
+						
+<include file="Common/footer" />

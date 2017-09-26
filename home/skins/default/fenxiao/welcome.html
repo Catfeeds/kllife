@@ -1,0 +1,347 @@
+<include file="Common/top" />
+
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/css/index.css">
+<!-- 轮播 -->
+<div class="lunbo">
+	<!-- 轮播 -->
+	<div class="lubo">
+		<ul class="lubo_box">
+			<li style=";display: block;"><a href="{$lunbo.lunbo1_url}" style="background-image:url({$lunbo.lunbo1}); background-size: 100% 100%;"></a></li>
+			<li><a href="{$lunbo.lunbo2_url}" style="background-image:url({$lunbo.lunbo2}); background-size: 100% 100%;"></a></li>
+			<li><a href="{$lunbo.lunbo3_url}" style="background-image:url({$lunbo.lunbo3}); background-size: 100% 100%;"></a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- 为什么选择我们 -->
+<include file="Common/choose_us" />
+<!-- 精彩专题 -->
+<include file="Common/zhuanti" />	
+	
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/css/list.css">
+<style type="text/css">
+	body { background-color:#f3f5f6; }
+</style>
+
+	<!-- 主要内容 -->
+	<div id="content" style="margin-top: 0;">
+		<!--单排列表模板-->		
+		<div class="single-row-content template_single_row hidden_ctrl">
+			<a href="javascript:;" target="_blank"></a>
+			<div class="single-row-img">
+				<img src="" alt="">
+			</div>
+			<div class="jiriyou">
+				<p><span class="day"></span>日游</p>
+			</div>
+			<div class="single-row-describe">
+				<div class="single-row-describe-top">
+					<h4 class="title"></h4>
+					<h5 class="subheading"></h5>
+					<span class="send_word"></span>
+					<p><u class="assembly">集合地点：</u><u class="batch">批次：全年0期</u></p>
+					<p class="destination">目的地：</p>
+					<div class="single-row-describe-price">
+						<h6><!--<s class="price">0元</s>--><strong class="cut_price"></strong>元起</h6>
+					</div>
+				</div>
+				<div class="single-row-describe-bottom">
+					<span class="travel_date">旅行时间：</span>
+					<em class="appointment""></em>
+				</div>
+			</div>
+		</div>
+		
+		<!--双排列表模板-->		
+		<div class="double-row-content template_double_row hidden_ctrl">
+			<div class="template_content"> <!--double-row-left/double-row-right-->
+				<a href="javascript:;" target="_blank"></a>
+				<div class="template_img"> <!--double-row-left-top/double-row-right-top-->
+					<img src="" alt="">
+				</div>
+				<div class="jiriyou">
+					<p><span class="day"></span>日游</p>
+				</div>
+				<div class="double-row-describe">
+					<h4 class="title"></h4>
+					<h5 class="subheading"></h5>
+					<p class="send_word describe-content"></p>
+					<p><u class="assembly">集合地点：</u><u class="batch">批次：全年0期</u></p>
+					<p class="destination">目的地：</p>
+					<div class="double-row-describe-price">
+						<h6><!--<s class="price">0元</s>--><strong class="cut_price"></strong>元起</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 列表菜单 -->
+		<div class="list-menu" style="margin-top: 0;">
+			<div class="list-menu-sort">
+				<div class="list-menu-sort-right">
+					<a class="list-menu-sort-x" href="javascript:;"><i class="sort-x"></i></a>
+					<a class="list-menu-sort-y" href="javascript:;"><i></i></a>
+				</div>
+			</div>
+			<if condition="empty($lines) eq true">
+				<span class="no-more-data" style="text-indent:2em;">暂时没有分销的产品，敬请期待站长发布...</span>
+			</if>
+			
+			<!-- 单排列表 -->
+			<div class="single-row">
+				<volist id="line" name="lines">
+					<div class="single-row-content" data-bind-id="{$line.bind_id}" data-id="{$line.id}">
+						<a href="{:U("line/info")}/id/{$line.id}/duid/{$line.bind_user_id}" target="_blank"></a>
+						<div class="single-row-img">
+							<img src="{$line.img1}" alt="">
+						</div>
+						<div class="jiriyou">
+							<p><span class="day">{$line.travel_day}</span>日游</p>
+						</div>
+						<div class="single-row-describe">
+							<div class="single-row-describe-top">
+								<h4 class="title">{$line.title}</h4>
+								<h5 class="subheading">{$line.subheading_show}</h5>
+								<span class="send_word">{$line.send_word_show}</span>
+								<p>
+									<u class="assembly">集合地点：{$line.assembly_point_show_text}</u>
+									<u class="batch">批次：全年{:count($line['batchs'])}期</u>
+								</p>
+								<p class="destination">目的地：{$line.destination_show_text}</p>
+								<div class="single-row-describe-price">
+									<h6>
+										<if condition="$line.free_line eq '0' and (empty($line['min_batch']) eq true or empty($line['min_batch']['price_state']) eq false)">
+												<s class="price">核算中</s>
+												<strong class="cut_price">核算中</strong>
+										<else />
+											<!--<s class="price">{$line.min_batch.price_adult}元</s>-->
+											<strong class="cut_price">{$line.min_batch.adult_cut}</strong>元起
+										</if>
+									</h6>
+								</div>
+							</div>
+							<div class="single-row-describe-bottom">
+								<span class="travel_date">旅行时间： {$line.start_time}&nbsp;至&nbsp;{$line.end_time}</span>
+								<em class="appointment" href="{:U("line/info")}/id/{$line.id}/duid/{$line.bind_user_id}"></em>
+							</div>
+						</div>
+					</div>
+				</volist>
+			</div>
+			<!-- 双排列表 -->
+			<div class="double-row">
+				<volist id="line" name="lines" >
+					<if condition="$key % 2 eq 0" >
+						<div class="double-row-content">
+							<div class="double-row-left">
+								<div class="double-row-left-top">
+					<else />
+							<div class="double-row-right">
+								<div class="double-row-right-top">
+					</if>
+									<img src="{$line.img1}" alt="">
+								</div>
+								<div class="jiriyou">
+									<p><span class="day">{$line.travel_day}</span>日游</p>
+								</div>
+								<a href="{:U("line/info")}/id/{$line.id}/duid/{$line.bind_user_id}" target="_blank"></a>
+								<div class="double-row-describe">
+									<h4 class="title">{$line.title}</h4>
+									<h5 class="subheading">{$line.subheading_show}</h5>
+									<p class="send_word describe-content">{$line.send_word_show}</p>
+									<p>
+										<u class="assembly">集合地点：{$line.assembly_point_show_text}</u>
+										<u class="batch">批次：全年{:count($line['batchs'])}期</u>
+									</p>
+									<p class="destination">目的地：{$line.destination_show_text}</p>
+									<div class="double-row-describe-price">
+										<h6>
+											<if condition="$line.free_line eq '0' and (empty($line['min_batch']) eq true or empty($line['min_batch']['price_state']) eq false)">
+												<s class="price">核算中</s>
+												<strong class="cut_price">核算中</strong>
+											<else />
+												<!--<s class="price">{$line.min_batch.price_adult}元</s>-->
+												<strong class="cut_price">{$line.min_batch.adult_cut}</strong>元起
+											</if>
+										</h6>
+									</div>
+								</div>
+							</div>					
+					<if condition="$key % 2 gt 0">
+						</div> <!--double-row-content 结束符-->
+					</if>
+				</volist>
+					<!--数据为单数时添加double-row-content 结束符-->
+					<if condition="count($lines) % 2 gt 0">
+						</div> <!--double-row-content 结束符-->
+					</if>
+			</div>
+			<!-- 翻页 -->
+			<div class="list-page" data-page-count="{$page_count}" data-page-index="1"></div>
+		</div>
+	</div>
+	<!-- 私人定制 -->
+	<include file="Common/private_book" />
+	<!-- 分页 -->
+	<script src="__PUBLIC__/home/js/page.js"></script>
+	<script type="text/javascript">
+				
+		// 初始化页码数据
+		constructionPage('.list-page', 1, '{$page_count}', findLine, true);
+		
+		// 查找产品
+		function findLine(pageIndex) {
+			var jsonData = {
+				duid: '{$duser.id}',
+				page: pageIndex - 1,
+			}
+			
+//			console.log(JSON.stringify(jsonData));
+			
+			$.post('{:U("fenxiao/welcome")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					$('.single-row').empty();
+					$('.double-row').empty();
+					if (data.ds != null && data.ds != 'undefined') {
+						if ($('.no-more-data').length > 0) {
+							$('.no-more-data').addClass('hidden_ctrl');
+						}
+						
+						for (var i=0; i < data.ds.length; i++) {
+							var d = data.ds[i];		
+							// 单排
+							var lineObj = $('.template_single_row').clone(true);
+							$(lineObj).removeClass('hidden_ctrl');
+							$(lineObj).removeClass('template_single_row');
+							$(lineObj).attr('data-id', d.id);
+							
+							$(lineObj).find('img').attr('src',d.img1);
+							$(lineObj).find('.day').html(d.travel_day);
+							$(lineObj).find('.title').html(d.title);
+							$(lineObj).find('.subheading').html(d.subheading);
+							$(lineObj).find('.send_word').html(d.send_word_show);
+							$(lineObj).find('a').attr('href','{:U("line/info")}/id/'+ d.id+'/duid/'+d.bind_user_id);
+							$(lineObj).find('.assembly').html('集合地点：'+d.assembly_point_show_text);
+							$(lineObj).find('.batch').html('批次：全年'+d.batchs==null?0:$(d.batchs).length+'期');
+							$(lineObj).find('.destination').html('目的地：'+d.destination_show_text);
+							if (d.min_batch != null) {
+								if (d.min_batch.price_state != null) {
+									$(lineObj).find('.price').parent().html('<s class="price">核算中</s><strong class="cut_price">核算中</strong>');								
+								} else {
+									$(lineObj).find('.price').html(d.min_batch.price_adult+'元');
+									$(lineObj).find('.cut_price').html(d.min_batch.adult_cut+'元起');
+								}
+							} else {				
+								if (d.free_line == 0) {
+									$(lineObj).find('.price').html('0元');
+									$(lineObj).find('.cut_price').html('0');
+								} else {
+									$(lineObj).find('.price').parent().html('<s class="price">核算中</s><strong class="cut_price">核算中</strong>');								
+								}					   	
+							}
+							$(lineObj).find('.travel_date').html('旅行时间： '+d.start_time+'&nbsp;至&nbsp;'+d.end_time);			
+							$('.single-row').append(lineObj);
+							
+							// 双排
+							var mLineObj = null, mRootObj = null, mContentClass = '', mImageClass = '';
+							if (i % 2 == 0) {
+								mRootObj = $('.template_double_row').clone(true);
+								$(mRootObj).removeClass('template_double_row');
+								$(mRootObj).removeClass('hidden_ctrl');
+								mLineObj = $(mRootObj).find('.template_content');
+								mContentClass = 'double-row-left'; 
+								mImageClass = 'double-row-left-top';
+							} else {
+								mRootObj = $('.double-row').find('.double-row-content:last');
+								mLineObj = $('.template_double_row').find('.template_content').clone(true);
+								mContentClass = 'double-row-right'; 
+								mImageClass = 'double-row-right-top';
+							}
+							
+							$(mLineObj).removeClass('template_content');
+							$(mLineObj).addClass(mContentClass);
+							$(mLineObj).attr('data-id', d.id);
+							var imgObj = $(mLineObj).find('.template_img');
+							$(imgObj).removeClass('template_img');
+							$(imgObj).addClass(mImageClass);
+							$(imgObj).find('img').attr('src',d.img1);
+							$(mLineObj).find('.day').html(d.travel_day);	
+							$(mLineObj).find('.title').html(d.title);
+							$(mLineObj).find('.subheading').html(d.subheading_show);
+							$(mLineObj).find('.send_word').html(d.send_word_show);
+							$(mLineObj).find('a').attr('href','{:U("line/info")}/id/'+ d.id+'/duid/'+d.bind_user_id);
+							$(mLineObj).find('.assembly').html('集合地点：'+d.assembly_point_show_text);
+							$(mLineObj).find('.batch').html('批次：全年'+d.batchs==null?0:$(d.batchs).length+'期');
+							$(mLineObj).find('.destination').html('目的地：'+d.destination_show_text);
+							if (d.min_batch != null) {
+								if (d.min_batch.price_state != null) {
+									$(mLineObj).find('.price').parent().html('<s class="price">核算中</s><strong class="cut_price">核算中</strong>');								
+								} else {
+									$(mLineObj).find('.price').html(d.min_batch.price_adult+'元');
+									$(mLineObj).find('.cut_price').html(d.min_batch.adult_cut);
+								}
+							} else {		
+								if (d.free_line == 0) {
+									$(mLineObj).find('.price').html('0元');
+									$(mLineObj).find('.cut_price').html('0');
+								} else {
+									$(mLineObj).find('.price').parent().html('<s class="price">核算中</s><strong class="cut_price">核算中</strong>');								
+								}   	
+							}
+							if (i % 2 == 0) {		
+								$('.double-row').append(mRootObj);
+							} else {
+								$(mRootObj).append(mLineObj);
+							}
+						} // end for
+					} else {
+						if ($('.no-more-data').length > 0) {
+							$('.no-more-data').removeClass('hidden_ctrl');	
+						} else {
+							var vhtml = '<span class="no-more-data" style="text-indent:2em;">领袖户外暂时没有你所要查询的信息，产品经理们正在努力开发线路中...</span>';
+							$('.list-menu-sort').after(vhtml);
+						}
+					}
+					
+					// 判断页面总数是否发生变化  	
+					constructionPage('.list-page', pageIndex, data.page_count, findLine);
+					double('.double-row-left', '.double-row-left-top');
+					double('.double-row-right', '.double-row-right-top');
+				} else {
+					console.log(data.result.message);
+				}
+			});
+		}
+		
+		// 查询线路
+		function refreshLine() {    	
+			var thisPageIndex = $('.list-page').attr('data-page-index');
+			findLine(thisPageIndex);
+		}
+	</script>
+	
+<include file="Common/right" />
+<!-- 私有js -->
+<script src="__PUBLIC__/home/js/list.js"></script>
+<!-- 顶部轮播 -->
+<script src="__PUBLIC__/home/js/lunbo.js"></script>
+<!-- 功能脚本 -->
+<script type="text/javascript">	
+//big轮播	
+	$(".lubo").lubo({});
+//small轮播
+	$('.special-exhibition').unslider({ 
+		dots: true
+	});
+		
+	$(document).ready(function(){
+		$('.special-exhibition-product').click(jumpToZhuanTi);
+	});
+	
+	// 专题跳转
+	function jumpToZhuanTi() {
+		location.href = '{:U("line/list")}';
+	}	
+</script>
+<include file="Common/bottom" />

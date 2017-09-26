@@ -1,0 +1,131 @@
+body { background-color: #f3f5f6; }
+.order-content { position: relative; width: 1200px; margin: 0 auto; margin-top: 127px; }
+/*支付顺序*/
+.order-priority { padding-top: 50px; text-align: center; font-size: 14px; }
+.order-priority span { display: inline-block; width: 174px; }
+.priority-img { margin-top: 8px; }
+/*支付详情*/
+.order-details { width: 1200px; margin-top: 150px; overflow: hidden; }
+	/*支付左侧*/
+.order-details-left { float: left; width: 878px; }
+		/*地点*/
+.order-details-place { width: 100%; border: 1px solid #d2d2d2; background-color: #fff; }
+.order-details-place h3 { padding: 30px 0; padding-left: 30px; font-size: 24px; font-weight: normal; border-bottom: 1px solid #d2d2d2; }
+.order-details-choose { padding: 30px 38px; font-size: 14px; }
+.cfrq-choose { position: relative; display: inline-block; cursor: pointer; }
+.cfrq-choose span { display: inline-block; padding: 8px 8px; padding-right: 40px; border: 1px solid #dcdcdc; }
+.cfrq-choose ul { display: none; position: absolute; left: 0; height: 80px; border: 1px solid #dcdcdc; border-top: none; background-color: #fff; overflow:scroll; overflow-x:hidden; overflow-y:auto; }
+.cfrq-choose ul li { padding: 8px 8px; padding-right: 30px; white-space:nowrap; cursor: pointer; }
+.cfrq-choose ul li:hover { background-color: #ffead9; }
+.cfrq-choose img { position: absolute; right: 8px; top: 15px; }
+.order-details-line-money { padding: 0px 38px; padding-bottom: 38px; font-size: 14px; }
+.xljg { display: inline-block; }
+.order-details-people { padding: 0px 38px; padding-bottom: 38px; font-size: 14px; }
+.cyrs { display: inline-block; }
+.cyrs i { display: inline-block; background-image: url(../images/order_img/order.png); vertical-align: middle; }
+.cyrs span { float: left; display: inline-block; padding: 7px 30px; border-top: 1px solid #d5d5d5; border-bottom: 1px solid #d5d5d5; }
+.cyrs u { display: inline-block; margin-top: 6px; margin-left: 5px; text-decoration: none; }
+.adult-num , .children-num { display: inline-block; overflow: hidden; vertical-align: middle; }
+.adult-num a , .children-num a { float: left; display: inline-block; padding: 7px 7px; text-align: center; border: 1px solid #d5d5d5; }
+.adult-minus , .children-minus { width: 8px; height: 2px; background-position: -78px 0; }
+.adult-add , .children-add { width: 8px; height: 8px; background-position: -104px 0; }
+.child-standard { margin-left: 10px; color: #ff7200; font-size: 14px; }
+.children-num { margin-left: 20px; }
+.order-details-people-sure { background-color: #f7f9fb; }
+.people-sure-content { margin: 0 38px; font-size: 14px; }
+.people-sure-content h6 { padding: 14px 0; font-size: 14px; border-bottom: 1px dotted #d2d2d2; }
+.people-sure-content > div { margin: 9px 0; overflow: hidden; }
+.people-sure-content > p { padding: 12px 0; border-top: 1px dotted #d2d2d2; }
+.old-man , .foreign-man { float: right; margin-top: -15px; }
+.old-man span , .foreign-man span { margin-right: 20px; }
+.old-man i , .foreign-man i { display: inline-block; width: 16px; height: 16px; margin-right: 10px; background-image: url(../images/order_img/order.png); background-position: -26px 0; vertical-align: middle; cursor: pointer; }
+.old-man .choose-man , .foreign-man .choose-man { background-position: 0 0; }
+
+		/*联系人信息*/
+.order-details-contact { width: 100%; margin-top: 30px; padding-bottom: 35px; border: 1px solid #d2d2d2; background-color: #fff; font-size: 14px; }
+.order-details-contact h3 { padding: 30px 0; padding-left: 30px; font-size: 24px; font-weight: normal; border-bottom: 1px solid #d2d2d2; }
+.order-details-contact-write { margin: 0 100px; }
+.order-details-contact-write > p { margin-top: 20px; }
+.order-details-contact-write > p input { width: 360px; padding: 5px 10px; border: 1px solid #d5d5d5; font-size: 14px; }
+.order-details-contact-write > p span { display: inline-block; width: 70px; text-align: right; }
+.order-details-contact-write > .send-code input { width: 146px; }
+.order-details-contact-write > .send-code #btnSendCode { display: inline-block; margin-left: 15px; padding: 9px 40px; background-color: #ff7200; color: #fff; font-size: 14px; border: none; cursor: pointer; outline: none; }
+
+		/*发票信息*/
+.order-details-invoice { width: 100%; margin-top: 30px; padding-bottom: 35px; border: 1px solid #d2d2d2; background-color: #fff; font-size: 14px; }
+.order-details-invoice h3 { padding: 30px 0; padding-left: 30px; font-size: 24px; font-weight: normal; border-bottom: 1px solid #d2d2d2; }
+.order-details-invoice-choose { padding-top: 40px; padding-bottom: 24px; padding-left: 38px; }
+.order-details-invoice-choose input { margin-right: 10px; cursor: pointer; vertical-align: middle; }
+.order-details-invoice-choose label { margin-right: 30px; cursor: pointer; }
+.order-details-invoice-write-enterprise { display: none; margin: 0 24px; padding: 26px 40px; background-color: #f7f9fb; }
+.order-details-invoice-write-enterprise input { padding: 5px 10px; border: 1px solid #d5d5d5; font-size: 14px; vertical-align: middle; }
+.order-details-invoice-write-enterprise > div { margin-bottom: 15px; }
+.invoice-write-enterprise01 input { width: 260px; }
+.invoice-write-enterprise01 span + span { margin-left: 8px; }
+.invoice-write-enterprise02 input { width: 652px; }
+.invoice-write-enterprise03 input { width: 146px; }
+.invoice-write-enterprise03 span + span { margin-left: 18px; }
+.invoice-write-enterprise04 input { width: 652px; }
+.order-details-invoice-write-personal { display: none; margin: 0 24px; padding: 26px 40px; background-color: #f7f9fb; }
+.order-details-invoice-write-personal input { padding: 5px 10px; border: 1px solid #d5d5d5; font-size: 14px; vertical-align: middle; }
+.order-details-invoice-write-personal span { display: inline-block; width: 70px; text-align: right; }
+.invoice-write-personal01 input { width: 200px; }
+.invoice-write-personal02 { margin-top: 15px; }
+.invoice-write-personal02 input { width: 652px; }
+		/*出游人信息*/
+.order-details-travel-people { width: 100%; margin-top: 30px; padding-bottom: 35px; border: 1px solid #d2d2d2; background-color: #fff; font-size: 14px; }
+.order-details-travel-people h3 { padding: 30px 0; padding-left: 30px; font-size: 24px; font-weight: normal; border-bottom: 1px solid #d2d2d2; }
+.travel-people-warning { margin: 29px 19px; background-color: #fffceb; border: 1px solid #ff7200; }
+.travel-people-warning p { margin: 0 16px; line-height: 2; font-size: 14px; color: #666; }
+.adult-information , .children-information { position: relative; margin: 29px 19px; padding: 26px 0; font-size: 14px; background-color: #f2f5f9; border: 1px solid #e5e5e5; }
+.adult-information-num , .children-information-num { position: absolute; top: 26px; left: 51px; border: 1px solid #d2d2d2; }
+.adult-information-num p , .children-information-num p { padding: 8px 0; width: 60px; background-color: #fff; text-align: center; }
+.adult-information-num u , .children-information-num u { display: inline-block; padding: 8px 0; width: 60px; background-color: #ff7200; color: #fff; text-align: center; text-decoration: none; }
+.children-information-num u { background-color: #42b312; }
+.adult-information-write , .children-information-write { margin: 0 140px; font-size: 14px; }
+.adult-information-write > p > span , .children-information-write > p > span { display: inline-block; width: 70px; text-align: right; }
+.adult-information-write > p input , .children-information-write > p input { width: 406px; padding: 5px 10px; border: 1px solid #d5d5d5; font-size: 14px; vertical-align: middle; }
+.adult-information-card , .children-information-card { margin: 20px 0; }
+.adult-information-birth { display: none; } 
+.children-information-birth , .adult-information-birth{ margin-bottom: 20px; }
+.adult-information-card-choose , .adult-information-birth-year , .adult-information-birth-month , .adult-information-birth-day , .children-information-card-choose , .children-information-birth-year , .children-information-birth-month , .children-information-birth-day { position: relative; display: inline-block; cursor: pointer; }
+.adult-information-card input , .children-information-card input { width: 312px; padding: 5px 10px; border: 1px solid #d5d5d5; font-size: 14px; }
+.adult-information-card-choose span , .children-information-card-choose span { display: inline-block; width: 72px; margin-right: 4px; padding: 8px 0; padding-left: 16px; border: 1px solid #dcdcdc; background-color: #fff; }
+.children-information-birth-year span , .children-information-birth-month span , .children-information-birth-day span , .adult-information-birth-year span , .adult-information-birth-month span , .adult-information-birth-day span { display: inline-block; width: 72px; margin-right: 10px; padding: 8px 0; padding-left: 16px; border: 1px solid #dcdcdc; background-color: #fff; }
+.adult-information-card-choose img , .children-information-card-choose img { position: absolute; right: 12px; top: 15px; }
+.children-information-birth-year img , .children-information-birth-month img , .children-information-birth-day img , .adult-information-birth-year img , .adult-information-birth-month img , .adult-information-birth-day img { position: absolute; right: 26px; top: 15px; }
+.adult-information-card ul , .children-information-card ul { display: none; position: absolute; left: 0; height: 80px; border: 1px solid #dcdcdc; border-top: none; background-color: #fff; overflow:scroll; overflow-x:hidden; overflow-y:auto; z-index: 9; }
+.adult-information-birth-year ul , .adult-information-birth-month ul , .adult-information-birth-day ul , .children-information-birth-year ul , .children-information-birth-month ul , .children-information-birth-day ul { display: none; position: absolute; left: 0; height: 80px; border: 1px solid #dcdcdc; border-top: none; background-color: #fff; overflow:scroll; overflow-x:hidden; overflow-y:auto; }
+.adult-information-card ul li , .children-information-card ul li { padding: 6px 15px; padding-right: 30px; white-space:nowrap; cursor: pointer; }
+.adult-information-birth-year ul li , .adult-information-birth-month ul li , .adult-information-birth-day ul li , .children-information-birth-year ul li , .children-information-birth-month ul li , .children-information-birth-day ul li { padding: 6px 14px; padding-right: 42px; white-space:nowrap; cursor: pointer; }
+.adult-information-birth-month ul li , .adult-information-birth-day ul li , .children-information-birth-month ul li , .children-information-birth-day ul li { padding: 6px 30px; padding-right: 42px; }
+.adult-information-card ul li:hover , .children-information-card ul li:hover , .adult-information-birth-year ul li:hover , .adult-information-birth-month ul li:hover , .adult-information-birth-day ul li:hover , .children-information-birth-year ul li:hover , .children-information-birth-month ul li:hover , .children-information-birth-day ul li:hover { background-color: #ffead9; }
+		/*提交订单*/
+.order-details-submit { width: 100%; margin: 27px 0; padding: 50px 0; border: 1px solid #ff7200; background-color: #fffceb; text-align: center; }
+.order-details-submit a { padding: 12px 34px; font-size: 24px; background-color: #ff7200; color: #fff; }
+		/*旅游合同*/
+.order-details-contract { width: 100%; margin-top: 30px; border: 1px solid #d2d2d2; background-color: #fff; font-size: 14px; }
+.order-details-contract h3 { padding: 30px 0; padding-left: 30px; font-size: 24px; font-weight: normal; border-bottom: 1px solid #d2d2d2; }
+.order-details-contract h3 span { font-size: 14px; color: #ff0000; }
+.contract-img { width: 100%; height: 554px; text-align: center; overflow:scroll; overflow-x:hidden; overflow-y:auto; }
+		/*预定须知*/
+.order-details-reserve { width: 100%; margin-top: 30px; margin-bottom: 37px; border: 1px solid #d2d2d2; background-color: #fff; font-size: 14px; }
+.order-details-reserve h3 { padding: 30px 0; padding-left: 30px; font-size: 24px; font-weight: normal; border-bottom: 1px solid #d2d2d2; }
+.reserve-content { height: 554px; margin-left: 30px; overflow:scroll; overflow-x:hidden; overflow-y:auto; }
+.reserve-content h6 { margin-top: 30px; margin-bottom: 10px; }
+.reserve-content p { line-height: 2; color: #666; }
+
+	/*支付右侧*/
+.order-details-right { position: fixed; top: 150px; float: right; width: 298px; border: 1px solid #d2d2d2; background-color: #fff; z-index: 1; }
+.order-details-right h3 { padding: 30px 0; padding-left: 10px; font-size: 24px; font-weight: normal; border-bottom: 1px solid #d2d2d2; }
+.order-details-right-top { width: 278px; margin: 0 auto; }
+.order-details-right-top h6 { padding-top: 20px; padding-bottom: 6px; font-size: 14px; font-weight: normal; color: #999; border-bottom: 1px dotted #d2d2d2; }
+.order-details-right-top > span { line-height: 1.5; font-size: 14px; color: #666; }
+.order-details-right-people { padding-bottom: 28px; font-size: 14px; }
+.order-details-right-people p { margin-top: 10px; }
+.order-details-right-people u { text-decoration: none; }
+.order-details-right-people i { margin-left: 30px; font-style: normal; color: #ff7200; }
+.order-details-right-people b { font-weight: normal; }
+.order-details-right-money { padding: 13px 0; text-align: center; background-color: #fffceb; border-top: 1px solid #ff7200; }
+.order-details-right-money p { margin-bottom: 5px; font-size: 16px; }
+.order-details-right-money span { font-size: 30px; color: #ff7200; }

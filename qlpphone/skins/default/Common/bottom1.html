@@ -1,0 +1,112 @@
+<div class="footer">
+	<a href="{:U('index/welcome')}" external>
+		<div class="selected active">
+			<i class="iconfont">&#xe629;</i>
+			<p>首页</p>
+		</div>
+	</a>
+	<a href="{:U('line/list')}" external>
+		<div class="selected">
+			<i class="iconfont">&#xe633;</i>
+			<p>跟拍游</p>
+		</div>
+	</a>
+	<a href="{$pcset.askfor_link}" external>
+		<div class="selected">
+			<i class="iconfont">&#xe66e;</i>
+			<p>咨询</p>
+		</div>
+	</a>
+	<a href="{:U('Leader/list')}" external>
+		<div class="selected">
+			<i class="iconfont">&#xe60f;</i>
+			<p>摄影师</p>
+		</div>
+	</a>
+	<a href="{:U('user/info')}" external>
+		<div class="selected">
+			<i class="iconfont">&#xe6a3;</i>
+			<p>我的</p>
+		</div>
+	</a>
+</div>
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(
+        function($){
+            $("img").lazyload({
+                placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+                effect      : "fadeIn",
+                threshold : 0
+            });
+        });
+</script>
+<script type="text/javascript">
+    $('nav').find('a:last-child').click(function(){
+        $.post('{:U("index/url")}', {type:'nav_mine'}, function(data){
+            if (data.result.errno == 0) {
+                if (data.jumpUrl != null) {
+                    location.href = data.jumpUrl;
+                }
+            } else {
+                alert(data.result.message);
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    //点击显示与隐藏菜单
+//    $(".header .menu").on("click",function(){
+//        $(".header .search-block").slideUp(500);
+//        if(!$(".header .top").is(':visible')){
+//            $(".header .top").slideDown(500);
+//		}
+//    })
+//    $(".header .menu i").on("click",function(){
+//        $(".header .search-block").slideUp(500);
+//            $(".header .top").slideUp(500);
+//    })
+
+    //点击显示与隐藏搜索
+//    $(".header .search").on("click",function(){
+//        $(".header .top").slideUp(500);
+//        if(!$(".header .search-block").is(':visible')){
+//            $(".header .search-block").slideDown(500);
+//        }
+//    })
+//    $(".header .search i").on("click",function(){
+//        $(".header .top").slideUp(500);
+//        $(".header .search-block").slideUp(500);
+//    })
+
+    //底部点击切换选中状态
+//    $(".footer div").on("click",function(){
+//        $(this).addClass("active").find("p").addClass("active");
+//        $(this).addClass("active").find("i").addClass("active");
+//        $(this).parent("a").siblings().find("div").removeClass("active").find("p").removeClass("active");
+//        $(this).parent("a").siblings().find("div").removeClass("active").find("i").removeClass("active");
+//    })
+    $('.footer a').each(function(){
+        if($($(this))[0].href==String(window.location)){
+            $(this).find(".selected").addClass('active').parent("a").siblings("a").find(".selected").removeClass("active");
+//            alert($($(this))[0].href==String(window.location))
+//            alert(String(window.location))
+        }
+    });
+
+    //屏幕滚动显示一键返回顶部按钮
+    $(window).scroll( function (){
+        if ($(this).scrollTop() > 100) {
+            $('.return-top').fadeIn();
+        }else{
+            $('.return-top').fadeOut();
+        };
+    });
+
+    //点击返回顶部
+    $(".return-top").click(
+        function(){
+            $("html,body").animate({scrollTop: 0}, 1000);
+        }
+    );
+</script>

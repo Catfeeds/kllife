@@ -1,0 +1,181 @@
+<include file="Common/header" />
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"> 
+					{:C('CONTENT_TITLE')}
+					<input id="taocan_id" type="hidden" value="{$taocan.id}"/>
+				</h3>
+			</div>
+			
+			
+			<div class="panel-body row">
+				<div id="dingdan_main" class="col-sm-12">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label" for="taocan_name">套餐名称</label>
+								<input class="form-control" name="taocan_name" id="taocan_name" value="{$taocan.name}" placeholder="请输入套餐名称" />
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label" for="taocan_type">套餐类型</label>
+								<input class="form-control" type="text" name="taocan_type" id="taocan_type" />
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="row">											
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label" for="taocan_desc">套餐描述</label>
+								<textarea class="form-control autogrow" name="taocan_desc" id="taocan_desc" placeholder="请输入套餐描述">{$taocan.desc}</textarea>
+							</div>
+						</div>					
+					</div>
+
+					<div class="row">							
+						<div class="col-md-8">
+							<div class="form-group">
+								<if condition="empty($taocan['id'])">
+								<button class="btn btn-secondary save_taocan">保存套餐信息</button>
+								<else />
+								<button class="btn btn-secondary edit_taocan">更新套餐信息</button>
+								</if>
+							</div>							
+						</div>	
+					</div>					
+				</div>
+			</div>
+			
+			
+			
+		</div>
+	</div>
+</div>
+<link rel="stylesheet" href="__PUBLIC__/assets/js/wysihtml5/src/bootstrap-wysihtml5.css">
+<script src="__PUBLIC__/assets/js/wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+<script src="__PUBLIC__/assets/js/wysihtml5/src/bootstrap-wysihtml5.js"></script>
+<script src="__PUBLIC__/assets/js/formwizard/jquery.bootstrap.wizard.min.js"></script>
+<script type="text/javascript">	
+	// 添加类型数据
+	function appendTypeData() {
+		var typeKey = $(this).attr('data-type-key');
+		showModalTypeDataDialog(typeKey);
+	}
+	
+	$(document).ready(function(){
+		// 初始化编辑信息
+		initLine();		
+		// 添加类型
+		$('.btn_append_type_data').click(appendTypeData);
+	});
+	
+	// 初始化需要编辑的信息
+	function initLine() {	
+		showLoading(true, '等待数据填充完毕......');
+		bindTypeDataDropMenu($('#taocan_type'), 'taocan_type', '选择套餐类型', true, true, false);
+		
+		setSelect2Value('#taocan_type', '{$taocan.type}');
+		showLoading(false);
+	}
+	
+	
+	$('.save_taocan').click(function(){
+		
+		var taocan_name = $('#taocan_name').val();
+		var taocan_type =  getSelect2Value('#taocan_type');
+		var taocan_desc = $('#taocan_desc').val();
+		
+		if(taocan_name == ''){
+			toastr.error('请填写套餐名称！');
+			$('#taocan_name').focus();
+			return false;
+		}
+		
+		if(taocan_type == ''){
+			toastr.error('请选择套餐类型！');
+			$('#taocan_type').focus();
+			return false;
+		}
+		
+		if(taocan_desc == ''){
+			toastr.error('请选择套餐描述！');
+			$('#taocan_desc').focus();
+			return false;
+		}
+		
+		var jsonData = {
+			'op_type': 'create_taocan',		    
+	    	'name': taocan_name,
+	    	'type': taocan_type,
+	    	'desc': taocan_desc,
+		};
+		
+		console.log(JSON.stringify(jsonData));
+		
+		$.post('{:U("line/taocan")}',jsonData,
+		function(backdata,status) {
+			console.log(JSON.stringify(backdata));
+	        if (backdata['result']['errno'] == 0) {
+	            toastr.success(backdata.result.message);
+	            window.location.href = "{:U('line/taocan')}";
+	        }else{
+	            toastr.error(backdata.result.message);
+	        }
+		});
+		
+	});
+	
+	$('.edit_taocan').click(function(){
+		
+		var taocan_name = $('#taocan_name').val();
+		var taocan_type =  getSelect2Value('#taocan_type');
+		var taocan_desc = $('#taocan_desc').val();
+		
+		if(taocan_name == ''){
+			toastr.error('请填写套餐名称！');
+			$('#taocan_name').focus();
+			return false;
+		}
+		
+		if(taocan_type == ''){
+			toastr.error('请选择套餐类型！');
+			$('#taocan_type').focus();
+			return false;
+		}
+		
+		if(taocan_desc == ''){
+			toastr.error('请选择套餐描述！');
+			$('#taocan_desc').focus();
+			return false;
+		}
+		
+		var jsonData = {
+			'op_type': 'edit_taocan',
+			'id':$('#taocan_id').val(),
+	    	'name': taocan_name,
+	    	'type': taocan_type,
+	    	'desc': taocan_desc,
+		};
+		
+		console.log(JSON.stringify(jsonData));
+		
+		$.post('{:U("line/taocan")}',jsonData,
+		function(backdata,status) {
+			console.log(JSON.stringify(backdata));
+	        if (backdata['result']['errno'] == 0) {
+	            toastr.success(backdata.result.message);
+	            window.location.href = "{:U('line/taocan')}";
+	        }else{
+	            toastr.error(backdata.result.message);
+	        }
+		});
+		
+	});
+
+</script>
+<include file="Common/footer" />

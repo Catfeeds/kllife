@@ -1,0 +1,613 @@
+<include file="Common/header" />
+	<style>
+		.dataTables_wrapper .table thead > tr .sorting:before, .dataTables_wrapper .table thead > tr .sorting_asc:before, .dataTables_wrapper .table thead > tr .sorting_desc:before { content: ''; }
+		.create { position: relative; border: 1px solid #dcdcdc; margin-bottom:20px; padding: 15px; }
+		.create .row { margin-bottom:20px; }
+		.create-write .input-group { height: 36px; }
+		.create-write input { width: 100%; height: 36px; }
+		.create-write .checkbox { width: inherit; height: inherit;}
+		.input-group-addon { padding: 4px 40px; }
+		.btn-save { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		.btn-clear { float: right; margin-left:20px; width:100px; background-color: #68b828; color: #fff; }
+		.list-tbody img { width: 158px; height: 91px; border: 1px solid #dcdcdc; } 
+		.issuing-list-search { width: 50%; margin: 20px auto; }
+		
+		.list-page { width: 100%; text-align: right; }
+
+		.list-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+
+		.list-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+
+		.list-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }
+		
+		.input-select { margin-left: -15px; min-width:288px; min-height: 36px;}
+		.input-select > select { height: 36px; }
+		
+		
+		.image-file-input { position: absolute; top: 0; width: 100%; height: 300px; opacity: 0; }
+	</style>
+
+
+	<div class="page-title">		
+		<div class="title-env">
+			<h1 class="title">{:C('CONTENT_TITLE')}</h1>
+			<p class="description">{:C('CONTENT_DESC')}</p>
+		</div>			
+	</div>
+	
+	
+	
+	<!--信息录入创建-->
+	<div class="row">
+		<div class="col-sm-12">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">酒店录入</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">			
+				<!--在此地编辑内容-->
+					<!--创建优惠券-->
+					<div class="create">
+						<div class="create-write" data-id="">
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">名称</i>
+										</div>
+										<input type="text" class="form-control data_name" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">星级</i>
+										</div>
+										<input type="number" class="form-control data_star_level" maxlength="1" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">电话</i>
+										</div>
+										<input type="text" class="form-control data_tel" maxlength="11" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">传真</i>
+										</div>
+										<input type="text" class="form-control data_fax" maxlength="11" />
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-6">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">所属线路</i>
+										</div>	
+										<script type="text/javascript">
+											$(document).ready(function(){
+												var voption = {obj:$('.data_line'), search:1, multiple:true, placeholder: '请输入搜索并选择线路', show_col:'title', select_col:'title'};
+												var vds = {tab:'line', search_col: 'title', cdsstr: 'invalid|=|0|AND|online|=|1|AND', cdtype:4}
+												var member_line = new MySelect2(voption, vds);
+											});
+										</script>
+										<input type="text" class="form-control data_line">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="checkbox-inline" style="margin-left: 20px!important;"><input type="checkbox" class="checkbox data_centre">市中心</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_bus_station">大巴站点</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_receipt">发票</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_led_screen">LED屏幕</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_parking_lot">停车场</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_elevator">电梯</label>
+									<label class="checkbox-inline" style="margin-left: 50px!important;"><input type="checkbox" class="checkbox data_hot_water">24小时热水</label>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">结单方式</i>
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function(){
+												bindTypeDataDropMenu($('.data_pay_type'), 'cj_pay_type', '选择结单方式');
+											});
+										</script>
+										<input type="text" class="form-control data_pay_type">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">装修时间</i>
+										</div>
+										<div class="input-group" style="border-color: #40bbea;">
+											<input type="text" id="data_decorate_time" readonly class="form-control datepicker data_decorate_time" data-format="yyyy-mm-dd" placeholder="点击选择日期"/>							
+											<div class="input-group-addon">							
+												<a href="javascript:;"><i class="linecons-calendar"></i></a>								
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">城市</i>
+										</div>
+										<input type="text" class="form-control data_city" />
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">地址:</i>
+										</div>
+										<input type="text" class="form-control data_address" />
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">负责人</i>
+										</div>
+										<input type="text" class="form-control data_leading_official" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">负责人电话</i>
+										</div>
+										<input type="text" class="form-control data_leading_official_mob" maxlength="11" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">联系人</i>
+										</div>
+										<input type="text" class="form-control data_contacts" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">联系人电话</i>
+										</div>
+										<input type="text" class="form-control data_contacts_mob" />
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">收款人</i>
+										</div>
+										<input type="text" class="form-control data_payee">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">银行账号</i>
+										</div>
+										<input type="number" class="form-control data_bank_card" maxlength="16">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">开户行与地址</i>
+										</div>
+										<input type="text" class="form-control data_bank_address">
+									</div>
+								</div>
+							</div>							
+							
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i style="font-style: normal;">备注</i>
+										</div>
+										<input type="text" class="form-control data_beizhu">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<button class="btn btn-save">保存</button>	
+								<button class="btn btn-clear">重置</button>	
+							</div>
+							
+						</div>
+					</div>					
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+		
+	<!--查询信息，列表展示-->
+	<div class="row">
+		<div class="col-sm-12">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">酒店查询</h3>
+					<div class="panel-options">
+						<a href="#" data-toggle="panel">
+							<span class="collapse-icon">–</span>
+							<span class="expand-icon">+</span>
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">						
+					<!--用户列表-->
+					<div class="issuing-list">
+						
+						<div class="issuing-list-search">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="搜索内容可以是编号、所属线路、名称、电话、传真、城市、地址、负责人、负责人电话、联系人、联系人电话、开户行">
+								<div class="input-group-addon btn_search" style="background-color: #68b828; color: #fff; cursor: pointer;">
+									<i style="font-style: normal;">搜索</i>
+								</div>
+							</div>
+						</div>
+						
+						<!--用户列表-->
+						<div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+							<table class="table table-bordered table-striped dataTable no-footer" id="table_list" role="grid" aria-describedby="example-2_info">
+								<thead>
+									<tr role="row" class="head">
+										<th class="sorting" rowspan="1" colspan="1" style="width: 50px;">编号</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">名称</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 80px;">城市</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 80px;">电话</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 80px;">传真</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 80px;">星级</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">所属线路</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">酒店条件</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">负责人</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">联系人</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 150px;">地址</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 200px;">结算方式</th>
+										<th class="sorting" rowspan="1" colspan="1" style="width: 180px;">操作</th>
+									</tr>
+								</thead>
+							
+								<tbody class="middle-align list-tbody">
+									<volist id="ds" name="datas">
+										<if condition="$key % 2 == 0">
+											<tr role="row" class="odd" data-id="{$ds.id}">
+										<else />
+											<tr role="row" class="even" data-id="{$ds.id}">
+										</if>
+											<php>
+												$payType = json_decode($ds['pay_type'], true);
+												$conds = '';
+												if (!empty($ds['decorate_time'])) { $conds .= '装修时间:'.$ds['decorate_time']; }
+												if (!empty($ds['centre'])) { $conds .=  empty($conds) ? '市中心' : ',市中心'; }
+												if (!empty($ds['bus_station'])) { $conds .=  empty($conds) ? '大巴站点' : ',大巴站点'; }
+												if (!empty($ds['receipt'])) { $conds .=  empty($conds) ? '发票' : ',发票'; }
+												if (!empty($ds['led_screen'])) { $conds .=  empty($conds) ? 'LED屏幕' : ',LED屏幕'; }
+												if (!empty($ds['parking_lot'])) { $conds .=  empty($conds) ? '停车场' : ',停车场'; }
+												if (!empty($ds['elevator'])) { $conds .=  empty($conds) ? '电梯' : ',电梯'; }
+												if (!empty($ds['hot_water'])) { $conds .=  empty($conds) ? '24小时热水' : ',24小时热水'; }
+											</php>
+											<td>{$ds.id}</td>
+											<td>{$ds.name}</td>
+											<td>{$ds.city}</td>
+											<td>{$ds.tel}</td>
+											<td>{$ds.fax}</td>
+											<td>{:get_star($ds['star_level'])}</td>
+											<td>{$ds.line_show}</td>
+											<td>{$conds}</td>
+											<td>{$ds.leading_official}<br>{$ds.leading_official_mob}</td>
+											<td>{$ds.contacts}<br>{$ds.contacts_mob}</td>
+											<td>{$ds.address}</td>
+											<td>收款人:{$ds.payee}<br />卡号:{$ds.bank_card}<br />开户行:{$ds.bank_address}<br />结算方式:{$ds.pay_type_show}</td>
+											<td>
+												<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_item">价格项</a>
+												<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit">编辑</a>
+												<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left btn_del">删除</a>
+											</td>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							<div class="list-page"></div>
+						</div>
+					</div>		
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+<script src="__PUBLIC__/home/js/page.js"></script>	
+<include file="Common/footer" />
+
+<script type="text/javascript">
+
+	// 清除信息
+	function clearInfo() {
+		$('.create-write').attr('data-id', '');
+		$('.data_name').val('');
+		$('.data_star_level').val('');
+		$('.data_tel').val('');
+		$('.data_fax').val('');
+		$('.data_centre').prop('checked', false).trigger('change');
+		$('.data_bus_station').prop('checked', false).trigger('change');
+		$('.data_receipt').prop('checked', false).trigger('change');
+		$('.data_led_screen').prop('checked', false).trigger('change');
+		$('.data_parking_lot').prop('checked', false).trigger('change');
+		$('.data_elevator').prop('checked', false).trigger('change');
+		$('.data_hot_water').prop('checked', false).trigger('change');
+		setSelect2Value($('.data_line'), null);
+		$('.data_payee').val('');
+		$('.data_bank_card').val('');
+		$('.data_bank_address').val('');
+		setSelect2Value($('.data_pay_type'), null);
+		$('.data_decorate_time').val('');
+		$('.data_city').val('');
+		$('.data_address').val('');
+		$('.data_leading_official').val('');
+		$('.data_leading_official_mob').val('');
+		$('.data_contacts').val('');
+		$('.data_contacts_mob').val('');
+		$('.data_payee').val('');
+		$('.data_bank_card').val('');
+		$('.data_bank_address').val('');
+		$('.data_beizhu').val('');
+	}	
+	
+	$('.btn-clear').click(function(){
+		clearInfo();
+	});
+
+	// 添加用户
+	$('.btn-save').click(function(){
+		var jsonData = {
+			op_type: 'save',
+			src: 'hotel',
+			id: $('.create-write').attr('data-id'),
+			name: $('.data_name').val(),
+			city: $('.data_city').val(),
+			address: $('.data_address').val(),
+			tel: $('.data_tel').val(),
+			leading_official: $('.data_leading_official').val(),
+			leading_official_mob: $('.data_leading_official_mob').val(),
+			contacts: $('.data_contacts').val(),
+			contacts_mob: $('.data_contacts_mob').val(),
+			bank_card: $('.data_bank_card').val(),
+			bank_address: $('.data_bank_address').val(),
+			line: getSelect2Value($('.data_line'), ['id','title']),
+			payee: $('.data_payee').val(),
+			pay_type: getSelect2Value($('.data_pay_type')),
+			fax: $('.data_fax').val(),
+			star_level: $('.data_star_level').val(),
+			decorate_time: $('.data_decorate_time').val(),
+			centre: $('.data_centre').prop('checked') ? '1' : '0',
+			bus_station: $('.data_bus_station').prop('checked') ? '1' : '0',
+			receipt: $('.data_receipt').prop('checked') ? '1' : '0',
+			led_screen: $('.data_led_screen').prop('checked') ? '1' : '0',
+			parking_lot: $('.data_parking_lot').prop('checked') ? '1' : '0',
+			elevator: $('.data_elevator').prop('checked') ? '1' : '0',
+			hot_water: $('.data_hot_water').prop('checked') ? '1' : '0',
+			beizhu: $('.data_beizhu').val(),
+		}	
+		
+		$.post('{:U("financial/source")}', jsonData, function(data){
+			if (data.result.errno == 0) {
+				if (data.op != null && data.op == 'create') {
+					location.href = '{:U("financial/source")}/src/hotel';
+				} else {
+					if (data.ds != null) {
+						var d = data.ds;
+						var trObj = $('tr[data-id="'+d.id+'"]');
+						$(trObj).find('td:eq(1)').html(d.name);
+						$(trObj).find('td:eq(2)').html(d.city);
+						$(trObj).find('td:eq(3)').html(d.tel);
+						$(trObj).find('td:eq(4)').html(d.fax);
+						$(trObj).find('td:eq(5)').html(getStar(d.star_level, true));
+						$(trObj).find('td:eq(6)').html(d.line_show);
+						var conds = '';
+						if (d.decorate_time > 0) { conds += '装修时间:'+d.decorate_time; }
+						if (d.centre > 0) { conds += ( conds == '' ? '市中心' : ',市中心'); }
+						if (d.bus_station > 0) { conds += ( conds == '' ? '大巴站点' : ',大巴站点'); }
+						if (d.receipt > 0) { conds += ( conds == '' ? '发票' : ',发票'); }
+						if (d.led_screen > 0) { conds += ( conds == '' ? 'LED屏幕' : ',LED屏幕'); }
+						if (d.parking_lot > 0) { conds += ( conds == '' ? '停车场' : ',停车场'); }
+						if (d.elevator > 0) { conds += ( conds == '' ? '电梯' : ',电梯'); }
+						if (d.hot_water > 0) { conds += ( conds == '' ? '24小时热水' : ',24小时热水'); }
+						$(trObj).find('td:eq(7)').html(conds);
+						$(trObj).find('td:eq(8)').html(d.leading_official+'<br />'+d.leading_official_mob);
+						$(trObj).find('td:eq(9)').html(d.contacts+'<br />'+d.contacts_mob);
+						$(trObj).find('td:eq(10)').html(d.address);
+						$(trObj).find('td:eq(11)').html('收款人:'+d.payee+'<br />卡号:'+d.bank_card+'<br />开户行:'+d.bank_address+'<br />结算方式:'+d.pay_type_show);
+					}
+					clearInfo();
+					toastr.success(data.result.message);
+				}
+			} else {
+				toastr.error(data.result.message);
+			}
+		});
+	});
+		
+	// 详细信息
+	var itemObjs = {};
+	function itemData(){
+		var hotelId = $(this).closest('tr').attr('data-id');
+		var itemObj = itemObjs['item_'+hotelId];
+		if (itemObj == null) {
+			itemObj = new ModalCJItem(this, 'hotel', hotelId);
+			itemObjs['item_'+hotelId] = itemObj;
+		}	
+		console.log('item_'+hotelId);
+		itemObj.showItems();
+	}
+	$('.btn_item').click(itemData);
+	
+	// 编辑信息
+	function editData(){
+		var trObj = $(this).closest('tr');
+		var did = $(trObj).attr('data-id');		
+		$.post('{:U("financial/source")}', {op_type:'find', src:'hotel', id:did}, function(data){
+			if (data.ds != null) {
+				var d = data.ds;
+				$('.create-write').attr('data-id', d.id);
+				$('.data_name').val(d.name);
+				$('.data_star_level').val(getStar(d.star_level, true));
+				$('.data_tel').val(d.tel);
+				$('.data_fax').val(d.fax);
+				$('.data_centre').prop('checked', d.centre == 1 ? true : false).trigger('change');
+				$('.data_bus_station').prop('checked', d.bus_station == 1 ? true : false).trigger('change');
+				$('.data_receipt').prop('checked', d.receipt == 1 ? true : false).trigger('change');
+				$('.data_led_screen').prop('checked', d.led_screen == 1 ? true : false).trigger('change');
+				$('.data_parking_lot').prop('checked', d.parking_lot == 1 ? true : false).trigger('change');
+				$('.data_elevator').prop('checked', d.elevator == 1 ? true : false).trigger('change');
+				$('.data_hot_water').prop('checked', d.hot_water == 1 ? true : false).trigger('change');
+				$('.data_decorate_time').val(d.decorate_time);
+				$('.data_city').val(d.city);
+				$('.data_address').val(d.address);
+				$('.data_leading_official').val(d.leading_official);
+				$('.data_leading_official_mob').val(d.leading_official_mob);
+				$('.data_contacts').val(d.contacts);
+				$('.data_contacts_mob').val(d.contacts_mob);
+				setSelect2Value($('.data_line'), d.line);
+				$('.data_payee').val(d.payee);
+				$('.data_bank_card').val(d.bank_card);
+				$('.data_bank_address').val(d.bank_address);
+				setSelect2Value($('.data_pay_type'), d.pay_type);
+				$('.data_beizhu').val(d.beizhu);
+        		flicker($('.data_name'));				
+			}
+		});
+	}
+	$('.btn_edit').click(editData);
+	
+	// 删除信息
+	function deleteData() {
+		if (!confirm('您确定要删除这条保险信息?')) {
+			return false;
+		}
+		var trObj = $(this).closest('tr');
+		var did = $(trObj).attr('data-id');
+		$.post('{:U("financial/source")}', {op_type:'delete', src: 'hotel', id:did}, function(data){
+			if (data.result != null) {
+				if (data.result.errno == 0) {
+					toastr.success(data.result.message);
+					$(trObj).remove();
+				} else {
+					toastr.error(data.result.message);
+				}
+			}
+		});
+	}
+	$('.btn_del').click(deleteData);
+	
+	
+	//搜索用户
+	function searchPageData(){ 
+		itemObjs = {};
+		findPageData(1); 
+	}	
+	$('.issuing-list-search').find('.btn_search').click(searchPageData);
+	bindKeyUp($('.issuing-list-search').find('input'), searchPageData);
+	
+	// 搜索用户数据
+	constructionPage($('.list-page'), 1, '{$page_count}', findPageData, true);	
+	function findPageData(p) {			
+		var jsonData = {
+			op_type:'list',
+			src: 'hotel',
+			page: p-1,
+		}
+		
+		var searchval = $('.issuing-list-search').find('input').val();
+		if (searchval != '') {
+			jsonData['cdsstr'] = 'id|=|'+searchval+'|OR|line|LIKE|%'+searchval+'%|OR|name|LIKE|%'+searchval+'%|OR|tel|LIKE|%'+searchval+'%|OR|fax|LIKE|%'+searchval+'%|OR|city|LIKE|%'+searchval+'%|OR|address|LIKE|%'+searchval+'%|OR|leading_official|LIKE|%'+searchval+'%|OR|leading_official_mob|LIKE|%'+searchval+'%|OR|contacts|LIKE|%'+searchval+'%|OR|contacts_mob|LIKE|%'+searchval+'%|OR|payee|LIKE|%'+searchval+'%|OR|bank_card|LIKE|%'+searchval+'%|OR|bank_address|LIKE|%'+searchval+'%|OR';
+		}
+		
+		$.post('{:U("financial/source")}', jsonData, function(data){
+			var tabObj = $('#table_list');
+			if (data.result.errno == 0) {
+				$(tabObj).find('tbody').children().remove();
+				if (data.ds != null && data.ds != 'undefined') {	
+					for (var i = 0; i < data.ds.length; i ++){
+						var d = data.ds[i];
+						
+						var conds = '';
+						if (d.decorate_time) { conds += '装修时间:'+d.decorate_time; }
+						if (d.centre) { conds += ( conds == '' ? '市中心' : ',市中心'); }
+						if (d.bus_station) { conds += ( conds == '' ? '大巴站点' : ',大巴站点'); }
+						if (d.receipt) { conds += ( conds == '' ? '发票' : ',发票'); }
+						if (d.led_screen) { conds += ( conds == '' ? 'LED屏幕' : ',LED屏幕'); }
+						if (d.parking_lot) { conds += ( conds == '' ? '停车场' : ',停车场'); }
+						if (d.elevator) { conds += ( conds == '' ? '电梯' : ',电梯'); }
+						if (d.hot_water) { conds += ( conds == '' ? '24小时热水' : ',24小时热水'); }
+						
+						var trClass = i % 2 == 0 ? 'odd' : 'even';
+						var vhtml =	'<tr role="row" class="'+trClass+'" data-id="'+d.id+'">';
+							vhtml +='	<td>'+d.id+'</td>';
+							vhtml +='	<td>'+d.name+'</td>';
+							vhtml +='	<td>'+d.city+'</td>';
+							vhtml +='	<td>'+d.tel+'</td>';
+							vhtml +='	<td>'+d.fax+'</td>';
+							vhtml +='	<td>'+getStar(d.star_level, true)+'</td>';
+							vhtml +='	<td>'+d.line_show+'</td>';
+							vhtml +='	<td>'+conds+'</td>';
+							vhtml +='	<td>'+d.leading_official+'<br>'+d.leading_official_mob+'</td>';
+							vhtml +='	<td>'+d.contacts+'<br>'+d.contacts_mob+'</td>';
+							vhtml +='	<td>'+d.address+'</td>';
+							vhtml +='	<td>收款人:'+d.payee+'<br />卡号:'+d.bank_card+'<br />开户行:'+d.bank_address+'<br />结算方式:'+d.pay_type_show+'</td>';
+							vhtml +='	<td>';
+							vhtml +='		<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_item">价格项</a>';
+							vhtml +='		<a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left btn_edit">编辑</a>';
+							vhtml +='		<a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left btn_del">删除</a>';
+							vhtml +='	</td>';
+							vhtml +='</tr>';
+						$(tabObj).find('tbody').append(vhtml);
+					}
+					$(tabObj).find('tbody').find('.btn_item').click(itemData);
+					$(tabObj).find('tbody').find('.btn_edit').click(editData);
+					$(tabObj).find('tbody').find('.btn_del').click(deleteData);
+					
+				} else {	// 没有数据
+					toastr.warning('没有查到任何数据');
+				}
+				// 构建分页
+				constructionPage($('.list-page'), p, data.page_count, findPageData, false);
+			} else {
+				toastr.error(data.result.message);	
+			}			
+		})
+		
+	}
+</script>

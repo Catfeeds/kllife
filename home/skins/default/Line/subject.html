@@ -1,0 +1,728 @@
+<include file="Common/top" />	
+<!-- 私有样式 -->
+<link rel="stylesheet" href="__PUBLIC__/home/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/subject.css">
+<style css="text/css">	
+	.hot-sale-product a .hot-sale-img { position: absolute; top: 85px; left: 0; width: 100%; height: 31px; text-align: center; font-size: 24px; text-decoration: none; text-shadow: 1px 1px 1px #000; }
+	.hot-sale-product .hot-sale-big .hot-sale-img { width: 287px; top: 200px; left: 136px; }
+	.main-two > ul{position:initial;width:100%;display: block}
+	.main-two > ul li a{font-size:26px;padding-bottom:0px;}
+	.clear-margin{margin:0 !important;}
+	.clear-margin{margin-top:20px !important;}
+	#xiaotuanman-none{
+		background-image: url(__PUBLIC__/home/images/index_img/xiaotuanman2.png);
+		background-repeat: no-repeat;
+		background-position: center center;
+		height:180px;
+	}
+	#content .zt-main>div{font-size: 16px;color:#666;line-height:25px;}
+</style>
+<!--主要内容-->
+	
+<div class="zt-top">
+	<img src="{$subject.banner}" />
+</div>
+<div id="content">
+	<div class="zt-main" data-id="{$subject.id}">
+		<h3>{$subject.recommend_subject_title.text}</h3>
+
+		<p class="zt-slogan">{$subject.recommend_subject_subheading.text}</p>
+
+		<ul>
+
+			<for start="0" end="4" comperison="elt" >
+				<php>
+					$idx=0;
+					$liClass = $i % 4 == 0 ? 'clear-margin' : '';
+					$rcm_sub = $subject['recomment_subject'.$i];
+					if (empty($rcm_sub['url'])){
+						continue;
+					}
+				</php>
+				<if condition="$idx == 0">
+				<li class="clear-margin" style="margin:0!important;">
+				<else />
+				<li>
+				</if>
+
+					<a href="{$rcm_sub.url}">
+
+						<img src="{$rcm_sub.bk_image}" alt="">
+
+						<div class="zt-content">
+
+							<div class="zt-img">
+
+								<img src="{$rcm_sub.word_image}" alt="">
+							</div>
+
+							<div class="zt-text">
+
+		                        <div class="zt-text-introduce">
+
+		                            <p class="zt-text-title">{$rcm_sub.title}</p>
+
+		                            <p>{$rcm_sub.desc}</p>
+
+		                        </div>
+
+		                    </div>
+
+						</div>
+
+					</a>
+
+				</li>
+
+			</for>
+
+		</ul>
+	</div>
+
+	<div class="zt-list main main-two">
+		<div>
+			<ul class="tab-list"> <!--tab样式用{$subject.tab_line_style.text}-->
+
+				<volist id="tab" name="subject.line_tab">
+					<li>
+						<if condition="$key eq 0">
+							<a href="javascript:;" class="g" data-id="{$tab.id}" data-key="{$tab.type_key}">{$tab.type_desc}</a>
+							<else />
+							<a href="javascript:;" data-id="{$tab.id}" data-key="{$tab.type_key}">{$tab.type_desc}</a>
+						</if>
+						<span>X</span>
+					</li>
+				</volist>
+
+			</ul>
+		</div>
+
+		<div class="zt-sublist-content line_template hidden_ctrl">
+			<a class="zt-href" href="" target="_blank"></a>
+			<div class="zt-sublist-img">
+				<img class="face_image" src=""/>
+				<div class="jiriyou">
+					<p><span class="day">{$line.travel_day}</span>日游</p>
+				</div>
+				<div class="indulgence">
+					<img src="__PUBLIC__/home/images/index_img/indulgence.png" alt="">
+				</div>
+			</div>
+			<div class="zt-sublist-describe">
+				<h5>
+					<a href="javascript:;" target="_blank" class="title"></a>
+					<u class="theme-travel">
+						<a href="javascript:;"></a>
+					</u>
+				</h5>
+				<h3></h3>
+				<p class="zt-sublist-line">线路简介：<span class="send_word"></span></p>
+				<p>价格：<strong>成人：￥<em class="adult_price"></em>元起</strong></p>
+				<p>活动时间：<span class="batch_list"></span></p>
+				<p>集合地点：<span class="assembly"></span></p>
+				<p>目的地：<span class="dest"></span></p>
+			</div>
+			<a class="baoming" href="javascript:;">立即报名</a>
+		</div>
+
+		<div class="zt-sublist" id="zt-tuijian">
+			<volist id="line" name="subject.show_tab_line_data">
+					<div class="zt-sublist-content" data-id="{$line.id}">											<a class="zt-href" href="{:U('line/info')}/id/{$line.id}" target="_blank"></a>
+						<div class="zt-sublist-img">
+							<img class="face_image" src="{$line.img1}"/>
+							<div class="jiriyou">
+								<p><span class="day">{$line.travel_day}</span>日游</p>
+							</div>
+							<if condition="empty($line['time_preference']) eq  false">
+								<div class="indulgence">
+									<img src="__PUBLIC__/home/images/index_img/indulgence.png" alt="">
+								</div>
+							</if>
+						</div>
+						<div class="zt-sublist-describe">
+							<h5>
+								<a href="{:U('line/info')}/id/{$line.id}" target="_blank" class="title">{$line.title}</a>
+								<u class="theme-travel">
+									<php> $theme = $line['theme_type_list'][0]; </php>
+									<a class="{$theme.type_key}" href="javascript:;">{$theme.type_desc}</a>
+									<div class="qj-box">
+
+										<img src="__PUBLIC__/home/images/content_img/yellow_arrow_top.png" alt="">
+
+										<div class="qj-box-content">
+
+											<h6>{$theme.type_desc}</h6>
+
+											<if condition="$theme['type_desc'] eq '小团慢旅行'">
+
+											<p>小团慢旅行是指在单团人数控制在28人以内，让旅行整体节奏和行进速度慢下来的同时，还要在美景中漫步呼吸，品味悠然新心情，为不期而遇的风景停车，与当地人充分互动，尽量与美景相拥而眠的高品质旅行。</p>
+
+											<elseif condition="$theme['type_desc'] eq '免费活动'" />
+
+											<p>领袖户外旅行网提供的免费游玩活动，包括郊游、徒步、桌游等项目。</p>
+
+											<elseif condition="$theme['type_desc'] eq '周边游'" />
+
+											<p>领袖户外或领袖户外严选本地有旅行社资质的户外旅游合作商提供的周边游产品。</p>
+
+											<elseif condition="$theme['type_desc'] eq '摄影游'" />
+
+											<p>领袖户外摄影创作团，为摄影爱好者提供全面、深度、准确的摄影创作服务。</p>
+
+											<elseif condition="$theme['type_desc'] eq '民族行'" />
+
+											<p>户外旅游综合平台，由具有完整资质的户外旅游机构提供服务的旅行服务。</p>
+
+											<else />
+
+											<p>本产品由领袖户外提供相关服务</p>
+
+											</if>
+
+										</div>
+
+									</div>
+								</u>
+							</h5>
+							<h3>{$line.subheading}</h3>
+							<p class="zt-sublist-line">线路简介：<span class="send_word">{$line.send_word}</span></p>							
+							<p>价格：
+								<if condition="empty($line['check_price'])">
+									<strong>核算中</strong>
+								<else />
+									<strong>成人：￥<em class="adult_price">{$line.start_price_adult}</em>元起</strong>
+								</if>
+							</p>
+							<p>活动时间：<span class="batch_list">{$line.start_time} 至 {$line.end_time}</span></p>
+							<p>集合地点：<span class="assembly">{$line.assembly_point_show_text}</span></p>
+							<p>目的地：<span class="dest">{$line.destination_show_text}</span></p>
+						</div>
+						<a class="baoming" href="{:U('line/info')}/id/{$line.id}">立即报名</a>
+
+					</div>
+			</volist>
+		</div>
+	</div>
+
+	<!--精彩游记-->
+
+	<div class="wonderful-travels">
+
+		<h3>精彩游记</h3>
+
+		<ul>
+
+			<for start="0" end="20" comperison="elt">
+				<if condition="empty($subject['youji'.$i]) eq false">
+					<php>
+						$youji = $subject['youji'.$i];
+						if (empty($youji['url'])) {
+							continue;
+						}
+					</php>
+					<li>
+						<a href="{$youji.url}" target="_blank">
+							<img src="{$youji.img}"/>
+							<!--<div class="wonderful-describe">-->
+								<!--<p align="center">{$youji.desc}</p>-->
+							<!--</div>-->
+							<div style="background: #f4f4f4;">
+								<p>{$youji.desc}</p>
+							</div>
+						</a>
+					</li>
+				</if>
+			</for>
+
+		</ul>
+
+	</div>
+
+</div>
+
+<!--私人定制-->
+
+<include file="Common/private_book" />
+
+<!-- 精选热卖 -->
+	<div class="bg-white">
+		<div class="hot-sale main">
+			<h2>精选热卖</h2>
+
+			<div class="hot-sale-product set_root" id="hot_line_recommend" data-set="hot_line_recommend">
+				<div class="hot-sale-product-small">
+					<!--<assign name="k" value="hot_line.$i" />-->
+					<a class="hot_line_recommend" href="{:U('line/info')}/id/{$subject['hot_line_recommend0']['id']}" data-index="0" data-set="hot_line_recommend0">
+						<img src="{$subject['hot_line_recommend0']['img1']}" alt="">
+						<!--<img class="hot-sale-img" src="__PUBLIC__/home/brand/index_img/hot01_01.png" alt="">-->
+						<u class="hot-sale-img">{$subject['hot_line_recommend0']['title']}</u>
+						<div class="aaa" data-id="{$subject['hot_line_recommend0']['id']}">
+							<h4>{$subject['hot_line_recommend0']['title']}</h4>
+							<span>{$subject['hot_line_recommend0']['send_word_show']}</span>								
+							<p>
+								<if condition="empty($subject['hot_line_recommend0']['check_price'])">
+									核算中
+								<else />
+									￥<em>{$subject['hot_line_recommend0']['start_price_adult']}</em>元起
+								</if>
+							</p>
+							<strong>查看详情></strong>
+						</div>
+					</a>
+					<a class="hot_line_recommend" href="{:U('line/info')}/id/{$subject['hot_line_recommend1']['id']}" data-index="1" data-set="hot_line_recommend1">
+						<img src="{$subject['hot_line_recommend1']['img1']}" alt="">
+						<!--<img class="hot-sale-img" src="__PUBLIC__/home/brand/index_img/special01_01.png" alt="">-->
+						<u class="hot-sale-img">{$subject['hot_line_recommend1']['title']}</u>
+						<div data-id="{$subject['hot_line_recommend1']['id']}">
+							<h4>{$subject['hot_line_recommend1']['title']}</h4>
+							<span>{$subject['hot_line_recommend1']['send_word_show']}</span>
+							<p>
+								<if condition="empty($subject['hot_line_recommend1']['check_price'])">
+									核算中
+								<else />
+									￥<em>{$subject['hot_line_recommend1']['start_price_adult']}</em>元起
+								</if>
+							</p>
+							<strong>查看详情></strong>
+						</div>
+					</a>
+				</div>
+				<a href="{:U('line/info')}/id/{$subject['hot_line_recommend2']['id']}" class="hot-sale-big hot_line_recommend" data-index="2" data-set="hot_line_recommend2">
+					<img src="{$subject['hot_line_recommend2']['img1']}" alt="">
+					<!--<img class="hot-sale-img" src="__PUBLIC__/home/brand/index_img/special01_01.png" alt="">-->
+					<u class="hot-sale-img">{$subject['hot_line_recommend2']['title']}</u>
+					<div data-id="{$subject['hot_line_recommend2']['id']}">
+						<h4>{$subject['hot_line_recommend2']['title']}</h4>
+						<span>{$subject['hot_line_recommend2']['send_word_show']}</span>
+						<p>
+							<if condition="empty($subject['hot_line_recommend2']['check_price'])">
+								核算中
+							<else />
+								￥<em>{$subject['hot_line_recommend2']['start_price_adult']}</em>元起
+							</if>
+						</p>
+						<strong>查看详情></strong>
+					</div>
+				</a>
+				<div class="hot-sale-product-small">
+					<a class="hot_line_recommend" href="{:U('line/info')}/id/{$subject['hot_line_recommend3']['id']}" data-index="3" data-set="hot_line_recommend3">
+						<img src="{$subject['hot_line_recommend3']['img1']}" alt="">
+						<!--<img class="hot-sale-img" src="__PUBLIC__/home/brand/index_img/hot01_01.png" alt="">-->
+						<u class="hot-sale-img">{$subject['hot_line_recommend3']['title']}</u>
+						<div data-id="{$subject['hot_line_recommend3']['id']}">
+							<h4>{$subject['hot_line_recommend3']['title']}</h4>
+							<span>{$subject['hot_line_recommend3']['send_word_show']}</span>
+							<p>
+								<if condition="empty($subject['hot_line_recommend3']['check_price'])">
+									核算中
+								<else />
+									￥<em>{$subject['hot_line_recommend3']['start_price_adult']}</em>元起
+								</if>
+							</p>
+							<strong>查看详情></strong>
+						</div>
+					</a>
+					<a class="hot_line_recommend" href="{:U('line/info')}/id/{$subject['hot_line_recommend4']['id']}" data-index="4" data-set="hot_line_recommend4">
+						<img src="{$subject['hot_line_recommend4']['img1']}" alt="">
+						<!--<img class="hot-sale-img" src="__PUBLIC__/home/brand/index_img/hot02_01.png" alt="">-->
+						<u class="hot-sale-img">{$subject['hot_line_recommend4']['title']}</u>
+						<div data-id="{$subject['hot_line_recommend4']['id']}">
+							<h4>{$subject['hot_line_recommend4']['title']}</h4>
+							<span>{$subject['hot_line_recommend4']['send_word_show']}</span>
+							<p>
+								<if condition="empty($subject['hot_line_recommend4']['check_price'])">
+									核算中
+								<else />
+									￥<em>{$subject['hot_line_recommend4']['start_price_adult']}</em>元起
+								</if>
+							</p>
+							<strong>查看详情></strong>
+						</div>
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+<!-- 超级目的地 -->
+<include file="Common/zhuanti"/>
+<!-- 视频 -->
+<div class="bg-white">
+	<div class="main video">
+		<h2>视频中心<span style="font-size: 14px;color:#f00;padding-left:10px;">随时随地为您直播新鲜旅途！</span></h2>
+		<p><a href="{:U('line/video')}" target="_blank">更多</a></p>
+		<div class="video-product">
+			<ul>
+				
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!--专题新闻资讯开始-->
+<div class="arcitle_con" style="display: none;">
+	<h2>新闻资讯</h2>
+	<p><a href="{:U('line/news')}/classid/{$subject.id}" target="_blank">更多</a></p>
+	<ul class="arcitle_li">
+		<volist id="article" name="seoarticles">
+			<li>
+				<p class="arc_title"><a href="{:U('line/news')}/id/{$article.id}"></a>{$article.title}</p>
+				<p class="arc_keyword">{$article.keywords}</p>
+				<p class="arc_description">{$article.send_word}</p>
+			</li>
+		</volist>
+	</ul>
+</div>
+<!--专题新闻资讯结束-->
+
+<!--额济纳弹框-->
+<div class="Popup" style="background: rgba(0,0,0,0.5);width:100%;height:100%;position: fixed;top:0px;left:0px;z-index:1000;display:none;">
+	<div style="text-align: center;text-align: -webkit-center;margin-top:12%;">
+        <span style="position: relative;display: inline-block;cursor: pointer;">
+            <img src="__PUBLIC__/home/images/subject/ejina.jpg" alt="">
+            <img style="position: absolute;top:10px;right:10px;" src="__PUBLIC__/home/images/index_img/xiaotuanmannone.png" alt="">
+        </span>
+	</div>
+</div>
+<!--贵州弹框-->
+<div class="GPopup" style="background: rgba(0,0,0,0.5);width:100%;height:100%;position: fixed;top:0px;left:0px;z-index:1000;display:none;">
+	<div style="text-align: center;text-align: -webkit-center;margin-top:12%;">
+        <span style="position: relative;display: inline-block;cursor: pointer;">
+            <img src="__PUBLIC__/home/images/subject/guizhou.jpg" alt="">
+            <img style="position: absolute;top:10px;right:10px;" src="__PUBLIC__/home/images/index_img/guizhounone.png" alt="">
+        </span>
+	</div>
+</div>
+
+<!--好玩不贵小团慢旅行-->
+<div id="xiaotuanmanblock" style="position: fixed;bottom:15px;width:174px;cursor: pointer;z-index:100;z-index:1001"><img src="__PUBLIC__/home/images/index_img/xiaotuanman1.png" alt=""></div>
+<a href="http://www.kllife.com/home/index.php?s=/home/subject/brand" target="_blank"><div id="xiaotuanman-none" style="position: fixed;bottom:0px;left:-0px;width:100%;z-index:1000;" ></div></a>
+<img id="xiaotuanmannone" style="position: fixed;bottom:95px;cursor:pointer;z-index:1001;" src="__PUBLIC__/home/images/index_img/xiaotuanmannone.png" alt="">
+<!--结束周边游-->
+
+
+<!-- 更改tab-bg -->
+<script src="__PUBLIC__/home/common/js/movebg.js"></script>
+<!-- tab -->
+<script src="__PUBLIC__/home/common/js/tab.js"></script>
+<!--图片延迟加载-->
+<script type="text/javascript" src="__PUBLIC__/qinglvpai/common/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(
+        function($){
+            $("img").lazyload({
+                placeholder : "__PUBLIC__/qinglvpai/common/js/grey.gif",
+                effect      : "fadeIn",
+                threshold : 100,
+                failure_limit : 10
+            });
+        });
+</script>
+<script>
+    //关闭弹框
+    $(".Popup , .GPopup").on("click",function(){
+        $(this).fadeOut("slow");
+    })
+    //页面加载获取锚点id值   对有这个id的元素执行一次点击事件
+    $(document).ready(function(){
+        var url = location.search;
+        var str = url.substring( url.length-2)
+        if(str == 43) {
+            $(".Popup").show();
+        }
+    })
+    $(document).ready(function(){
+        var url = location.search;
+        var str = url.substring( url.length-2)
+        if(str == 19) {
+            $(".GPopup").show();
+        }
+    })
+    // 产品主题类型浮动框
+
+    $('.theme-travel').hover(function () {
+            $(this).find('.qj-box').show();
+        } , function () {
+            $(this).find('.qj-box').hide();
+        }
+
+    );
+    //小团慢显示于隐藏
+    var width;
+    $("#xiaotuanmanblock").on("click",function(){
+        width = $(window).width();
+        if(width<1600){
+            $(this).animate({left: -174}, 300);
+            setTimeout(function () {
+                $("#xiaotuanman-none").animate({left: 0}, 700);
+                $("#xiaotuanmannone").animate({left: "90%"}, 700);
+            }, 300);
+        }else{
+            $(this).animate({left: -174}, 300);
+            setTimeout(function () {
+                $("#xiaotuanman-none").animate({left: 0}, 700);
+                $("#xiaotuanmannone").animate({left: "80%"}, 700);
+            }, 300);
+        }
+    })
+    $("#xiaotuanmannone").on("click",function(){
+        width = $(window).width();
+        if(width<1600){
+            $("#xiaotuanman-none").animate({left: "-100%"}, 700);
+            $("#xiaotuanmannone").animate({left: -30}, 600);
+            setTimeout(function () {
+                $("#xiaotuanmanblock").animate({left: -132}, 300);
+            }, 700);
+        }else{
+            $("#xiaotuanman-none").animate({left: "-100%"}, 700);
+            $("#xiaotuanmannone").animate({left: -30}, 600);
+            setTimeout(function () {
+                $("#xiaotuanmanblock").animate({left: 0}, 300);
+            }, 700);
+        }
+    })
+</script>
+
+<script>
+
+	//热门单品
+	$('.hot-sale-product a').hover(
+		function () {
+			$(this).find('.hot-sale-img').stop().hide(500);
+		},
+		function () {
+			$(this).find('.hot-sale-img').stop().show(1000);
+		}
+	);
+
+	//深度游，民族行，摄影游
+	$('.theme-travel a').each(function(){
+		if($(this).html()=='民族行'){
+			$(this).addClass('zhuti');
+		}else if($(this).html()=='摄影游'){
+			$(this).addClass('sheying');
+		}
+	});
+
+
+
+	//move-bg
+ 	$(".tab-list").movebg({
+ 		width:60/*滑块的大小*/,
+        extra:0/*额外反弹的距离*/,
+        speed:500/*滑块移动的速度*/,
+        rebound_speed:400/*滑块反弹的速度*/
+    });
+
+	// 设置专题配置
+	function setSubjectConfig(key, val, nSort, sql_type, keyLike) {
+		if (key == '' || key == 'undefined' || key == null) {
+			alert('查找的数据类型错误');
+			return false;
+		}
+		var jsonData = {
+			op_type: 'data',
+			subject_id: $('.zt-main').attr('data-id'),
+			key: key,
+			value: val,
+		}
+		if (nSort != 'undefined' && nSort != null) {
+			jsonData['sort'] = nSort;
+		}
+		if (sql_type != 'undefined' && sql_type != null) {
+			jsonData['sql_type'] = sql_type;
+		}
+		if (keyLike != 'undefined' && keyLike != null) {
+			jsonData['key_like'] = 1;
+		}
+
+		var ds = {ds:null, result:{errno:-1, message:'专题信息有误'}};
+		$.ajax({
+			url: '{:U("line/subject")}',
+			type: 'POST',
+			async: false,
+			data: jsonData,
+			dataType: 'json',
+			success: function(data) {
+				ds = data;
+			}
+		});
+		return ds;
+	}
+
+	// 线路选择面板切换
+	var curTabId = null;
+	function changeTabPage() {
+		var mainObj = $(this).closest('.main');
+		var thisTabObj = $(mainObj).find('.tab-list a.g');
+		
+		if (curTabId != null && curTabId == $(this).attr('data-id')) {
+			return false;
+		}
+		curTabId = $(this).attr('data-id');
+
+		// 选中切换
+		$(mainObj).find('.tab-list a').removeClass('g');
+		$(this).addClass('g');
+
+		// 设置面板当前的tab标签
+		var tabKey = $(this).attr('data-key');
+
+		$('.zt-sublist').empty();
+		// 重新获取内容并填充
+		var data = setSubjectConfig(tabKey, '', 0, 'find');
+		if (data.ds != null) {
+			for (var i = 0; i < data.ds.length; i ++) {
+				var d = data.ds[i];
+				var lineObj = $('.line_template').clone(true);
+				$(lineObj).removeClass('line_template');
+				$(lineObj).removeClass('hidden_ctrl');
+				$(lineObj).attr('data-id', d.id);
+				$(lineObj).find('.face_image').attr('src', d.img1);
+				$(lineObj).find('.title').attr('href', '{:U("line/info")}/id/'+d.id);
+				$(lineObj).find('.zt-href').attr('href', '{:U("line/info")}/id/'+d.id);
+				$(lineObj).find('.title').html(d.title);
+				$(lineObj).find('.day').html(d.travel_day);
+				$(lineObj).find('h3').html(d.subheading);
+				$(lineObj).find('.theme-travel a').html(d.theme_type_show_text);
+				$(lineObj).find('.theme-travel a').addClass(d.theme_type_list[0].type_key);
+				$(lineObj).find('.send_word').html(d.send_word_show);
+				$(lineObj).find('.baoming').attr('href', '{:U("line/info")}/id/'+d.id);
+				if (d.check_price == 0) {
+					$(lineObj).find('.adult_price').parent().html('核算中');		
+				} else {	
+					$(lineObj).find('.adult_price').html(d.start_price_adult);
+				}
+				$(lineObj).find('.batch_list').html(d.start_time + ' 至 ' + d.end_time);				
+				$(lineObj).find('.assembly').html(d.assembly_point_show_text);
+				$(lineObj).find('.dest').html(d.destination_show_text);
+				
+				if (d.time_preference == 0) {
+					$(lineObj).find('.indulgence').remove();
+				}
+				
+				$('.zt-sublist').append(lineObj);
+				
+				$('.theme-travel a').each(function(){
+					if($(this).html()=='民族行'){
+						$(this).addClass('zhuti');
+					}else if($(this).html()=='摄影游'){
+						$(this).addClass('sheying');
+					}
+				});
+			}
+		} else {
+			alert(data.result.message);
+		}
+	}		
+	
+	// 切换产品选择
+	$('.zt-list').find('.tab-list').find('a').click(changeTabPage);
+		
+	$('.special-exhibition').unslider({ 
+		dots: true
+	});
+
+
+	$('.zt-main ul li').mouseenter( function () {
+
+    	$(this).find('.zt-text').stop().animate({top: 0}, 500);
+
+    	$(this).find('.zt-img').stop().fadeOut(1000);
+
+  	} );
+
+  	$('.zt-main ul li').mouseleave( function () {
+
+    	$(this).find('.zt-text').stop().animate({top: "-369px"}, 1000);
+
+    	$(this).find('.zt-img').stop().fadeIn(1500);
+
+  	} );
+  	
+  	 //精彩游记
+
+	$('.wonderful-travels ul li').mouseenter( function () {
+
+	 	$(this).find('.wonderful-describe').stop().fadeIn();
+
+	} );
+
+	$('.wonderful-travels ul li').mouseleave( function () {
+
+	  	$(this).find('.wonderful-describe').stop().fadeOut();
+
+	} );
+	
+	//视频
+	var lastVideoId = null;
+	function getMPList() {
+		var jsonData = {
+			op: 'list',
+			topic_name: '领袖户外',
+			count:8,
+			feature: 'new',
+		}
+		if (lastVideoId != null) {
+			jsonData['max_id'] = lastVideoId;
+		}
+		$.post('http://kllife.com/back/index.php?s=/back/help/meipai',jsonData,function(data){
+			if (data.ds != null) {
+				for (var i=0; i<data.ds.length; i++) {
+					var d = data.ds[i];
+					lastVideoId = d.id;
+					var liCount = $('.video-product ul').find('li').length;
+					var className = parseInt(liCount) % 4 == 0 ? 'clear-margin' : '';
+					var vhtml = '<li class="'+className+'">'+
+								'	<div class="video-product-content" data-id="'+d.id+'" data-title="'+d.caption+'" data-url="'+d.url+'">'+
+								'		<a href="'+d.url+'" target="_blank">'+
+								'			<img src="'+d.cover_pic+'" alt="">'+
+								'			<i></i>'+
+								'		</a>'+
+								'		<div class="video-product-content-describe">'+
+								'			<h5><a href="'+d.url+'" target="_blank">'+d.caption+'</a></h5>'+
+								'			<p>'+d.caption+'</p>'+
+								'		</div>'+
+								'	</div>'+
+								'</li>';
+					$('.video-product ul').append(vhtml);
+					$('.video-product ul').find('li:last').find('a').click(showVideo);
+				}
+			}
+		});
+	}
+	
+	$(document).ready(function(){
+		// 加载美拍视频列表
+		getMPList();
+	});
+	
+	//视频弹出
+	function showVideo() {
+		var rootObj = $(this).closest('.video-product-content');
+		var url = $(rootObj).attr('data-url');
+		var title = $(rootObj).attr('data-title');
+		$('.myiframe').find('#titleIframe').html(title);
+	}	
+	//视频关闭
+	function closeVideo() {
+		$('.mark').hide();
+		$('.myiframe').hide();
+		$('#videoIframe').attr('src', '');
+//		$('.myiframe').find('.iframe').children().remove();
+	}
+	$('.video_close').click(closeVideo);
+	
+	// 查找数据
+	function showVideoData(ds, vhtml) {
+		$('.myiframe').find('.iframe').html(vhtml);
+		$('.myiframe').find('#titleIframe').html(ds.title);
+	}	
+	var myvideo = new MyVideo(showVideoData);
+</script>
+
+
+
+<include file="Common/right" />
+
+<include file="Common/bottom" />

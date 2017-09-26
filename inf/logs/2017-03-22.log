@@ -1,0 +1,10 @@
+[2017-03-22 09:38:11][info] ----------------------------------------
+[2017-03-22 09:38:11][info] {"discount":"0.00","payment_type":"1","subject":"\u96ea\u57df\u6843\u82b1\u6df1\u5ea6\u6e38","trade_no":"2017032221001004740230008215","buyer_email":"18702308039","gmt_create":"2017-03-22 09:38:05","notify_type":"trade_status_sync","quantity":"1","out_trade_no":"LX-17032121530475806-e","seller_id":"2088421286007493","notify_time":"2017-03-22 09:38:11","body":"2017\u5e74\u6797\u829d\u6843\u82b1\u6c9f-\u6ce2\u5bc6\u560e\u6717-\u5357\u8fe6\u5df4\u74e6\u5cf0-\u7136\u4e4c\u6e56-\u7c73\u5806\u51b0\u5ddd\u516b\u65e5\u6e38","trade_status":"TRADE_SUCCESS","is_total_fee_adjust":"N","total_fee":"1790.00","gmt_payment":"2017-03-22 09:38:11","seller_email":"2287684289@qq.com","price":"1790.00","buyer_id":"2088702770200746","notify_id":"61c086b43457c3d271abe40be8499d8lpm","use_coupon":"N","sign_type":"MD5","sign":"bb6bcbde22906ec16e4ccb4b5c068c94"}
+[2017-03-22 09:38:12][info] 数据存储反馈成功！
+[2017-03-22 09:38:12][info] success
+[2017-03-22 09:38:12][info] 写入结束!!!
+[2017-03-22 11:37:29][info] ----------------------------------------
+[2017-03-22 11:37:29][info] {"discount":"0.00","payment_type":"1","subject":"\u65e9\u6625\u65b0\u7586","trade_no":"2017032221001004360231872722","buyer_email":"zgt365@163.com","gmt_create":"2017-03-22 11:36:04","notify_type":"trade_status_sync","quantity":"1","out_trade_no":"LX-17032123153290006-6","seller_id":"2088421286007493","notify_time":"2017-03-22 11:37:29","body":"\u4f0a\u7281\u674f\u82b1\u6c9f-\u7ea2\u5c71\u5927\u5ce1\u8c37-\u8d5b\u91cc\u6728\u6e56-\u5e93\u6728\u5854\u683c\u6c99\u6f208\u65e5\u6df1\u5ea6\u6e38","trade_status":"TRADE_SUCCESS","is_total_fee_adjust":"N","total_fee":"3580.00","gmt_payment":"2017-03-22 11:37:29","seller_email":"2287684289@qq.com","price":"3580.00","buyer_id":"2088002045576360","notify_id":"d415c226dde3b848ee412d0f5cdddf4is2","use_coupon":"N","sign_type":"MD5","sign":"b62960871aafac1de4c001a6bbc21f59"}
+[2017-03-22 11:37:29][info] 数据存储反馈成功！
+[2017-03-22 11:37:29][info] success
+[2017-03-22 11:37:29][info] 写入结束!!!

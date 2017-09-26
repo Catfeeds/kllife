@@ -1,0 +1,19 @@
+body { background-color: #f3f5f6; }
+#content { width: 1200px; margin: 0 auto; margin-top: 128px; margin-bottom: 30px; font-size: 14px; color: #333; overflow: hidden; }
+.bread-nav { padding-top: 30px; padding-bottom: 15px; color: #999; }
+.bread-nav a { color: #999; }
+.bread-nav .bread-final { color: #000; }
+.common-problem-content { width: 100%; overflow: hidden; }
+/*左半部分*/
+.common-problem-left { float: left; width: 215px; padding: 20px 0 70px 15px; background-color: #fff; }
+.common-problem-left h3 { margin-top: 40px; margin-bottom: 20px; font-size: 16px; font-weight: normal; color: #333; }
+.common-problem-left p { margin-bottom: 15px; }
+.common-problem-left a { color: #666; }
+.common-problem-left a:hover { color: #ff7200; }
+.common-problem-left a.checked-problem { color: #ff7200; }
+/*右半部分*/
+.common-problem-right  { float: right; width: 860px; padding: 50px 50px; background-color: #fff; }
+.common-problem-right h4 { margin-bottom: 25px; padding-bottom: 26px; color: #666; font-size: 30px; font-weight: normal; border-bottom: 1px solid #dcdcdc; }
+.common-problem-right p { line-height: 2; color: #666; }
+.common-problem-right p.indent { text-indent:2em; }
+.answer-problem { line-height: 1.5; }

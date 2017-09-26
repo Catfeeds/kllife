@@ -1,0 +1,355 @@
+<include file="Common/header" />
+<!-- css Reset -->
+
+<link rel="stylesheet" href="__PUBLIC__/home/common/css/cssreset.css">
+<!-- 公共样式 -->
+
+<link rel="stylesheet" href="__PUBLIC__/home/common/css/common.css">
+
+<style>
+.write-video-information { position: relative; width:90%; margin:0 auto; margin-bottom:50px; padding:15px 10px; border: 1px solid #dcdcdc; overflow: hidden; }
+.write-video-information > .input-group { margin-bottom:20px; }
+
+.video-product { width:90%; margin:0 auto; overflow: hidden; }
+.video-product ul li { float: left; margin-right:15px; margin-top:10px; }
+.video-product ul li img { width:285px; height:200px; }
+.video-product-content { position: relative; }
+.video-product-content-describe { position: relative; padding: 16px 10px; background: #fff; border: 1px solid #e5e5e5; border-top: none; }
+.video-product-content-describe h5 { padding-bottom: 9px; }
+.video-product-content-describe a:hover { color: #f90; }
+.video-product-content-describe { text-align: center; }
+.video-product-content-describe h5 { font-size: 14px; }
+.video-product-content-describe p { color: #999; }	
+.video-product-content { height: 270px; overflow: hidden; }
+.video-product-content .video_more { height: 270px; }
+.video-product-content > a { position: relative; display: inline-block; width: 285px; height: 200px; overflow: hidden; }
+.video-product-content i { position: absolute; display: inline-block; width: 31px; height: 23px; left: 14px; bottom: 9px; background-image: url(__PUBLIC__/home/images/index_img/video_stop.png); background-size: 100% 100%; }
+.video-product-content:hover i { background-image: url(__PUBLIC__/home/images/index_img/video_play.png); }
+.video-product-content u { position: absolute; top:10px; right: 10px; width:50px; color: #fff; background: rgba(0,0,0,.5); text-decoration: none; cursor: pointer; z-index: 1050; }
+.video-img button { margin-top: 20px; }
+.video-sure { position:absolute; bottom: 10px; right: 50px; }
+.haschoosed-video-img { width: 285px; height:200px; margin-top:20px; border: 1px solid #dcdcdc; }
+.haschoosed-video-img img { width: 285px; height:200px; }
+.video-product ul li .edit-video { position: absolute; margin-right: 60px; }
+.video-product ul li .delete-video { position: absolute;  }
+/*翻页*/
+
+.list-page { width: 90%; margin: 20px 0; text-align: right; }
+
+.list-page a { display: inline-block; color: #ff7200; height: 25px; line-height: 25px; padding: 0 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 4px; vertical-align: middle; }
+
+.list-page span.current { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #fff; background-color: #ff7200; border: 1px solid #ff7200; border-radius: 4px;  vertical-align: middle; }
+
+.list-page span.disabled { display: inline-block; height: 25px; line-height: 25px; padding: 0 10px; margin: 0 2px; color: #bfbfbf; background: #f2f2f2; border: 1px solid #bfbfbf; border-radius: 4px; vertical-align: middle; }	
+
+/*视频弹出*/
+.myiframe { z-index: 1051; }
+.iframeTop { padding: 0; }
+.iframeTop h4 { margin: 14px 20px; font-size: 18px; font-weight: 400; line-height: 32px; color: #424242; }
+.iframeTop > a { top:0; -webkit-transform-origin: 50% 50%; transform-origin:center center; }
+.iframe { position: absolute; bottom: 0;}
+.iframeTop > a:hover { -o-transform: rotate(0deg); -moz-transform: rotate(0deg); -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    
+</style>
+
+	<div class="video-modal video-product-content hidden_ctrl" data-id="0">
+		<img class="delete-video" src="__PUBLIC__/home/images/index_img/x.png" alt="">
+		<a class="video_href" href="javascript:;" onclick="addIframe('绝美外观视频','http://www.haofangyuan.net/youku/videoyk.jsp?token=v&auto=yes&id=XMTYzMDkxMDU0NA==');">
+			<img class="video_face" src="__PUBLIC__/home/images/index_img/video01.png" alt="">
+			<i></i>
+		</a>
+		<div class="video-product-content-describe">
+			<h5><a class="video_title" href="javascript:;" onclick="addIframe('绝美外观视频','http://player.youku.com/embed/XMTYzMDY2MDkwMA==');">主标题</a></h5>
+			<p class="video_subtitle">副标题</p>
+		</div>		
+	</div>
+
+	<div class="video-modal video-product-content hidden_ctrl" data-id="0">
+		<img class="delete-video meipai" src="__PUBLIC__/home/images/index_img/x.png" alt="">
+		<a class="video_href" href="javascript:;">
+			<img class="video_face" src="__PUBLIC__/home/images/index_img/video01.png" alt="">
+			<i></i>
+		</a>
+		<div class="video-product-content-describe">
+			<h5><a class="video_title meipai" href="javascript:;">主标题</a></h5>
+			<p class="video_subtitle">副标题</p>
+		</div>		
+	</div>
+	
+	<div class="write-video-information" data-id="0">			
+		<div class="input-group video-main-title" style="float:left;width:50%;padding:0px 5px;">
+			<span class="input-group-addon">
+				<i>主标题</i>
+			</span>
+			<input type="text" class="form-control" placeholder="输入主标题">
+		</div>
+		
+		
+		<div class="input-group video-subtitle" style="float:left;width:50%;padding:0px 5px;">
+			<span class="input-group-addon">
+				<i>副标题</i>
+			</span>
+			<input type="text" class="form-control" placeholder="输入副标题">
+		</div>	
+				
+		<div class="input-group video-src-type"  style="float:left;width:50%;padding:0px 5px;">
+			<span class="input-group-addon">
+				<i>视频来源</i>
+			</span>
+			<input type="text" class="form-control">
+		</div>
+		
+		
+		<div class="input-group video-src-id" style="float:left;width:50%;padding:0px 5px;height:37px;">
+			<span class="input-group-addon">
+				<i>视频源编号</i>
+			</span>
+			<input style="height:37px;" type="text" class="form-control" placeholder="视频源编号">
+		</div>
+		
+			
+		<div class="input-group video-href" style="width:100%;padding:0px 5px;">
+			<span class="input-group-addon">
+				<i>视频链接/内容</i>
+			</span>
+			<input type="text" class="form-control" placeholder="输入视频链接或内容">
+		</div>
+		
+		<div class="form-group video-img">
+			<span class="input-group-addon">选择封面图片</span>
+			<button class="btn btn-secondary btn_select_image">图库图片</button>
+			<button class="btn btn-secondary btn_upload_image">上传图片</button>
+			<div class="haschoosed-video-img">
+				<img src="" alt="">
+			</div>
+		</div>
+		
+		<div class="video-sure">
+			<button class="btn btn-warning">保存</button>
+		</div>
+	</div>
+
+	<div class="video">
+		<div class="video-product">
+			<ul>
+				<volist id="v" name="videos">
+					<li>
+						<div class="video-product-content" data-id="{$v.id}" data-url="{$v.href}">
+							<u class="btn edit-video">编辑</u>
+							<u class="btn delete-video">删除</u>
+							<a href="javascript:;">
+								<img class="face_image" src="{$v.img}" alt="">
+								<i></i>
+							</a>
+							<div class="video-product-content-describe">
+								<h5 class="title" data-val="{$v.title}"><a href="javascript:;" onclick="addIframe('{$v.title}','{$v.href}')">{$v.title_show}</a></h5>
+								<p class="sub" data-val="{$v.subheading}">{$v.subheading_show}</p>
+							</div>
+						</div>
+					</li>
+				</volist>
+			</ul>
+		</div>
+		<div class="list-page" data-page-count="{$page_count}" data-page-index="1"></div>
+	</div>
+	
+	
+	<!-- 视频弹出 -->
+	<div class="mark"></div>
+	<div class="myiframe">
+		<div class="iframeTop">
+			<h4 id="titleIframe">小米Max</h4>
+			<a class="video_close" href="javascript:;">
+				<img class="video_close" src="__PUBLIC__/home/common/images/video_close.png" alt="关闭">
+			</a>
+		</div>
+		<div class="iframe">
+			<iframe id="videoIframe" height=536 width=880 src="" frameborder=0 allowfullscreen></iframe>
+		</div>
+	</div>
+	
+	<script src="__PUBLIC__/common/js/video.js"></script>
+	<script src="__PUBLIC__/home/js/page.js"></script>
+	<script>	
+		// 查找数据
+		function showVideoData(ds, vhtml) {
+			$('.myiframe').find('.iframe').html(vhtml);
+			$('.myiframe').find('#titleIframe').html(ds.title);
+		}	
+		var myvideo = new MyVideo(showVideoData);
+		
+		$(document).ready(function(){
+			bindTypeDataDropMenu($('.video-src-type input'), 'line_video_src', '选择视频源类型');
+		});
+	
+		constructionPage('.list-page', 1, '{$page_count}', changeVideoPage, true);
+		
+		//视频弹出
+		$(document).on('click','.video-product-content a',function(){
+			$('.mark').show();
+			$('.myiframe').fadeIn();
+			var videoId = $(this).closest('.video-product-content').attr('data-id');
+			myvideo.showMyVideo(videoId);		
+		});
+		
+		//视频关闭
+		
+		$(document).on('click','.video_close',function(){
+			$('.mark').hide();
+			$('.myiframe').hide();
+			$('.myiframe').find('.iframe').children().remove();
+		});
+		
+		// 上传图片并选择
+		modalUploadMaxFileCount = 1; 
+		$('.btn_upload_image').click(function(){
+			funcModalUploadCallBack = choosedImage;
+			showModalUploadImageDialog(this);
+		});
+		
+		// 选择图片
+		$('.btn_select_image').click(function(){
+			funcModalImageSelectorCallBack = choosedImage;
+			showModalSelectorImageDialog(this);
+		});
+		
+		// 选择视频
+		function choosedImage(obj, imageList) {
+			if ($(imageList).length == 0) {
+				alert('您未选择图片');
+				return false;
+			}
+			// 图片填充
+			$('.haschoosed-video-img').find('img').attr('src', imageList[0]);			
+		};
+		
+		// 删除视频
+		$(document).on('click','.delete-video',function(){
+			var videoId = $(this).closest('.video-product-content').attr('data-id');
+			var jsonData = {
+				op_type: 'delete',
+				id: videoId,
+			}
+			
+			$.post('{:U("line/video")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					var p = $('.list-page').attr('data-page-index');
+					changeVideoPage(p);
+				} else {
+					alert(data.result.errno);
+				}
+			});
+		});
+		
+		// 选择视频
+		function choosedImage(obj, imageList) {
+			if ($(imageList).length == 0) {
+				alert('您未选择图片');
+				return false;
+			}
+			// 图片填充
+			$('.haschoosed-video-img').find('img').attr('src', imageList[0]);			
+		};
+		
+		// 编辑视频
+		$(document).on('click','.edit-video',function(){
+			var rootObj = $(this).closest('.video-product-content');
+			var jsonData = {
+				op_type: 'find',
+				id: $(rootObj).attr('data-id'),
+			};
+			$.post('{:U("line/video")}', jsonData, function(data){
+				if (data.ds != null) {
+					var d = data.ds;
+					var editObj = $('.write-video-information');
+					$(editObj).attr('data-id', d.id);
+					$(editObj).find('.video-main-title input').val(d.title);
+					$(editObj).find('.video-subtitle input').val(d.subheading);
+					setSelect2Value($(editObj).find('.video-src-type input'), d.src_type);
+					$(editObj).find('.video-src-id input').val(d.src_id);
+					$(editObj).find('.video-href input').val(d.href);
+					$(editObj).find('.haschoosed-video-img img').attr('src', d.img);
+				}
+			});
+		});
+		
+		// 切换视频
+		function changeVideoPage(p) {
+			var jsonData = {
+				op_type: 'list',
+				page: p - 1,
+			}
+			
+			$.post('{:U("line/video")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					console.log(JSON.stringify(data));
+					if (data.ds != null && data.ds != 'undefined') {
+						$('.video-product').find('ul').empty();
+						for (var i = 0; i < data.ds.length; i ++) {
+							var d = data.ds[i];
+							var rootObj = $('.video-modal').clone(true);	
+							$(rootObj).removeClass('video-modal');
+							$(rootObj).removeClass('hidden_ctrl');
+							$(rootObj).attr('data-id', d.id);
+							$(rootObj).find('.video_face').attr('src', d.img);
+							$(rootObj).find('.video_title').html(d.title);
+							$(rootObj).find('.video_subtitle').html(d.subheading);
+							// 添加新的视频
+							$('.video-product').find('ul').append('<li><div class="video-product-content" data-id='+ d.id +'>'+$(rootObj).html()+'</div></li>');
+						}
+					}
+					
+					constructionPage('.list-page', p, data.page_count, changeVideoPage);
+				} else {
+					alert(data.result.message);
+				}	
+			});		
+		}
+		
+		$('.video-sure').find('button').click(function(){
+			var id = $('.write-video-information').attr('data-id');
+			var jsonData = {
+				op_type: 'save',
+				id: id,
+				title: $('.video-main-title').find('input').val(),
+				subheading: $('.video-subtitle').find('input').val(),
+				src_type: getSelect2Value($('.video-src-type').find('input')),
+				src_id: $('.video-src-id').find('input').val(),
+				href: $('.video-href').find('input').val(),
+				img: $('.haschoosed-video-img').find('img').attr('src'),
+			};
+			
+			$.post('{:U("line/video")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					location.href = '{:U("line/video")}'
+//					if (data.ds != null && data.ds != 'undefined') {
+//						var d = data.ds;
+//						var rootObj = $('.video-modal').clone(true);	
+//						$(rootObj).removeClass('video-modal');
+//						$(rootObj).removeClass('hidden_ctrl');
+//						$(rootObj).attr('data-id', d.id);
+//						$(rootObj).find('.video_href').attr('onclick', 'addIframe('+d.title+','+d.href+')');
+//						$(rootObj).find('.video_face').attr('src', d.img);
+//						$(rootObj).find('.video_title').attr('onclick', 'addIframe('+'"'+d.title+'"'+','+'"'+d.href+'"'+')');
+//						$(rootObj).find('.video_title').html(d.title);
+//						$(rootObj).find('.video_subtitle').html(d.subheading);
+//						// 移除最后一个
+//						//$('.video-product').find('ul li:last').remove();
+//						// 添加新的视频
+//						$('.video-product').find('ul').prepend('<li><div class="video-product-content" data-id='+ d.id +'>'+$(rootObj).html()+'</div></li>');
+//					}
+					
+					constructionPage('.list-page', data.page_count, changeVideoPage);
+				} else {
+					alert(data.result.message);
+					if (data.jumpUrl != null && data.jumpUrl != 'undefined') {
+						location.href = data.jumpUrl;
+					}
+				}	
+			});
+			$('.write-video-information input').val('');
+			$('.haschoosed-video-img img').attr('src','');
+		});
+	</script>
+
+<include file="Common/footer" />

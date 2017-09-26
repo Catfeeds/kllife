@@ -1,0 +1,18 @@
+<include file="Common/top" />
+<button id="clickme" style="margin-top:200px;">click</button>
+<script>
+	$("#clickme").on("click",function(){
+		$.ajax({
+		    type: "post",
+		    url: "http://kllife.com/home/index.php?s=/home/test/getMPVideoUrl",
+		    data: {
+		      MPurl: 'http://www.meipai.com/media/809168999'
+		    },
+		    dataType: "json",
+		    success: function(e) {
+				console.log(e);
+			}
+		})
+	})
+</script>
+<include file="Common/bottom" />

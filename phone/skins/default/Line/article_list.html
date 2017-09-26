@@ -1,0 +1,137 @@
+<include file="common/top" />
+<div class="page">
+	<!-- mycss -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/images_list.css">
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left back" href="javascript:history.back();">
+		      <i class="iconfont">&#xe606;</i>
+		    </a>
+		    <h1 class="title">精彩分享</h1>
+		</header>
+		<include file="common/footer" />
+		
+		<div class="content">
+		
+			<!-- 列表内容 -->
+			<div class="list">
+				<div class="list-content">
+					<div class="content infinite-scroll infinite-scroll-bottom" data-distance="100">
+			          <div class="list-block">
+			              <ul class="list-container">
+			              </ul>
+			          </div>
+			          
+			      </div>
+				</div>
+			</div>
+		
+		</div>
+		
+
+</div>
+
+
+
+
+<include file="common/js" />
+<script>
+		
+	
+	
+	
+	$(function (){
+		$.init();				
+		// 无限加载
+		var loading = false;
+		// 最多可加载的条目
+		var maxItems = '{$page_count}';
+
+		// 每次加载添加多少条目
+		var itemsPerLoad = 8;
+
+		// 上次加载的序号
+		var thisPageIndex = 0;
+
+		function addItems(number, pageIndex) {
+			var jsonData = {
+				op_type: 'list',
+				page: pageIndex,
+			}
+			
+			$.post('{:U("line/article")}', jsonData, function(data){
+				if (data.result.errno == 0) {
+					if (typeof(data.ds) != 'undefined' && data.ds != null) {
+						$('.load-more').find('a').html('加载更多...');
+						for (var i=0; i<data.ds.length; i++) {
+							var d = data.ds[i];			
+							var include_image = typeof(d.face_image)=='undefined' ? false : true;
+							var html = '<li class="item-content">';
+								html +='	<div class="travel-content-list">';
+								html +='		<div class="travel-content-sublist">';
+								if (include_image == true) {
+									html +='			<div class="travel-content-img">';
+									html +='				<img src="'+d.face_image+'" alt="">';
+									html +='			</div>';
+									html +='			<div class="travel-content-word">';
+								} else {
+									html +='			<div class="travel-content-word" style="width:100%;">';
+								}
+								html +='				<h4>'+d.title+'</h4>';
+								html +='			</div>';
+								html +='			<a href="'+'{:U("line/article")}/id/'+d.id+'" external></a>';
+								html +='		</div>';
+								html +='	</div>'; 
+								html +='</li>';
+							// 添加新条目
+							$('.infinite-scroll-bottom .list-container').append(html);
+						}
+						// 下拉次数累加
+						thisPageIndex += 1;
+					}
+				} else {
+					console.log(data.result.message);
+				}
+			});
+			
+			// 生成新条目的HTML
+
+		}
+		
+		//预先加载20条
+		addItems(itemsPerLoad, thisPageIndex);
+
+		// 注册'infinite'事件处理函数
+		$(document).on('infinite', '.infinite-scroll-bottom',function() {
+
+			// 如果正在加载，则退出
+			if (loading) return;
+
+			// 设置flag
+			loading = true;
+
+			// 模拟1s的加载过程
+			setTimeout(function() {
+				// 重置加载flag
+				loading = false;
+
+				if (thisPageIndex >= maxItems) {
+					// 加载完毕，则注销无限加载事件，以防不必要的加载
+					$.detachInfiniteScroll($('.infinite-scroll'));
+					// 删除加载提示符
+					$('.infinite-scroll-preloader').remove();
+					return;
+				}
+
+				// 添加新条目
+				addItems(itemsPerLoad, thisPageIndex);
+				// 更新最后加载的序号
+//				thisPageIndex = $('.list-container li').length;
+				//容器发生改变,如果是js滚动，需要刷新滚动
+				//$.refreshScroller();
+			}, 1000);
+		});
+	});
+	</script>
+<include file="common/swt" />
+</body>
+</html>

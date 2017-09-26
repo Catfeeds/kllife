@@ -1,0 +1,50 @@
+.all-money { background-color: #fff; font-size: 0.75rem; color: #ff7200; }
+.all-money > .content-padded { margin-top: 0; padding: .5rem .5rem; }
+/*优惠券*/
+.coupon { background-color: #fff; font-size: 0.7rem; border-bottom: 1px solid #dcdcdc; overflow: hidden; }
+.coupon > .content-padded { margin: 0 1rem; }
+.coupon > .content-padded > i { margin-right: .5rem; color: #58b530; vertical-align: sub; }
+.coupon > .content-padded > span { display: inline-block; padding: .05rem .2rem; background-color: #58b530; font-size: .6rem; color: #fff; border-radius: 15px; }
+.coupon > .content-padded .up-down { font-size: 1rem; color: #999; float: right; vertical-align: middle; }
+.coupon-content { display: none; background-color: #efeff2; }
+.coupon-content > .content-padded { margin: 0 .5rem; padding: .5rem 0; }
+.coupon-content .row { position: relative; margin-bottom: .5rem; }
+.coupon-content .row .col-70 { background-color: #fff; }
+.coupon-content .row .col-70 p { font-size: .7rem; line-height: 1.3; }
+.coupon-content .row .col-70 span { font-size: .6rem; color: #999; }
+.coupon-content .row .col-30 { position: relative; background-color: #fc973b; color: #fff; text-align: center; }
+.coupon-content .row .col-30 .content-padded { position: absolute; top: 50%; left: 50%; margin: 0; }
+.coupon-content .row .col-30 p { line-height: 1; font-size: .7rem; }
+.coupon-content .row .col-30 p span { font-size: 1.45rem; }
+.coupon-content .row .col-30 strong { font-size: 0.8rem; }
+
+/*优惠码*/
+.promo-codes { background-color: #fff; font-size: 0.7rem; overflow: hidden; }
+.promo-codes > .content-padded { margin: 0 1rem; }
+.promo-codes > .content-padded > i { margin-right: .5rem; color: #58b530; vertical-align: middle; }
+.promo-codes > .content-padded > span { display: inline-block; padding: .05rem .2rem; background-color: #58b530; font-size: .6rem; color: #fff; border-radius: 15px; }
+.promo-codes > .content-padded .up-down { font-size: 1rem; color: #999; float: right; vertical-align: middle; }
+.promo-codes-content { display: none; background-color: #efeff2; }
+.promo-codes-content > .content-padded { margin: 0 .5rem; padding: .5rem 0; }
+.promo-codes-content > .content-padded h5 { margin: 0; margin-bottom: .5rem; color: #a4a4a4; font-size: .65rem; font-weight: normal; }
+.promo-codes-content > .content-padded input { font-size: 0.7rem; width: 19%; text-align: center; }
+.promo-codes-content > .content-padded a { display: block; width: 95%; height: 1.5rem; line-height: 1.5rem; margin: 0 auto; margin-top: .5rem; border-radius: 5px; background-color: #ff7200; color: #fff; text-align: center; }
+.write-code { text-align: center; }  
+
+/*消费总额*/
+.pay-money { font-size: .7rem; background-color: #fff; }
+.pay-money .content-padded { margin: .5rem 1rem; padding: .5rem 0; }
+.pay-money .content-padded .col-30 { color: #ff7200; text-align: right; }
+
+/*选择支付方式*/
+.pay-mode { font-size: .75rem; }
+.pay-mode h5 { margin: 1rem; margin-bottom: .5rem; font-weight: normal; font-size: 0.75rem; }
+.pay-mode > .content-padded { margin: 0; padding: .5rem 1rem; background-color: #fff; }
+.pay-mode > .content-padded > a { display: block; width: 100%; height: 2.25rem; line-height: 2.25rem; margin-top: .5rem; color: #fff; background-color: #ff7200; border-radius: 5px; text-align: center; }
+.list-block { margin: 0; }
+.list-block.media-list .item-media { position: absolute; top: .3rem; right: 0; }
+.list-block .item-content { position: relative; padding-left: 0; }
+.item-subtitle > img { width: 1.8rem; height: 1.8rem; margin-right: 1rem; vertical-align: middle; }
+.list-block .item-media + .item-inner { margin-left: 0; }
+label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-checkbox { background-color: #ff7200; }
+

@@ -1,0 +1,446 @@
+<include file="Common/top1" />
+
+<div class="page">
+	<!-- mycss -->
+	<link rel="stylesheet" href="__PUBLIC__/phone/css/order_center.css">
+	<link rel="stylesheet" href="__PUBLIC__/qlpphone/common/css/animate.css">
+	<link rel="stylesheet" href="__PUBLIC__/qlpphone/common/css/top2.css">
+	<style>
+		.content{width:100%;margin-bottom:60px;}
+		.buttons-tab{position: fixed;top:60px;}
+		.order-list{top:2.8rem;}
+		.buttons-tab .button.active{color:#ff1c77;border-color:#ff1c77;}
+		.order-sublist p > span > strong,.order-sublist-money p span{color:#ff1c77;}
+		.order-sublist-handle a{background: #ff1c77;border-color:#ff1c77;}
+	</style>
+		<include file="Common/header" />
+		<include file="Common/bottom1" />
+		<div class="content infinite-scroll" data-distance="100">
+			<div class="buttons-tab">
+				<if condition="$state eq 'all'">
+					<a href="#tab1" class="tab-link button active" data-page-index='1' data-page-end='0'>全部</a>
+				<else />
+					<a href="#tab1" class="tab-link button" data-page-index='0' data-page-end='0'>全部</a>
+				</if>
+				<if condition="$state eq 'review'">
+					<a href="#tab2" class="tab-link button active" data-page-index='1' data-page-end='0'>待付款</a>
+				<else />
+					<a href="#tab2" class="tab-link button" data-page-index='0' data-page-end='0'>待付款</a>
+				</if>
+				<if condition="$state eq 'pay_part'">
+					<a href="#tab3" class="tab-link button active" data-page-index='1' data-page-end='0'>已付部分款</a>
+				<else />
+					<a href="#tab3" class="tab-link button" data-page-index='0' data-page-end='0'>已付部分款</a>
+				</if>
+				<if condition="$state eq 'pay_complate'">
+					<a href="#tab4" class="tab-link button active" data-page-index='1' data-page-end='0'>已付全款</a>
+				<else />
+					<a href="#tab4" class="tab-link button" data-page-index='0' data-page-end='0'>已付全款</a>
+				</if>
+				<if condition="$state eq 'complated'">
+					<a href="#tab5" class="tab-link button active" data-page-index='1' data-page-end='0'>待评价</a>
+				<else />
+					<a href="#tab5" class="tab-link button" data-page-index='0' data-page-end='0'>待评价</a>
+				</if>
+			</div>
+			<div class="order-list infinite-scroll" data-distance="100">
+				<div class="tabs">
+					<!-- 全部 -->
+					<div id="tab1" class="tab active">
+						<volist id="order" name="all_orders">
+							<div class="order-sublist">
+								<div class="card-footer">
+									<a href="#" class="link">
+										<img src="__PUBLIC__/qlpphone/images/create/sublist_logo.png" alt="">订单号：{$order.order_sn}
+									</a>
+							    </div>
+							    <div class="content-padded">
+							    	<div class="content-padded">
+							    		<h5>{$order.lineid_title}</h5>
+							    		<p>{$order.hdid_show_text}</p>
+							    		<p>
+							    			<span>订单状态：<strong>{$order.zhuangtai_data.type_desc}</strong></span>
+											<if condition="empty($order[agreenment])">
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>未生效</strong></span>
+											<else />
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>已生效</strong></span>
+												<!--<p><a href="{__GLOBAL_HOST_URL__}fpdf/domo/pdf.php?did={$order.id}" target="_blank">下载</a></p>-->
+											</if>
+							    		</p>
+							    	</div>
+							    </div>
+							    <div class="order-sublist-handle-content">
+							    	<div class="content-padded">
+							    		<div class="order-sublist-money">
+							    			<p>金额：<span>￥{$order.need_pay_money}元</span></p>
+							    		</div>
+							    		<div class="order-sublist-handle">
+							    			<if condition="$order['operate'] eq pay">
+							    				<a href="{:U('line/order')}/type/pay/id/{$order.id}" external>在线支付</a>
+							    			<elseif condition="$order['operate'] eq 'wait_review'" />
+												<span>等待审核</span>
+											<elseif condition="$order['operate'] eq 'team_end'" />											
+												<span>团期已结束</span>
+											<else />
+												<span>按时参团</span>
+											</if>
+							    			<a href="{:U('line/order')}/type/info/id/{$order.id}" external>订单详情</a>
+							    		</div>
+							    	</div>
+							    </div>
+							</div>
+						</volist>
+					</div>
+					<!-- end 全部订单-->
+					
+					<!-- 待付款 -->
+					<div id="tab2" class="tab">
+						<volist id="order" name="review_orders">
+							<div class="order-sublist">
+								<div class="card-footer">
+									<a href="#" class="link">
+										<img src="__PUBLIC__/qlpphone/images/create/sublist_logo.png" alt="">订单号：{$order.order_sn}
+									</a>
+							    </div>
+							    <div class="content-padded">
+							    	<div class="content-padded">
+							    		<h5>{$order.lineid_title}</h5>
+							    		<p>{$order.hdid_show_text}</p>
+							    		<p>
+							    			<span>订单状态：<strong>{$order.zhuangtai_data.type_desc}</strong></span>
+											<if condition="empty($order[agreenment])">
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>未生效</strong></span>
+											<else />
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>已生效</strong></span>
+												<!--<p><a href="{__GLOBAL_HOST_URL__}fpdf/domo/pdf.php?did={$order.id}" target="_blank">下载</a></p>-->
+											</if>
+							    		</p>
+							    	</div>
+							    </div>
+							    <div class="order-sublist-handle-content">
+							    	<div class="content-padded">
+							    		<div class="order-sublist-money">
+							    			<p>金额：<span>￥{$order.need_pay_money}元</span></p>
+							    		</div>
+							    		<div class="order-sublist-handle">
+							    			<if condition="$order['operate'] eq pay">
+							    				<a href="{:U('line/order')}/type/pay/id/{$order.id}" external>在线支付</a>
+							    			<elseif condition="$order['operate'] eq 'wait_review'" />
+												<span>等待审核</span>
+											<elseif condition="$order['operate'] eq 'team_end'" />											
+												<span>团期已结束</span>
+											<else />
+												<span>按时参团</span>
+											</if>
+							    			</if>
+							    			<a href="{:U('line/order')}/type/info/id/{$order.id}" external>订单详情</a>
+							    		</div>
+							    	</div>
+							    </div>
+							</div>
+						</volist>
+					</div>
+					
+					
+					<!-- 预付部分款 -->
+					<div id="tab3" class="tab">						
+						<volist id="order" name="pay_part_orders">
+							<div class="order-sublist">
+								<div class="card-footer">
+									<a href="#" class="link">
+										<img src="__PUBLIC__/qlpphone/images/create/sublist_logo.png" alt="">订单号：{$order.order_sn}
+									</a>
+							    </div>
+							    <div class="content-padded">
+							    	<div class="content-padded">
+							    		<h5>{$order.lineid_title}</h5>
+							    		<p>{$order.hdid_show_text}</p>
+							    		<p>
+							    			<span>订单状态：<strong>{$order.zhuangtai_data.type_desc}</strong></span>
+											<if condition="empty($order[agreenment])">
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>未生效</strong></span>
+											<else />
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>已生效</strong></span>
+												<!--<p><a href="{__GLOBAL_HOST_URL__}fpdf/domo/pdf.php?did={$order.id}" target="_blank">下载</a></p>-->
+											</if>
+							    		</p>
+							    	</div>
+							    </div>
+							    <div class="order-sublist-handle-content">
+							    	<div class="content-padded">
+							    		<div class="order-sublist-money">
+							    			<p>金额：<span>￥{$order.need_pay_money}元</span></p>
+							    		</div>
+							    		<div class="order-sublist-handle">
+							    			<if condition="$order['operate'] eq pay">
+							    				<a href="{:U('line/order')}/type/pay/id/{$order.id}" external>在线支付</a>
+							    			<elseif condition="$order['operate'] eq 'wait_review'" />
+												<span>等待审核</span>
+											<elseif condition="$order['operate'] eq 'team_end'" />											
+												<span>团期已结束</span>
+											<else />
+												<span>按时参团</span>
+											</if>
+							    			</if>
+							    			<a href="{:U('line/order')}/type/info/id/{$order.id}" external>订单详情</a>
+							    		</div>
+							    	</div>
+							    </div>
+							</div>
+						</volist>
+					</div>
+					<!-- 已付全款 -->
+					<div id="tab4" class="tab">					
+						<volist id="order" name="pay_complate_orders">
+							<div class="order-sublist">
+								<div class="card-footer">
+									<a href="#" class="link">
+										<img src="__PUBLIC__/qlpphone/images/create/sublist_logo.png" alt="">订单号：{$order.order_sn}
+									</a>
+							    </div>
+							    <div class="content-padded">
+							    	<div class="content-padded">
+							    		<h5>{$order.lineid_title}</h5>
+							    		<p>{$order.hdid_show_text}</p>
+							    		<p>
+							    			<span>订单状态：<strong>{$order.zhuangtai_data.type_desc}</strong></span>
+											<if condition="empty($order[agreenment])">
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>未生效</strong></span>
+											<else />
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>已生效</strong></span>
+												<!--<p><a href="{__GLOBAL_HOST_URL__}fpdf/domo/pdf.php?did={$order.id}" target="_blank">下载</a></p>-->
+											</if>
+							    		</p>
+							    	</div>
+							    </div>
+							    <div class="order-sublist-handle-content">
+							    	<div class="content-padded">
+							    		<div class="order-sublist-money">
+							    			<p>金额：<span>￥{$order.need_pay_money}元</span></p>
+							    		</div>
+							    		<div class="order-sublist-handle">
+							    			<if condition="$order['operate'] eq pay">
+							    				<a href="{:U('line/order')}/type/pay/id/{$order.id}" external>在线支付</a>
+							    			<elseif condition="$order['operate'] eq 'wait_review'" />
+												<span>等待审核</span>
+											<elseif condition="$order['operate'] eq 'team_end'" />											
+												<span>团期已结束</span>
+											<else />
+												<span>按时参团</span>
+											</if>
+							    			</if>
+							    			<a href="{:U('line/order')}/type/info/id/{$order.id}" external>订单详情</a>
+							    		</div>
+							    	</div>
+							    </div>
+							</div>
+						</volist>
+					</div>
+					
+					
+					<!-- 待评价 -->
+					<div id="tab5" class="tab">					
+						<volist id="order" name="comment_orders">
+							<div class="order-sublist">
+								<div class="card-footer">
+									<a href="#" class="link">
+										<img src="__PUBLIC__/qlpphone/images/create/sublist_logo.png" alt="">订单号：{$order.order_sn}
+									</a>
+							    </div>
+							    <div class="content-padded">
+							    	<div class="content-padded">
+							    		<h5>{$order.lineid_title}</h5>
+							    		<p>{$order.hdid_show_text}</p>
+							    		<p>
+							    			<span>订单状态：<strong>{$order.zhuangtai_data.type_desc}</strong></span>
+											<if condition="empty($order[agreenment])">
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>未生效</strong></span>
+											<else />
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>已生效</strong></span>
+												<!--<p><a href="{__GLOBAL_HOST_URL__}fpdf/domo/pdf.php?did={$order.id}" target="_blank">下载</a></p>-->
+											</if>
+							    		</p>
+							    	</div>
+							    </div>
+							    <div class="order-sublist-handle-content">
+							    	<div class="content-padded">
+							    		<div class="order-sublist-money">
+							    			<p>金额：<span>￥{$order.need_pay_money}元</span></p>
+							    		</div>
+							    		<div class="order-sublist-handle">
+							    			<if condition="$order['operate'] eq pay">
+							    				<a href="{:U('line/order')}/type/pay/id/{$order.id}" external>在线支付</a>
+							    			<elseif condition="$order['operate'] eq 'wait_review'" />
+												<span>等待审核</span>
+											<elseif condition="$order['operate'] eq 'team_end'" />											
+												<span>团期已结束</span>
+											<else />
+												<span>按时参团</span>
+											</if>
+							    			</if>
+							    			<a href="{:U('line/order')}/type/info/id/{$order.id}" external>订单详情</a>
+							    		</div>
+							    	</div>
+							    </div>
+							</div>
+						</volist>
+					</div>
+					
+		          <!-- 加载提示符 -->
+		          <!--<div class="infinite-scroll-preloader">
+		              <div class="preloader"></div>
+		          </div>-->					
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<include file="Common/js" />
+
+<script>
+	$( function(){
+		$.init();
+		//点击标签内容回到顶部
+		$('.buttons-tab a').click( 
+			function () {
+				$('.content').stop().animate({'scrollTop': '0'},100);
+				_ajaxOrderList(this);
+			}
+		 );
+	} );
+	
+	var loading = false;	// 是否在加载中	
+	var noMoreData = false;
+	// 加载订单
+	function _ajaxOrderList(obj) {
+		var stateMap = {
+			"#tab1": 'all',
+			"#tab2": 'review',
+			"#tab3": 'pay_part',
+			"#tab4": 'pay_complate',
+			"#tab5": 'complated',
+		}
+		
+		var tab = $(obj).attr('href');
+		var p = parseInt($(obj).attr('data-page-index'));
+		var end = parseInt($(obj).attr('data-page-end'));
+		// 没有更多可加载的
+		if (end == 1) {
+			noMoreData = false;
+			return false;
+		}
+		var jsonData = {
+			op_type: 'list',
+			page: p,
+			state: stateMap[tab],
+		}
+		
+		//loading = true;
+		$.post('{:U("line/order")}', jsonData, function(data){
+			//loading = false;
+			$(tab).find('tbody').empty();
+			var newPageCount = 1;
+			if (data.result.errno == 0) {	
+				if (data.ds == null || data.ds == 'undefined') {
+					$(obj).attr('data-page-index', p+1);
+					$(obj).attr('data-page-end', 1);
+					noMoreData = true;					
+					if ($(tab).find('.no-more-data').length == 0) {
+						var vhtml = '<div class="order-sublist no-more-data">'+'没有更多数据'+'</div>';
+						$(tab).append(vhtml);	
+					} else {
+						$(tab).find('.no-more-data').html('没有更多数据');
+					}
+				} else {	
+					$(obj).attr('data-page-index', p+1);
+					var hostUrl = '{__GLOBAL_HOST_URL__}';
+					for(var i=0; i < data.ds.length; i++) {
+						var d = data.ds[i];
+						var vhtml = '<div class="order-sublist">'+
+									'	<div class="card-footer">'+
+									'		<a href="#" class="link">'+
+									'			<img src="__PUBLIC__/qlpphone/images/create/sublist_logo.png" alt="">订单号：'+d.order_sn+
+									'		</a>'+
+									'		<a href="#" class="link">取消订单</a>'+
+									'    </div>'+
+									'    <div class="content-padded">'+
+									'   	<div class="content-padded">'+
+									'    		<h5>'+d.lineid_title+'</h5>'+
+									'    		<p>'+d.hdid_show_text+'</p>'+
+									'    		<p>';
+									'    			<span>订单状态：<strong>'+d.zhuangtai_data.type_desc+'</strong></span>';
+						if (d.agreenment) {
+							vhtml += '				<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>已生效</strong></span>';
+//							vhtml += '				<p><a href="'+hostUrl+'fpdf/domo/pdf.php?did='+d.id+'" target="_blank">下载</a></p>';
+						} else {
+							vhtml += '				<span>&nbsp;&nbsp;&nbsp;&nbsp;合同状态：<strong>未生效</strong></span>';
+						}
+							vhtml +='    		</p>'+
+									'    	</div>'+
+									'    </div>'+
+									'    <div class="order-sublist-handle-content">'+
+									'    	<div class="content-padded">'+
+									'    		<div class="order-sublist-money">'+
+									'    			<p>金额：<span>￥'+d.need_pay_money+'元</span></p>'+
+									'    		</div>'+
+									'    		<div class="order-sublist-handle">';
+						if (d.operate == 'pay') {
+							vhtml +='				<a class="online-pay-small" href="'+'{:U("line/order")}'+'/id/'+d.id+'/type/pay" external>在线支付</a>';
+						} else if (d.operate == 'wait_review') {
+							vhtml +='				<span>等待审核</span>';
+						} else if (d.operate == 'team_end') {
+							vhtml +='				<span>团期已结束</span>';
+						} else {
+							vhtml +='				<span>按时参团</span>';	
+						}
+							vhtml +='    			<a href="{:U("line/order")}/type/info/id/'+d.id+'" external>订单详情</a>'+
+									'    		</div>'+
+									'    	</div>'+
+									'    </div>'+
+									'</div>';				
+						$(tab).append(vhtml);
+					}					
+				}
+			} else {
+				if ($(tab).find('.no-more-data').length == 0) {
+					var vhtml = '<div class="order-sublist no-more-data">'+data.result.message+'</div>';
+					$(tab).append(vhtml);	
+				} else {
+					$(tab).find('.no-more-data').html(data.result.message);
+				}
+			}
+		});
+	}
+		
+	// 注册'infinite'事件处理函数
+	$(document).on('infinite', '.infinite-scroll',function() {
+		
+		// 如果正在加载，则退出
+		if (loading) return;
+
+		// 设置flag
+		loading = true;
+		
+		// 模拟1s的加载过程
+		setTimeout(function() {
+			// 重置加载flag
+			loading = false;
+			
+			if (noMoreData == true) {
+				// 加载完毕，则注销无限加载事件，以防不必要的加载
+				$.detachInfiniteScroll($('.infinite-scroll'));
+				// 删除加载提示符
+				$('.infinite-scroll-preloader').remove();
+				return;
+			}
+			
+			_ajaxOrderList($('.buttons-tab').find('a.active'));
+			// 容器发生改变,如果是js滚动，需要刷新滚动
+			$.refreshScroller();			
+		}, 1000);
+	});	
+</script>
+</body>
+</html>

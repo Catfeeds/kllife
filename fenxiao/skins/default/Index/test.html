@@ -1,0 +1,12 @@
+<include file="Common/header" />
+	{:p_a($data)}
+<input type="button" class="testSession" value="测试SESSION" />
+<div class="msg"></div>
+<script>	
+	$('.testSession').click(function(){
+		$.post('{:U("index/test")}', {}, function(data){
+			$('.msg').html(JSON.stringify(data));	
+		});
+	});
+</script>
+<include file="Common/footer" />

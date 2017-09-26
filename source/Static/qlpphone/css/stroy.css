@@ -1,0 +1,112 @@
+.h1{font-size: 26px;margin:0px;text-align: center;padding:60px 0px 25px;color:#ff1c77;}
+.h2{font-size: 20px;margin:0px;text-align: center;color:#ff1c77;}
+.index .top{display: none;}
+.stroy .background-two{
+    height:863px;
+    background-image: url(../images/stroy/background-two.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.stroy .background-two .abso{
+    padding-top:150px;
+}
+.stroy .background-two .abso div{
+    margin-bottom:40px;
+}
+.stroy .background-two .abso div p{
+    font-size: 15px;
+    text-align: center;
+    line-height:22px;
+    padding:0px 10px;
+}
+.stroy .background-two .abso .color p{
+    color:#ff1c77;
+}
+.stroy .item{
+    background: #fff;
+    padding:10px;
+}
+.stroy .brand-story{
+    background: #fff;
+    margin-top:10px;
+    margin-bottom:10px;
+    padding-bottom:30px;
+}
+.stroy .brand-story .tit{
+    position: relative;
+    text-align: center;
+    padding-bottom:15px;
+}
+.stroy .brand-story .tit .h2{
+    position: absolute;
+    left:0px;
+    right:0px;
+    top:-5px;
+    text-align: center;
+}
+.stroy .brand-story .bottom{
+    padding-bottom:40px;
+}
+.stroy .brand-story .bottom p{
+    font-size: 15px;
+    text-align: center;
+    line-height:20px;
+    padding:0px 10px;
+}
+.stroy .brand-story .item-group{
+    padding:0px 10px;
+    padding-bottom:30px;
+}
+.stroy .brand-story .item-group .div{
+    background: #43b18c;
+}
+.stroy .brand-story .item-group .div div{
+    padding:60px 0px;
+}
+.stroy .brand-story .item-group .div div p{
+    color:#fff;
+    text-align: center;
+    font-size: 15px;
+}
+.stroy .brand-story .item-group .div-two{
+    background: #ededed;
+}
+.stroy .brand-story .item-group .div-two div p{
+    color:#333;
+}
+.stroy .my{
+    background: #fff;
+    margin-top:10px;
+    margin-bottom:10px;
+    padding-bottom:30px;
+}
+.stroy .my .padding{
+    padding:0px 20px;
+}
+.stroy .my .padding .background{
+    margin:10px 0px;
+    padding:10px 0px;
+    background: #efefef;
+}
+.stroy .my .padding .background .border{
+    margin:0px 10px;
+    border:3px solid #fff;
+}
+.stroy .my .padding .background .border div{
+    padding:10px 0px;
+}
+.stroy .my .padding .background .border div p{
+    text-align: center;
+    font-size: 15px;
+}
+.stroy .difference{
+    background: #fff;
+    margin-top:10px;
+}
+.stroy .difference .img{
+    padding:0px 10px;
+}
+.stroy .difference .contact{
+    border-top:20px solid #ededed;
+    margin-top:36px;
+}

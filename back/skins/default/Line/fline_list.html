@@ -1,0 +1,167 @@
+<link rel="stylesheet" href="__PUBLIC__/home/common/css/cssreset.css" />
+
+<link rel="stylesheet" href="__PUBLIC__/home/css/fline_list.css"/>
+
+<div class="modal fade custom-width" id="modalLineSelect">
+	<div class="modal-dialog" style="width: 90%;">
+		<div class="modal-content">
+			
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h2 class="modal-title">线路选择</h2>
+			</div>
+			
+			<div class="modal-body">
+				<div class="modal-search">
+					<input id="line_title" type="text" placeholder="输入您想要的线路标题"><a class="modal_fline_search" href="javascript:;">搜索</a>
+				</div>
+				<div class="modal-list">
+				</div>
+				<!-- 翻页 -->
+				<div class="modal-page"></div>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="__PUBLIC__/home/js/page.js"></script>
+<script>
+	//打开modal
+	var funcModalLineCallBack = null;
+	var modalLineFireObject = null;
+	var modalLineFindConds = null;
+	function showModalLineSelect(obj, func, cds, send) {
+		modalLineFireObject = obj;
+		funcModalLineCallBack = func;
+		modalLineFindConds = cds;
+		if (send != null && send != 'undefined'){
+			changeModalLineSelectPage(1);
+		}		
+		modalLineSelectClearChecked();
+		$("#modalLineSelect").modal('show', {backdrop: 'static'});	
+	}
+	
+	// 清除所有选择
+	function modalLineSelectClearChecked () {
+		$("#modalLineSelect").find('.article-choosed').removeClass('article-choosed');
+	}
+	
+	// 切换选择
+	function modalLineSelectChangeChecked (){
+		$(this).toggleClass('article-choosed');
+	}
+	
+	//切换选中
+	$("#modalLineSelect").find('.article-choose').click(function(){
+		$(this).toggleClass('article-choosed');
+	});
+	
+	$("#modalLineSelect").find('.modal_fline_search').click(function(){
+		changeModalLineSelectPage($('.modal-page').attr('data-page-index'));
+	});
+
+	// 初始化翻页
+	constructionPage($('#modalLineSelect').find('.modal-page'), 1, 1, changeModalLineSelectPage, true);
+    
+    // 切换页码
+    function changeModalLineSelectPage(p) {
+    	var conds = modalLineFindConds;
+    	var title = $('#line_title').val();
+    	if (title != '') {
+    		conds == null || conds == '' ? conds = 'title|'+title : conds += '|title|'+title;
+    	}
+    	var jsonData = {
+    		op_type: 'list',
+    		page: p - 1 ,
+    	}
+    	
+    	    	
+    	if (conds != null) {
+    		conds += '|online|1|invalid|0'
+    	}
+    	jsonData['cds'] = conds;
+    	
+    	$.post('{:U("line/list")}', jsonData, function(data){	
+			$("#modalLineSelect").find('.modal-list').empty();
+			if (typeof(data.ds) != 'undefined' && data.ds != null) {
+//				console.log('===================================================');
+				for (var i=0; i<$(data.ds).length; i++) { 
+					var d = data.ds[i];   	
+					var assemblyPoint = '';
+					if (d.assembly_point != null && d.assembly_point != '') {
+						var apData = $.parseJSON(d.assembly_point);
+						for (var ap = 0; ap < apData.length; ap ++) {
+							assemblyPoint += apData[ap].type_desc + ' ';
+						}
+					}
+					var destination = '';
+					if (d.destination != null && d.destination != '') {
+						var apData = $.parseJSON(d.destination);
+						for (var ap = 0; ap < apData.length; ap ++) {
+							destination += apData[ap].type_desc + ' ';
+						}
+					}   	
+					var batchCount = d.batchs = null ? 0 : $(d.batchs).length;
+					var clickCount = d.click_count = null ? 0 : d.click_count;
+					var img_src = d.img1 == null ? '' : d.img1;
+//    				console.log(d.id + ':' + d.title+',assembly:'+assemblyPoint+',dest:'+destination+',batch_count:'+batchCount+',img:'+img_src);    				
+					
+					var vhtml = '<div class="single-row">'+
+								'	<div class="single-row-content">'+
+								'		<div class="article-choose-content">'+
+								'			<i class="article-choose" data-id="'+d.id+'">选中</i>'+
+								'			<i class="article-choose-use">选中并使用</i>'+
+								'		</div>'+
+								'		<div class="single-row-img">'+
+								'			<a href="'+'{:U("line/preview")}/id/'+d.id+'" target="_blank">'+
+								'				<img src="'+img_src+'" alt="">'+
+								'			</a>'+
+								'		</div>'+
+								'		<div class="single-row-describe">'+
+								'			<div class="single-row-describe-top">'+
+								'				<h4><a href="'+'{:U("line/preview")}/id/'+d.id+'" target="_blank">'+d.title+'</a></h4>'+
+								'				<h5><a href="'+'{:U("line/preview")}/id/'+d.id+'" target="_blank">'+d.subheading+'</a></h5>'+
+								'				<span><a href="'+'{:U("line/preview")}/id/'+d.id+'" target="_blank">'+d.send_word_show+'</a></span>'+
+								'				<p><u>集合地点：'+assemblyPoint+'</u><u>批次：全年'+batchCount+'期</u><u>点击量：'+clickCount+'次</u></p>'+
+								'				<p><u>目的地：'+destination+'</u><u>主题类型：'+d.theme_type_show_text+'</u></p>'+
+								'				'+
+								'			</div>'+
+								'			<div class="single-row-describe-bottom">'+
+								'				<span>旅行时间： '+d.start_time+'至'+d.end_time+'</span>'+
+								'			</div>'+
+								'		</div>'+
+								'	</div>'+
+								'</div>';
+					$("#modalLineSelect").find('.modal-list').append(vhtml);
+					$("#modalLineSelect").find('.article-choose-use:last').click(modalLineSelectComfirm);
+					$("#modalLineSelect").find('.article-choose:last').click(modalLineSelectChangeChecked);
+				}
+				
+				// 根据情况判断是否重构分页
+				constructionPage($('#modalLineSelect').find('.modal-page'), p, data.page_count, changeModalLineSelectPage);
+			} 
+    	});
+    }
+    
+    $(document).ready(function(){
+//    	changeModalLineSelectPage(1);
+    });
+    
+    function modalLineSelectComfirm() {
+    	if ($(this).prev().hasClass('article-choosed') == false) {
+    		$(this).prev().addClass('article-choosed');
+    	}
+    	
+    	var selIds = [];	    	
+    	$("#modalLineSelect").find('.article-choosed').each(function(i,ev){
+    		selIds.push($(this).attr('data-id'));
+    	});
+    	
+		$("#modalLineSelect").modal('hide');
+    	funcModalLineCallBack(modalLineFireObject, selIds);
+    }	    
+</script>

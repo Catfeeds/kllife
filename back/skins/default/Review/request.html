@@ -1,0 +1,572 @@
+<include file="Common/header" />
+	<style>
+		.cantuanrenshu span { margin-right: 1%; }
+		.ctr_xinxi label { margin-left: 2%; color: #fff; }
+		.ctr_top { margin-left: .1%; margin-top: 1%; background: #999; }
+		.ctr_top p { color: #fff; }
+		.ctr_input , .ctr_select { height: 32px; padding: 6px 12px; color: #000; }
+		.ctr_select { vertical-align: bottom; margin-left: -4px; }
+		#table td { vertical-align: middle; }
+		.ctr_xingming , .ctr_shouji { width: 80%; height: 32px; padding: 6px 12px; border: 1px solid #40bbea; display: none; }
+		.ctr_baocun , .ctr_sex , .ctr_card { display: none; }
+		#table .ctr_card_num { float: right; width: 60%; height: 32px; margin-right: 39px; padding: 6px 12px; border: 1px solid #40bbea; display: none; }
+		.selectboxit-btn { background: #fff; border-color: #40bbea; }
+		.selectboxit-list { background-color: #fff; border: 1px solid #40bbea; }
+		.selectboxit-list .selectboxit-option-anchor { color: #979898; }
+		.form-control:focus { border-color: #40bbea; }
+		a { color: #979898; }
+		.add_xinxi { display: none; }
+		.dingdan_bianji , .dingdan_bianji01 , .dingdan_bianji02 { border: 1px solid #40bbea; }
+		.dingdan_bottom > p , .dingdan_bottom span{ margin-top: 7px; }
+		.add_xingming , .add_shouji , .add_card_btn_num { border: 1px solid #40bbea; }
+		.add_xingming , .add_shouji { outline: none; }
+		.add_xingming:focus , .add_shouji:focus { border: 1px solid #40bbea; }
+		.dingdan_bottom { margin-bottom: 10px; }
+		.cx_border02 , html .select2-container .select2-choice , #s2id_activity{ border-color: #40bbea !important; }
+		.info-color { border-color: #40bbea !important; }
+		#select2-drop { border-color: #40bbea;  } 
+		
+	</style>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> 
+						{:C('CONTENT_TITLE')}
+						<input id="order_id" type="hidden" value="{$order.id}"/>
+					</h3>
+				</div>
+				<div class="panel-body row">
+					<div id="dingdan_main" class="col-sm-12" style="margin-left: 5%;">
+						<div class="row">
+							<div class="form-group row">
+								<p id='err_msg' class="col-sm-3" style="color:#e4393c;">{$aa}</p>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">线路名称：</p>	
+								<span class="col-sm-8" style="padding-left: 0; display: {:empty($order)?'none;':'display;'}">{$order.lineid_title}</span>
+								<div class="input-group col-sm-5" style="float: left; display: {:empty($order)?'display;':'none;'}">
+									<script type="text/javascript">
+										jQuery(document).ready(function($)
+										{
+											$("#line_article").select2({
+												minimumInputLength: 1,
+												placeholder: '搜索',
+												ajax: {
+													url: '{:U("order/linefind")}',
+													type: 'post',
+													dataType: 'json',
+													quietMillis: 100,
+													data: function(term, page) {
+														return {
+															limit: -1,
+															q: term
+														};
+													},
+													results: function(data, page ) {
+														if (data['result']['errno'] == 0) {
+															return { results: data['data'] }	
+														} else {
+															return { results: '' };	
+														}
+													}
+												},
+												formatResult: function(data) { 
+													return "<div class='select2-user-result cx_border02'>" + data.title + "</div>"; 
+												},
+												formatSelection: function(data) { 
+													// 线路批次													
+													$.post('{:U("order/activityFind")}', {aid:data.id}, function(resp){
+														var html = '';
+														if (resp['result']['errno'] == 0 ){
+															for (var i = 0; i < resp['data'].length; i ++) {																
+																var ds = resp['data'][i];
+																html += '<option value="'+ds['id']+'">'+ds['show_text']+'</option>'
+															}
+														} else {
+															html += '<option value="-1">未能查到更多信息</option>'	
+														}
+														$("#activity").html(html);
+													});		
+													// 订单编号											
+													$.post('{:U("order/ordersnFind")}', {lineid:data.id}, function(resp){
+														var html = '';
+														if (resp['result']['errno'] == 0 ){
+															for (var i = 0; i < resp['data'].length; i ++) {																
+																var ds = resp['data'][i];
+																html += '<option value="'+ds['id']+'">'+ds['order_sn']+'</option>'
+															}
+														} else {
+															html += '<option value="-1">未能查到更多信息</option>'	
+														}
+														$("#order_sn").html(html);
+													});												
+													return  data.title; 
+												}
+												
+											});
+										});
+									</script>								
+									<input type="hidden" class="cx_border02" id="line_article" />
+								</div>							
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">线路批次：</p>
+								<span class="col-sm-5" style="padding-left: 0; display: {:empty($order)?'none;':'display;'}">{$order.hdid_show_text}</span>
+								<div class="input-group col-sm-5" style="float: left; display: {:empty($order)?'display;':'none;'}">
+									<script type="text/javascript">
+											jQuery(document).ready(function($)
+											{
+												var s2exp = $("#activity").select2({
+													placeholder: '请选择批次',
+													allowClear: true,
+													minimumResultsForSearch: -1, // Hide the search bar
+													formatResult: function(ds){
+														return "<div class='select2-user-result cx_border02'>" + ds.text + "</div>"; 
+													}
+												});
+												
+												$(s2exp).on('select2-open', function(){	
+													$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+												});
+												
+												$(s2exp).on('change', function(){
+													var lineId = $('#line_article').val();
+													var activityId = $('#activity').val();
+													// 订单编号											
+													$.post('{:U("order/ordersnFind")}', {lineid:lineId,hdid:activityId}, function(resp){
+														var html = '';
+														if (resp['result']['errno'] == 0 ){
+															for (var i = 0; i < resp['data'].length; i ++) {																
+																var ds = resp['data'][i];
+																html += '<option value="'+ds['id']+'">'+ds['order_sn']+'</option>'
+															}
+														} else {
+															html += '<option value="-1">未能查到更多信息</option>'	
+														}
+														$("#activity").html(html);
+													});
+												});
+											});
+									</script>
+									<select class="form-control" id="activity"></select>
+								</div>	
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">订单编号</p>								
+								<span class="col-sm-5" style="padding-left: 0; display: {:empty($order)?'none;':'display;'}">{$order.order_sn}</span>
+								<div class="input-group col-sm-5" style="float: left; display: {:empty($order)?'display;':'none;'}">
+									<script type="text/javascript">
+											jQuery(document).ready(function($)
+											{
+												var order2exp = $("#order_sn").select2({
+													placeholder: '请选择订单编号',
+													allowClear: true,
+													minimumResultsForSearch: -1, // Hide the search bar
+													formatResult: function(ds){
+														return "<div class='select2-user-result cx_border02'>" + ds.text + "</div>"; 
+													}
+												});
+												
+												$(order2exp).on('select2-open', function(){	
+													$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+												});
+												
+												$(order2exp).on('change', function(){
+													var jsonData = {
+														'op_type': 'find',
+														'id': $('#order_sn').val(),
+													}
+													$.post('{:U("order/list")}', jsonData, function(data){
+														console.log(JSON.stringify(data));
+														if (data.result.errno != 0) {
+															$('#err_msg').html(data.result.message);
+														} else {
+															if (data.ds != 'undefined') {
+																$('#username').html(data.ds.userid_userid);
+																$('#contact').html(data.ds.names);
+																$('#mobile').html(data.ds.mob);	
+															}
+														}
+													});
+												});
+											});
+									</script>
+									<select class="form-control" id="order_sn"></select>
+								</div>	
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">订单状态：</p>								
+								<span id="order_state" class="col-sm-5" style="padding-left: 0;">{$order.zhuangtai_data.type_desc}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">订单总金额：</p>								
+								<span id="order_sum_cash" class="col-sm-5" style="padding-left: 0;">{$order.need_pay_money}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">订单已付金额：</p>								
+								<span id="order_pay_cash" class="col-sm-5" style="padding-left: 0;">{$order.pay_cash}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">用户名：</p>								
+								<span id="username" class="col-sm-5" style="padding-left: 0;">{$order.userid_data.show_name}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">联系人：</p>								
+								<span id="contact" class="col-sm-5" style="padding-left: 0;">{$order.names}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">联系人电话：</p>								
+								<span id="mobile" class="col-sm-5" style="padding-left: 0;">{$order.mob}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">费用功能：</p>
+								<div class="input-group col-sm-3" style="border-color: #40bbea;">
+									<script type="text/javascript">
+										jQuery(document).ready(function($)
+										{
+											function fillCashUse() {
+												$.post('{:U("order/extraCash")}', 												
+													{
+														op: 'find',
+														order_id: $('#order_id').val(),
+														func_id: $('#cash_func').val(),
+													},
+													function(data) {														
+														if (data.result.errno != 0) {
+															alert(data.result.message)
+															return false;
+														}
+														
+														if (data.use == null || data.use == 'undefined' || data.use.length == 0) {
+															alert('没有可用的费用用途可以提审');
+															return false;
+														}
+														var html=''; var id=0; var cash=0;
+														for (var i = 0; i < data.use.length; i ++) {		
+															var ds = data.use[i];	
+															html += '<option value="'+ds['id']+'" data-cash="'+ds['cash']+'">'+ds['cash_use_id_type_desc']+'</option>';
+															if (id == 0) {
+																id = ds['cash_use_id'];
+																cash = ds['cash'];
+															}
+														}
+														var divHtml = '';
+														var cashUseHtmls = $('select[name="cash_use"]');
+														for (var k = 0; k < $(cashUseHtmls).length; k ++) {
+															if (html!= '') {
+																$(cashUseHtmls[k]).html(html);
+																$(cashUseHtmls[k]).val(id).trigger('change');
+																divHtml = $(cashUseHtmls[k]).parent().parent().parent();
+															}						
+														}	
+														
+														if (divHtml != '') {
+															$(divHtml).find('input[name="cash"]').val(cash);
+														}								
+													});
+											}
+											
+											var cashFuncSel = $("#cash_func").selectBoxIt().on('open', function()
+											{
+												// Adding Custom Scrollbar
+												$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+//												fillCashUse();
+											});
+											
+//											$(cashFuncSel).on('change', function(){
+//												fillCashUse();
+//											});
+										});
+									</script>
+									<select id="cash_func" class="form-control">
+										<volist id="cf" name="CashFunc">
+											<option value="{$cf.id}">{$cf.type_desc}</option>
+										</volist>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="row" style="margin-left: 0px;">
+									<p class="col-sm-1">费用用途：</p>
+									<div class="col-sm-3" style="border-color: #40bbea; padding-left: 0; padding-right: 0;">
+										<script type="text/javascript">
+											jQuery(document).ready(function($)
+											{
+												$("[name='cash_use']").selectBoxIt().on('open', function()
+												{
+													// Adding Custom Scrollbar
+													$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+												});
+												
+												$("[name='cash_use']").on('change', changeCashUsePrice);
+											});
+										</script>
+										<select name="cash_use" class="form-control">
+											<volist id="cu" name="CashUse">
+												<option value="{$cu.id}">{$cu.type_desc}</option>
+											</volist>
+										</select>
+									</div>
+									<div class="col-sm-3" style="margin-left: 40px;">
+										<button class="btn btn-icon btn-blue"><i class="fa-plus" ></i></button>
+										<button class="btn btn-icon btn-red"><i class="fa-minus" ></i></button>
+									</div>									
+								</div>
+								<div>
+									<p class="col-sm-1">审核费用：</p>
+									<input name='cash' type="text" style="height: 32px;" class="dingdan_bianji col-sm-3" value="0">								
+								</div>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">支付类型：</p>
+								<div class="input-group col-sm-3" style="border-color: #40bbea;">
+									<script type="text/javascript">
+										function getMenuItem(parentObj, childObj) {
+											if ($(parentObj).val() == null) {
+												return false;
+											}
+											
+											var jsonData = {
+												op_type: 'find',
+												data_type: 'all',
+												parent_id: $(parentObj).val(),
+											};
+																		
+											$.post('{:U("menu/list")}', jsonData, function(backData){
+												if (backData.result.errno == 0) {
+													$(childObj).data('selectBox-selectBoxIt').remove();
+													if (backData.data != null) {
+														for (var k=0; k < backData.data.length; k++) {		
+															var d = backData.data[k];													
+															$(childObj).data('selectBox-selectBoxIt').add({value:d['id'], text:d['item_desc']});
+														}	
+													}
+												}
+											});
+										}
+									
+										jQuery(document).ready(function($)
+										{											
+											$("#pay_type").selectBoxIt().on('close', function()
+											{
+												getMenuItem($("#pay_type"), $("#pay_channel"));
+											});								
+										});
+									</script>
+									<select id="pay_type" class="form-control">
+										<volist id="mi" name="MenuItem">
+											<option value="{$mi.id}">{$mi.item_desc}</option>
+										</volist>
+										<!--<volist id="pt" name="PayType">
+											<option value="{$pt.id}">{$pt.type_desc}</option>
+										</volist>-->
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">付款渠道：</p>
+								<div class="input-group col-sm-3" style="border-color: #40bbea;">
+									<script type="text/javascript">
+										jQuery(document).ready(function($)
+										{											
+											$("#pay_channel").selectBoxIt().on('close', function()
+											{
+												getMenuItem($("#pay_channel"), $("#pay_bank"));		
+											});
+										});
+									</script>
+									<select id="pay_channel" class="form-control">
+										<!--<volist id="pc" name="PayChannel">
+											<option value="{$pc.id}">{$pc.type_desc}</option>
+										</volist>-->
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">支付银行：</p>
+								<div class="input-group col-sm-3" style="border-color: #40bbea;">
+									<script type="text/javascript">
+										jQuery(document).ready(function($)
+										{											
+											$("#pay_bank").selectBoxIt();
+										});
+									</script>
+									<select id="pay_bank" class="form-control">
+										<!--<volist id="pb" name="PayBank">
+											<option value="{$pb.id}">{$pb.type_desc}</option>
+										</volist>-->
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">回执编号：</p>
+								<input id='bank_code' type="text" style="height: 32px;" class="dingdan_bianji col-sm-3">
+							</div>		
+							<div class="form-group row">
+								<p class="col-sm-1">请求附言：</p>
+								<input id='review_msg' type="text" style="height: 32px;" class="dingdan_bianji col-sm-8">
+							</div>	
+							<div class="row">
+								<if condition="$grant_submit_review eq true">
+									<button id="review_request" type="button" class="btn btn-warning" style="margin-left: 1%;">提交审核</button>
+								</if>
+								<if condition="$grant_response_review eq true">
+									<button id="review_response" type="button" class="btn btn-warning" style="margin-left: 1%;">一键审核</button>
+								</if>
+								<notempty name="order">
+									<button id="back_list" type="button" class="btn btn-secondary" style="margin-left: 1%;">返回列表</button>
+								</notempty>
+							</div>
+						</div>
+					</div>
+								
+				</div>
+			</div>
+		</div>
+	</div>
+	<style type="text/css">
+		#add_member_typeSelectBoxItContainer { width:196px !important; display:inline-block !important; vertical-align: middle;}
+		.cx_border02 , .select2-container , .select2-choice , .info-border-color{ border-color: #40bbea !important; }
+	</style>
+<include file="Common/footer" />
+<script type="text/javascript">
+	$(document).ready(function(){				
+		// 创建订单
+		$('#review_request').click(reviewCreate);
+		// 一键通过审核
+		$('#review_response').click(reviewPass)
+		// 费用格式检测
+		$('input[name="cash"]').keyup(inputIntFloatCheck);
+		// 增加费用来源HTML
+		$('.fa-plus').parent().click(appendCashHtml);
+		// 减少费用来源HTML
+		$('.fa-minus').parent().click(removeCashHtml);
+		// 返回列表
+		$('#back_list').click(function(){history.back(-1);});		
+	});
+	
+	// 改变费用用途价格
+	function changeCashUsePrice() {
+		var cash = 0;
+		var selId = $(this).val();
+		 var ops = $(this).find('option');
+		 for (var k=0; k < ops.length; k++) {
+		 	if (selId == $(ops[k]).val()) {
+		 		cash = $(ops[k]).attr('data-cash');
+		 		break;
+		 	}
+		 }
+		$(this).parent().parent().parent().find('input[name="cash"]').val(cash);
+	}
+		
+	// 费用检测
+	function inputIntFloatCheck() {
+		var val = $(this).val();
+	    if('' != val.replace(/\d{1,}\.{0,1}\d{0,}/,''))
+	    {
+	        var str = val.match(/\d{1,}\.{0,1}\d{0,}/) == null ? '' : val.match(/\d{1,}\.{0,1}\d{0,}/);
+	        $(this).val(str);
+	    }
+	}
+	
+	// 增加费用来源HTML
+	function appendCashHtml() {
+		var divRoot = $(this).parent().parent().parent();
+		var divRootCopy = $(divRoot).clone();
+		// 费用用途选择
+		$(divRootCopy).find('.selectboxit-container').remove();
+//		$(divRootCopy).find('[name="cash_use"]').change(changeCashUsePrice);
+		$(divRootCopy).find('[name="cash_use"]').selectBoxIt().on('open', function(){$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();});
+		// 添加按钮
+		$(divRootCopy).find('.fa-plus').parent().click(appendCashHtml);
+		// 删除按钮
+		$(divRootCopy).find('.fa-minus').parent().click(removeCashHtml);
+		// 费用格式检测
+		$(divRootCopy).find('[name="cash"]').keyup(inputIntFloatCheck);
+		// 添加复制DIV到末尾
+		$(divRoot).after(divRootCopy);
+	}
+	
+	// 减少费用来源HTML
+	function removeCashHtml() {		
+		if (confirm('您确定删除该费用项?')=== false) {
+			return false;
+		}
+		if ($('.fa-minus').length < 2) {
+			alert('至少应该保留一个费用项');
+			return false;
+		}
+		$(this).parent().parent().parent().remove();
+	}
+	
+	// 创建审核
+	function reviewCreate() {
+		createReview('create');
+	}
+	
+	// 一键审核
+	function reviewPass() {
+		if (confirm("一键审核将会直接提交并通过该审核，请您再次确认是否要交并通过此审核？")) {
+			createReview('pass');
+		}
+	}
+			
+	// 创建订单
+	function createReview(flag) {
+		if ($('#order_sn').val() == '-1') {
+			$('#err_msg').html('订单号不能为空');
+			return false;
+		}
+		
+		var orderId = $('#order_id').val();
+		if (orderId == '') {
+			orderId = $('#order_sn').val();
+		}	
+		
+		var cash_use_ids = '';
+		var cashHtmls = $('[name="cash"]');		
+		var cash_datas = new Array();
+		for (var i = 0; i < $(cashHtmls).length; i++) {
+			var divRoot = $(cashHtmls[i]).parent().parent();
+			var cash_use_id = $(divRoot).find('[name="cash_use"]').val();
+			if (cash_use_ids.indexOf(cash_use_id) < 0) {
+				cash_use_ids += cash_use_id;
+				var idx = cash_datas.length;
+				cash_datas[idx] = {
+					'cash_use_id': $(divRoot).find('[name="cash_use"]').val(),
+					'cash': $(divRoot).find('[name="cash"]').val(),
+				}
+			} else {
+				alert('存在重复提交审核的费用用途');
+				return false;
+			}
+		}
+		
+		var jsonData = {
+			'op': 'review_request',
+			'flag': flag,
+			'order_id':  orderId,
+			'order_state_id': $('#order_state').val(),
+			'cash_func_id': $('#cash_func').val(),
+			'cash_datas': cash_datas,
+			'pay_channel_id': $('#pay_channel').val(),
+			'pay_type_id': $('#pay_type').val(),
+			'pay_bank_id': $('#pay_bank').val(),
+			'bank_code': $('#bank_code').val(),
+			'request_reason': $('#review_msg').val(),
+		}
+
+		showLoading(true);		
+		$.post('{:U("review/request")}', jsonData, function(data){
+			showLoading(false);
+			if (data.result.errno == 0) {
+				alert('订单审核申请成功');
+				location.href='{:U("review/list")}';
+			} else {
+				alert(data.result.message);
+//				$('#err_msg').html(data.result.message);
+			}
+		});
+	}
+</script>

@@ -1,0 +1,314 @@
+<include file="Common/header" />
+	<style>
+		.cantuanrenshu span { margin-right: 1%; }
+		.ctr_xinxi label { margin-left: 2%; color: #fff; }
+		.ctr_top { margin-left: .1%; margin-top: 1%; background: #999; }
+		.ctr_top p { color: #fff; }
+		.ctr_input , .ctr_select { height: 32px; padding: 6px 12px; color: #000; }
+		.ctr_select { vertical-align: bottom; margin-left: -4px; }
+		#table td { vertical-align: middle; }
+		.ctr_xingming , .ctr_shouji { width: 80%; height: 32px; padding: 6px 12px; border: 1px solid #40bbea; display: none; }
+		.ctr_baocun , .ctr_sex , .ctr_card { display: none; }
+		#table .ctr_card_num { float: right; width: 60%; height: 32px; margin-right: 39px; padding: 6px 12px; border: 1px solid #40bbea; display: none; }
+		.selectboxit-btn { background: #fff; border-color: #40bbea; }
+		.selectboxit-list { background-color: #fff; border: 1px solid #40bbea; }
+		.selectboxit-list .selectboxit-option-anchor { color: #979898; }
+		.form-control:focus { border-color: #40bbea; }
+		a { color: #979898; }
+		.add_xinxi { display: none; }
+		.dingdan_bianji , .dingdan_bianji01 , .dingdan_bianji02 { border: 1px solid #40bbea; }
+		.dingdan_bottom > p , .dingdan_bottom span{ margin-top: 7px; }
+		.add_xingming , .add_shouji , .add_card_btn_num { border: 1px solid #40bbea; }
+		.add_xingming , .add_shouji { outline: none; }
+		.add_xingming:focus , .add_shouji:focus { border: 1px solid #40bbea; }
+		.dingdan_bottom { margin-bottom: 10px; }
+		.cx_border02 , html .select2-container .select2-choice , #s2id_activity{ border-color: #40bbea !important; }
+		.info-color { border-color: #40bbea !important; }
+		#select2-drop { border-color: #40bbea;  } 
+		
+		#add_member_typeSelectBoxItContainer { width:196px !important; display:inline-block !important; vertical-align: middle;}
+		.cx_border02 , .select2-container , .select2-choice , .info-border-color{ border-color: #40bbea !important; }
+		
+		.source-info-float { 
+			position: fixed; 
+			left: 45%; top: 20%; 
+			width: 50px; height: 50px; 
+			display: block; 
+			z-index: 999; 
+			background-color:#5ca323; 
+			background-size: 100% 100%; 
+			color: #fff;
+			font-size: 18px;
+			font-family: '微软雅黑';
+			text-align: center;
+		}
+		
+		.table1 > th, .table1 > td { text-align: left;}
+	</style>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> 
+						{:C('CONTENT_TITLE')}
+						<input id="review_id" type="hidden" value="{$deposit.id}"/>
+					</h3>
+				</div>
+				<div class="panel-body row">
+					<div id="dingdan_main" class="col-sm-12" style="margin-left: 5%;">
+						<div class="row">
+							<div class="form-group row">
+								<p id='err_msg' class="col-sm-3" style="color:#e4393c;"></p>
+							</div>
+							<if condition="empty($deposit['team_id']) eq false">
+								<div class="form-group row">
+									<p class="col-sm-1">团期：</p>	
+									<span class="col-sm-5" style="padding-left: 0;">{$deposit.team_data.team_code}</span>						
+								</div>
+							</if>
+							<div class="form-group row">
+								<p class="col-sm-1">对象类型：</p>	
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.deposit_obj_data.type_desc}</span>						
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">送审对象：</p>
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.deposit_obj_show}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">操作方式：</p>								
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.deposit_type_data.type_desc}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">提审金额：</p>								
+								<span class="col-sm-5" style="padding-left: 0; color: red;">{$deposit.approval_amount}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">预算金额：</p>								
+								<span class="col-sm-5" style="padding-left: 0; color: red;">{$deposit.money}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">优惠减免：</p>								
+								<span class="col-sm-5" style="padding-left: 0; color: red;">{$deposit.derate}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">最终预算金额：</p>								
+								<span class="col-sm-5" style="padding-left: 0; color: red;">{:bcsub($deposit['money'], $deposit['derate'], 2)}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">已交易金额：</p>								
+								<span class="col-sm-5" style="padding-left: 0; color: red;">{$deposit.complated_money}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">提审人员：</p>								
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.request_admin_data.show_name}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">提审时间：</p>								
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.request_time}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">提审附言：</p>								
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.beizhu}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">收款方式：</p>								
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.pay_type_data.type_desc}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">收款人：</p>								
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.payee}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">收款账号：</p>
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.bank_card}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">开户地址：</p>
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.bank_address}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">审核状态：</p>
+								<span class="col-sm-5" style="padding-left: 0; color: red;">{$deposit.review_type_data.type_desc}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">审核人信息：</p>
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.review_admin_data.show_name}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">审批资金：</p>	
+								<!--<if condition="empty($can_be_review)"></if>-->
+								<if condition="empty($can_be_review) eq false and $admin['id'] heq $deposit['review_admin_data']['id']">								
+									<input id='review_msg' type="number" style="height: 32px;" class="dingdan_bianji col-sm-8 data_review_money" value="{$deposit.approval_amount}">
+								<else />									
+									<span class="col-sm-5" style="padding-left: 0; color: red;">{$deposit.finnal_money}</span>
+								</if>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">审核时间：</p>								
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.review_time}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">审核附言：</p>		
+								<if condition="empty($can_be_review) eq false and $admin['id'] heq $deposit['review_admin_data']['id']">		
+									<input id='review_msg' type="text" style="height: 32px;" class="dingdan_bianji col-sm-8 data_review_beizhu">
+								<else />
+									<span class="col-sm-5" style="padding-left: 0;">{$deposit.review_beizhu}</span>
+								</if>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">确认人信息：</p>
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.confirm_admin_data.show_name}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">确认资金：</p>
+								<if condition="empty($can_be_commit)">
+									<span class="col-sm-5" style="padding-left: 0; color: red;">{$deposit.confirm_money}</span>
+								<else />
+									<input id='review_msg' type="number" style="height: 32px;" class="dingdan_bianji col-sm-8 data_confirm_money" value="{$deposit.finnal_money}">
+								</if>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">确认时间：</p>								
+								<span class="col-sm-5" style="padding-left: 0;">{$deposit.confirm_time}</span>
+							</div>
+							<div class="form-group row">
+								<p class="col-sm-1">确认附言：</p>
+								<if condition="empty($can_be_commit)">
+									<span class="col-sm-5" style="padding-left: 0;">{$deposit.confirm_beizhu}</span>
+								<else />
+									<input id='review_msg' type="text" style="height: 32px;" class="dingdan_bianji col-sm-8 data_confirm_beizhu">
+								</if>						
+							</div>					
+							<div class="form-group row">
+								<if condition="empty($can_be_review) eq false and $admin['id'] heq $deposit['review_admin_data']['id']">
+									<button id="review_pass" type="button" class="btn btn-warning" style="margin-left: 1%;">通过审核</button>
+									<button id="review_fail" type="button" class="btn btn-warning" style="margin-left: 1%;">回绝审核</button>
+								</if>
+								<if condition="empty($can_be_commit) eq false">
+									<button id="review_confirm" type="button" class="btn btn-warning" style="margin-left: 1%;">确认提审</button>
+									<button id="review_confirm_fail" type="button" class="btn btn-warning" style="margin-left: 1%;">拒绝确认</button>
+								</if>
+								<if condition="empty($deposit['team_id']) eq false">
+									<a id="team_info" href="{:U('financial/team')}/op/new/id/{$deposit.team_id}" class="btn btn-secondary" style="margin-left: 1%;" target="_blank">查看团期</a>
+								<else />
+									<a id="team_info" href="{:U('financial/deposit')}/op/new/id/{$deposit.id}" class="btn btn-secondary" style="margin-left: 1%;" target="_blank">查看详细</a>
+								</if>
+								<a id="back_list" href="{:U('financial/deposit')}" class="btn btn-secondary" style="margin-left: 1%;" target="_blank">返回列表</a>
+							</div>
+						</div>
+					</div>
+					
+					<div id="dingdan_log" class="col-sm-11" style="margin-left: 5%;">	
+						<span style="font-family: 微软雅黑; font-size: 18px;" >跟踪日志</span>
+						<hr style="border-top: double;"/>				
+						<table class="table table1 table_supervise">
+							<thead>
+							<tr>
+								<th width="8%">跟踪编号</th>
+								<th width="10%">操作人员</th>
+								<th>操作内容</th>
+								<th width="15%">操作时间</th>
+							</tr>
+							</thead>
+							<tbody>
+								<!--{:p_a($deposit['supervises'])}-->
+								<volist id="s" name="deposit.supervises">
+									<tr data-id="{$s.id}">
+										<td>{$s.id}</td>
+										<td>{$s.admin.show_name}</td>
+										<td style="text-align: left;">{$s.content}</td>	
+										<td>{$s.create_time}</td>
+									</tr>
+								</volist>
+							</tbody>
+						</table>
+					</div>
+					
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<span class="source-info-float" href="javascript:;">查看<br>预算</span>
+<include file="Common/footer" />
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 通过审核
+		$('#review_pass').click(reviewPass);
+		// 回绝审核
+		$('#review_fail').click(reviewFail);
+		// 确认审核
+		$('#review_confirm').click(reviewConfirm);
+		// 拒绝审核
+		$('#review_confirm_fail').click(reviewConfirmFail);
+	});
+	
+	// 查看预算
+	var fReviewModalObj = null;
+	$('.source-info-float').click(function(){
+		if (fReviewModalObj == null) {
+			fReviewModalObj = new ModalFCJDeposit();
+		}	
+		fReviewModalObj.showModal(this, '{$deposit.team_id}', null, '{$deposit.id}', null, 1);
+	});
+	
+	// 通过审核
+	function reviewPass() {
+		if (confirm('您确认要通过此审核记录吗？')) {
+			var money = $('.data_review_money').val();
+			var beizhu = $('.data_review_beizhu').val();
+			updateReview('pass', money, beizhu);
+		}
+	}
+	
+	// 回绝审核
+	function reviewFail() {
+		if (confirm('您确认要拒绝此审核记录吗？')) {
+			var money = $('.data_review_money').val();
+			var beizhu = $('.data_review_beizhu').val();
+			updateReview('fail', money, beizhu);
+		}
+	}
+	
+	// 确认审核
+	function reviewConfirm() {
+		if (confirm('您要确认此审核完成吗？')) {
+			var money = $('.data_confirm_money').val();
+			var beizhu = $('.data_confirm_beizhu').val();
+			updateReview('confirm', money, beizhu);
+		}
+	}
+	
+	// 拒绝确认审核
+	function reviewConfirmFail() {
+		if (confirm('您要确认此审核完成吗？')) {
+			var money = $('.data_confirm_money').val();
+			var beizhu = $('.data_confirm_beizhu').val();
+			updateReview('confirm_fail', money, beizhu);
+		}
+	}
+			
+	// 响应审核
+	function updateReview(opstate, vmoney, vbeizhu) {
+		var reviewId = $('#review_id').val();		
+		var jsonData = {
+			op_type: 'info',
+			op: 'review',
+			id: reviewId,
+			op_state: opstate,
+			money: vmoney,
+			beizhu: vbeizhu,
+		}
+		
+		showLoading(true);
+		$.post('{:U("financial/deposit")}', jsonData, function(data){
+			showLoading(false);
+			if (data.result.errno == 0) {
+				toastr.success(data.result.message);
+				location.href = '{:U("financial/deposit")}/id/'+reviewId;
+			} else {
+				toastr.error(data.result.message);
+			}
+		});
+	}
+</script>

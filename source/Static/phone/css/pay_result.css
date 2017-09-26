@@ -1,0 +1,11 @@
+.success-img { padding-top: 2.0rem; text-align: center; background-color: #fff; }
+.success-img img { width: 2.95rem; height: 2.95rem; }
+.success-img p { color: #7abd54; font-size: 0.9rem; padding-top:1rem; padding-bottom: 1.45rem; }
+.pay-success { background-color: #fff; }
+.pay-success-details { margin: 1rem; padding: 1rem 0; }
+.pay-success-details > a { display: block; width: 100%; height: 2.25rem; line-height: 2.25rem; margin-top: 2.0rem; font-size: 0.9rem; text-align: center; color: #fff; background-color: #ff7200; }
+.pay-success-details > p { line-height: 2.1; font-size: 0.8rem; }
+.pay-success-details > p span { color: #ca141c; }
+.pay-warning { border-top: 1px solid #d2d2d2; color: #999; font-size: 0.7rem; }
+.pay-warning p { margin-top: .5rem; }
+.pay-warning img { width: 0.95rem; height: 0.95rem; vertical-align: top; }

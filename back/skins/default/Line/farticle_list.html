@@ -1,0 +1,149 @@
+
+<!-- css Reset -->
+<link rel="stylesheet" href="__PUBLIC__/home/common/css/cssreset.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/farticle_list.css"/>
+<style>
+	.article-information-img {
+	    position: relative;
+	    width: 1000px !important;
+	    height: 210px;
+	    margin: 0 auto;
+	    margin-bottom: 33px;
+	    background-color: #fff;
+	    overflow: visible !important;
+	}
+	.article-information-word {
+		width: 1000px !important;	
+	}
+	.article-information-img a , .article-information-word a { position: absolute; top:0; left:0; width: 100%; height: 100%; }
+</style>
+
+<div class="modal fade custom-width" id="modalArticleSelect">
+	<div class="modal-dialog" style="width: 80%;">
+		<div class="modal-content">
+			
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h2 class="modal-title">文章选择</h2>
+			</div>
+			
+			<div class="modal-body">
+				<div class="modal-search">
+					<input id="article_cnt" type="text" placeholder="输入您想要的文章标题"><a class="modal_farticle_search" href="javascript:;">搜索</a>
+				</div>
+				<div class="modal-list">
+				</div>
+				<!-- 翻页 -->
+				<div class="modal-page" data-page-count="1" data-page-index="1"></div>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="__PUBLIC__/home/js/page.js"></script>
+<script>
+		//打开modal
+		var funcModalArticleCallBack = null;
+		var modalArticleFireObject = null;
+		function showModalArticleSelect(obj, func) {
+			modalArticleFireObject = obj;
+			funcModalArticleCallBack = func;		
+			// 清空所有选项
+			modalArticleSelectClear();	
+			$("#modalArticleSelect").modal('show', {backdrop: 'static'});	
+		}
+		
+		// 切换选择
+		function modalArticleSelectChangeChecked (){
+			$(this).toggleClass('article-choosed');
+		}
+		
+		// 清空选中
+		function modalArticleSelectClear (){
+			$("#modalArticleSelect").find('.article-choosed').removeClass('article-choosed');
+		}
+		
+		//切换选中
+		$('#modalArticleSelect').find('.article-choose').click(function(){
+			$(this).toggleClass('article-choosed');
+		})
+		
+		$('#modalArticleSelect').find('.modal_farticle_search').click(function(){
+			changeModalArticleSelectPage($('.modal-page').attr('data-page-index'));
+		});
+
+		// 初始化翻页
+		constructionPage('.modal-page', 1, 1, changeModalArticleSelectPage, true);
+	    
+	    // 切换页码
+	    function changeModalArticleSelectPage(p) {
+	    	var cdsstr = 'cnt|' + $('#article_cnt').val();
+	    	var jsonData = {
+	    		op_type: 'list',
+	    		cds: cdsstr,
+	    		page: p - 1 ,
+	    	}
+	    	$.post('{:U("line/article")}', jsonData, function(data){	    		
+				if (typeof(data.ds) != 'undefined' && data.ds != null) {
+					$('.modal-list').empty();
+					for (var i=0; i<data.ds.length; i++) {
+						var d = data.ds[i];
+						var include_image = typeof(d.face_image)=='undefined' ? false : true;
+						var vhtml = '<div class="article-information-img">';
+						if (include_image == false) {
+							vhtml = '<div class="article-information-word">'
+						}
+						
+						vhtml +='<div class="article-choose-content">'+
+								'	<i class="article-choose" data-id="'+d.id+'">选中</i>'+
+								'	<i class="article-choose-use">选中并使用</i>'+
+								'</div>';
+						if (include_image == true) {
+							vhtml +='	<div class="article-information-img-left">'+
+									'		<img src="'+d.face_image+'" alt="">'+
+									'	</div>';
+						}
+						if (include_image == false) {
+							vhtml +='	<div class="article-information-word-div">';
+						} else {
+							vhtml +='	<div class="article-information-img-right">';
+						}
+						vhtml +='		<h3>'+ d.title +'</h3>'+
+								'		<p>'+d.send_word+'</p>'+
+								'		<h6>'+d.create_time+'</h6>'+
+								'		<a href="'+'{:U("line/article")}/type/show/id/'+d.id+'" target="_blank"></a>'+
+								'	</div>'+
+								'</div>';
+						$('#modalArticleSelect').find('.modal-list').append(vhtml);
+						$('#modalArticleSelect').find('.article-choose-use:last').click(modalArticleSelectComfirm);
+						$('#modalArticleSelect').find('.article-choose:last').click(modalArticleSelectChangeChecked);
+					}
+					
+					// 根据情况判断是否重构分页
+					constructionPage('.modal-page', p, data.page_count, changeModalArticleSelectPage);
+				} 
+	    	});
+	    }
+	    
+	    $(document).ready(function(){
+	    	changeModalArticleSelectPage(1);
+	    });
+	    
+	    function modalArticleSelectComfirm() {
+	    	if ($(this).prev().hasClass('article-choosed') == false) {
+	    		$(this).prev().addClass('article-choosed');
+	    	}
+	    	
+	    	var selIds = [];	    	
+	    	$('#modalArticleSelect').find('.article-choosed').each(function(i,ev){
+	    		selIds.push($(this).attr('data-id'));
+	    	});
+	    	
+			$("#modalArticleSelect").modal('hide');	
+	    	funcModalArticleCallBack(modalArticleFireObject, selIds);
+	    }
+</script>
