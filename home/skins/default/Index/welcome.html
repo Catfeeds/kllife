@@ -26,9 +26,9 @@
 				<for start="1" end="7" comparison="elt">
 					<php> $lunboKey = 'lunbo'.$i; $lunboUrl = 'lunbo'.$i.'_url';</php>
 					<if condition="$i eq 1">
-						<li data-set="lunbo{$i}" style="display: block;"><a href="{$set[$lunboUrl]}" target="_blank" style="background-image:url({$set[$lunboKey]}); background-size: 100% 100%;"></a></li>
+						<li data-set="lunbo{$i}" style="display: block;"><a href="{$set[$lunboUrl]}" target="_blank" style="background-image:url({$set[$lunboKey]}); background-position: center center;"></a></li>
 						<else />
-						<li data-set="lunbo{$i}"><a href="{$set[$lunboUrl]}" target="_blank" style="background-image:url({$set[$lunboKey]}); background-size: 100% 100%;"></a></li>
+						<li data-set="lunbo{$i}"><a href="{$set[$lunboUrl]}" target="_blank" style="background-image:url({$set[$lunboKey]}); background-position: center center;"></a></li>
 					</if>
 				</for>
 			</ul>

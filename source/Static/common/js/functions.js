@@ -1,4 +1,7 @@
-document.write('<script language="javascript" src="http://kllife.com/source/Static/common/js/jquery.lazyload.js"></script>');
+document.write('<link rel="stylesheet" href="http://kllife.com/source/Static/assets/js/select2/select2.css">');
+document.write('<link rel="stylesheet" href="http://kllife.com/source/Static/assets/js/select2/select2-bootstrap.css">');
+document.write('<script src="http://kllife.com/source/Static/common/js/jquery.lazyload.js"></script>');
+document.write('<script src="http://kllife.com/source/Static/assets/js/select2/select2.min.js"></script>');
 
 // 自消失弹出框配置
 toastr.options = {

@@ -1612,7 +1612,7 @@ class BackLineHelp {
 			'`q2`.`price_adult`'=>'`price_adult`',
 			'`q2`.`price_child`'=>'`price_child`'
 		);
-		$params['join'] = array('INNER JOIN `kl_taocan_price` AS `q2` ON CONCAT(",",`q1`.`id`,",") LIKE `q2`.`userid`');
+		$params['join'] = array('INNER JOIN `kl_taocan_price` AS `q2` ON CONCAT(",",`q1`.`id`,",") LIKE `q2`.`taocan_ids`');
 		$params['sort'] = array('`q1`.`type`'=>'asc');
 		$conds = appendLogicExp('`q1`.`invalid`', '=', '0', 'AND', $conds);
 		$conds = appendLogicExp('`q2`.`invalid`', '=', '0', 'AND', $conds);

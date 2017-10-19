@@ -1907,18 +1907,36 @@ class FinancialController extends BackBaseController {
 				$findConds = appendLogicExp('confirm_admin', 'LIKE', '%'.$cds.'%', 'OR', $findConds);
 			}
 			
-			
 			$conds1 = appendLogicExp('review_type', 'LIKE', '%review_pass%');
 			$conds1 = appendLogicExp('review_type', 'LIKE', '%reviewing%', 'OR', $conds1);
 			$conds1 = appendLogicExp('review_type', 'LIKE', '%review_confirm_fail%', 'OR', $conds1);
 			$conds = appendLogicExp('cond1', '=', $conds1);
 			if (!empty($findConds)) {
 				$conds = appendLogicExp('condfind', '=', $findConds, 'AND', $conds);
+			}			
+			
+			$datestr = I('post.daterange','');
+			if (!empty($datestr)) {
+				$date = explode(' / ', $datestr);
+				$dateType = I('post.date_type', '');
+				if ($dateType == 'review') {
+					$dateConds = appendLogicExp('review_time', '>=', $date[0].' 00:00:00', 'AND', $dateConds);
+					$dateConds = appendLogicExp('review_time', '<=', $date[1].' 23:59:59', 'AND', $dateConds);
+				} else if ($dateType == 'confirm') {
+					$dateConds = appendLogicExp('confirm_time', '>=', $date[0].' 00:00:00', 'AND', $dateConds);
+					$dateConds = appendLogicExp('confirm_time', '<=', $date[1].' 23:59:59', 'AND', $dateConds);
+				} else {
+					$dateConds = appendLogicExp('request_time', '>=', $date[0].' 00:00:00', 'AND', $dateConds);
+					$dateConds = appendLogicExp('request_time', '<=', $date[1].' 23:59:59', 'AND', $dateConds);
+				}
+			}
+			if (!empty($dateConds)) {
+				$conds = appendLogicExp('conddate', '=', $dateConds, 'AND', $conds);
 			}
 			
 			$deposit = BackFinancialHelp::getTeamDepostList($conds, $startIndex, $pageSize, array('review_type'=>'desc', 'team_id'=>'desc', 'request_time'=>'desc', 'review_time'=>'desc'), array('obj_show'=>true), $out);			
 			$subCount = $pageSize - count($deposit);
-			$data['d1'] = $deposit;
+			$data['conds1'] = $conds;
 			if ($subCount > 0) {
 				$conds2 = appendLogicExp('review_type', 'NOT LIKE', '%review_pass%');
 				$conds2 = appendLogicExp('review_type', 'NOT LIKE', '%reviewing%', 'AND', $conds2);
@@ -1927,8 +1945,11 @@ class FinancialController extends BackBaseController {
 				if (!empty($findConds)) {
 					$conds = appendLogicExp('condfind', '=', $findConds, 'AND', $conds);
 				}			
+				if (!empty($dateConds)) {
+					$conds = appendLogicExp('conddate', '=', $dateConds, 'AND', $conds);
+				}
 				$deposit1 = BackFinancialHelp::getTeamDepostList($conds, $startIndex, $subCount, array('review_time'=>'desc', 'team_id'=>'desc', 'request_time'=>'desc','confirm_time'=>'desc'), array('obj_show'=>true));
-				$data['d2'] = $deposit1;
+				$data['conds2'] = $conds;
 				if (!empty($deposit1['ds'])) {
 					if (empty($deposit['ds'])) {
 						$deposit = $deposit1;

@@ -163,90 +163,8 @@
 
 									<script type="text/javascript">
 
-										$(document).ready(function(){
-
-											$("#batch_state").select2({
-
-		//										minimumInputLength: 1,
-
-												minimumResultsForSearch: Infinity,
-
-												placeholder: '选择批次的状态',
-
-												ajax: {
-
-													url: '{:U("help/listtypedata")}',
-
-													type: 'post',
-
-													dataType: 'json',
-
-													quietMillis: 100,
-
-													data: function(term, page) {
-
-														return {op:term, type_key:'line_batch_state'};
-
-													},
-
-													results: function(data, page){
-
-														if (data.result.errno == 0) {
-
-															if (data.ds == null) {
-
-																data.ds = new Array();	
-
-															}
-
-															data.ds[$(data.ds).length] = {'id':'-1','data_type_id':'-1','type_key':'','type_desc':'添加类型','can_delete':'0'};
-
-															return { results: data.ds }
-
-														} else {
-
-															return { results: '' };	
-
-														}
-
-													},
-
-													cache: true,
-
-												},
-
-												formatResult: function(data) { 					
-
-													if (data.type_desc == '添加类型') {
-
-														return '<button class="btn btn-blue btn-xs">添加类型</button>';
-
-													} else {
-
-														return '<div class="select2-user-result cx_border02">' + data.type_desc + '</div>';
-
-													}							
-
-												},	
-
-												formatSelection: function(data) {
-
-													if (data.type_desc == '添加类型') {													
-
-														showModalTypeDataDialog('line_batch_state');
-
-														return '添加后请移除我'
-
-													} else {											
-
-														return data.type_desc;	
-
-													}
-
-												},						
-
-											});
-
+										$(document).ready(function(){											
+											bindTypeDataDropMenu("#batch_state", 'line_batch_state', '选择批次使用状态');
 										});
 
 									</script>
@@ -268,90 +186,8 @@
 									<script type="text/javascript">
 
 										$(document).ready(function(){
-
-											var payTypeObj = $("#batch_holiday").select2({
-
-		//										minimumInputLength: 1,
-
-												minimumResultsForSearch: Infinity,
-
-												placeholder: '选择批次的节日状态',
-
-												ajax: {
-
-													url: '{:U("help/listtypedata")}',
-
-													type: 'post',
-
-													dataType: 'json',
-
-													quietMillis: 100,
-
-													data: function(term, page) {
-
-														return {op:term, type_key:'line_batch_holiday'};
-
-													},
-
-													results: function(data, page){
-
-														if (data.result.errno == 0) {
-
-															if (data.ds == null) {
-
-																data.ds = new Array();	
-
-															}
-
-															data.ds[$(data.ds).length] = {'id':'-1','data_type_id':'-1','type_key':'','type_desc':'添加类型','can_delete':'0'};
-
-		//														console.log(JSON.stringify(data.ds));
-
-															return { results: data.ds }
-
-														} else {
-
-															return { results: '' };	
-
-														}
-
-													},
-
-													cache: true,
-
-												},
-
-												formatResult: function(data) { 					
-
-													if (data.type_desc == '添加类型') {
-
-														return '<button class="btn btn-blue btn-xs">添加类型</button>';
-
-													} else {
-
-														return '<div class="select2-user-result cx_border02">' + data.type_desc + '</div>';
-
-													}							
-
-												},	
-
-												formatSelection: function(data) {
-
-													if (data.type_desc == '添加类型') {													
-
-														showModalTypeDataDialog('line_batch_holiday');
-
-														return '添加后请移除我'
-
-													} else {											
-
-														return data.type_desc;	
-
-													}
-
-												},						
-
-											});
+											
+											bindTypeDataDropMenu("#batch_holiday", 'line_batch_holiday', '选择批次使用状态');
 
 										});
 
@@ -377,90 +213,8 @@
 
 									<script type="text/javascript">
 
-										$(document).ready(function(){
-
-											$("#batch_use").select2({
-
-		//										minimumInputLength: 1,
-
-												minimumResultsForSearch: Infinity,
-
-												placeholder: '选择批次使用状态',
-
-												ajax: {
-
-													url: '{:U("help/listtypedata")}',
-
-													type: 'post',
-
-													dataType: 'json',
-
-													quietMillis: 100,
-
-													data: function(term, page) {
-
-														return {op:term, type_key:'line_batch_use'};
-
-													},
-
-													results: function(data, page){
-
-														if (data.result.errno == 0) {
-
-															if (data.ds == null) {
-
-																data.ds = new Array();	
-
-															}
-
-															data.ds[$(data.ds).length] = {'id':'-1','data_type_id':'-1','type_key':'','type_desc':'添加类型','can_delete':'0'};
-
-															return { results: data.ds }
-
-														} else {
-
-															return { results: '' };	
-
-														}
-
-													},
-
-													cache: true,
-
-												},
-
-												formatResult: function(data) { 					
-
-													if (data.type_desc == '添加类型') {
-
-														return '<button class="btn btn-blue btn-xs">添加类型</button>';
-
-													} else {
-
-														return '<div class="select2-user-result cx_border02">' + data.type_desc + '</div>';
-
-													}							
-
-												},	
-
-												formatSelection: function(data) {
-
-													if (data.type_desc == '添加类型') {													
-
-														showModalTypeDataDialog('line_batch_use');
-
-														return '添加后请移除我'
-
-													} else {											
-
-														return data.type_desc;	
-
-													}
-
-												},						
-
-											});
-
+										$(document).ready(function(){											
+											bindTypeDataDropMenu("#batch_use", 'line_batch_use', '选择批次使用状态');
 										});
 
 									</script>
@@ -939,6 +693,8 @@
 							line_id: $('#line_id').val(),
 							
 							start_time: startDate,
+							
+							invalid: 0,
 							
 						}
 						

@@ -414,14 +414,11 @@ class LineController extends BackBaseController {
 	
 	// 预览产品
 	private function previewLine($aa) {
-		$setObj = ModelBase::getInstance('set');
-		$ds['station_id'] = 1;
-		$ds['type'] = 'back_line_preview';
-		$ds['key'] = 'preview_line_'.$aa['id'];
+		$lineObj = ModelBase::getInstance('line');
 		$val['salt'] = substr(uniqid(rand()), -8);
 		$val['time'] = fmtNowDateTime();
-		$ds['value'] = json_encode($val);
-		$data['result'] = $setObj->create($ds, $setId);
+		$ds['preview_salt'] = json_encode($val);
+		$data['result'] = $lineObj->modify($ds, appendLogicExp('id', '=', $aa['id']));
 		$data['salt'] = $val['salt'];
 		$this->ajaxReturn($data);
 	}
@@ -2563,9 +2560,18 @@ class LineController extends BackBaseController {
 			$data['result'] = error(-1, '生成预览链接错误，参数信息有误');
 			$this->ajaxReturn($data);
 		}
+		$subject = BackLineHelp::getSubject(appendLogicExp('id','=',$aa['id']));
+		
+		$val['salt'] = substr(uniqid(rand()), -8);
+		$val['time'] = fmtNowDateTime();
+		$ds['preview_salt'] = my_json_encode($val);
+		$subjectObj = ModelBase::getInstance('subject');
+		$data['result'] = $subjectObj->modify($ds, appendLogicExp('id', '=', $aa['id']));
+		$data['salt'] = $val['salt'];
+		
 		$data['result'] = error(0, '');
 		$host = C('TMPL_PARSE_STRING.{__GLOBAL_HOST_URL__}');
-		$url = U('line/subject',array('id'=>$aa['id']));
+		$url = U('line/subject',array('id'=>$aa['id'], 'p'=>$data['salt']));
 		$url = str_replace('back','home',$url);
 		$data['jumpUrl'] = $host.substr($url, 1);
 		$this->ajaxReturn($data);

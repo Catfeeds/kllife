@@ -1,8 +1,10 @@
 <include file="Common/top" />
 <!-- 日历 -->
 <link rel="stylesheet" href="__PUBLIC__/home/common/css/jcDate.css">
+<!-- 新日历 -->
+<link rel="stylesheet" href="__PUBLIC__/common/css/calendar.css">
 <!-- 私有样式 -->
-<link rel="stylesheet" href="__PUBLIC__/home/css/content.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/content_test.css">
 <style type="text/css">
 	.location-station-tel {
 		font: 20px '微软雅黑';
@@ -23,6 +25,11 @@
 		width:267px;
 		float: left;
 		margin-right:20px;
+		}
+.information > p { line-height: 1.3; text-align: center;color:#666; font-size: 12px;}
+.information > p.line_batch_state_success{color: orange;}
+.information > p.line_batch_state_overdue{color: #666;}
+.hover-day span,.hover-day .information > p { color:#fff;}
 	}
 </style>
 
@@ -144,7 +151,7 @@
 
 				<volist id="theme" name="line.theme_type_list">
 
-					<a class="{$theme['type_key']}" href="javascript:;">{$theme.type_desc}</a>
+					<a class="{$theme['type_key']} theme_tag" href="javascript:;">{$theme.type_desc}</a>
 
 					<div class="qj-box">
 
@@ -237,7 +244,7 @@
 
 			<div class="travel-overview-left-bottom">
 
-				<div class="calendar" id="calendar">
+				<!--<div class="calendar" id="calendar">
             		<div  class="calendar-nav">
 						<a href="javascript:;" class="fa  fa-2x fa-angle-left arrow"><i class="iconfont">&#xe649;</i></a>
 						<a href="javascript:;" class="fa fa-2x fa-angle-right arrow"><i class="iconfont">&#xe600;</i></a>
@@ -253,7 +260,8 @@
 						<li>六</li>
 					</ul>
 					<div class="calendar_content"  id="calendarDiv"></div>
-				</div>
+				</div>-->
+				<div class="mycalendar" style="width: 620px;"></div>
 
 			</div>
 
@@ -293,8 +301,8 @@
 								<if condition="empty($line['check_price'])">
 									<strong>核算中</strong>
 								<else />
-										￥<strong>{$line.start_price_adult}</strong>元起/成人
-										<i>({$line.start_price_child}元起/儿童)</i>
+										￥<strong class="price_adult">{$line.start_price_adult}</strong>元起/成人
+										(<i class="price_child">{$line.start_price_child}</i>元起/儿童)
 								</if>
 							</span>
 							
@@ -344,10 +352,10 @@
                     
                     <div id="cfrq" class="tclx" style="margin:0px;">
 						<if condition="empty($line['taocanList']) neq true">
-							<b style="height:70px;">套餐类型</b>						
+							<b style="padding-top:7px; height:28px;">套餐类型</b>						
 							<div class="div taocan-list">
 								<volist id="taocan" name="line.taocanList">					
-									<div data-id="{$taocan.id}" data-date="0">
+									<div class="taocan" data-id="{$taocan.id}" data-date="0">
 										<p>{$taocan.name}</p>
 										<img src="__PUBLIC__/home/images/content_img/taocan_active.png" alt="" />
 									</div>
@@ -366,13 +374,7 @@
 								<u>未知时间</u>解散
 							</div>
 							<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
-							<ul class="cfrq_batch_list">
-								<php>
-									foreach($line['batchs'] as $bk=>$bv) {
-										echo('<li data-id="'.$bv['id'].'" data-val="'.$bv['start_date_show'].'" data-end-date="'.$bv['end_date_show'].'" data-state="'.$bv['state_data']['type_key'].'">'.$bv['start_date_show'].'['.$bv['state_data']['type_desc'].']</li>');
-									}
-								</php>
-							</ul>
+							<ul class="cfrq_batch_list"></ul>
 						</div>
 					</div>
 					<div id="cyrs">
@@ -996,639 +998,138 @@
 
 <script src="__PUBLIC__/home/js/gundong.js"></script>
 <script src="__PUBLIC__/home/js/jquery.qrcode.min.js"></script>
+<script src="__PUBLIC__/common/js/calendar.js"></script>
 <include file="Common/right" />
 <include file="Common/bottom" />
-<script>
-	//日历
-		var oDiv = document.getElementById('calendar_nav');
-		var oDate = new Date();
-		var Syear = oDate.getFullYear();
-	    var Smonth = oDate.getMonth()+1;
-	    if(Smonth<10){
-	    	Smonth = "0"+ Smonth
-	    }else{
-	    	Smonth = Smonth
-	    }
-		var oCalendar = document.getElementById('calendarDiv');
-		calendarTit(oDiv,oCalendar,Syear,parseInt(Smonth));
-		var bBtn = true;
-		
-	function finalDay() {
-        for (var n = 1; n < $('#calendarDiv tr td').length + 1; n++) {
-            if (n % 7 == 0) {
-                $('#calendarDiv tr td:eq('+ (n - 1) +')').addClass('final-day');
-            }
-        };
-    }
-
-    // 初始化批次信息
-    function initCalendarBatch(y) {
-        var lineId = '{$line.id}';
-        var vtype = 'find_batch';
-        
-        //套餐选中
-        var taocanIds = ',';
-		$('.tclx .taocan-list').find('div.active').each(function(){
-			taocanIds += $(this).attr('data-id') + ',';
-		});
-		if (taocanIds != ',') {
-        	vtype = 'find_taocan_batch';
+<script>       
+    // 页面加载完成
+    $(document).ready(function(){
+    	// 页面初始设置
+//    	pageInit();
+    	// 初始化日历
+//    	initCalendar();
+    	// 切换产品批次下拉列表
+//    	$('.cfrq_batch_list li').click(changeBatchList);  
+        //初始化产品问题
+//      changeQuestionPage();
+    });
+    
+    // 页面初始设置
+    function pageInit() {
+    	// 滚动到行程亮点
+        var schedule = '{$schedule}';
+        if (schedule != 'undefined') {
+            $('html, body').stop().animate({scrollTop: $('.travel-arrangements-content').offset().top - 160 }, 0);
         }
-		
-		//批次选中
-		var batchId = '';
-
-        var jsonData = {
-        	type:vtype,
-        	line_id:lineId,
-        	year:y,
-        	taocan_ids:taocanIds,
-        	batch_id:batchId,	
-        };
-        $.post('{:U("line/info")}', jsonData, function(data){
-			console.log(data)
-            if (data.result.errno == 0) {				
-                var batchs = new Object();
-                if (data.ds != null && typeof(data.ds) != 'undefined') {
-                    for (var i = 0; i < data.ds.length; i++) {
-                        var tempDate = new Date(Date.parse(data.ds[i]['start_time'].replace(/-/g,"/")));
-                        var td = tempDate.getFullYear()+'-'+(tempDate.getMonth()+1)+'-'+tempDate.getDate();
-                        batchs[td] = data.ds[i];
-                    }
+        // 选择有效的批次设置为已选批次
+        var fireJumped = false;
+        $('.cfrq_batch_list').find('li').each(function(i, ev){
+            var batchState = $(this).attr('data-state');
+            if (batchState != 'line_batch_state_overdue') {
+                if (fireJumped == false) {
+                    $(this).trigger('click');
+                    fireJumped = true;
                 }
-
-                $('#calendarDiv tr td').each( function(){
-                	$(this).find('.information').remove();
-                	$(this).removeClass('black');
-                	$(this).removeClass('gogogo');
-                    var curDate = $(this).attr('data-date');                    
-                    if (typeof(batchs[curDate]) != 'undefined') {						
-                        var b = batchs[curDate];
-                        var itemObj = $('.template_date_item').clone(true);
-                        $(itemObj).removeClass('template_date_item');
-                        $(itemObj).removeClass('hidden_ctrl');
-                        $(itemObj).find('img').attr('__PUBLIC_/home/images/content_img/yellow_arrow_bottom.png');
-                        $(itemObj).find('.information-people').html('余'+b.sub_member);
- 						$(itemObj).attr("data-number",b.end_date_show); 						
-                        var state = $.parseJSON(b.state);
-                        
-                        $(itemObj).find('.information-state').html(state.type_desc);
-                        
-                        if(state.type_desc == "确认成行"){
-							$(itemObj).find('.information-state').addClass("orange");
-						}
-						if(state.type_desc == "可报名"){
-							$(itemObj).find('.information-state').addClass("blue");
-						}
-						if(state.type_desc == "名额紧张"){
-							$(itemObj).find('.information-state').addClass("red");
-						}
-						
-                        if (b.price_adult == 0 && b.price_child == 0 && '{$line.free_line}' == '0') {
-                            $(itemObj).find('.adult-money').parent().html('成人价格：<span class="adult-money">核算中</span>');
-                            $(itemObj).find('.children-money').parent().html('儿童价格：<span class="children-money">核算中</span>');
-                            $(itemObj).find('.information-money').html('核算中');
-                        } else {
-                            $(itemObj).find('.adult-money').html(b.price_adult);
-                            $(itemObj).find('.children-money').html(b.price_child);
-                            $(itemObj).find('.information-money').html(b.price_adult+'元');
-                        }
-                        
-                        $(this).addClass('gogogo');
-                        $(this).attr('data-batch-id', b.id);
-                        $(this).append(itemObj);
-                    }
-                });
-            } else {
-                console.log(data.result.message);
             }
-            finalDay();
         });
     }
+    
+    // 初始化日历
+	var myCalendar = null;
+	function initCalendar() {
+		var option = {clickEventDay: clickDay};
+		myCalendar = $('.mycalendar').BatchCalendar();
+		var jsonData = {
+			type: 'find_line_batch',
+			line_id: '{$line.id}',
+			max_member: '{$line.max_team_count}',
+		}
+		$.post('{:U("line/info")}', jsonData, function(data){
+			if (data.months != null && $(data.months).length > 0) {
+				option['months'] = data.months;
+			}
+			if (data.ds != null) {
+				option['data'] = [];
+				for (var i=0; i<data.ds.length; i++) {
+					var b = data.ds[i];			
+					// 下拉列表数据
+					var liHtml = '<li data-id="'+b['id']+'" data-val="'+b['start_date_show']+'" data-end-date="'+b['end_date_show']+'" data-state="'+b['state_data']['type_key']+'">'+b['start_date_show']+'['+b['state_data']['type_desc']+']</li>';
+					$('.cfrq_batch_list').append(liHtml);
+					$('.cfrq_batch_list').find('li:last').data('ds', b);
+					
+					// 日历数据		
+                    var state = $.parseJSON(b.state);                                                                          
+                    var tdHtml = '<div class="information"><p class="information-state '+state.type_key+'">'+state.type_desc+'</p><p class="information-money">'+b.price_adult+'元</p></div>';
+                    var tipHtml = '<div class="information-details"><p><span class="information-people">余'+b.sub_member+'</span></p><p>成人价格：<span class="adult-money">'+b.price_adult+'</span>元/人</p><p>儿童价格：<span class="children-money">'+b.price_child+'</span>元/人</p></div>';
+                    if (b.price_adult == 0 && b.price_child == 0 && '{$line.free_line}' == '0') {
+                    	tdHtml = '<div class="information"><p class="information-state '+state.type_key+'">'+state.type_desc+'</p><p class="information-money">核算中</p></div>';
+                    	tipHtml = '<div class="information-details"><p><span class="information-people">余'+b.sub_member+'</span></p><p>成人价格：<span class="adult-money">核算中</span></p><p>儿童价格：<span class="children-money">核算中</span></p></div>';
+                    }
+					var dt = {
+						date: b.start_date_show,
+						text: tdHtml,
+						tip: tipHtml,
+						data: b,
+					}
+					option['data'].push(dt);
+				}
+				// 绑定批次列表事件
+				$('.cfrq_batch_list').find('li').click(changeBatchList);
+				// 设置日历
+				myCalendar.setData(option);				
+				// 设置页面定位				
+    			pageInit();
+			}
+		});
+	}
+	initCalendar();
 	
-	 // calendar_nav里span的内容 
-	 function  calendarTit(obj,obj1,year,month){
-
-		 var oDate = new Date(year,month-1);
-		//var oDate;
-		 for(var i=-12; i<12; i++){
-			 var ospan = document.createElement('span');
-			 obj.appendChild(ospan);
-			 ospan.innerHTML ='<b>'+year+'年</b>'+(month+i)+'月';
-			 ospan.setAttribute("mouth",(month+i));
-			 ospan.setAttribute("year",year);
-			 if((month+i)>12){
-				 year = oDate.getFullYear()+1;
-				 ospan.innerHTML ='<b>'+year+'年</b>'+((month+i)-12)+'月';
-				 ospan.setAttribute("mouth",((month+i)-12));
-				 ospan.setAttribute("year",year);
-			 }
-			 if((month+i)<1){
-				 year = oDate.getFullYear()-1;
-				 ospan.innerHTML ='<b>'+year+'年</b>'+((month+i)+12)+'月';
-				 ospan.setAttribute("mouth",((month+i)+12));
-				 ospan.setAttribute("year",year);
-			 }
-			 if((month+i)>0 && (month+i)<12){
-				 year = oDate.getFullYear();
-				 ospan.innerHTML ='<b>'+year+'年</b>'+((month+i))+'月';
-				 ospan.setAttribute("mouth",((month+i)));
-				 ospan.setAttribute("year",year);
-			 }
-			 if((month+i)>0 && (month+i)<10){
-				 year = oDate.getFullYear();
-				 ospan.innerHTML ='<b>'+year+'年</b>'+((month+i))+'月';
-				 ospan.setAttribute("mouth",((month+i)));
-				 ospan.setAttribute("year",year);
-			 }
-			 var oCon = document.createElement('div');
-			 obj1.appendChild(oCon);
-			 $(".calendar_nav").children().hide();
-			 $(".calendar_nav").children().slice(12,18).show();
-
-		 }
-
-		 for(var j=0; j<24; j++){
-			 var aSpan = obj.children;
-			 var aCon = obj1.children;
-			 aSpan[12].className = 'active';
-			 var oDate = new Date();
-			 showDate(aCon[12],aSpan[12].getAttribute("year"),aSpan[12].getAttribute("mouth"),true);
-			 aSpan[j].index = j;
-
-		 }
-
-	 }
-	 //获取当天
-		var spanlength =  oCalendar.getElementsByTagName('span');
-		var now = new Date();
-		for(var i=0;i<spanlength.length; i++) {
-			if(spanlength[i].getAttribute("day")==now.getDate() && spanlength[i].getAttribute("month")==(now.getMonth()+1) && spanlength[i].getAttribute("year")==now.getFullYear() ){
-				spanlength[i].className='today';
-			}
-		}
-	 
-	 function showDate(obj,year,month,bBtn){
-		 var oDate = new Date();
-		 var dayNum = 0;
-		 if(!obj.bBtn){
-			 var oTable = document.createElement('table');
-			 var oTbody = document.createElement('tBody');
-			 for(var i=0;i<6;i++){
-				 var oTr = document.createElement('tr');
-				 for(var j=0;j<7;j++){
-					 var ospan = document.createElement('span');
-					 var oTd = document.createElement('td');
-					 oTd.appendChild(ospan);
-					 oTr.appendChild(oTd);
-				 }
-				 oTbody.appendChild(oTr);
-
-			 }
-			 oTable.appendChild(oTbody);
-			 obj.appendChild(oTable);
-
-			 obj.bBtn = true;
-		 }
-		 //添加天数
-		 var aTd = obj.getElementsByTagName('span');
-		 for(var i=0;i<aTd.length;i++){
-			 aTd[i].innerHTML = ''; 
-		 }
-
-		 if(month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12){
-			 dayNum = 31;
-		 }
-		 else if(month==4 || month==6 || month==9 || month==11){
-			 dayNum = 30;
-		 }
-		 else if(month==2 && isLeapYear(year)){
-			 dayNum = 29;
-		 }
-		 else{
-			 dayNum = 28;
-		 }
-		
-		 oDate.setFullYear(year);
-		 oDate.setMonth(month-1);
-		 oDate.setDate(1); 
-		 for(var i=0;i<dayNum;i++){
-			 aTd[i+oDate.getDay()].innerHTML = i+1;
-			 $(aTd[i+oDate.getDay()]).attr('year',year);
-			 $(aTd[i+oDate.getDay()]).attr('month',month);
-			 $(aTd[i+oDate.getDay()]).attr('day',i+1);
-			 $(aTd[i+oDate.getDay()]).parent("td").attr('data-date',year+"-"+month+"-"+(i+1));
-		 }
-		 
-		for(var i=0;i<aTd.length;i++){
-			if(aTd[i].innerHTML==''){
-				aTd[i].parentNode.className='bg_black';
-			}
-		}
-		
-		//润年
-		function isLeapYear(year){
-			if(year%4==0 && year%100!=0){
-				return true;
-			}
-			else{
-				if(year%400==0){
-					return true;
-				}else{
-					return false;
-				}
-			}
-		}
-	 }
-
-
-	//有备注的日期鼠标进入与移出
-	$(document).on('mouseover mouseout', '.gogogo', function (event) {
-		if(event.type == "mouseover"){
-			$(this).find('.information-details').show();
-			$(this).find('img').show();			
-		}else if(event.type == "mouseout"){
-			$(this).find('.information-details').hide();
-			$(this).find('img').hide();
-		}
-	});
-
-	$(document).on('mouseover', '.gogogo', function () {
-		$(this).addClass("bg_yellow");
-//		var data_duibi = $(this).attr("data-date");
-//		var panduan_yue = $(this).attr("data-date").substr(6,1);
-//		if(panduan_yue == "-"){
-//			var data_yue = parseInt($(this).attr("data-date").substr(5,1));
-//			var data_date = parseInt($(this).attr("data-date").substr(7,2));
-//		}else{
-//			var data_yue = parseInt($(this).attr("data-date").substr(5,2));
-//			var data_date = parseInt($(this).attr("data-date").substr(8,2));
-//		}
-//
-//
-//		var date = $(this).find(".information").attr("data-number");
-//		var data_number = parseInt($(this).find(".information").attr("data-number").substr(8,2));
-//		if(data_date < data_number){
-//			var number = data_number - data_date
-//		}else{
-//			if(data_yue==1 || data_yue==3 || data_yue==5 || data_yue==7 || data_yue==8 || data_yue==10 || data_yue==12){
-//				var number = (31-data_date)+data_number
-//			}else if(data_yue==4 || data_yue==6 || data_yue==9 || data_yue==11){
-//				var number = (30-data_date)+data_number
-//			}else if(data_yue==2 && isLeapYear(year)){
-//				var number = (29-data_date)+data_number
-//			}else{
-//				var number = (28-data_date)+data_number
-//			}
-//		}
-//		var thisObj = this;
-//		var day = number+1, startChange = false;
-//		var tdObjs = $('#calendarDiv').find('table tbody td').each(function(i, ev){
-//			if (this == thisObj) {
-//				startChange = true;
-//			}
-//			if (startChange && day > 0) {
-//				$(this).addClass("bg_yellow");
-//				day--;
-//			}
-//		});
-	})
-	$(document).on('mouseout', '.gogogo', function () {
-		$(this).removeClass("bg_yellow");
-//		var data_duibi = $(this).attr("data-date");
-//		var panduan_yue = $(this).attr("data-date").substr(6,1);
-//		if(panduan_yue == "-"){
-//			var data_yue = parseInt($(this).attr("data-date").substr(5,1));
-//			var data_date = parseInt($(this).attr("data-date").substr(7,2));
-//		}else{
-//			var data_yue = parseInt($(this).attr("data-date").substr(5,2));
-//			var data_date = parseInt($(this).attr("data-date").substr(8,2));
-//		}
-//
-//
-//		var date = $(this).find(".information").attr("data-number");
-//		var data_number = parseInt($(this).find(".information").attr("data-number").substr(8,2));
-//		if(data_date < data_number){
-//			var number = data_number - data_date
-//		}else{
-//			if(data_yue==1 || data_yue==3 || data_yue==5 || data_yue==7 || data_yue==8 || data_yue==10 || data_yue==12){
-//				var number = (31-data_date)+data_number
-//			}else if(data_yue==4 || data_yue==6 || data_yue==9 || data_yue==11){
-//				var number = (30-data_date)+data_number
-//			}else if(data_yue==2 && isLeapYear(year)){
-//				var number = (29-data_date)+data_number
-//			}else{
-//				var number = (28-data_date)+data_number
-//			}
-//		}
-//		var thisObj = this;
-//		var day = number+1, startChange = false;
-//		var tdObjs = $('#calendarDiv').find('table tbody td').each(function(i, ev){
-//			if (this == thisObj) {
-//				startChange = true;
-//			}
-//			if (startChange && day > 0) {
-//				$(this).removeClass("bg_yellow");
-//				day--;
-//			}
-//		});
-	});
+	var thisBatch = null;
+	// 点击产品产品批次
+	function clickDay(date, obj, data) {
+		thisBatch = data;
+		// 设置价格
+		$('.right-content-money').find('.price_adult').html(data.price_adult);
+		$('.right-content-money').find('.price_child').html(data.price_child);
+		// 设置当前列表的日期
+		$('.cfrq_select_batch').attr('data-id', data.id);
+		var vhtml = data.start_date_show+'['+data.state_data.type_desc+']';
+		$('.cfrq_select_batch').html(vhtml);
+		$('.cfrq-show').find('u:first').html(data.start_date_show);
+		$('.cfrq-show').find('u:last').html(data.end_date_show);
+		$('.cfrq-show').show()
+	}
+	
+	// 设置产品批次
+	function setBatch(datestr, bFireEvent) {
+		if (bFireEvent != null && bFireEvent != 'undefined' && bFireEvent == true) {
+			var date = datestr.split('-');
+			myCalendar.setMonthDate(date[0], date[1], date[2]);		
+		} 
+		var liObj = $('.cfrq_batch_list[dat="'+datestr+'"]');
+	}
+	
+	// 切换产品批次
+	function changeBatchList() {
+		$(this).parent().fadeOut();
+		var startdate = $(this).attr('data-val');
+		var d = $(this).data('ds');
+		thisBatch = d;
+		var date = startdate.split('-');
+		// 设置日历日期
+		myCalendar.setMonthDate(date[0], date[1], date[2]);
+		// 设置价格
+		$('.right-content-money').find('.price_adult').html(d.price_adult);
+		$('.right-content-money').find('.price_child').html(d.price_child);
+		// 设置当前列表的日期
+		$('.cfrq_select_batch').attr('data-id', $(this).attr('data-id'));
+		$('.cfrq_select_batch').html($(this).html());
+		var enddate = $(this).attr('data-end-date');
+		$('.cfrq-show').find('u:first').html(startdate);
+		$('.cfrq-show').find('u:last').html(enddate);
+		$('.cfrq-show').show()
+	}
     
-    //点击批次选中
-	$(document).on('click', '.gogogo', function () {
-		//高亮显示
-        $(this).parents('#calendarDiv div').find('.gogogo').removeClass('bg-high-color');
-        $(this).parents('#calendarDiv div').siblings().find('.gogogo').removeClass('bg-high-color');
-        $(this).addClass('bg-high-color');
-        
-        //获取日历上被点击的日期
-        var  dateNum = $(this).attr('data-date');
-        if(parseInt(dateNum.substr(5,2)) < 10){
-            var dateArr1 = dateNum.split('-');
-            dateArr1[1] = '0' + dateArr1[1];
-            dateNum = dateArr1.join('-');
-        };
-        if(parseInt(dateNum.substr(-2,2)) < 10){
-            var dateArr2 = dateNum.split('-');
-            dateArr2[2] = '0' + dateArr2[2];
-            dateNum = dateArr2.join('-');
-        };
-
-        $('.cfrq_batch_list li').each(function(){
-            //当日历所点击日期与下拉列表日期一致时
-            if( dateNum == $(this).attr('data-val') ){
-                $('.cfrq_select_batch').attr('data-id', $(this).attr('data-id'));
-                $('.cfrq-show').removeClass('hidden_ctrl');
-                $('.cfrq_select_batch').html($(this).html());
-                var dObj = $('.cfrq-show').find('u');
-                $(dObj[0]).html($(this).attr('data-val'));
-                $(dObj[1]).html($(this).attr('data-end-date'));
-            }
-        });
-        
-        //设置套餐可选状态
-		$('.tclx .taocan-list div').each(function(){
-			$(this).removeClass();
-			$(this).addClass('disabled');
-		});
-        var lineId = '{$line.id}';
-        var mouth = $('#calendar_nav').find('span.active').attr("mouth");
-		var year = $('#calendar_nav').find('span.active').attr("year");
-		if(mouth <= 9){
-			mouthnext= "0"+mouth
-		}else{
-			mouthnext= mouth
-		}
-		
-		var batchId = $(this).attr('data-batch-id');		
-        var jsonData = {
-        	type:'find_taocan_batch',
-        	line_id:lineId,
-        	year:year+"-"+mouthnext,
-        	batch_id:batchId,
-        };
-        $.post('{:U("line/info")}', jsonData, function(data){
-        	console.log(data);
-        	if (data.result.errno == 0) {
-        		if (data.taocan_ids != null && typeof(data.taocan_ids) != 'undefined') {
-                     for(i = 0; i < data.taocan_ids.length; i++){
-					 	$('.tclx .taocan-list').find('div[data-id="'+data.taocan_ids[i]+'"]').removeClass();
-					 }
-                }
-        	}
-        });        
-        
-		initCalendarBatch(year+"-"+mouthnext);
-    });
-    
-    $('.cfrq_batch_list li').on("click",function(){
-    	$('#calendarDiv div').find('.gogogo').removeClass('bg-high-color');
-        $('#calendarDiv div').siblings().find('.gogogo').removeClass('bg-high-color');
-        
-        var nianyue = $(this).attr("data-val");
-        var nian = nianyue.substr(0,4);
-        var yue =  nianyue.substr(5,2);
-       	if(yue<10){
-        	var yueyue = yue.substr(1,1);
-        }else(
-        	yueyue = yue
-        )
-        var ri =  nianyue.substr(8,2);
-        if(ri<10){
-        	var ri = ri.substr(1,1);
-        }else(
-        	ri = ri
-        )
-        var nianyueri = nian+"-"+yueyue+"-"+ri
-        var spans = $("#calendar_nav span");
-        
-        if (!!document.getBoxObjectFor || window.mozInnerScreenX != null) {
-	    	HTMLElement.prototype.__defineSetter__("outerText", function(sText) {
-		        var parsedText = document.createTextNode(sText);
-		        this.parentNode.replaceChild(parsedText, this);
-		        return parsedText;
-    		});
-		    HTMLElement.prototype.__defineGetter__("outerText", function() {
-		        var r = this.ownerDocument.createRange();
-		        r.selectNodeContents(this);
-		        return r.toString();
-		    });
-		}	
-        for(var i=0;i<spans.length;i++){
-        	var rilinian = spans[i].outerText.substr(0,4)
-        	var panduanyue  = spans[i].outerText.substr(6,1)
-        	if(panduanyue == "月"){
-        		var riliyue = "0"+spans[i].outerText.substr(5,1)
-        	}else{
-        		var riliyue = spans[i].outerText.substr(5,2)
-        	}
-        	if(rilinian == nian && riliyue == yue){
-        		spans[i].click();
-        	}
-        }
-        var tds = $("#calendarDiv div").find("td");
-        for(var j=0;j<tds.length;j++){
-        	if(tds[j].dataset.date == nianyueri){
-        		$(tds[j]).addClass("bg-high-color");
-        	}
-		}
-    });
-    	//前后追加日期
-		function  addri(){
-			var index = $(".calendar_nav").find(".active").index();
-			var month = $(".calendar_nav").find(".active").attr("mouth");
-			var number = 1;
-			var tds = $("#calendarDiv div:visible").find("tr:first").find(".bg_black"); 
-			var tdss = $("#calendarDiv div:visible").find("tr:nth-child(5)").find(".bg_black");
-			var tdsss = $("#calendarDiv div:visible").find("tr:last").find(".bg_black")
-			for(var a=0;a<tdsss.length;a++){
-				tdss.push(tdsss[a]);
-			}
-			var daysanshiyi = 31-tds.length;
-			var daysanshi = 30-tds.length;
-			var dayershiba = 28-tds.length;
-			if(month==2 || month==4 || month==6 || month==8 || month==9 || month==11 || month==1){
-				for(var i=0;i<tds.length;i++){
-					daysanshiyi++;
-					$(tds[i]).find("span").html(daysanshiyi);
-				}
-			}else if(month==5 || month==7 || month==10 || month==12){
-				for(var i=0;i<tds.length;i++){
-					daysanshi++;
-					$(tds[i]).find("span").html(daysanshi);
-				}
-			}else if(month==3){
-				for(var i=0;i<tds.length;i++){
-					dayershiba++;
-					$(tds[i]).find("span").html(dayershiba);
-				}
-			}
-			for(var d=0;d<tdss.length;d++){
-				$(tdss[d]).find("span").html(number);
-				number++;
-			}
-			
-		}
-		//右箭头
-	$(".fa-angle-right").click(function(){
-		var mouth = $(".calendar_nav").children("span[class=active]").attr("mouth");
-		var year = $(".calendar_nav").children("span[class=active]").attr("year");
-		 
-		var mouthnext = $(".calendar_nav").children("span[class=active]").next().attr("mouth");
-		var yearnext = $(".calendar_nav").children("span[class=active]").next().attr("year");
-		 
-		if(mouthnext <= 9){
-			mouthnext= "0"+mouthnext
-		}else{
-			mouthnext= mouthnext
-		}
-		var index = $(".calendar_nav").children("span[class=active]").index();
-		console.log(index);
-		if(index>22 || index<0 || isNaN(index)){
-			$(".calendar_nav").children().eq(23).addClass("active").show();
-			$(".calendar_content").children().eq(23).show();
-			e.stopPropagation();
-			return false;
-		}
-		$(".calendar_nav").children().removeClass("active");
-		$(".calendar_nav").children().eq(index+1).addClass("active").show();
-
-		$(".calendar_content").children().hide();
-		$(".calendar_content").children().eq(index+1).show().addClass("load-right");
-		$(".calendar_content").children().eq(index).addClass("load-right");
-		if(index>=5){
-			$(".calendar_nav").children().eq(index-5).hide();
-		}
-		if($(".calendar_content").children().eq(index+1).hasClass("load-left") || $(".calendar_content").children().eq(index+1).hasClass("load")){
-		}else{
-			showDate($(".calendar_content").children().eq(index+1)[0],$(".calendar_nav").children("span[class=active]").attr("year"),$(".calendar_nav").children("span[class=active]").attr("mouth"),true);
-			if(index>=5){
-				$(".calendar_nav").children().eq(index-5).hide();
-			}
-			
-		}
-		// 初始化批次信息
-		initCalendarBatch(yearnext+"-"+mouthnext);
-		console.log(yearnext+"-"+mouthnext);
-		addri();
-	 });
-	 
-	 //左箭头
-	 $(".fa-angle-left").click(function(){
-		 var mouth = $(".calendar_nav").children("span[class=active]").attr("mouth");
-		 var year = $(".calendar_nav").children("span[class=active]").attr("year");
-		 
-		 var mouthnext = $(".calendar_nav").children("span[class=active]").prev().attr("mouth");
-		 var yearnext = $(".calendar_nav").children("span[class=active]").prev().attr("year");
-		 
-		 if(mouthnext <= 9){
-		 	mouthnext= "0"+mouthnext
-		 }else{
-		 	mouthnext= mouthnext
-		 }
-		 
-		 var index = $(".calendar_nav").children("span[class=active]").index();
-		 console.log(index)
-		 if(index==0 || isNaN(index)){
-			 $(".calendar_nav").children().eq(0).addClass("active").show();
-			 $(".calendar_content").children().eq(0).show();
-			 e.stopPropagation();
-
-			 return false;
-		 }
-		 $(".calendar_nav").children().slice(index,index+7).show();
-		 $(".calendar_nav").children().removeClass("active");
-		 $(".calendar_nav").children().eq(index-1).addClass("active").show();
-		 $(".calendar_content").children().hide();
-		 $(".calendar_content").children().eq(index-1).show().addClass("load-left");
-		 $(".calendar_content").children().eq(index).addClass("load-left");
-		 if($(".calendar_content").children().eq(index-1).hasClass("load-right") || $(".calendar_content").children().eq(index-1).hasClass("load")){
-//		 	console.log(index-1)
-		 }else{
-		 	showDate($(".calendar_content").children().eq(index-1)[0],$(".calendar_nav").children("span[class=active]").attr("year"),$(".calendar_nav").children("span[class=active]").attr("mouth"),true);
-			 if(index>11){
-				 $(".calendar_nav").children().eq(index+7).hide();
-			 }
-			 
-		 }
-		 // 初始化批次信息
-         initCalendarBatch(yearnext+"-"+mouthnext);
-         console.log(yearnext+"-"+mouthnext);
-         addri();
-	 });
-	 
-	 //点击月份
-	 $("#calendar_nav").on("click","span",function(){
-		 var mouth = $(this).attr("mouth");
-		 var year = $(this).attr("year");
-		 
-		 if(mouth <= 9){
-		 	mouthnext= "0"+mouth
-		 }else{
-		 	mouthnext= mouth
-		 }
-		 var index = $(this).index();
-		 console.log(index)
-		 if(index==0 || isNaN(index)){
-			 $(".calendar_nav").children().eq(0).addClass("active").show();
-			 $(".calendar_content").children().eq(0).show();
-			 e.stopPropagation();
-
-			 return false;
-		 }
-		 $(".calendar_nav").children().slice(index,index+7).show();
-		 $(".calendar_nav").children().removeClass("active");
-		 $(this).addClass("active").show();
-		 $(".calendar_content").children().hide();
-		 $(".calendar_content").children().eq(index).show();
-		 if($(".calendar_content").children().eq(index).hasClass("load") || $(".calendar_content").children().eq(index).hasClass("load-left") ||$(".calendar_content").children().eq(index).hasClass("load-right")){
-		 }else{
-		 	showDate($(".calendar_content").children().eq(index)[0],$(".calendar_nav").children("span[class=active]").attr("year"),$(".calendar_nav").children("span[class=active]").attr("mouth"),true);
-			 if(index>11){
-				 $(".calendar_nav").children().eq(index+7).hide();
-			 }
-			 
-		 }
-		 // 初始化批次信息
-         initCalendarBatch(year+"-"+mouthnext);
-         console.log(year+"-"+mouthnext);
-		 $(".calendar_content").children().eq(index).addClass("load");
-		 addri();
-	 });
-	   
- 	
-</script>
-<script>
-    //摄影游，民族行，深度游
-    $('.bread-nav u a').each(function(){
-        if($(this).text() == '摄影游') {
-            $(this).addClass('sheying');
-        }else if($(this).text() == '民族行'){
-            $(this).addClass('zhuti');
-        }
-    });
-
-
     //识别中文二维码
     var oUrl = window.location.href;
     function toUtf8(oUrl) {
@@ -1650,7 +1151,8 @@
         }
         return out;
     }
-
+	
+	// 打开微信弹出框
     $('.weixin').click(function(){
         if($(".share-code").css('display') != 'none'){
             return false;
@@ -1666,6 +1168,7 @@
         });
     });
 
+	// 关闭微信弹出框
     $('.share-code > h4 a').click(function(){
         $('.share-code').hide();
         $('#code').html('');
@@ -1677,32 +1180,44 @@
     });
 
 	//套餐类型
+	var thisBatchTaocan = null;
 	$(".tclx .taocan-list div").on("click",function(){
 		if ($(this).hasClass('disabled')) {
 			return false;
-		}
-		var number = $(this).attr("data-date")
-		if(number == 1){
-			$(this).addClass("disabled")
-		}else{
-			$(this).toggleClass("active").siblings().removeClass("active");
+		}		
+		
+		$(this).parent().find('.taocan').removeClass('active');
+		$(this).addClass('active');
+		
+		var taocanIds = ',';
+		$('.tclx').find('.taocan.active').each(function(i,ev){
+			taocanIds += $(this).attr('data-id') + ',';
+		});
+		
+		if (thisBatchTaocan != null && thisBatchTaocan.taocan_ids == taocanIds) {
+			return false;
 		}
 		
-		var mouth = $('#calendar_nav').find('span.active').attr("mouth");
-		var year = $('#calendar_nav').find('span.active').attr("year");
-		if(mouth <= 9){
-			mouthnext= "0"+mouth
-		}else{
-			mouthnext= mouth
+		var jsonData = {
+			type: 'find_taocan_batch',
+			line_id: thisBatch.line_id,
+			batch_id: thisBatch.id,
+			taocan_ids: taocanIds,
+			year: thisBatch.start_date_show,
 		}
-		initCalendarBatch(year+"-"+mouthnext);		
+		$.post('{:U("line/info")}', jsonData, function(data){
+			if (data.ds != null) {
+				thisBatchTaocan = data.ds[0];
+				// 设置价格
+				if (thisBatchTaocan.tc_price_adult != null) {
+					$('.right-content-money').find('.price_adult').html(thisBatchTaocan.tc_price_adult);
+				}
+				if (thisBatchTaocan.tc_price_child != null) {
+					$('.right-content-money').find('.price_child').html(thisBatchTaocan.tc_price_child);	
+				}		
+			}
+		});
 	});
-
-	
-    $('.alert-modal-top a').click(function(){
-        $('.mark').hide();
-        $('#alert-modal').hide();
-    });
 
     // 在线咨询
     $('.immediate-reservation').find('.zixun').click(function(){
@@ -1753,61 +1268,6 @@
             location.href = '{:U("line/order")}'+'/id/{$line.id}/type/create/b/'+batchId+'/m/'+male+'/w/'+woman+'/ch/'+child+tpUrlStr;
         }
     });
-    function testBatchClick(liObj) {
-        $('.cfrq_select_batch').attr('data-id', $(liObj).attr('data-id'));
-        $('.cfrq_select_batch').html($(liObj).html());
-        $('.cfrq-show').removeClass('hidden_ctrl');
-        var uObj = $('.cfrq-show').find('u');
-        $(uObj[0]).html($(liObj).attr('data-val'));
-        $(uObj[1]).html($(liObj).attr('data-end-date'));
-        //高亮显示
-        var dateNum = $(liObj).attr('data-val');
-        var dateArray2 = [];
-        dateArray2 = dateNum.split('-');
-        if(parseInt(dateArray2[1])<10){
-            dateArray2[1] = dateArray2[1].replace('0','');
-        }
-        if(parseInt(dateArray2[2])<10){
-            dateArray2[2] = dateArray2[2].replace('0','');
-        }
-        dateNum = dateArray2.join('-');
-        $('.jcDateColor').each(function(){
-            if(dateNum == $(liObj).attr('data-date')){
-                $(liObj).addClass('bg-high-color');
-            }
-        });
-    }
-    $(function(){
-        // 批次列表选择跳转
-        $('.cfrq_batch_list').find('li').click(function(){
-            testBatchClick($(this));
-        });
-    });
-    // 页面加载完成
-    $(document).ready(function(){
-        var schedule = '{$schedule}';
-        if (schedule != 'undefined') {
-            $('html, body').stop().animate({scrollTop: $('.travel-arrangements-content').offset().top - 160 }, 0);
-        }
-        var fireJumped = false;
-        $('.cfrq_batch_list').find('li').each(function(i, ev){
-            var batchState = $(this).attr('data-state');
-            if (batchState != 'line_batch_state_overdue') {
-                if (fireJumped == false) {
-                    $(this).trigger('click');
-                    fireJumped = true;
-                }
-            }
-        });
-        
-        // 初始化批次信息
-        /*var d = new Date();
-        var year = d.getFullYear();
-        initCalendarBatch(year+"-"+Smonth);*/
-        
-        //初始化问题
-        changeQuestionPage();
-    });
         
     //鼠标移出，下拉框收起
     $('.cfrq-choose').mouseleave(function(){
@@ -1819,26 +1279,6 @@
 		$('.cfrq_batch_list').show();
 	});
     
-    //计算两天相差
-    function diy_time(time1,time2){
-	    time1 = Date.parse(new Date(time1));
-	    time2 = Date.parse(new Date(time2));
-	    return time3 = Math.abs(parseInt((time2 - time1)/1000/3600/24));
-	}
-    
-    //搜索栏
-    $('.search-header input').focus(
-        function () {
-            $(this).parent().animate({width: '240px'}, 1000);
-            $(this).parent().animate({marginRight: '17px'}, 1000);
-        }
-    );
-    $('.search-header input').blur(
-        function () {
-            $(this).parent().animate({width: '220px'}, 1000);
-            $(this).parent().animate({marginRight: '17px'}, 1000);
-        }
-    );
     //显示与隐藏
     $('.nav-list-top').showAndHide();
     //鼠标移出，下拉框收起
@@ -1847,54 +1287,30 @@
     });
     //起价说明
     $('.right-content-money > a').hover(
-        function () {
-            $('.qj-explain').show();
-        } ,
-        function () {
-            $('.qj-explain').hide();
-        }
+        function () { $('.qj-explain').show();} ,
+        function () { $('.qj-explain').hide();}
     );
     // 产品主题类型浮动框
-    $('.shendu').hover(
-        function () {
-            $('.qj-box').show();
-        } ,
-        function () {
-            $('.qj-box').hide();
-        }
+    $('.theme_tag').hover(
+        function () { $('.qj-box').show();} ,
+        function () { $('.qj-box').hide();}
     );
     $('.qj-explain').hover(
-        function () {
-            $(this).show();
-        },
-        function () {
-            $(this).hide();
-        }
+        function () {$(this).show();},
+        function () {$(this).hide();}
     );
     $('.qj-box').hover(
-        function () {
-            $(this).show();
-        },
-        function () {
-            $(this).hide();
-        }
+        function () {$(this).show();},
+        function () {$(this).hide();}
     );
     //儿童标准
     $('.child-standard').hover(
-        function () {
-            $('.childern-explain').show();
-        } ,
-        function () {
-            $('.childern-explain').hide();
-        }
+    	function () {$('.childern-explain').show();} ,
+        function () {$('.childern-explain').hide();}
     );
     $('.childern-explain').hover(
-        function () {
-            $(this).show();
-        },
-        function () {
-            $(this).hide();
-        }
+        function () { $(this).show();},
+        function () { $(this).hide();}
     );
     //出游人数选择
     $("#cyrs div input").focus(function(){
@@ -1940,6 +1356,31 @@
         var fn = this.className.split(' ')[1];
         data04[fn]();
     });
+    //点击线路成交量弹出
+    $('#xlcjl').click( function () {
+        $("html,body").animate({scrollTop: 0}, 500);
+        $('.enrol-mark').show();
+        $('.enrol-list').show();
+    } );
+    //点击遮罩层隐藏
+    $('.enrol-mark').click( function () {
+        $('.enrol-mark').hide();
+        $('.enrol-list').hide();
+    } );
+    //点击关闭按钮隐藏
+    $('.close-enrol-list').click( function () {
+        $('.enrol-mark').hide();
+        $('.enrol-list').hide();
+    } );
+    //列表回到顶部
+    $('.backTop-enrol-list').click( function () {
+        $("html,body").animate({scrollTop: 0}, 500);
+    });
+    //下部立即预定返回顶部
+    $('.content-list-to-reserve').click(function(){
+        $("html,body").animate({scrollTop: 120}, 500);
+    });
+    
     //提问
     $(document).on('click','.question i',function(){
         $(this).addClass('question-zan');
@@ -1956,6 +1397,12 @@
     });
     $('.question-help').clickShow('.question-help-content');
     $('.question-new').clickShow('.question-new-content');
+	
+    $('.alert-modal-top a').click(function(){
+        $('.mark').hide();
+        $('#alert-modal').hide();
+    });
+    
     // 提问
     $('.ask_question').click(function(){
         var lineId = '{$line.id}';
@@ -2087,31 +1534,6 @@
             }
         });
     };
-
-    //点击线路成交量弹出
-    $('#xlcjl').click( function () {
-        $("html,body").animate({scrollTop: 0}, 500);
-        $('.enrol-mark').show();
-        $('.enrol-list').show();
-    } );
-    //点击遮罩层隐藏
-    $('.enrol-mark').click( function () {
-        $('.enrol-mark').hide();
-        $('.enrol-list').hide();
-    } );
-    //点击关闭按钮隐藏
-    $('.close-enrol-list').click( function () {
-        $('.enrol-mark').hide();
-        $('.enrol-list').hide();
-    } );
-    //列表回到顶部
-    $('.backTop-enrol-list').click( function () {
-        $("html,body").animate({scrollTop: 0}, 500);
-    });
-    //下部立即预定返回顶部
-    $('.content-list-to-reserve').click(function(){
-        $("html,body").animate({scrollTop: 120}, 500);
-    });
 </script>
 <script>
     //滚动文字
@@ -2168,9 +1590,6 @@
     var Sindex = $("#calendar_nav .active").index();
 	    $("#calendarDiv").find("div").eq(Sindex).addClass("load");
 //	    console.log(Sindex);
-</script>
-<script>
-	
 </script>
 
 

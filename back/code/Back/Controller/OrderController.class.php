@@ -1546,7 +1546,7 @@ class OrderController extends BackBaseController {
 			return $this->ajaxReturn($data);
 		}
 		
-		if (!empty($ds['team_cut_price']) && stripos($order['order_sn'], 'QD-') !== 0) {
+		if (isset($ds['team_cut_price']) && stripos($order['order_sn'], 'QD-') !== 0) {
 			$data['result'] = error(-1, '订单的总团费不能修改');
 			return $this->ajaxReturn($data);
 		}
@@ -1574,7 +1574,7 @@ class OrderController extends BackBaseController {
 //			}			
 //		}		
 
-		if (!empty($ds['team_cut_price'])) {
+		if (isset($ds['team_cut_price'])) {
 			$ds['team_price'] = $ds['team_cut_price'];
 		}
 					
@@ -1582,7 +1582,7 @@ class OrderController extends BackBaseController {
 		if (error_ok($data['result']) === true) {
 			
 			// 重新获取订单需支付金额
-			if (!empty($ds['team_cut_price'])) {
+			if (isset($ds['team_cut_price'])) {
 				$data['refresh_money'] = BackOrderHelp::getOrderNeedPayMoney($order['id'], true);
 				// 刷新订单状态
 				$data['state_result'] = BackOrderHelp::setOrderStateBySystem($order['id']);

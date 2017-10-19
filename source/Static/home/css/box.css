@@ -37,13 +37,13 @@
     font:bold 20px "微软雅黑";
     float:left;
     color:#2f2e2e}
-.box #boxtab .boxt{font:normal 14px/20px "微软雅黑";
+.box #boxtab .boxt{font:normal 13px/20px "微软雅黑";
     padding:20px 4px;
     position:relative;
     z-index:20;
     cursor:pointer;
     color:#606060;}
-.boxh div a{font:bold 14px "微软雅黑";
+.boxh div a{font:bold 13px "微软雅黑";
     color:#038fdf;}
 div.boxt.g{color:#ff7200;
     background:url(../images/index_img/stylebg.png) center 3px no-repeat

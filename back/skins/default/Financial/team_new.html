@@ -1886,8 +1886,8 @@
 									</div>
 									<script type="text/javascript">
 										$(document).ready(function(){
-											bindAdminDropMenu($('.data_cash_review_admin'), 'operator', '点击选择审批管理员或者输入关键字查询');
-											setSelect2Value('.data_cash_review_admin', '{"id":"85","account":"郭煜","show_name":"郭煜"}');	
+											bindAdminDropMenu($('.data_cash_review_admin'), 'finance', '点击选择审批管理员或者输入关键字查询');
+											setSelect2Value('.data_cash_review_admin', '{"id":"81","account":"周念咏","show_name":"表姐"}');	
 										});
 									</script>
 									<input type="text" class="form-control data_cash_review_admin">
@@ -2619,7 +2619,6 @@
 						</tr>
 						</thead>
 						<tbody>
-							<!--{:p_a($team['deposits'])}-->
 							<volist id="d" name="team.deposits">
 								<tr class="insurance" data-id="{$d.id}">
 									<td>{$d.deposit_obj_data.type_desc}<br/>{$d.deposit_obj_show}</td>

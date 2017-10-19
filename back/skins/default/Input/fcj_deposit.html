@@ -276,7 +276,7 @@
 		} else {
 			$(this.root).find('.edit_area').removeClass('hidden_ctrl');
 		}
-		
+				
 		if (this.obj = vobj || this.team_id != teamId || this.ids != ids || this.review_id != reviewId || this.callbackFunc != confirmCallBack) {
 			// 清除之前的信息
 			this.clearItem();
@@ -287,7 +287,7 @@
 			this.review_id = reviewId;
 			this.callbackFunc = confirmCallBack;
 			// 填充价格项数据
-			this.fillItem();	
+			this.fillItem();
 					
 			// 绑定确认事件
 			$(this.root).find('.btn_fdeposit_submit').unbind();
@@ -295,7 +295,7 @@
 		}
 		
 		// 显示面板
-		$(this.root).modal('show');	
+		$(this.root).modal('show');
 	}
 	
 	ModalFCJDeposit.prototype.clearItem = function (){
@@ -377,7 +377,7 @@
 						}
 						setSelect2Value('#data_fdeposit_review_admin', r.review_admin);	
 						setSelect2Value('#data_fdeposit_pay_type', r.pay_type);	
-						console.log(r.review_admin);
+//						console.log(r.review_admin);
 						$('#data_fdeposit_payee').val(r.payee);
 						$('#data_fdeposit_bank_card').val(r.bank_card);
 						$('#data_fdeposit_bank_address').val(r.bank_address);

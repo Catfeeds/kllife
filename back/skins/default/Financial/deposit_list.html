@@ -81,24 +81,36 @@
 	<div class="row">
 		<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">{:C('CONTENT_TITLE')}</h3>
-			
+			<h3 class="panel-title">{:C('CONTENT_TITLE')}</h3>			
 			<div class="panel-options">
 				<a href="#" data-toggle="panel">
 					<span class="collapse-icon">&ndash;</span>
 					<span class="expand-icon">+</span>
 				</a>
-
 			</div>
 		</div>
-		<div class="panel-body">
-			
-			<div class="issuing-coupon-search" style="width: 70%; margin: 20px auto;">
-				<div class="input-group">
-					<input type="text" class="form-control search_input" placeholder="搜索内容可以是审核编号、团期编号、提审人员、审批人员、确认人员、收款人、收款账号、开户行地址,另外您可以在输入搜索内容后肆无忌惮的敲下回车键进行搜索...祝您查找愉快!!!">
-					<div class="input-group-addon search_button" style="background-color: #68b828; color: #fff; cursor: pointer; padding: 4px 40px; ">
-						<i style="font-style: normal;">搜索</i>
+		
+		<div class="panel-body">			
+			<div role="form" class="form-horizontal" style="margin: 20px auto; padding-left: 50px;">
+				<div class="form-group">
+					<select class="col-sm-1 date_type" style="height: 32px; border: 1px solid #eee;">
+						<option value="request" selected>请求日期</option>
+						<option value="review">审核日期</option>
+						<option value="confirm">确认日期</option>
+					</select>
+					<div class="col-sm-4">
+						<input type="text" class="form-control search_date daterange" style="width: 100%;" data-separator=" / " data-format="YYYY-MM-DD" placeholder="请选择日期" readonly />
 					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-1 control-label" for="search_input" style="text-align: left; padding-bottom: 7px; background-color: #eee;" >搜索内容</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control search_input" style="width: 100%;" placeholder="搜索内容可以是审核编号、团期编号、提审人员、审批人员、确认人员、收款人、收款账号、开户行地址,另外您可以在输入搜索内容后肆无忌惮的敲下回车键进行搜索...祝您查找愉快!!!">
+					</div>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-secondary search_button">开始搜索</button>
+					<button class="btn btn-secondary search_reset">重置搜索</button>
 				</div>
 			</div>
 
@@ -127,31 +139,36 @@
 
 
 <script type="text/javascript">
-	var myTable, pageRequestData;
-	var modalDataEditData = new Object();
-	$(document).ready(function(){
-		
+	
+	var myTable = null;
+	$(document).ready(function(){		
 		// 初始化数据表格
 		myTable = initDataTable();
-		
-		$(".ctr_card_change li").click(function(){
-			var timeType = $(this).find('a').attr('name');
-			var timeDesc = $(this).find('a').html();
-			$(this).parent().prev().attr('data-id', timeType);
-			$(this).parent().prev().find('.ctr_card_btn_num').html(timeDesc);
-		});
-		
-		//搜索
+		console.log(myTable);
+		// 搜索
 		$(".search_button").click(findDeposit);	
+		// 重置搜索条件
+		$('.search_reset').click(resetDeposit);
 		// 绑定快捷查找
 		bindKeyUp($('html,body'),findDeposit,1);
 	});
 	
 	// 查找数据
 	function findDeposit() {
-	   myTable.fnReloadAjax(myTable.fnSettings());
+		console.log(myTable);
+		if (myTable != null) {
+	   		myTable.fnReloadAjax(myTable.fnSettings());	
+		}
 	}
-
+	
+	// 重置查询条件
+	function resetDeposit(ev) {
+		$('.search_input').val('');
+		$('.date_type').val('request');
+		$('.search_date').val('');
+		return false;
+	}
+	
 	// 初始化数据列表
 	function initDataTable() {	
 		var vTable = $("#example-1").dataTable({
@@ -210,8 +227,9 @@
 		showLoading(true);
 		aoData.push({'name':'op_type','value':'list'});
 		aoData.push({'name':'cds', 'value':$('.search_input').val()});
-		$.post('{:U("financial/deposit")}', aoData, function(data){		
-			console.log(JSON.stringify(data['result']));
+		aoData.push({'name':'date_type', 'value':$('.date_type').val()});
+		aoData.push({'name':'daterange', 'value':$('.search_date').val()});
+		$.post('{:U("financial/deposit")}', aoData, function(data){
 			showLoading(false);
 			if (data['result']['errno'] == 0) {
 				fnCallback(data);

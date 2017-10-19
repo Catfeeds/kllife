@@ -409,18 +409,18 @@ class ModelBase extends Model {
 			return error(-2, '2.更新数据的条件非法，请检查后重试');
 		}
 		
-		$findResult = $this->table($tableName)->where($cds)->find();
-		if (!empty($findResult)) {
-			$same = true;
-			foreach ($rec as $k=>$v) {
-				if ($findResult['key'] !== $v) {
-					$same = false;
-				}
-			}
-			if ($same === true) {
-				return error(-3, '3.数据更新失败，新的记录并未发生改动');	
-			} 
-		} 			
+//		$findResult = $this->table($tableName)->where($cds)->find();
+//		if (!empty($findResult)) {
+//			$same = true;
+//			foreach ($rec as $k=>$v) {
+//				if ($findResult['key'] !== $v) {
+//					$same = false;
+//				}
+//			}
+//			if ($same === true) {
+//				return error(-3, '3.数据更新失败，新的记录并未发生改动');	
+//			} 
+//		} 			
 		
 		// 开始更新数据		
 		$rs = $this->table($tableName)->data($rec)->where($cds)->save();

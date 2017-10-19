@@ -374,6 +374,10 @@ class IndexController extends BackBaseController {
 		$info = MyHelp::importExcel();
 		$this->ajaxReturn($info);
 	}
+	
+	public function calendarAction() {
+		$this->display('calendar');
+	}
 }
 
 ?>

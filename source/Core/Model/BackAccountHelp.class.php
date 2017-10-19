@@ -494,6 +494,245 @@ class BackAccountHelp {
 		$fxLogObj->create($log, $logId);
 		return $commision_money;
 	}
+	
+	// 检查是否为老用户
+	public static function checkIsOldUser($menberId, $phone){
+		$memberObj = ModelBase::getInstance('signup_member');
+		$memConds = appendLogicExp('id', '!=', $menberId, 'AND', $memConds);
+		$memConds = appendLogicExp('exit', '=', '0', 'AND', $memConds);
+		$memConds = appendLogicExp('tel', '=', $phone, 'AND', $memConds);
+		$members = $memberObj->getAll($memConds);
+		if(!empty($members)){
+			$data['result'] = error(-3, '用户已存在！');
+			$data['user'] = $members;
+			return $data;
+		}
+		
+		$data['result'] = error(0, '未找到用户信息！');
+		return $data;
+	}	
+	
+	//发放老带新优惠券-前台
+	public static function grantLdxCouponHome($order_id, $batch_id, $user_id, $number){
+		if (empty($order_id) || empty($user_id)) {
+			$data['result'] = error(-1, '请求参数不完整！');
+			return $data;
+		}
+		
+		if (empty($number)) {
+			$data['result'] = error(-1, '添加优惠券数量不能为0！');
+			return $data;
+		}
+		
+		$sendAdmin = array(
+			'id'=>1,
+			'name'=>'admin',
+			'nickname'=>'领袖户外',
+			'show_name'=>'领袖户外',
+			'acct_type'=>'{"id":"1", "type_key":"account_admin", "type_desc":"管理员"}',
+		);
+		$sendadminstr = my_json_encode($sendAdmin);
+		$batch = BackLineHelp::getBatch(appendLogicExp('id', '=', $batch_id));
+		if(empty($batch)){
+			$data['result'] = error(-1, '未找到批次信息！');
+			return $data;
+		}		
+		$couponObj = ModelBase::getInstance('user_coupon');
+		$coupon['user_id'] = $user_id;
+		$coupon['ldx_order_id'] = $order_id;
+		$coupon['type'] = my_json_encode(MyHelp::TypeDataKey2Value('user_coupon_type_old_bring_new', ture));
+		$coupon['money'] = 0;
+		$coupon['overlying'] = 1;
+		$coupon['forever'] = 1;
+		$coupon['send_acct'] = $sendadminstr;
+		$coupon['send_time'] = fmtNowDateTime();
+		$coupon['valid_time'] = $batch['end_time'];
+		$coupon['valid_second'] = 0;
+		
+		for($i = 0; $i < $number; $i++){
+			$result = $couponObj->create($coupon, $userCouponId);
+			if (error_ok($result) == false) {
+				if (!empty($failIds)) {
+					$failIds .= ',';
+				} 
+				$failIds .= '[添加优惠券编号:'.$userCouponId.',用户编号:'.$user_id.',result:'.$result['message'].']<br />';
+			} else {
+				if (!empty($successIds)) {
+					$successIds .= ',';
+				} 
+				$successIds .= '[添加优惠券编号:'.$userCouponId.',用户编号:'.$user_id.']<br />';
+			}
+		}
+		
+		if (empty($failIds)) {
+			$data['result'] = error(0, '恭喜你，所有的优惠券都发送成功，具体信息如下:<br />'.$successIds);
+		} else {
+			$data['result'] = error(-1, '发送优惠券成功的用户如下:<br />'.$successIds.'发送优惠券失败的用户如下:<br />'.$failIds);
+		}		
+		return $data;
+	}
+	
+	//移除老带新优惠券-前台
+	public static function removeLdxCouponHome($order_id, $user_id, $number){
+		if (empty($order_id) || empty($user_id)) {
+			$data['result'] = error(-1, '请求参数不完整！');
+			return $data;
+		}
+		
+		if (empty($number)) {
+			$data['result'] = error(-2, '移除优惠券数量不能为0！');
+			return $data;
+		}
+		
+		$removeCouponObj = ModelBase::getInstance('user_coupon');
+		$removeConds = appendLogicExp('ldx_order_id', '=', $order_id, 'AND', $removeConds);
+		$removeConds = appendLogicExp('money', '=', '0', 'AND', $removeConds);
+		$removeConds = appendLogicExp('user_id', '=', $user_id, 'AND', $removeConds);		
+		$removeConds = appendLogicExp('invalid', '=', '0', 'AND', $removeConds);
+		$removeConds = appendLogicExp('type', 'like', '%user_coupon_type_old_bring_new%', 'AND', $removeConds);
+		$removeCoupons = $removeCouponObj->getAll($removeConds, 0, $number);
+		
+		$removeds['invalid'] = '1';
+		$ids = '';
+		foreach($removeCoupons as $rek=> $rev){
+			if(!empty($ids)){
+				$ids .= ',';
+			}
+			$ids .= $rev['id'];
+		}
+		
+		$result = $removeCouponObj->modify($removeds, appendLogicExp('id', 'IN', '('.$ids.')'));
+		if(error_ok($result) == false){
+			$data['result'] = error(-3, '移除优惠券错误！');
+		}else{
+			$data['result'] = error(0, '移除优惠券成功！');
+		}				
+		return $data;
+	}
+	
+	//老带新发放优惠券-后台
+	public static function grantLdxCouponBack($team_id){
+		if(empty($team_id)){
+			$data['result'] = error(-1, '团期ID不能为空！');
+			return $data;
+		}
+		
+		$orderObj = ModelBase::getInstance('lineenertname', 'xz_');
+		$orderConds = appendLogicExp('team_id', '=', $team_id);
+		$orderConds = appendLogicExp('ldx_user_id', '!=', '0', 'AND', $orderConds);
+		$oreders = $orderObj->getall($orderConds);
+		if(empty($oreders)){
+			$data['result'] = error(-2, '未找到团期对应老带新订单信息！');
+			return $data;
+		}
+		
+		foreach($oreders as $ork=>$orv){
+			//计算订单成人总数
+			$memberObj = ModelBase::getInstance('signup_member');
+			$memberds = appendLogicExp('team_id', '=', $team_id, 'AND', $memberds);
+			$memberds = appendLogicExp('order_id', '=', $orv['id'], 'AND', $memberds);
+			$memberds = appendLogicExp('type_id', '!=', '2', 'AND', $memberds);
+			$memberds = appendLogicExp('exit', '=', '0', 'AND', $memberds);
+			$members = $memberObj->getAll($memberds);
+			foreach($members as $mk=>$mv){
+				$isOldUser = BackAccountHelp::checkIsOldUser($mv['id'], $mv['tel']);
+				if($isOldUser['errno'] != 0){
+					array_splice($members, $mk, 1);
+				}
+			}
+			$pnumber = count($members);
+			
+			//查询订单对应老带新优惠券总数
+			$ldxCouponObj = ModelBase::getInstance('user_coupon');
+			$ldxConds = appendLogicExp('ldx_order_id', '=', $orv['id'], 'AND', $conds);
+			$ldxConds = appendLogicExp('user_id', '=', $orv['ldx_user_id'], 'AND', $conds);;
+			$ldxConds = appendLogicExp('invaild', '=', '0', 'AND', $conds);
+			$ldxConds = appendLogicExp('money', '=', '0', 'AND', $conds);
+			$ldxConds = appendLogicExp('type', 'like', '%user_coupon_type_old_bring_new%', 'AND', $conds);
+			$ldxCouponCount = $ldxCouponObj->getCount($ldxConds);
+			
+			//总人数大于优惠券总数，补发优惠券
+			if($pnumber > $ldxCouponCount){
+				$addCouponNum = $pnumber - $ldxCouponCount;
+				$addCouponResult = BackAccountHelp::grantLdxCouponHome($orv['id'], $orv['hdid'], $orv['ldx_user_id'], $addCouponNum);
+				if(error_ok($addCouponResult) == false){
+					$data['result'][$orv['id']] = error(-3, '总人数大于优惠券总数，补发优惠券失败！');
+				}
+			}
+			
+			//总人数小于优惠券总数，移除优惠券
+			if($pnumber < $ldxCouponCount){
+				$removeCouponNum = $ldxCouponCount - $pnumber;
+				$removeCouponResult = BackAccountHelp::removeLdxCouponHome($orv['id'], $orv['ldx_user_id'], $removeCouponNum);
+				if(error_ok($addCouponResult) == false){
+					$data['result'][$orv['id']] = error(-4, '总人数小于优惠券总数，移除优惠券失败！');
+				}
+			}
+			
+			//重新优惠券数量以及信息			
+			$ldxCoupons = $ldxCouponObj->getAll($ldxConds);
+			//设置优惠券可用
+			$couponParvalue = BackAccountHelp::getLdxCouponParvalue($orv['ldx_user_id']);
+			if($couponParvalue['ldx_coupon_parvalue'] == 150){
+				$mids = '';
+				$mds['money'] = 150;
+				foreach($ldxCoupons as $cpk=>$cpv){
+					if(!empty($mids)){
+						$mids .= ',';
+					}
+					$mids .= $cpv['id'];
+				}
+				$result = $removeCouponObj->modify($mds, appendLogicExp('id', 'IN', '('.$mids.')'));
+				if(error_ok($result) == false){
+					$data['set_coupon_str'] .= '优惠券['.$mids.']批量更新失败！';
+				}else{
+					$data['set_coupon_str'] .= '优惠券['.$mids.']批量更新成功！';
+				}
+			}else{
+				foreach($ldxCoupons as $cpk=>$cpv){
+					$mds['money'] = $couponParvalue['ldx_coupon_parvalue'];
+					$result = $removeCouponObj->modify($mds, appendLogicExp('id', '=', $cpv['id']));
+					if(error_ok($result) == false){
+						$data['set_coupon_str'] .= '优惠券['.$mids.']单张更新失败！';
+					}else{
+						$data['set_coupon_str'] .= '优惠券['.$mids.']单张更新成功！';
+					}
+					$couponParvalue = BackAccountHelp::getLdxCouponParvalue($orv['ldx_user_id']);
+				}
+			}
+		}
+		$data['result'] = error(0, '');
+		return $data;		
+	}
+	
+	//老带新优惠券面值获取
+	public static function getLdxCouponParvalue($ldx_user_id){
+		if(empty($ldx_user_id)){
+			$data['result'] = error(-1, '老带新用户ID不能为空！');
+			return $data;
+		}
+		
+		$couponObj = ModelBase::getInstance('user_coupon');
+		$conds = appendLogicExp('user_id', '=', $ldx_user_id, 'AND', $conds);
+		$conds = appendLogicExp('invaild', '=', '0', 'AND', $conds);
+		$conds = appendLogicExp('money', '=', '0', 'AND', $conds);
+		$conds = appendLogicExp('type', 'like', '%user_coupon_type_old_bring_new%', 'AND', $conds);
+		$couponCount = $couponObj->getCount($conds);
+		if(empty($couponCount)){
+			$data['result'] = error(-1, '获取优惠券数量错误！');
+			return $data;
+		}else{
+			if($couponCount <=5 ){
+				$data['ldx_coupon_parvalue'] = 80;
+			}elseif($couponCount >= 6 && $couponCount <= 10){
+				$data['ldx_coupon_parvalue'] = 100;
+			}else{
+				$data['ldx_coupon_parvalue'] = 150;
+			}
+		}
+		$data['result'] = error(0, '');
+		return $data;		
+	}
 }
 
 ?>

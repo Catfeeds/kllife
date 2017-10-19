@@ -6,6 +6,7 @@ use Core\Model\MyHelp;
 use Core\Model\MsgHelp;
 use Core\Model\BackAccountHelp;
 use Core\Model\BackOrderHelp;
+use Core\Model\WxNotice;
 
 class IndexController extends HomeBaseController {
 	
@@ -161,6 +162,30 @@ class IndexController extends HomeBaseController {
 //		$this->assign('t1', G('begin', 'end').'s');		
 		$this->showPage('test', 'index_welcome', 'index', '欢迎');
 //		$this->showError('501', '错误测试', '这是一个错误测试', '没有什么原因,这就是一个错误测试', '建议您看看就得了');
+	}
+	
+	
+	// 调试微信通知
+	public function wxNoticeAction(){
+		$openId = 'orYumuFGyhqe8kZwpVP53OT42Dk0';
+		$url = 'http://kllife.com/phone/';
+		$title = '您好，您已预订成功。';
+		$orderId = 'LX-17052516283315201';
+		$lineTitle = '马尔代夫7天双人游';
+		$addTime = '2017年09月15日';
+		$message = '领袖户外：好玩不贵的小团慢旅行！';
+		
+		$wxObj = WxNotice::getInstance();
+		$result = $wxObj->sendTravelCancelNotice();
+		
+		/*if ($result['errcode'] == 0 && $result['errmsg'] == 'ok') {
+			$str = '发送成功！';
+		} else {
+			$str = '发送失败！';
+		}*/
+		$this->assign('wxobj', $wxObj);
+		$this->assign('result', $result);
+		$this->showPage('wxNotice', 'index_wxNotice', 'index', '微信通知测试', '微信通知测试');
 	}
 
 

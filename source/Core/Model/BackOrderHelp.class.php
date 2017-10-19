@@ -316,6 +316,7 @@ class BackOrderHelp {
 	// 设置订单状态根据Id
 	public static function setOrderStateById($orderId, $stateId, $checkMode='system', &$out) {
 		$result = BackOrderHelp::checkSetOrderState($orderId, $stateId, $checkMode, $out);
+		$out['set_state_id_check_result'] = $result;
 		if (error_ok($result) === false) {
 			return $result;
 		}
@@ -342,6 +343,8 @@ class BackOrderHelp {
 		
 		$orderObj = ModelBase::getInstance('lineenertname', 'xz_');
 		$result = $orderObj->modify(array('zhuangtai'=>$stateId), appendLogicExp('id','=',$orderId));
+		$out['set_state_id'] = $stateId;
+		$out['set_state_result'] = $result;
 		if (error_ok($result) === false) {
 			return error(-1, '设置订单状态失败', $result);
 		} else {		
@@ -361,6 +364,7 @@ class BackOrderHelp {
 		// 缓存订单状态
 		$stateKeyMap = BackOrderHelp::cacheOrderState();
 		$out['state_key_map'] = $stateKeyMap;
+		$out['set_state_key'] = $stateKey;
 		if (empty($stateKeyMap) || empty($stateKeyMap[$stateKey])) {
 			return error(-1, '错误的订单状态键');
 		}

@@ -73,7 +73,6 @@ body { background-color: #f3f5f6; }
 .final-day .information-details { left: -60px; }
 
 .information { position: relative; top: 2px; right: 8px; z-index: 1; }
-
 .information > p { line-height: 1.3; text-align: center;color:#666; font-size: 12px;}
 .information > p.orange{color: orange;}
 .information > p.blue{color: blue;}

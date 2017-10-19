@@ -404,6 +404,7 @@ class LineController extends HomeBaseController {
 		
 		$params['join'] = array('RIGHT JOIN `kl_taocan_price` AS `q2` ON `q1`.`id` = `q2`.`batch_id`');
 		$conds = appendLogicExp('`q1`.`start_time`', 'LIKE', $date.'%', 'AND', $conds);
+		$conds = appendLogicExp('`q1`.`state`', 'NOT LIKE', '%line_batch_state_overdue%', 'AND', $conds);
 		$conds = appendLogicExp('`q1`.`use_state`', 'NOT LIKE', '%line_batch_use_forbid%', 'AND', $conds);
 		$conds = appendLogicExp('`q2`.`invalid`', '!=', '1', 'AND', $conds);
 		$conds = appendLogicExp('`q2`.`line_id`', '=', $lineId, 'AND', $conds);
@@ -416,7 +417,7 @@ class LineController extends HomeBaseController {
 		$params['conds'] = $conds;
 		$batchObj = ModelBase::getInstance('batch');
 		$ds = $batchObj->queryData($params, $total);
-		//$data['sql'] = $batchObj->getLastSql();	
+		$data['sql'] = $batchObj->getLastSql();	
 		
 		foreach($ds as $tk => $tv){
 			if (!empty($tv['price_id'])) {
@@ -434,8 +435,6 @@ class LineController extends HomeBaseController {
 							array_push($taocanIdList, $iv);
 						}
 					}
-					
-						
 				}
 				
 				// 批次去重
@@ -468,19 +467,60 @@ class LineController extends HomeBaseController {
 		return $this->ajaxReturn($data);
 	}
 	
+	private function findBatchByLine() {
+		$lineId = I('post.line_id',false);
+		if (empty($lineId)) {
+			$data['result'] = error(-1, '产品编号无效');
+			return $this->ajaxReturn($data);
+		}
+		$maxTeamCount = I('post.max_member', 0);
+		
+		$data['result'] = error(0, '');
+		$conds = appendLogicExp('line_id', '=', $lineId);
+		$conds = appendLogicExp('state', 'NOT LIKE', '%line_batch_state_overdue%', 'AND', $conds);
+		$conds = appendLogicExp('use_state', 'NOT LIKE', '%line_batch_use_forbid%', 'AND', $conds);
+		$ds = BackLineHelp::getBatchList($conds, 0, 0, $total, array('start_time'=>'asc'));	
+		foreach ($ds as $bk=>$bv) {
+			$bv['sub_member'] = BackLineHelp::getBatchSubMember($bv['id'], $maxTeamCount, $out);
+			$bv['out'] = $out;
+			$ds[$bk] = $bv;
+			$dm = explode('-', $bv['start_date_show']);
+			$dmstr = $dm[0]+'-'+$dm[1];
+			if (empty($months)) {
+				$months = array(array('year'=>$dm[0], 'month'=>$dm[1]));
+			} else {
+				array_push($months, array('year'=>$dm[0], 'month'=>$dm[1]));
+			}
+			$ds[$bk] = $bv;
+		}			
+		
+		$data['months'] = array();
+		$ms = array_unique($months, SORT_REGULAR);
+		foreach ($ms as $mk=>$mv) {
+			array_push($data['months'], $mv);
+		}			
+		$data['ds'] = $ds;
+		$data['total'] = $total;
+		$data['line_id'] = $lineId;
+		return $this->ajaxReturn($data);
+	}
+	
+	// 产品详细
 	public function infoAction() {
 		if (IS_POST) {
 			$type = I('post.type', false);
 			if ($type == 'find_batch') {
 				$this->findBatchByDate();
-			} elseif ($type = 'find_taocan_batch') {
-				$taocanIds = I('post.taocan_ids',false);
+			} elseif ($type == 'find_taocan_batch') {
+				$taocanIds = I('post.taocan_ids', false);
 				$batchId = I('post.batch_id', false);
 				if (empty($taocanIds) && empty($batchId)) {
 					$this->findBatchByDate();
 				} else {
 					$this->findBatchByTaocan();
 				}
+			} else if ($type == 'find_line_batch') {
+				return $this->findBatchByLine();
 			} else {
 				$data['result'] = error(-1, '错误的请求方式');
 				return $this->ajaxReturn($data);
@@ -499,13 +539,6 @@ class LineController extends HomeBaseController {
 					'set'=>true,
 				);
 				$line = BackLineHelp::getLine(appendLogicExp('id', '=', $id), $find);
-				$batchConds = appendLogicExp('line_id', '=', $line['id']);
-				$batchConds = appendLogicExp('use_state', 'NOT LIKE', '%line_batch_use_forbid%', 'AND', $batchConds);
-				$line['batchs'] = BackLineHelp::getBatchList($batchConds, 0, 0, $total, array('start_time'=>'asc'));
-				foreach ($line['batchs'] as $bk=>$bv) {
-					$bv['sub_member'] = BackLineHelp::getBatchSubMember($bv['id'], $line['max_team_count']);
-					$line['batchs'][$bk] = $bv;
-				}
 				
 				//获取产品已添加的套餐价格
 				$tplConds = appendLogicExp('line_id', '=', $line['id']);
@@ -520,35 +553,23 @@ class LineController extends HomeBaseController {
 				$line['taocanList'] = $taocanMap;
 				
 				// 预览相关
-				$setObj = ModelBase::getInstance('set');
-				$setConds = appendLogicExp('type', '=', 'back_line_preview');
-				$setConds = appendLogicExp('key', '=', 'preview_line_'.$id, 'AND', $setConds);
-				$set = $setObj->getOne($setConds);
-				if (!empty($set)) {
-					$setval = json_decode($set['value'], true);
+				if (!empty($line['preview_salt'])) {
+					$setval = json_decode($line['preview_salt'], true);
 					if (time() - strtotime($setval['time']) > 10){
-						$deleteSetPreview = true;
-					}
-				}
-				
-				$preview = I('get.p', '');
-				if (empty($preview)) {					
-					if ($line['online'] == '0' || $line['invalid'] == '1') {
-						$forbiddenShow = true;
-					}	
-				} else {
-					$deleteSetPreview = true;
-					if (empty($setval) || $preview !== $setval['salt']) {
 						$forbiddenShow = true;
 					}
 				}
-				
-				if (!empty($deleteSetPreview)) {
-					$setObj->remove($setConds);
-				}
-				
-				if (!empty($forbiddenShow)) {
-					return $this->showError('502', '线路错误', '线路未上架', '该线路可能已经下架或者不存在');
+								
+				if (empty($line['online']) || !empty($line['invalid'])) {	// 下架状态
+					if (!empty($line['preview_salt'])) {
+						$preview = I('get.p', '');
+						$setval = json_decode($line['preview_salt'], true);
+						if (($preview !== $setval['salt']) || (time() - strtotime($setval['time']) > 3600)){
+							return $this->showError('502', '线路错误', '线路未上架', '该线路可能已经下架或者不存在');
+						}
+					} else {
+						return $this->showError('502', '线路错误', '线路未上架', '该线路可能已经下架或者不存在');
+					}
 				}
 				
 				if (empty($line['is_xinlvpai'])) {
@@ -707,7 +728,12 @@ class LineController extends HomeBaseController {
 				$lineObj->fieldAddAndSub(appendLogicExp('id', '=', $line['id']), 'click_count', 1, true);
 				
 				if (empty($line['is_xinlvpai'])) {
-					$this->showPage('content', 'line_content', 'line', '产品详细-领袖户外');	
+					$test = I('get.test', false);
+					if (empty($test)) {
+						$this->showPage('content', 'line_content', 'line', '产品详细-领袖户外');
+					} else {
+						$this->showPage('content_test', 'line_content', 'line', '产品详细-领袖户外');
+					}
 				} else {	
 					$this->showPage('qlp_content', 'line_qlp_content', 'line', '新旅拍产品详细-领袖户外');
 				}
@@ -715,280 +741,7 @@ class LineController extends HomeBaseController {
 				$this->showError('502','线路错误', '线路编号错误', '该线路可能已经下架或者不存在');
 			}
 		}
-	}
-	
-	//线路详情页测试调试
-	public function infotestAction() {
-		if (IS_POST) {
-			$type = I('post.type', false);
-			if ($type == 'find_batch') {
-				$lineId = I('post.line_id',false);
-				if (empty($lineId)) {
-					$data['result'] = error(-1, '产品编号无效');
-					return $this->ajaxReturn($data);
-				}
-				$conds = appendLogicExp('line_id', '=', $lineId);
-				$year = I('post.year', false); 
-				if (!empty($year)) {
-					$conds = appendLogicExp('start_time', 'LIKE', '%'.$year.'%', 'AND', $conds);
-				}
-				$data['result'] = error(0, '');
-				$conds = appendLogicExp('use_state', 'NOT LIKE', '%line_batch_use_forbid%', 'AND', $conds);
-				$ds = BackLineHelp::getBatchList($conds, 0, 0, $total, array('start_time'=>'asc'));								
-				$data['ds'] = $ds;
-				$data['total'] = $total;
-				$data['line_id'] = $lineId;
-				return $this->ajaxReturn($data);
-			} elseif ($type = 'find_taocan_batch') {
-				$lineId = I('post.line_id',false);
-				$taocanId = I('post.taocan_id',false);
-				$conds = appendLogicExp('line_id', '=', $lineId);
-				$conds = appendLogicExp('invalid', '=', 0, 'AND', $conds);
-				$conds = appendLogicExp('taocan_ids', 'LIKE', ','.$taocanId.',', 'AND', $conds);
-				$tplFind = array('batch'=>true);
-				$taocanPrices = BackLineHelp::getTaocanPriceList($conds, 0, 0, $total, array('id'=>'asc'), $tplFind);
-				if (!empty($taocanPrices)) {
-					$data['result'] = error(0, '');
-					$data['ds'] = $taocanPrices;
-					$data['total'] = $total;
-					$data['line_id'] = $lineId;
-				} else {
-					$data['result'] = error(-1, '未找到相关信息');
-				}
-				
-				$this->ajaxReturn($data);
-				
-			} else {
-				$data['result'] = error(-1, '错误的请求方式');
-				return $this->ajaxReturn($data);
-			}
-		} else {
-			$id = I('get.id', false);
-			if (!empty($id)){				
-				$find = array(
-//					'min_batch'=>true,
-					'point'=>true,
-					'travel'=>true,
-					'scenery'=>true,
-//					'batch'=>true,
-					'offer'=>true,
-//					'article'=>array('content'=>true)
-					'set'=>true,
-				);
-				$line = BackLineHelp::getLine(appendLogicExp('id', '=', $id), $find);
-				$batchConds = appendLogicExp('line_id', '=', $line['id']);
-				$batchConds = appendLogicExp('use_state', 'NOT LIKE', '%line_batch_use_forbid%', 'AND', $batchConds);
-				$line['batchs'] = BackLineHelp::getBatchList($batchConds, 0, 0, $total, array('start_time'=>'asc'));
-				
-				//获取产品已添加的套餐价格
-				$tplConds = appendLogicExp('line_id', '=', $line['id']);
-				$tplConds = appendLogicExp('invalid', '=', '0', 'AND', $tplConds);
-				$tplFind = array('taocan'=>true);				
-				$taocanPrices = BackLineHelp::getTaocanPriceList($tplConds, 0, 0, $total, array('id'=>'asc'), $tplFind);
-				foreach ($taocanPrices as $tk=>$tv) {
-					foreach ($tv['taocans'] as $tvk=>$tvv){
-						$taocanMap[$tvv['id']] = $tvv;	
-					}
-				}			 
-				$line['taocanList'] = $taocanMap;
-				
-				// 预览相关
-				$setObj = ModelBase::getInstance('set');
-				$setConds = appendLogicExp('type', '=', 'back_line_preview');
-				$setConds = appendLogicExp('key', '=', 'preview_line_'.$id, 'AND', $setConds);
-				$set = $setObj->getOne($setConds);
-				if (!empty($set)) {
-					$setval = json_decode($set['value'], true);
-					if (time() - strtotime($setval['time']) > 10){
-						$deleteSetPreview = true;
-					}
-				}
-				
-				$preview = I('get.p', '');
-				if (empty($preview)) {					
-					if ($line['online'] == '0' || $line['invalid'] == '1') {
-						$forbiddenShow = true;
-					}	
-				} else {
-					$deleteSetPreview = true;
-					if (empty($setval) || $preview !== $setval['salt']) {
-						$forbiddenShow = true;
-					}
-				}
-				
-				if (!empty($deleteSetPreview)) {
-					$setObj->remove($setConds);
-				}
-				
-				if (!empty($forbiddenShow)) {
-					return $this->showError('502', '线路错误', '线路未上架', '该线路可能已经下架或者不存在');
-				}
-				
-				if (empty($line['is_xinlvpai'])) {
-					//问题填充
-					if (!empty($line['questions'])) {
-						foreach($line['questions'] as $qk=>$qv) {
-							if ($qv['question_id'] != 0) {
-								$dt = fmtDateTimeToNow($qv['create_time']);
-								$qv['before_now'] = $dt['ago_show_text'];
-								$line['questions'][$qk] = $qv;
-							}
-						}
-					}
-					// 是否存在游记
-					$line['exist_youji'] = 0;
-					$line['exist_recommend_line'] = 0;
-					$subRecommendLineCount = 4;
-					$recommendLineKey = 0;
-					foreach ($line['sets'] as $sk=>$sv) {
-						if (stripos($sv['key'], 'youji') !== FALSE) {
-							$line['exist_youji'] = 1;
-						}
-						if (stripos($sv['key'], 'recommend_line') !== FALSE) {
-							$subRecommendLineCount --;
-							$recommendLineKey ++;
-							$line['exist_recommend_line'] = 1;
-						}
-					}
-					
-					// 没有推荐时默认从产品库调用
-					if ($subRecommendLineCount > 0) {
-						$conds = appendLogicExp('id', '!=', $line['id']);
-						$conds = appendLogicExp('invalid', '=', '0', 'AND', $conds);
-						$conds = appendLogicExp('online', '=', '1', 'AND', $conds);
-						$subConds = $conds;
-						foreach($line['destination_list'] as $dk=>$dv) {
-							$destConds = appendLogicExp('destination', 'LIKE', '%'.$dv['type_desc'].'%', 'OR', $destConds);
-						}
-						if (!empty($destConds)) {
-							$conds = appendLogicExp('dest', '=', $destConds, 'AND', $conds);
-						}
-						$recommendLines = BackLineHelp::getLineList($conds, 0, $subRecommendLineCount, $total, array('sort'=>'asc', 'create_time'=>'desc'), false, $out);
-						$subRecommendLineCount -= count($recommendLines);
-						if ($subRecommendLineCount > 0) {
-							$subLines = BackLineHelp::getLineList($subConds, 0, $subRecommendLineCount, $total, array('sort'=>'asc', 'create_time'=>'desc'), false, $out);
-							if (empty($recommendLines)) {
-								$recommendLines = $subLines;
-							} else {
-								$recommendLines = array_merge($recommendLines, $subLines);	
-							}
-						}
-						if (!empty($recommendLines)) {
-							$line['exist_recommend_line'] = 1;
-							if (empty($line['sets'])) {
-								$line['sets'] = array();	
-							}						
-							foreach ($recommendLines as $rk=>$rv) {
-								$recommendLine['id'] = 0;
-								$recommendLine['key'] = 'recommend_line'.intval($recommendLineKey+$rk);
-								$recommendLine['value_type'] = 'json';
-								$recommendLine['value'] = $rv;
-								array_push($line['sets'], $recommendLine);
-							}
-						}
-					}
-								
-					// 专题信息
-					$conds = appendLogicExp('type', '=', 'pc_home_index');
-					$conds = appendLogicExp('type', 'LIKE', '%zhuanti%', 'AND', $conds);
-					$zhuanti = MyHelp::getSet($conds, 0, 0, $total, array('sort'=>'asc'));
-					$this->assign('set', $zhuanti);
-				
-					// 行程定位
-					$schedule = I('get.schedule', 'undefined');
-					$this->assign('schedule', $schedule);
-				} else {		
-					// 沿途风光
-					$sceneryList = array();
-					foreach($line['scenery'] as $pk=>$pv) {
-						if (empty($pv['content'])) {
-							if (!empty($scenery['image'])) {
-								array_push($sceneryList, $scenery);
-							}
-							$scenery = array('image'=>$pv['image_url']);
-						} else {
-							if (empty($scenery['text'])) {
-								$scenery['text'] = $pv['content'];
-							} else {					
-								$scenery['text'] = $scenery['text'].'<br />'.$pv['content'];
-							}
-						}
-					}		
-					if (!empty($scenery)) {
-						array_push($sceneryList, $scenery);
-					}
-					$this->assign('scenery', $sceneryList);
-				}		
-				$this->assign('line', $line);
-				
-				// 下单前约束检查
-				$ds = array('lineid'=>$line['id'], 'new_line'=>1, 'new_order'=>1);
-				$check = BackOrderHelp::checkOrderCreate($ds,true);
-				$this->assign('check', $check);
-			
-				// 最新预定的信息
-				$order_member_count = 0;
-				$conds = appendLogicExp('lineid', '=', $id);
-				$conds = appendLogicExp('new_line', '=', '1', 'AND', $conds);
-				$orders = BackOrderHelp::getNewOrderList($conds,0,0,$total,array('addtime'=>'desc'));
-				$fill = array('state'=>true,'batch'=>true);
-				$orders = BackOrderHelp::fillNewOrderInfo($orders,$fill);
-				foreach ($orders as $ok=>$ov) {
-					$ov['member_total_count'] = intval($ov['male'])+intval($ov['woman'])+intval($ov['child']);
-					$order_member_count += $ov['member_total_count'];
-					
-					$sk = $ov['zhuangtai_data']['type_key'];
-					if ($sk == 'pay_complate1' || $sk == 'paying' || $sk == 'pay_advance' || $sk == 'pay_complate' || $sk == 'pay_part') {						
-						$ov['zhuangtai_color'] = '#E80B2C';
-					} else if ($sk == 'review') {
-						$ov['zhuangtai_color'] = '#000DF4';
-					} else {
-						$ov['zhuangtai_color'] = '#2F343C';
-					}
-						
-					
-					$key = $ov['hdid_start_time'];
-					if (is_numeric($ov['hdid_start_time']) == false) {
-						$key = strtotime($ov['hdid_start_time']);
-					}
-					
-					if (empty($orderList[$key])) {
-						$showData['hdid_show_text'] = $ov['hdid_show_text'];
-						$showData['data'] = array($ov);
-					} else {
-						$showData = $orderList[$key];						
-						array_push($showData['data'], $ov);
-					}		
-					
-					$orderList[$key] = $showData;		
-				}
-				
-				if (!empty($orderList)) {
-					krsort($orderList);
-					$this->assign('orders', $orderList);	
-				}
-				$this->assign('order_member_count', $order_member_count);
-				
-				// 分销用户
-				$duid = I('get.duid', false);
-				if (!empty($duid)) {
-					$this->assign('duid', $duid);
-				}				
-				
-				// 点击量
-				$lineObj = ModelBase::getInstance('line');
-				$lineObj->fieldAddAndSub(appendLogicExp('id', '=', $line['id']), 'click_count', 1, true);
-				
-				if (empty($line['is_xinlvpai'])) {
-					$this->showPage('content_test', 'line_content', 'line', '产品详细-领袖户外');	
-				} else {	
-					$this->showPage('qlp_content', 'line_qlp_content', 'line', '新旅拍产品详细-领袖户外');
-				}
-			} else {
-				$this->showError('502','线路错误', '线路编号错误', '该线路可能已经下架或者不存在');
-			}
-		}
-	}
+	}	
 	
 	// 计算订单价格
 	private function calcOrderMoney($aa) {
@@ -1030,6 +783,7 @@ class LineController extends HomeBaseController {
 	
 	// 生成订单
 	private function createOrder($requestType, $aa) {
+		session_start();
 		if ($requestType == 'get') {
 			$line = BackLineHelp::getLine(appendLogicExp('id', '=', $aa['id']), false);		
 			$batchConds = appendLogicExp('line_id', '=', $line['id']);
@@ -1298,6 +1052,13 @@ class LineController extends HomeBaseController {
 					$fxDS['create_time'] = fmtNowDateTime();
 					$data['fenxiao_result'] = $fxOrderObj->create($fxDS, $fxOrderId);
 					$data['fenxiao_order_id'] = $fxOrderId;
+				}
+				
+				//老带新发放优惠券
+				$share_user_id = session('share_user_id');
+				if(!empty($share_user_id)){
+					$couponNum = intval($aa['male']) + intval($aa['woman']);
+					$data['ldx_coupon_result'] = BackAccountHelp::grantLdxCouponHome($orderId, $aa['hdid'], $share_user_id, $couponNum);
 				}
 				
 				$data['jumpUrl'] = U('line/order', 'type=center');
@@ -2483,6 +2244,18 @@ class LineController extends HomeBaseController {
 					$subject['config_update_time'] = MyHelp::getConfigUpdateTime($cacheSubjectKey);
 					S($cacheSubjectKey, $subject, 0);
 				}
+				
+				if (empty($subject['online'])) {	// 下架状态
+					if (!empty($subject['preview_salt'])) {
+						$setval = json_decode($subject['preview_salt'], true);
+						if (($preview !== $setval['salt']) || (time() - strtotime($setval['time']) > 60)){
+							return $this->showError('502', '专题错误', '专题未上架', '该专题可能已经下架或者不存在');
+						}
+					} else {
+						return $this->showError('502', '专题错误', '专题未上架', '该专题可能已经下架或者不存在');
+					}
+				}
+				
 				$this->assign('subject', $subject);
 			}	
 			

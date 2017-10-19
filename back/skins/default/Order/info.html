@@ -2875,8 +2875,8 @@
 		$.getJSON("{:U('review/request')}", {op:'review_request', id:orderId}, function(data){
 
 //			alert(JSON.stringify(data));
-
-			location.href=data.jumpUrl;
+			
+			window.open(data.jumpUrl);
 
 		})
 		
