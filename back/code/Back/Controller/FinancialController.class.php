@@ -1934,13 +1934,14 @@ class FinancialController extends BackBaseController {
 				$conds = appendLogicExp('conddate', '=', $dateConds, 'AND', $conds);
 			}
 			
-			$deposit = BackFinancialHelp::getTeamDepostList($conds, $startIndex, $pageSize, array('review_type'=>'desc', 'team_id'=>'desc', 'request_time'=>'desc', 'review_time'=>'desc'), array('obj_show'=>true), $out);			
+			$deposit = BackFinancialHelp::getTeamDepostList($conds, $startIndex, $pageSize, array('review_type'=>'desc', 'team_id'=>'desc', 'request_time'=>'desc', 'review_time'=>'desc'), array('obj_show'=>true), $out1);			
 			$subCount = $pageSize - count($deposit);
+			$data['out1'] = $out1;
 			$data['conds1'] = $conds;
 			if ($subCount > 0) {
 				$conds2 = appendLogicExp('review_type', 'NOT LIKE', '%review_pass%');
 				$conds2 = appendLogicExp('review_type', 'NOT LIKE', '%reviewing%', 'AND', $conds2);
-				$conds2 = appendLogicExp('review_type', 'LIKE', '%review_confirm_fail%', 'OR', $conds2);
+				$conds2 = appendLogicExp('review_type', 'NOT LIKE', '%review_confirm_fail%', 'AND', $conds2);
 				$conds = appendLogicExp('cond2', '=', $conds2);
 				if (!empty($findConds)) {
 					$conds = appendLogicExp('condfind', '=', $findConds, 'AND', $conds);
@@ -1948,7 +1949,8 @@ class FinancialController extends BackBaseController {
 				if (!empty($dateConds)) {
 					$conds = appendLogicExp('conddate', '=', $dateConds, 'AND', $conds);
 				}
-				$deposit1 = BackFinancialHelp::getTeamDepostList($conds, $startIndex, $subCount, array('review_time'=>'desc', 'team_id'=>'desc', 'request_time'=>'desc','confirm_time'=>'desc'), array('obj_show'=>true));
+				$deposit1 = BackFinancialHelp::getTeamDepostList($conds, $startIndex, $subCount, array('review_time'=>'desc', 'team_id'=>'desc', 'request_time'=>'desc','confirm_time'=>'desc'), array('obj_show'=>true), $out2);
+				$data['out2'] = $out2;
 				$data['conds2'] = $conds;
 				if (!empty($deposit1['ds'])) {
 					if (empty($deposit['ds'])) {

@@ -4,7 +4,7 @@
 <!-- 新日历 -->
 <link rel="stylesheet" href="__PUBLIC__/common/css/calendar.css">
 <!-- 私有样式 -->
-<link rel="stylesheet" href="__PUBLIC__/home/css/content_test.css">
+<link rel="stylesheet" href="__PUBLIC__/home/css/content.css">
 <style type="text/css">
 	.location-station-tel {
 		font: 20px '微软雅黑';
@@ -444,7 +444,7 @@
             			<img src="__PUBLIC__/home/images/content_img/zixun_tel.png" alt="" />
             		</div>
 		            <div style="padding-left:120px;color:#666;">
-		                本产品在线咨询讨论QQ群：<em>{$line.seek_qq}</em>
+		                	本产品在线咨询讨论QQ群：<em>{$line.seek_qq}</em>
 		                <if condition="empty($line['qq_verify']) eq false">
 		                	<em>( 进群验证“{$line.qq_verify}”)</em>
 		                </if>
@@ -1083,11 +1083,43 @@
 		});
 	}
 	initCalendar();
-	
+		
+	// 设置产品批次
+	var taocans = {};
 	var thisBatch = null;
+	function setBatch(b) {
+		thisBatch = b;
+		var jsonData = {
+			type: 'find_taocan_batch',
+			line_id: thisBatch.line_id,
+			batch_id: thisBatch.id,
+			year: thisBatch.start_date_show,
+		}
+		$.post('{:U("line/info")}', jsonData, function(data){
+			if (data.ds != null) {
+				var taocanids = '';
+				for (var i = 0; i < data.ds.length; i++) {
+					var d = data.ds[i];
+					var key = 'taocan_'+thisBatch.line_id+'_'+thisBatch.id+d.taocan_ids.replace(/,/g,'_');
+					taocans[key] = d;
+					taocanids += d.taocan_ids;
+				}
+				$('.taocan-list').find('.taocan').each(function(i, ev){
+					var findstr = ','+$(this).attr('data-id')+',';
+					if (taocanids.indexOf(findstr) == -1) {
+						$(this).addClass('disabled');
+					} else {
+						$(this).removeClass('disabled');
+					}
+				});
+			}
+		});
+	}
+	
 	// 点击产品产品批次
 	function clickDay(date, obj, data) {
-		thisBatch = data;
+		// 设置产品批次
+		setBatch(data);
 		// 设置价格
 		$('.right-content-money').find('.price_adult').html(data.price_adult);
 		$('.right-content-money').find('.price_child').html(data.price_child);
@@ -1100,21 +1132,12 @@
 		$('.cfrq-show').show()
 	}
 	
-	// 设置产品批次
-	function setBatch(datestr, bFireEvent) {
-		if (bFireEvent != null && bFireEvent != 'undefined' && bFireEvent == true) {
-			var date = datestr.split('-');
-			myCalendar.setMonthDate(date[0], date[1], date[2]);		
-		} 
-		var liObj = $('.cfrq_batch_list[dat="'+datestr+'"]');
-	}
-	
 	// 切换产品批次
 	function changeBatchList() {
+		var d = $(this).data('ds');
+		setBatch(d);
 		$(this).parent().fadeOut();
 		var startdate = $(this).attr('data-val');
-		var d = $(this).data('ds');
-		thisBatch = d;
 		var date = startdate.split('-');
 		// 设置日历日期
 		myCalendar.setMonthDate(date[0], date[1], date[2]);
@@ -1180,43 +1203,62 @@
     });
 
 	//套餐类型
-	var thisBatchTaocan = null;
+	var taocans = {};
+	var thisBatchTaocanKey = '';
 	$(".tclx .taocan-list div").on("click",function(){
-		if ($(this).hasClass('disabled')) {
+		if (thisBatch == null || $(this).hasClass('disabled')) {
 			return false;
 		}		
 		
 		$(this).parent().find('.taocan').removeClass('active');
 		$(this).addClass('active');
 		
+		var key = 'taocan_'+thisBatch.line_id+'_'+thisBatch.id;
 		var taocanIds = ',';
 		$('.tclx').find('.taocan.active').each(function(i,ev){
-			taocanIds += $(this).attr('data-id') + ',';
+			var taocanId = $(this).attr('data-id');
+			taocanIds += taocanId + ',';
+			key += '_'+taocanId;
 		});
+		key += '_';
 		
-		if (thisBatchTaocan != null && thisBatchTaocan.taocan_ids == taocanIds) {
+		if (key == thisBatchTaocanKey) {
 			return false;
 		}
 		
-		var jsonData = {
-			type: 'find_taocan_batch',
-			line_id: thisBatch.line_id,
-			batch_id: thisBatch.id,
-			taocan_ids: taocanIds,
-			year: thisBatch.start_date_show,
-		}
-		$.post('{:U("line/info")}', jsonData, function(data){
-			if (data.ds != null) {
-				thisBatchTaocan = data.ds[0];
-				// 设置价格
-				if (thisBatchTaocan.tc_price_adult != null) {
-					$('.right-content-money').find('.price_adult').html(thisBatchTaocan.tc_price_adult);
-				}
-				if (thisBatchTaocan.tc_price_child != null) {
-					$('.right-content-money').find('.price_child').html(thisBatchTaocan.tc_price_child);	
-				}		
+		if (taocans[key] != null) {
+			thisBatchTaocanKey = key;
+			var taocan = taocans[key];
+			// 设置价格
+			if (taocan.tc_price_adult != null) {
+				$('.right-content-money').find('.price_adult').html(taocan.tc_price_adult);
 			}
-		});
+			if (taocan.tc_price_child != null) {
+				$('.right-content-money').find('.price_child').html(taocan.tc_price_child);	
+			}
+		} else {
+			var jsonData = {
+				type: 'find_taocan_batch',
+				line_id: thisBatch.line_id,
+				batch_id: thisBatch.id,
+				taocan_ids: taocanIds,
+				year: thisBatch.start_date_show,
+			}
+			$.post('{:U("line/info")}', jsonData, function(data){
+				if (data.ds != null) {
+					var taocan = data.ds[0];
+					taocans[key] = taocan;
+					thisBatchTaocanKey = key;
+					// 设置价格
+					if (taocan.tc_price_adult != null) {
+						$('.right-content-money').find('.price_adult').html(taocan.tc_price_adult);
+					}
+					if (taocan.tc_price_child != null) {
+						$('.right-content-money').find('.price_child').html(taocan.tc_price_child);	
+					}		
+				}
+			});
+		}		
 	});
 
     // 在线咨询

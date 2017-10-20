@@ -2938,8 +2938,9 @@ class LineController extends BackBaseController {
 			$data['result'] = error(-1, '获取套餐的条件不足');
 			return $this->ajaxReturn($data);
 		}
-		$conds = MyHelp::getCondsByStr($cdsstr,$cdType);
+		
 		$data['result'] = error(0, '');
+		$conds = MyHelp::getCondsByStr($cdsstr,$cdType);
 		$data['ds'] = BackLineHelp::getTaocanPriceList($conds, 0, 0, $total, array('price_adult'), array('taocan'=>true));
 		$this->ajaxReturn($data);
 	}

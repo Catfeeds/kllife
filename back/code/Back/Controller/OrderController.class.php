@@ -1086,30 +1086,11 @@ class OrderController extends BackBaseController {
 					// 小包团不允许改团
 					$update_order_line = false;	
 //					// 小包团不允许完善信息	
-//					$improve_order = false;
-					
+//					$improve_order = false;					
 				// 老线路
-				} else if ($order['lineid_data_type'] == 'archives') {
-					
+				} else if ($order['lineid_data_type'] == 'archives') {					
 				// 新线路
 				} else if ($order['lineid_data_type'] == 'line') {		
-					// 可用套餐
-					$taocans = BackLineHelp::getLineTaocan($order['lineid'], $order['hdid']);
-					if (!empty($taocans)) {
-						$taocanTypeList = array();
-						foreach ($taocans as $tk=>$tv) {
-							$tcType = $tv['type_data'];
-							$typeData = $taocanTypeList[$tcType['type_key']];
-							if (empty($typeData)) {
-								$typeData['type'] = $tcType;
-								$typeData['data'] = array($tv);
-							} else {
-								array_push($typeData['data'], $tv);	
-							}
-							$taocanTypeList[$tcType['type_key']] = $typeData;
-						}
-						$this->assign('taocan_types', $taocanTypeList);
-					}					
 				}
 				
 				// 填充付款方式

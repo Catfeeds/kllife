@@ -2,7 +2,7 @@
 <!-- 日历 -->
 <link rel="stylesheet" href="__PUBLIC__/home/common/css/jcDate.css">
 <!-- 新日历 -->
-<link rel="stylesheet" href="__PUBLIC__/common/css/calendar.css">
+<!--<link rel="stylesheet" href="__PUBLIC__/common/css/calendar.css">-->
 <!-- 私有样式 -->
 <link rel="stylesheet" href="__PUBLIC__/home/css/content_test.css">
 <style type="text/css">
@@ -29,36 +29,12 @@
 .information > p { line-height: 1.3; text-align: center;color:#666; font-size: 12px;}
 .information > p.line_batch_state_success{color: orange;}
 .information > p.line_batch_state_overdue{color: #666;}
-.hover-day span,.hover-day .information .information-state,.hover-day .information .information-money { color:#fff;}
+.hover-day span,.hover-day .information > p { color:#fff;}
+
+
+
+	}
 </style>
-
-<!-- 日历项模板 -->
-
-<div class="information template_date_item hidden_ctrl">
-
-	<img src="__PUBLIC__/home/images/content_img/yellow_arrow_bottom.png" alt="" />
-
-	<p class="information-state"></p>
-
-	<p class="information-money">元</p>
-
-	<div class="information-details">
-
-		<div class="information-details-content">
-
-			<p><span class="information-people">余</span></p>
-
-			<p>成人价格：<span class="adult-money"></span>元/人</p>
-
-			<p>儿童价格：<span class="children-money"></span>元/人</p>
-
-		</div>
-
-	</div>
-
-</div>
-
-
 <!-- 已报名列表 -->
 
 <if condition="empty($orders) eq false">
@@ -150,7 +126,7 @@
 
 				<volist id="theme" name="line.theme_type_list">
 
-					<a class="{$theme['type_key']}" href="javascript:;">{$theme.type_desc}</a>
+					<a class="{$theme['type_key']} theme_tag" href="javascript:;">{$theme.type_desc}</a>
 
 					<div class="qj-box">
 
@@ -241,29 +217,6 @@
 
 			</div>
 
-			<div class="travel-overview-left-bottom">
-
-				<!--<div class="calendar" id="calendar">
-            		<div  class="calendar-nav">
-						<a href="javascript:;" class="fa  fa-2x fa-angle-left arrow"><i class="iconfont">&#xe649;</i></a>
-						<a href="javascript:;" class="fa fa-2x fa-angle-right arrow"><i class="iconfont">&#xe600;</i></a>
-						<div class="calendar_nav" id="calendar_nav"></div>
-					</div> 
-					<ul class="calendar_week">
-						<li>日</li>
-						<li>一</li>
-						<li>二</li>
-						<li>三</li>
-						<li>四</li>
-						<li>五</li>
-						<li>六</li>
-					</ul>
-					<div class="calendar_content"  id="calendarDiv"></div>
-				</div>-->
-				<div class="mycalendar" style="width: 620px;"></div>
-
-			</div>
-
 		</div>
 
 		<div class="travel-overview-right">
@@ -300,8 +253,8 @@
 								<if condition="empty($line['check_price'])">
 									<strong>核算中</strong>
 								<else />
-										￥<strong>{$line.start_price_adult}</strong>元起/成人
-										<i>({$line.start_price_child}元起/儿童)</i>
+										￥<strong class="price_adult">{$line.start_price_adult}</strong>元起/成人
+										(<i class="price_child">{$line.start_price_child}</i>元起/儿童)
 								</if>
 							</span>
 							
@@ -347,120 +300,101 @@
                         </ul>
                     </div>
                 </div>
-                    <p id="cpjy" style="padding-bottom: 10px;"><span><b>产品寄语</b>{$line.send_word}</span></p>
-                    
-                    <div id="cfrq" class="tclx" style="margin:0px;">
-						<if condition="empty($line['taocanList']) neq true">
-							<b style="height:70px;">套餐类型</b>						
-							<div class="div taocan-list">
-								<volist id="taocan" name="line.taocanList">					
-									<div data-id="{$taocan.id}" data-date="0">
-										<p>{$taocan.name}</p>
-										<img src="__PUBLIC__/home/images/content_img/taocan_active.png" alt="" />
-									</div>
-								</volist>
-							</div>
-						</if>
-					</div>
-					
-					<div id="cfrq">
-						<b>出发日期</b>
-						<div class="cfrq-choose">
-							<span class="cfrq_select_batch" data-id="0">请选择出发日期</span>
-							<div class="cfrq-show hidden_ctrl">
-								<u>未知时间</u>集合
-								,
-								<u>未知时间</u>解散
-							</div>
-							<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
-							<ul class="cfrq_batch_list">
-								<php>
-									foreach($line['batchs'] as $bk=>$bv) {
-										echo('<li data-id="'.$bv['id'].'" data-val="'.$bv['start_date_show'].'" data-end-date="'.$bv['end_date_show'].'" data-state="'.$bv['state_data']['type_key'].'">'.$bv['start_date_show'].'['.$bv['state_data']['type_desc'].']</li>');
-									}
-								</php>
-							</ul>
-						</div>
-					</div>
-					<div id="cyrs">
-						<b style="height:22px;">出游人数</b>
-						<if condition="empty($check['only_child']) eq true">
-							<div class="adult-num adult_male">
-								<u>成人男</u>
-								<input type="text" value ="0" style="width: 55px;height: 26px;padding-left:10px;"/>
-								<ul class="ul">
-									<li>1</li>
-									<li>2</li>
-									<li>3</li>
-									<li>4</li>
-									<li>5</li>
-									<li>6</li>
-									<li>7</li>
-									<li>8</li>
-									<li>9</li>
-									<li>>9</li>
-								</ul>
-								<img src="__PUBLIC__/home/images/content_img/down.png" alt="" />
-							</div>
-							<div class="adult-num adult_woman">
-								<u>成人女</u>
-								<input type="text" value ="0" style="width: 55px;height: 26px;padding-left:10px;"/>
-								<ul class="ul">
-									<li>1</li>
-									<li>2</li>
-									<li>3</li>
-									<li>4</li>
-									<li>5</li>
-									<li>6</li>
-									<li>7</li>
-									<li>8</li>
-									<li>9</li>
-									<li>>9</li>
-								</ul>
-								<img src="__PUBLIC__/home/images/content_img/down.png" alt="" />
-							</div>
-						</if>
-						<if condition="empty($check['only_adult']) eq true">
-							<div class="children-num">
-								<u>儿童</u>
-								<input type="text" value ="0" style="width: 55px;height: 26px;padding-left:10px;"/>
-								<ul class="ul">
-									<li>1</li>
-									<li>2</li>
-									<li>3</li>
-									<li>4</li>
-									<li>5</li>
-									<li>6</li>
-									<li>7</li>
-									<li>8</li>
-									<li>9</li>
-									<li>>9</li>
-								</ul>
-								<img src="__PUBLIC__/home/images/content_img/down.png" alt="" />
-							</div>
-						</if>
-					</div>
-
-					<div class="immediate-reservation">
-	                	<a class="book_order_now" href="javascript:;">立即预定</a>
-	                	<span class="zixun"><img src="__PUBLIC__/home/images/content_img/zixunkefu.png" alt="" /></span>
-            		</div>
-            		<div style="padding-left:120px;padding-bottom: 20px;padding-top: 15px;">
+                    <p id="cpjy" style="border-bottom:1px solid #dcdcdc;padding-bottom:7px;"><span><b>产品寄语</b>{$line.send_word}</span></p>
+                    <div style="padding-left:120px;padding-bottom: 20px;padding-top: 15px;">
             			<img src="__PUBLIC__/home/images/content_img/zixun_tel.png" alt="" />
             		</div>
-		            <div style="padding-left:120px;color:#666;">
-		                本产品在线咨询讨论QQ群：<em>{$line.seek_qq}</em>
+                    <div style="padding-left:120px;color:#666;padding-bottom: 15px;">
+		                	本产品在线咨询讨论QQ群：<em>{$line.seek_qq}</em>
 		                <if condition="empty($line['qq_verify']) eq false">
 		                	<em>( 进群验证“{$line.qq_verify}”)</em>
 		                </if>
 		            </div>
-
-		            <div class="srdz">
-						<span class="span1">领袖户外 · 定制旅行</span>
-						<span class="span2">定制游，玩你想玩，玩的精彩</span>
-						<a href="http://kllife.com/home/index.php?s=/home/line/book" target="_blank">开启定制之旅</a>
-		            </div>
+				</div>
+			</div>
        </div>
+       <div id="cfrq" class="tclx" style="margin:0px;width:100%;padding-top:20px;float: left;">
+			<!--<if condition="empty($line['taocanList']) neq true">-->
+				<b style="padding-top:7px; height:28px;padding-left: 10px;padding-right: 4px;float: left;">套餐类型</b>						
+				<div class="div taocan-list">
+					<volist id="taocan" name="line.taocanList">					
+						<div class="taocan" data-id="{$taocan.id}" data-date="0">
+							<p>{$taocan.name}</p>
+							<img src="__PUBLIC__/home/images/content_img/taocan_active.png" alt="" />
+						</div>
+					</volist>
+				</div>
+			<!--</if>-->
+		</div>
+       <div style="height:78px;background: #fff;padding:20px 10px 18px;margin-bottom:20px;">
+	       <div id="cfrq">
+				<b>出发日期</b>
+				<div class="cfrq-choose">
+					<input  style="width:175px;background: #fefefe;border: 1px solid #bbb;font-size: 14px;color: #333;padding: 5px 7px;" type="text" class="date_picker" placeholder="请选择出发日期">
+					<img src="__PUBLIC__/home/images/content_img/down.png" alt="">
+				</div>
+			</div>
+			<div id="cyrs">
+					<if condition="empty($check['only_child']) eq true">
+						<div class="adult-num adult_male">
+							<u>成人男</u>
+							<input type="text" value ="0" style="width: 55px;height: 26px;padding-left:10px;"/>
+							<ul class="ul">
+								<li>1</li>
+								<li>2</li>
+								<li>3</li>
+								<li>4</li>
+								<li>5</li>
+								<li>6</li>
+								<li>7</li>
+								<li>8</li>
+								<li>9</li>
+								<li>>9</li>
+							</ul>
+							<img src="__PUBLIC__/home/images/content_img/down.png" alt="" />
+						</div>
+						<div class="adult-num adult_woman">
+							<u>成人女</u>
+							<input type="text" value ="0" style="width: 55px;height: 26px;padding-left:10px;"/>
+							<ul class="ul">
+								<li>1</li>
+								<li>2</li>
+								<li>3</li>
+								<li>4</li>
+								<li>5</li>
+								<li>6</li>
+								<li>7</li>
+								<li>8</li>
+								<li>9</li>
+								<li>>9</li>
+							</ul>
+							<img src="__PUBLIC__/home/images/content_img/down.png" alt="" />
+						</div>
+					</if>
+					<if condition="empty($check['only_adult']) eq true">
+						<div class="children-num">
+							<u>儿童</u>
+							<input type="text" value ="0" style="width: 55px;height: 26px;padding-left:10px;"/>
+							<ul class="ul">
+								<li>1</li>
+								<li>2</li>
+								<li>3</li>
+								<li>4</li>
+								<li>5</li>
+								<li>6</li>
+								<li>7</li>
+								<li>8</li>
+								<li>9</li>
+								<li>>9</li>
+							</ul>
+							<img src="__PUBLIC__/home/images/content_img/down.png" alt="" />
+						</div>
+					</if>
+			</div>
+			<div class="immediate-reservation">
+		        <a class="book_order_now" href="javascript:;">立即预定</a>
+	        </div>
+	    </div>
 	</div>
 </div>
 </div>
@@ -1000,75 +934,78 @@
 </div>
 
 <!-- 滚动 -->
-
+<script src="http://www.jq22.com/jquery/1.8.3/jquery.min.js"></script>
 <script src="__PUBLIC__/home/js/gundong.js"></script>
 <script src="__PUBLIC__/home/js/jquery.qrcode.min.js"></script>
-<script src="__PUBLIC__/common/js/calendar.js"></script>
+<script src="__PUBLIC__/home/js/jquery.date_input.pack.js"></script>
 <include file="Common/right" />
 <include file="Common/bottom" />
-<script type="text/javascript">
-	var myCalendar = null;
-	function initCalendar() {
-		var jsonData = {
-			type: 'find_line_batch',
-			line_id: '{$line.id}',
-		}
-		$.post('{:U("line/info")}', jsonData, function(data){
-			var option = {clickEventDay: clickDay};
-			if (data.months != null && $(data.months).length > 0) {
-				option['months'] = data.months;
-			}
-			if (data.ds != null) {
-				option['data'] = [];
-				for (var i=0; i<data.ds.length; i++) {
-					var b = data.ds[i];					
-                    var state = $.parseJSON(b.state);                                                                          
-                    var tdHtml = '<div class="information"><p class="information-state '+state.type_key+'">'+state.type_desc+'</p><p class="information-money">'+b.price_adult+'元</p></div>';
-                    var tipHtml = '<div class="information-details"><p><span class="information-people">余'+b.sub_member+'</span></p><p>成人价格：<span class="adult-money">'+b.price_adult+'</span>元/人</p><p>儿童价格：<span class="children-money">'+b.price_child+'</span>元/人</p></div>';
-                    if (b.price_adult == 0 && b.price_child == 0 && '{$line.free_line}' == '0') {
-                    	tdHtml = '<div class="information"><p class="information-state '+state.type_key+'">'+state.type_desc+'</p><p class="information-money">核算中</p></div>';
-                    	tipHtml = '<div class="information-details"><p><span class="information-people">余'+b.sub_member+'</span></p><p>成人价格：<span class="adult-money">核算中</span></p><p>儿童价格：<span class="children-money">核算中</span></p></div>';
-                    }
-					var dt = {
-						date: b.start_date_show,
-						text: tdHtml,
-						tip: tipHtml,
-						data: b,
-					}
-					option['data'].push(dt);
-				}
-			}
-			myCalendar = $('.mycalendar').BatchCalendar(option);
-		});
-	}
+<script>     
+	//初始化日历
+	$(function(){
+		$('.date_picker').date_input();
+	})
 	
-	function clickDay(date, obj, data) {
-		console.log(date);
-	}
-	
-	$(document).ready(function(){
-		initCalendar();
-	});
-</script>
-<script>    
-    $('.cfrq_batch_list li').on("click",function(){
-    	$('#calendarDiv div').find('.gogogo').removeClass('bg-high-color');
-        $('#calendarDiv div').siblings().find('.gogogo').removeClass('bg-high-color');
-        
-        var date = $(this).attr("data-val").split('-');
-    });
-     	
-</script>
-<script>
-    //摄影游，民族行，深度游
-    $('.bread-nav u a').each(function(){
-        if($(this).text() == '摄影游') {
-            $(this).addClass('sheying');
-        }else if($(this).text() == '民族行'){
-            $(this).addClass('zhuti');
+    
+    // 页面初始设置
+    function pageInit() {
+    	// 滚动到行程亮点
+        var schedule = '{$schedule}';
+        if (schedule != 'undefined') {
+            $('html, body').stop().animate({scrollTop: $('.travel-arrangements-content').offset().top - 160 }, 0);
         }
-    });
-
+        // 选择有效的批次设置为已选批次
+        var fireJumped = false;
+        $('.cfrq_batch_list').find('li').each(function(i, ev){
+            var batchState = $(this).attr('data-state');
+            if (batchState != 'line_batch_state_overdue') {
+                if (fireJumped == false) {
+                    $(this).trigger('click');
+                    fireJumped = true;
+                }
+            }
+        });
+    }
+    
+		
+	
+	// 点击产品产品批次
+	function clickDay(date, obj, data) {
+		// 设置产品批次
+		setBatch(data);
+		// 设置价格
+		$('.right-content-money').find('.price_adult').html(data.price_adult);
+		$('.right-content-money').find('.price_child').html(data.price_child);
+		// 设置当前列表的日期
+		$('.cfrq_select_batch').attr('data-id', data.id);
+		var vhtml = data.start_date_show+'['+data.state_data.type_desc+']';
+		$('.cfrq_select_batch').html(vhtml);
+		$('.cfrq-show').find('u:first').html(data.start_date_show);
+		$('.cfrq-show').find('u:last').html(data.end_date_show);
+		$('.cfrq-show').show()
+	}
+	
+	// 切换产品批次
+	function changeBatchList() {
+		var d = $(this).data('ds');
+		setBatch(d);
+		$(this).parent().fadeOut();
+		var startdate = $(this).attr('data-val');
+		var date = startdate.split('-');
+		// 设置日历日期
+		myCalendar.setMonthDate(date[0], date[1], date[2]);
+		// 设置价格
+		$('.right-content-money').find('.price_adult').html(d.price_adult);
+		$('.right-content-money').find('.price_child').html(d.price_child);
+		// 设置当前列表的日期
+		$('.cfrq_select_batch').attr('data-id', $(this).attr('data-id'));
+		$('.cfrq_select_batch').html($(this).html());
+		var enddate = $(this).attr('data-end-date');
+		$('.cfrq-show').find('u:first').html(startdate);
+		$('.cfrq-show').find('u:last').html(enddate);
+		$('.cfrq-show').show()
+	}
+    
     //识别中文二维码
     var oUrl = window.location.href;
     function toUtf8(oUrl) {
@@ -1090,7 +1027,8 @@
         }
         return out;
     }
-
+	
+	// 打开微信弹出框
     $('.weixin').click(function(){
         if($(".share-code").css('display') != 'none'){
             return false;
@@ -1106,6 +1044,7 @@
         });
     });
 
+	// 关闭微信弹出框
     $('.share-code > h4 a').click(function(){
         $('.share-code').hide();
         $('#code').html('');
@@ -1117,32 +1056,63 @@
     });
 
 	//套餐类型
+	var taocans = {};
+	var thisBatchTaocanKey = '';
 	$(".tclx .taocan-list div").on("click",function(){
-		if ($(this).hasClass('disabled')) {
+		if (thisBatch == null || $(this).hasClass('disabled')) {
+			return false;
+		}		
+		
+		$(this).parent().find('.taocan').removeClass('active');
+		$(this).addClass('active');
+		
+		var key = 'taocan_'+thisBatch.line_id+'_'+thisBatch.id;
+		var taocanIds = ',';
+		$('.tclx').find('.taocan.active').each(function(i,ev){
+			var taocanId = $(this).attr('data-id');
+			taocanIds += taocanId + ',';
+			key += '_'+taocanId;
+		});
+		key += '_';
+		
+		if (key == thisBatchTaocanKey) {
 			return false;
 		}
-		var number = $(this).attr("data-date")
-		if(number == 1){
-			$(this).addClass("disabled")
-		}else{
-			$(this).toggleClass("active").siblings().removeClass("active");
-		}
 		
-		var mouth = $('#calendar_nav').find('span.active').attr("mouth");
-		var year = $('#calendar_nav').find('span.active').attr("year");
-		if(mouth <= 9){
-			mouthnext= "0"+mouth
-		}else{
-			mouthnext= mouth
-		}
-		initCalendarBatch(year+"-"+mouthnext);		
+		if (taocans[key] != null) {
+			thisBatchTaocanKey = key;
+			var taocan = taocans[key];
+			// 设置价格
+			if (taocan.tc_price_adult != null) {
+				$('.right-content-money').find('.price_adult').html(taocan.tc_price_adult);
+			}
+			if (taocan.tc_price_child != null) {
+				$('.right-content-money').find('.price_child').html(taocan.tc_price_child);	
+			}
+		} else {
+			var jsonData = {
+				type: 'find_taocan_batch',
+				line_id: thisBatch.line_id,
+				batch_id: thisBatch.id,
+				taocan_ids: taocanIds,
+				year: thisBatch.start_date_show,
+			}
+			$.post('{:U("line/info")}', jsonData, function(data){
+				if (data.ds != null) {
+					var taocan = data.ds[0];
+					taocans[key] = taocan;
+					thisBatchTaocanKey = key;
+					// 设置价格
+					if (taocan.tc_price_adult != null) {
+						$('.right-content-money').find('.price_adult').html(taocan.tc_price_adult);
+					}
+					if (taocan.tc_price_child != null) {
+						$('.right-content-money').find('.price_child').html(taocan.tc_price_child);	
+					}		
+				}
+			});
+		}		
 	});
-
-	
-    $('.alert-modal-top a').click(function(){
-        $('.mark').hide();
-        $('#alert-modal').hide();
-    });
 
     // 在线咨询
     $('.immediate-reservation').find('.zixun').click(function(){
@@ -1193,62 +1163,6 @@
             location.href = '{:U("line/order")}'+'/id/{$line.id}/type/create/b/'+batchId+'/m/'+male+'/w/'+woman+'/ch/'+child+tpUrlStr;
         }
     });
-    
-    function testBatchClick(liObj) {
-        $('.cfrq_select_batch').attr('data-id', $(liObj).attr('data-id'));
-        $('.cfrq_select_batch').html($(liObj).html());
-        $('.cfrq-show').removeClass('hidden_ctrl');
-        var uObj = $('.cfrq-show').find('u');
-        $(uObj[0]).html($(liObj).attr('data-val'));
-        $(uObj[1]).html($(liObj).attr('data-end-date'));
-        //高亮显示
-        var dateNum = $(liObj).attr('data-val');
-        var dateArray2 = [];
-        dateArray2 = dateNum.split('-');
-        if(parseInt(dateArray2[1])<10){
-            dateArray2[1] = dateArray2[1].replace('0','');
-        }
-        if(parseInt(dateArray2[2])<10){
-            dateArray2[2] = dateArray2[2].replace('0','');
-        }
-        dateNum = dateArray2.join('-');
-        $('.jcDateColor').each(function(){
-            if(dateNum == $(liObj).attr('data-date')){
-                $(liObj).addClass('bg-high-color');
-            }
-        });
-    }
-    $(function(){
-        // 批次列表选择跳转
-        $('.cfrq_batch_list').find('li').click(function(){
-            testBatchClick($(this));
-        });
-    });
-    // 页面加载完成
-    $(document).ready(function(){
-        var schedule = '{$schedule}';
-        if (schedule != 'undefined') {
-            $('html, body').stop().animate({scrollTop: $('.travel-arrangements-content').offset().top - 160 }, 0);
-        }
-        var fireJumped = false;
-        $('.cfrq_batch_list').find('li').each(function(i, ev){
-            var batchState = $(this).attr('data-state');
-            if (batchState != 'line_batch_state_overdue') {
-                if (fireJumped == false) {
-                    $(this).trigger('click');
-                    fireJumped = true;
-                }
-            }
-        });
-        
-        // 初始化批次信息
-        /*var d = new Date();
-        var year = d.getFullYear();
-        initCalendarBatch(year+"-"+Smonth);*/
-        
-        //初始化问题
-        changeQuestionPage();
-    });
         
     //鼠标移出，下拉框收起
     $('.cfrq-choose').mouseleave(function(){
@@ -1260,26 +1174,6 @@
 		$('.cfrq_batch_list').show();
 	});
     
-    //计算两天相差
-    function diy_time(time1,time2){
-	    time1 = Date.parse(new Date(time1));
-	    time2 = Date.parse(new Date(time2));
-	    return time3 = Math.abs(parseInt((time2 - time1)/1000/3600/24));
-	}
-    
-    //搜索栏
-    $('.search-header input').focus(
-        function () {
-            $(this).parent().animate({width: '240px'}, 1000);
-            $(this).parent().animate({marginRight: '17px'}, 1000);
-        }
-    );
-    $('.search-header input').blur(
-        function () {
-            $(this).parent().animate({width: '220px'}, 1000);
-            $(this).parent().animate({marginRight: '17px'}, 1000);
-        }
-    );
     //显示与隐藏
     $('.nav-list-top').showAndHide();
     //鼠标移出，下拉框收起
@@ -1288,54 +1182,30 @@
     });
     //起价说明
     $('.right-content-money > a').hover(
-        function () {
-            $('.qj-explain').show();
-        } ,
-        function () {
-            $('.qj-explain').hide();
-        }
+        function () { $('.qj-explain').show();} ,
+        function () { $('.qj-explain').hide();}
     );
     // 产品主题类型浮动框
-    $('.shendu').hover(
-        function () {
-            $('.qj-box').show();
-        } ,
-        function () {
-            $('.qj-box').hide();
-        }
+    $('.theme_tag').hover(
+        function () { $('.qj-box').show();} ,
+        function () { $('.qj-box').hide();}
     );
     $('.qj-explain').hover(
-        function () {
-            $(this).show();
-        },
-        function () {
-            $(this).hide();
-        }
+        function () {$(this).show();},
+        function () {$(this).hide();}
     );
     $('.qj-box').hover(
-        function () {
-            $(this).show();
-        },
-        function () {
-            $(this).hide();
-        }
+        function () {$(this).show();},
+        function () {$(this).hide();}
     );
     //儿童标准
     $('.child-standard').hover(
-        function () {
-            $('.childern-explain').show();
-        } ,
-        function () {
-            $('.childern-explain').hide();
-        }
+    	function () {$('.childern-explain').show();} ,
+        function () {$('.childern-explain').hide();}
     );
     $('.childern-explain').hover(
-        function () {
-            $(this).show();
-        },
-        function () {
-            $(this).hide();
-        }
+        function () { $(this).show();},
+        function () { $(this).hide();}
     );
     //出游人数选择
     $("#cyrs div input").focus(function(){
@@ -1381,6 +1251,31 @@
         var fn = this.className.split(' ')[1];
         data04[fn]();
     });
+    //点击线路成交量弹出
+    $('#xlcjl').click( function () {
+        $("html,body").animate({scrollTop: 0}, 500);
+        $('.enrol-mark').show();
+        $('.enrol-list').show();
+    } );
+    //点击遮罩层隐藏
+    $('.enrol-mark').click( function () {
+        $('.enrol-mark').hide();
+        $('.enrol-list').hide();
+    } );
+    //点击关闭按钮隐藏
+    $('.close-enrol-list').click( function () {
+        $('.enrol-mark').hide();
+        $('.enrol-list').hide();
+    } );
+    //列表回到顶部
+    $('.backTop-enrol-list').click( function () {
+        $("html,body").animate({scrollTop: 0}, 500);
+    });
+    //下部立即预定返回顶部
+    $('.content-list-to-reserve').click(function(){
+        $("html,body").animate({scrollTop: 120}, 500);
+    });
+    
     //提问
     $(document).on('click','.question i',function(){
         $(this).addClass('question-zan');
@@ -1397,6 +1292,12 @@
     });
     $('.question-help').clickShow('.question-help-content');
     $('.question-new').clickShow('.question-new-content');
+	
+    $('.alert-modal-top a').click(function(){
+        $('.mark').hide();
+        $('#alert-modal').hide();
+    });
+    
     // 提问
     $('.ask_question').click(function(){
         var lineId = '{$line.id}';
@@ -1528,31 +1429,6 @@
             }
         });
     };
-
-    //点击线路成交量弹出
-    $('#xlcjl').click( function () {
-        $("html,body").animate({scrollTop: 0}, 500);
-        $('.enrol-mark').show();
-        $('.enrol-list').show();
-    } );
-    //点击遮罩层隐藏
-    $('.enrol-mark').click( function () {
-        $('.enrol-mark').hide();
-        $('.enrol-list').hide();
-    } );
-    //点击关闭按钮隐藏
-    $('.close-enrol-list').click( function () {
-        $('.enrol-mark').hide();
-        $('.enrol-list').hide();
-    } );
-    //列表回到顶部
-    $('.backTop-enrol-list').click( function () {
-        $("html,body").animate({scrollTop: 0}, 500);
-    });
-    //下部立即预定返回顶部
-    $('.content-list-to-reserve').click(function(){
-        $("html,body").animate({scrollTop: 120}, 500);
-    });
 </script>
 <script>
     //滚动文字
