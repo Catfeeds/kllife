@@ -40,14 +40,20 @@ header {
 
 
 
-.nav-top { width: 1200px; height: 31px; line-height: 31px; margin: 0 auto; overflow: hidden; }
+.nav-top { width: 1200px; height: 31px; line-height: 31px; margin: 0 auto;}
 
 .nav-top a { color: #666; }
-
+.nav-top a:hover{color:#333;}
 .nav-top img { display: inline-block; width: 12px; height: 12px; margin-top: 4px; }
 
-.nav-top-left { display: inline-block; margin-left: 17px; }
+.nav-top-left { display: inline-block; margin-left: 17px;position: relative;}
 
+.nav-top-left .more{z-index:100}
+.nav-top-left .more .div1{color:#666;padding-top:1px;position: absolute;top:-1px;right:-53px;width:50px;cursor: pointer;}
+.nav-top-left .more .div2{text-align:center;color:#666;background: rgba(0,0,0,.7);padding:10px;display:none;position: absolute;top:31px;right:-174px;z-index:100;width:150px;min-height:76px;}
+.nav-top-left .more .div2 ul{overflow: hidden;}
+.nav-top-left .more .div2 ul li{width:50%;float: left;height:25px;}
+.nav-top-left .more .div2 ul li a{color:#fff}
 .nav-top-right { float: right; margin-right: 17px; }
 
 
@@ -102,7 +108,7 @@ header {
 
 /*私人定制*/
 
-.private-custom { width: 100%; height: 250px; margin-top: 30px; background: #ff7200; text-align: center; color: #fff; }
+.private-custom { width: 100%; height: 250px; margin-top: 30px; background: #f39800; text-align: center; color: #fff; }
 
 .private-custom h2 { padding-top: 45px; padding-bottom: 10px; font-size: 36px; font-weight: normal; }
 
@@ -311,13 +317,14 @@ footer { position: relative; width: 100%; background: #222; overflow: hidden; z-
 .footer-bottom-content { width: 1200px; margin: 0 auto; text-align: center; color: #fff; }
 
 .footer-bottom-content p { padding-top: 25px; padding-bottom: 10px; }
-
+.footer-bottom-content .zhutilvyou{padding-top: 5px; padding-bottom: 0px;}
+.footer-bottom-content .ejinalvyou{padding-top: 15px; padding-bottom: 0px;}
 .footer-bottom-content p a { color: #fff; }
 
 .footer-bottom-content span { display: inline-block; margin-bottom: 10px; margin-right: 25px; }
 
 .hangyeyanzheng {
-    display: none;
+	display: none;
 }
 
 

@@ -793,7 +793,13 @@ class BackFinancialHelp {
 	*/
 	public static function getTeamDepostList($conds, $startIndex, $pageSize, $sort, $find=false, &$out) {	
 		$depositObj = ModelBase::getInstance('cj_deposit');
+		$out['conds'] = $conds;
+		$out['start_index'] = $startIndex;
+		$out['page_size'] = $pageSize;
+		$out['sort'] = $sort;
+		$out['find'] = $find === true ? 'true' : 'false';
 		$deposits = $depositObj->getAll($conds, $startIndex, $pageSize, $total, $sort, false, $out);
+//		$out['deposit'] = $deposits;
 		
 		// 填充团期预交金信息
 		foreach ($deposits as $sk=>$sv) {	
@@ -802,12 +808,14 @@ class BackFinancialHelp {
 			
 			// 预交金对象展示内容
 			if (!empty($find['obj_show']) || $find === true) {
+				$out['deposit_key_'.$sk]['team_id'] = $sv['team_id'];
 				$sv['team_data'] = BackFinancialHelp::getTeam(appendLogicExp('id', '=', $sv['team_id']));			
 				if ($sv['deposit_obj_data']['type_key'] == 'cj_deposit_obj_source') {
 					// 资源对象类型
 					$objType = json_decode($sv['obj_type'], true);			
 					$sv['obj_type_data'] = $objType;
 					
+					$sourceIndex = -1;
 					$sourceType = array('insurance','leader','hotel','driver','bus','view','agency','source');
 					foreach ($sourceType as $stk=>$stv) {
 						if ('cj_source_obj_'.$stv === $objType['type_key']) {
@@ -815,12 +823,14 @@ class BackFinancialHelp {
 							break;
 						}
 					}	
-					if (empty($sourceIndex)) {
+					if (intval($sourceIndex) < 1) {
 						$sv['obj_data'] = error(-1, '没有匹配的资源类型');
 						continue;
 					}
 					
 					// 资源对象
+					$out['deposit_key_'.$sk]['type'] = $sourceType[$sourceIndex];
+					$out['deposit_key_'.$sk]['obj_id'] = $sv['obj_id'];
 					$sv['obj_data'] = BackFinancialHelp::getSource($sourceType[$sourceIndex], appendLogicExp('id', '=', $sv['obj_id']));
 					$sv['deposit_obj_show'] = $sv['obj_data']['show_name'];
 				} else {
@@ -1113,7 +1123,8 @@ class BackFinancialHelp {
 					$depositFind = true;
 				}
 				$conds = appendLogicExp('team_id', '=', $dv['id']);
-				$deposits = BackFinancialHelp::getTeamDepostList($conds, 0, 0, array('id'=>'asc'), $depositFind);
+				$deposits = BackFinancialHelp::getTeamDepostList($conds, 0, 0, array('id'=>'asc'), $depositFind, $depositOut);
+				$dv['deposits_out'] = $depositOut;
 				$dv['deposits'] = $deposits['ds'];
 				foreach ($dv['deposits'] as $ddk=>$ddv) {
 					if (stripos($ddv['deposit_type'], 'cj_deposit_type_pay') !== FALSE) { // 支付

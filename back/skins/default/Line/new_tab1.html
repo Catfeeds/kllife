@@ -489,6 +489,7 @@
 					function getLineBaseInfo() {
 						var costDescription = $('#cost_description').data('wysihtml5').editor.getValue();
 						var bookingNotes = $('#booking_notes').data('wysihtml5').editor.getValue();
+						var isTeamGroup = $('#team_group').val();
 						var jsonData = {
 							id: $('#line_id').val(),
 							title: $('#full_name').val(),
@@ -511,6 +512,7 @@
 							time_preference: $('#time_preference').prop('checked') ? 1 : 0,
 							check_price: $('#check_price').prop('checked') ? 0 : 1,
 							extra: $('#extra_line').prop('checked') ? 1 : 0,
+							team_group: isTeamGroup == '' ? 0 : isTeamGroup,
 							start_price_explain: $('#start_price_explain').val(),
 							send_word: $('#send_word').val(),
 							member_type: getSelect2Value('#member_type'),
@@ -558,6 +560,7 @@
 							return false;
 						}
 						$('#line_id').val(ds.id);
+						$('#team_group').val(ds.team_group);
 						$('#full_name').val(ds.title);
 						$('#second_name').val(ds.subheading);
 						$('#adult_price').val(ds.start_price_adult);

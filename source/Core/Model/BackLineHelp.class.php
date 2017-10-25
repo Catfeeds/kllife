@@ -691,14 +691,14 @@ class BackLineHelp {
 * array('cut_money'=>true);
 * @return $batchs // 批次列表
 */
-	public static function getBatchList($conds, $startIndex, $pageCount, &$totalCount, $sortCols, $fill=false) {
+	public static function getBatchList($conds, $startIndex, $pageCount, &$totalCount, $sortCols, $fill=false, &$output) {
 		$offerList = array();
 		
 		$overdue = MyHelp::TypeDataKey2Value('line_batch_state_overdue',true);
 		
 		$batchObj = ModelBase::getInstance('batch');
 		$conds = appendLogicExp('invalid', '=', appendLogicExp('invalid', '=', '0', 'AND'), 'AND', $conds);
-		$batchs = $batchObj->getAll($conds, $startIndex, $pageCount, $totalCount, $sortCols, false);
+		$batchs = $batchObj->getAll($conds, $startIndex, $pageCount, $totalCount, $sortCols, false, $output);
 		if (!empty($batchs)) {
 			foreach ($batchs as $bk=>$bv) {			
 				$unix_start_time = strtotime($bv['start_time']);

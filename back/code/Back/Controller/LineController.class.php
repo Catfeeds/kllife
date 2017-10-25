@@ -473,6 +473,10 @@ class LineController extends BackBaseController {
 			if (is_error($admin) === true) {
 				return $this->display('user/login');
 			}
+			
+			// 是否是包团线路
+			$isTeamGroup = I('get.tg', 0);
+			// 锁定编辑
 			$lineId = I('get.id', false);			
 			if (!empty($lineId)) {
 				$ds['lock'] = 1;
@@ -480,7 +484,13 @@ class LineController extends BackBaseController {
 				$lineObj = ModelBase::getInstance('line');
 				$lineObj->modify($ds, appendLogicExp('id', '=', $lineId));
 				$this->assign('lineId', $lineId);
-			}
+				
+				$line = $lineObj->getOne(appendLogicExp('id', '=', $lineId));
+				if (!empty($line)) {
+					$isTeamGroup = $line['team_group'];	
+				}
+			}			
+			$this->assign('team_group', $isTeamGroup);
 			
 			// 套餐列表
 			$taocans = BackLineHelp::getTaocanList(appendLogicExp('invalid', '=', 0),0,0);
@@ -1083,6 +1093,7 @@ class LineController extends BackBaseController {
 		unset($line['id']);
 		$line['title'] = $copyTitle;
 		$line['online'] = '0';
+		$line['click_count'] = 0;
 		$line['create_time'] = fmtNowDateTime();
 		$data['result'] = $lineObj->create($line, $newLineId);
 		if (error_ok($data['result']) === false) {

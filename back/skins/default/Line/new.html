@@ -12,6 +12,7 @@
 	</div>
 	
 	<input type="hidden" id="line_id" value="{$lineId}"/>	
+	<input type="hidden" id="team_group" value="{$team_group}"/>	
 	<include file='Line/new_template_youji' />
 	<include file='Line/new_template_travel' />
 	<form role="forl" id="rootwizard" class="form-wizard validate">
@@ -117,7 +118,11 @@
 			</div> <!--Tab6 End-->
 			
 			<div class="tab-pane with-bg" id="fwv-8">
+				<if condition="empty($team_group)">
 				<include file='Line/new_tab8' />
+				<else />
+				<include file='Line/new_tab8_1' />
+				</if>
 			</div> <!--Tab7 End-->
 			
 			<div class="tab-pane with-bg" id="fwv-9">

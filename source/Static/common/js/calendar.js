@@ -433,7 +433,6 @@
 			$(newObj).addClass('select-month');
 			// 显示新月份日期
 			$(this.element).find('.month-day[data-key="'+newkey+'"]').show();
-			
 		},		
 		// 点击切换上一月
 		_clickPrevMonth: function(e) {
@@ -452,6 +451,8 @@
 			} else {
 				console.log('已经到第一个月了');
 			}
+			// 配置翻月按钮
+			this._updateChangeMonthArray();
 		},		
 		// 点击切换下一月
 		_clickNextMonth: function(e) {
@@ -471,6 +472,8 @@
 			} else {
 				console.log('已经到第一个月了');
 			}			
+			// 配置翻月按钮
+			this._updateChangeMonthArray();
 		},
 		// 鼠标点击月份
 		_clickMonth: function(e) {

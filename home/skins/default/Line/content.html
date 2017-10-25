@@ -444,7 +444,7 @@
             			<img src="__PUBLIC__/home/images/content_img/zixun_tel.png" alt="" />
             		</div>
 		            <div style="padding-left:120px;color:#666;">
-		                	本产品在线咨询讨论QQ群：<em>{$line.seek_qq}</em>
+		                本产品在线咨询讨论QQ群：<em>{$line.seek_qq}</em>
 		                <if condition="empty($line['qq_verify']) eq false">
 		                	<em>( 进群验证“{$line.qq_verify}”)</em>
 		                </if>
@@ -1114,6 +1114,8 @@
 				});
 			}
 		});
+		// 清除选择的套餐
+		$('.tclx').find('.taocan').removeClass('active');
 	}
 	
 	// 点击产品产品批次
@@ -1123,6 +1125,10 @@
 		// 设置价格
 		$('.right-content-money').find('.price_adult').html(data.price_adult);
 		$('.right-content-money').find('.price_child').html(data.price_child);
+		var dayObj = $('.mycalendar').find('.day[data-date="'+date+'"]');
+		$(dayObj).find('.information-money').html(data.price_adult+'元');
+		$(dayObj).find('.adult-money').html(data.price_adult+'元');
+		$(dayObj).find('.children-money').html(data.price_child+'元');
 		// 设置当前列表的日期
 		$('.cfrq_select_batch').attr('data-id', data.id);
 		var vhtml = data.start_date_show+'['+data.state_data.type_desc+']';
@@ -1144,6 +1150,10 @@
 		// 设置价格
 		$('.right-content-money').find('.price_adult').html(d.price_adult);
 		$('.right-content-money').find('.price_child').html(d.price_child);
+		var dayObj = $('.mycalendar').find('.day[data-date="'+startdate+'"]');
+		$(dayObj).find('.information-money').html(d.price_adult+'元');
+		$(dayObj).find('.adult-money').html(d.price_adult+'元');
+		$(dayObj).find('.children-money').html(d.price_child+'元');
 		// 设置当前列表的日期
 		$('.cfrq_select_batch').attr('data-id', $(this).attr('data-id'));
 		$('.cfrq_select_batch').html($(this).html());
@@ -1230,11 +1240,17 @@
 			thisBatchTaocanKey = key;
 			var taocan = taocans[key];
 			// 设置价格
+			var dayObj = $('.mycalendar').find('.day[data-date="'+taocan['start_date_show']+'"]');
+			console.log('1:'+'.day[data-date="'+taocan['start_date_show']+'"]   len:'+$(dayObj).length);
+			console.log(taocan);
 			if (taocan.tc_price_adult != null) {
 				$('.right-content-money').find('.price_adult').html(taocan.tc_price_adult);
+				$(dayObj).find('.information-money').html(taocan.tc_price_adult+'元');
+				$(dayObj).find('.adult-money').html(taocan.tc_price_adult+'元');
 			}
 			if (taocan.tc_price_child != null) {
 				$('.right-content-money').find('.price_child').html(taocan.tc_price_child);	
+				$(dayObj).find('.children-money').html(taocan.tc_price_child+'元');
 			}
 		} else {
 			var jsonData = {
@@ -1250,11 +1266,17 @@
 					taocans[key] = taocan;
 					thisBatchTaocanKey = key;
 					// 设置价格
+					var dayObj = $('.mycalendar').find('.day[data-date="'+taocan['start_date_show']+'"]');
+					console.log('2:'+'.day[data-date="'+taocan['start_date_show']+'"]   len:'+$(dayObj).length);
+					console.log(taocan);
 					if (taocan.tc_price_adult != null) {
 						$('.right-content-money').find('.price_adult').html(taocan.tc_price_adult);
+						$(dayObj).find('.information-money').html(taocan.tc_price_adult+'元');
+						$(dayObj).find('.adult-money').html(taocan.tc_price_adult+'元');
 					}
 					if (taocan.tc_price_child != null) {
 						$('.right-content-money').find('.price_child').html(taocan.tc_price_child);	
+						$(dayObj).find('.children-money').html(taocan.tc_price_child+'元');
 					}		
 				}
 			});
